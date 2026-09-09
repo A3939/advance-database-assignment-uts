@@ -7,6 +7,15 @@ data/postgres/
 **/databases/neo4j/
 **/transactions/neo4j/
 
+**/cloudbeaver/.data/
+**/cloudbeaver/*.dat
+**/.cloudbeaver.runtime.conf
+
+# Keep configuration and data-sources
+!**/GlobalConfiguration/**
+!**/GlobalConfiguration/.dbeaver/**
+!**/conf/cloudbeaver.conf
+
 # Database artifacts and binary logs
 *.bin
 *.cmrk*

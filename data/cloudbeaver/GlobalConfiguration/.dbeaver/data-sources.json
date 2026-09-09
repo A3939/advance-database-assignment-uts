@@ -1,41 +1,53 @@
 {
-	"folders": {},
-	"connections": {
-		"postgres-jdbc-1a084739999-6086540bcc144b20": {
-			"provider": "postgresql",
-			"driver": "postgres-jdbc",
-			"name": "PostgreSQL@postgres",
-			"save-password": true,
-			"configuration": {
-				"host": "postgres",
-				"port": "5432",
-				"database": "postgres",
-				"url": "jdbc:postgresql://postgres:5432/postgres",
-				"configurationType": "MANUAL",
-				"type": "dev",
-				"closeIdleConnection": true,
-				"auth-model": "native",
-				"bootstrap": {
-					"autocommit": true
-				}
-			}
-		}
-	},
-	"connection-types": {
-		"dev": {
-			"name": "Development",
-			"color": "255,255,255",
-			"colorDark": "255,255,255",
-			"description": "Regular development database",
-			"auto-commit": true,
-			"confirm-execute": false,
-			"confirm-data-change": false,
-			"smart-commit": false,
-			"smart-commit-recover": true,
-			"auto-close-transactions": true,
-			"close-transactions-period": 1800,
-			"auto-close-connections": true,
-			"close-connections-period": 14400
-		}
-	}
+  "folders": {},
+  "connections": {
+    "postgres-uts-db": {
+      "provider": "postgresql",
+      "driver": "postgres-jdbc",
+      "name": "PostgreSQL (UTS)",
+      "save-password": true,
+      "template": true,
+      "configuration": {
+        "host": "postgres",
+        "port": "5432",
+        "database": "postgres",
+        "url": "jdbc:postgresql://postgres:5432/postgres",
+        "type": "dev",
+        "auth-model": "native",
+        "handlers": {}
+      }
+    },
+    "clickhouse-uts-db": {
+      "provider": "generic",
+      "driver": "clickhouse-jdbc",
+      "name": "ClickHouse (UTS)",
+      "save-password": true,
+      "template": true,
+      "configuration": {
+        "host": "clickhouse",
+        "port": "8123",
+        "database": "default",
+        "url": "jdbc:clickhouse://clickhouse:8123/default",
+        "type": "dev",
+        "auth-model": "native",
+        "handlers": {}
+      }
+    }
+  },
+  "connection-types": {
+    "dev": {
+      "name": "Development",
+      "color": "255,255,255",
+      "description": "Regular development database",
+      "auto-commit": true,
+      "confirm-execute": false,
+      "confirm-data-change": false,
+      "smart-commit": false,
+      "smart-commit-recover": false,
+      "auto-close-transactions": true,
+      "close-transactions-period": 1800,
+      "auto-close-connections": true,
+      "close-connections-period": 14400
+    }
+  }
 }
