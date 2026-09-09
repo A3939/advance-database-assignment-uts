@@ -1,7 +1,7 @@
 {
 	"folders": {},
 	"connections": {
-		"postgres-jdbc-1a0845ad209-54e1461f3e2eb9da": {
+		"postgres-jdbc-1a084739999-6086540bcc144b20": {
 			"provider": "postgresql",
 			"driver": "postgres-jdbc",
 			"name": "PostgreSQL@postgres",
@@ -9,8 +9,8 @@
 			"configuration": {
 				"host": "postgres",
 				"port": "5432",
-				"database": "lab",
-				"url": "jdbc:postgresql://postgres:5432/lab",
+				"database": "postgres",
+				"url": "jdbc:postgresql://postgres:5432/postgres",
 				"configurationType": "MANUAL",
 				"type": "dev",
 				"closeIdleConnection": true,
