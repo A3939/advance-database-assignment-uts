@@ -1,0 +1,27 @@
+# Database internal storage and runtime logs
+data/clickhouse/
+data/neo4j/
+data/postgres/
+**/pgdata/
+*.pgdata
+**/databases/neo4j/
+**/transactions/neo4j/
+
+# Database artifacts and binary logs
+*.bin
+*.cmrk*
+*.idx*
+*.cidx
+*.dat
+*.tx
+checksums.txt
+columns*.txt
+
+# Neo4j specific runtime files
+neo4j.pid
+*.dump
+*.tar.gz
+
+# OS metadata
+.DS_Store
+Thumbs.db
