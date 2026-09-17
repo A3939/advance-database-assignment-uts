@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools==80.9.0", "wheel==0.45.1"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "arsia-native-intake"
+version = "0.1.0"
+description = "ARSIA Role B: reproducible native CSV/XLSX input preparation"
+requires-python = ">=3.12,<3.13"
+dependencies = ["openpyxl==3.1.5"]
+
+[project.scripts]
+arsia-prepare = "arsia_ingest.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-ra"
