@@ -1,6 +1,6 @@
 # Native input preparation
 
-This guide covers Role B's readers, archives and L1 output under team-v1.1. Preparation needs source files and a configuration; database integration is listed in section 5.
+This guide covers Role B's readers, archives and L1 output under team-v1.1. Preparation needs source files and a configuration. The separate [B08 guide](raw-loading.md) covers loading prepared records on a supplied database connection.
 
 ## 1. Inputs and configuration
 
@@ -107,7 +107,7 @@ A two-column synthetic CSV could produce the row below. Actual resources include
 }
 ```
 
-The zero-filled hash is an example placeholder. Actual runs calculate it from the file. SQL will receive `(resource_id, file_sha256, parser_version, row_locator)`, return or reuse `raw_record_id`, and reject a different payload for an existing identity. The reader does not assign database UUIDs.
+The zero-filled hash is an example placeholder. Actual runs calculate it from the file. B08 uses `(resource_id, file_sha256, parser_version, row_locator)` to return or reuse `raw_record_id`, rejecting a different payload for an existing identity. The reader does not assign database UUIDs; the separate loader generates them for new rows.
 
 ### File metadata and provenance
 
@@ -158,7 +158,7 @@ The tests and 19-row reader demo use synthetic files, without a Git LFS download
 
 See the [S0 input guide](s0-inputs.md) for `tests/fixtures/s0/` and its variant generator, the [VIC source review](sources/vic-accident-vehicle.md) for C's open questions, and the [2026-09-17 validation](b06-b07-validation.md) for their test results.
 
-Tests cover native values, row positions, structural errors, archives and failure cleanup. The official catalogue uses the same readers. Business mappings, severity definitions, state coverage, release compatibility, CRS and database loading require separate verification.
+Tests cover native values, row positions, structural errors, archives and failure cleanup. The official catalogue uses the same readers. Business mappings, severity definitions, state coverage, release compatibility and CRS require separate verification. B08's connection tests and opt-in PostgreSQL tests are described in the [Raw loading guide](raw-loading.md); mocked calls are not proof of actual database loading.
 
 ### Recorded validation (2026-09-15)
 
