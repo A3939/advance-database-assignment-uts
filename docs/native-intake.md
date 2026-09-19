@@ -79,7 +79,7 @@ artifacts/intake/
       events.jsonl
 ```
 
-The archive stores an unchanged input copy under its SHA256 hash. The runner verifies the copy before the reader parses it; later runs can reuse it if the hash still matches. A mismatch stops preparation. Moving the source file does not change its hash, but each run gets a new ID. Database-level `no_change` detection comes later.
+The archive stores an unchanged input copy under its SHA256 hash. The runner verifies the copy before the reader parses it; later runs can reuse it if the hash still matches. A mismatch stops preparation. Moving the source file does not change its hash, but each preparation gets a new ID. B10 handles database-level `no_change` after FP1.
 
 ### L1 rows
 
@@ -198,7 +198,7 @@ The next integration steps depend on these shared parts:
 | Insert/reuse `meta` and `raw` records and receive `raw_record_id` | A's schema, constraints, permissions and SQL interface. |
 | Use the B09 manifest and connect FP1 | Team code/schema files, versioned source rules and E's registered SQL operation. See [manifest.md](manifest.md). |
 | Convert native fields into typed business projections | C's rules, identities and diagnostics; B passes original values unchanged. |
-| Execute the full pipeline and manage commit/rollback | A/C/D/E's modules sharing B's agreed connection and transaction boundary. |
-| Persist QA and select the current successful release | E's complete checks and publication gate. |
+| Execute the full pipeline and manage commit/rollback | [B's runner](runner.md), using the same connection for A/C/D/E's modules. |
+| Produce QA and select the current successful release | B/C/D's checks; E's object-completeness check and publication gate. |
 
-Preparation evidence can support QA01/QA02 after integration; their database checks still need to run. Official source contracts remain drafts pending the required evidence and team confirmation.
+[QA01/QA02](input-qa.md) now replay native archives and compare the selected Raw records. Their PostgreSQL checks still need A's environment. Official source contracts remain drafts pending evidence and team confirmation.

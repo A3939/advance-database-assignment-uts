@@ -8,7 +8,7 @@ S0 follows team v1.1 [04 sections 4-5](../../F/ARSIA-Team-Handoff/04-团队分�
 - Generate files, intake configuration and the fixture contract with `tools/create_s0_inputs.py`.
 - Use the shared baseline in `tests/fixtures/s0/`.
 
-Each generated directory has `config.json` for `arsia_ingest` and `contract.json` for keys, counts, coverage, locations and the selected variant. The full manifest and FP1 call remain B09 work.
+Each generated directory has `config.json` for `arsia_ingest` and `contract.json` for keys, counts, coverage, locations and the selected variant. B09's [manifest helper](manifest.md#using-s0-and-s8) reads these definitions; real FP1 integration is still pending.
 
 Run this from the repository root:
 
@@ -65,7 +65,7 @@ Contracts list `used_fields`; generated contracts also list `unused_fields`. Unu
 
 ## Reproducible variants
 
-Every variant has a seven-resource configuration; `missing_file` omits Node deliberately. `expected_prepare` and `expected_later_check` are expectations. `test_status=NOT_RUN` refers to downstream business acceptance.
+The variants below have seven-resource configurations; `missing_file` omits Node deliberately. `expected_prepare` and `expected_later_check` are expectations. `test_status=NOT_RUN` refers to downstream business acceptance. The separate [S8 extension](s8-inputs.md) adds an eighth resource without changing S0.
 
 | `--variant` | Change from S0 | Expected native preparation | Expected later check |
 |---|---|---|---|
@@ -87,6 +87,6 @@ Every variant has a seven-resource configuration; `missing_file` omits Node deli
 
 Business-error variants should reach `prepared` with their values intact for SQL checks. An out-of-range coordinate must not cause the reader to drop the crash.
 
-Later module tests cover same-locator replay with matching or changed payloads (AT02), wrong batch or release scope (AT03), fact tampering (AT06), forced map eligibility (AT07), locks, transactions and commit failures. These need a database or call context. Fourth-state S8 (AT15) is also later work.
+Later module tests cover same-locator replay with matching or changed payloads (AT02), wrong batch or release scope (AT03), fact tampering (AT06), forced map eligibility (AT07), locks, transactions and commit failures. These need a database or call context. Fourth-state S8 (AT15) now has [normal and bad-key inputs](s8-inputs.md); its downstream checks remain unexecuted.
 
 Expected pipeline results are 19 Raw records, 6 crashes, 6 actual units, 2 fatal crashes, 3 deaths, 7 casualties, 4 map points and 63 QA rows. B07 supplies the inputs; an actual pipeline run and E's independent checks must verify these results.

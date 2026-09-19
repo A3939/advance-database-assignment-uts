@@ -28,7 +28,7 @@ Inserts use `INSERT ... ON CONFLICT DO NOTHING RETURNING raw_record_id`. A confl
 
 **The caller must roll back the whole load, including registration, after any exception.** Input and callback errors may leave earlier writes pending because Python validation errors do not abort PostgreSQL transactions. Database errors propagate without internal retries.
 
-Under 04, B commits Raw/registration in a short transaction before the business build. B10 will manage the shared connection, session lock `(32113, 2)` and lifecycle; B14 handles uncertain commits and recovery. B08's return value describes pending writes, not a commit, QA pass, `no_change` or publication.
+Under 04, B commits Raw/registration in a short transaction before the business build. [B10's runner](runner.md) owns the shared connection, session lock `(32113, 2)` and lifecycle. It stops on uncertain commits; B14 recovery remains pending. B08's return value describes pending writes, not a commit, QA pass, `no_change` or publication.
 
 ## Loading prepared input
 
@@ -103,4 +103,4 @@ A still needs to provide:
 - Loader schema USAGE and SELECT/INSERT on `meta.source`, `meta.resource` and `raw.record`; UPDATE/DELETE are unnecessary.
 - A pinned Python driver and shared connection convention. Preparation dependencies are unchanged; none were installed.
 
-All seven S0 resources are available as native/prepared input, **not shared database rows**. C can use this interface, but Raw availability must be confirmed after A/B integration. Official loading, batch registration, QA and release are still pending.
+All seven S0 resources are available as native/prepared input, **not shared database rows**. C can use this interface, but Raw availability still needs A/B integration. The [B11 checks](input-qa.md) compare native archives with Raw; real loading, QA and publication remain unverified.

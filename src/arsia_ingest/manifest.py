@@ -488,7 +488,7 @@ def build_manifest(run_dir, *, sources, contracts, mappings, severity, qa_contra
 
 
 def s0_definitions(contract_path):
-    """Wrap the generated B07 contract, including variants, without new mappings."""
+    """Wrap generated S0/S8 definitions and variants without inventing mappings."""
     definition = read_json(contract_path)
     if (definition.get("team_contract_version") != "team-v1.1" or definition.get("dataset_kind") != "synthetic"
             or definition.get("definition_status") != "synthetic_defined"):
@@ -503,20 +503,23 @@ def s0_definitions(contract_path):
         file["file_sha256"] = native["expected_sha256"]
         source = next(s for s in sources if s["source_id"] == resource["source_id"])
         mapping_id = rid + "_mapping"
+        common_rules = resource.get("common_rules", definition["common_rules"])
         mappings.append({"id": mapping_id, "version": definition["definition_version"], "content": resource["mapping"]})
         contracts.append({
-            "id": rid, "version": definition["fixture_version"], "status": "synthetic_defined", "mapping_ids": [mapping_id],
+            "id": rid, "version": resource.get("fixture_version", definition["fixture_version"]),
+            "status": "synthetic_defined", "mapping_ids": [mapping_id],
             "content": {
                 "input": file,
                 "identity": {**{k: source[k] for k in ("release_label", "release_scope", "resource_ids")},
-                             "key": resource["key"], "parent": resource["parent"], "coverage": definition["coverage"],
-                             **{k: definition["common_rules"][k] for k in ("bundle_basis", "scope_filter")}},
-                "semantics": {"common_rules": definition["common_rules"], "used_fields": resource["used_fields"],
+                             "key": resource["key"], "parent": resource["parent"], "coverage": resource.get("coverage", definition["coverage"]),
+                             **{k: common_rules[k] for k in ("bundle_basis", "scope_filter")}},
+                "semantics": {"common_rules": common_rules, "used_fields": resource["used_fields"],
                               "unused_fields": resource["unused_fields"],
                               "severity_codes": [c["severity_code"] for c in definition["severity"]["categories"]],
                               "severity_definition_version": definition["severity"]["definition_version"]},
-                "snapshot": {"policy": definition["common_rules"]["snapshot_policy"], "change": definition.get("snapshot_change")},
-                "confirmation": {"status": definition["definition_status"], "basis": "B07 synthetic fixture definition; team-v1.1 section 4"},
+                "snapshot": {"policy": common_rules["snapshot_policy"], "change": definition.get("snapshot_change")},
+                "confirmation": {"status": definition["definition_status"], "basis": resource.get(
+                    "confirmation_basis", "B07 synthetic fixture definition; team-v1.1 section 4")},
             },
         })
     for source_id in definition["severity"]["applies_to"]:

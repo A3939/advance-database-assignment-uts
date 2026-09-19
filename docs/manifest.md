@@ -45,18 +45,21 @@ Include helpers, dependencies and configuration used by these operations. Compon
 
 B hashes the supplied files; authors must identify every file their modules use. These digests freeze the code/structure versions. Missing files cannot be replaced by placeholder digests or old reference SQL.
 
-## Using S0
+## Using S0 and S8
 
 Definitions can be read now without a database:
 
 ```python
 from arsia_ingest.manifest import read_json, s0_definitions
 
-definitions = s0_definitions("tests/fixtures/s0/contract.json")
+contract_path = "tests/fixtures/s0/contract.json"
+definitions = s0_definitions(contract_path)
 qa = read_json("config/qa-team-v1.1.json")
 ```
 
 The helper reuses B07's labels, keys, mappings, coverage, counts, snapshot rules and fictional classification. For a generated variant, pass its `contract.json`; intake files must match. This does not approve official data.
+
+For [AT15's S8 extension](s8-inputs.md), set `contract_path` to `tests/fixtures/s8/contract.json` or `tests/fixtures/s8-bad-key/contract.json`. A resource may supply its own `fixture_version`, `coverage`, complete `common_rules` and `confirmation_basis`; otherwise the S0 defaults apply. This adds S8 without changing the original seven frozen definitions. The helper still needs the team's actual inventory to produce a build manifest.
 
 Once the team supplies `inventory`, use the `run_dir` returned by native preparation:
 
@@ -67,7 +70,7 @@ from arsia_ingest.manifest import build_manifest
 origins = {
     contract["id"]: {
         "download_url": None,
-        "evidence_ref": "tests/fixtures/s0/contract.json",
+        "evidence_ref": contract_path,
     }
     for contract in definitions["contracts"]
 }

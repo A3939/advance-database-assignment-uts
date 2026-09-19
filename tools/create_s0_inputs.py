@@ -1,10 +1,11 @@
-"""Write the team's S0 native files, or one separate input variant."""
+"""Write S0 native inputs, an input variant, or the AT15 S8 extension."""
 import argparse
 import copy
 import csv
 import hashlib
 import io
 import json
+import os
 import re
 from datetime import datetime
 from pathlib import Path
@@ -18,7 +19,7 @@ VARIANTS = (
     "s0", "missing_file", "bad_header", "bad_hash", "duplicate_crash",
     "orphan_unit", "person_vehicle_99", "invalid_date", "negative_count",
     "undefined_category", "invalid_coordinate", "unknown_crs", "revised_n1",
-    "delete_q2", "delete_q2_unexplained",
+    "delete_q2", "delete_q2_unexplained", "s8", "s8_bad_key",
 )
 FIXED_TIME = datetime(2000, 1, 1)
 
@@ -70,7 +71,9 @@ def _native_bytes(spec: dict, rows: list[dict], header: list[str]) -> bytes:
 def _apply_variant(definition: dict, variant: str) -> None:
     resources = {item["resource_id"]: item for item in definition["resources"]}
     rows = {rid: item["rows"] for rid, item in resources.items()}
-    if variant == "duplicate_crash":
+    if variant == "s8_bad_key":
+        rows["syn_sa_crash"][0]["CRASH_ID"] = "   "
+    elif variant == "duplicate_crash":
         rows["syn_nsw_crash"].append(copy.deepcopy(rows["syn_nsw_crash"][0]))
     elif variant == "orphan_unit":
         rows["syn_vic_vehicle"][2]["ACCIDENT_NO"] = "9999"
@@ -108,7 +111,23 @@ def _apply_variant(definition: dict, variant: str) -> None:
             }
 
 
-def create_s0(output: Path, variant: str = "s0") -> Path:
+def _add_s8(definition: dict, template: dict) -> str:
+    extension = json.loads((ROOT / "config/synthetic-s8.json").read_text(encoding="utf-8"))
+    resource = extension["resource"]
+    resource.update({key: extension[key] for key in ("fixture_version", "coverage", "confirmation_basis")})
+    resource["common_rules"] = {**definition["common_rules"], **extension["common_rules"]}
+    definition["resources"].append(resource)
+    definition["sources"].append(extension["source"])
+    definition["severity"]["applies_to"].append(extension["source"]["source_id"])
+    definition["variants"].update(extension["variants"])
+    template["resources"].append({
+        "source_id": extension["source"]["source_id"], "resource_id": resource["resource_id"],
+        "resource_role": "crash", "entity_kind": "crash", **extension["native"],
+    })
+    return resource["resource_id"]
+
+
+def create_s0(output: Path, variant: str = "s0", *, reuse_s0: Path | None = None) -> Path:
     """Create one fixture directory without replacing existing files."""
     if variant not in VARIANTS:
         raise ValueError(f"Unknown S0 variant: {variant}")
@@ -117,6 +136,13 @@ def create_s0(output: Path, variant: str = "s0") -> Path:
         raise ValueError("Output must be a new or empty directory; choose another --output path")
     definition = json.loads((ROOT / "config/synthetic-s0.json").read_text(encoding="utf-8"))
     template = json.loads((ROOT / "config/native-inputs.json").read_text(encoding="utf-8"))
+    extension_id = _add_s8(definition, template) if variant in {"s8", "s8_bad_key"} else None
+    if reuse_s0 is not None:
+        if extension_id is None:
+            raise ValueError("--reuse-s0 is only available for S8 variants")
+        reuse_s0 = Path(reuse_s0).expanduser().resolve()
+        if not reuse_s0.is_dir():
+            raise ValueError("--reuse-s0 must point to an existing S0 fixture directory")
     _apply_variant(definition, variant)
     resources = {item["resource_id"]: item for item in definition["resources"]}
     config = {"config_version": "intake-v1", "dataset_kind": "synthetic", "resources": []}
@@ -140,6 +166,12 @@ def create_s0(output: Path, variant: str = "s0") -> Path:
             actual_header[0] = "ACCIDENT_NUMBER"
         data = _native_bytes(spec, samples, actual_header)
         spec["path"] = f'{rid}.{spec["format"]}'
+        reused = reuse_s0 is not None and rid != extension_id
+        if reused:
+            existing = reuse_s0 / spec["path"]
+            if existing.read_bytes() != data:
+                raise ValueError(f"Reused S0 file differs from the baseline: {rid}")
+            spec["path"] = Path(os.path.relpath(existing, output)).as_posix()
         actual_hash = hashlib.sha256(data).hexdigest()
         spec["expected_sha256"] = (
             "0" * 64 if variant == "bad_hash" and rid == "syn_vic_accident" else actual_hash
@@ -158,7 +190,7 @@ def create_s0(output: Path, variant: str = "s0") -> Path:
             "locator_version": "csv-logical-v1" if spec["format"] == "csv" else "xlsx-physical-v1",
             "unused_fields": [field for field in spec["header"] if field not in mapped_fields],
         })
-        if not (variant == "missing_file" and rid == "syn_vic_node"):
+        if not reused and not (variant == "missing_file" and rid == "syn_vic_node"):
             pending_files.append((spec["path"], data))
     if resources:
         raise ValueError(f"No native header template for: {', '.join(resources)}")
@@ -182,9 +214,10 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--variant", choices=VARIANTS, default="s0")
+    parser.add_argument("--reuse-s0", type=Path, help="Reference unchanged S0 native files for an S8 variant")
     args = parser.parse_args()
     try:
-        target = create_s0(args.output, args.variant)
+        target = create_s0(args.output, args.variant, reuse_s0=args.reuse_s0)
     except (OSError, ValueError) as exc:
         parser.exit(1, f"Cannot create S0 inputs: {exc}\n")
     print(f"Created {args.variant} input fixture: {target}")

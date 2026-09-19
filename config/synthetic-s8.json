@@ -1,0 +1,74 @@
+{
+  "fixture_version": "s8-native-v1",
+  "source": {
+    "source_id": "syn_sa",
+    "jurisdiction_code": "SA",
+    "source_name": "Synthetic SA (S8)",
+    "publisher": "ARSIA team",
+    "release_label": "Synthetic S8 v1",
+    "release_scope": "s0",
+    "resource_ids": ["syn_sa_crash"]
+  },
+  "coverage": {
+    "year_from": 2020,
+    "year_to": 2024,
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    "basis": "S8 defines all months in 2020-2024 as covered, matching the fictional S0 analysis window. This is not official SA coverage."
+  },
+  "confirmation_basis": "Synthetic S8 input definition from team-v1.1 section 5, AT15. C's SQL support and E's acceptance remain to be tested.",
+  "common_rules": {
+    "comparability": "S8 uses the same fictional person definitions as S0: casualties include deaths. No unit details or unit counts are supplied.",
+    "dates": "YEAR and MONTH are numeric text. The S8 observation has month precision; do not add a day.",
+    "position_lineage": "Use the S8 crash raw row for its location reference.",
+    "bundle_basis": "The S8 CSV is generated from this fictional definition alongside the unchanged seven S0 resources. It is the complete syn_sa snapshot for AT15."
+  },
+  "native": {
+    "format": "csv",
+    "encoding": "utf-8",
+    "sheet": null,
+    "header_row": 1,
+    "header": ["CRASH_ID", "YEAR", "MONTH", "SEVERITY", "FATALITIES", "CASUALTIES", "LATITUDE", "LONGITUDE"]
+  },
+  "resource": {
+    "resource_id": "syn_sa_crash",
+    "alias": "S8",
+    "key": {"fields": ["CRASH_ID"], "unique": true},
+    "parent": null,
+    "used_fields": ["CRASH_ID", "YEAR", "MONTH", "SEVERITY", "FATALITIES", "CASUALTIES", "LATITUDE", "LONGITUDE"],
+    "mapping": {
+      "occurrence_year": "YEAR",
+      "occurrence_month": "MONTH",
+      "occurrence_date": null,
+      "date_precision": "month",
+      "severity_raw": "SEVERITY",
+      "severity_definition": "syn-1",
+      "severity_code": {"mapping": "syn-1", "native_missing": "__MISSING__"},
+      "fatality_count": "FATALITIES",
+      "casualty_count": "CASUALTIES",
+      "unit_details": "Not supplied. Do not create unit records or infer a declared unit count of zero.",
+      "location": {
+        "latitude": "LATITUDE",
+        "longitude": "LONGITUDE",
+        "crs": "EPSG:4326",
+        "basis": "AT15's invented -34.92,138.60 location is explicitly defined as WGS84 longitude/latitude. This makes no claim about any official SA dataset."
+      }
+    },
+    "rows": [
+      {"CRASH_ID": "0001", "YEAR": "2020", "MONTH": "01", "SEVERITY": "F", "FATALITIES": "1", "CASUALTIES": "1", "LATITUDE": "-34.92", "LONGITUDE": "138.60"}
+    ]
+  },
+  "variants": {
+    "s8": {
+      "acceptance_case": "AT15",
+      "change": "Add S8 to the unchanged S0 snapshot: syn_sa, one fatal crash in 2020-01, deaths 1, casualties 1, no unit detail, location -34.92,138.60.",
+      "expected_prepare": "prepared",
+      "expected_later_check": "20 Raw rows, 7 crashes, 6 units, 3 fatal crashes, 4 deaths, 8 casualties and 5/7 map coverage. The original three states stay unchanged. These are AT15 expectations, not executed results."
+    },
+    "s8_bad_key": {
+      "acceptance_case": "AT15",
+      "change": "Start from S0 plus S8 and replace only S8 CRASH_ID with three spaces. Keep the row and every other value.",
+      "expected_prepare": "prepared",
+      "expected_later_check": "C's business-key check must block the whitespace-only S8 key; the previous successful B0 must remain unchanged. Not executed by input preparation."
+    }
+  }
+}
