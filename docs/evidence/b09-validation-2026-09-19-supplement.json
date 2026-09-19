@@ -1,0 +1,51 @@
+{
+  "checked_at_utc": "2026-09-19T06:00:28.125101+00:00",
+  "branch": "peixian/dev",
+  "base_commit": "96cf67a1fb27be60186a2207c922e4dfd89d3ddc",
+  "status": "manifest_implemented_fp1_pending",
+  "previous_receipt": {
+    "path": "docs/evidence/b09-validation-2026-09-19.json",
+    "sha256": "e69b8040af02baf491a930a241529d2d38796b68e70bd6675aa26fedea6442fc",
+    "unchanged": true
+  },
+  "tests": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -q -p no:cacheprovider",
+    "result": "306 passed, 8 skipped in 2.67s",
+    "passed": 306,
+    "skipped": 8,
+    "skip_reason": "The eight B08 PostgreSQL tests require A's migrated database and ARSIA_TEST_DSN.",
+    "added_test_cases": 4,
+    "coverage": [
+      "Generate revised_n1, delete_q2 and delete_q2_unexplained; compare actual native SHA256, prepared/frozen file metadata, row counts, release labels and snapshot statements.",
+      "Retain the absent deletion explanation without applying later QA01 decisions. The two deletion variants have identical native files but different frozen rule content.",
+      "Pass an assembled FrozenManifest to the FP1 adapter with scripted replies; check bound parameters, provenance exclusion, returned values and rejection of empty/NULL results."
+    ]
+  },
+  "not_verified": [
+    "Real PostgreSQL execution and FP1 SQL serialization or hashing.",
+    "Installed SQL, database writes, no_change, publication and official acceptance."
+  ],
+  "file_hashes": {
+    "README.md": "50538e8513a1588485761de1db5779050957d609079218dbb6fdff72d3e26009",
+    "docs/native-intake.md": "aefbcc3401844f9b27c2338b1f6efef1fa91d7983e979ff50734fbd4a44dd452",
+    "docs/manifest.md": "32c6ed8cff29d2e72c31db140d3820c6233f7ec73dd63175cbc5802e3df3c319",
+    "config/qa-team-v1.1.json": "d1729d38c890645cad18b55fdb3b0c8451cdf89f4627db507e5adc8abf5b6893",
+    "src/arsia_ingest/manifest.py": "ee22b07977bf30e09236b01414564e8608b1c4e1f715bcbc2a54acd5df1ae2d6",
+    "src/arsia_ingest/fingerprint.py": "a1f3937176eb1df967d28b11a04d7c4e2bb031b52ebd2865bacc4ad94c4b1710",
+    "tests/test_manifest.py": "5e307ee5c5c6ca45c591edd99cb01f5ce4954024cea450746a0a71b674f7f942",
+    "tests/test_fingerprint.py": "210911a4d6447dfeb04946df099789015cff82ba17ff01e0e007fea8a315cbca",
+    "docs/evidence/b09-validation-2026-09-19.json": "e69b8040af02baf491a930a241529d2d38796b68e70bd6675aa26fedea6442fc"
+  },
+  "historical_hash_differences": [
+    "tests/test_manifest.py now includes the four additional test cases.",
+    "docs/manifest.md now links this supplement and the unchanged initial receipt."
+  ],
+  "preserved_untracked_file": {
+    "path": "docs/sources/evidence/vic/local-profile-2026-09-17.json",
+    "sha256": "4979014576b956ddadf3f6c99ef78649db882dbabc5cd804d8c33b9029a0bd25"
+  },
+  "notes": [
+    "Tests use only small synthetic inputs and temporary code inventories. No dependencies or database were installed; no official full output was generated.",
+    "The historical receipt is preserved. This supplement records the tested code and the final documentation link."
+  ]
+}

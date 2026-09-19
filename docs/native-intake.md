@@ -125,7 +125,7 @@ encoding, sheet, header_row, header, raw_count
 
 `run.json` records the run ID, tool/output versions, dataset kind, `native_preparation_only` scope, UTC timestamps, status and errors. Each prepared resource includes its input byte size, relative `records_path`, `records_sha256`, observed header and parsing counts. The top-level `raw_count` totals all resources. `events.jsonl` records progress, archive references, parse counts and errors. `records_sha256` identifies the JSONL output, separately from the source-file hash and FP1.
 
-`files.json` supplies the manifest's `files` section. Integration must add and validate `contract_version=team-v1.1`, `analysis`, frozen `sources`, `rules` and `required_checks` before FP1 or publication. E defines and tests the FP1 SQL build fingerprint; B calls it. The current Python file hashes and JSON serialisation do not implement FP1.
+`files.json` supplies only the manifest's `files` section. [B09](manifest.md) adds the remaining definitions, checks the build inventory and freezes the snapshot. FP1 still needs E's SQL; Python file hashes and JSON serialization do not produce the database fingerprint.
 
 ## 4. Failure and rerun behaviour
 
@@ -196,7 +196,7 @@ The next integration steps depend on these shared parts:
 | Next work | Coordination needed |
 |---|---|
 | Insert/reuse `meta` and `raw` records and receive `raw_record_id` | A's schema, constraints, permissions and SQL interface. |
-| Assemble the complete frozen manifest and call FP1 | Source owners' compatible releases/rules; E's SQL fingerprint contract. |
+| Use the B09 manifest and connect FP1 | Team code/schema files, versioned source rules and E's registered SQL operation. See [manifest.md](manifest.md). |
 | Convert native fields into typed business projections | C's rules, identities and diagnostics; B passes original values unchanged. |
 | Execute the full pipeline and manage commit/rollback | A/C/D/E's modules sharing B's agreed connection and transaction boundary. |
 | Persist QA and select the current successful release | E's complete checks and publication gate. |

@@ -1,0 +1,74 @@
+{
+  "checked_at_utc": "2026-09-19T05:10:21.298662+00:00",
+  "branch": "peixian/dev",
+  "base_commit": "96cf67a1fb27be60186a2207c922e4dfd89d3ddc",
+  "status": "manifest_implemented_fp1_pending",
+  "scope": "B09 manifest assembly, validation, immutable file snapshots and a proposed SQL-call adapter.",
+  "tests": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -q -p no:cacheprovider",
+    "result": "302 passed, 8 skipped in 2.54s",
+    "passed": 302,
+    "skipped": 8,
+    "new_manifest_tests_passed": 71,
+    "new_scripted_fp1_tests_passed": 47,
+    "skip_reason": "Existing B08 PostgreSQL tests require A's migrated database and ARSIA_TEST_DSN.",
+    "fixture_scope": "Checked-in 19-row S0 inputs and temporary test-only code/schema files. Scripted FP1 replies do not execute SQL."
+  },
+  "manual_checks": {
+    "s0_definitions": {
+      "sources": 3,
+      "contracts": 7,
+      "mappings": 7,
+      "severity_entries": 12,
+      "analysis": {
+        "year_from": 2020,
+        "year_to": 2024
+      }
+    },
+    "packaged_qa_matches_english_handoff_section_3": true,
+    "chinese_handoff_section_3_pin_valid": true,
+    "incomplete_actual_inventory_error": "MANIFEST_VERSION_MISSING",
+    "missing_fp1_operation_error": "FP1_UNAVAILABLE",
+    "python_version": "3.12.6",
+    "psycopg_installed": false
+  },
+  "remote_review": {
+    "main": "c84f512ecd15d0e3ee59e0bc975c4001f9d392d2",
+    "peixian/dev": "96cf67a1fb27be60186a2207c922e4dfd89d3ddc",
+    "setup": "011698d9ee297deb09ff508311e490b81ca1a2f2",
+    "yihua-zhang": "4ba04d850b9ea5e83acc4df60e0886dddd524dca",
+    "findings": "No E03 SQL in the inspected branches. setup specifies PostgreSQL 15. Latest yihua-zhang contains only docs/source-contracts/D01-QLD-source-contract-draft.md; it remains draft.",
+    "reference_not_adopted": "../docs/phase1-design-lite/sql/modules/10_ingest_helpers.sql:109; reference_unexecuted, hashes a different wrapper including provenance."
+  },
+  "not_verified": [
+    "Actual PostgreSQL FP1 execution, JSONB serialization and fingerprint invariance.",
+    "Installed SQL matching the declared implementation version and local SQL bytes.",
+    "A complete platform build inventory, real build manifest, database writes, publication or no_change.",
+    "Official source confirmation or full-source platform acceptance."
+  ],
+  "remaining_inputs": {
+    "E": "Actual FP1 SQL/version, registered signature, deployment evidence and independent tests. The existing QA specification is already reused.",
+    "A": "PostgreSQL 16 patch, migrations, loader connection/grants and agreed driver.",
+    "build_authors": "Actual modules, including the later B10 runner, their helpers/dependencies and versioned source rules."
+  },
+  "preserved_untracked_file": {
+    "path": "docs/sources/evidence/vic/local-profile-2026-09-17.json",
+    "sha256": "4979014576b956ddadf3f6c99ef78649db882dbabc5cd804d8c33b9029a0bd25"
+  },
+  "historical_receipts_unchanged": true,
+  "file_hashes": {
+    "README.md": "50538e8513a1588485761de1db5779050957d609079218dbb6fdff72d3e26009",
+    "docs/native-intake.md": "aefbcc3401844f9b27c2338b1f6efef1fa91d7983e979ff50734fbd4a44dd452",
+    "docs/manifest.md": "6ead7c4daaeb355c35652bb0123c3ad754537a508d01bc5a71d4427dc6714df9",
+    "config/qa-team-v1.1.json": "d1729d38c890645cad18b55fdb3b0c8451cdf89f4627db507e5adc8abf5b6893",
+    "src/arsia_ingest/manifest.py": "ee22b07977bf30e09236b01414564e8608b1c4e1f715bcbc2a54acd5df1ae2d6",
+    "src/arsia_ingest/fingerprint.py": "a1f3937176eb1df967d28b11a04d7c4e2bb031b52ebd2865bacc4ad94c4b1710",
+    "tests/test_manifest.py": "454be2878f2eba905cd38c6afd2802ce7f17634becb674d39f2c7e0031507f49",
+    "tests/test_fingerprint.py": "210911a4d6447dfeb04946df099789015cff82ba17ff01e0e007fea8a315cbca"
+  },
+  "notes": [
+    "Documentation was shortened before these hashes were recorded. Existing receipts were not edited.",
+    "config/qa-team-v1.1.json is a verbatim copy of the English handoff QA section inside the documented wrapper.",
+    "No dependencies or database installed; no official full output generated; no commit, push, website or board changes."
+  ]
+}

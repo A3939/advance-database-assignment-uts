@@ -1,6 +1,6 @@
 # ARSIA native inputs and Raw loading
 
-Role B's input module archives source files, checks their headers and structure, and writes L1 records. Preparation runs locally without a database. The B08 loader registers sources/resources and inserts those records using a supplied PostgreSQL connection; it still needs A's migrated database for live verification.
+Role B's module archives source files, checks headers and structure, and writes L1 records. B08 adds Raw loading through a supplied connection; B09 assembles and freezes the manifest. Live verification still needs A's database environment and E's FP1 SQL.
 
 ## Quick start
 
@@ -44,6 +44,7 @@ Each run gets a new directory under the chosen output root, followed by `<datase
 | [VIC source review](docs/sources/vic-accident-vehicle.md) | B06: source definitions, four-file findings and questions for C. |
 | [S0 input guide](docs/s0-inputs.md) | B07: sample values, generation commands and input variants. |
 | [Raw loading guide](docs/raw-loading.md) | B08: registration, ID reuse, payload conflicts, connection ownership and tests. |
+| [Manifest guide](docs/manifest.md) | B09: complete build inputs, frozen definitions and the proposed FP1 call. |
 | [B06/B07 validation](docs/b06-b07-validation.md) | Tests and S0 preparation recorded on 2026-09-17. |
 
 The earlier [2026-09-15 validation](docs/native-intake.md#recorded-validation-2026-09-15) records the full-input run and its counts.
@@ -54,6 +55,8 @@ The earlier [2026-09-15 validation](docs/native-intake.md#recorded-validation-20
 |---|---|
 | `src/arsia_ingest/` | Readers, archives, configuration checks and preparation runner. |
 | `src/arsia_ingest/raw_load.py` | B08 loader using the caller's connection; no migration or automatic commit. |
+| `src/arsia_ingest/manifest.py`, `fingerprint.py` | Manifest validation/freezing and E's explicit SQL call boundary. |
+| `config/qa-team-v1.1.json` | Unchanged English QA text from team contract 04 §3. |
 | `config/native-inputs.json` | Seven resources, 197 ordered field names, workbook settings and file hashes. |
 | `raw_datasource/` | Original source files managed by Git LFS. |
 | `tests/` | Tests using small synthetic files. |
@@ -73,6 +76,6 @@ source_id, resource_id, file_sha256, parser_version, row_locator, payload
 
 CSV values remain text, including blanks and leading zeros; XLSX conversion follows the intake guide. Person rows, Node observations and QLD aggregate fields are retained. Filtering, business mappings and deduplication belong to later steps.
 
-`prepared` means native input preparation passed. B08 now provides registration and Raw loading with ID reuse, but has not been run against PostgreSQL. Business cleaning, Vault/DW, the full manifest, FP1, the transaction runner, QA63 and publication still need the team modules. Official source definitions and compatible releases also need confirmation.
+`prepared` means native input preparation passed. Raw loading and manifest assembly are implemented; PostgreSQL loading and FP1 remain unverified. Building a complete manifest requires the team's actual code/schema files and versioned source rules. Business cleaning, Vault/DW, the transaction runner, QA and publication still need the team modules. Official definitions and compatible releases need confirmation.
 
 The baseline is team v1.1: document 04 (L1 contracts and acceptance) and document 05 (sources and mappings, sections 1-2 and 7). The [online database design](https://arsia-team-design.vercel.app/) shows the shared model. Links in the guides to `F/` and `Resources/` refer to the shared course workspace outside this Git repository; they work locally but are unavailable in a standalone clone or on GitHub.
