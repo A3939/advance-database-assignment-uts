@@ -1,0 +1,775 @@
+{
+  "checked_at_utc": "2026-09-20T14:32:42.249065+00:00",
+  "status": "B12 independent session-lock and early runner-exit checks passed; full B12 and AT13 integration pending",
+  "branch": "peixian/dev",
+  "base_commit": "cbb548ead68a6502870362b742f444ff180e07e8",
+  "changes": "Three opt-in PostgreSQL tests and runner documentation; no production code change",
+  "environment": {
+    "python": "3.12.6",
+    "packages": {
+      "psycopg": "3.3.6",
+      "psycopg-binary": "3.3.6",
+      "pytest": "8.4.2",
+      "openpyxl": "3.1.5"
+    },
+    "postgres": {
+      "current_user": "arsia_loader",
+      "session_user": "arsia_loader",
+      "database": "arsia",
+      "version": "PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+      "settings": {
+        "server_version_num": "160015",
+        "server_encoding": "UTF8",
+        "TimeZone": "UTC",
+        "transaction_isolation": "read committed"
+      },
+      "table_counts": {
+        "meta.source": 0,
+        "meta.resource": 0,
+        "raw.record": 0
+      },
+      "privileges": {
+        "meta.source": {
+          "select": true,
+          "insert": true
+        },
+        "meta.resource": {
+          "select": true,
+          "insert": true
+        },
+        "raw.record": {
+          "select": true,
+          "insert": true
+        }
+      },
+      "pending_relations": {
+        "meta.batch": null,
+        "qa.check_result": null
+      },
+      "remaining_session_locks": 0
+    },
+    "container": "arsia-b08-20260920-e4d6b07f-db",
+    "port_at_run": 58579,
+    "image": "postgres:16-bookworm@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67",
+    "final_container_state": "exited",
+    "setup": "Reused the B08 isolated test database and Python environment; no installation, schema change or migration reapplication"
+  },
+  "database_handoff": {
+    "branch": "jj/a01-environment",
+    "commit": "1b257c831c665e1c8d38ca7b6b0d2f8ed02afed1",
+    "prior_validation": {
+      "path": "docs/evidence/b08-postgres-validation-2026-09-20.json",
+      "sha256": "e2b1d0b401439f58ac102e3b526396b0228dd529aa32428208be18a2a39f5414"
+    }
+  },
+  "runs": {
+    "focused": {
+      "started_at_utc": "2026-09-20T14:30:30.776026+00:00",
+      "command": [
+        "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b08-db-reproduction-2026-09-20/venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "tests/test_runner_postgres.py",
+        "--junitxml",
+        "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b12-lock-validation-2026-09-21/focused.xml",
+        "--basetemp",
+        "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b12-lock-validation-2026-09-21/focused-tmp"
+      ],
+      "exit_code": 0,
+      "counts": {
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 3
+      }
+    },
+    "original-venv": {
+      "started_at_utc": "2026-09-20T14:30:53.744441+00:00",
+      "finished_at_utc": "2026-09-20T14:31:01.842381+00:00",
+      "command": [
+        "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "--junitxml",
+        "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b12-lock-validation-2026-09-21/original-venv.xml"
+      ],
+      "environment": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "ARSIA_TEST_DSN": null
+      },
+      "exit_code": 0,
+      "counts": {
+        "tests": 429,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 13,
+        "passed": 416
+      },
+      "groups": {
+        "tests.test_config": {
+          "passed": 63,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_fingerprint": {
+          "passed": 47,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_input_qa_postgres": {
+          "passed": 0,
+          "skipped": 2,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_manifest": {
+          "passed": 75,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_pipeline": {
+          "passed": 16,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_qa_input": {
+          "passed": 50,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_raw_load": {
+          "passed": 31,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_raw_load_postgres": {
+          "passed": 0,
+          "skipped": 8,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_readers": {
+          "passed": 44,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_runner": {
+          "passed": 44,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_runner_postgres": {
+          "passed": 0,
+          "skipped": 3,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_s0": {
+          "passed": 20,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_s8": {
+          "passed": 16,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_vic_links": {
+          "passed": 7,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_vic_profile": {
+          "passed": 3,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        }
+      },
+      "output_sha256": "642ca396d7c3156e5dbee2210e3a92c52b736ce0bdd5a5f450c763914313b893",
+      "junit_sha256": "d2dd723d6f0f7d45bddb037125eac9baed4f62a6602f0f09073209ccac608554"
+    },
+    "postgres": {
+      "started_at_utc": "2026-09-20T14:31:01.843683+00:00",
+      "finished_at_utc": "2026-09-20T14:31:11.247013+00:00",
+      "command": [
+        "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b08-db-reproduction-2026-09-20/venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "--junitxml",
+        "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b12-lock-validation-2026-09-21/postgres.xml",
+        "--basetemp",
+        "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b12-lock-validation-2026-09-21/pytest-tmp"
+      ],
+      "environment": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "ARSIA_TEST_DSN": "host=127.0.0.1 port=58579 dbname=arsia user=arsia_loader"
+      },
+      "exit_code": 0,
+      "counts": {
+        "tests": 429,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 429
+      },
+      "groups": {
+        "tests.test_config": {
+          "passed": 63,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_fingerprint": {
+          "passed": 47,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_input_qa_postgres": {
+          "passed": 2,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_manifest": {
+          "passed": 75,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_pipeline": {
+          "passed": 16,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_qa_input": {
+          "passed": 50,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_raw_load": {
+          "passed": 31,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_raw_load_postgres": {
+          "passed": 8,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_readers": {
+          "passed": 44,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_runner": {
+          "passed": 44,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_runner_postgres": {
+          "passed": 3,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_s0": {
+          "passed": 20,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_s8": {
+          "passed": 16,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_vic_links": {
+          "passed": 7,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_vic_profile": {
+          "passed": 3,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        }
+      },
+      "output_sha256": "aca245ad54be85eaaa2ab8be015c36f86941e441e31659c615758bd1a8235f57",
+      "junit_sha256": "a5e100f86f75c1bbeb7c7699ae6961c6fb44f63de6f4f05d167ca2428db769ea"
+    }
+  },
+  "lock_checks": [
+    {
+      "report": {
+        "path": "artifacts/b12-lock-validation-2026-09-21/pytest-tmp/test_postgres_busy_runner_does0/lock-check.json",
+        "sha256": "c6d9f60b24fc251546248f9c10b034e83b83274e1dd9f1241b9c3f028bcb5a8d"
+      },
+      "observed": {
+        "business_calls": [],
+        "case": "runner_busy",
+        "contender_pid": 168,
+        "driver_events": [
+          {
+            "event": "sql",
+            "parameters": null,
+            "sql": "SET TIME ZONE 'UTC'"
+          },
+          {
+            "event": "sql",
+            "parameters": null,
+            "sql": "SET client_encoding TO 'UTF8'"
+          },
+          {
+            "event": "sql",
+            "parameters": [
+              32113,
+              2
+            ],
+            "sql": "SELECT pg_try_advisory_lock(%s,%s)"
+          },
+          {
+            "event": "rollback"
+          },
+          {
+            "event": "close"
+          }
+        ],
+        "key": [
+          32113,
+          2
+        ],
+        "owner_lock_after_runner_exit": [
+          [
+            167,
+            32113,
+            2,
+            2,
+            "ExclusiveLock",
+            true
+          ]
+        ],
+        "owner_pid": 167,
+        "runner_exit_code": 2,
+        "runner_result": {
+          "batch_id": null,
+          "dataset_kind": "synthetic",
+          "evidence_ref": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b12-lock-validation-2026-09-21/pytest-tmp/test_postgres_busy_runner_does0/runs/synthetic/runs/e04bc98e-c057-450b-8a1c-9018e9c0154b",
+          "reason": "Another ARSIA run owns the session lock",
+          "result": "busy",
+          "run_id": "e04bc98e-c057-450b-8a1c-9018e9c0154b"
+        },
+        "table_counts_after": {
+          "meta.resource": 0,
+          "meta.source": 0,
+          "raw.record": 0
+        },
+        "table_counts_before": {
+          "meta.resource": 0,
+          "meta.source": 0,
+          "raw.record": 0
+        }
+      }
+    },
+    {
+      "report": {
+        "path": "artifacts/b12-lock-validation-2026-09-21/pytest-tmp/test_postgres_runner_closes_he0/lock-check.json",
+        "sha256": "5dfc82c639f1381204e5ef91b3a2c4857e1cf35cbaf8115993d0c08c0459854d"
+      },
+      "observed": {
+        "after_runner_close": [
+          [
+            169,
+            32113,
+            2,
+            2,
+            "ExclusiveLock",
+            true
+          ]
+        ],
+        "business_calls": [],
+        "case": "runner_pre_history_failure",
+        "contender_pid": 169,
+        "driver_events": [
+          {
+            "event": "sql",
+            "parameters": null,
+            "sql": "SET TIME ZONE 'UTC'"
+          },
+          {
+            "event": "sql",
+            "parameters": null,
+            "sql": "SET client_encoding TO 'UTF8'"
+          },
+          {
+            "event": "sql",
+            "parameters": [
+              32113,
+              2
+            ],
+            "sql": "SELECT pg_try_advisory_lock(%s,%s)"
+          },
+          {
+            "event": "rollback"
+          },
+          {
+            "event": "close"
+          }
+        ],
+        "fault": "Injected Python exception before history SQL; no batch table required",
+        "key": [
+          32113,
+          2
+        ],
+        "owner_pid": 170,
+        "runner_exit_code": 1,
+        "runner_result": {
+          "batch_id": null,
+          "dataset_kind": "synthetic",
+          "error_code": "B12_TEST_STOP",
+          "evidence_ref": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b12-lock-validation-2026-09-21/pytest-tmp/test_postgres_runner_closes_he0/runs/synthetic/runs/217e59cf-92ae-416b-a7ea-78ff39276182",
+          "message": "Injected stop after acquiring the lock, before reading batch history",
+          "result": "failed",
+          "run_id": "217e59cf-92ae-416b-a7ea-78ff39276182",
+          "stage": "history"
+        },
+        "table_counts_after": {
+          "meta.resource": 0,
+          "meta.source": 0,
+          "raw.record": 0
+        },
+        "table_counts_before": {
+          "meta.resource": 0,
+          "meta.source": 0,
+          "raw.record": 0
+        },
+        "while_runner_held_lock": {
+          "contender_acquired": false,
+          "pg_locks": [
+            [
+              170,
+              32113,
+              2,
+              2,
+              "ExclusiveLock",
+              true
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "report": {
+        "path": "artifacts/b12-lock-validation-2026-09-21/pytest-tmp/test_postgres_session_lock_sur0/lock-check.json",
+        "sha256": "4140f841d4839546249d1a5482a3d41c30a53798739137c0d5083bac1368c8fc"
+      },
+      "observed": {
+        "after_owner_close": [
+          [
+            165,
+            32113,
+            2,
+            2,
+            "ExclusiveLock",
+            true
+          ]
+        ],
+        "case": "session_lock_lifecycle",
+        "checkpoints": [
+          {
+            "contender_acquired": false,
+            "pg_locks": [
+              [
+                166,
+                32113,
+                2,
+                2,
+                "ExclusiveLock",
+                true
+              ]
+            ],
+            "phase": "acquired"
+          },
+          {
+            "contender_acquired": false,
+            "pg_locks": [
+              [
+                166,
+                32113,
+                2,
+                2,
+                "ExclusiveLock",
+                true
+              ]
+            ],
+            "phase": "committed"
+          },
+          {
+            "contender_acquired": false,
+            "pg_locks": [
+              [
+                166,
+                32113,
+                2,
+                2,
+                "ExclusiveLock",
+                true
+              ]
+            ],
+            "phase": "rolled_back"
+          }
+        ],
+        "contender_pid": 165,
+        "key": [
+          32113,
+          2
+        ],
+        "owner_pid": 166,
+        "table_counts_after": {
+          "meta.resource": 0,
+          "meta.source": 0,
+          "raw.record": 0
+        },
+        "table_counts_before": {
+          "meta.resource": 0,
+          "meta.source": 0,
+          "raw.record": 0
+        }
+      }
+    }
+  ],
+  "scope": {
+    "real": [
+      "Two separate loader sessions and real pg_try_advisory_lock results",
+      "pg_locks confirms backend PID, key (32113,2), ExclusiveLock and objsubid=2",
+      "Session lock remains after a real COMMIT and a subsequent transaction ROLLBACK",
+      "Real run_build busy exit has no business/FP1 call, history query, data write or COMMIT",
+      "Real run_build holds the lock before an injected Python exception and closes its session on that early failure",
+      "The contender acquires the lock after the previous owner closes"
+    ],
+    "test_seams": [
+      "S0 manifests use the existing test-only code inventory, not deployed platform SQL",
+      "Business callbacks raise if called; the undeployed FP1 descriptor supplies no digest",
+      "The observing connection delegates SQL and lifecycle calls to Psycopg without replacing results",
+      "The early failure is injected before history SQL; it is not a database outage or lost COMMIT response"
+    ],
+    "not_verified": [
+      "Real FP1, no_change, unchanged publication timestamps or rule/code-change rebuilds (AT08/AT10)",
+      "Registration COMMIT and the full business build/publication lifecycle under the lock (full AT13)",
+      "Complete official and synthetic builds contending for the shared key",
+      "B13 faults after Vault/DW/publication or B14 recovery",
+      "QA result persistence, official approval or a complete platform build"
+    ]
+  },
+  "database_after_tests": {
+    "current_user": "arsia_loader",
+    "session_user": "arsia_loader",
+    "database": "arsia",
+    "version": "PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+    "settings": {
+      "server_version_num": "160015",
+      "server_encoding": "UTF8",
+      "TimeZone": "UTC",
+      "transaction_isolation": "read committed"
+    },
+    "table_counts": {
+      "meta.source": 0,
+      "meta.resource": 0,
+      "raw.record": 0
+    },
+    "privileges": {
+      "meta.source": {
+        "select": true,
+        "insert": true
+      },
+      "meta.resource": {
+        "select": true,
+        "insert": true
+      },
+      "raw.record": {
+        "select": true,
+        "insert": true
+      }
+    },
+    "pending_relations": {
+      "meta.batch": null,
+      "qa.check_result": null
+    },
+    "remaining_session_locks": 0
+  },
+  "preservation": {
+    "previous_evidence_and_other_work_unchanged": 35,
+    "production_sources_unchanged": true,
+    "original_venv_unchanged": true,
+    "shared_raw_dataset_created": false,
+    "test_container_stopped_and_volume_retained": true,
+    "staging_empty": true,
+    "commit_push_or_website_update": false,
+    "history_note": "Earlier receipts retain their tested README/runner hashes. This receipt records the later documentation; no old receipt was rewritten."
+  },
+  "tested_file_hashes": {
+    "config/qa-team-v1.1.json": "d1729d38c890645cad18b55fdb3b0c8451cdf89f4627db507e5adc8abf5b6893",
+    "config/synthetic-s0.json": "e1c8f35faac4ace8ba73febb8dd933e36de9ee13650f65c7aeb8d452fe0e89b8",
+    "pyproject.toml": "75f9b36d2c7fc6d3e9a8df00b4e870b7e198d52412decf06786701e63f7f88a1",
+    "src/arsia_ingest/__init__.py": "1b968d2191475834219bcb988e7a25867afb1eff95b73acd7aaccae34568cdd3",
+    "src/arsia_ingest/__main__.py": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
+    "src/arsia_ingest/cli.py": "1f641c621a1408f3f997392841e910bff8ff2705dc0dedfd22d7ac88290b6918",
+    "src/arsia_ingest/config.py": "3ddc72a507ea1259ad8afc56fb25d74fabdf02eefedcfbe6e18c7b5b6374bcb2",
+    "src/arsia_ingest/fingerprint.py": "a1f3937176eb1df967d28b11a04d7c4e2bb031b52ebd2865bacc4ad94c4b1710",
+    "src/arsia_ingest/manifest.py": "734021f5af6ce14f8447dc743fd0efb458971ba171dd412899a1c7c4c57648c1",
+    "src/arsia_ingest/models.py": "ed9ce88b03d4cb76e9b1a27e352345d4e6789e266431f40754bc0b2dba3fa8db",
+    "src/arsia_ingest/pipeline.py": "12fa5df67e8d5aeb059e04aedee86554bf7359cbc53d09847a96e473710d67cf",
+    "src/arsia_ingest/qa_input.py": "80307dd0379d26623bd5e4556c860fb900693b570fce98350f988e04addcd14b",
+    "src/arsia_ingest/raw_load.py": "7d5fbc8af504dd4916a3083797beb1aa692234b0026ffd1983e254f72c4787e0",
+    "src/arsia_ingest/readers.py": "77af4af200ec216e141020fd63db551f27edb46b499cf8cebe2b4fe5858ab5d4",
+    "src/arsia_ingest/runner.py": "e485e0a49cc11bc2b10f5e3c9cb43e76f5d2e927f6f542628850bbff361d43cb",
+    "tests/test_fingerprint.py": "210911a4d6447dfeb04946df099789015cff82ba17ff01e0e007fea8a315cbca",
+    "tests/test_manifest.py": "5e307ee5c5c6ca45c591edd99cb01f5ce4954024cea450746a0a71b674f7f942",
+    "tests/test_raw_load_postgres.py": "4288e332e61f77055f434614bbca97997472e666a31b5b8d9888f9ae2e23188a",
+    "tests/test_runner.py": "ab919849df2cb3de862ab48098d0890a2cc34b633c5499ea5113773589e29550",
+    "tests/test_runner_postgres.py": "f1f3445650b59dcc00381b1a31859e1b7a0bdd462526ed5e3ecfd31375900816",
+    "tests/fixtures/s0/config.json": "e9f786ec29dc03726ada8e606b893e5a16a3e8d780306bffea86f67f96ac9de3",
+    "tests/fixtures/s0/contract.json": "a73bdac78cb3b3ec4aff66658c37108ca84c34572ef3f42460a73e169b9411b6",
+    "tests/fixtures/s0/syn_nsw_crash.xlsx": "18c4953966224ee7f217afeebbb884dd6ccc01016ece2c077bb9717deb8c4541",
+    "tests/fixtures/s0/syn_nsw_traffic_unit.xlsx": "c114dece4b1c4a6698c4d0e4b05b912b9aa342598fd7f0def43df2b0428bd92c",
+    "tests/fixtures/s0/syn_qld_crash.csv": "7dbbd7bb3f9e5c6e07caf8c9e01be26abad6d1d383de482dcde9393071d61370",
+    "tests/fixtures/s0/syn_vic_accident.csv": "369798a8aa662d644df2e98091ad8a577a9741ce018dba47892889162aa8a144",
+    "tests/fixtures/s0/syn_vic_node.csv": "7bc159e10ec6d3e94a4d4673370ecd602e31bc0d2ed3971895f4126b045300a7",
+    "tests/fixtures/s0/syn_vic_person.csv": "af1104f14b46c7048b96d8a61546cbe1ed5e597f986673bfcc2d73c4855f14f4",
+    "tests/fixtures/s0/syn_vic_vehicle.csv": "5b7df97bde23fece0d19465ba8e4006544f6d907f963f7f352b8218b1fafec92"
+  },
+  "final_document_hashes": {
+    "README.md": "23247d086b5836fdfd02255f78c85009a491301cadd3c2de43bbda0c956f50cf",
+    "docs/runner.md": "98a8e12f101204928339aa7284adf2de3fa20741d78bfba50e0b08ed8d99eda7",
+    "docs/runner-locks.md": "52b93deeb059adeea93843e9221fc84a8af2e7e83aad7e99dddab3d6e0c4b1dc"
+  },
+  "local_evidence": [
+    {
+      "path": "artifacts/b12-lock-validation-2026-09-21/after.json",
+      "sha256": "5e088782d0bd75975a5c0535fc8dd3317bbc2f3e4f04ae92e973315257fa4e12"
+    },
+    {
+      "path": "artifacts/b12-lock-validation-2026-09-21/before.json",
+      "sha256": "5e088782d0bd75975a5c0535fc8dd3317bbc2f3e4f04ae92e973315257fa4e12"
+    },
+    {
+      "path": "artifacts/b12-lock-validation-2026-09-21/collect_evidence.py",
+      "sha256": "4efa9fe3b3cbc3bf269dce54033cd44357b5da56d7bab9994cbf9db73acf14e4"
+    },
+    {
+      "path": "artifacts/b12-lock-validation-2026-09-21/focused-command.json",
+      "sha256": "91c51de5791025b629bcd2a5f7eab0f77e24221475480c29788cc664dd5de305"
+    },
+    {
+      "path": "artifacts/b12-lock-validation-2026-09-21/focused.txt",
+      "sha256": "00fd61c3f67d33820b00e0f9ca40e0986949243758232b576f331e1397198911"
+    },
+    {
+      "path": "artifacts/b12-lock-validation-2026-09-21/focused.xml",
+      "sha256": "821b18fb04d8acedfebf417f7af5b8087944f18bfaebc86e2f4cde8dca6a980f"
+    },
+    {
+      "path": "artifacts/b12-lock-validation-2026-09-21/original-venv-result.json",
+      "sha256": "c9927f53b219919238dcba67c0eb90d9b15af6f76f8364c5096f9f33ab75780d"
+    },
+    {
+      "path": "artifacts/b12-lock-validation-2026-09-21/original-venv.txt",
+      "sha256": "642ca396d7c3156e5dbee2210e3a92c52b736ce0bdd5a5f450c763914313b893"
+    },
+    {
+      "path": "artifacts/b12-lock-validation-2026-09-21/original-venv.xml",
+      "sha256": "d2dd723d6f0f7d45bddb037125eac9baed4f62a6602f0f09073209ccac608554"
+    },
+    {
+      "path": "artifacts/b12-lock-validation-2026-09-21/postgres-result.json",
+      "sha256": "89a06118e55db9de924648eae86387515ad898b9f9b38ac8d221eeeb5243b0f3"
+    },
+    {
+      "path": "artifacts/b12-lock-validation-2026-09-21/postgres.txt",
+      "sha256": "aca245ad54be85eaaa2ab8be015c36f86941e441e31659c615758bd1a8235f57"
+    },
+    {
+      "path": "artifacts/b12-lock-validation-2026-09-21/postgres.xml",
+      "sha256": "a5e100f86f75c1bbeb7c7699ae6961c6fb44f63de6f4f05d167ca2428db769ea"
+    },
+    {
+      "path": "artifacts/b12-lock-validation-2026-09-21/pytest-tmp/test_postgres_busy_runner_does0/lock-check.json",
+      "sha256": "c6d9f60b24fc251546248f9c10b034e83b83274e1dd9f1241b9c3f028bcb5a8d"
+    },
+    {
+      "path": "artifacts/b12-lock-validation-2026-09-21/pytest-tmp/test_postgres_busy_runner_does0/runs/synthetic/runs/e04bc98e-c057-450b-8a1c-9018e9c0154b/bindings.json",
+      "sha256": "c0832977c48538b65ce3844bc09fe920c11ec0fa2be109f33cca223359b88992"
+    },
+    {
+      "path": "artifacts/b12-lock-validation-2026-09-21/pytest-tmp/test_postgres_busy_runner_does0/runs/synthetic/runs/e04bc98e-c057-450b-8a1c-9018e9c0154b/manifest.json",
+      "sha256": "080f8664933f47c491a5730df2f575f502a4f05821dad8dd8d04e91268fa0447"
+    },
+    {
+      "path": "artifacts/b12-lock-validation-2026-09-21/pytest-tmp/test_postgres_busy_runner_does0/runs/synthetic/runs/e04bc98e-c057-450b-8a1c-9018e9c0154b/result.json",
+      "sha256": "1f11f6bc391977a7533cab5a43716d2175515d326e94f5b5588937c49c380f9a"
+    },
+    {
+      "path": "artifacts/b12-lock-validation-2026-09-21/pytest-tmp/test_postgres_runner_closes_he0/lock-check.json",
+      "sha256": "5dfc82c639f1381204e5ef91b3a2c4857e1cf35cbaf8115993d0c08c0459854d"
+    },
+    {
+      "path": "artifacts/b12-lock-validation-2026-09-21/pytest-tmp/test_postgres_runner_closes_he0/runs/synthetic/runs/217e59cf-92ae-416b-a7ea-78ff39276182/bindings.json",
+      "sha256": "c0832977c48538b65ce3844bc09fe920c11ec0fa2be109f33cca223359b88992"
+    },
+    {
+      "path": "artifacts/b12-lock-validation-2026-09-21/pytest-tmp/test_postgres_runner_closes_he0/runs/synthetic/runs/217e59cf-92ae-416b-a7ea-78ff39276182/error.json",
+      "sha256": "72a2f0f14805f30ef77bab4dbf911f14adfc7e38c337a745e90a2964fb4d7c7d"
+    },
+    {
+      "path": "artifacts/b12-lock-validation-2026-09-21/pytest-tmp/test_postgres_runner_closes_he0/runs/synthetic/runs/217e59cf-92ae-416b-a7ea-78ff39276182/manifest.json",
+      "sha256": "51a3b87f95fb67c5b6306d4612a7df071f46f884d094416a325b12252c8dcdab"
+    },
+    {
+      "path": "artifacts/b12-lock-validation-2026-09-21/pytest-tmp/test_postgres_runner_closes_he0/runs/synthetic/runs/217e59cf-92ae-416b-a7ea-78ff39276182/result.json",
+      "sha256": "9af121cd867bc53a46b59aa8236f41e6a0c4eb965d348601c249159a187388fd"
+    },
+    {
+      "path": "artifacts/b12-lock-validation-2026-09-21/pytest-tmp/test_postgres_session_lock_sur0/lock-check.json",
+      "sha256": "4140f841d4839546249d1a5482a3d41c30a53798739137c0d5083bac1368c8fc"
+    },
+    {
+      "path": "artifacts/b12-lock-validation-2026-09-21/run_validation.py",
+      "sha256": "01bcb3b523b0be4dbc36e95a4b573ac36426ebbcdd3d87ef71fcef1d38a59c3a"
+    },
+    {
+      "path": "artifacts/b12-lock-validation-2026-09-21/versions.json",
+      "sha256": "25b51b64a69e9903f23ae108487463b8fe7f6d46c732866ec91bf111b14ac7d1"
+    }
+  ]
+}

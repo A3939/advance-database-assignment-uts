@@ -1,0 +1,1475 @@
+{
+  "checked_at_utc": "2026-09-20T13:54:45.838878+00:00",
+  "status": "B11 independent native-input and synthetic PostgreSQL Raw checks verified; QA persistence and official acceptance pending",
+  "branch": "peixian/dev",
+  "base_commit": "cbb548ead68a6502870362b742f444ff180e07e8",
+  "tested_worktree_changes": "tests/test_input_qa_postgres.py adds QA01 before the lossless Raw check and saves manifests/reports for both database cases; production code is unchanged",
+  "environment": {
+    "python": "3.12.6",
+    "packages": {
+      "psycopg": "3.3.6",
+      "psycopg-binary": "3.3.6",
+      "pytest": "8.4.2",
+      "openpyxl": "3.1.5"
+    },
+    "postgres": {
+      "current_user": "arsia_loader",
+      "session_user": "arsia_loader",
+      "database": "arsia",
+      "version": "PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+      "settings": {
+        "server_version_num": "160015",
+        "server_encoding": "UTF8",
+        "TimeZone": "UTC",
+        "transaction_isolation": "read committed"
+      },
+      "table_counts": {
+        "meta.source": 0,
+        "meta.resource": 0,
+        "raw.record": 0
+      },
+      "privileges": {
+        "meta.source": {
+          "select": true,
+          "insert": true
+        },
+        "meta.resource": {
+          "select": true,
+          "insert": true
+        },
+        "raw.record": {
+          "select": true,
+          "insert": true
+        }
+      },
+      "pending_relations": {
+        "meta.batch": null,
+        "qa.check_result": null
+      }
+    },
+    "container": "arsia-b08-20260920-e4d6b07f-db",
+    "port_at_run": 57803,
+    "image": "postgres:16-bookworm@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67",
+    "final_container_state": "exited",
+    "setup": "Reused the isolated B08 database, original JJ migrations and existing Python environment; no installation or migration change"
+  },
+  "database_handoff": {
+    "branch": "jj/a01-environment",
+    "commit": "1b257c831c665e1c8d38ca7b6b0d2f8ed02afed1",
+    "prior_validation": {
+      "path": "docs/evidence/b08-postgres-validation-2026-09-20.json",
+      "sha256": "e2b1d0b401439f58ac102e3b526396b0228dd529aa32428208be18a2a39f5414"
+    }
+  },
+  "runs": {
+    "original-venv": {
+      "started_at_utc": "2026-09-20T13:51:02.480360+00:00",
+      "finished_at_utc": "2026-09-20T13:51:11.562830+00:00",
+      "command": [
+        "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "--junitxml",
+        "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b11-postgres-validation-2026-09-20/original-venv.xml"
+      ],
+      "environment": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "ARSIA_TEST_DSN": null
+      },
+      "exit_code": 0,
+      "counts": {
+        "tests": 426,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 10,
+        "passed": 416
+      },
+      "groups": {
+        "tests.test_config": {
+          "passed": 63,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_fingerprint": {
+          "passed": 47,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_input_qa_postgres": {
+          "passed": 0,
+          "skipped": 2,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_manifest": {
+          "passed": 75,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_pipeline": {
+          "passed": 16,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_qa_input": {
+          "passed": 50,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_raw_load": {
+          "passed": 31,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_raw_load_postgres": {
+          "passed": 0,
+          "skipped": 8,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_readers": {
+          "passed": 44,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_runner": {
+          "passed": 44,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_s0": {
+          "passed": 20,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_s8": {
+          "passed": 16,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_vic_links": {
+          "passed": 7,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_vic_profile": {
+          "passed": 3,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        }
+      },
+      "output_sha256": "fd33b85a71747303f7e4ba4eba1479e59fc3f1d699bf83d544d874704ec6ef6e",
+      "junit_sha256": "1484d70ee88bb8169dc33fbfe455e1f93cd82c597a3c5adc6faecf681af0529c"
+    },
+    "postgres": {
+      "started_at_utc": "2026-09-20T13:51:11.564274+00:00",
+      "finished_at_utc": "2026-09-20T13:51:20.894871+00:00",
+      "command": [
+        "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b08-db-reproduction-2026-09-20/venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "--junitxml",
+        "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b11-postgres-validation-2026-09-20/postgres.xml",
+        "--basetemp",
+        "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b11-postgres-validation-2026-09-20/pytest-tmp"
+      ],
+      "environment": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "ARSIA_TEST_DSN": "host=127.0.0.1 port=57803 dbname=arsia user=arsia_loader"
+      },
+      "exit_code": 0,
+      "counts": {
+        "tests": 426,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 426
+      },
+      "groups": {
+        "tests.test_config": {
+          "passed": 63,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_fingerprint": {
+          "passed": 47,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_input_qa_postgres": {
+          "passed": 2,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_manifest": {
+          "passed": 75,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_pipeline": {
+          "passed": 16,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_qa_input": {
+          "passed": 50,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_raw_load": {
+          "passed": 31,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_raw_load_postgres": {
+          "passed": 8,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_readers": {
+          "passed": 44,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_runner": {
+          "passed": 44,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_s0": {
+          "passed": 20,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_s8": {
+          "passed": 16,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_vic_links": {
+          "passed": 7,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_vic_profile": {
+          "passed": 3,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        }
+      },
+      "output_sha256": "5adad2635f2065f57bd4874c93ba690ec3d492dfbd9780536d63efc99dcb1a56",
+      "junit_sha256": "57f327d7859b460df2c1c38d11a6832750e7135a4263bac78711dbeec5fe041f"
+    }
+  },
+  "scope": {
+    "qa01": "Real native-file replay, with accepted synthetic mappings; 50 QA regression cases plus the QA01 step in the successful PostgreSQL case",
+    "qa02": "Two real PostgreSQL cases: all 19 rows match across seven files, including four distinct Node locators; one changed payload blocks its file and batch despite equal row counts",
+    "inventory": "Test-only hashed files created by tests/test_manifest.py; no deployed platform SQL, FP1 digest or publication is claimed",
+    "reports": "Each report contains seven file results and one batch summary. Full reports/details are create-only files in the local run; this receipt retains their hashes, measurements and row-level mismatch",
+    "not_verified": [
+      "QA result INSERT, uniqueness and transaction rollback in qa.check_result (meta.batch and qa.check_result are absent)",
+      "Official source approval, release compatibility or official full-scale loading",
+      "Real FP1, downstream modules, publication or a complete B10/B12-B14 build"
+    ]
+  },
+  "qa_measurements": [
+    {
+      "report": {
+        "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_compares_al0/qa01-report.json",
+        "sha256": "195607c821816e8af599ecae11771569463496681699459941fd58b05181c5db"
+      },
+      "manifest": {
+        "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_compares_al0/manifest.json",
+        "sha256": "43b93964583aa8ccfd25ba23b970fe96671a7e2c24a0e7339139279711d3c262"
+      },
+      "source_count": 3,
+      "file_count": 7,
+      "native_count": 19,
+      "native_header_columns": 197,
+      "rows": [
+        {
+          "rule_id": "QA01_INPUT",
+          "object_key": "file:syn_b08_f7e109adb57c4f9bbd6f09aa0a5a7343_nsw_crash:18c4953966224ee7f217afeebbb884dd6ccc01016ece2c077bb9717deb8c4541:xlsx-native-v1",
+          "result": "pass",
+          "affected_count": 0,
+          "actual": {
+            "evaluated_count": 1,
+            "metrics": {
+              "bundle_confirmed": true,
+              "contract_confirmed": true,
+              "hash_match": true,
+              "header_match": true
+            },
+            "violation_count": 0
+          },
+          "expected": {
+            "evaluated_count": 1,
+            "metrics": {
+              "bundle_confirmed": true,
+              "contract_confirmed": true,
+              "hash_match": true,
+              "header_match": true
+            },
+            "violation_count": 0
+          },
+          "checked_at": "2026-09-20T13:51:12.201503+00:00",
+          "reason_codes": [],
+          "detail": {
+            "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_compares_al0/qa-input/QA01_INPUT-syn_b08_f7e109adb57c4f9bbd6f09aa0a5a7343_nsw_crash.jsonl",
+            "sha256": "b647c3fb4174f0bf2bacac952965f264caf640cc2f8ef430ae8ca9aa6a934b05",
+            "row_count": 1
+          }
+        },
+        {
+          "rule_id": "QA01_INPUT",
+          "object_key": "file:syn_b08_f7e109adb57c4f9bbd6f09aa0a5a7343_nsw_traffic_unit:c114dece4b1c4a6698c4d0e4b05b912b9aa342598fd7f0def43df2b0428bd92c:xlsx-native-v1",
+          "result": "pass",
+          "affected_count": 0,
+          "actual": {
+            "evaluated_count": 1,
+            "metrics": {
+              "bundle_confirmed": true,
+              "contract_confirmed": true,
+              "hash_match": true,
+              "header_match": true
+            },
+            "violation_count": 0
+          },
+          "expected": {
+            "evaluated_count": 1,
+            "metrics": {
+              "bundle_confirmed": true,
+              "contract_confirmed": true,
+              "hash_match": true,
+              "header_match": true
+            },
+            "violation_count": 0
+          },
+          "checked_at": "2026-09-20T13:51:12.203574+00:00",
+          "reason_codes": [],
+          "detail": {
+            "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_compares_al0/qa-input/QA01_INPUT-syn_b08_f7e109adb57c4f9bbd6f09aa0a5a7343_nsw_traffic_unit.jsonl",
+            "sha256": "b647c3fb4174f0bf2bacac952965f264caf640cc2f8ef430ae8ca9aa6a934b05",
+            "row_count": 1
+          }
+        },
+        {
+          "rule_id": "QA01_INPUT",
+          "object_key": "file:syn_b08_f7e109adb57c4f9bbd6f09aa0a5a7343_qld_crash:7dbbd7bb3f9e5c6e07caf8c9e01be26abad6d1d383de482dcde9393071d61370:csv-native-v1",
+          "result": "pass",
+          "affected_count": 0,
+          "actual": {
+            "evaluated_count": 1,
+            "metrics": {
+              "bundle_confirmed": true,
+              "contract_confirmed": true,
+              "hash_match": true,
+              "header_match": true
+            },
+            "violation_count": 0
+          },
+          "expected": {
+            "evaluated_count": 1,
+            "metrics": {
+              "bundle_confirmed": true,
+              "contract_confirmed": true,
+              "hash_match": true,
+              "header_match": true
+            },
+            "violation_count": 0
+          },
+          "checked_at": "2026-09-20T13:51:12.204654+00:00",
+          "reason_codes": [],
+          "detail": {
+            "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_compares_al0/qa-input/QA01_INPUT-syn_b08_f7e109adb57c4f9bbd6f09aa0a5a7343_qld_crash.jsonl",
+            "sha256": "b647c3fb4174f0bf2bacac952965f264caf640cc2f8ef430ae8ca9aa6a934b05",
+            "row_count": 1
+          }
+        },
+        {
+          "rule_id": "QA01_INPUT",
+          "object_key": "file:syn_b08_f7e109adb57c4f9bbd6f09aa0a5a7343_vic_accident:369798a8aa662d644df2e98091ad8a577a9741ce018dba47892889162aa8a144:csv-native-v1",
+          "result": "pass",
+          "affected_count": 0,
+          "actual": {
+            "evaluated_count": 1,
+            "metrics": {
+              "bundle_confirmed": true,
+              "contract_confirmed": true,
+              "hash_match": true,
+              "header_match": true
+            },
+            "violation_count": 0
+          },
+          "expected": {
+            "evaluated_count": 1,
+            "metrics": {
+              "bundle_confirmed": true,
+              "contract_confirmed": true,
+              "hash_match": true,
+              "header_match": true
+            },
+            "violation_count": 0
+          },
+          "checked_at": "2026-09-20T13:51:12.205636+00:00",
+          "reason_codes": [],
+          "detail": {
+            "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_compares_al0/qa-input/QA01_INPUT-syn_b08_f7e109adb57c4f9bbd6f09aa0a5a7343_vic_accident.jsonl",
+            "sha256": "b647c3fb4174f0bf2bacac952965f264caf640cc2f8ef430ae8ca9aa6a934b05",
+            "row_count": 1
+          }
+        },
+        {
+          "rule_id": "QA01_INPUT",
+          "object_key": "file:syn_b08_f7e109adb57c4f9bbd6f09aa0a5a7343_vic_node:7bc159e10ec6d3e94a4d4673370ecd602e31bc0d2ed3971895f4126b045300a7:csv-native-v1",
+          "result": "pass",
+          "affected_count": 0,
+          "actual": {
+            "evaluated_count": 1,
+            "metrics": {
+              "bundle_confirmed": true,
+              "contract_confirmed": true,
+              "hash_match": true,
+              "header_match": true
+            },
+            "violation_count": 0
+          },
+          "expected": {
+            "evaluated_count": 1,
+            "metrics": {
+              "bundle_confirmed": true,
+              "contract_confirmed": true,
+              "hash_match": true,
+              "header_match": true
+            },
+            "violation_count": 0
+          },
+          "checked_at": "2026-09-20T13:51:12.206616+00:00",
+          "reason_codes": [],
+          "detail": {
+            "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_compares_al0/qa-input/QA01_INPUT-syn_b08_f7e109adb57c4f9bbd6f09aa0a5a7343_vic_node.jsonl",
+            "sha256": "b647c3fb4174f0bf2bacac952965f264caf640cc2f8ef430ae8ca9aa6a934b05",
+            "row_count": 1
+          }
+        },
+        {
+          "rule_id": "QA01_INPUT",
+          "object_key": "file:syn_b08_f7e109adb57c4f9bbd6f09aa0a5a7343_vic_person:af1104f14b46c7048b96d8a61546cbe1ed5e597f986673bfcc2d73c4855f14f4:csv-native-v1",
+          "result": "pass",
+          "affected_count": 0,
+          "actual": {
+            "evaluated_count": 1,
+            "metrics": {
+              "bundle_confirmed": true,
+              "contract_confirmed": true,
+              "hash_match": true,
+              "header_match": true
+            },
+            "violation_count": 0
+          },
+          "expected": {
+            "evaluated_count": 1,
+            "metrics": {
+              "bundle_confirmed": true,
+              "contract_confirmed": true,
+              "hash_match": true,
+              "header_match": true
+            },
+            "violation_count": 0
+          },
+          "checked_at": "2026-09-20T13:51:12.207572+00:00",
+          "reason_codes": [],
+          "detail": {
+            "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_compares_al0/qa-input/QA01_INPUT-syn_b08_f7e109adb57c4f9bbd6f09aa0a5a7343_vic_person.jsonl",
+            "sha256": "b647c3fb4174f0bf2bacac952965f264caf640cc2f8ef430ae8ca9aa6a934b05",
+            "row_count": 1
+          }
+        },
+        {
+          "rule_id": "QA01_INPUT",
+          "object_key": "file:syn_b08_f7e109adb57c4f9bbd6f09aa0a5a7343_vic_vehicle:5b7df97bde23fece0d19465ba8e4006544f6d907f963f7f352b8218b1fafec92:csv-native-v1",
+          "result": "pass",
+          "affected_count": 0,
+          "actual": {
+            "evaluated_count": 1,
+            "metrics": {
+              "bundle_confirmed": true,
+              "contract_confirmed": true,
+              "hash_match": true,
+              "header_match": true
+            },
+            "violation_count": 0
+          },
+          "expected": {
+            "evaluated_count": 1,
+            "metrics": {
+              "bundle_confirmed": true,
+              "contract_confirmed": true,
+              "hash_match": true,
+              "header_match": true
+            },
+            "violation_count": 0
+          },
+          "checked_at": "2026-09-20T13:51:12.208869+00:00",
+          "reason_codes": [],
+          "detail": {
+            "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_compares_al0/qa-input/QA01_INPUT-syn_b08_f7e109adb57c4f9bbd6f09aa0a5a7343_vic_vehicle.jsonl",
+            "sha256": "b647c3fb4174f0bf2bacac952965f264caf640cc2f8ef430ae8ca9aa6a934b05",
+            "row_count": 1
+          }
+        },
+        {
+          "rule_id": "QA01_INPUT",
+          "object_key": "batch",
+          "result": "pass",
+          "affected_count": 0,
+          "actual": {
+            "evaluated_count": 7,
+            "metrics": {
+              "block_count": 0,
+              "limited_count": 0,
+              "missing_count": 0,
+              "object_count": 7,
+              "pass_count": 7
+            },
+            "violation_count": 0
+          },
+          "expected": {
+            "evaluated_count": 7,
+            "metrics": {
+              "block_count": 0,
+              "limited_count": 0,
+              "missing_count": 0,
+              "object_count": 7,
+              "pass_count": 7
+            },
+            "violation_count": 0
+          },
+          "checked_at": "2026-09-20T13:51:12.208876+00:00",
+          "reason_codes": []
+        }
+      ],
+      "differences": []
+    },
+    {
+      "report": {
+        "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_compares_al0/qa02-report.json",
+        "sha256": "461e57d2e35b06383d0880fba3ae8c0f8d7491f967aae7a51a2788e832138311"
+      },
+      "manifest": {
+        "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_compares_al0/manifest.json",
+        "sha256": "43b93964583aa8ccfd25ba23b970fe96671a7e2c24a0e7339139279711d3c262"
+      },
+      "source_count": 3,
+      "file_count": 7,
+      "native_count": 19,
+      "native_header_columns": 197,
+      "rows": [
+        {
+          "rule_id": "QA02_RAW",
+          "object_key": "file:syn_b08_f7e109adb57c4f9bbd6f09aa0a5a7343_nsw_crash:18c4953966224ee7f217afeebbb884dd6ccc01016ece2c077bb9717deb8c4541:xlsx-native-v1",
+          "result": "pass",
+          "affected_count": 0,
+          "actual": {
+            "evaluated_count": 2,
+            "metrics": {
+              "distinct_locator_count": 2,
+              "payload_mismatch_count": 0,
+              "raw_count": 2
+            },
+            "violation_count": 0
+          },
+          "expected": {
+            "evaluated_count": 2,
+            "metrics": {
+              "distinct_locator_count": 2,
+              "payload_mismatch_count": 0,
+              "raw_count": 2
+            },
+            "violation_count": 0
+          },
+          "checked_at": "2026-09-20T13:51:12.247403+00:00",
+          "reason_codes": [],
+          "detail": {
+            "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_compares_al0/qa-lossless/QA02_RAW-syn_b08_f7e109adb57c4f9bbd6f09aa0a5a7343_nsw_crash.jsonl",
+            "sha256": "94a8dce7fb69caca1c42c40eb6174b38d33c48fbf216a940ed9dd480b120e48f",
+            "row_count": 1
+          }
+        },
+        {
+          "rule_id": "QA02_RAW",
+          "object_key": "file:syn_b08_f7e109adb57c4f9bbd6f09aa0a5a7343_nsw_traffic_unit:c114dece4b1c4a6698c4d0e4b05b912b9aa342598fd7f0def43df2b0428bd92c:xlsx-native-v1",
+          "result": "pass",
+          "affected_count": 0,
+          "actual": {
+            "evaluated_count": 3,
+            "metrics": {
+              "distinct_locator_count": 3,
+              "payload_mismatch_count": 0,
+              "raw_count": 3
+            },
+            "violation_count": 0
+          },
+          "expected": {
+            "evaluated_count": 3,
+            "metrics": {
+              "distinct_locator_count": 3,
+              "payload_mismatch_count": 0,
+              "raw_count": 3
+            },
+            "violation_count": 0
+          },
+          "checked_at": "2026-09-20T13:51:12.250392+00:00",
+          "reason_codes": [],
+          "detail": {
+            "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_compares_al0/qa-lossless/QA02_RAW-syn_b08_f7e109adb57c4f9bbd6f09aa0a5a7343_nsw_traffic_unit.jsonl",
+            "sha256": "845cf4bce811e4fd7f9db6c811223cbe7f4251cb4171a922d8f42fca10fa6bf2",
+            "row_count": 1
+          }
+        },
+        {
+          "rule_id": "QA02_RAW",
+          "object_key": "file:syn_b08_f7e109adb57c4f9bbd6f09aa0a5a7343_qld_crash:7dbbd7bb3f9e5c6e07caf8c9e01be26abad6d1d383de482dcde9393071d61370:csv-native-v1",
+          "result": "pass",
+          "affected_count": 0,
+          "actual": {
+            "evaluated_count": 2,
+            "metrics": {
+              "distinct_locator_count": 2,
+              "payload_mismatch_count": 0,
+              "raw_count": 2
+            },
+            "violation_count": 0
+          },
+          "expected": {
+            "evaluated_count": 2,
+            "metrics": {
+              "distinct_locator_count": 2,
+              "payload_mismatch_count": 0,
+              "raw_count": 2
+            },
+            "violation_count": 0
+          },
+          "checked_at": "2026-09-20T13:51:12.252419+00:00",
+          "reason_codes": [],
+          "detail": {
+            "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_compares_al0/qa-lossless/QA02_RAW-syn_b08_f7e109adb57c4f9bbd6f09aa0a5a7343_qld_crash.jsonl",
+            "sha256": "94a8dce7fb69caca1c42c40eb6174b38d33c48fbf216a940ed9dd480b120e48f",
+            "row_count": 1
+          }
+        },
+        {
+          "rule_id": "QA02_RAW",
+          "object_key": "file:syn_b08_f7e109adb57c4f9bbd6f09aa0a5a7343_vic_accident:369798a8aa662d644df2e98091ad8a577a9741ce018dba47892889162aa8a144:csv-native-v1",
+          "result": "pass",
+          "affected_count": 0,
+          "actual": {
+            "evaluated_count": 2,
+            "metrics": {
+              "distinct_locator_count": 2,
+              "payload_mismatch_count": 0,
+              "raw_count": 2
+            },
+            "violation_count": 0
+          },
+          "expected": {
+            "evaluated_count": 2,
+            "metrics": {
+              "distinct_locator_count": 2,
+              "payload_mismatch_count": 0,
+              "raw_count": 2
+            },
+            "violation_count": 0
+          },
+          "checked_at": "2026-09-20T13:51:12.254557+00:00",
+          "reason_codes": [],
+          "detail": {
+            "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_compares_al0/qa-lossless/QA02_RAW-syn_b08_f7e109adb57c4f9bbd6f09aa0a5a7343_vic_accident.jsonl",
+            "sha256": "94a8dce7fb69caca1c42c40eb6174b38d33c48fbf216a940ed9dd480b120e48f",
+            "row_count": 1
+          }
+        },
+        {
+          "rule_id": "QA02_RAW",
+          "object_key": "file:syn_b08_f7e109adb57c4f9bbd6f09aa0a5a7343_vic_node:7bc159e10ec6d3e94a4d4673370ecd602e31bc0d2ed3971895f4126b045300a7:csv-native-v1",
+          "result": "pass",
+          "affected_count": 0,
+          "actual": {
+            "evaluated_count": 4,
+            "metrics": {
+              "distinct_locator_count": 4,
+              "payload_mismatch_count": 0,
+              "raw_count": 4
+            },
+            "violation_count": 0
+          },
+          "expected": {
+            "evaluated_count": 4,
+            "metrics": {
+              "distinct_locator_count": 4,
+              "payload_mismatch_count": 0,
+              "raw_count": 4
+            },
+            "violation_count": 0
+          },
+          "checked_at": "2026-09-20T13:51:12.256500+00:00",
+          "reason_codes": [],
+          "detail": {
+            "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_compares_al0/qa-lossless/QA02_RAW-syn_b08_f7e109adb57c4f9bbd6f09aa0a5a7343_vic_node.jsonl",
+            "sha256": "0036192ea2a3193df4822607ac9e8112c35269a4489e70243af47368e6af1dc5",
+            "row_count": 1
+          }
+        },
+        {
+          "rule_id": "QA02_RAW",
+          "object_key": "file:syn_b08_f7e109adb57c4f9bbd6f09aa0a5a7343_vic_person:af1104f14b46c7048b96d8a61546cbe1ed5e597f986673bfcc2d73c4855f14f4:csv-native-v1",
+          "result": "pass",
+          "affected_count": 0,
+          "actual": {
+            "evaluated_count": 3,
+            "metrics": {
+              "distinct_locator_count": 3,
+              "payload_mismatch_count": 0,
+              "raw_count": 3
+            },
+            "violation_count": 0
+          },
+          "expected": {
+            "evaluated_count": 3,
+            "metrics": {
+              "distinct_locator_count": 3,
+              "payload_mismatch_count": 0,
+              "raw_count": 3
+            },
+            "violation_count": 0
+          },
+          "checked_at": "2026-09-20T13:51:12.258364+00:00",
+          "reason_codes": [],
+          "detail": {
+            "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_compares_al0/qa-lossless/QA02_RAW-syn_b08_f7e109adb57c4f9bbd6f09aa0a5a7343_vic_person.jsonl",
+            "sha256": "845cf4bce811e4fd7f9db6c811223cbe7f4251cb4171a922d8f42fca10fa6bf2",
+            "row_count": 1
+          }
+        },
+        {
+          "rule_id": "QA02_RAW",
+          "object_key": "file:syn_b08_f7e109adb57c4f9bbd6f09aa0a5a7343_vic_vehicle:5b7df97bde23fece0d19465ba8e4006544f6d907f963f7f352b8218b1fafec92:csv-native-v1",
+          "result": "pass",
+          "affected_count": 0,
+          "actual": {
+            "evaluated_count": 3,
+            "metrics": {
+              "distinct_locator_count": 3,
+              "payload_mismatch_count": 0,
+              "raw_count": 3
+            },
+            "violation_count": 0
+          },
+          "expected": {
+            "evaluated_count": 3,
+            "metrics": {
+              "distinct_locator_count": 3,
+              "payload_mismatch_count": 0,
+              "raw_count": 3
+            },
+            "violation_count": 0
+          },
+          "checked_at": "2026-09-20T13:51:12.260006+00:00",
+          "reason_codes": [],
+          "detail": {
+            "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_compares_al0/qa-lossless/QA02_RAW-syn_b08_f7e109adb57c4f9bbd6f09aa0a5a7343_vic_vehicle.jsonl",
+            "sha256": "845cf4bce811e4fd7f9db6c811223cbe7f4251cb4171a922d8f42fca10fa6bf2",
+            "row_count": 1
+          }
+        },
+        {
+          "rule_id": "QA02_RAW",
+          "object_key": "batch",
+          "result": "pass",
+          "affected_count": 0,
+          "actual": {
+            "evaluated_count": 7,
+            "metrics": {
+              "block_count": 0,
+              "limited_count": 0,
+              "missing_count": 0,
+              "object_count": 7,
+              "pass_count": 7
+            },
+            "violation_count": 0
+          },
+          "expected": {
+            "evaluated_count": 7,
+            "metrics": {
+              "block_count": 0,
+              "limited_count": 0,
+              "missing_count": 0,
+              "object_count": 7,
+              "pass_count": 7
+            },
+            "violation_count": 0
+          },
+          "checked_at": "2026-09-20T13:51:12.260014+00:00",
+          "reason_codes": []
+        }
+      ],
+      "differences": []
+    },
+    {
+      "report": {
+        "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_finds_chang0/qa02-report.json",
+        "sha256": "bc055d61e0403ed3d15ca7c70b86d7e93c848f6d402e4abe02903f6aee4ee50c"
+      },
+      "manifest": {
+        "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_finds_chang0/manifest.json",
+        "sha256": "cb6569c303230ccca5692149b7a8d80cae9fcab854ace332218cdee509f69fb5"
+      },
+      "source_count": 3,
+      "file_count": 7,
+      "native_count": 19,
+      "native_header_columns": 197,
+      "rows": [
+        {
+          "rule_id": "QA02_RAW",
+          "object_key": "file:syn_b08_3b3178f89dc34ee386ebf16d1ba73067_nsw_crash:18c4953966224ee7f217afeebbb884dd6ccc01016ece2c077bb9717deb8c4541:xlsx-native-v1",
+          "result": "block",
+          "affected_count": 1,
+          "actual": {
+            "evaluated_count": 2,
+            "metrics": {
+              "distinct_locator_count": 2,
+              "payload_mismatch_count": 1,
+              "raw_count": 2
+            },
+            "violation_count": 1
+          },
+          "expected": {
+            "evaluated_count": 2,
+            "metrics": {
+              "distinct_locator_count": 2,
+              "payload_mismatch_count": 0,
+              "raw_count": 2
+            },
+            "violation_count": 0
+          },
+          "checked_at": "2026-09-20T13:51:12.329582+00:00",
+          "reason_codes": [
+            "RAW_PAYLOAD_MISMATCH"
+          ],
+          "detail": {
+            "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_finds_chang0/qa-mismatch/QA02_RAW-syn_b08_3b3178f89dc34ee386ebf16d1ba73067_nsw_crash.jsonl",
+            "sha256": "b1c1f59604f2dfb7ef2c5a58a5294ddb753a988b597079c1c6cbe5f5789218b3",
+            "row_count": 2
+          }
+        },
+        {
+          "rule_id": "QA02_RAW",
+          "object_key": "file:syn_b08_3b3178f89dc34ee386ebf16d1ba73067_nsw_traffic_unit:c114dece4b1c4a6698c4d0e4b05b912b9aa342598fd7f0def43df2b0428bd92c:xlsx-native-v1",
+          "result": "pass",
+          "affected_count": 0,
+          "actual": {
+            "evaluated_count": 3,
+            "metrics": {
+              "distinct_locator_count": 3,
+              "payload_mismatch_count": 0,
+              "raw_count": 3
+            },
+            "violation_count": 0
+          },
+          "expected": {
+            "evaluated_count": 3,
+            "metrics": {
+              "distinct_locator_count": 3,
+              "payload_mismatch_count": 0,
+              "raw_count": 3
+            },
+            "violation_count": 0
+          },
+          "checked_at": "2026-09-20T13:51:12.332357+00:00",
+          "reason_codes": [],
+          "detail": {
+            "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_finds_chang0/qa-mismatch/QA02_RAW-syn_b08_3b3178f89dc34ee386ebf16d1ba73067_nsw_traffic_unit.jsonl",
+            "sha256": "845cf4bce811e4fd7f9db6c811223cbe7f4251cb4171a922d8f42fca10fa6bf2",
+            "row_count": 1
+          }
+        },
+        {
+          "rule_id": "QA02_RAW",
+          "object_key": "file:syn_b08_3b3178f89dc34ee386ebf16d1ba73067_qld_crash:7dbbd7bb3f9e5c6e07caf8c9e01be26abad6d1d383de482dcde9393071d61370:csv-native-v1",
+          "result": "pass",
+          "affected_count": 0,
+          "actual": {
+            "evaluated_count": 2,
+            "metrics": {
+              "distinct_locator_count": 2,
+              "payload_mismatch_count": 0,
+              "raw_count": 2
+            },
+            "violation_count": 0
+          },
+          "expected": {
+            "evaluated_count": 2,
+            "metrics": {
+              "distinct_locator_count": 2,
+              "payload_mismatch_count": 0,
+              "raw_count": 2
+            },
+            "violation_count": 0
+          },
+          "checked_at": "2026-09-20T13:51:12.334155+00:00",
+          "reason_codes": [],
+          "detail": {
+            "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_finds_chang0/qa-mismatch/QA02_RAW-syn_b08_3b3178f89dc34ee386ebf16d1ba73067_qld_crash.jsonl",
+            "sha256": "94a8dce7fb69caca1c42c40eb6174b38d33c48fbf216a940ed9dd480b120e48f",
+            "row_count": 1
+          }
+        },
+        {
+          "rule_id": "QA02_RAW",
+          "object_key": "file:syn_b08_3b3178f89dc34ee386ebf16d1ba73067_vic_accident:369798a8aa662d644df2e98091ad8a577a9741ce018dba47892889162aa8a144:csv-native-v1",
+          "result": "pass",
+          "affected_count": 0,
+          "actual": {
+            "evaluated_count": 2,
+            "metrics": {
+              "distinct_locator_count": 2,
+              "payload_mismatch_count": 0,
+              "raw_count": 2
+            },
+            "violation_count": 0
+          },
+          "expected": {
+            "evaluated_count": 2,
+            "metrics": {
+              "distinct_locator_count": 2,
+              "payload_mismatch_count": 0,
+              "raw_count": 2
+            },
+            "violation_count": 0
+          },
+          "checked_at": "2026-09-20T13:51:12.336035+00:00",
+          "reason_codes": [],
+          "detail": {
+            "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_finds_chang0/qa-mismatch/QA02_RAW-syn_b08_3b3178f89dc34ee386ebf16d1ba73067_vic_accident.jsonl",
+            "sha256": "94a8dce7fb69caca1c42c40eb6174b38d33c48fbf216a940ed9dd480b120e48f",
+            "row_count": 1
+          }
+        },
+        {
+          "rule_id": "QA02_RAW",
+          "object_key": "file:syn_b08_3b3178f89dc34ee386ebf16d1ba73067_vic_node:7bc159e10ec6d3e94a4d4673370ecd602e31bc0d2ed3971895f4126b045300a7:csv-native-v1",
+          "result": "pass",
+          "affected_count": 0,
+          "actual": {
+            "evaluated_count": 4,
+            "metrics": {
+              "distinct_locator_count": 4,
+              "payload_mismatch_count": 0,
+              "raw_count": 4
+            },
+            "violation_count": 0
+          },
+          "expected": {
+            "evaluated_count": 4,
+            "metrics": {
+              "distinct_locator_count": 4,
+              "payload_mismatch_count": 0,
+              "raw_count": 4
+            },
+            "violation_count": 0
+          },
+          "checked_at": "2026-09-20T13:51:12.338158+00:00",
+          "reason_codes": [],
+          "detail": {
+            "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_finds_chang0/qa-mismatch/QA02_RAW-syn_b08_3b3178f89dc34ee386ebf16d1ba73067_vic_node.jsonl",
+            "sha256": "0036192ea2a3193df4822607ac9e8112c35269a4489e70243af47368e6af1dc5",
+            "row_count": 1
+          }
+        },
+        {
+          "rule_id": "QA02_RAW",
+          "object_key": "file:syn_b08_3b3178f89dc34ee386ebf16d1ba73067_vic_person:af1104f14b46c7048b96d8a61546cbe1ed5e597f986673bfcc2d73c4855f14f4:csv-native-v1",
+          "result": "pass",
+          "affected_count": 0,
+          "actual": {
+            "evaluated_count": 3,
+            "metrics": {
+              "distinct_locator_count": 3,
+              "payload_mismatch_count": 0,
+              "raw_count": 3
+            },
+            "violation_count": 0
+          },
+          "expected": {
+            "evaluated_count": 3,
+            "metrics": {
+              "distinct_locator_count": 3,
+              "payload_mismatch_count": 0,
+              "raw_count": 3
+            },
+            "violation_count": 0
+          },
+          "checked_at": "2026-09-20T13:51:12.340185+00:00",
+          "reason_codes": [],
+          "detail": {
+            "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_finds_chang0/qa-mismatch/QA02_RAW-syn_b08_3b3178f89dc34ee386ebf16d1ba73067_vic_person.jsonl",
+            "sha256": "845cf4bce811e4fd7f9db6c811223cbe7f4251cb4171a922d8f42fca10fa6bf2",
+            "row_count": 1
+          }
+        },
+        {
+          "rule_id": "QA02_RAW",
+          "object_key": "file:syn_b08_3b3178f89dc34ee386ebf16d1ba73067_vic_vehicle:5b7df97bde23fece0d19465ba8e4006544f6d907f963f7f352b8218b1fafec92:csv-native-v1",
+          "result": "pass",
+          "affected_count": 0,
+          "actual": {
+            "evaluated_count": 3,
+            "metrics": {
+              "distinct_locator_count": 3,
+              "payload_mismatch_count": 0,
+              "raw_count": 3
+            },
+            "violation_count": 0
+          },
+          "expected": {
+            "evaluated_count": 3,
+            "metrics": {
+              "distinct_locator_count": 3,
+              "payload_mismatch_count": 0,
+              "raw_count": 3
+            },
+            "violation_count": 0
+          },
+          "checked_at": "2026-09-20T13:51:12.341919+00:00",
+          "reason_codes": [],
+          "detail": {
+            "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_finds_chang0/qa-mismatch/QA02_RAW-syn_b08_3b3178f89dc34ee386ebf16d1ba73067_vic_vehicle.jsonl",
+            "sha256": "845cf4bce811e4fd7f9db6c811223cbe7f4251cb4171a922d8f42fca10fa6bf2",
+            "row_count": 1
+          }
+        },
+        {
+          "rule_id": "QA02_RAW",
+          "object_key": "batch",
+          "result": "block",
+          "affected_count": 1,
+          "actual": {
+            "evaluated_count": 7,
+            "metrics": {
+              "block_count": 1,
+              "limited_count": 0,
+              "missing_count": 0,
+              "object_count": 7,
+              "pass_count": 6
+            },
+            "violation_count": 1
+          },
+          "expected": {
+            "evaluated_count": 7,
+            "metrics": {
+              "block_count": 0,
+              "limited_count": 0,
+              "missing_count": 0,
+              "object_count": 7,
+              "pass_count": 7
+            },
+            "violation_count": 0
+          },
+          "checked_at": "2026-09-20T13:51:12.341927+00:00",
+          "reason_codes": [
+            "FILE_CHECK_BLOCKED"
+          ]
+        }
+      ],
+      "differences": [
+        {
+          "actual": {
+            "file_sha256": "18c4953966224ee7f217afeebbb884dd6ccc01016ece2c077bb9717deb8c4541",
+            "parser_version": "xlsx-native-v1",
+            "payload": {
+              "Alignment": null,
+              "Conurbation 1": null,
+              "Crash ID": "changed-value",
+              "DCA - code": null,
+              "DCA - description": null,
+              "DCA supplement": null,
+              "Day of week of crash": null,
+              "Degree of crash": null,
+              "Degree of crash - detailed": "F",
+              "Direction": null,
+              "Distance": null,
+              "First impact type": null,
+              "Identifying feature": null,
+              "Identifying feature type": null,
+              "Key TU type": null,
+              "LGA": null,
+              "Latitude": "-33.8600000",
+              "Longitude": "151.2000000",
+              "Month of crash": "January",
+              "Natural lighting": null,
+              "No. killed": "2",
+              "No. minor-other injured": "0",
+              "No. moderately injured": "0",
+              "No. of traffic units involved": "2",
+              "No. seriously injured": "1",
+              "Other TU type": null,
+              "Other traffic control": null,
+              "Primary hazardous feature": null,
+              "Primary permanent feature": null,
+              "Primary temporary feature": null,
+              "RUM - code": null,
+              "RUM - description": null,
+              "Reporting year": null,
+              "Road classification (admin)": null,
+              "Road surface": null,
+              "Route no.": null,
+              "School zone active": null,
+              "School zone location": null,
+              "Signals operation": null,
+              "Speed limit": null,
+              "Street lighting": null,
+              "Street of crash": null,
+              "Street type": null,
+              "Surface condition": null,
+              "Town": null,
+              "Two-hour intervals": null,
+              "Type of location": null,
+              "Urbanisation": null,
+              "Weather": null,
+              "Year of crash": "2020"
+            },
+            "resource_id": "syn_b08_3b3178f89dc34ee386ebf16d1ba73067_nsw_crash",
+            "source_id": "syn_b08_3b3178f89dc34ee386ebf16d1ba73067_nsw"
+          },
+          "expected": {
+            "Alignment": null,
+            "Conurbation 1": null,
+            "Crash ID": "0001",
+            "DCA - code": null,
+            "DCA - description": null,
+            "DCA supplement": null,
+            "Day of week of crash": null,
+            "Degree of crash": null,
+            "Degree of crash - detailed": "F",
+            "Direction": null,
+            "Distance": null,
+            "First impact type": null,
+            "Identifying feature": null,
+            "Identifying feature type": null,
+            "Key TU type": null,
+            "LGA": null,
+            "Latitude": "-33.8600000",
+            "Longitude": "151.2000000",
+            "Month of crash": "January",
+            "Natural lighting": null,
+            "No. killed": "2",
+            "No. minor-other injured": "0",
+            "No. moderately injured": "0",
+            "No. of traffic units involved": "2",
+            "No. seriously injured": "1",
+            "Other TU type": null,
+            "Other traffic control": null,
+            "Primary hazardous feature": null,
+            "Primary permanent feature": null,
+            "Primary temporary feature": null,
+            "RUM - code": null,
+            "RUM - description": null,
+            "Reporting year": null,
+            "Road classification (admin)": null,
+            "Road surface": null,
+            "Route no.": null,
+            "School zone active": null,
+            "School zone location": null,
+            "Signals operation": null,
+            "Speed limit": null,
+            "Street lighting": null,
+            "Street of crash": null,
+            "Street type": null,
+            "Surface condition": null,
+            "Town": null,
+            "Two-hour intervals": null,
+            "Type of location": null,
+            "Urbanisation": null,
+            "Weather": null,
+            "Year of crash": "2020"
+          },
+          "file_sha256": "18c4953966224ee7f217afeebbb884dd6ccc01016ece2c077bb9717deb8c4541",
+          "raw_record_id": "c1d8d9aa-8c34-48d2-8acf-6f96d3e66bc4",
+          "reason_codes": [
+            "RAW_PAYLOAD_MISMATCH"
+          ],
+          "resource_id": "syn_b08_3b3178f89dc34ee386ebf16d1ba73067_nsw_crash",
+          "row_locator": "[\"Sheet1\", 2]"
+        }
+      ]
+    }
+  ],
+  "database_after_tests": {
+    "current_user": "arsia_loader",
+    "session_user": "arsia_loader",
+    "database": "arsia",
+    "version": "PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+    "settings": {
+      "server_version_num": "160015",
+      "server_encoding": "UTF8",
+      "TimeZone": "UTC",
+      "transaction_isolation": "read committed"
+    },
+    "table_counts": {
+      "meta.source": 0,
+      "meta.resource": 0,
+      "raw.record": 0
+    },
+    "privileges": {
+      "meta.source": {
+        "select": true,
+        "insert": true
+      },
+      "meta.resource": {
+        "select": true,
+        "insert": true
+      },
+      "raw.record": {
+        "select": true,
+        "insert": true
+      }
+    },
+    "pending_relations": {
+      "meta.batch": null,
+      "qa.check_result": null
+    }
+  },
+  "preservation": {
+    "table_counts_before_and_after": {
+      "meta.source": 0,
+      "meta.resource": 0,
+      "raw.record": 0
+    },
+    "all_test_writes_rolled_back": true,
+    "shared_raw_dataset_created": false,
+    "previous_evidence_files_unchanged": 18,
+    "original_venv_unchanged": true,
+    "test_container_stopped_and_volume_retained": true,
+    "commit_push_or_website_update": false
+  },
+  "tested_file_hashes": {
+    "config/qa-team-v1.1.json": "d1729d38c890645cad18b55fdb3b0c8451cdf89f4627db507e5adc8abf5b6893",
+    "config/synthetic-s0.json": "e1c8f35faac4ace8ba73febb8dd933e36de9ee13650f65c7aeb8d452fe0e89b8",
+    "pyproject.toml": "75f9b36d2c7fc6d3e9a8df00b4e870b7e198d52412decf06786701e63f7f88a1",
+    "src/arsia_ingest/__init__.py": "1b968d2191475834219bcb988e7a25867afb1eff95b73acd7aaccae34568cdd3",
+    "src/arsia_ingest/__main__.py": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
+    "src/arsia_ingest/cli.py": "1f641c621a1408f3f997392841e910bff8ff2705dc0dedfd22d7ac88290b6918",
+    "src/arsia_ingest/config.py": "3ddc72a507ea1259ad8afc56fb25d74fabdf02eefedcfbe6e18c7b5b6374bcb2",
+    "src/arsia_ingest/fingerprint.py": "a1f3937176eb1df967d28b11a04d7c4e2bb031b52ebd2865bacc4ad94c4b1710",
+    "src/arsia_ingest/manifest.py": "734021f5af6ce14f8447dc743fd0efb458971ba171dd412899a1c7c4c57648c1",
+    "src/arsia_ingest/models.py": "ed9ce88b03d4cb76e9b1a27e352345d4e6789e266431f40754bc0b2dba3fa8db",
+    "src/arsia_ingest/pipeline.py": "12fa5df67e8d5aeb059e04aedee86554bf7359cbc53d09847a96e473710d67cf",
+    "src/arsia_ingest/qa_input.py": "80307dd0379d26623bd5e4556c860fb900693b570fce98350f988e04addcd14b",
+    "src/arsia_ingest/raw_load.py": "7d5fbc8af504dd4916a3083797beb1aa692234b0026ffd1983e254f72c4787e0",
+    "src/arsia_ingest/readers.py": "77af4af200ec216e141020fd63db551f27edb46b499cf8cebe2b4fe5858ab5d4",
+    "src/arsia_ingest/runner.py": "e485e0a49cc11bc2b10f5e3c9cb43e76f5d2e927f6f542628850bbff361d43cb",
+    "tests/test_fingerprint.py": "210911a4d6447dfeb04946df099789015cff82ba17ff01e0e007fea8a315cbca",
+    "tests/test_input_qa_postgres.py": "e4f05b226f2996bebc66c93dc27aaf2e320513f364b1e760daa15c528fc71648",
+    "tests/test_manifest.py": "5e307ee5c5c6ca45c591edd99cb01f5ce4954024cea450746a0a71b674f7f942",
+    "tests/test_qa_input.py": "750ad3c58941cc223fb8fd13c4aea39da42cce9af4cc88c21e3fd92f9d8c92c1",
+    "tests/test_raw_load_postgres.py": "4288e332e61f77055f434614bbca97997472e666a31b5b8d9888f9ae2e23188a",
+    "tests/fixtures/s0/config.json": "e9f786ec29dc03726ada8e606b893e5a16a3e8d780306bffea86f67f96ac9de3",
+    "tests/fixtures/s0/contract.json": "a73bdac78cb3b3ec4aff66658c37108ca84c34572ef3f42460a73e169b9411b6",
+    "tests/fixtures/s0/syn_nsw_crash.xlsx": "18c4953966224ee7f217afeebbb884dd6ccc01016ece2c077bb9717deb8c4541",
+    "tests/fixtures/s0/syn_nsw_traffic_unit.xlsx": "c114dece4b1c4a6698c4d0e4b05b912b9aa342598fd7f0def43df2b0428bd92c",
+    "tests/fixtures/s0/syn_qld_crash.csv": "7dbbd7bb3f9e5c6e07caf8c9e01be26abad6d1d383de482dcde9393071d61370",
+    "tests/fixtures/s0/syn_vic_accident.csv": "369798a8aa662d644df2e98091ad8a577a9741ce018dba47892889162aa8a144",
+    "tests/fixtures/s0/syn_vic_node.csv": "7bc159e10ec6d3e94a4d4673370ecd602e31bc0d2ed3971895f4126b045300a7",
+    "tests/fixtures/s0/syn_vic_person.csv": "af1104f14b46c7048b96d8a61546cbe1ed5e597f986673bfcc2d73c4855f14f4",
+    "tests/fixtures/s0/syn_vic_vehicle.csv": "5b7df97bde23fece0d19465ba8e4006544f6d907f963f7f352b8218b1fafec92"
+  },
+  "final_document_hashes": {
+    "README.md": "b1d7ea12c262ef310c153efd9c54141e712fe0b43ad97106b4a3c882b2eaeec4",
+    "docs/input-qa.md": "e0db7536ebfe37cd13c9f5dc8fb1a830754c7870293a7a2c5b31f6bcbd7ddd28",
+    "docs/native-intake.md": "88031afba751b0a1b0f7994c629ca201d0994f3711b8a83a4f0d9012bcb34214",
+    "docs/raw-loading.md": "c0888785627a01559b8506189cb4897581c8e2603e7ba18b531b387876358cfc",
+    "docs/runner.md": "fe323fa236c3f392674a50d2e8095dcb1a21b427f980a0a7ec709cf1f0665fad"
+  },
+  "local_evidence": [
+    {
+      "path": "artifacts/b11-postgres-validation-2026-09-20/after.json",
+      "sha256": "2b43f7c48af6c79b8fb3d2c0db0a3ff252a695958a3a29e06d4f3973649ef632"
+    },
+    {
+      "path": "artifacts/b11-postgres-validation-2026-09-20/before.json",
+      "sha256": "2b43f7c48af6c79b8fb3d2c0db0a3ff252a695958a3a29e06d4f3973649ef632"
+    },
+    {
+      "path": "artifacts/b11-postgres-validation-2026-09-20/collect_evidence.py",
+      "sha256": "6b6777a8ba5f77543fc5142dbebefc5a239323340ba842d4aaa11ed55bd7f1de"
+    },
+    {
+      "path": "artifacts/b11-postgres-validation-2026-09-20/original-venv-result.json",
+      "sha256": "873bb62d4f9db0275c7aaed7f8526db43fe3f3fa1e7486d5ea79390d2c1d6467"
+    },
+    {
+      "path": "artifacts/b11-postgres-validation-2026-09-20/original-venv.txt",
+      "sha256": "fd33b85a71747303f7e4ba4eba1479e59fc3f1d699bf83d544d874704ec6ef6e"
+    },
+    {
+      "path": "artifacts/b11-postgres-validation-2026-09-20/original-venv.xml",
+      "sha256": "1484d70ee88bb8169dc33fbfe455e1f93cd82c597a3c5adc6faecf681af0529c"
+    },
+    {
+      "path": "artifacts/b11-postgres-validation-2026-09-20/postgres-result.json",
+      "sha256": "49d928231ee9c709eae86f6bc62d035140b2f4ef3e0c53797c04cba9f96f80bd"
+    },
+    {
+      "path": "artifacts/b11-postgres-validation-2026-09-20/postgres.txt",
+      "sha256": "5adad2635f2065f57bd4874c93ba690ec3d492dfbd9780536d63efc99dcb1a56"
+    },
+    {
+      "path": "artifacts/b11-postgres-validation-2026-09-20/postgres.xml",
+      "sha256": "57f327d7859b460df2c1c38d11a6832750e7135a4263bac78711dbeec5fe041f"
+    },
+    {
+      "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_compares_al0/manifest.json",
+      "sha256": "43b93964583aa8ccfd25ba23b970fe96671a7e2c24a0e7339139279711d3c262"
+    },
+    {
+      "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_compares_al0/qa-input/QA01_INPUT-syn_b08_f7e109adb57c4f9bbd6f09aa0a5a7343_nsw_crash.jsonl",
+      "sha256": "b647c3fb4174f0bf2bacac952965f264caf640cc2f8ef430ae8ca9aa6a934b05"
+    },
+    {
+      "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_compares_al0/qa-input/QA01_INPUT-syn_b08_f7e109adb57c4f9bbd6f09aa0a5a7343_nsw_traffic_unit.jsonl",
+      "sha256": "b647c3fb4174f0bf2bacac952965f264caf640cc2f8ef430ae8ca9aa6a934b05"
+    },
+    {
+      "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_compares_al0/qa-input/QA01_INPUT-syn_b08_f7e109adb57c4f9bbd6f09aa0a5a7343_qld_crash.jsonl",
+      "sha256": "b647c3fb4174f0bf2bacac952965f264caf640cc2f8ef430ae8ca9aa6a934b05"
+    },
+    {
+      "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_compares_al0/qa-input/QA01_INPUT-syn_b08_f7e109adb57c4f9bbd6f09aa0a5a7343_vic_accident.jsonl",
+      "sha256": "b647c3fb4174f0bf2bacac952965f264caf640cc2f8ef430ae8ca9aa6a934b05"
+    },
+    {
+      "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_compares_al0/qa-input/QA01_INPUT-syn_b08_f7e109adb57c4f9bbd6f09aa0a5a7343_vic_node.jsonl",
+      "sha256": "b647c3fb4174f0bf2bacac952965f264caf640cc2f8ef430ae8ca9aa6a934b05"
+    },
+    {
+      "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_compares_al0/qa-input/QA01_INPUT-syn_b08_f7e109adb57c4f9bbd6f09aa0a5a7343_vic_person.jsonl",
+      "sha256": "b647c3fb4174f0bf2bacac952965f264caf640cc2f8ef430ae8ca9aa6a934b05"
+    },
+    {
+      "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_compares_al0/qa-input/QA01_INPUT-syn_b08_f7e109adb57c4f9bbd6f09aa0a5a7343_vic_vehicle.jsonl",
+      "sha256": "b647c3fb4174f0bf2bacac952965f264caf640cc2f8ef430ae8ca9aa6a934b05"
+    },
+    {
+      "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_compares_al0/qa-lossless/QA02_RAW-syn_b08_f7e109adb57c4f9bbd6f09aa0a5a7343_nsw_crash.jsonl",
+      "sha256": "94a8dce7fb69caca1c42c40eb6174b38d33c48fbf216a940ed9dd480b120e48f"
+    },
+    {
+      "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_compares_al0/qa-lossless/QA02_RAW-syn_b08_f7e109adb57c4f9bbd6f09aa0a5a7343_nsw_traffic_unit.jsonl",
+      "sha256": "845cf4bce811e4fd7f9db6c811223cbe7f4251cb4171a922d8f42fca10fa6bf2"
+    },
+    {
+      "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_compares_al0/qa-lossless/QA02_RAW-syn_b08_f7e109adb57c4f9bbd6f09aa0a5a7343_qld_crash.jsonl",
+      "sha256": "94a8dce7fb69caca1c42c40eb6174b38d33c48fbf216a940ed9dd480b120e48f"
+    },
+    {
+      "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_compares_al0/qa-lossless/QA02_RAW-syn_b08_f7e109adb57c4f9bbd6f09aa0a5a7343_vic_accident.jsonl",
+      "sha256": "94a8dce7fb69caca1c42c40eb6174b38d33c48fbf216a940ed9dd480b120e48f"
+    },
+    {
+      "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_compares_al0/qa-lossless/QA02_RAW-syn_b08_f7e109adb57c4f9bbd6f09aa0a5a7343_vic_node.jsonl",
+      "sha256": "0036192ea2a3193df4822607ac9e8112c35269a4489e70243af47368e6af1dc5"
+    },
+    {
+      "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_compares_al0/qa-lossless/QA02_RAW-syn_b08_f7e109adb57c4f9bbd6f09aa0a5a7343_vic_person.jsonl",
+      "sha256": "845cf4bce811e4fd7f9db6c811223cbe7f4251cb4171a922d8f42fca10fa6bf2"
+    },
+    {
+      "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_compares_al0/qa-lossless/QA02_RAW-syn_b08_f7e109adb57c4f9bbd6f09aa0a5a7343_vic_vehicle.jsonl",
+      "sha256": "845cf4bce811e4fd7f9db6c811223cbe7f4251cb4171a922d8f42fca10fa6bf2"
+    },
+    {
+      "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_compares_al0/qa01-report.json",
+      "sha256": "195607c821816e8af599ecae11771569463496681699459941fd58b05181c5db"
+    },
+    {
+      "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_compares_al0/qa02-report.json",
+      "sha256": "461e57d2e35b06383d0880fba3ae8c0f8d7491f967aae7a51a2788e832138311"
+    },
+    {
+      "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_finds_chang0/manifest.json",
+      "sha256": "cb6569c303230ccca5692149b7a8d80cae9fcab854ace332218cdee509f69fb5"
+    },
+    {
+      "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_finds_chang0/qa-mismatch/QA02_RAW-syn_b08_3b3178f89dc34ee386ebf16d1ba73067_nsw_crash.jsonl",
+      "sha256": "b1c1f59604f2dfb7ef2c5a58a5294ddb753a988b597079c1c6cbe5f5789218b3"
+    },
+    {
+      "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_finds_chang0/qa-mismatch/QA02_RAW-syn_b08_3b3178f89dc34ee386ebf16d1ba73067_nsw_traffic_unit.jsonl",
+      "sha256": "845cf4bce811e4fd7f9db6c811223cbe7f4251cb4171a922d8f42fca10fa6bf2"
+    },
+    {
+      "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_finds_chang0/qa-mismatch/QA02_RAW-syn_b08_3b3178f89dc34ee386ebf16d1ba73067_qld_crash.jsonl",
+      "sha256": "94a8dce7fb69caca1c42c40eb6174b38d33c48fbf216a940ed9dd480b120e48f"
+    },
+    {
+      "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_finds_chang0/qa-mismatch/QA02_RAW-syn_b08_3b3178f89dc34ee386ebf16d1ba73067_vic_accident.jsonl",
+      "sha256": "94a8dce7fb69caca1c42c40eb6174b38d33c48fbf216a940ed9dd480b120e48f"
+    },
+    {
+      "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_finds_chang0/qa-mismatch/QA02_RAW-syn_b08_3b3178f89dc34ee386ebf16d1ba73067_vic_node.jsonl",
+      "sha256": "0036192ea2a3193df4822607ac9e8112c35269a4489e70243af47368e6af1dc5"
+    },
+    {
+      "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_finds_chang0/qa-mismatch/QA02_RAW-syn_b08_3b3178f89dc34ee386ebf16d1ba73067_vic_person.jsonl",
+      "sha256": "845cf4bce811e4fd7f9db6c811223cbe7f4251cb4171a922d8f42fca10fa6bf2"
+    },
+    {
+      "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_finds_chang0/qa-mismatch/QA02_RAW-syn_b08_3b3178f89dc34ee386ebf16d1ba73067_vic_vehicle.jsonl",
+      "sha256": "845cf4bce811e4fd7f9db6c811223cbe7f4251cb4171a922d8f42fca10fa6bf2"
+    },
+    {
+      "path": "artifacts/b11-postgres-validation-2026-09-20/pytest-tmp/test_postgres_qa02_finds_chang0/qa02-report.json",
+      "sha256": "bc055d61e0403ed3d15ca7c70b86d7e93c848f6d402e4abe02903f6aee4ee50c"
+    },
+    {
+      "path": "artifacts/b11-postgres-validation-2026-09-20/run_validation.py",
+      "sha256": "2bfd9f31300f63f3cab9f6a803eb9962ab852df59f949b696bbbbdbc9fdb78f4"
+    },
+    {
+      "path": "artifacts/b11-postgres-validation-2026-09-20/versions.json",
+      "sha256": "25b51b64a69e9903f23ae108487463b8fe7f6d46c732866ec91bf111b14ac7d1"
+    }
+  ]
+}

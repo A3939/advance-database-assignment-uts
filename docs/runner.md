@@ -2,7 +2,7 @@
 
 [`runner.py`](../src/arsia_ingest/runner.py) owns the connection, session lock and transactions. It reuses B08 loading, B09 manifest/FP1 and [B11 input checks](input-qa.md). Team modules must be registered explicitly; there are no default business functions.
 
-The runner is ready for module integration. Its tests use scripted database replies and test callbacks. No PostgreSQL build, real FP1, publication or full B12–B14 acceptance has been verified.
+The runner is ready for module integration. [Session contention and early cleanup](runner-locks.md) have real PostgreSQL tests. Build paths still use scripted replies and test callbacks; real FP1, publication and full B12–B14 acceptance remain unverified.
 
 ## Entry point
 
@@ -39,7 +39,7 @@ PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m arsia_ingest.runner \
   --bindings team_bindings:build_request
 ```
 
-`team_bindings` is the team's integration module. It is not included yet because the database and downstream functions are unavailable. A missing binding fails explicitly. `python -m arsia_ingest` remains the native preparation command.
+`team_bindings` is the team's integration module. It is not included yet: A's three B08 tables are available, but the remaining schema and downstream functions are still needed. A missing binding fails explicitly. `python -m arsia_ingest` remains the native preparation command.
 
 ## Module interface
 
@@ -59,7 +59,7 @@ Use `context.manifest.as_dict()` for a separate copy of the frozen definitions. 
 ## Lifecycle
 
 1. Acquire `pg_try_advisory_lock(32113, 2)` on the dedicated session. Both modes share this key. Contention returns `busy` without registering a batch.
-2. Check for existing `running` batches and read the current release for this mode. Unresolved runs return `RECOVERY_REQUIRED`; this entry does not perform B14 recovery.
+2. Check for existing `running` batches and read the current release for this mode. Unresolved runs return `RECOVERY_REQUIRED`; use the separate [B14 recovery entry](recovery.md) before starting a new run.
 3. Run QA01 against the native archives and previous manifest, then call E's FP1. A fingerprint matching the current successful batch returns `no_change` with its stored QA summaries. It creates no batch and leaves the pointer unchanged.
 4. Load/register Raw and insert a fresh `running` batch in one transaction; commit it separately.
 5. On the same connection, run C projection → A Vault → C Canonical → D dimensions/facts → B's QA02 and QA01/02 inserts → C QA → D QA → E publication.
@@ -82,6 +82,8 @@ E still derives and checks all required QA objects. B's summary check is a trans
 
 An exception from registration, publication or failure-record COMMIT returns `unknown_commit`. The runner does not retry or mark the candidate failed after a lost response. An unconfirmed rollback also stops with this unresolved result. These outcomes are not new `meta.batch.status` values.
 
+[B14 recovery](recovery.md) reads the original run evidence and queries the same database through a new locked session. It preserves successful history and resolves only the selected batch. Its state tests use simulated replies; real recovery remains unverified.
+
 Known failures save diagnostics, roll back the build and update only this candidate's `running` row in a separate transaction. Rolled-back QA passes are not reinserted. If failure logging is unavailable, file evidence remains and the unresolved database row needs inspection. Successful history is never updated by this path. Cleanup or receipt errors after acknowledged publication do not turn success into failure.
 
 Evidence lives under `<evidence_root>/<dataset_kind>/runs/<run_id>/`: frozen manifest, registered bindings, QA reports/details, Raw counts, pre-COMMIT records, errors and final result. Pre-registration failures have no batch ID. Driver exception text is omitted because it can contain credentials; module diagnostics use explicit `IntakeError` details.
@@ -92,11 +94,11 @@ Evidence lives under `<evidence_root>/<dataset_kind>/runs/<run_id>/`: frozen man
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -q -p no:cacheprovider
 ```
 
-The full suite recorded **380 passed, 10 skipped** on 2026-09-19. The new runner tests account for 44 passes; all 10 skips need A's PostgreSQL environment (eight Raw loader tests and two QA02 tests). The [receipt](evidence/b10-b11-validation-2026-09-19.json) records the command, final file hashes and limits. Mocked lifecycle tests do not prove real session locking, transaction durability, concurrent execution or recovery.
+The initial suite recorded **380 passed, 10 skipped** on 2026-09-19, including 44 runner tests with scripted replies. The [original receipt](evidence/b10-b11-validation-2026-09-19.json) is unchanged. The [2026-09-20 run](input-qa.md#validation) passed 426 tests, including the eight B08 and two QA02 PostgreSQL tests. [B12's later checks](runner-locks.md) exercise real locks and early runner exits. Complete build transactions, concurrent builds and recovery remain unverified.
 
-- **A:** migrated PostgreSQL 16 environment, pinned driver, loader connection/grants and Vault callback.
+- **A:** remaining schema/loader grants and Vault callback. The B08 tables, PostgreSQL 16 environment and pinned driver have been verified locally.
 - **C:** projection, Canonical and QA callbacks; accepted mappings and source reviews with the source owners.
 - **D:** dimensions/facts and reconciliation QA callbacks.
 - **E:** FP1 SQL/version and publication gate. Its existing QA protocol is already reused.
 
-The inspected shared branches contain no callable build/FP1/publication modules. `setup` still specifies PostgreSQL 15/Python 3.11. Old reference SQL was not adopted. Full fault injection, concurrency, uncertain-commit recovery and end-to-end acceptance remain later work.
+At the initial review, shared branches had no callable build/FP1/publication modules. JJ's later B08 environment supplies three tables; it does not supply these functions. Old reference SQL was not adopted. Full fault injection, concurrent builds, real recovery and end-to-end acceptance still need integration.

@@ -12,7 +12,7 @@ from pathlib import Path
 import pytest
 
 from arsia_ingest.manifest import build_manifest
-from arsia_ingest.qa_input import check_raw
+from arsia_ingest.qa_input import check_inputs, check_raw, write_evidence
 from arsia_ingest.raw_load import RawLoader, load_prepared
 from test_manifest import build
 from test_raw_load_postgres import connection, s0
@@ -54,12 +54,28 @@ def detail_rows(row):
 
 
 def test_postgres_qa02_compares_all_s0_rows_and_retains_node_observations(connection, s0, frozen, tmp_path):
+    manifest = frozen.as_dict()
+    write_evidence(tmp_path / "manifest.json", manifest)
+    inputs = check_inputs(
+        manifest, s0["run_dir"].parents[2], previous_manifest=None,
+        evidence_dir=tmp_path / "qa-input", producer_version="b11-postgres-test-v1",
+        supported_mappings=manifest["rules"]["mappings"],
+    )
+    write_evidence(tmp_path / "qa01-report.json", inputs.as_dict())
+    assert len(inputs.rows) == 8 and not inputs.blocked
+    for row in inputs.rows:
+        assert row["rule_id"] == "QA01_INPUT" and row["result"] == "pass"
+        assert row["actual"] == row["expected"]
+        if row["object_key"] != "batch":
+            detail_rows(row)
+
     loaded = load_prepared(connection, s0["run_dir"], s0["sources"])
     assert (loaded.raw_count, loaded.inserted_count) == (19, 19)
     report = check_raw(
         connection, frozen.as_dict(), s0["run_dir"].parents[2],
         evidence_dir=tmp_path / "qa-lossless", producer_version="b11-postgres-test-v1",
     )
+    write_evidence(tmp_path / "qa02-report.json", report.as_dict())
     files = frozen.as_dict()["files"]
     by_key = {row["object_key"]: row for row in report.rows}
     expected_keys = {
@@ -89,6 +105,7 @@ def test_postgres_qa02_compares_all_s0_rows_and_retains_node_observations(connec
 
 
 def test_postgres_qa02_finds_changed_payload_when_counts_match(connection, s0, frozen, tmp_path):
+    write_evidence(tmp_path / "manifest.json", frozen.as_dict())
     loader = RawLoader(connection, dataset_kind="synthetic", sources=s0["sources"], files=s0["files"])
     loader.register()
     target = next(row for row in s0["rows"] if row["resource_id"].endswith("_nsw_crash"))
@@ -104,6 +121,7 @@ def test_postgres_qa02_finds_changed_payload_when_counts_match(connection, s0, f
         connection, frozen.as_dict(), s0["run_dir"].parents[2],
         evidence_dir=tmp_path / "qa-mismatch", producer_version="b11-postgres-test-v1",
     )
+    write_evidence(tmp_path / "qa02-report.json", report.as_dict())
     assert report.blocked
     rows = [row for row in report.rows if row["object_key"] != "batch"]
     blocked = [row for row in rows if row["result"] == "block"]

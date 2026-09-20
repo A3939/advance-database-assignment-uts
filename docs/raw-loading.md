@@ -2,7 +2,7 @@
 
 [`raw_load.py`](../src/arsia_ingest/raw_load.py) follows team v1.1 [02, database fields](../../F/ARSIA-Team-Handoff/02-数据库字段字典.md), [04, L1 contract](../../F/ARSIA-Team-Handoff/04-团队分工与验收.md) and [05, native identities](../../F/ARSIA-Team-Handoff/05-来源与映射说明.md). The F/ links require the shared course workspace.
 
-The Python loader and mocked tests are ready. **No records have been loaded into a real PostgreSQL database.** Live checks need A's migrations, loader connection and agreed driver. The old PostgreSQL 15/Python 3.11 setup and unexecuted reference SQL are not used.
+Synthetic loading passed against A's PostgreSQL 16 migrations and loader permissions in the [2026-09-20 reproduction](b08-postgres-review.md). All test writes were rolled back; no shared Raw dataset was created. Old setup files and unexecuted reference SQL were not used.
 
 ## What it writes
 
@@ -28,7 +28,7 @@ Inserts use `INSERT ... ON CONFLICT DO NOTHING RETURNING raw_record_id`. A confl
 
 **The caller must roll back the whole load, including registration, after any exception.** Input and callback errors may leave earlier writes pending because Python validation errors do not abort PostgreSQL transactions. Database errors propagate without internal retries.
 
-Under 04, B commits Raw/registration in a short transaction before the business build. [B10's runner](runner.md) owns the shared connection, session lock `(32113, 2)` and lifecycle. It stops on uncertain commits; B14 recovery remains pending. B08's return value describes pending writes, not a commit, QA pass, `no_change` or publication.
+Under 04, B commits Raw/registration in a short transaction before the business build. [B10's runner](runner.md) owns the shared connection, session lock `(32113, 2)` and lifecycle. It stops on uncertain commits; [B14 recovery](recovery.md) is a separate step with real validation pending. B08's return value describes pending writes, not a commit, QA pass, `no_change` or publication.
 
 ## Loading prepared input
 
@@ -87,20 +87,16 @@ The 2026-09-18 run recorded **184 passed, 8 skipped**, including 31 B08 tests in
 
 All eight PostgreSQL tests were skipped because no test connection was supplied. The [receipt](evidence/b08-validation-2026-09-18.json) records the command, hashes and outstanding checks. It is unchanged; its hash for this guide predates this wording edit.
 
-Once A provides a migrated **test database** and the agreed Psycopg 3 environment, set `ARSIA_TEST_DSN` through the team's credential setup:
+The [2026-09-20 reproduction](b08-postgres-review.md) verified JJ's three migrations and loader permissions: **8 passed, 0 skipped, 0 failed**. Use a migrated **test database**, the agreed Psycopg 3 environment and `ARSIA_TEST_DSN` for these checks:
 
 ```sh
-PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -q -p no:cacheprovider \
+PYTHONDONTWRITEBYTECODE=1 \
+artifacts/b08-db-reproduction-2026-09-20/venv/bin/python -m pytest -q -p no:cacheprovider \
   tests/test_raw_load_postgres.py
 ```
 
 Without the variable, [these tests](../tests/test_raw_load_postgres.py) skip before importing the driver. With it, driver, connection, PostgreSQL version/encoding/time-zone, table or permission problems fail the tests. They use unique synthetic namespaces, create no schema and roll back writes. Coverage includes the 19-row S0 load, UUID/timestamp reuse, payload/registration conflicts, namespace isolation and caller rollback. Concurrency, durable commits and platform acceptance remain unverified.
 
-A still needs to provide:
+The local test environment now has PostgreSQL 16, the pinned driver, all three B08 tables and loader USAGE/SELECT/INSERT grants. See the reproduction guide for versions and evidence; the original `.venv` is unchanged.
 
-- PostgreSQL 16 test connection and startup instructions, with UTF-8 and UTC.
-- Numbered migrations with revision/digests and the three tables' keys/foreign keys from 02, including a non-deferrable Raw identity unique constraint for `ON CONFLICT`.
-- Loader schema USAGE and SELECT/INSERT on `meta.source`, `meta.resource` and `raw.record`; UPDATE/DELETE are unnecessary.
-- A pinned Python driver and shared connection convention. Preparation dependencies are unchanged; none were installed.
-
-All seven S0 resources are available as native/prepared input, **not shared database rows**. C can use this interface, but Raw availability still needs A/B integration. The [B11 checks](input-qa.md) compare native archives with Raw; real loading, QA and publication remain unverified.
+All seven S0 resources are available as native/prepared input, **not shared database rows**. B08 and [B11's native-to-Raw checks](input-qa.md) have passed with real PostgreSQL, but tests rolled back every write. A persistent shared Raw load for C, QA result persistence and publication still need integration.

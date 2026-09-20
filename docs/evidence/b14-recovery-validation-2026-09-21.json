@@ -1,0 +1,1057 @@
+{
+  "checked_at_utc": "2026-09-20T14:48:46.199333+00:00",
+  "status": "B14 recovery entry and simulated state tests complete; real recovery SQL, permissions and lost-COMMIT integration not verified",
+  "branch": "peixian/dev",
+  "base_commit": "cbb548ead68a6502870362b742f444ff180e07e8",
+  "changes": [
+    "Added recover_run and a CLI for one saved run; no automatic build retry",
+    "Added 69 simulated recovery cases including six actual runner receipts and CLI handling",
+    "Added concise recovery documentation and updated the related guide links/status"
+  ],
+  "runs": {
+    "original-venv": {
+      "started_at_utc": "2026-09-20T14:46:45.877709+00:00",
+      "finished_at_utc": "2026-09-20T14:46:56.003531+00:00",
+      "command": [
+        "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "--junitxml",
+        "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b14-recovery-validation-2026-09-21/original-venv.xml"
+      ],
+      "environment": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "ARSIA_TEST_DSN": null
+      },
+      "exit_code": 0,
+      "counts": {
+        "tests": 498,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 13,
+        "passed": 485
+      },
+      "groups": {
+        "tests.test_config": {
+          "passed": 63,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_fingerprint": {
+          "passed": 47,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_input_qa_postgres": {
+          "passed": 0,
+          "skipped": 2,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_manifest": {
+          "passed": 75,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_pipeline": {
+          "passed": 16,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_qa_input": {
+          "passed": 50,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_raw_load": {
+          "passed": 31,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_raw_load_postgres": {
+          "passed": 0,
+          "skipped": 8,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_readers": {
+          "passed": 44,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_recovery": {
+          "passed": 69,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_runner": {
+          "passed": 44,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_runner_postgres": {
+          "passed": 0,
+          "skipped": 3,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_s0": {
+          "passed": 20,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_s8": {
+          "passed": 16,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_vic_links": {
+          "passed": 7,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_vic_profile": {
+          "passed": 3,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        }
+      },
+      "output_sha256": "082cdfc3541f398c694f8fa00fc7bdae8f8614126d31148cd2db25795db706ed",
+      "junit_sha256": "8287f7b9fb151ef72d22e3544e3ba52938be100e0b9ae155ead70cb1444dba86"
+    },
+    "postgres": {
+      "started_at_utc": "2026-09-20T14:46:56.005031+00:00",
+      "finished_at_utc": "2026-09-20T14:47:07.811135+00:00",
+      "command": [
+        "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b08-db-reproduction-2026-09-20/venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "--junitxml",
+        "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b14-recovery-validation-2026-09-21/postgres.xml",
+        "--basetemp",
+        "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b14-recovery-validation-2026-09-21/pytest-tmp"
+      ],
+      "environment": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "ARSIA_TEST_DSN": "host=127.0.0.1 port=59126 dbname=arsia user=arsia_loader"
+      },
+      "exit_code": 0,
+      "counts": {
+        "tests": 498,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 498
+      },
+      "groups": {
+        "tests.test_config": {
+          "passed": 63,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_fingerprint": {
+          "passed": 47,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_input_qa_postgres": {
+          "passed": 2,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_manifest": {
+          "passed": 75,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_pipeline": {
+          "passed": 16,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_qa_input": {
+          "passed": 50,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_raw_load": {
+          "passed": 31,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_raw_load_postgres": {
+          "passed": 8,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_readers": {
+          "passed": 44,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_recovery": {
+          "passed": 69,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_runner": {
+          "passed": 44,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_runner_postgres": {
+          "passed": 3,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_s0": {
+          "passed": 20,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_s8": {
+          "passed": 16,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_vic_links": {
+          "passed": 7,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        },
+        "tests.test_vic_profile": {
+          "passed": 3,
+          "skipped": 0,
+          "failed": 0,
+          "errors": 0
+        }
+      },
+      "output_sha256": "f6378fe28be70890dddda616935066d95ef8de0b6a021927531bd51eca7729d9",
+      "junit_sha256": "0a6e8969277b2b6ead423f611ba2d37711cf3610471fa08b04452889c8f3937a"
+    }
+  },
+  "b14_test_names": [
+    "test_running_recovery_is_guarded_and_keeps_original_receipts",
+    "test_success_is_preserved_and_resolution_requires_a_current_pointer[target]",
+    "test_success_is_preserved_and_resolution_requires_a_current_pointer[replaced]",
+    "test_success_is_preserved_and_resolution_requires_a_current_pointer[none]",
+    "test_existing_failure_preserves_its_error_and_timestamp",
+    "test_busy_does_not_read_or_change_database_state",
+    "test_missing_batch_is_not_automatically_an_uncommitted_registration[None]",
+    "test_missing_batch_is_not_automatically_an_uncommitted_registration[registration]",
+    "test_missing_batch_is_not_automatically_an_uncommitted_registration[publication]",
+    "test_missing_batch_is_not_automatically_an_uncommitted_registration[failure]",
+    "test_missing_batch_is_not_automatically_an_uncommitted_registration[finished_success]",
+    "test_missing_batch_is_not_automatically_an_uncommitted_registration[finished_failure]",
+    "test_absent_registration_requires_unambiguous_commit_diagnostics[diagnostics0-not_registered]",
+    "test_absent_registration_requires_unambiguous_commit_diagnostics[diagnostics1-unknown_commit]",
+    "test_absent_registration_requires_unambiguous_commit_diagnostics[diagnostics2-unknown_commit]",
+    "test_absent_registration_requires_unambiguous_commit_diagnostics[diagnostics3-unknown_commit]",
+    "test_absent_registration_requires_unambiguous_commit_diagnostics[diagnostics4-unknown_commit]",
+    "test_absent_registration_requires_unambiguous_commit_diagnostics[diagnostics5-unknown_commit]",
+    "test_absent_registration_requires_unambiguous_commit_diagnostics[diagnostics6-unknown_commit]",
+    "test_ambiguous_or_mismatched_row_never_changes_history[batch_id]",
+    "test_ambiguous_or_mismatched_row_never_changes_history[mode]",
+    "test_ambiguous_or_mismatched_row_never_changes_history[manifest]",
+    "test_ambiguous_or_mismatched_row_never_changes_history[manifest_type]",
+    "test_ambiguous_or_mismatched_row_never_changes_history[digest]",
+    "test_ambiguous_or_mismatched_row_never_changes_history[running_finished]",
+    "test_ambiguous_or_mismatched_row_never_changes_history[succeeded_unfinished]",
+    "test_ambiguous_or_mismatched_row_never_changes_history[failed_no_error]",
+    "test_ambiguous_or_mismatched_row_never_changes_history[unexpected_status]",
+    "test_original_fingerprint_is_checked_when_it_was_recorded",
+    "test_acknowledged_success_cannot_be_relabelled_failed",
+    "test_recovery_uses_saved_manifest_without_rehashing_current_code",
+    "test_changed_receipt_after_connect_blocks_recovery",
+    "test_receipt_changed_during_query_blocks_read_only_resolution[succeeded]",
+    "test_receipt_changed_during_query_blocks_read_only_resolution[absent]",
+    "test_read_only_resolution_requires_successful_rollback[succeeded]",
+    "test_read_only_resolution_requires_successful_rollback[absent]",
+    "test_close_failure_after_acknowledged_recovery_commit_keeps_resolution",
+    "test_inconsistent_current_pointer_blocks_recovery[running_target]",
+    "test_inconsistent_current_pointer_blocks_recovery[wrong_mode]",
+    "test_inconsistent_current_pointer_blocks_recovery[wrong_join]",
+    "test_inconsistent_current_pointer_blocks_recovery[missing_join]",
+    "test_inconsistent_current_pointer_blocks_recovery[duplicate]",
+    "test_database_failures_remain_unknown_and_close_connection[batch]",
+    "test_database_failures_remain_unknown_and_close_connection[pointer]",
+    "test_database_failures_remain_unknown_and_close_connection[update]",
+    "test_database_failures_remain_unknown_and_close_connection[update_empty]",
+    "test_database_failures_remain_unknown_and_close_connection[update_other]",
+    "test_database_failures_remain_unknown_and_close_connection[rollback]",
+    "test_database_failures_remain_unknown_and_close_connection[lock_shape]",
+    "test_database_failures_remain_unknown_and_close_connection[autocommit]",
+    "test_lost_recovery_commit_does_not_retry_or_guess[False]",
+    "test_lost_recovery_commit_does_not_retry_or_guess[True]",
+    "test_invalid_receipts_stop_before_connect[missing_manifest]",
+    "test_invalid_receipts_stop_before_connect[missing_marker]",
+    "test_invalid_receipts_stop_before_connect[wrong_run]",
+    "test_invalid_receipts_stop_before_connect[wrong_batch]",
+    "test_invalid_receipts_stop_before_connect[wrong_mode]",
+    "test_invalid_receipts_stop_before_connect[wrong_stage]",
+    "test_invalid_receipts_stop_before_connect[non_utc]",
+    "test_invalid_receipts_stop_before_connect[both_later_markers]",
+    "test_invalid_receipts_stop_before_connect[bad_json]",
+    "test_recovers_actual_runner_receipts_after_lost_commit[False-registration]",
+    "test_recovers_actual_runner_receipts_after_lost_commit[False-publication]",
+    "test_recovers_actual_runner_receipts_after_lost_commit[False-failure]",
+    "test_recovers_actual_runner_receipts_after_lost_commit[True-registration]",
+    "test_recovers_actual_runner_receipts_after_lost_commit[True-publication]",
+    "test_recovers_actual_runner_receipts_after_lost_commit[True-failure]",
+    "test_cli_reports_a_resolved_failed_batch_as_exit_zero",
+    "test_cli_connection_failure_returns_unknown_without_connection_details"
+  ],
+  "simulated_commit_recovery_examples": [
+    {
+      "database": "simulated state",
+      "commit_phase": "registration",
+      "original_result": {
+        "batch_id": "4bc30635-8b9a-42a1-9f0c-13cd504a2d97",
+        "dataset_kind": "synthetic",
+        "diagnostics": [
+          {
+            "reason": "COMMIT response was not confirmed; query database state before retrying",
+            "stage": "registration"
+          }
+        ],
+        "evidence_ref": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re0/run-evidence/synthetic/runs/3e96e897-4b6b-4bed-8e61-4b94342b0c11",
+        "result": "unknown_commit",
+        "run_id": "3e96e897-4b6b-4bed-8e61-4b94342b0c11"
+      },
+      "recovery_result": {
+        "batch_id": "4bc30635-8b9a-42a1-9f0c-13cd504a2d97",
+        "dataset_kind": "synthetic",
+        "evidence_ref": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re0/recovered/synthetic/recoveries/fd508025-b7b7-453c-adde-97c39d981a34",
+        "observed_batch_status": null,
+        "recovery_id": "fd508025-b7b7-453c-adde-97c39d981a34",
+        "resolution": "not_registered",
+        "run_id": "3e96e897-4b6b-4bed-8e61-4b94342b0c11"
+      },
+      "observed": {
+        "current_batch_id": null,
+        "input_fingerprint": null,
+        "manifest_matches": null,
+        "status": null
+      },
+      "original_references": [
+        {
+          "path": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re0/run-evidence/synthetic/runs/3e96e897-4b6b-4bed-8e61-4b94342b0c11/manifest.json",
+          "sha256": "f33f62b13ec6f2dbc3b6023b30a8964036c1584d9ad89fc0472e35708626b888"
+        },
+        {
+          "path": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re0/run-evidence/synthetic/runs/3e96e897-4b6b-4bed-8e61-4b94342b0c11/before-registration-commit.json",
+          "sha256": "45030f10cbb4aea444d048e6deaa808da3c9932bdaaee92af7f2a90ab768775e"
+        },
+        {
+          "path": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re0/run-evidence/synthetic/runs/3e96e897-4b6b-4bed-8e61-4b94342b0c11/result.json",
+          "sha256": "436bd0547620129a36352cb26dc03f53567b1908fccb75cc43f04bea9344e5f4"
+        }
+      ]
+    },
+    {
+      "database": "simulated state",
+      "commit_phase": "publication",
+      "original_result": {
+        "batch_id": "0a347200-2c1b-4841-b2ae-34b1e14a321c",
+        "dataset_kind": "synthetic",
+        "diagnostics": [
+          {
+            "reason": "COMMIT response was not confirmed; query database state before retrying",
+            "stage": "publication"
+          }
+        ],
+        "evidence_ref": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re1/run-evidence/synthetic/runs/4ce001d5-5c27-4f27-bf8e-4fe04e7d62c2",
+        "result": "unknown_commit",
+        "run_id": "4ce001d5-5c27-4f27-bf8e-4fe04e7d62c2"
+      },
+      "recovery_result": {
+        "action": "closed_abandoned_run",
+        "batch_id": "0a347200-2c1b-4841-b2ae-34b1e14a321c",
+        "dataset_kind": "synthetic",
+        "evidence_ref": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re1/recovered/synthetic/recoveries/e084edc7-fef0-4f7f-80a5-9183de648996",
+        "input_fingerprint": "a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1",
+        "observed_batch_status": "running",
+        "recovery_id": "e084edc7-fef0-4f7f-80a5-9183de648996",
+        "resolution": "failed",
+        "run_id": "4ce001d5-5c27-4f27-bf8e-4fe04e7d62c2"
+      },
+      "observed": {
+        "current_batch_id": null,
+        "input_fingerprint": "a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1",
+        "manifest_matches": true,
+        "status": "running"
+      },
+      "original_references": [
+        {
+          "path": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re1/run-evidence/synthetic/runs/4ce001d5-5c27-4f27-bf8e-4fe04e7d62c2/manifest.json",
+          "sha256": "acf3e9ffbb84f111e8fdd0b6021424707d35477b68e26d222de4ed8bc704ad63"
+        },
+        {
+          "path": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re1/run-evidence/synthetic/runs/4ce001d5-5c27-4f27-bf8e-4fe04e7d62c2/before-registration-commit.json",
+          "sha256": "c4d3d09739cd1ec90b39202b903f1a0e9a8fc9b71505be7cf61941518c8e4752"
+        },
+        {
+          "path": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re1/run-evidence/synthetic/runs/4ce001d5-5c27-4f27-bf8e-4fe04e7d62c2/before-publication-commit.json",
+          "sha256": "09257db8f60a687699f65160e77a3fc1bfecf1702c5ea1c1bff7157714fddea2"
+        },
+        {
+          "path": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re1/run-evidence/synthetic/runs/4ce001d5-5c27-4f27-bf8e-4fe04e7d62c2/result.json",
+          "sha256": "81cbf675c0cb8bac90d879fda9e096f3eab574550ced54652fe820c1e1c73eda"
+        }
+      ]
+    },
+    {
+      "database": "simulated state",
+      "commit_phase": "failure",
+      "original_result": {
+        "batch_id": "8b02ac9e-b9c1-4fa9-85b0-3744c08093bf",
+        "dataset_kind": "synthetic",
+        "diagnostics": [
+          {
+            "reason": "Failure record COMMIT was not confirmed",
+            "stage": "failure_commit"
+          }
+        ],
+        "evidence_ref": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re2/run-evidence/synthetic/runs/73908367-97cd-4d12-b9b0-244492cfaa9b",
+        "result": "unknown_commit",
+        "run_id": "73908367-97cd-4d12-b9b0-244492cfaa9b"
+      },
+      "recovery_result": {
+        "action": "closed_abandoned_run",
+        "batch_id": "8b02ac9e-b9c1-4fa9-85b0-3744c08093bf",
+        "dataset_kind": "synthetic",
+        "evidence_ref": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re2/recovered/synthetic/recoveries/23fa0242-b775-4692-855b-9e637d711afc",
+        "input_fingerprint": "a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1",
+        "observed_batch_status": "running",
+        "recovery_id": "23fa0242-b775-4692-855b-9e637d711afc",
+        "resolution": "failed",
+        "run_id": "73908367-97cd-4d12-b9b0-244492cfaa9b"
+      },
+      "observed": {
+        "current_batch_id": null,
+        "input_fingerprint": "a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1",
+        "manifest_matches": true,
+        "status": "running"
+      },
+      "original_references": [
+        {
+          "path": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re2/run-evidence/synthetic/runs/73908367-97cd-4d12-b9b0-244492cfaa9b/manifest.json",
+          "sha256": "98454b0a08fb5a00df6ddd486a732bf35266e3b3570d48e3c6c2356cc00c383c"
+        },
+        {
+          "path": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re2/run-evidence/synthetic/runs/73908367-97cd-4d12-b9b0-244492cfaa9b/before-registration-commit.json",
+          "sha256": "0ba5fb846df5d6bdf237037ef2218addef9b5c3325bc6ee7d39bb5909e356f7a"
+        },
+        {
+          "path": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re2/run-evidence/synthetic/runs/73908367-97cd-4d12-b9b0-244492cfaa9b/before-failure-commit.json",
+          "sha256": "004e5c4a7d3dde90792c16cd908e1071659fed0e7e801851b438811643538d77"
+        },
+        {
+          "path": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re2/run-evidence/synthetic/runs/73908367-97cd-4d12-b9b0-244492cfaa9b/result.json",
+          "sha256": "72e9f430dcf39245ebcafcbc50c0b35ca59eab8021d54621be6bad3976258d77"
+        },
+        {
+          "path": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re2/run-evidence/synthetic/runs/73908367-97cd-4d12-b9b0-244492cfaa9b/error.json",
+          "sha256": "89224c777fce4a0273a32be514065caf0ebb649846b18c211fe21ba0dbfb0d44"
+        }
+      ]
+    },
+    {
+      "database": "simulated state",
+      "commit_phase": "registration",
+      "original_result": {
+        "batch_id": "05df8330-f9af-4423-9c50-435ca9d4d574",
+        "dataset_kind": "synthetic",
+        "diagnostics": [
+          {
+            "reason": "COMMIT response was not confirmed; query database state before retrying",
+            "stage": "registration"
+          }
+        ],
+        "evidence_ref": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re3/run-evidence/synthetic/runs/483700ce-389d-4bfb-9eba-acf2ae4f983c",
+        "result": "unknown_commit",
+        "run_id": "483700ce-389d-4bfb-9eba-acf2ae4f983c"
+      },
+      "recovery_result": {
+        "action": "closed_abandoned_run",
+        "batch_id": "05df8330-f9af-4423-9c50-435ca9d4d574",
+        "dataset_kind": "synthetic",
+        "evidence_ref": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re3/recovered/synthetic/recoveries/81f17537-24c4-4b91-ac60-fdd299d24856",
+        "input_fingerprint": "a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1",
+        "observed_batch_status": "running",
+        "recovery_id": "81f17537-24c4-4b91-ac60-fdd299d24856",
+        "resolution": "failed",
+        "run_id": "483700ce-389d-4bfb-9eba-acf2ae4f983c"
+      },
+      "observed": {
+        "current_batch_id": null,
+        "input_fingerprint": "a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1",
+        "manifest_matches": true,
+        "status": "running"
+      },
+      "original_references": [
+        {
+          "path": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re3/run-evidence/synthetic/runs/483700ce-389d-4bfb-9eba-acf2ae4f983c/manifest.json",
+          "sha256": "3e13ffa058451675743072222bb6c54482dcfcf5221e5ff2d487da8189bf776c"
+        },
+        {
+          "path": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re3/run-evidence/synthetic/runs/483700ce-389d-4bfb-9eba-acf2ae4f983c/before-registration-commit.json",
+          "sha256": "d67ee23653a0297f35c5d573a4f3e82f8bfe551192a5588f2e1e73149e0950bd"
+        },
+        {
+          "path": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re3/run-evidence/synthetic/runs/483700ce-389d-4bfb-9eba-acf2ae4f983c/result.json",
+          "sha256": "1b70b790dd365a54c280316a8d2782ed1d16d9e9288ccae3e7cce24c115185e7"
+        }
+      ]
+    },
+    {
+      "database": "simulated state",
+      "commit_phase": "publication",
+      "original_result": {
+        "batch_id": "95f29710-619d-4166-a04c-1c8d3319b45e",
+        "dataset_kind": "synthetic",
+        "diagnostics": [
+          {
+            "reason": "COMMIT response was not confirmed; query database state before retrying",
+            "stage": "publication"
+          }
+        ],
+        "evidence_ref": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re4/run-evidence/synthetic/runs/bfbadee9-0d1f-42a1-9493-621b5b3eb827",
+        "result": "unknown_commit",
+        "run_id": "bfbadee9-0d1f-42a1-9493-621b5b3eb827"
+      },
+      "recovery_result": {
+        "batch_id": "95f29710-619d-4166-a04c-1c8d3319b45e",
+        "current_batch_id": "95f29710-619d-4166-a04c-1c8d3319b45e",
+        "dataset_kind": "synthetic",
+        "evidence_ref": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re4/recovered/synthetic/recoveries/9c43a6b7-e689-4449-a711-2f4bae25aa59",
+        "input_fingerprint": "a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1",
+        "observed_batch_status": "succeeded",
+        "recovery_id": "9c43a6b7-e689-4449-a711-2f4bae25aa59",
+        "resolution": "succeeded",
+        "run_id": "bfbadee9-0d1f-42a1-9493-621b5b3eb827"
+      },
+      "observed": {
+        "current_batch_id": "95f29710-619d-4166-a04c-1c8d3319b45e",
+        "input_fingerprint": "a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1",
+        "manifest_matches": true,
+        "status": "succeeded"
+      },
+      "original_references": [
+        {
+          "path": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re4/run-evidence/synthetic/runs/bfbadee9-0d1f-42a1-9493-621b5b3eb827/manifest.json",
+          "sha256": "65355e208d4d331cf670bde6ddc877b616400c83b61a439709e63a10bf0661c6"
+        },
+        {
+          "path": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re4/run-evidence/synthetic/runs/bfbadee9-0d1f-42a1-9493-621b5b3eb827/before-registration-commit.json",
+          "sha256": "f817bf4d90568adccd31d78141d1a148c2ea02de7991445c580a1f98802f20b4"
+        },
+        {
+          "path": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re4/run-evidence/synthetic/runs/bfbadee9-0d1f-42a1-9493-621b5b3eb827/before-publication-commit.json",
+          "sha256": "83f34292e90dfa3e834f14c363b7617992b46fa2602b246ea39c4606d60325ee"
+        },
+        {
+          "path": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re4/run-evidence/synthetic/runs/bfbadee9-0d1f-42a1-9493-621b5b3eb827/result.json",
+          "sha256": "c8f58bb01032fc136c58b032e95259eaf2a9084157c3ef7c232a1b003d613630"
+        }
+      ]
+    },
+    {
+      "database": "simulated state",
+      "commit_phase": "failure",
+      "original_result": {
+        "batch_id": "e05c8f6b-fd07-44ce-8bc6-6a37868f5e13",
+        "dataset_kind": "synthetic",
+        "diagnostics": [
+          {
+            "reason": "Failure record COMMIT was not confirmed",
+            "stage": "failure_commit"
+          }
+        ],
+        "evidence_ref": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re5/run-evidence/synthetic/runs/c13e4f7a-29ef-4c42-a80e-216d760fa108",
+        "result": "unknown_commit",
+        "run_id": "c13e4f7a-29ef-4c42-a80e-216d760fa108"
+      },
+      "recovery_result": {
+        "batch_id": "e05c8f6b-fd07-44ce-8bc6-6a37868f5e13",
+        "current_batch_id": null,
+        "dataset_kind": "synthetic",
+        "evidence_ref": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re5/recovered/synthetic/recoveries/9de31f88-5645-417b-b090-3f85376275f8",
+        "input_fingerprint": "a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1",
+        "observed_batch_status": "failed",
+        "recovery_id": "9de31f88-5645-417b-b090-3f85376275f8",
+        "resolution": "failed",
+        "run_id": "c13e4f7a-29ef-4c42-a80e-216d760fa108"
+      },
+      "observed": {
+        "current_batch_id": null,
+        "input_fingerprint": "a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1",
+        "manifest_matches": true,
+        "status": "failed"
+      },
+      "original_references": [
+        {
+          "path": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re5/run-evidence/synthetic/runs/c13e4f7a-29ef-4c42-a80e-216d760fa108/manifest.json",
+          "sha256": "efa6663a0cde25893895169d9d5818753006bc3611159dcca06473833a7252cb"
+        },
+        {
+          "path": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re5/run-evidence/synthetic/runs/c13e4f7a-29ef-4c42-a80e-216d760fa108/before-registration-commit.json",
+          "sha256": "bee70c84ed0c5ce3adb07ecbb76c12e8856edc1789b75b4165373173fc74b84a"
+        },
+        {
+          "path": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re5/run-evidence/synthetic/runs/c13e4f7a-29ef-4c42-a80e-216d760fa108/before-failure-commit.json",
+          "sha256": "b554acdaee349c3694a1ebb92fa90b22d53e8cce1c92f78939c881ddc4c294f1"
+        },
+        {
+          "path": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re5/run-evidence/synthetic/runs/c13e4f7a-29ef-4c42-a80e-216d760fa108/result.json",
+          "sha256": "58ac2c50a431ce864408328615bf46fabffb6fde007935d050b558a048a21c42"
+        },
+        {
+          "path": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re5/run-evidence/synthetic/runs/c13e4f7a-29ef-4c42-a80e-216d760fa108/error.json",
+          "sha256": "6763fc1e58de0663b84d0c530343352f797b1bdb165e653123d13a0e1bd78404"
+        }
+      ]
+    }
+  ],
+  "scope": {
+    "implemented": [
+      "New dedicated connection, READ COMMITTED, common session lock and target row lock",
+      "Saved UUID/mode/phase/time checks; frozen manifest and available fingerprint comparison",
+      "Successful history and existing failures remain unchanged, including replaced successful releases",
+      "Only a matching abandoned running row can be changed to failed, with one guarded update and recovery commit",
+      "Missing rows resolve only with unambiguous registration evidence",
+      "Uncertain SQL/rollback/commit results remain unknown; subsequent calls requery state",
+      "Original evidence is hashed and preserved; each recovery attempt writes separate evidence"
+    ],
+    "simulated_only": "All 69 B14 cases use scripted state and transaction replies. Original run receipts are produced by run_build with test callbacks; no business build or real recovery commit was executed.",
+    "real_regression_only": "The PostgreSQL-enabled full run executed 13 existing database tests: B08 (8), QA02 (2), session locks (3). These are not B14 state-recovery validation.",
+    "not_verified": [
+      "B14 SQL against A migrations and actual SELECT/UPDATE/row-lock permissions",
+      "Real meta.batch/current_release states, publication atomicity and successful history protection under injected network faults",
+      "Real lost COMMIT response during registration/publication/failure/recovery and a subsequent recovery session"
+    ],
+    "required_inputs": [
+      "A: meta.batch, meta.current_release and loader schema/SELECT/UPDATE permissions",
+      "E and B: real publication through the shared transaction and reproducible lost-response tests"
+    ],
+    "caller_requirement": "A fresh dedicated connection must target the original run database; old receipts do not identify a database server.",
+    "fingerprint_limit": "Older commit markers have no stored fingerprint. Recovery compares it only when recorded and never computes FP1 or certifies its SQL."
+  },
+  "regression_environment": {
+    "python": "3.12.6",
+    "packages": {
+      "psycopg": "3.3.6",
+      "psycopg-binary": "3.3.6",
+      "pytest": "8.4.2",
+      "openpyxl": "3.1.5"
+    },
+    "postgres_before": {
+      "current_user": "arsia_loader",
+      "session_user": "arsia_loader",
+      "database": "arsia",
+      "version": "PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+      "settings": {
+        "server_version_num": "160015",
+        "server_encoding": "UTF8",
+        "TimeZone": "UTC",
+        "transaction_isolation": "read committed"
+      },
+      "table_counts": {
+        "meta.source": 0,
+        "meta.resource": 0,
+        "raw.record": 0
+      },
+      "privileges": {
+        "meta.source": {
+          "select": true,
+          "insert": true
+        },
+        "meta.resource": {
+          "select": true,
+          "insert": true
+        },
+        "raw.record": {
+          "select": true,
+          "insert": true
+        }
+      },
+      "pending_relations": {
+        "meta.batch": null,
+        "qa.check_result": null
+      },
+      "remaining_session_locks": 0
+    },
+    "postgres_after": {
+      "current_user": "arsia_loader",
+      "session_user": "arsia_loader",
+      "database": "arsia",
+      "version": "PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+      "settings": {
+        "server_version_num": "160015",
+        "server_encoding": "UTF8",
+        "TimeZone": "UTC",
+        "transaction_isolation": "read committed"
+      },
+      "table_counts": {
+        "meta.source": 0,
+        "meta.resource": 0,
+        "raw.record": 0
+      },
+      "privileges": {
+        "meta.source": {
+          "select": true,
+          "insert": true
+        },
+        "meta.resource": {
+          "select": true,
+          "insert": true
+        },
+        "raw.record": {
+          "select": true,
+          "insert": true
+        }
+      },
+      "pending_relations": {
+        "meta.batch": null,
+        "qa.check_result": null
+      },
+      "remaining_session_locks": 0
+    },
+    "image": "postgres:16-bookworm@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67",
+    "container": "arsia-b08-20260920-e4d6b07f-db",
+    "port_at_run": 59126,
+    "final_container_state": "exited",
+    "setup": "Existing isolated B08 environment reused; no installation or migration changes"
+  },
+  "preservation": {
+    "existing_receipts_and_other_files_unchanged": 36,
+    "intentional_prior_doc_update": "docs/raw-loading.md now links the recovery entry; its historical receipts are unchanged",
+    "existing_production_files_unchanged": true,
+    "new_production_file": "src/arsia_ingest/recovery.py",
+    "original_venv_unchanged": true,
+    "shared_raw_dataset_created": false,
+    "test_container_stopped_and_volume_retained": true,
+    "staging_empty": true,
+    "commit_push_or_website_update": false,
+    "history_note": "Previous receipts keep their original code/document hashes. This receipt records the new module and later documentation."
+  },
+  "tested_file_hashes": {
+    "config/qa-team-v1.1.json": "d1729d38c890645cad18b55fdb3b0c8451cdf89f4627db507e5adc8abf5b6893",
+    "config/synthetic-s0.json": "e1c8f35faac4ace8ba73febb8dd933e36de9ee13650f65c7aeb8d452fe0e89b8",
+    "pyproject.toml": "75f9b36d2c7fc6d3e9a8df00b4e870b7e198d52412decf06786701e63f7f88a1",
+    "src/arsia_ingest/__init__.py": "1b968d2191475834219bcb988e7a25867afb1eff95b73acd7aaccae34568cdd3",
+    "src/arsia_ingest/__main__.py": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
+    "src/arsia_ingest/cli.py": "1f641c621a1408f3f997392841e910bff8ff2705dc0dedfd22d7ac88290b6918",
+    "src/arsia_ingest/config.py": "3ddc72a507ea1259ad8afc56fb25d74fabdf02eefedcfbe6e18c7b5b6374bcb2",
+    "src/arsia_ingest/fingerprint.py": "a1f3937176eb1df967d28b11a04d7c4e2bb031b52ebd2865bacc4ad94c4b1710",
+    "src/arsia_ingest/manifest.py": "734021f5af6ce14f8447dc743fd0efb458971ba171dd412899a1c7c4c57648c1",
+    "src/arsia_ingest/models.py": "ed9ce88b03d4cb76e9b1a27e352345d4e6789e266431f40754bc0b2dba3fa8db",
+    "src/arsia_ingest/pipeline.py": "12fa5df67e8d5aeb059e04aedee86554bf7359cbc53d09847a96e473710d67cf",
+    "src/arsia_ingest/qa_input.py": "80307dd0379d26623bd5e4556c860fb900693b570fce98350f988e04addcd14b",
+    "src/arsia_ingest/raw_load.py": "7d5fbc8af504dd4916a3083797beb1aa692234b0026ffd1983e254f72c4787e0",
+    "src/arsia_ingest/readers.py": "77af4af200ec216e141020fd63db551f27edb46b499cf8cebe2b4fe5858ab5d4",
+    "src/arsia_ingest/recovery.py": "178f7a4e5ac2f4105b1fe98a8ac066ae304e3efc6435269e0ed732c796ea2da7",
+    "src/arsia_ingest/runner.py": "e485e0a49cc11bc2b10f5e3c9cb43e76f5d2e927f6f542628850bbff361d43cb",
+    "tests/test_fingerprint.py": "210911a4d6447dfeb04946df099789015cff82ba17ff01e0e007fea8a315cbca",
+    "tests/test_manifest.py": "5e307ee5c5c6ca45c591edd99cb01f5ce4954024cea450746a0a71b674f7f942",
+    "tests/test_raw_load_postgres.py": "4288e332e61f77055f434614bbca97997472e666a31b5b8d9888f9ae2e23188a",
+    "tests/test_recovery.py": "556b55dbe1ce09e9abac0cce5692a41975a17cc267cfbb97863c441e7d4b60c5",
+    "tests/test_runner.py": "ab919849df2cb3de862ab48098d0890a2cc34b633c5499ea5113773589e29550",
+    "tests/fixtures/s0/config.json": "e9f786ec29dc03726ada8e606b893e5a16a3e8d780306bffea86f67f96ac9de3",
+    "tests/fixtures/s0/contract.json": "a73bdac78cb3b3ec4aff66658c37108ca84c34572ef3f42460a73e169b9411b6",
+    "tests/fixtures/s0/syn_nsw_crash.xlsx": "18c4953966224ee7f217afeebbb884dd6ccc01016ece2c077bb9717deb8c4541",
+    "tests/fixtures/s0/syn_nsw_traffic_unit.xlsx": "c114dece4b1c4a6698c4d0e4b05b912b9aa342598fd7f0def43df2b0428bd92c",
+    "tests/fixtures/s0/syn_qld_crash.csv": "7dbbd7bb3f9e5c6e07caf8c9e01be26abad6d1d383de482dcde9393071d61370",
+    "tests/fixtures/s0/syn_vic_accident.csv": "369798a8aa662d644df2e98091ad8a577a9741ce018dba47892889162aa8a144",
+    "tests/fixtures/s0/syn_vic_node.csv": "7bc159e10ec6d3e94a4d4673370ecd602e31bc0d2ed3971895f4126b045300a7",
+    "tests/fixtures/s0/syn_vic_person.csv": "af1104f14b46c7048b96d8a61546cbe1ed5e597f986673bfcc2d73c4855f14f4",
+    "tests/fixtures/s0/syn_vic_vehicle.csv": "5b7df97bde23fece0d19465ba8e4006544f6d907f963f7f352b8218b1fafec92"
+  },
+  "final_document_hashes": {
+    "README.md": "ec671ffd8cad34d67a1408312a727d6ef41aae65c9e11711343b8e2ccca20c78",
+    "docs/runner.md": "9cfd5e88e6d2d7f94dfa380af69b41b8471c698b6be411efdb3f85ba4568c5e9",
+    "docs/runner-locks.md": "8c627e38cfef218d8173bd27b60d1e02f80d0a8f66f56578ef03aae49932478c",
+    "docs/raw-loading.md": "14e3ad023dae3f2c3804ae0dc154999f019859b555efc71411ddd642fecee456",
+    "docs/recovery.md": "3b6d26099e0f358178b0f468fb5f8c858944437c04f33a4331655cb4b60ff6dd"
+  },
+  "local_evidence": [
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/after.json",
+      "sha256": "5e088782d0bd75975a5c0535fc8dd3317bbc2f3e4f04ae92e973315257fa4e12"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/before.json",
+      "sha256": "5e088782d0bd75975a5c0535fc8dd3317bbc2f3e4f04ae92e973315257fa4e12"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/collect_evidence.py",
+      "sha256": "33b2a0f24a79afbeb080545ef88370ba3c8b6fca927b1d4bc71046b74820abd1"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/initial-status.txt",
+      "sha256": "42857ec2a32112c038f9d362ae9a5f573c3726c7c6044b1bcd2456d2d88e7524"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/original-venv-result.json",
+      "sha256": "cafc4facf5ca7e35cc80f4321f01630187a5a6860266643c6188b1751effb9b4"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/original-venv.txt",
+      "sha256": "082cdfc3541f398c694f8fa00fc7bdae8f8614126d31148cd2db25795db706ed"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/original-venv.xml",
+      "sha256": "8287f7b9fb151ef72d22e3544e3ba52938be100e0b9ae155ead70cb1444dba86"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/postgres-result.json",
+      "sha256": "5f17b665db073644ca24af325daeb1aa9f08f84a9f638d8107769202b700f272"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/postgres.txt",
+      "sha256": "f6378fe28be70890dddda616935066d95ef8de0b6a021927531bd51eca7729d9"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/postgres.xml",
+      "sha256": "0a6e8969277b2b6ead423f611ba2d37711cf3610471fa08b04452889c8f3937a"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/preserved-hashes.json",
+      "sha256": "35858145185028e7c22c95749b5c9a566154b8f244e72cb118b6619dfccf74a8"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re0/recovered/synthetic/recoveries/fd508025-b7b7-453c-adde-97c39d981a34/observed.json",
+      "sha256": "3be8efebc88d5ee0d6c59e629983fa3527756b113387a9bcfb1a7768fbff3ac1"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re0/recovered/synthetic/recoveries/fd508025-b7b7-453c-adde-97c39d981a34/original.json",
+      "sha256": "c80d3d33b8cd2afbe4923ff9a32cf95de0feed55849538789faf1edc986b7428"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re0/recovered/synthetic/recoveries/fd508025-b7b7-453c-adde-97c39d981a34/result.json",
+      "sha256": "28e8710be8e5e3b10b2f5e2348b3c54c9b090873b689c0d8eae5977bbe6714e5"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re0/run-evidence/synthetic/runs/3e96e897-4b6b-4bed-8e61-4b94342b0c11/before-registration-commit.json",
+      "sha256": "45030f10cbb4aea444d048e6deaa808da3c9932bdaaee92af7f2a90ab768775e"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re0/run-evidence/synthetic/runs/3e96e897-4b6b-4bed-8e61-4b94342b0c11/manifest.json",
+      "sha256": "f33f62b13ec6f2dbc3b6023b30a8964036c1584d9ad89fc0472e35708626b888"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re0/run-evidence/synthetic/runs/3e96e897-4b6b-4bed-8e61-4b94342b0c11/result.json",
+      "sha256": "436bd0547620129a36352cb26dc03f53567b1908fccb75cc43f04bea9344e5f4"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re1/recovered/synthetic/recoveries/e084edc7-fef0-4f7f-80a5-9183de648996/before-recovery-commit.json",
+      "sha256": "1d79f8d9e8e1315c2300c79662e2bd6d57c4ffe96c91e7cec60e39e4afb40bbc"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re1/recovered/synthetic/recoveries/e084edc7-fef0-4f7f-80a5-9183de648996/decision.json",
+      "sha256": "587bbd713e4da6861ac2ded2dfa45ff9979605ca59a9a500065494915f901bf8"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re1/recovered/synthetic/recoveries/e084edc7-fef0-4f7f-80a5-9183de648996/observed.json",
+      "sha256": "c510d4a747e3b79afd96cc5eaa8b1d3a5292d4abe8ac651b17aa82a56c4e3f0a"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re1/recovered/synthetic/recoveries/e084edc7-fef0-4f7f-80a5-9183de648996/original.json",
+      "sha256": "e44e931af4123fa77c7cd727d946f4dc4da26c9719683225f5b9f5bfc34fe570"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re1/recovered/synthetic/recoveries/e084edc7-fef0-4f7f-80a5-9183de648996/result.json",
+      "sha256": "81932f80f424c0edccf4575801590da3a04b0b8b0bb6d321a03eaf7f2306a7fe"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re1/run-evidence/synthetic/runs/4ce001d5-5c27-4f27-bf8e-4fe04e7d62c2/before-publication-commit.json",
+      "sha256": "09257db8f60a687699f65160e77a3fc1bfecf1702c5ea1c1bff7157714fddea2"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re1/run-evidence/synthetic/runs/4ce001d5-5c27-4f27-bf8e-4fe04e7d62c2/before-registration-commit.json",
+      "sha256": "c4d3d09739cd1ec90b39202b903f1a0e9a8fc9b71505be7cf61941518c8e4752"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re1/run-evidence/synthetic/runs/4ce001d5-5c27-4f27-bf8e-4fe04e7d62c2/manifest.json",
+      "sha256": "acf3e9ffbb84f111e8fdd0b6021424707d35477b68e26d222de4ed8bc704ad63"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re1/run-evidence/synthetic/runs/4ce001d5-5c27-4f27-bf8e-4fe04e7d62c2/result.json",
+      "sha256": "81cbf675c0cb8bac90d879fda9e096f3eab574550ced54652fe820c1e1c73eda"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re2/recovered/synthetic/recoveries/23fa0242-b775-4692-855b-9e637d711afc/before-recovery-commit.json",
+      "sha256": "bfb445e10d13ad1a23367b9c11e0acefa12537c9b05b3683bd26c07b5f1d68b9"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re2/recovered/synthetic/recoveries/23fa0242-b775-4692-855b-9e637d711afc/decision.json",
+      "sha256": "12f86ef018572521cebf79c14044fff56c7ff1e033ec5f8e9cd2b2a7930fa68a"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re2/recovered/synthetic/recoveries/23fa0242-b775-4692-855b-9e637d711afc/observed.json",
+      "sha256": "c510d4a747e3b79afd96cc5eaa8b1d3a5292d4abe8ac651b17aa82a56c4e3f0a"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re2/recovered/synthetic/recoveries/23fa0242-b775-4692-855b-9e637d711afc/original.json",
+      "sha256": "98cc038f11d12f3f46e9144c7d846d0086bdfc6c388653d6424c1f1f9a181745"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re2/recovered/synthetic/recoveries/23fa0242-b775-4692-855b-9e637d711afc/result.json",
+      "sha256": "0d86512637f7760abf07f12516214c52dd23c3964655f000d3e18bea1d4c4922"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re2/run-evidence/synthetic/runs/73908367-97cd-4d12-b9b0-244492cfaa9b/before-failure-commit.json",
+      "sha256": "004e5c4a7d3dde90792c16cd908e1071659fed0e7e801851b438811643538d77"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re2/run-evidence/synthetic/runs/73908367-97cd-4d12-b9b0-244492cfaa9b/before-registration-commit.json",
+      "sha256": "0ba5fb846df5d6bdf237037ef2218addef9b5c3325bc6ee7d39bb5909e356f7a"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re2/run-evidence/synthetic/runs/73908367-97cd-4d12-b9b0-244492cfaa9b/error.json",
+      "sha256": "89224c777fce4a0273a32be514065caf0ebb649846b18c211fe21ba0dbfb0d44"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re2/run-evidence/synthetic/runs/73908367-97cd-4d12-b9b0-244492cfaa9b/manifest.json",
+      "sha256": "98454b0a08fb5a00df6ddd486a732bf35266e3b3570d48e3c6c2356cc00c383c"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re2/run-evidence/synthetic/runs/73908367-97cd-4d12-b9b0-244492cfaa9b/result.json",
+      "sha256": "72e9f430dcf39245ebcafcbc50c0b35ca59eab8021d54621be6bad3976258d77"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re3/recovered/synthetic/recoveries/81f17537-24c4-4b91-ac60-fdd299d24856/before-recovery-commit.json",
+      "sha256": "e691a85f53706d3e5820ec45d0007223c1fd2d1d1ba5e54b4619e7ccc0d42570"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re3/recovered/synthetic/recoveries/81f17537-24c4-4b91-ac60-fdd299d24856/decision.json",
+      "sha256": "2098e81eff585df8c8062f6a37dbd015dfcd14fbd30611fbe1eb5e9b59da501e"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re3/recovered/synthetic/recoveries/81f17537-24c4-4b91-ac60-fdd299d24856/observed.json",
+      "sha256": "c510d4a747e3b79afd96cc5eaa8b1d3a5292d4abe8ac651b17aa82a56c4e3f0a"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re3/recovered/synthetic/recoveries/81f17537-24c4-4b91-ac60-fdd299d24856/original.json",
+      "sha256": "d7e551248e861e7da8a42862b75275b0ace2c5982e1cf286b874643208e4ab77"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re3/recovered/synthetic/recoveries/81f17537-24c4-4b91-ac60-fdd299d24856/result.json",
+      "sha256": "71ada4690030ea68a6a6d619416611a9a97688825705b2c9de8af12ef3aa92d6"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re3/run-evidence/synthetic/runs/483700ce-389d-4bfb-9eba-acf2ae4f983c/before-registration-commit.json",
+      "sha256": "d67ee23653a0297f35c5d573a4f3e82f8bfe551192a5588f2e1e73149e0950bd"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re3/run-evidence/synthetic/runs/483700ce-389d-4bfb-9eba-acf2ae4f983c/manifest.json",
+      "sha256": "3e13ffa058451675743072222bb6c54482dcfcf5221e5ff2d487da8189bf776c"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re3/run-evidence/synthetic/runs/483700ce-389d-4bfb-9eba-acf2ae4f983c/result.json",
+      "sha256": "1b70b790dd365a54c280316a8d2782ed1d16d9e9288ccae3e7cce24c115185e7"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re4/recovered/synthetic/recoveries/9c43a6b7-e689-4449-a711-2f4bae25aa59/observed.json",
+      "sha256": "946a26e77ddc52bb2ac741289f0961779cfa9a60e3c34d44919130d171d9df83"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re4/recovered/synthetic/recoveries/9c43a6b7-e689-4449-a711-2f4bae25aa59/original.json",
+      "sha256": "c77e1cc7ca27c330c609eec3360b57c8d13f80f1da8b66e1b59e94e8dbde8085"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re4/recovered/synthetic/recoveries/9c43a6b7-e689-4449-a711-2f4bae25aa59/result.json",
+      "sha256": "93ee361ab369d7e225cbff0dd0b2296d34bfb212e4a8695b7bf7e0ba6d5cfe4c"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re4/run-evidence/synthetic/runs/bfbadee9-0d1f-42a1-9493-621b5b3eb827/before-publication-commit.json",
+      "sha256": "83f34292e90dfa3e834f14c363b7617992b46fa2602b246ea39c4606d60325ee"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re4/run-evidence/synthetic/runs/bfbadee9-0d1f-42a1-9493-621b5b3eb827/before-registration-commit.json",
+      "sha256": "f817bf4d90568adccd31d78141d1a148c2ea02de7991445c580a1f98802f20b4"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re4/run-evidence/synthetic/runs/bfbadee9-0d1f-42a1-9493-621b5b3eb827/manifest.json",
+      "sha256": "65355e208d4d331cf670bde6ddc877b616400c83b61a439709e63a10bf0661c6"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re4/run-evidence/synthetic/runs/bfbadee9-0d1f-42a1-9493-621b5b3eb827/result.json",
+      "sha256": "c8f58bb01032fc136c58b032e95259eaf2a9084157c3ef7c232a1b003d613630"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re5/recovered/synthetic/recoveries/9de31f88-5645-417b-b090-3f85376275f8/observed.json",
+      "sha256": "413996dfa47fffcb01fd616140d0fe81201c5cc7c4651f46b284a239381a2e6b"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re5/recovered/synthetic/recoveries/9de31f88-5645-417b-b090-3f85376275f8/original.json",
+      "sha256": "6693c621ecde9cd6467eee2ee879d4098ac9a49934aa7231b4f845960eaac45a"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re5/recovered/synthetic/recoveries/9de31f88-5645-417b-b090-3f85376275f8/result.json",
+      "sha256": "c1095c519163ba44982b9c352ed3df95e2762af38665e6ebccae3af84e517f8a"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re5/run-evidence/synthetic/runs/c13e4f7a-29ef-4c42-a80e-216d760fa108/before-failure-commit.json",
+      "sha256": "b554acdaee349c3694a1ebb92fa90b22d53e8cce1c92f78939c881ddc4c294f1"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re5/run-evidence/synthetic/runs/c13e4f7a-29ef-4c42-a80e-216d760fa108/before-registration-commit.json",
+      "sha256": "bee70c84ed0c5ce3adb07ecbb76c12e8856edc1789b75b4165373173fc74b84a"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re5/run-evidence/synthetic/runs/c13e4f7a-29ef-4c42-a80e-216d760fa108/error.json",
+      "sha256": "6763fc1e58de0663b84d0c530343352f797b1bdb165e653123d13a0e1bd78404"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re5/run-evidence/synthetic/runs/c13e4f7a-29ef-4c42-a80e-216d760fa108/manifest.json",
+      "sha256": "efa6663a0cde25893895169d9d5818753006bc3611159dcca06473833a7252cb"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/pytest-tmp/test_recovers_actual_runner_re5/run-evidence/synthetic/runs/c13e4f7a-29ef-4c42-a80e-216d760fa108/result.json",
+      "sha256": "58ac2c50a431ce864408328615bf46fabffb6fde007935d050b558a048a21c42"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/run_validation.py",
+      "sha256": "bdcc4ee63ac8c2ea4a839c3253c2ec616387a23053a3575ceadb2b59154cabb6"
+    },
+    {
+      "path": "artifacts/b14-recovery-validation-2026-09-21/versions.json",
+      "sha256": "25b51b64a69e9903f23ae108487463b8fe7f6d46c732866ec91bf111b14ac7d1"
+    }
+  ]
+}

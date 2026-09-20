@@ -195,10 +195,10 @@ The next integration steps depend on these shared parts:
 
 | Next work | Coordination needed |
 |---|---|
-| Insert/reuse `meta` and `raw` records and receive `raw_record_id` | A's schema, constraints, permissions and SQL interface. |
+| Load shared Raw records for C | A/B agree the dataset and commit; the B08/QA02 test loads were rolled back. |
 | Use the B09 manifest and connect FP1 | Team code/schema files, versioned source rules and E's registered SQL operation. See [manifest.md](manifest.md). |
 | Convert native fields into typed business projections | C's rules, identities and diagnostics; B passes original values unchanged. |
 | Execute the full pipeline and manage commit/rollback | [B's runner](runner.md), using the same connection for A/C/D/E's modules. |
 | Produce QA and select the current successful release | B/C/D's checks; E's object-completeness check and publication gate. |
 
-[QA01/QA02](input-qa.md) now replay native archives and compare the selected Raw records. Their PostgreSQL checks still need A's environment. Official source contracts remain drafts pending evidence and team confirmation.
+[QA01/QA02](input-qa.md) replay native archives and compare the selected Raw records. Synthetic native-to-Raw checks passed on A's PostgreSQL environment on 2026-09-20. QA result persistence and official source approval remain pending.
