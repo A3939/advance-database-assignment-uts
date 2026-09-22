@@ -1,319 +1,183 @@
-# C01 — Typed Projection Contract and Fixtures
-
-> **Internal team design / development contract — not final submission prose.**  
-> Role: **C**  
-> Status: **Draft v0.1**  
-> Purpose: provide a fixed early-development interface for A06/B10 and later source projections C03–C05.
-
-## 1. Purpose and scope
-
-C01 defines the fixed projection interfaces used before Vault loading.
-
-The contract defines:
-
-- `l_crash` with exactly 24 fields;
-- `l_unit` with exactly 11 fields;
-- PostgreSQL-compatible types;
-- NULL rules;
-- semantic identity scope;
-- Raw lineage;
-- eligibility/reason handling;
-- fixed synthetic fixtures; and
-- logical invocation conventions for downstream modules.
-
-C01 defines **identity semantics**, not the physical key encoding. The shared serialization/hash/business-key encoding remains an A05 responsibility.
-
-`l_crash` represents one projected crash at the common crash grain.
-
-`l_unit` represents one **real individual source unit** linked to a real parent crash. Aggregate QLD unit-category counts must not be expanded into artificial `l_unit` rows.
-
-Person and Node remain Raw/runtime-check inputs and are not introduced as new C01 projection entities.
-
----
-
-## 2. Raw lineage contract
-
-The authoritative immutable native-row store is `raw.record`.
-
-Relevant B08 Raw fields are:
-
-- `raw_record_id uuid PRIMARY KEY`
-- `resource_id text NOT NULL`
-- `source_id text NOT NULL`
-- `file_sha256 text NOT NULL`
-- `parser_version text NOT NULL`
-- `row_locator text NOT NULL`
-- `payload jsonb NOT NULL`
-- `ingested_at timestamptz NOT NULL`
-
-Native Raw identity is:
-
-`resource_id + file_sha256 + parser_version + row_locator`
-
-The loader reuses the existing `raw_record_id` for an identical Raw identity and rejects a changed payload under the same identity.
-
-### 2.1 Primary Raw lineage
-
-`primary_raw_record_id` references the `raw.record.raw_record_id` from which the projected crash or unit is primarily derived.
-
-### 2.2 Location Raw lineage
-
-`location_raw_record_id` identifies the Raw row supplying the location evidence used by a crash projection.
-
-Proposed convention:
-
-- NSW crash/location from the same Raw row:  
-  `location_raw_record_id = primary_raw_record_id`
-- VIC Accident with separate Node location:  
-  `location_raw_record_id` references the selected VIC Node Raw row
-- QLD crash/location from the same Raw row:  
-  `location_raw_record_id = primary_raw_record_id`
-- no trusted matching location:  
-  `location_raw_record_id = NULL`
-
-File hash, parser version and row locator remain authoritative in `raw.record`; they are not duplicated unnecessarily into the projection contracts.
-
----
-
-## 3. Identity semantics
-
-### 3.1 Crash identity
-
-A native crash ID is not globally unique.
-
-The semantic crash identity must retain at least:
-
-- `source_id`;
-- `primary_resource_id`; and
-- `source_crash_id`.
-
-The same native crash ID appearing in different sources/resources must remain a distinct crash identity.
-
-If A05 determines that a release-specific component is required for a source whose published IDs are not stable across releases, that scope must be included by A05 without overwriting the native source ID.
-
-### 3.2 Unit identity
-
-A unit identity must retain:
-
-- `source_id`;
-- `primary_resource_id`;
-- the complete parent crash identity; and
-- `source_unit_id`.
-
-A unit identifier must not be interpreted independently of its parent crash.
-
-### 3.3 Raw identity versus business identity
-
-Business identity and Raw row identity are separate concepts.
-
-- Business identity identifies the crash or real unit.
-- `raw_record_id` identifies the immutable native source row used as lineage evidence.
-
-The exact physical business-key serialization or hashing method is owned by A05.
-
----
-
-## 4. `l_crash` projection contract
-
-### 4.1 Contract status
-
-The following 24-field contract is **Draft v0.1 for team review**.
-
-| # | Field | PostgreSQL type | NULL? | Meaning / rule |
-|---:|---|---|---|---|
-| 1 | `source_id` | `text` | No | Source namespace registered in `meta.source`. |
-| 2 | `primary_resource_id` | `text` | No | Native crash resource from which the primary crash projection is derived. |
-| 3 | `source_crash_id` | `text` | No | Native crash identifier preserved as text; not globally unique. |
-| 4 | `occurrence_year` | `smallint` | No | Actual crash occurrence year used for analytical scope. |
-| 5 | `occurrence_month` | `smallint` | Yes | Occurrence month where genuinely available. |
-| 6 | `occurrence_date` | `date` | Yes | Exact occurrence date only where the source supplies day precision. |
-| 7 | `date_precision` | `text` | No | Temporal precision, e.g. `DAY`, `MONTH`, `YEAR`. |
-| 8 | `source_severity` | `text` | Yes | Original jurisdiction-specific severity value/code; never overwritten by a harmonised value. |
-| 9 | `definition_version` | `text` | Yes | Source definition/classification version or reference used to interpret the row. |
-| 10 | `fatality_count` | `integer` | Yes | Known fatalities under the supported source definition. |
-| 11 | `serious_injury_count` | `integer` | Yes | Serious-injury count where a confirmed source definition exists. |
-| 12 | `other_injury_count` | `integer` | Yes | Other source-supported injury count; no unsupported cross-state equivalence implied. |
-| 13 | `casualty_count` | `integer` | Yes | Source-supported killed/injured total; remains NULL when required components are unknown. |
-| 14 | `declared_unit_count` | `integer` | Yes | Source-declared crash-level unit/vehicle count where available; for reconciliation only. |
-| 15 | `declared_person_count` | `integer` | Yes | Source-declared participant count where available and definitionally supported. |
-| 16 | `latitude` | `numeric` | Yes | Selected latitude only where location evidence is usable. |
-| 17 | `longitude` | `numeric` | Yes | Selected longitude only where location evidence is usable. |
-| 18 | `crs_code` | `text` | Yes | Confirmed CRS only; plausible coordinate values do not establish CRS. |
-| 19 | `primary_raw_record_id` | `uuid` | No | Raw lineage to the primary native crash row. |
-| 20 | `location_raw_record_id` | `uuid` | Yes | Raw lineage to the source row supplying location evidence. |
-| 21 | `metric_eligible` | `boolean` | No | Whether the crash is eligible for governed non-spatial metrics under C08. |
-| 22 | `metric_reason` | `text` | Yes | Reason for metric limitation/ineligibility; NULL when no reason is required. |
-| 23 | `map_eligible` | `boolean` | No | Whether the location is eligible for governed spatial/map use. |
-| 24 | `map_reason` | `text` | Yes | Reason for spatial limitation/ineligibility. |
-
-### 4.2 `l_crash` NULL rules
-
-The projection must not:
-
-- replace unknown counts with zero;
-- invent a crash day from month-only data;
-- infer CRS from plausible coordinates;
-- invent missing Person, Vehicle or Node rows;
-- hide unresolved mappings through default values.
-
-Unknown/unavailable information remains explicit through NULL and/or the applicable eligibility/reason fields.
-
----
-
-## 5. `l_unit` projection contract
-
-### 5.1 Contract status
-
-The following 11-field contract is **Draft v0.1 for team review**.
-
-`l_unit` contains only complete **real individual units** supported by a source resource. It does not represent crash-level aggregate category counts.
-
-| # | Field | PostgreSQL type | NULL? | Meaning / rule |
-|---:|---|---|---|---|
-| 1 | `source_id` | `text` | No | Source namespace registered in `meta.source`. |
-| 2 | `primary_resource_id` | `text` | No | Native unit resource supplying this unit row. |
-| 3 | `source_crash_id` | `text` | No | Native ID of the real parent crash. |
-| 4 | `source_unit_id` | `text` | No | Native individual unit/vehicle identifier preserved as text. |
-| 5 | `source_unit_type` | `text` | Yes | Original source unit/vehicle type value or label; not a harmonised category. |
-| 6 | `direction` | `text` | Yes | Source-supported travel/initial direction where available. |
-| 7 | `movement` | `text` | Yes | Source-supported manoeuvre/vehicle movement where available. |
-| 8 | `primary_raw_record_id` | `uuid` | No | Raw lineage to the native individual unit row. |
-| 9 | `parent_crash_raw_record_id` | `uuid` | No | Raw lineage to the real parent crash row used for the relationship. |
-| 10 | `metric_eligible` | `boolean` | No | Whether this real unit is eligible for the governed unit-level use defined by C08. |
-| 11 | `metric_reason` | `text` | Yes | Reason for unit-level limitation/ineligibility; NULL when no reason is required. |
-
-### 5.2 Parent identity rule
-
-The `l_unit` parent is identified semantically by:
-
-- `source_id`;
-- the applicable crash resource/source scope; and
-- `source_crash_id`.
-
-A unit row must not be projected when its required real parent crash cannot be established under the approved source relationship rules.
-
-A05 owns the shared physical encoding of the full unit and parent crash business keys.
-
-### 5.3 QLD rule
-
-The selected QLD source is crash-level and contains aggregate unit-category counts rather than individual unit rows.
-
-Therefore:
-
-- QLD may produce `l_crash` rows;
-- QLD produces **zero `l_unit` rows** from the selected source;
-- aggregate `Count_Unit_*` values remain crash-level/source-specific evidence;
-- no synthetic or expanded individual QLD units may be created.
-
----
-
-## 6. Fixed development fixtures
-
-C01 fixtures must be independent of the unfinished C03–C05 source readers/projections.
-
-At minimum, the fixed fixture set must cover:
-
-| Fixture | Scenario | Expected contract behaviour |
-|---|---|---|
-| F01 | Normal valid crash | One valid `l_crash` row with primary Raw lineage. |
-| F02 | Optional source value missing | NULL remains explicit; no silent default. |
-| F03 | Unknown/unmapped classification | Source value remains visible; eligibility/reason identifies the limitation. |
-| F04 | Same native crash ID in different sources | Two distinct semantic crash identities. |
-| F05 | Valid real unit with correct parent | One `l_unit` row linked to the correct parent identity and Raw rows. |
-| F06 | Unit with missing/wrong parent | No invented parent; invalid relationship is surfaced according to the applicable QA rule. |
-| F07 | VIC-style separate location lineage | `primary_raw_record_id` and `location_raw_record_id` point to different Raw rows. |
-| F08 | Same-row location lineage | `location_raw_record_id = primary_raw_record_id`. |
-| F09 | Missing/untrusted location | Crash retained; map eligibility false/limited with an explicit reason. |
-| F10 | QLD crash with aggregate unit counts | `l_crash` exists; no artificial `l_unit` rows are emitted. |
-
-Fixture values should be fixed and deterministic so A06/B10 tests can develop against them before C03–C05 are finished.
-
----
-
-## 7. Logical call convention
-
-The following are logical development interfaces only. They are **not claims that installed functions/modules already exist**.
-
-Conceptually:
-
-- NSW projection → `l_crash`, `l_unit`
-- VIC projection → `l_crash`, `l_unit`
-- QLD projection → `l_crash`, empty `l_unit`
-
-The implementation registered later by C03–C05 must document:
-
-- actual module/function/query name;
-- arguments;
-- output version;
-- contract version;
-- expected exception behaviour.
-
-B10 should review the runner-facing call convention before C01 is frozen.
-
----
-
-## 8. Open items and dependencies
-
-### A05 — business-key encoding
-
-Pending:
-
-- exact serialization/hash/key format;
-- any required release-specific component for unstable source IDs;
-- parent crash key encoding for `l_unit`.
-
-C01 defines the semantic components only.
-
-### A06 — Vault loader review
-
-A06 should confirm:
-
-- whether both Raw lineage UUIDs are sufficient for Vault loading;
-- whether `parent_crash_raw_record_id` should remain explicit in `l_unit`;
-- whether the fixture representation is convenient for early Vault-loader tests.
-
-### B10 — runner review
-
-B10 should confirm:
-
-- fixture format;
-- logical invocation convention;
-- how projection outputs are supplied to the shared transaction/run boundary.
-
-### C08 — eligibility semantics
-
-C08 must define the governed rules for:
-
-- classification validity;
-- missing values;
-- count eligibility;
-- metric eligibility/reasons;
-- map eligibility/reasons.
-
-The C01 fields reserve the interface for these decisions but do not pre-approve unresolved source semantics.
-
-### Team review before freeze
-
-The following remain **proposed** until reviewed:
-
-- exact 24-field `l_crash` contract;
-- exact 11-field `l_unit` contract;
-- `location_raw_record_id = primary_raw_record_id` convention for same-row locations;
-- common injury/count fields where jurisdiction definitions differ;
-- fixture serialization/format.
-
----
-
-## 9. Freeze criteria for C01
-
-C01 can be frozen as Version 1 when:
-
-- `l_crash` contains exactly 24 explicitly defined fields;
-- `l_unit` contains exactly 11 explicitly defined fields;
-- every field has a type and NULL rule;
-- crash and unit identity scope is documented;
-- A05 has no conflict with the semantic identity components;
-- A06 accepts the loader-facing lineage/fixture contract;
-- B10 accepts the runner-facing convention;
-- fixtures cover NULL/unknown, same-ID-across-source, parent identity, location lineage, eligibility/reasons and no-invented-QLD-unit cases;
-- unresolved official source semantics remain explicit rather than hidden by defaults.
+# C01: typed projection contract and fixtures
+
+Revision 0.2, aligned with team v1.1. This defines the C-to-A row interface and
+its synthetic examples. It does not implement C03–C10 or approve official data.
+
+## 1. Contract and identity
+
+Team **02, `canonical.crash` / `canonical.unit`**, supplies the field names,
+types and NULL rules below. **04 §2 L2** requires all 24 crash fields and all
+11 unit fields, with the same names and types. No field is supplied implicitly
+by a database default. `I_crash` and `I_unit` are logical session rowsets;
+their actual SQL names still need to be agreed with A06.
+
+Under **05 §2**, A05 encodes native text components as PostgreSQL 16 JSON array
+text: crash `[crash ID]`, unit `[crash ID, unit ID]`. For example, the expected
+texts for `0001` and `0001/01` are `["0001"]` and `["0001", "01"]`.
+These examples do not replace the shared SQL encoder. Preserve leading zeros,
+case and valid surrounding characters; blank or whitespace-only keys block.
+
+Snapshot identities are `(batch_id, source_id, release_scope, crash_key)` and
+`(batch_id, source_id, release_scope, unit_key)`. Each unit carries its parent
+`crash_key` in the same batch, source and release scope. `batch_id` comes from
+the runner; source and release scope come from the frozen manifest. A resource
+ID identifies an input resource, not an extra crash identity component.
+
+Build the complete native parent-key set before filtering by occurrence year.
+A child without a parent is an orphan, not an out-of-range row. Duplicate
+business keys and invalid required keys block; do not keep an arbitrary row.
+
+## 2. I_crash
+
+One row per crash in its batch/source/release scope.
+
+| Field | PostgreSQL type | NULL? | Rule |
+|---|---|---|---|
+| `batch_id` | `uuid` | No | Candidate batch from the run context. |
+| `source_id` | `text` | No | Frozen source namespace; synthetic and official IDs differ. |
+| `release_scope` | `text` | No | Frozen identity scope; S0 uses `s0`. |
+| `crash_key` | `text` | No | Complete SQL-encoded native crash key. |
+| `raw_record_id` | `uuid` | No | Selected primary crash Raw row. |
+| `occurrence_year` | `integer` | No | Actual occurrence year, 1900–2100. |
+| `occurrence_month` | `integer` | Yes | Known month, 1–12; otherwise NULL. |
+| `occurrence_date` | `date` | Yes | Real day precision only; never invent a day. |
+| `date_precision` | `text` | No | Exactly `year`, `month` or `day`. |
+| `severity_raw` | `text` | Yes | Native severity; declared missing becomes NULL. |
+| `severity_code` | `text` | No | Source-internal code; declared missing is `__MISSING__`. |
+| `severity_definition_version` | `text` | No | Frozen definition version; S0 uses `syn-1`. |
+| `is_fatal_crash` | `boolean` | Yes | Confirmed fatal-crash interpretation; otherwise NULL. |
+| `fatality_count` | `integer` | Yes | Nonnegative known fatalities; unknown is NULL. |
+| `casualty_count` | `integer` | Yes | Confirmed casualty scope; any required unknown part gives NULL. |
+| `fatal_crash_eligible` | `boolean` | No | Independent eligibility for the fatal-crash measure. |
+| `fatality_eligible` | `boolean` | No | Independent eligibility for the fatality-count measure. |
+| `casualty_eligible` | `boolean` | No | Independent eligibility for the casualty-count measure. |
+| `latitude` | `numeric(10, 7)` | Yes | Trusted WGS84 latitude, −90 to 90. |
+| `longitude` | `numeric(10, 7)` | Yes | Trusted WGS84 longitude, −180 to 180. |
+| `location_crs` | `text` | Yes | `EPSG:4326` only when supported; do not relabel unknown CRS. |
+| `map_eligible` | `boolean` | No | Valid coordinates, CRS, relationship and uniqueness are supported. |
+| `location_record_id` | `uuid` | Yes | Selected Raw location evidence for this crash. |
+| `quality_notes` | `jsonb` | No | Object with the structured reasons described below. |
+
+For `year`, month/date are NULL. For `month`, month is known and date is NULL.
+For `day`, the date must agree with year and month. NSW/QLD S0 examples use
+month/year precision; VIC uses day precision.
+
+An eligible measure must have a non-NULL value under a confirmed definition.
+The three eligibility flags are independent. Missing values stay NULL, while
+known zero remains zero. Undefined nonempty categories or unconfirmed business
+definitions block QA05; setting every flag false does not make them acceptable.
+Declared missing tokens under a confirmed rule are different from new categories.
+
+## 3. I_unit
+
+One row per real source unit. QLD category counts produce no unit rows.
+
+| Field | PostgreSQL type | NULL? | Rule |
+|---|---|---|---|
+| `batch_id` | `uuid` | No | Same candidate batch as the parent. |
+| `source_id` | `text` | No | Same source as the parent. |
+| `release_scope` | `text` | No | Same identity scope as the parent. |
+| `unit_key` | `text` | No | SQL-encoded crash ID and unit ID, in that order. |
+| `crash_key` | `text` | No | Full parent crash key. |
+| `raw_record_id` | `uuid` | No | Selected real unit Raw row. |
+| `unit_type_raw` | `text` | Yes | Original unit type. |
+| `unit_type_code` | `text` | Yes | Source-internal mapped code; unmapped is NULL. |
+| `statistical_scope` | `text` | No | Nonblank scope constrained by the source definition/version. |
+| `count_eligible` | `boolean` | No | Type, parent and statistical scope must be confirmed. |
+| `quality_notes` | `jsonb` | No | Classification and relationship evidence. |
+
+An eligible unit needs a non-NULL type code. A missing parent still blocks
+QA03/QA04 when `count_eligible=false`. An undefined nonempty type blocks QA05.
+NSW traffic units and VIC vehicles keep separate scopes; no common vehicle
+total is implied. Direction, movement, declared counts and injury components
+remain in Raw or permitted `source_extra`, not replacement interface columns.
+
+## 4. Lineage, location and quality notes
+
+`raw_record_id` references the immutable row returned by B08. Its source must
+match, and its file must belong to the current selection. Raw identity remains
+resource + file SHA256 + parser version + native row locator, separately from
+business identity.
+
+Direct NSW/QLD coordinates may use the crash Raw row as `location_record_id`.
+VIC uses the selected Node Raw row matched on `ACCIDENT_NO + NODE_ID`. All Node
+observations remain in Raw. Compare complete, finite, in-range coordinates as
+exact decimals **before rounding**. All matching observations must agree and
+have confirmed CRS/relationships. Equivalent observations select a representative
+by file hash, parser version and numeric native locator. Do not average conflicts
+or silently drop partly invalid observations.
+
+Without a trusted location, retain the crash and set latitude, longitude, CRS
+and location Raw ID to NULL; set `map_eligible=false` and record the reason.
+Only QA07 can be `limited`. A true Node-to-Accident orphan still blocks QA04.
+
+Under **05 §4**, `quality_notes` is an object with optional `fields`, `location`
+and `references` members. Each `fields` item has `field`, `reason_code`,
+`raw_token` (possibly NULL) and `contract_version`. `location` has `reason_code`,
+`candidate_raw_record_ids`, `resolution` and `evidence_ref`. The reason vocabulary
+is `missing`, `unmapped`, `definition_unconfirmed`, `invalid_coordinate`,
+`crs_unconfirmed`, `location_conflict`, `no_location`. Every false eligibility
+needs corresponding evidence. Notes do not turn invalid core values into passes.
+
+## 5. Fixtures and checks
+
+[`c01_projection.py`](../../tests/fixtures/c01/c01_projection.py) contains the
+six expected S0 crashes, six real units and all four Node observations from
+**04 §4**. It uses `syn_nsw/syn_vic/syn_qld`, `s0`, `syn-1`, and the fictional
+F/I/N/missing definitions. It does not alter the shared native S0 files.
+
+Python values use UUID, date, Decimal, bool, int, dict and None to represent
+the SQL types. UUIDs are placeholders, not database lineage evidence. Real
+integration substitutes the IDs returned by B08. Literal keys illustrate the
+contract; this file neither generates production keys nor proves A05 serialization.
+
+| Case | Expected behaviour |
+|---|---|
+| F01 | Normal V1 crash with full fields. |
+| F02 | N2: missing values stay NULL, three measure flags false; QA05 pass, QA07 limited. |
+| F03 | A separate V1-based candidate with an undefined nonempty category: shape valid, QA05 block. |
+| F04A/B | Native ID `0001` stays distinct across NSW and VIC. |
+| F05 | Real VIC unit with the full matching parent identity. |
+| F06 | Structurally complete orphan: QA03 and QA04 block; no invented parent. |
+| F07 | V1 uses separate Node lineage; both equivalent observations remain. |
+| F08 | Q1 uses the same Raw row for crash and location. |
+| F09 | V2 remains present with conflicting Node evidence and no trusted location. |
+| F10 | QLD crash retained, zero individual QLD units. |
+| F11 | Known fatal-crash/fatality measures remain eligible when casualties are unknown. |
+
+F cases run independently. Do not concatenate them into one batch: several
+intentionally reuse an S0 identity. `expected_shape_valid` and `expected_qa`
+are test metadata outside the 24/11 fields. Negative candidates must not be
+fed to A06 as valid output. QA labels in the fixtures are expectations, not
+persisted QA results or executed SQL checks.
+
+Run from the repository root:
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -q -p no:cacheprovider tests/test_c01_projection.py
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tests/fixtures/c01/c01_projection.py
+```
+
+The pytest file independently checks the field/type/NULL contract, S0 values,
+independent eligibility, identity scope, parent counterexamples, location
+lineage and explicit QA expectations. The script alone only checks field shape.
+See [the validation receipt](c01-validation-2026-09-22.json) for the actual run.
+
+## 6. Integration and remaining work
+
+Use B10's existing `(connection, context)` callback convention, documented in
+the [runner guide](https://github.com/A3939/advance-database-assignment-uts/blob/3185b841a86a4b8f9c998636766efbf6332efa8c/docs/runner.md#module-interface).
+Callbacks use the supplied connection and never commit, roll back or close it.
+Their return values are ignored. C must create the agreed session rowsets for
+A on that connection; the fixture lists are not a runner callback implementation.
+
+Integration needs a verified A05 SQL signature and encoding test results. A06/C
+must agree the rowset names and how A consumes them. Satellite attributes follow
+**04 §2 L3**: exclude batch/source/release/self-key/primary Raw ID; unit attributes
+retain `crash_key`, with explicit JSON nulls and proper value types. C09 must read
+the selected Satellite observations, not rebuild Canonical directly from Raw.
+
+The fixed field and identity rules are settled in team v1.1. Official mappings,
+compatible releases and Node CRS still need source evidence; see [C02](c02-vic-person-node-review.md).
+This revision supplies a contract and tested examples, not acceptance of C's
+SQL projection, Vault integration, QA persistence or a complete build.

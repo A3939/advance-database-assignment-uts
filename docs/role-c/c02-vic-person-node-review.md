@@ -1,9 +1,9 @@
 # C02 — VIC Person / Node Source Contract Review
 
-> **Internal team design / evidence note — not final submission prose.**  
-> Role: **C**  
-> Status: **Draft v0.2**  
-> Source contract status: `draft`  
+> **Internal team design / evidence note — not final submission prose.**
+> Role: **C**
+> Status: **Draft v0.3**
+> Source contract status: `draft`
 > Four-resource bundle status: `bundle_confirmed=false`
 
 ## 1. Scope
@@ -158,8 +158,11 @@ Count reconciliation must:
 - not create Person rows to satisfy a declared count;
 - not introduce an automatic tolerance.
 
-Historical discrepancies remain valid source exceptions even though they
-fall outside the current 2020–2024 analytical scope.
+Once the comparison scope is confirmed, unexplained differences block QA04
+under team 04 §3; describing a comparison as diagnostic does not waive this rule.
+If scope is not confirmed, keep that limitation explicit under QA05 rather than
+reporting reconciliation as passed. Historical discrepancies remain recorded
+even when they fall outside the current 2020–2024 analytical scope.
 
 ---
 
@@ -235,8 +238,11 @@ The implementation must not:
 - discard conflicting observations;
 - fabricate missing coordinates.
 
-Where a representative can safely be selected, its Raw lineage must remain
-traceable to the chosen native Node observation.
+Compare coordinates as exact decimals before rounding to `numeric(10, 7)`.
+When observations are equivalent and otherwise usable, select the representative
+by file SHA256, parser version and numeric native row locator, in that order
+(team 05 §4). This determines `location_record_id`; all observations stay in Raw.
+An unresolved or partly invalid group must not be made usable by dropping rows.
 
 ---
 
@@ -301,7 +307,10 @@ Current status:
 - coordinate values: observed and internally consistent;
 - Node release CRS: **unconfirmed**;
 - formal EPSG:4326 assignment: **not approved**;
-- map eligibility: remains limited until CRS evidence is confirmed.
+- row eligibility: `map_eligible=false` until CRS evidence is confirmed;
+- projected latitude, longitude, `location_crs` and `location_record_id`: NULL;
+- QA07: may be `limited` only when the location has been correctly isolated and
+  its evidence retained. This does not clear the separate QA01/QA04/QA05 blockers.
 
 Plausible coordinate values alone must not establish CRS.
 
@@ -416,17 +425,36 @@ Current outcome:
 
 ## 18. Evidence references
 
-Primary internal evidence:
+The observations above refer to the saved August files and the September 17 UTC
+API checks, not a new full-source run. September 18 document dates use Sydney
+time. The following links pin the existing B evidence; no historical receipt
+has been regenerated for this revision.
 
-- `docs/sources/vic-accident-vehicle.md`
-- `docs/sources/evidence/vic/person-node-local-review-2026-09-17.json`
-- `docs/sources/evidence/vic/person-node-api-check-2026-09-17.json`
-- `docs/sources/evidence/vic/person-node-comparison-2026-09-17.json`
-- `docs/sources/evidence/vic/local-profile-2026-09-17-final.json`
+| Evidence | Exact location / use |
+|---|---|
+| [B06 / C02 shared review](https://github.com/A3939/advance-database-assignment-uts/blob/3185b841a86a4b8f9c998636766efbf6332efa8c/docs/sources/vic-accident-vehicle.md) | §1 original SHA256/version table; §5 Person; §6 Node; §7 compatibility; §9 reproduction. |
+| [Initial profile](https://github.com/A3939/advance-database-assignment-uts/blob/3185b841a86a4b8f9c998636766efbf6332efa8c/docs/sources/evidence/vic/local-profile-2026-09-17-final.json) | `files.person` candidate-key checks; `findings.person_missing_accident`; `findings.person_nonblank_vehicle_not_found`; `node_observations`. |
+| [Local follow-up](https://github.com/A3939/advance-database-assignment-uts/blob/3185b841a86a4b8f9c998636766efbf6332efa8c/docs/sources/evidence/vic/person-node-local-review-2026-09-17.json) | `person.reference_counts`, `person.unmatched`, `person.unmatched_scope_counts`, `count_differences`, `vehicle_type21`, `person.type16`, `node`. |
+| [API receipt](https://github.com/A3939/advance-database-assignment-uts/blob/3185b841a86a4b8f9c998636766efbf6332efa8c/docs/sources/evidence/vic/person-node-api-check-2026-09-17.json) | `requests[]`: saved URLs, filters, response content and retrieval hashes. API IDs are not CSV locators. |
+| [Offline comparison](https://github.com/A3939/advance-database-assignment-uts/blob/3185b841a86a4b8f9c998636766efbf6332efa8c/docs/sources/evidence/vic/person-node-comparison-2026-09-17.json) | `original_unmatched_references`, `current_api_count_differences`, `original_missing_node_cases`, `node_and_flat_coordinates`, `native_field_comparisons`. |
+| [Research record](https://github.com/A3939/advance-database-assignment-uts/blob/3185b841a86a4b8f9c998636766efbf6332efa8c/docs/sources/evidence/vic/person-node-research-2026-09-18.json) | `official_support` versus `file_and_api_observations`, `inferences_not_rules` and `open_questions`. |
+| [B08 Raw interface](https://github.com/A3939/advance-database-assignment-uts/blob/3185b841a86a4b8f9c998636766efbf6332efa8c/docs/raw-loading.md) | Supplied connection, immutable Raw values and ID reuse. |
+| [C06 draft](c06-person-checks.md) | Current Person-check work; the source review does not certify its SQL implementation. |
 
-Related implementation evidence:
+For Node, the local follow-up's `node.exact_duplicate_extra_rows` is 202,505;
+`node.varying_fields` identifies 3,137 groups varying only in DEG_URBAN_NAME.
+Use `node.missing_matches` for the 85 full-file cases and
+`node.missing_scope_counts` for the 7 in scope. Blank-reference totals come
+from `person.reference_counts`, separated by scope and road-user type.
 
-- B08 Raw interface
-- current QA04/QA05/QA07 team rules
-- C06 Person relationship checks
-- C07 Node/location checks
+The official definitions behind the review are preserved in the
+[package evidence](https://github.com/A3939/advance-database-assignment-uts/blob/3185b841a86a4b8f9c998636766efbf6332efa8c/docs/sources/evidence/vic/official-package-2026-09-17.json):
+Person `result.resources[2].attributes`, Node `result.resources[4].attributes`,
+and Accident `result.resources[0].attributes` (NO_PERSONS: AT-14416).
+The source overview explains which claims these definitions support.
+
+The policy basis remains team v1.1: **02** for Raw/Canonical fields,
+**04 §3** for QA04/05/07, and **05 §4** for Person references, Node selection
+and quality reasons. These shared documents live under
+`F/ARSIA-Team-Handoff/` in the course workspace. Their rules are not changed
+by this evidence note.

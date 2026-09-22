@@ -1,0 +1,52 @@
+{
+  "recorded_at_utc": "2026-09-21T14:23:07.811829+00:00",
+  "scope": "C01 contract and fixture-only validation; C02 evidence wording",
+  "base_branch": "yue/role-c",
+  "base_commit": "c8f5e19d47f1b0971567423050aabae24f79731c",
+  "runtime": {
+    "python": "3.12.6",
+    "pytest": "8.4.2",
+    "environment": "Existing Role B project virtual environment; tests run against the isolated changed files."
+  },
+  "reproduce_from_repository_root": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -q -p no:cacheprovider tests/test_c01_projection.py",
+  "pytest": {
+    "passed": 35,
+    "skipped": 0,
+    "failed": 0,
+    "exit_code": 0,
+    "reported_seconds": 0.08
+  },
+  "shape_script": {
+    "exit_code": 0,
+    "stdout": "C01 fixture shapes match 24/11 fields; this does not run SQL or QA."
+  },
+  "checks": {
+    "dictionary": "24 crash and 11 unit names, order, types and NULL flags match team 02",
+    "secrets_scan": "No private keys, GitHub token patterns or quoted password assignments found",
+    "file_sizes": "All changed text files below 1 MB"
+  },
+  "file_sha256": {
+    "docs/role-c/c01-projection-contract.md": "df2c5d985104fd2aca4696a9ba4cae86db08a40d138c87cf7fa83ee702765fb1",
+    "docs/role-c/c02-vic-person-node-review.md": "b11824d791673e33466c5b26a45b2ba9294fc16ff4e660a59bb45495c81f85d9",
+    "tests/fixtures/c01/c01_projection.py": "1d3579794a744e2da8076d0ed4aa95b5abe6ed82c1dccc68da82191a7cf2573a",
+    "tests/test_c01_projection.py": "9a018631e0ba3560dffdcea580e60db78bf842060e0a38c3125fed7b1a9ef325"
+  },
+  "contract_sha256": {
+    "F/ARSIA-Team-Handoff/02-数据库字段字典.md": "1be2f87407dbbf5e5d332047e15b37b17025e69c443d63f666ff4cd61ba9047a",
+    "F/ARSIA-Team-Handoff/04-团队分工与验收.md": "ed00feb05504f4ef5907b473fdb8988632ed7297a980f5aa33c488596eba20c2",
+    "F/ARSIA-Team-Handoff/05-来源与映射说明.md": "5b1d131d2510c1b2644fd1e86175854301e9ce822527b6e130a46cfef20ca3ff"
+  },
+  "not_run": [
+    "PostgreSQL constraints or real Raw foreign keys",
+    "A05 SQL key encoding",
+    "C03-C10 business SQL and persisted QA",
+    "Vault/Canonical integration or a complete S0 build",
+    "New official-data validation",
+    "Existing whole-repository regression suite"
+  ],
+  "limits": [
+    "Fixture QA labels are expectations; the tests do not execute the QA SQL.",
+    "C02 source contract remains draft and bundle_confirmed=false.",
+    "This receipt hashes the four final code/document files, not itself."
+  ]
+}
