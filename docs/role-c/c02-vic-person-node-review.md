@@ -59,6 +59,13 @@ Current observed result:
 
 - Person rows without an Accident parent: **0**
 
+Parent matching must be performed against the full Accident resource before
+applying the 2020–2024 analytical occurrence-year filter.
+
+Child rows inherit analytical scope from the matched Accident occurrence
+date/year. A missing Accident parent is therefore treated as an orphan,
+not as an out-of-range Person row.
+
 This is an observed result for the current saved source snapshot and must
 not be treated as a permanent guarantee for future releases.
 
@@ -79,11 +86,19 @@ full composite reference:
 
 `VEHICLE_ID` must not be matched independently of its parent Accident.
 
+Vehicle matching must occur within the same source and selected
+snapshot/release context. The same `VEHICLE_ID` in another Accident or
+source context is not a valid match.
+
 Current observed result:
 
 - non-empty unmatched Person-to-Vehicle references: **39**
 - all 39 are within the 2020–2024 analytical scope
 - the same cases persist in targeted official API evidence
+
+Of the 39 unmatched references, three affected crashes contain no Vehicle
+rows at all. The other 36 contain Vehicle rows, but the referenced
+`ACCIDENT_NO + VEHICLE_ID` key is absent.
 
 The 39 cases must not be repaired by:
 
@@ -130,14 +145,18 @@ Vehicle references.
 
 Therefore C06/runtime checks must distinguish:
 
-- allowed blank Vehicle reference, once formally confirmed;
+- candidate/confirmed allowed blank Vehicle reference;
 - unresolved blank Vehicle reference;
 - unmatched non-empty Vehicle reference.
 
+Blank `VEHICLE_ID` cases must be classified from confirmed source/business
+rules, not inferred from role code alone.
+
+A blank reference must not be promoted to "allowed" unless the supporting
+source/business rule is confirmed and versioned.
+
 No default rule should silently classify all blank Vehicle references
 as valid.
-
----
 
 ## 6. Person count reconciliation
 
@@ -157,6 +176,12 @@ Count reconciliation must:
 - report differences explicitly;
 - not create Person rows to satisfy a declared count;
 - not introduce an automatic tolerance.
+
+Count reconciliation must use Person rows attached to the confirmed Accident
+parent set before applying analytical-scope conclusions.
+
+Zero observed mismatches in 2020–2024 is a result for the reviewed snapshot,
+not proof that future releases or all publication scopes are complete.
 
 Once the comparison scope is confirmed, unexplained differences block QA04
 under team 04 §3; describing a comparison as diagnostic does not waive this rule.
@@ -351,20 +376,29 @@ C02 currently applies the following rules:
 
 1. Preserve all native Raw evidence.
 2. Use `ACCIDENT_NO + PERSON_ID` as the candidate Person key.
-3. Match Person-to-Vehicle only on `ACCIDENT_NO + VEHICLE_ID`.
-4. Do not create missing Accident or Vehicle parents.
-5. Keep blank Vehicle references separate from unmatched non-empty references.
-6. Treat pedestrian blank Vehicle references only as a candidate rule until confirmed.
-7. Preserve repeated Node observations in Raw.
-8. Do not allow repeated Node rows to multiply crash/location counts.
-9. Do not choose an arbitrary first Node row.
-10. Do not average conflicting coordinates.
-11. Do not create Node records for negative IDs.
-12. Keep crashes with unavailable locations for non-spatial analysis.
-13. Do not assign CRS from plausible coordinates alone.
-14. Keep the four-resource VIC contract draft until compatibility evidence is sufficient.
-
----
+3. Match Person to the full Accident resource before applying the
+   2020–2024 analytical occurrence-year filter.
+4. Treat a missing Accident parent as an orphan, not as an out-of-range row.
+5. Match a non-empty Person-to-Vehicle reference only on
+   `ACCIDENT_NO + VEHICLE_ID` within the same source and selected source
+   snapshot/file set.
+6. Do not infer official release compatibility from successful joins or
+   similar publication dates.
+7. Do not create missing Accident or Vehicle parents.
+8. Keep blank Vehicle references separate from unmatched non-empty references.
+9. Treat pedestrian blank Vehicle references only as a candidate rule until
+   a supporting source/business rule is confirmed and versioned.
+10. Perform Person-count reconciliation only under confirmed compatible
+    comparison scopes; unexplained differences then remain QA04 exceptions.
+11. Preserve repeated Node observations in Raw.
+12. Do not allow repeated Node rows to multiply crash/location counts.
+13. Do not choose an arbitrary first Node observation.
+14. Do not average conflicting coordinates.
+15. Do not create Node records for negative IDs.
+16. Keep crashes with unavailable locations for applicable non-spatial analysis.
+17. Do not assign CRS from plausible coordinate values alone.
+18. Keep the four-resource VIC source contract draft until compatibility
+    evidence is sufficient.
 
 ## 16. Unresolved items
 
