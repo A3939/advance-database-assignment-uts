@@ -1,5 +1,9 @@
 # ARSIA Role B: inputs and build runner
 
+This branch also includes Role C's C02 source review and C06 Person checks.
+Start with the [C02/C06 handoff](docs/role-c/c02-c06-handoff.md) for their scope,
+portable test commands and the code-delivery boundary.
+
 Role B's code prepares native inputs, loads Raw, freezes manifests, checks input/Raw quality and coordinates the build. B08 loading and B11 native-to-Raw checks have passed against A's PostgreSQL environment. Full builds still need the remaining database structures and the team's SQL modules, including E's FP1 and publication functions.
 
 ## Quick start

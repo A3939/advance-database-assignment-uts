@@ -1,200 +1,128 @@
-# C06 — VIC Person Relationships and Count Checks
-
-> Internal development / QA design note  
-> Role: C  
-> Status: Draft v0.1
-
-## 1. Purpose
-
-C06 validates VIC Person relationships against the selected Accident and
-Vehicle resources and reconciles source-declared Person counts where the
-definitions are confirmed to be comparable.
-
-Person remains a Raw/runtime-check entity. C06 does not create a Person
-Canonical table or Person fact table.
-
-The checks must preserve native evidence and return Raw-located diagnostics.
-
----
-
-## 2. Person candidate identity
-
-The candidate Person key is:
-
-`ACCIDENT_NO + PERSON_ID`
-
-Checks required:
-
-- both key components must be evaluated using the native source values;
-- duplicate candidate Person keys must be reported;
-- Person identity must not be created from row position or synthetic numbering.
-
-Current source evidence indicates no duplicate Person candidate keys in the
-reviewed VIC snapshot, but the runtime check must still remain active.
-
----
-
-## 3. Person-to-Accident relationship
-
-Every Person row must be checked against its Accident parent using:
-
-`ACCIDENT_NO`
-
-Expected rule:
-
-- matching Accident → relationship is valid;
-- missing Accident parent → report a relationship exception;
-- do not create an artificial Accident parent.
-
-Current reviewed evidence found no Person rows without an Accident parent in
-the selected snapshot.
-
----
-
-## 4. Person-to-Vehicle relationship
-
-Where `VEHICLE_ID` is non-empty, the relationship must be checked using the
-full key:
-
-`ACCIDENT_NO + VEHICLE_ID`
-
-`VEHICLE_ID` must not be matched independently of its Accident.
-
-The runtime check must distinguish:
-
-1. valid non-empty Vehicle reference;
-2. allowed blank Vehicle reference;
-3. unresolved blank Vehicle reference;
-4. unmatched non-empty Vehicle reference.
-
-For unmatched non-empty references:
-
-- preserve the Person Raw row;
-- preserve the valid Person-to-Accident relationship;
-- do not invent a Vehicle row;
-- do not invent a Person-to-Vehicle relationship;
-- return the native key values and Raw locator in the diagnostic result.
-
-Current evidence contains 39 unmatched non-empty Person-to-Vehicle references.
-
-Under the current QA04 contract these remain blocking relationship exceptions
-until any proposed rule change is formally confirmed and versioned.
-
----
-
-## 5. Blank Vehicle references
-
-Blank `VEHICLE_ID` values must not be treated the same as unmatched non-empty
-Vehicle references.
-
-Current source evidence indicates that most blank Vehicle references are
-associated with pedestrian Person roles.
-
-The runtime result must separate at least:
-
-- `allowed_blank_vehicle_ref`
-- `unresolved_blank_vehicle_ref`
-
-The exact rule for which Person roles allow a blank Vehicle reference remains
-subject to confirmed source/business rules.
-
-No default rule should silently classify all blank values as valid.
-
----
-
-## 6. Person count reconciliation
-
-Where the source definitions are confirmed as comparable, C06 should compare
-the Accident-level declared Person count with the Person detail rows.
-
-Current evidence indicates that the 2020–2024 analytical scope reconciles for
-the reviewed VIC snapshot.
-
-The check must:
-
-- compare only confirmed compatible scopes;
-- distinguish count mismatch from relationship mismatch;
-- report the affected Accident;
-- retain the contributing Raw locators;
-- never create or remove Person rows to force reconciliation;
-- not introduce an automatic tolerance.
-
-Historical discrepancies outside the analytical scope must remain visible if
-the full source snapshot is checked.
-
----
-
-## 7. Required diagnostic categories
-
-C06 should return explicit diagnostic categories such as:
-
-- `duplicate_person_key`
-- `missing_accident_parent`
-- `allowed_blank_vehicle_ref`
-- `unresolved_blank_vehicle_ref`
-- `unmatched_nonblank_vehicle_ref`
-- `person_count_mismatch`
-
-Diagnostic rows should include, where applicable:
-
-- `raw_record_id`
-- `ACCIDENT_NO`
-- `PERSON_ID`
-- `VEHICLE_ID`
-- diagnostic code
-- diagnostic detail/reason
-- rule version
-
-Native identifiers must remain visible in the result.
-
----
-
-## 8. Development rules
-
-C06 must not:
-
-- create missing Accident parents;
-- create missing Vehicle rows;
-- match Vehicle references using `VEHICLE_ID` alone;
-- invent Person records to satisfy a declared count;
-- automatically tolerate count differences;
-- merge blank and non-empty Vehicle reference exceptions into one category.
-
-Synthetic tests may be used before the shared official Raw integration is
-available.
-
----
-
-## 9. Current dependencies
-
-### Available
-
-- B06/C02 Person key and relationship evidence
-- B08 Raw interface
-- VIC Accident / Vehicle / Person source evidence
-- current QA04 relationship rule
-
-### Still requiring confirmation
-
-- exact business rule for valid blank `VEHICLE_ID` cases;
-- exact scope/version of any future QA04 severity change;
-- confirmed definition scope for all Person/unit count comparisons;
-- final shared SQL/Python invocation convention from B10.
-
-These items do not block development of the core C06 checks.
-
----
-
-## 10. Completion criteria
-
-C06 is complete when it can reproducibly report:
-
-- Person key duplicates;
-- missing Accident parents;
-- valid versus invalid/unresolved Vehicle references;
-- unmatched non-empty Vehicle references using the full Accident + Vehicle key;
-- Person count reconciliation results under confirmed definitions;
-- Raw-located evidence for each exception.
-
-Person remains Raw/check-only and no artificial parent or detail records are
-created.
+# C06: Person relationships and counts
+
+Version `c06-person-v0.3`. C06 supports the existing S0/S8 definitions and the
+adopted [VIC restricted policy](vic-restricted-use-decision.md). It checks Raw
+through B's connection and returns diagnostics. It does not publish results,
+write QA tables or implement Node, Vehicle count reconciliation or C10.
+
+## Checks
+
+The SQL selects complete Accident, Vehicle and Person snapshots by source,
+resource, file SHA256 and parser. It checks keys and parents before assigning
+years, so an orphan cannot disappear as an out-of-range record. Duplicate keys,
+invalid dates/counts, ambiguous parents and invalid references block. Grouped
+parents prevent join multiplication. Original values, locators and Raw IDs
+remain in the evidence; no records are repaired or deleted.
+
+S0/S8 keep their explicit blank-reference and complete-count definitions.
+For the pinned official files, `team-v1.1-vic-r1` adds:
+
+- Native empty Vehicle ID with `ROAD_USER_TYPE='1'` and `SEATING_POSITION='NA'`
+  is a team-defined non-association. NULL, whitespace and other tokens are not
+  covered. Nonempty pedestrian links are checked normally.
+- The 39 unmatched references and 24 unknown-role blanks must match the exact
+  registered keys, native fields, locators, parent dates and scope. Available
+  vehicle locators are also checked for unmatched references. Missing, changed
+  or additional cases block, even when the total count stays the same.
+- Declared and observed Person counts are compared diagnostically across the
+  full files. Both 2015 differences must match their declared/observed values
+  and contributing Person/Vehicle locators. In-scope differences are counted
+  separately. Unknown declarations stay NULL; opposite deltas cannot cancel.
+- The four file declarations, years and complete policy must match
+  [`c06-vic-r1.json`](../../config/c06-vic-r1.json). That file pins the adopted
+  policy bytes. Pedestrian and registered-case totals are checked separately
+  from case membership. These are exact expectations, not error allowances.
+
+`definitions_confirmed` stays false for official inputs. A C06 `pass` means
+these relationship/count checks passed under the restricted policy. It does
+not confirm export completeness, Node checks, report restrictions or release.
+
+## Interfaces
+
+For S0/S8, use `review_manifest(connection, frozen_manifest)` or
+`check_person(connection, context)` from `arsia_c.person_checks`.
+The callback writes `c06-person.json` through B's immutable evidence writer
+before raising `C06_BLOCK`. Neither entry owns the connection or transaction.
+
+The standalone official entry is ready for C10 and source review:
+
+```python
+from arsia_c.restricted_person import restricted_inputs, review_restricted
+
+spec, policy = restricted_inputs()
+report = review_restricted(connection, selected_files, spec["analysis"], policy)
+```
+
+`selected_files` must contain the actual four prepared file declarations, with
+exactly the fields in `spec['files']`. SQL reads three of them; the Node
+identity is bound to the bundle but its observations are outside C06. A named
+cursor streams results within the caller's transaction. B's `ModuleConnection`
+is supported. C06 never connects, commits, rolls back or closes the connection.
+
+Reports contain file counts, distinct affected Raw rows, separate summary
+violations, registered limitations, missing/unexpected cases and original
+observations. `declared_count_absolute_delta` remains NULL for official inputs;
+`diagnostic_count_delta` records each numerical difference without claiming a
+confirmed common export scope. SHA256 here identifies evidence, not FP1.
+
+`qa04_person_contribution` provides eight measured Person metrics and their
+policy expectations. `restriction_violation_count` is explicitly unexecuted:
+C10 must check D's output restrictions before creating a complete QA04 object.
+Do not use C06 alone as B's complete `qa_c` callback. Vehicle and Node QA04
+objects, QA05 semantics and the other required groups still need their owners.
+
+This checkout retains B's earlier `team-v1.1` implementation. Its
+`FrozenManifest` does not yet accept the restricted protocol. C06 includes
+the binding checks for a supported manifest: mapping ID
+`official_vic_restricted_use`, version `vic-accident-only-2020-2024-v1`, content
+equal to the entire policy, referenced by all four VIC contracts. This route
+has guard tests. The newer B checkout implements the protocol. Its implementation and
+execution records are maintained separately and are not copied into this
+branch. Legacy manifests and `review_official_draft` retain their blocks.
+
+## Reproduce
+
+Run from the repository root using Python 3.12 and
+[`requirements-c06.txt`](../../requirements-c06.txt). Environment setup and
+module/full-suite commands are in the [handoff](c02-c06-handoff.md#reproduce).
+Tests use this checkout by default and do not require a neighbouring directory.
+Set `ARSIA_REPOSITORY` only for an explicit compatibility check with another B
+implementation; C's code and SQL remain in this repository.
+
+Real SQL tests require an isolated PostgreSQL 16 database initialized by A,
+Psycopg 3, `ARSIA_TEST_DSN` and a protected `PGPASSFILE`. The loader needs
+SELECT/INSERT on the three B08 tables. Tests roll back. A missing DSN skips
+these tests; an invalid supplied DSN fails. This module does not install or
+migrate the database.
+
+For the official-case excerpt, first provide the pinned original Accident,
+Vehicle and Person CSVs. Existing native-input configurations are supported;
+relative resource paths resolve against the configuration directory. The base
+`config/native-inputs.json` uses `raw_datasource/` at the repository root. Git
+LFS pointer files must be replaced by the actual pinned originals, obtained
+through the team's data handoff or Git LFS access.
+
+With the connection configured and those files present:
+
+```sh
+python tools/replay_c06_cases.py --input-config config/native-inputs.json --evidence .local/c06-excerpt-new.json
+```
+
+Use a new evidence filename on each run. `--input-config` can instead name an
+existing configuration for originals kept elsewhere. It selects data paths,
+not imported Python code. The command identifies LFS pointers before database
+access; it does not download or copy the originals.
+
+The command requires empty test tables, scans the three originals, loads only
+registered-case excerpts and rolls back. It expects a completeness block:
+the excerpt is smaller than the selected full files. A successful replay is
+not a complete official Raw evaluation or publication result.
+
+## Validation records
+
+Test source and replay commands are included. Generated execution reports are
+retained separately by the team, with their original environment and hashes;
+this delivery does not include or relabel those results. Reproduction should
+record the actual code version, input hashes, command, environment and result.
+The [handoff](c02-c06-handoff.md) describes the remaining integration boundary,
+including original source validation files required by newer B evidence guards.

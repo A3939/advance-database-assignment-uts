@@ -1,0 +1,107 @@
+{
+  "purpose": "Code-delivery index: included source observations and contract snapshots are unchanged; generated validation reports are held separately.",
+  "frozen_policy_paths": "Original policy paths and hashes are unchanged. Original generated records are required for newer B evidence guards and must be supplied by B/E before integrated official validation.",
+  "already_in_repository": [
+    "docs/sources/vic-accident-vehicle.md",
+    "docs/sources/evidence/vic/local-profile-2026-09-17-final.json"
+  ],
+  "files": [
+    {
+      "original_workspace_path": "Reviews/VIC-source-followup-2026-09-23/check_evidence.py",
+      "repository_path": "docs/sources/evidence/vic/followup-2026-09-23/check_evidence.py",
+      "sha256": "e98cdffb053aacb63e0bd609554d73b1bf6e76d172ebf8f871f56658f48825b6",
+      "bytes": 9486
+    },
+    {
+      "original_workspace_path": "Reviews/VIC-source-followup-2026-09-23/collect.py",
+      "repository_path": "docs/sources/evidence/vic/followup-2026-09-23/collect.py",
+      "sha256": "4ffb22c4b5fd6682d6967022bbae31443f9040df2774aad637bed558e1fb3f0d",
+      "bytes": 4850
+    },
+    {
+      "original_workspace_path": "Reviews/VIC-source-followup-2026-09-23/evidence/api-comparison.json",
+      "repository_path": "docs/sources/evidence/vic/followup-2026-09-23/evidence/api-comparison.json",
+      "sha256": "a36cc8d1aea6b30e75a1764e26eaa7c93d17bd4125ef3925821a96493174a948",
+      "bytes": 29507
+    },
+    {
+      "original_workspace_path": "Reviews/VIC-source-followup-2026-09-23/evidence/api-extra.json",
+      "repository_path": "docs/sources/evidence/vic/followup-2026-09-23/evidence/api-extra.json",
+      "sha256": "c1fb037b64591169d0216a754398396e8b9002bf03c3057d58e1bf9e9b9c165d",
+      "bytes": 195203
+    },
+    {
+      "original_workspace_path": "Reviews/VIC-source-followup-2026-09-23/evidence/api-replay.json",
+      "repository_path": "docs/sources/evidence/vic/followup-2026-09-23/evidence/api-replay.json",
+      "sha256": "981abc214aba9dd89a0c98561c21ec88f47afd05eac866db0b7c193bb9acb5e9",
+      "bytes": 291638
+    },
+    {
+      "original_workspace_path": "Reviews/VIC-source-followup-2026-09-23/evidence/api-types.json",
+      "repository_path": "docs/sources/evidence/vic/followup-2026-09-23/evidence/api-types.json",
+      "sha256": "ed214482adb709645f53633d78fb777859214c5972d1459f7e6ab12eb1bf28bd",
+      "bytes": 618526
+    },
+    {
+      "original_workspace_path": "Reviews/VIC-source-followup-2026-09-23/evidence/local-review.json",
+      "repository_path": "docs/sources/evidence/vic/followup-2026-09-23/evidence/local-review.json",
+      "sha256": "ea8122b9c452c3da0cc8569f7eee840627cab0829388a4e3afa8e51009a231b4",
+      "bytes": 248241
+    },
+    {
+      "original_workspace_path": "Reviews/VIC-source-followup-2026-09-23/evidence/source-retrieval.json",
+      "repository_path": "docs/sources/evidence/vic/followup-2026-09-23/evidence/source-retrieval.json",
+      "sha256": "dd71bcdaa6b17f17c615d4df1b0334d2f617159467ffacd9c2a0ba91784ddca1",
+      "bytes": 409192
+    },
+    {
+      "original_workspace_path": "Resources/source/metadata/victoria_package.json",
+      "repository_path": "docs/sources/evidence/vic/followup-2026-09-23/basis/victoria_package.json",
+      "sha256": "36f27b21b75fe06b6203493ea845a7db03a11d0df2482ffa0e425f578f9f0a95",
+      "bytes": 106293
+    },
+    {
+      "original_workspace_path": "F/ARSIA-Team-Handoff/04-团队分工与验收.md",
+      "repository_path": "docs/sources/evidence/vic/followup-2026-09-23/basis/team-04-v1.1.md",
+      "sha256": "ed00feb05504f4ef5907b473fdb8988632ed7297a980f5aa33c488596eba20c2",
+      "bytes": 31523
+    },
+    {
+      "original_workspace_path": "F/ARSIA-Team-Handoff/05-来源与映射说明.md",
+      "repository_path": "docs/sources/evidence/vic/followup-2026-09-23/basis/team-05-v1.1.md",
+      "sha256": "5b1d131d2510c1b2644fd1e86175854301e9ce822527b6e130a46cfef20ca3ff",
+      "bytes": 20320
+    }
+  ],
+  "external_records": [
+    {
+      "original_workspace_path": "Reviews/VIC-source-followup-2026-09-23/README.md",
+      "repository_path": "docs/sources/evidence/vic/followup-2026-09-23/README.md",
+      "sha256": "b3b2a2a62eee7102c6aa4aa880518a065c4d5a860cdc0329c0bf70839a79480f",
+      "bytes": 10672,
+      "availability": "Retained by the team outside this code delivery."
+    },
+    {
+      "original_workspace_path": "Reviews/VIC-source-followup-2026-09-23/evidence/cross-check.json",
+      "repository_path": "docs/sources/evidence/vic/followup-2026-09-23/evidence/cross-check.json",
+      "sha256": "0615bfffda303363e4de7a5de527d80e6b59d137cb47de7fb3429d84cfcb51b0",
+      "bytes": 43858,
+      "availability": "Retained by the team outside this code delivery."
+    },
+    {
+      "original_workspace_path": "Reviews/VIC-source-followup-2026-09-23/evidence/pytest.xml",
+      "repository_path": "docs/sources/evidence/vic/followup-2026-09-23/evidence/pytest.xml",
+      "sha256": "a8b8c22c171f9821fbfad755dca9e7937ef632e009127ac96edf474b33ba7c2d",
+      "bytes": 1479,
+      "availability": "Retained by the team outside this code delivery."
+    },
+    {
+      "original_workspace_path": "Reviews/VIC-source-followup-2026-09-23/evidence/validation.json",
+      "repository_path": "docs/sources/evidence/vic/followup-2026-09-23/evidence/validation.json",
+      "sha256": "b6f8d26f7fdcfe9f3003d991f8671080cc8e77baa7709b13fee5993fc7d6f62b",
+      "bytes": 2596,
+      "availability": "Retained by the team outside this code delivery."
+    }
+  ],
+  "current_archive_guide": "docs/sources/evidence/vic/followup-2026-09-23/README.md"
+}

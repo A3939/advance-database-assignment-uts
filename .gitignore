@@ -17,6 +17,7 @@ venv/
 node_modules/
 
 # Local runtime output
+.local/
 *.log
 /tmp/
 /postgres_data/
