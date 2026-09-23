@@ -15,6 +15,7 @@ from urllib.parse import urlsplit
 from .config import ID, SHA256
 from .models import IntakeError
 from .raw_load import FILE_FIELDS, VERSION, _PreparedRun
+from .vic_restricted import PROTOCOL, QA_TEXT_SHA256, validate_profile
 
 
 REQUIRED_CHECKS = (
@@ -194,8 +195,9 @@ def _qa_contract(entry):
     _document(entry)
     _fields(entry["content"], {"text"})
     body = _text(entry["content"]["text"])
-    if (entry["id"] != "team_qa" or entry["version"] != "team-v1.1"
-            or hashlib.sha256(body.encode("utf-8")).hexdigest() not in QA_TEXT_HASHES):
+    allowed = {"team-v1.1": QA_TEXT_HASHES, PROTOCOL: {QA_TEXT_SHA256}}
+    if (entry["id"] != "team_qa"
+            or hashlib.sha256(body.encode("utf-8")).hexdigest() not in allowed.get(entry["version"], set())):
         _fail("Use the complete agreed v1.1 QA text; protocol changes need a reviewed version")
 
 
@@ -279,10 +281,16 @@ def validate_manifest(value):
     if set(_list(rules["contracts"], "id")) != set(file_ids):
         _fail("Provide one complete contract per selected resource")
     mappings = set(_list(rules["mappings"], "id", empty=True))
+    _qa_contract(rules["qa_contract"])
+    restricted_ids = {f["resource_id"] for f in files if f["source_id"] == "official_vic"}
+    if rules["qa_contract"]["version"] != PROTOCOL:
+        restricted_ids = set()
     referenced = set()
     for contract in rules["contracts"]:
         _document(contract, {"status", "mapping_ids"})
         expected_status = "confirmed" if kind == "official" else "synthetic_defined"
+        if contract["id"] in restricted_ids:
+            expected_status = "restricted"
         if contract["status"] != expected_status:
             raise IntakeError("MANIFEST_UNCONFIRMED", "A build needs confirmed source contracts or explicit synthetic definitions", resource_id=contract["id"])
         content = contract["content"]
@@ -387,6 +395,7 @@ def validate_manifest(value):
         if item["download_url"] is None and kind == "synthetic":
             continue
         _url(item["download_url"])
+    validate_profile(_normalize(value))
     _no_runtime({k: v for k, v in value.items() if k != "provenance"})
 
 

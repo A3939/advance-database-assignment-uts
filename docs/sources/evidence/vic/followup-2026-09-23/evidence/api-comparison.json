@@ -1,0 +1,1216 @@
+{
+  "checked_at_utc": "2026-09-23T04:42:46.744903+00:00",
+  "scope": "Only the saved API selections; this is not a current full-release validation or a CRS transformation",
+  "evidence_sha256": {
+    "native-inputs.json": "ad676ed8293883a531e3685112fde921f2e060e2f4554d0282716c345338b270",
+    "person-node-local-review-2026-09-17.json": "02d898c6b04ac1b4afe99b56b5be02368a6489356de40f7493886670e81a9e27",
+    "api-replay.json": "981abc214aba9dd89a0c98561c21ec88f47afd05eac866db0b7c193bb9acb5e9",
+    "compare_vic_evidence.py": "92b5f5da60fade0ef0f0e7af99d70dc5bfc91281bbf8b2a3feed4fc89ef1bfbb"
+  },
+  "native_field_comparisons": {
+    "accident": {
+      "selected_accidents": 43,
+      "local_rows": 43,
+      "api_rows": 43,
+      "local_only": [
+        {
+          "row": {
+            "ACCIDENT_NO": "T20250032463",
+            "ACCIDENT_DATE": "2025-12-11",
+            "ACCIDENT_TIME": "12:59:00",
+            "ACCIDENT_TYPE": "6",
+            "ACCIDENT_TYPE_DESC": "Vehicle overturned (no collision)",
+            "DAY_OF_WEEK": "4",
+            "DAY_WEEK_DESC": "Thursday",
+            "DCA_CODE": "184",
+            "DCA_DESC": "OUT OF CONTROL ON CARRIAGEWAY (ON BEND)",
+            "LIGHT_CONDITION": "1",
+            "NODE_ID": "828374",
+            "NO_OF_VEHICLES": "1",
+            "NO_PERSONS_KILLED": "0",
+            "NO_PERSONS_INJ_2": "0",
+            "NO_PERSONS_INJ_3": "1",
+            "NO_PERSONS_NOT_INJ": "1",
+            "NO_PERSONS": "2",
+            "POLICE_ATTEND": "1",
+            "ROAD_GEOMETRY": "5",
+            "ROAD_GEOMETRY_DESC": "Not at intersection",
+            "SEVERITY": "3",
+            "SPEED_ZONE": "100",
+            "RMA": "Freeway"
+          },
+          "count": 1
+        }
+      ],
+      "api_only": [
+        {
+          "row": {
+            "ACCIDENT_NO": "T20250032463",
+            "ACCIDENT_DATE": "2025-12-11",
+            "ACCIDENT_TIME": "12:59:00",
+            "ACCIDENT_TYPE": "6",
+            "ACCIDENT_TYPE_DESC": "Vehicle overturned (no collision)",
+            "DAY_OF_WEEK": "5",
+            "DAY_WEEK_DESC": "Thursday",
+            "DCA_CODE": "184",
+            "DCA_DESC": "OUT OF CONTROL ON CARRIAGEWAY (ON BEND)",
+            "LIGHT_CONDITION": "1",
+            "NODE_ID": "828374",
+            "NO_OF_VEHICLES": "1",
+            "NO_PERSONS_KILLED": "0",
+            "NO_PERSONS_INJ_2": "1",
+            "NO_PERSONS_INJ_3": "0",
+            "NO_PERSONS_NOT_INJ": "1",
+            "NO_PERSONS": "2",
+            "POLICE_ATTEND": "1",
+            "ROAD_GEOMETRY": "5",
+            "ROAD_GEOMETRY_DESC": "Not at intersection",
+            "SEVERITY": "2",
+            "SPEED_ZONE": "100",
+            "RMA": "Freeway"
+          },
+          "count": 1
+        }
+      ]
+    },
+    "vehicle": {
+      "selected_accidents": 43,
+      "local_rows": 49,
+      "api_rows": 49,
+      "local_only": [],
+      "api_only": []
+    },
+    "person": {
+      "selected_accidents": 43,
+      "local_rows": 89,
+      "api_rows": 89,
+      "local_only": [],
+      "api_only": []
+    },
+    "node": {
+      "selected_accidents": 91,
+      "local_rows": 22,
+      "api_rows": 22,
+      "local_only": [],
+      "api_only": []
+    }
+  },
+  "original_unmatched_references": [
+    {
+      "accident_no": "T20240016732",
+      "person_id": "01",
+      "csv_row_locator": "csv:24271",
+      "api_person_id": 24271,
+      "reference_unchanged": true,
+      "vehicle_still_absent": true
+    },
+    {
+      "accident_no": "T20210020918",
+      "person_id": "01",
+      "csv_row_locator": "csv:30047",
+      "api_person_id": 30047,
+      "reference_unchanged": true,
+      "vehicle_still_absent": true
+    },
+    {
+      "accident_no": "T20240011771",
+      "person_id": "01",
+      "csv_row_locator": "csv:34147",
+      "api_person_id": 34147,
+      "reference_unchanged": true,
+      "vehicle_still_absent": true
+    },
+    {
+      "accident_no": "T20240015401",
+      "person_id": "01",
+      "csv_row_locator": "csv:52336",
+      "api_person_id": 52336,
+      "reference_unchanged": true,
+      "vehicle_still_absent": true
+    },
+    {
+      "accident_no": "T20210022607",
+      "person_id": "01",
+      "csv_row_locator": "csv:81696",
+      "api_person_id": 81696,
+      "reference_unchanged": true,
+      "vehicle_still_absent": true
+    },
+    {
+      "accident_no": "T20210021340",
+      "person_id": "01",
+      "csv_row_locator": "csv:82687",
+      "api_person_id": 82687,
+      "reference_unchanged": true,
+      "vehicle_still_absent": true
+    },
+    {
+      "accident_no": "T20240009606",
+      "person_id": "01",
+      "csv_row_locator": "csv:142993",
+      "api_person_id": 142993,
+      "reference_unchanged": true,
+      "vehicle_still_absent": true
+    },
+    {
+      "accident_no": "T20240004372",
+      "person_id": "01",
+      "csv_row_locator": "csv:156632",
+      "api_person_id": 156632,
+      "reference_unchanged": true,
+      "vehicle_still_absent": true
+    },
+    {
+      "accident_no": "T20240013511",
+      "person_id": "01",
+      "csv_row_locator": "csv:176517",
+      "api_person_id": 176517,
+      "reference_unchanged": true,
+      "vehicle_still_absent": true
+    },
+    {
+      "accident_no": "T20240018235",
+      "person_id": "01",
+      "csv_row_locator": "csv:201145",
+      "api_person_id": 201145,
+      "reference_unchanged": true,
+      "vehicle_still_absent": true
+    },
+    {
+      "accident_no": "T20230008808",
+      "person_id": "01",
+      "csv_row_locator": "csv:210521",
+      "api_person_id": 210521,
+      "reference_unchanged": true,
+      "vehicle_still_absent": true
+    },
+    {
+      "accident_no": "T20210023956",
+      "person_id": "01",
+      "csv_row_locator": "csv:224272",
+      "api_person_id": 224272,
+      "reference_unchanged": true,
+      "vehicle_still_absent": true
+    },
+    {
+      "accident_no": "T20240005963",
+      "person_id": "01",
+      "csv_row_locator": "csv:228136",
+      "api_person_id": 228136,
+      "reference_unchanged": true,
+      "vehicle_still_absent": true
+    },
+    {
+      "accident_no": "T20240012385",
+      "person_id": "01",
+      "csv_row_locator": "csv:245849",
+      "api_person_id": 245849,
+      "reference_unchanged": true,
+      "vehicle_still_absent": true
+    },
+    {
+      "accident_no": "T20240005356",
+      "person_id": "01",
+      "csv_row_locator": "csv:249824",
+      "api_person_id": 249824,
+      "reference_unchanged": true,
+      "vehicle_still_absent": true
+    },
+    {
+      "accident_no": "T20240016457",
+      "person_id": "01",
+      "csv_row_locator": "csv:253707",
+      "api_person_id": 253707,
+      "reference_unchanged": true,
+      "vehicle_still_absent": true
+    },
+    {
+      "accident_no": "T20240015702",
+      "person_id": "01",
+      "csv_row_locator": "csv:269781",
+      "api_person_id": 269781,
+      "reference_unchanged": true,
+      "vehicle_still_absent": true
+    },
+    {
+      "accident_no": "T20240026951",
+      "person_id": "01",
+      "csv_row_locator": "csv:272327",
+      "api_person_id": 272327,
+      "reference_unchanged": true,
+      "vehicle_still_absent": true
+    },
+    {
+      "accident_no": "T20210002973",
+      "person_id": "01",
+      "csv_row_locator": "csv:281006",
+      "api_person_id": 281006,
+      "reference_unchanged": true,
+      "vehicle_still_absent": true
+    },
+    {
+      "accident_no": "T20220019925",
+      "person_id": "01",
+      "csv_row_locator": "csv:281518",
+      "api_person_id": 281518,
+      "reference_unchanged": true,
+      "vehicle_still_absent": true
+    },
+    {
+      "accident_no": "T20240013192",
+      "person_id": "01",
+      "csv_row_locator": "csv:293286",
+      "api_person_id": 293286,
+      "reference_unchanged": true,
+      "vehicle_still_absent": true
+    },
+    {
+      "accident_no": "T20240017951",
+      "person_id": "01",
+      "csv_row_locator": "csv:306418",
+      "api_person_id": 306418,
+      "reference_unchanged": true,
+      "vehicle_still_absent": true
+    },
+    {
+      "accident_no": "T20240009746",
+      "person_id": "01",
+      "csv_row_locator": "csv:308320",
+      "api_person_id": 308320,
+      "reference_unchanged": true,
+      "vehicle_still_absent": true
+    },
+    {
+      "accident_no": "T20210014050",
+      "person_id": "01",
+      "csv_row_locator": "csv:315002",
+      "api_person_id": 315002,
+      "reference_unchanged": true,
+      "vehicle_still_absent": true
+    },
+    {
+      "accident_no": "T20210012594",
+      "person_id": "01",
+      "csv_row_locator": "csv:315473",
+      "api_person_id": 315473,
+      "reference_unchanged": true,
+      "vehicle_still_absent": true
+    },
+    {
+      "accident_no": "T20230013618",
+      "person_id": "01",
+      "csv_row_locator": "csv:321373",
+      "api_person_id": 321373,
+      "reference_unchanged": true,
+      "vehicle_still_absent": true
+    },
+    {
+      "accident_no": "T20240016998",
+      "person_id": "01",
+      "csv_row_locator": "csv:324831",
+      "api_person_id": 324831,
+      "reference_unchanged": true,
+      "vehicle_still_absent": true
+    },
+    {
+      "accident_no": "T20240011214",
+      "person_id": "01",
+      "csv_row_locator": "csv:326212",
+      "api_person_id": 326212,
+      "reference_unchanged": true,
+      "vehicle_still_absent": true
+    },
+    {
+      "accident_no": "T20220018761",
+      "person_id": "02",
+      "csv_row_locator": "csv:328735",
+      "api_person_id": 328735,
+      "reference_unchanged": true,
+      "vehicle_still_absent": true
+    },
+    {
+      "accident_no": "T20230009098",
+      "person_id": "01",
+      "csv_row_locator": "csv:357666",
+      "api_person_id": 357666,
+      "reference_unchanged": true,
+      "vehicle_still_absent": true
+    },
+    {
+      "accident_no": "T20240013800",
+      "person_id": "01",
+      "csv_row_locator": "csv:369748",
+      "api_person_id": 369748,
+      "reference_unchanged": true,
+      "vehicle_still_absent": true
+    },
+    {
+      "accident_no": "T20210022263",
+      "person_id": "01",
+      "csv_row_locator": "csv:423317",
+      "api_person_id": 423317,
+      "reference_unchanged": true,
+      "vehicle_still_absent": true
+    },
+    {
+      "accident_no": "T20240010944",
+      "person_id": "02",
+      "csv_row_locator": "csv:432197",
+      "api_person_id": 432197,
+      "reference_unchanged": true,
+      "vehicle_still_absent": true
+    },
+    {
+      "accident_no": "T20230028873",
+      "person_id": "01",
+      "csv_row_locator": "csv:438986",
+      "api_person_id": 438986,
+      "reference_unchanged": true,
+      "vehicle_still_absent": true
+    },
+    {
+      "accident_no": "T20240002735",
+      "person_id": "02",
+      "csv_row_locator": "csv:439490",
+      "api_person_id": 439490,
+      "reference_unchanged": true,
+      "vehicle_still_absent": true
+    },
+    {
+      "accident_no": "T20240009631",
+      "person_id": "03",
+      "csv_row_locator": "csv:439499",
+      "api_person_id": 439499,
+      "reference_unchanged": true,
+      "vehicle_still_absent": true
+    },
+    {
+      "accident_no": "T20240010811",
+      "person_id": "01",
+      "csv_row_locator": "csv:440964",
+      "api_person_id": 440964,
+      "reference_unchanged": true,
+      "vehicle_still_absent": true
+    },
+    {
+      "accident_no": "T20220019497",
+      "person_id": "01",
+      "csv_row_locator": "csv:463738",
+      "api_person_id": 463738,
+      "reference_unchanged": true,
+      "vehicle_still_absent": true
+    },
+    {
+      "accident_no": "T20230028026",
+      "person_id": "01",
+      "csv_row_locator": "csv:465286",
+      "api_person_id": 465286,
+      "reference_unchanged": true,
+      "vehicle_still_absent": true
+    }
+  ],
+  "current_api_count_differences": [
+    {
+      "accident_no": "T20150023069",
+      "api_accident_id": 63177,
+      "differences": {
+        "NO_PERSONS": {
+          "api_accident_declared": "2",
+          "api_child_observed": 1
+        },
+        "NO_PERSONS_NOT_INJ": {
+          "api_accident_declared": "1",
+          "api_child_observed": 0
+        }
+      }
+    },
+    {
+      "accident_no": "T20150025312",
+      "api_accident_id": 130340,
+      "differences": {
+        "NO_PERSONS": {
+          "api_accident_declared": "2",
+          "api_child_observed": 1
+        },
+        "NO_PERSONS_NOT_INJ": {
+          "api_accident_declared": "1",
+          "api_child_observed": 0
+        }
+      }
+    },
+    {
+      "accident_no": "T20250032463",
+      "api_accident_id": 145801,
+      "differences": {
+        "NO_OF_VEHICLES": {
+          "api_accident_declared": "1",
+          "api_child_observed": 2
+        },
+        "NO_PERSONS_INJ_2": {
+          "api_accident_declared": "1",
+          "api_child_observed": 0
+        },
+        "NO_PERSONS_INJ_3": {
+          "api_accident_declared": "0",
+          "api_child_observed": 1
+        }
+      }
+    },
+    {
+      "accident_no": "T20230009098",
+      "api_accident_id": 149255,
+      "differences": {
+        "NO_OF_VEHICLES": {
+          "api_accident_declared": "1",
+          "api_child_observed": 0
+        }
+      }
+    },
+    {
+      "accident_no": "T20210022607",
+      "api_accident_id": 183944,
+      "differences": {
+        "NO_OF_VEHICLES": {
+          "api_accident_declared": "1",
+          "api_child_observed": 0
+        }
+      }
+    },
+    {
+      "accident_no": "T20210022263",
+      "api_accident_id": 184352,
+      "differences": {
+        "NO_OF_VEHICLES": {
+          "api_accident_declared": "1",
+          "api_child_observed": 0
+        }
+      }
+    },
+    {
+      "accident_no": "T20250030921",
+      "api_accident_id": 195728,
+      "differences": {
+        "NO_OF_VEHICLES": {
+          "api_accident_declared": "2",
+          "api_child_observed": 3
+        }
+      }
+    }
+  ],
+  "original_missing_node_cases": [
+    {
+      "accident_no": "T20160020719",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20130003022",
+      "node_id": "-10",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20180021544",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20120001369",
+      "node_id": "-3",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20220001453",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20120013485",
+      "node_id": "-10",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20120026078",
+      "node_id": "-10",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20130002446",
+      "node_id": "-10",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20200004272",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20120009365",
+      "node_id": "-10",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20130000413",
+      "node_id": "-10",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20190001603",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20180014906",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20130000490",
+      "node_id": "-10",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20130000123",
+      "node_id": "-10",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20120022939",
+      "node_id": "-10",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20160004785",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20160023892",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20190020200",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20190019204",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20130006785",
+      "node_id": "-10",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20120015834",
+      "node_id": "-10",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20190023155",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20190014761",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20120008664",
+      "node_id": "-10",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20120023231",
+      "node_id": "-10",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20120005932",
+      "node_id": "-10",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20170008557",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20120013498",
+      "node_id": "-10",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20190013545",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20190014790",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20130000229",
+      "node_id": "-10",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20130004480",
+      "node_id": "-10",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20120015209",
+      "node_id": "-10",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20190010303",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20120013217",
+      "node_id": "-10",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20120017610",
+      "node_id": "-10",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20180023958",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20120023489",
+      "node_id": "-10",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20190000288",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20210011134",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20180011668",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20210006755",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20170018084",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20190002378",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20120012969",
+      "node_id": "-10",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20130002101",
+      "node_id": "-10",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20120028352",
+      "node_id": "-10",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20120002126",
+      "node_id": "-10",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20180010144",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20120028739",
+      "node_id": "-10",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20180018467",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20190004398",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20120006036",
+      "node_id": "-10",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20130004031",
+      "node_id": "-10",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20160004863",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20160010393",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20180021724",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20210009023",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20180008786",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20190023830",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20120020447",
+      "node_id": "-10",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20120008772",
+      "node_id": "-10",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20170011059",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20120024642",
+      "node_id": "-10",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20170015401",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20170012528",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20180001074",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20120025845",
+      "node_id": "-10",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20130001439",
+      "node_id": "-10",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20180006480",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20120029106",
+      "node_id": "-10",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20210011215",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20190020942",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20190010646",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20120013446",
+      "node_id": "-10",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20120014619",
+      "node_id": "-10",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20180010627",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20190016778",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20190006335",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20170001868",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20220007387",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20180002775",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20190019560",
+      "node_id": "-1",
+      "still_absent": true
+    },
+    {
+      "accident_no": "T20180005086",
+      "node_id": "-1",
+      "still_absent": true
+    }
+  ],
+  "node_and_flat_coordinates": [
+    {
+      "accident_no": "T20120016400",
+      "api_flat_id": 14857,
+      "node_row_locators": [
+        "csv:323",
+        "csv:1613",
+        "csv:398967",
+        "csv:400624"
+      ],
+      "node_values": [
+        {
+          "LATITUDE": "-38.463627",
+          "LONGITUDE": "145.22337",
+          "AMG_X": "2519499.23300000",
+          "AMG_Y": "2337534.01200000"
+        }
+      ],
+      "flat_values": {
+        "LATITUDE": "-38.463627",
+        "LONGITUDE": "145.22337",
+        "VICGRID_X": "2519499.233",
+        "VICGRID_Y": "2337534.012"
+      },
+      "all_selected_values_numerically_equal": true
+    },
+    {
+      "accident_no": "T20250032463",
+      "api_flat_id": 22975,
+      "node_row_locators": [
+        "csv:405064",
+        "csv:405699"
+      ],
+      "node_values": [
+        {
+          "LATITUDE": "-37.694714",
+          "LONGITUDE": "144.90234",
+          "AMG_X": "2491387.79400000",
+          "AMG_Y": "2422903.26200000"
+        }
+      ],
+      "flat_values": {
+        "LATITUDE": "-37.694714",
+        "LONGITUDE": "144.90234",
+        "VICGRID_X": "2491387.794",
+        "VICGRID_Y": "2422903.262"
+      },
+      "all_selected_values_numerically_equal": true
+    },
+    {
+      "accident_no": "T20120001597",
+      "api_flat_id": 50540,
+      "node_row_locators": [
+        "csv:253",
+        "csv:1543",
+        "csv:398966",
+        "csv:400623"
+      ],
+      "node_values": [
+        {
+          "LATITUDE": "-36.706463",
+          "LONGITUDE": "146.92424",
+          "AMG_X": "2671900.44600000",
+          "AMG_Y": "2530832.97500000"
+        }
+      ],
+      "flat_values": {
+        "LATITUDE": "-36.706463",
+        "LONGITUDE": "146.92424",
+        "VICGRID_X": "2671900.446",
+        "VICGRID_Y": "2530832.975"
+      },
+      "all_selected_values_numerically_equal": true
+    },
+    {
+      "accident_no": "T20150023069",
+      "api_flat_id": 61647,
+      "node_row_locators": [
+        "csv:201728",
+        "csv:205476"
+      ],
+      "node_values": [
+        {
+          "LATITUDE": "-37.79789",
+          "LONGITUDE": "144.98445",
+          "AMG_X": "2498631.02200000",
+          "AMG_Y": "2411456.60700000"
+        }
+      ],
+      "flat_values": {
+        "LATITUDE": "-37.79789",
+        "LONGITUDE": "144.98445",
+        "VICGRID_X": "2498631.022",
+        "VICGRID_Y": "2411456.607"
+      },
+      "all_selected_values_numerically_equal": true
+    },
+    {
+      "accident_no": "T20250030921",
+      "api_flat_id": 100746,
+      "node_row_locators": [
+        "csv:304081",
+        "csv:306467"
+      ],
+      "node_values": [
+        {
+          "LATITUDE": "-37.827114",
+          "LONGITUDE": "144.95786",
+          "AMG_X": "2496290.12100000",
+          "AMG_Y": "2408212.28100000"
+        }
+      ],
+      "flat_values": {
+        "LATITUDE": "-37.827114",
+        "LONGITUDE": "144.95786",
+        "VICGRID_X": "2496290.121",
+        "VICGRID_Y": "2408212.281"
+      },
+      "all_selected_values_numerically_equal": true
+    },
+    {
+      "accident_no": "T20230009098",
+      "api_flat_id": 120316,
+      "node_row_locators": [
+        "csv:67831",
+        "csv:71269"
+      ],
+      "node_values": [
+        {
+          "LATITUDE": "-38.142765",
+          "LONGITUDE": "144.3479",
+          "AMG_X": "2442833.89600000",
+          "AMG_Y": "2372981.58000000"
+        }
+      ],
+      "flat_values": {
+        "LATITUDE": "-38.142765",
+        "LONGITUDE": "144.3479",
+        "VICGRID_X": "2442833.896",
+        "VICGRID_Y": "2372981.58"
+      },
+      "all_selected_values_numerically_equal": true
+    },
+    {
+      "accident_no": "T20120026563",
+      "api_flat_id": 129614,
+      "node_row_locators": [
+        "csv:450",
+        "csv:1740",
+        "csv:398968",
+        "csv:400625"
+      ],
+      "node_values": [
+        {
+          "LATITUDE": "-37.810116",
+          "LONGITUDE": "144.96205",
+          "AMG_X": "2496658.51200000",
+          "AMG_Y": "2410099.31600000"
+        }
+      ],
+      "flat_values": {
+        "LATITUDE": "-37.810116",
+        "LONGITUDE": "144.96205",
+        "VICGRID_X": "2496658.512",
+        "VICGRID_Y": "2410099.316"
+      },
+      "all_selected_values_numerically_equal": true
+    },
+    {
+      "accident_no": "T20140014662",
+      "api_flat_id": 130827,
+      "node_row_locators": [
+        "csv:140",
+        "csv:1430",
+        "csv:398965",
+        "csv:400622"
+      ],
+      "node_values": [
+        {
+          "LATITUDE": "-37.81004",
+          "LONGITUDE": "144.96231",
+          "AMG_X": "2496681.18200000",
+          "AMG_Y": "2410107.69200000"
+        }
+      ],
+      "flat_values": {
+        "LATITUDE": "-37.81004",
+        "LONGITUDE": "144.96231",
+        "VICGRID_X": "2496681.182",
+        "VICGRID_Y": "2410107.692"
+      },
+      "all_selected_values_numerically_equal": true
+    },
+    {
+      "accident_no": "T20140015844",
+      "api_flat_id": 151250,
+      "node_row_locators": [
+        "csv:488",
+        "csv:1778",
+        "csv:398969",
+        "csv:400626"
+      ],
+      "node_values": [
+        {
+          "LATITUDE": "-37.752533",
+          "LONGITUDE": "145.65822",
+          "AMG_X": "2558001.67200000",
+          "AMG_Y": "2416290.05500000"
+        }
+      ],
+      "flat_values": {
+        "LATITUDE": "-37.752533",
+        "LONGITUDE": "145.65822",
+        "VICGRID_X": "2558001.672",
+        "VICGRID_Y": "2416290.055"
+      },
+      "all_selected_values_numerically_equal": true
+    },
+    {
+      "accident_no": "T20150025312",
+      "api_flat_id": 155016,
+      "node_row_locators": [
+        "csv:292617",
+        "csv:295198"
+      ],
+      "node_values": [
+        {
+          "LATITUDE": "-37.811108",
+          "LONGITUDE": "145.34488",
+          "AMG_X": "2530367.45700000",
+          "AMG_Y": "2409934.68000000"
+        }
+      ],
+      "flat_values": {
+        "LATITUDE": "-37.811108",
+        "LONGITUDE": "145.34488",
+        "VICGRID_X": "2530367.457",
+        "VICGRID_Y": "2409934.68"
+      },
+      "all_selected_values_numerically_equal": true
+    },
+    {
+      "accident_no": "T20210022607",
+      "api_flat_id": 186542,
+      "node_row_locators": [
+        "csv:60118",
+        "csv:63452"
+      ],
+      "node_values": [
+        {
+          "LATITUDE": "-38.174393",
+          "LONGITUDE": "145.93542",
+          "AMG_X": "2581968.38400000",
+          "AMG_Y": "2369263.78900000"
+        }
+      ],
+      "flat_values": {
+        "LATITUDE": "-38.174393",
+        "LONGITUDE": "145.93542",
+        "VICGRID_X": "2581968.384",
+        "VICGRID_Y": "2369263.789"
+      },
+      "all_selected_values_numerically_equal": true
+    },
+    {
+      "accident_no": "T20210022263",
+      "api_flat_id": 197225,
+      "node_row_locators": [
+        "csv:74479",
+        "csv:76770"
+      ],
+      "node_values": [
+        {
+          "LATITUDE": "-37.94998",
+          "LONGITUDE": "145.04178",
+          "AMG_X": "2503671.63300000",
+          "AMG_Y": "2394574.91300000"
+        }
+      ],
+      "flat_values": {
+        "LATITUDE": "-37.94998",
+        "LONGITUDE": "145.04178",
+        "VICGRID_X": "2503671.633",
+        "VICGRID_Y": "2394574.913"
+      },
+      "all_selected_values_numerically_equal": true
+    }
+  ],
+  "inputs_unchanged": true
+}

@@ -1,6 +1,6 @@
 # B11: input and Raw checks
 
-[`qa_input.py`](../src/arsia_ingest/qa_input.py) implements `QA01_INPUT` and `QA02_RAW`, with one result per frozen file and a batch summary. Native checks have passed, along with synthetic Raw comparisons on real PostgreSQL. B11's independent checks are verified; QA result persistence and official-source acceptance are still pending.
+[`qa_input.py`](../src/arsia_ingest/qa_input.py) implements `QA01_INPUT` and `QA02_RAW`, with one result per frozen file and a batch summary. Native checks have passed, along with synthetic Raw comparisons on real PostgreSQL. B11 also supports the adopted VIC restricted-use protocol. QA result persistence and official publication remain pending.
 
 ## Shared API
 
@@ -32,7 +32,7 @@ The checker replays archived CSV/XLSX with the existing reader. It checks hashes
 
 `accepted_mappings` contains the mapping owner's `{id, version, content}` entries. Each mapping must match in full; unknown operations and changed rules block. Synthetic checks can use the shared S0 definitions. This checks declared mappings, not C's installed SQL.
 
-Official contracts need confirmed review records as well as their frozen confirmation section. `source_reviews` is a list with these fields:
+Under the legacy protocol, official contracts need confirmed review records as well as their frozen confirmation section. `source_reviews` is a list with these fields:
 
 ```text
 resource_id, contract_version, file_sha256, release_label, release_scope,
@@ -40,7 +40,12 @@ status="confirmed", bundle_confirmed=true, reviewed_by,
 references=[...], unresolved=[]
 ```
 
-Identity/version fields must match the manifest, and references must identify the source review and evidence. B consumes these reviews; it does not approve sources. Draft contracts, missing reviews and nonempty `unresolved` block. Structured dispositions need an agreed adapter. The current [VIC review](sources/vic-accident-vehicle.md) remains draft and cannot pass official QA01.
+Identity/version fields must match the manifest, and references must identify the source review and evidence. B consumes these reviews; it does not approve sources. Draft contracts, missing reviews and nonempty `unresolved` block. The historical [VIC review](sources/vic-accident-vehicle.md) does not establish unrestricted approval. The adopted `team-v1.1-vic-r1` path uses its own exact policy and expectations; it does not change legacy results.
+
+
+For the [restricted VIC profile](vic-restricted-inputs.md), the four file objects have eight metrics. `bundle_confirmed` and `contract_confirmed` must remain false; `profile_approved`, `selected_identity_match`, `profile_scope_match`, `case_register_match`, `hash_match` and `header_match` must be true. `case_register_match` checks the frozen register and cited evidence bytes, not downstream semantic SQL. Missing or changed evidence blocks; checks not reached retain null metrics.
+
+Evidence is read from the repository by default. `policy_evidence_root` may point to a relocated repository with the same pinned files. Do not supply `official_reviews` for these VIC files: unrestricted review records conflict with the selected profile. Other sources still need their normal reviews. QA02 is unchanged and compares every native field and locator regardless of registered semantic exceptions.
 
 Later snapshots are compared by native key counts, so a deletion is detected even when total rows stay unchanged or increase. Duplicate Node keys remain observations. Missing historical archives or changed key definitions block.
 
@@ -98,5 +103,5 @@ Regression coverage includes missing/extra locators and fields, type/empty-value
 ## Remaining integration
 
 - **A:** `meta.batch`, `qa.check_result`, a valid batch and loader schema/INSERT permissions for a real `write_results` test. QA persistence, duplicate-result constraints and rollback remain unverified.
-- **C and source owners:** accepted mappings and confirmed official reviews. Synthetic checks do not settle official compatibility.
+- **C and source owners:** accepted mappings and remaining semantic/location checks. The VIC amendment covers only its pinned files and restricted outputs; other official inputs still need confirmed reviews.
 - **E:** consume B's per-file results and summaries through the publication gate. Real FP1, publication and the full build remain separate integration work.

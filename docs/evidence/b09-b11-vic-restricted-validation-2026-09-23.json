@@ -1,0 +1,613 @@
+{
+  "at_utc": "2026-09-23T06:58:44.627157+00:00",
+  "scope": "B09 manifest and B11 input support for adopted VIC restricted use; not a complete platform build or release.",
+  "branch": "peixian/dev",
+  "base_commit": "3185b841a86a4b8f9c998636766efbf6332efa8c",
+  "profile_id": "vic-accident-only-2020-2024-v1",
+  "qa_protocol": "team-v1.1-vic-r1",
+  "default_suite": {
+    "passed": 521,
+    "skipped": 16,
+    "failed": 0,
+    "junit": {
+      "path": "artifacts/b09-b11-vic-restricted-2026-09-23/final-default-tests.xml",
+      "sha256": "851762229f3a02288251f3ee903d2732946ddc1f57bc85f65c7111069907e088",
+      "bytes": 75753
+    }
+  },
+  "combined_suite": {
+    "passed": 686,
+    "skipped": 0,
+    "failed": 0,
+    "junit": {
+      "path": "artifacts/b09-b11-vic-restricted-2026-09-23/verified-tests.xml",
+      "sha256": "16ba1950f9eee7faa383876e4de4ef4aa0577bb640e4db3ce19aae6aab45a9bc",
+      "bytes": 89426
+    }
+  },
+  "combined_suite_groups": {
+    "role_b_tests": 537,
+    "existing_role_c_tests": 149,
+    "note": "Includes unit/mocked tests. B has 13 existing PostgreSQL tests and two new C06/PostgreSQL integration cases; the remaining new integration case reads actual archives."
+  },
+  "commands": [
+    "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -q -p no:cacheprovider",
+    "PYTHONDONTWRITEBYTECODE=1 artifacts/b08-db-reproduction-2026-09-20/venv/bin/python -m pytest -q -p no:cacheprovider tests \"$ARSIA_C_PACKAGE/tests\""
+  ],
+  "integration_inputs": {
+    "ARSIA_VIC_ARCHIVE_ROOT": "artifacts/intake",
+    "ARSIA_C_PACKAGE": "Role C checkout outside this repository",
+    "ARSIA_VIC_CASE_REPLAY": "1",
+    "database": "Existing isolated A/B08 PostgreSQL 16.15, arsia_loader, no installs or migrations. Credentials supplied only through a temporary private passfile, now removed."
+  },
+  "database": {
+    "before": {
+      "version": 160015,
+      "user": "arsia_loader",
+      "counts": {
+        "meta.source": 0,
+        "meta.resource": 0,
+        "raw.record": 0
+      }
+    },
+    "after": {
+      "version": 160015,
+      "user": "arsia_loader",
+      "counts": {
+        "meta.source": 0,
+        "meta.resource": 0,
+        "raw.record": 0
+      }
+    },
+    "exit_code": 0
+  },
+  "container_stopped": true,
+  "qa01": {
+    "files": [
+      {
+        "resource_id": "official_vic_accident",
+        "file_sha256": "a148c00601fab10d44368df80492c594123700a7f9e334ff896fd215295e91d9",
+        "result": "pass",
+        "native": {
+          "expected_count": 200352,
+          "locator_version": "csv-logical-v1",
+          "native_count": 200352,
+          "observed_header": [
+            "ACCIDENT_NO",
+            "ACCIDENT_DATE",
+            "ACCIDENT_TIME",
+            "ACCIDENT_TYPE",
+            "ACCIDENT_TYPE_DESC",
+            "DAY_OF_WEEK",
+            "DAY_WEEK_DESC",
+            "DCA_CODE",
+            "DCA_DESC",
+            "LIGHT_CONDITION",
+            "NODE_ID",
+            "NO_OF_VEHICLES",
+            "NO_PERSONS_KILLED",
+            "NO_PERSONS_INJ_2",
+            "NO_PERSONS_INJ_3",
+            "NO_PERSONS_NOT_INJ",
+            "NO_PERSONS",
+            "POLICE_ATTEND",
+            "ROAD_GEOMETRY",
+            "ROAD_GEOMETRY_DESC",
+            "SEVERITY",
+            "SPEED_ZONE",
+            "RMA"
+          ],
+          "parser_version": "csv-native-v1"
+        },
+        "actual": {
+          "evaluated_count": 1,
+          "metrics": {
+            "bundle_confirmed": false,
+            "case_register_match": true,
+            "contract_confirmed": false,
+            "hash_match": true,
+            "header_match": true,
+            "profile_approved": true,
+            "profile_scope_match": true,
+            "selected_identity_match": true
+          },
+          "violation_count": 0
+        },
+        "expected": {
+          "evaluated_count": 1,
+          "metrics": {
+            "bundle_confirmed": false,
+            "case_register_match": true,
+            "contract_confirmed": false,
+            "hash_match": true,
+            "header_match": true,
+            "profile_approved": true,
+            "profile_scope_match": true,
+            "selected_identity_match": true
+          },
+          "violation_count": 0
+        },
+        "detail": {
+          "path": "artifacts/b09-b11-vic-restricted-2026-09-23/verified-fixtures/test_actual_vic_archives_pass_0/input/QA01_INPUT-official_vic_accident.jsonl",
+          "sha256": "1f6b1d58bbdaff40bd67434de3ede02aa447cb9f385ef27b59fce2bd5fe8b3bc",
+          "bytes": 3400
+        }
+      },
+      {
+        "resource_id": "official_vic_node",
+        "file_sha256": "b0bdbec22ac33df66e15cff9b531ba3203320ec5fbe20076a2820b8fec966ed4",
+        "result": "pass",
+        "native": {
+          "expected_count": 405918,
+          "locator_version": "csv-logical-v1",
+          "native_count": 405918,
+          "observed_header": [
+            "ACCIDENT_NO",
+            "NODE_ID",
+            "NODE_TYPE",
+            "AMG_X",
+            "AMG_Y",
+            "LGA_NAME",
+            "LGA NAME ALL",
+            "DEG_URBAN_NAME",
+            "LATITUDE",
+            "LONGITUDE",
+            "POSTCODE_CRASH"
+          ],
+          "parser_version": "csv-native-v1"
+        },
+        "actual": {
+          "evaluated_count": 1,
+          "metrics": {
+            "bundle_confirmed": false,
+            "case_register_match": true,
+            "contract_confirmed": false,
+            "hash_match": true,
+            "header_match": true,
+            "profile_approved": true,
+            "profile_scope_match": true,
+            "selected_identity_match": true
+          },
+          "violation_count": 0
+        },
+        "expected": {
+          "evaluated_count": 1,
+          "metrics": {
+            "bundle_confirmed": false,
+            "case_register_match": true,
+            "contract_confirmed": false,
+            "hash_match": true,
+            "header_match": true,
+            "profile_approved": true,
+            "profile_scope_match": true,
+            "selected_identity_match": true
+          },
+          "violation_count": 0
+        },
+        "detail": {
+          "path": "artifacts/b09-b11-vic-restricted-2026-09-23/verified-fixtures/test_actual_vic_archives_pass_0/input/QA01_INPUT-official_vic_node.jsonl",
+          "sha256": "ae9c11d40303aff29ff98c5cefd7783ca8f3ee0f6860ee9eaae34e17a5047862",
+          "bytes": 3168
+        }
+      },
+      {
+        "resource_id": "official_vic_person",
+        "file_sha256": "71ca8fec01370e301f282fc83e8f11e4cde16a535ee421cbbb72512ceb7194f9",
+        "result": "pass",
+        "native": {
+          "expected_count": 467730,
+          "locator_version": "csv-logical-v1",
+          "native_count": 467730,
+          "observed_header": [
+            "ACCIDENT_NO",
+            "PERSON_ID",
+            "VEHICLE_ID",
+            "SEX",
+            "AGE_GROUP",
+            "INJ_LEVEL",
+            "INJ_LEVEL_DESC",
+            "SEATING_POSITION",
+            "HELMET_BELT_WORN",
+            "ROAD_USER_TYPE",
+            "ROAD_USER_TYPE_DESC",
+            "LICENCE_STATE",
+            "TAKEN_HOSPITAL",
+            "EJECTED_CODE"
+          ],
+          "parser_version": "csv-native-v1"
+        },
+        "actual": {
+          "evaluated_count": 1,
+          "metrics": {
+            "bundle_confirmed": false,
+            "case_register_match": true,
+            "contract_confirmed": false,
+            "hash_match": true,
+            "header_match": true,
+            "profile_approved": true,
+            "profile_scope_match": true,
+            "selected_identity_match": true
+          },
+          "violation_count": 0
+        },
+        "expected": {
+          "evaluated_count": 1,
+          "metrics": {
+            "bundle_confirmed": false,
+            "case_register_match": true,
+            "contract_confirmed": false,
+            "hash_match": true,
+            "header_match": true,
+            "profile_approved": true,
+            "profile_scope_match": true,
+            "selected_identity_match": true
+          },
+          "violation_count": 0
+        },
+        "detail": {
+          "path": "artifacts/b09-b11-vic-restricted-2026-09-23/verified-fixtures/test_actual_vic_archives_pass_0/input/QA01_INPUT-official_vic_person.jsonl",
+          "sha256": "c30b3646c37104123f5daf61b289abfb1758e3ed49d9e87fc83cabeb9ad4ff66",
+          "bytes": 3247
+        }
+      },
+      {
+        "resource_id": "official_vic_vehicle",
+        "file_sha256": "05a7a1b9171abaeb5c188df549dee38edde6e76d5a03553988305a8280dccd12",
+        "result": "pass",
+        "native": {
+          "expected_count": 365470,
+          "locator_version": "csv-logical-v1",
+          "native_count": 365470,
+          "observed_header": [
+            "ACCIDENT_NO",
+            "VEHICLE_ID",
+            "VEHICLE_YEAR_MANUF",
+            "VEHICLE_DCA_CODE",
+            "INITIAL_DIRECTION",
+            "ROAD_SURFACE_TYPE",
+            "ROAD_SURFACE_TYPE_DESC",
+            "REG_STATE",
+            "VEHICLE_BODY_STYLE",
+            "VEHICLE_MAKE",
+            "VEHICLE_MODEL",
+            "VEHICLE_POWER",
+            "VEHICLE_TYPE",
+            "VEHICLE_TYPE_DESC",
+            "VEHICLE_WEIGHT",
+            "CONSTRUCTION_TYPE",
+            "FUEL_TYPE",
+            "NO_OF_WHEELS",
+            "NO_OF_CYLINDERS",
+            "SEATING_CAPACITY",
+            "TARE_WEIGHT",
+            "TOTAL_NO_OCCUPANTS",
+            "CARRY_CAPACITY",
+            "CUBIC_CAPACITY",
+            "FINAL_DIRECTION",
+            "DRIVER_INTENT",
+            "VEHICLE_MOVEMENT",
+            "TRAILER_TYPE",
+            "VEHICLE_COLOUR_1",
+            "VEHICLE_COLOUR_2",
+            "CAUGHT_FIRE",
+            "INITIAL_IMPACT",
+            "LAMPS",
+            "LEVEL_OF_DAMAGE",
+            "TOWED_AWAY_FLAG",
+            "TRAFFIC_CONTROL",
+            "TRAFFIC_CONTROL_DESC"
+          ],
+          "parser_version": "csv-native-v1"
+        },
+        "actual": {
+          "evaluated_count": 1,
+          "metrics": {
+            "bundle_confirmed": false,
+            "case_register_match": true,
+            "contract_confirmed": false,
+            "hash_match": true,
+            "header_match": true,
+            "profile_approved": true,
+            "profile_scope_match": true,
+            "selected_identity_match": true
+          },
+          "violation_count": 0
+        },
+        "expected": {
+          "evaluated_count": 1,
+          "metrics": {
+            "bundle_confirmed": false,
+            "case_register_match": true,
+            "contract_confirmed": false,
+            "hash_match": true,
+            "header_match": true,
+            "profile_approved": true,
+            "profile_scope_match": true,
+            "selected_identity_match": true
+          },
+          "violation_count": 0
+        },
+        "detail": {
+          "path": "artifacts/b09-b11-vic-restricted-2026-09-23/verified-fixtures/test_actual_vic_archives_pass_0/input/QA01_INPUT-official_vic_vehicle.jsonl",
+          "sha256": "b2f99bdd11bcf0fb4565384722cafb777529eedc0efb6ee78a86cb5930b44b28",
+          "bytes": 3698
+        }
+      }
+    ],
+    "native_total": 1439470,
+    "batch": {
+      "evaluated_count": 4,
+      "metrics": {
+        "block_count": 0,
+        "limited_count": 0,
+        "missing_count": 0,
+        "object_count": 4,
+        "pass_count": 4
+      },
+      "violation_count": 0
+    },
+    "report": {
+      "path": "artifacts/b09-b11-vic-restricted-2026-09-23/verified-fixtures/test_actual_vic_archives_pass_0/qa01.json",
+      "sha256": "7d8145d7f07a150a23021c3557dc03f6eb860057fa68383f0e25b4b981986e02",
+      "bytes": 8381
+    },
+    "semantic_checks_executed": false
+  },
+  "c06_empty_raw": {
+    "report": {
+      "path": "artifacts/b09-b11-vic-restricted-2026-09-23/verified-fixtures/test_c06_accepts_real_frozen_m0/c06-empty-raw.json",
+      "sha256": "d1b91cd5b9437fc15da0aeef1f0470bb92e00c8261d160efebc58d80f592ba7e",
+      "bytes": 40804
+    },
+    "status": "block",
+    "reasons": {
+      "case_set_match_failed": 1,
+      "declared_person_differences_count_match_failed": 1,
+      "pedestrian_count_match_failed": 1,
+      "selected_raw_count_mismatch": 3,
+      "unknown_role_blank_vehicle_count_match_failed": 1,
+      "unmatched_person_vehicle_count_match_failed": 1
+    },
+    "expected_block": true
+  },
+  "c06_official_excerpt": {
+    "report": {
+      "path": "artifacts/b09-b11-vic-restricted-2026-09-23/verified-fixtures/test_registered_case_excerpt_r0/c06-frozen-manifest-excerpt.json",
+      "sha256": "1234e6e45f51d4f120a279630f7685f5eb9f129e1cd4f29612a28ecd461754b4",
+      "bytes": 151221
+    },
+    "loaded_rows": 308,
+    "selected_accidents": 64,
+    "scans": [
+      {
+        "resource_id": "official_vic_accident",
+        "file_sha256": "a148c00601fab10d44368df80492c594123700a7f9e334ff896fd215295e91d9",
+        "full_native_rows": 200352,
+        "excerpt_rows": 64,
+        "digest_unchanged_after_scan": true
+      },
+      {
+        "resource_id": "official_vic_vehicle",
+        "file_sha256": "05a7a1b9171abaeb5c188df549dee38edde6e76d5a03553988305a8280dccd12",
+        "full_native_rows": 365470,
+        "excerpt_rows": 82,
+        "digest_unchanged_after_scan": true
+      },
+      {
+        "resource_id": "official_vic_person",
+        "file_sha256": "71ca8fec01370e301f282fc83e8f11e4cde16a535ee421cbbb72512ceb7194f9",
+        "full_native_rows": 467730,
+        "excerpt_rows": 162,
+        "digest_unchanged_after_scan": true
+      }
+    ],
+    "status": "block",
+    "matched_cases": {
+      "counts": 2,
+      "unmatched": 39,
+      "blank": 24
+    },
+    "checks": {
+      "case_set_match": true,
+      "pedestrian_count_match": false,
+      "unmatched_person_vehicle_count_match": true,
+      "unknown_role_blank_vehicle_count_match": true,
+      "declared_person_differences_count_match": true
+    },
+    "reasons": {
+      "selected_raw_count_mismatch": 3,
+      "pedestrian_count_match_failed": 1
+    },
+    "expected_completeness_block": true,
+    "entry": "arsia_c.person_checks.review_manifest(ModuleConnection(connection), actual FrozenManifest)"
+  },
+  "fp1": "Actual FrozenManifest passed to scripted adapter replies; no real PostgreSQL FP1 implementation was installed or executed.",
+  "unverified": [
+    "Complete official Raw load and full official QA02 comparison",
+    "Actual platform manifest/code inventory and SQL FP1",
+    "QA result persistence against qa.check_result",
+    "Remaining C checks, D restrictions and E publication gate",
+    "Full official build/publication"
+  ],
+  "final_files": [
+    {
+      "path": "README.md",
+      "sha256": "29dba838fdbaf07843d9ba7afc62796740d27bdf274c773339a1e5676b161ff6",
+      "bytes": 6660
+    },
+    {
+      "path": "config/qa-team-v1.1-vic-r1.json",
+      "sha256": "859a5684b2a276cd69509877ea4660344fecac4ca6e5041de77280d40ebaca6b",
+      "bytes": 15703
+    },
+    {
+      "path": "config/vic-restricted-inputs-v1.json",
+      "sha256": "7eaf1e4834c6dcdb8c74e933aaff602dcaad0094e72f5508fe64ab3a34b583a3",
+      "bytes": 28802
+    },
+    {
+      "path": "config/vic-restricted-use-v1.json",
+      "sha256": "bc892d07f81f51fc2859cccd9c1302e4b1ade22240bd36f8fe118d95e861ec40",
+      "bytes": 105068
+    },
+    {
+      "path": "docs/input-qa.md",
+      "sha256": "c1930c136ec752dc79e80cc81924e0d558deefefc60adb318a77cbea470ea982",
+      "bytes": 9958
+    },
+    {
+      "path": "docs/manifest.md",
+      "sha256": "8338f801ae929eda91eef64bc22c64ecdf13a1f7ee5316e191ead8639035f4f8",
+      "bytes": 9489
+    },
+    {
+      "path": "docs/role-c/vic-minimum-impact-draft.json",
+      "sha256": "4e094212032425b38e19face7be5bd663dba4ff0dc8c1050bfa7d65c29d52b68",
+      "bytes": 66023
+    },
+    {
+      "path": "docs/role-c/vic-restricted-use-decision.md",
+      "sha256": "5dddacffa6a369110d6e3eddda5cee5677e1c3503f3f18e0e0d6636225b96b10",
+      "bytes": 9271
+    },
+    {
+      "path": "docs/sources/evidence/vic/followup-2026-09-23/basis/team-04-v1.1.md",
+      "sha256": "ed00feb05504f4ef5907b473fdb8988632ed7297a980f5aa33c488596eba20c2",
+      "bytes": 31523
+    },
+    {
+      "path": "docs/sources/evidence/vic/followup-2026-09-23/basis/team-05-v1.1.md",
+      "sha256": "5b1d131d2510c1b2644fd1e86175854301e9ce822527b6e130a46cfef20ca3ff",
+      "bytes": 20320
+    },
+    {
+      "path": "docs/sources/evidence/vic/followup-2026-09-23/basis/victoria_package.json",
+      "sha256": "36f27b21b75fe06b6203493ea845a7db03a11d0df2482ffa0e425f578f9f0a95",
+      "bytes": 106293
+    },
+    {
+      "path": "docs/sources/evidence/vic/followup-2026-09-23/evidence/api-comparison.json",
+      "sha256": "a36cc8d1aea6b30e75a1764e26eaa7c93d17bd4125ef3925821a96493174a948",
+      "bytes": 29507
+    },
+    {
+      "path": "docs/sources/evidence/vic/followup-2026-09-23/evidence/api-extra.json",
+      "sha256": "c1fb037b64591169d0216a754398396e8b9002bf03c3057d58e1bf9e9b9c165d",
+      "bytes": 195203
+    },
+    {
+      "path": "docs/sources/evidence/vic/followup-2026-09-23/evidence/api-replay.json",
+      "sha256": "981abc214aba9dd89a0c98561c21ec88f47afd05eac866db0b7c193bb9acb5e9",
+      "bytes": 291638
+    },
+    {
+      "path": "docs/sources/evidence/vic/followup-2026-09-23/evidence/api-types.json",
+      "sha256": "ed214482adb709645f53633d78fb777859214c5972d1459f7e6ab12eb1bf28bd",
+      "bytes": 618526
+    },
+    {
+      "path": "docs/sources/evidence/vic/followup-2026-09-23/evidence/cross-check.json",
+      "sha256": "0615bfffda303363e4de7a5de527d80e6b59d137cb47de7fb3429d84cfcb51b0",
+      "bytes": 43858
+    },
+    {
+      "path": "docs/sources/evidence/vic/followup-2026-09-23/evidence/local-review.json",
+      "sha256": "ea8122b9c452c3da0cc8569f7eee840627cab0829388a4e3afa8e51009a231b4",
+      "bytes": 248241
+    },
+    {
+      "path": "docs/sources/evidence/vic/followup-2026-09-23/evidence/pytest.xml",
+      "sha256": "a8b8c22c171f9821fbfad755dca9e7937ef632e009127ac96edf474b33ba7c2d",
+      "bytes": 1479
+    },
+    {
+      "path": "docs/sources/evidence/vic/followup-2026-09-23/evidence/source-retrieval.json",
+      "sha256": "dd71bcdaa6b17f17c615d4df1b0334d2f617159467ffacd9c2a0ba91784ddca1",
+      "bytes": 409192
+    },
+    {
+      "path": "docs/sources/evidence/vic/followup-2026-09-23/evidence/validation.json",
+      "sha256": "b6f8d26f7fdcfe9f3003d991f8671080cc8e77baa7709b13fee5993fc7d6f62b",
+      "bytes": 2596
+    },
+    {
+      "path": "docs/vic-restricted-inputs.md",
+      "sha256": "09480090e7a1176b9c03b900096759a3cd30e7ba2e035f608bbf9c10b8b3a4fb",
+      "bytes": 5567
+    },
+    {
+      "path": "src/arsia_ingest/manifest.py",
+      "sha256": "288bddf9f2b29522a8c05c9d49f55280e6920d3abf6ace3117812d363c78da85",
+      "bytes": 27193
+    },
+    {
+      "path": "src/arsia_ingest/qa_input.py",
+      "sha256": "7de668caf649cd1ead6b35d155cf213caabccfb4fa59ee110bd336bf57210723",
+      "bytes": 28103
+    },
+    {
+      "path": "src/arsia_ingest/vic_restricted.py",
+      "sha256": "7204f4591e607d07c25e1c7329d2da0cff787e5508b36a6309d9808f26a45c94",
+      "bytes": 6418
+    },
+    {
+      "path": "tests/test_vic_restricted.py",
+      "sha256": "e0b143e26f31cc6d6069e1922f8511499e507dd153c01590b39c481babb0d367",
+      "bytes": 14704
+    },
+    {
+      "path": "tests/test_vic_restricted_integration.py",
+      "sha256": "7fa17df7f7475a4686cfac4ca6228386d7d05cb019acf877b2e8aef980b9bf0c",
+      "bytes": 3845
+    }
+  ],
+  "unchanged_shared_c_copies": [
+    "config/vic-restricted-use-v1.json",
+    "docs/role-c/vic-minimum-impact-draft.json",
+    "docs/role-c/vic-restricted-use-decision.md",
+    "docs/sources/evidence/vic/followup-2026-09-23/basis/team-04-v1.1.md",
+    "docs/sources/evidence/vic/followup-2026-09-23/basis/team-05-v1.1.md",
+    "docs/sources/evidence/vic/followup-2026-09-23/basis/victoria_package.json",
+    "docs/sources/evidence/vic/followup-2026-09-23/evidence/api-comparison.json",
+    "docs/sources/evidence/vic/followup-2026-09-23/evidence/api-extra.json",
+    "docs/sources/evidence/vic/followup-2026-09-23/evidence/api-replay.json",
+    "docs/sources/evidence/vic/followup-2026-09-23/evidence/api-types.json",
+    "docs/sources/evidence/vic/followup-2026-09-23/evidence/cross-check.json",
+    "docs/sources/evidence/vic/followup-2026-09-23/evidence/local-review.json",
+    "docs/sources/evidence/vic/followup-2026-09-23/evidence/pytest.xml",
+    "docs/sources/evidence/vic/followup-2026-09-23/evidence/source-retrieval.json",
+    "docs/sources/evidence/vic/followup-2026-09-23/evidence/validation.json"
+  ],
+  "external_c_inputs": [
+    {
+      "path": "src/arsia_c/person_checks.py",
+      "sha256": "441d69344ff660611159a4cd22c5694da17abcca6d29f10ca3646591c36ecfdd"
+    },
+    {
+      "path": "src/arsia_c/restricted_person.py",
+      "sha256": "a03a81bcff6ed858aee8aa7c8af0cd92f7e0a2016fe4fa1b0122a2a1684fcc3b"
+    },
+    {
+      "path": "sql/qa/c06_vic_person_checks.sql",
+      "sha256": "045a4dfff6dab47251abcefa969bd75f5dee85f8df65d3b7acb63fdbf9d426bc"
+    },
+    {
+      "path": "config/c06-vic-r1.json",
+      "sha256": "e3e52e87ac2200025dffe32e011ebeed2e9eeccc51973285f75540a1f6830f29"
+    },
+    {
+      "path": "config/vic-restricted-use-v1.json",
+      "sha256": "bc892d07f81f51fc2859cccd9c1302e4b1ade22240bd36f8fe118d95e861ec40"
+    },
+    {
+      "path": "tools/replay_c06_cases.py",
+      "sha256": "8f61863c3b7caa10c08017633b2b0b868c602699b16b03eca0736a26b0f17920"
+    }
+  ],
+  "retained_local_item": "docs/sources/evidence/vic/local-profile-2026-09-17.json",
+  "earlier_attempts": {
+    "combined-tests.xml": "678 passed, one new test failed because it treated C06’s list return as a dictionary. Fixed the test; no C code changed.",
+    "final-tests.xml": "685 passed before the final identity-order regression was added. Earlier logs/receipts remain unchanged."
+  },
+  "history": "Historical validation receipts, original data and the separate C handoff package were not changed. No commit, push or website update."
+}

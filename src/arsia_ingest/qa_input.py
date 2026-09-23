@@ -16,6 +16,7 @@ from uuid import UUID
 from .manifest import validate_manifest
 from .models import IntakeError, ParseStats, ResourceSpec
 from .readers import iter_native_rows
+from .vic_restricted import PROTOCOL, check_profile_evidence, input_expectations
 
 
 RULE_INPUT = "QA01_INPUT"
@@ -257,7 +258,7 @@ def _history(db, file, contract, previous, root, details, reasons):
 
 
 def check_inputs(manifest, archive_root, *, previous_manifest=None, evidence_dir, producer_version,
-                 supported_mappings=(), official_reviews=()):
+                 supported_mappings=(), official_reviews=(), policy_evidence_root=None):
     """Check files and supplied source reviews; None means no previous publication."""
     value = _manifest(manifest, drafts=True)
     previous = _manifest(previous_manifest) if previous_manifest is not None else None
@@ -283,31 +284,53 @@ def check_inputs(manifest, archive_root, *, previous_manifest=None, evidence_dir
         metrics = {"hash_match": None, "header_match": None, "bundle_confirmed": None, "contract_confirmed": None}
         details = _Details(Path(evidence_dir) / f'{RULE_INPUT}-{file["resource_id"]}.jsonl')
         evaluated = 0
+        expected = {key: True for key in metrics}
         try:
-            expected_status = "confirmed" if value["dataset_kind"] == "official" else "synthetic_defined"
-            confirmation = contract["content"]["confirmation"]
-            confirmed = contract["status"] == confirmation.get("status") == expected_status
-            if value["dataset_kind"] == "official":
-                confirmed = confirmed and not confirmation.get("unresolved")
-                review = reviews.get(file["resource_id"], {})
-                identity = contract["content"]["identity"]
-                supported_review = (
-                    review.get("contract_version") == contract["version"]
-                    and review.get("file_sha256") == file["file_sha256"]
-                    and all(review.get(k) == identity[k] for k in ("release_label", "release_scope"))
-                    and review.get("status") == "confirmed" and review.get("bundle_confirmed") is True
-                    and isinstance(review.get("reviewed_by"), str) and bool(review["reviewed_by"].strip())
-                    and isinstance(review.get("references"), list) and bool(review["references"])
-                    and review.get("unresolved") == []
-                )
-                confirmed = confirmed and supported_review
-                details.add({"source_review": review or None})
-            metrics["contract_confirmed"] = bool(confirmed)
-            if not confirmed:
-                reasons.add("CONTRACT_UNCONFIRMED")
-            metrics["bundle_confirmed"] = bool(confirmed and contract["content"]["identity"].get("bundle_basis"))
-            if not metrics["bundle_confirmed"]:
-                reasons.add("BUNDLE_UNCONFIRMED")
+            restricted = (value["rules"]["qa_contract"]["version"] == PROTOCOL
+                          and file["source_id"] == "official_vic")
+            if restricted:
+                expected = input_expectations()
+                metrics.update({key: None for key in expected})
+                # Manifest validation has bound the exact files, scope and adopted decision.
+                metrics.update(bundle_confirmed=False, contract_confirmed=False,
+                               profile_approved=True, selected_identity_match=True,
+                               profile_scope_match=True)
+                try:
+                    binding = check_profile_evidence(policy_evidence_root)
+                except IntakeError:
+                    metrics["case_register_match"] = False
+                    raise
+                metrics["case_register_match"] = True
+                details.add({"restricted_profile": binding})
+                if reviews.get(file["resource_id"]):
+                    reasons.add("RESTRICTED_REVIEW_CONFLICT")
+                    details.add({"reason_code": "RESTRICTED_REVIEW_CONFLICT",
+                                 "message": "Use the adopted profile; do not attach unrestricted source approval."})
+            else:
+                expected_status = "confirmed" if value["dataset_kind"] == "official" else "synthetic_defined"
+                confirmation = contract["content"]["confirmation"]
+                confirmed = contract["status"] == confirmation.get("status") == expected_status
+                if value["dataset_kind"] == "official":
+                    confirmed = confirmed and not confirmation.get("unresolved")
+                    review = reviews.get(file["resource_id"], {})
+                    identity = contract["content"]["identity"]
+                    supported_review = (
+                        review.get("contract_version") == contract["version"]
+                        and review.get("file_sha256") == file["file_sha256"]
+                        and all(review.get(k) == identity[k] for k in ("release_label", "release_scope"))
+                        and review.get("status") == "confirmed" and review.get("bundle_confirmed") is True
+                        and isinstance(review.get("reviewed_by"), str) and bool(review["reviewed_by"].strip())
+                        and isinstance(review.get("references"), list) and bool(review["references"])
+                        and review.get("unresolved") == []
+                    )
+                    confirmed = confirmed and supported_review
+                    details.add({"source_review": review or None})
+                metrics["contract_confirmed"] = bool(confirmed)
+                if not confirmed:
+                    reasons.add("CONTRACT_UNCONFIRMED")
+                metrics["bundle_confirmed"] = bool(confirmed and contract["content"]["identity"].get("bundle_basis"))
+                if not metrics["bundle_confirmed"]:
+                    reasons.add("BUNDLE_UNCONFIRMED")
             for mid in contract["mapping_ids"]:
                 if supported.get(mid) != mappings[mid]:
                     reasons.add("MAPPING_UNSUPPORTED")
@@ -329,6 +352,11 @@ def check_inputs(manifest, archive_root, *, previous_manifest=None, evidence_dir
                         db.execute("INSERT INTO native_keys VALUES (?, 1) ON CONFLICT(key) DO UPDATE SET n=n+1", (key,))
                 metrics["header_match"] = stats.header == file["header"]
                 evaluated = 1
+                details.add({"native_count": stats.raw_count, "expected_count": file["raw_count"],
+                             "observed_header": stats.header, "parser_version": file["parser_version"],
+                             "locator_version": file["locator_version"]})
+                if not metrics["header_match"]:
+                    reasons.add("HEADER_MISMATCH")
                 if stats.raw_count != file["raw_count"]:
                     reasons.add("NATIVE_COUNT_MISMATCH")
                     details.add({"reason_code": "NATIVE_COUNT_MISMATCH", "actual": stats.raw_count, "expected": file["raw_count"]})
@@ -346,7 +374,7 @@ def check_inputs(manifest, archive_root, *, previous_manifest=None, evidence_dir
         finally:
             details.add({"metrics": metrics, "evaluated_count": evaluated, "reason_codes": sorted(set(reasons))})
             reference = details.close()
-        result.append(_row(RULE_INPUT, file, metrics=metrics, expected={key: True for key in metrics}, evaluated=evaluated,
+        result.append(_row(RULE_INPUT, file, metrics=metrics, expected=expected, evaluated=evaluated,
                            expected_count=1, affected=int(bool(reasons)), reasons=reasons, reference=reference, producer=producer_version))
     return _report(RULE_INPUT, result, producer_version)
 

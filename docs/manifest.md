@@ -1,6 +1,6 @@
 # B09: manifest and FP1
 
-**Manifest assembly is implemented; FP1 integration is pending.** E03 SQL and a migrated PostgreSQL 16 environment are not available. No complete platform manifest or real FP1 result has been produced.
+**Manifest assembly is implemented; FP1 integration is pending.** A’s isolated PostgreSQL 16 environment is available for Raw and QA tests. E03 SQL and the complete platform inventory are still missing; no real FP1 result or complete platform manifest has been produced.
 
 [`manifest.py`](../src/arsia_ingest/manifest.py) follows team v1.1: 04 §2 for L1/FP1, 04 §3 for QA, 05 §5 for source contracts, and 02 for frozen fields. The wrappers below are B's transport format; the SQL binding still needs E's confirmation.
 
@@ -20,15 +20,17 @@ Use `read_json(path)` for supplied JSON. Duplicate keys/list identities, invalid
 
 | Member | Required content |
 |---|---|
-| `contracts` | Entries `{id, version, status, mapping_ids, content}`. ID equals the resource ID; status is `confirmed` for official or `synthetic_defined` for synthetic. |
+| `contracts` | Entries `{id, version, status, mapping_ids, content}`. ID equals the resource ID; status is `confirmed` for official or `synthetic_defined` for synthetic. The adopted VIC profile alone uses `restricted`, with full-source confirmation still false. |
 | Contract `content` | `input`: exact 13-field file object. `identity`: key, explicit parent (possibly null), release label/scope/resource IDs, coverage, bundle basis, scope filter. `semantics`: full rules, `severity_codes`, `severity_definition_version`. `snapshot`: policy and change statement (null for baseline). `confirmation`: status and evidence. |
 | Official confirmation | Also requires `owner`, `reviewed_by` (C), `licence`, ISO `checked_at`, nonempty `references`, and `unresolved` issues with dispositions. These are supplied review records. |
 | `mappings` | Entries `{id, version, content}` with full mapping objects; IDs must exactly match contract references. |
 | `severity` | Entries with `source_id`, `severity_code`, `severity_label`, `definition_version`, `definition_text`, `is_fatal_crash` (boolean/null). Include unused categories and `__MISSING__`; codes/version must match each source's declaration. |
-| `qa_contract` | `{id: "team_qa", version: "team-v1.1", content: {text: ...}}`, containing all of 04 §3. |
+| `qa_contract` | `{id: "team_qa", version, content: {text: ...}}`: full 04 §3 for `team-v1.1`; full section plus the adopted VIC addendum for `team-v1.1-vic-r1`. |
 | `code_files`, `schema_files` | Lists of `{path, sha256}` from actual project files. |
 
 [`qa-team-v1.1.json`](../config/qa-team-v1.1.json) includes the unchanged English QA section for standalone clones. `team_qa_contract(path)` also extracts either language from the handoff. Known section hashes reject excerpts or edits; they check protocol content, not FP1. Changes need an agreed version update.
+
+For the adopted VIC policy, use `vic_restricted_definitions()` from `arsia_ingest.vic_restricted`. It freezes the full case register, restrictions, unresolved definitions, native severity and QA amendment. The exact four file identities and 2020–2024 scope are enforced. See [VIC input support](vic-restricted-inputs.md) for the API and remaining integration.
 
 All seven `required_checks` remain ordered, from `QA01_INPUT` to `QA07_LOCATION`. B09 writes no QA results. Source semantics, compatibility and snapshot reductions remain checks for the responsible modules.
 
@@ -118,7 +120,7 @@ The [initial receipt](evidence/b09-validation-2026-09-19.json) records 302 passe
 Still needed:
 
 - **E:** FP1 SQL/version, signature, deployment and independent test evidence. The QA specification is already shared.
-- **A:** PostgreSQL 16 patch, migrations, loader connection/grants and driver environment.
+- **A:** remaining build/QA tables and permissions. Raw tests already use the isolated PostgreSQL 16.15 loader environment.
 - **Module authors:** actual code inventory and versioned contracts/mappings. Official draft contracts are blocked.
 
 On 2026-09-19, inspected remote branches had no E03 SQL. `setup` specified PostgreSQL 15; `yihua-zhang` contained a draft QLD review. The old `docs/phase1-design-lite` fingerprint is `reference_unexecuted` and includes provenance in its input. These were neither adopted nor changed.
