@@ -1,0 +1,106 @@
+{
+  "analysis_scope_2020_2024": {
+    "casualty_count": 78154,
+    "covered_year_months": 60,
+    "crash_count": 92082,
+    "fatal_crash_count": 1388,
+    "fatality_count": 1507,
+    "invalid_people_counts": {},
+    "raw_only_2019_crash_count": 107,
+    "raw_only_2019_traffic_unit_count": 215,
+    "traffic_unit_count": 170747
+  },
+  "contract": "nsw-pinned-pair-v1",
+  "files": {
+    "official_nsw_crash": {
+      "blank_crash_ids": 0,
+      "column_count": 50,
+      "coordinate_pairs": 92189,
+      "detailed_severity": {
+        "Fatal": 1388,
+        "Minor/Other Injury": 15534,
+        "Moderate Injury": 26125,
+        "Non-casualty (towaway)": 29547,
+        "Serious Injury": 19595
+      },
+      "duplicate_crash_key_rows": 0,
+      "expected_raw_count": 92189,
+      "invalid_declared_unit_counts": 0,
+      "occurrence_months": {
+        "April": 7209,
+        "August": 7462,
+        "December": 7982,
+        "February": 7514,
+        "January": 6949,
+        "July": 7555,
+        "June": 7952,
+        "March": 8148,
+        "May": 8383,
+        "November": 8019,
+        "October": 7714,
+        "September": 7302
+      },
+      "occurrence_years": {
+        "2019": 107,
+        "2020": 18764,
+        "2021": 17413,
+        "2022": 18255,
+        "2023": 18711,
+        "2024": 18939
+      },
+      "partial_coordinate_pairs": 0,
+      "raw_count": 92189,
+      "reporting_occurrence_year_differences": 488,
+      "reporting_years": {
+        "2020": 18704,
+        "2021": 17517,
+        "2022": 18245,
+        "2023": 18706,
+        "2024": 19017
+      },
+      "severity": {
+        "Fatal": 1388,
+        "Injury": 61254,
+        "Non-casualty (towaway)": 29547
+      },
+      "sha256": "7345189f017d9c842429674ecf2196cee728de46c0572ce2a85220f9bef49aa9",
+      "sheet": "Sheet1"
+    },
+    "official_nsw_traffic_unit": {
+      "blank_parent_crash_ids": 0,
+      "blank_traffic_unit_ids": 0,
+      "column_count": 10,
+      "duplicate_composite_key_rows": 0,
+      "expected_raw_count": 170962,
+      "orphan_unit_rows": 0,
+      "raw_count": 170962,
+      "sha256": "95349666f63952c580edb08973a8ac80be39db98ba289ec8533d61feb6d55f1b",
+      "sheet": "Export",
+      "unit_type_groups": {
+        "Articulated truck": 2883,
+        "Bus": 997,
+        "Car/car derivative": 114477,
+        "Heavy rigid truck": 3508,
+        "Light truck": 25345,
+        "Motorcycle": 11017,
+        "Non-motorised vehicle": 412,
+        "Other motor vehicle": 2930,
+        "Other or unknown": 377,
+        "Pedal cycle": 3843,
+        "Pedestrian": 5173
+      },
+      "units_by_parent_occurrence_year": {
+        "2019": 215,
+        "2020": 34377,
+        "2021": 32233,
+        "2022": 33800,
+        "2023": 34852,
+        "2024": 35485
+      }
+    }
+  },
+  "relationship": {
+    "declared_unit_count_mismatches": 0,
+    "first_20_mismatches": []
+  }
+}
