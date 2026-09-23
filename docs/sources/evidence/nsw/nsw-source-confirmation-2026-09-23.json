@@ -1,0 +1,62 @@
+{
+  "source_contract_version": "nsw-source-contract-v1",
+  "status": "confirmed",
+  "owner": "Role A / JJ",
+  "confirmed_by": "Role A / JJ",
+  "reviewed_by": null,
+  "checked_at": "2026-09-23",
+  "bundle_confirmed": true,
+  "contract_confirmed": true,
+  "release_label": "NSW 2020–2024 Crash/TU, pinned local snapshot",
+  "release_scope": "nsw_pinned_2020_2024_v1",
+  "resource_ids": [
+    "official_nsw_crash",
+    "official_nsw_traffic_unit"
+  ],
+  "reviews": [
+    {
+      "resource_id": "official_nsw_crash",
+      "contract_version": "nsw-crash-contract-v1",
+      "file_sha256": "7345189f017d9c842429674ecf2196cee728de46c0572ce2a85220f9bef49aa9",
+      "release_label": "NSW 2020–2024 Crash/TU, pinned local snapshot",
+      "release_scope": "nsw_pinned_2020_2024_v1",
+      "status": "confirmed",
+      "bundle_confirmed": true,
+      "confirmed_by": "Role A / JJ",
+      "reviewed_by": null,
+      "references": [
+        "config/official-nsw-v1.json",
+        "docs/sources/evidence/nsw/nsw-source-validation-2026-09-23.json",
+        "https://www.data.nsw.gov.au/data/en/dataset/2-nsw-crash-data/resource/ba660006-ec78-42a0-863e-69a5fbd3afbc"
+      ],
+      "unresolved": []
+    },
+    {
+      "resource_id": "official_nsw_traffic_unit",
+      "contract_version": "nsw-traffic-unit-contract-v1",
+      "file_sha256": "95349666f63952c580edb08973a8ac80be39db98ba289ec8533d61feb6d55f1b",
+      "release_label": "NSW 2020–2024 Crash/TU, pinned local snapshot",
+      "release_scope": "nsw_pinned_2020_2024_v1",
+      "status": "confirmed",
+      "bundle_confirmed": true,
+      "confirmed_by": "Role A / JJ",
+      "reviewed_by": null,
+      "references": [
+        "config/official-nsw-v1.json",
+        "docs/sources/evidence/nsw/nsw-source-validation-2026-09-23.json",
+        "https://data.nsw.gov.au/data/dataset/2-nsw-crash-data/resource/c1c73271-e886-462c-816b-115f7147c5c6"
+      ],
+      "unresolved": []
+    }
+  ],
+  "downstream_handoff": {
+    "consumer_role": "Role C",
+    "required_use": [
+      "Use the exact Crash and Traffic Unit hashes, ordered headers, keys and parent relationship.",
+      "Use the confirmed occurrence-time, severity, fatality, casualty, declared-unit and TU-category rules.",
+      "Keep map_enabled false because the coordinate datum is unconfirmed.",
+      "Report any implementation conflict without changing this source decision silently."
+    ],
+    "approval_statement": "This is a Role A source-confirmation decision. reviewed_by remains null because no Role C review is claimed or required by A04."
+  }
+}
