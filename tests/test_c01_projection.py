@@ -75,7 +75,7 @@ def check_fields(row, schema):
 def test_field_constants_and_document_match_independent_schema():
     assert tuple(CRASH_SCHEMA) == F["CRASH_FIELDS"]
     assert tuple(UNIT_SCHEMA) == F["UNIT_FIELDS"]
-    doc = (ROOT / "docs/role-c/c01-projection-contract.md").read_text()
+    doc = (ROOT / "docs/role-c/c01-projection-contract.md").read_text(encoding="utf-8")
     sql_types = {UUID: "uuid", str: "text", int: "integer", date: "date",
                  bool: "boolean", Decimal: "numeric(10, 7)", dict: "jsonb"}
     for heading, schema in (("## 2. I_crash", CRASH_SCHEMA), ("## 3. I_unit", UNIT_SCHEMA)):

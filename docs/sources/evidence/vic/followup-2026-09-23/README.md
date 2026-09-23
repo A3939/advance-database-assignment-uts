@@ -13,10 +13,11 @@ README and generated validation records remain in the team's retained archive.
 - `evidence/source-retrieval.json`: dictionary/metadata retrievals, including
   failed requests retained as such.
 - `basis/`: metadata and historical team-contract snapshots.
-- `collect.py` and `check_evidence.py`: the original collection/check source.
+- `collect.py`: the original collection source.
+- `check_evidence.py`: the offline checker, updated to use explicit UTF-8 for text input and output.
 
-These files retain their original bytes and timestamps. Source observations
-are not development regression reports, and are not proof of publisher
+Source JSON and contract snapshots retain their original bytes and timestamps. 
+Source observations are not development regression reports, and are not proof of publisher
 approval, compatible export scope or complete platform acceptance.
 
 ## Records held separately

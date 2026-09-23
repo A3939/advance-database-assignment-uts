@@ -25,7 +25,7 @@ def run(repo, evidence):
             raise ValueError(label)
 
     def read(name):
-        return json.loads((evidence / name).read_text())
+        return json.loads((evidence / name).read_text(encoding="utf-8"))
 
     responses = {}
     failures = []
@@ -54,7 +54,7 @@ def run(repo, evidence):
             responses[item["label"]] = result
 
     old_path = repo / "docs/sources/evidence/vic/person-node-local-review-2026-09-17.json"
-    old = json.loads(old_path.read_text())
+    old = json.loads(old_path.read_text(encoding="utf-8"))
     local = read("local-review.json")
     ignored = {"checked_at_utc"}
     check("Fresh full-file review matches historical content except timestamp",
@@ -72,7 +72,7 @@ def run(repo, evidence):
           len(comparison["node_and_flat_coordinates"]) == 12
           and all(r["all_selected_values_numerically_equal"] for r in comparison["node_and_flat_coordinates"]))
 
-    config = json.loads((repo / "config/native-inputs.json").read_text())
+    config = json.loads((repo / "config/native-inputs.json").read_text(encoding="utf-8"))
     specs = {r["resource_id"].removeprefix("official_vic_"): r for r in config["resources"]
              if r["resource_id"].startswith("official_vic_")}
     selected = {
@@ -157,7 +157,7 @@ if __name__ == "__main__":
     if args.output.exists():
         raise SystemExit("Use a new output file.")
     result = run(args.repo.resolve(), args.evidence.resolve())
-    with args.output.open("x") as stream:
+    with args.output.open("x", encoding="utf-8") as stream:
         json.dump(result, stream, indent=2, ensure_ascii=False)
         stream.write("\n")
     print(f"{result['passed']} evidence consistency checks passed")
