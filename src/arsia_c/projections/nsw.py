@@ -27,6 +27,13 @@ RELATIONSHIP_SQL_PATH = (
     / "c03_nsw_relationship_check.sql"
 )
 
+MONTH_CHECK_SQL_PATH = (
+    Path(__file__).resolve().parents[3]
+    / "sql"
+    / "projections"
+    / "c03_nsw_month_check.sql"
+)
+
 def _contract_by_id(manifest: dict, resource_id: str) -> dict:
     contracts = manifest["rules"]["contracts"]
 
@@ -155,6 +162,31 @@ cursor.execute(
 
 relationship_counts = cursor.fetchone()
 _validate_relationship_counts(relationship_counts)
+
+month_check_sql = _load_sql(MONTH_CHECK_SQL_PATH)
+
+cursor.execute(
+    month_check_sql,
+    (
+        crash_input["source_id"],
+        crash_input["resource_id"],
+        crash_input["file_sha256"],
+        crash_input["parser_version"],
+    ),
+)
+
+month_check_result = cursor.fetchone()
+
+if month_check_result is None:
+    raise ValueError("NSW month validation returned no result")
+
+unknown_month_count = month_check_result[0]
+
+if unknown_month_count != 0:
+    raise ValueError(
+        f"NSW month validation failed: "
+        f"unknown_month_count={unknown_month_count}"
+    )
 
 # C03 transformation will be added next.
     # Keep the full Raw crash snapshot at this stage.
