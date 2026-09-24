@@ -57,6 +57,10 @@ group-count reconciliation, unknown-month exclusion, and rejection of running
 or wrong-mode batches. It requires PostgreSQL 16, `ARSIA_TEST_DSN`, and the
 deployed D06 SQL.
 
+The four D06 PostgreSQL cases passed on PostgreSQL 16 as part of the 16-case
+D03-D06 acceptance run recorded in
+`docs/d03-d06-postgres-validation.md`.
+
 The complete S0 acceptance target is six populated source/category groups in
 one successful batch. That final result remains pending B's integration of
 C04/C05 and D03 plus E's publication step; the code and tests do not claim it

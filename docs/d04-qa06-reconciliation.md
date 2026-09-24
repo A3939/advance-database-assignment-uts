@@ -69,3 +69,8 @@ and `ARSIA_TEST_DSN`. It checks:
 4. definition-version errors, QA persistence and caller rollback.
 
 If the PostgreSQL cases are skipped, D04 has not received database acceptance.
+
+The four D04 PostgreSQL cases passed on PostgreSQL 16 as part of the 16-case
+D03-D06 acceptance run recorded in
+`docs/d03-d06-postgres-validation.md`. This validates the current NSW path and
+the manifest-driven source/year coverage; the VIC/QLD boundary above remains.
