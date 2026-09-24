@@ -63,6 +63,13 @@ UNIT_INSERT_SQL_PATH = (
     / "c03_nsw_unit_insert.sql"
 )
 
+PROJECTION_CHECK_SQL_PATH = (
+    Path(__file__).resolve().parents[3]
+    / "sql"
+    / "projections"
+    / "c03_nsw_projection_check.sql"
+)
+
 
 def _contract_by_id(
     manifest: dict,
@@ -155,12 +162,10 @@ def _validate_year(
     cursor,
     crash_input: dict,
 ) -> None:
-    year_check_sql = _load_sql(
-        YEAR_CHECK_SQL_PATH
-    )
+    sql = _load_sql(YEAR_CHECK_SQL_PATH)
 
     cursor.execute(
-        year_check_sql,
+        sql,
         (
             crash_input["source_id"],
             crash_input["resource_id"],
@@ -189,12 +194,10 @@ def _validate_month(
     cursor,
     crash_input: dict,
 ) -> None:
-    month_check_sql = _load_sql(
-        MONTH_CHECK_SQL_PATH
-    )
+    sql = _load_sql(MONTH_CHECK_SQL_PATH)
 
     cursor.execute(
-        month_check_sql,
+        sql,
         (
             crash_input["source_id"],
             crash_input["resource_id"],
@@ -223,12 +226,10 @@ def _validate_semantics(
     cursor,
     crash_input: dict,
 ) -> None:
-    semantic_check_sql = _load_sql(
-        SEMANTIC_CHECK_SQL_PATH
-    )
+    sql = _load_sql(SEMANTIC_CHECK_SQL_PATH)
 
     cursor.execute(
-        semantic_check_sql,
+        sql,
         (
             crash_input["source_id"],
             crash_input["resource_id"],
@@ -282,12 +283,10 @@ def _validate_unit_types(
     crash_input: dict,
     unit_input: dict,
 ) -> int:
-    unit_check_sql = _load_sql(
-        UNIT_CHECK_SQL_PATH
-    )
+    sql = _load_sql(UNIT_CHECK_SQL_PATH)
 
     cursor.execute(
-        unit_check_sql,
+        sql,
         (
             crash_input["source_id"],
             crash_input["resource_id"],
@@ -320,6 +319,107 @@ def _validate_unit_types(
         )
 
     return missing_unit_type_count
+
+
+def _check_projection(
+    cursor,
+    *,
+    batch_id,
+    source_id: str,
+    release_scope: str,
+    inserted_crash_count: int,
+    inserted_unit_count: int,
+) -> dict:
+    sql = _load_sql(PROJECTION_CHECK_SQL_PATH)
+
+    cursor.execute(
+        sql,
+        (
+            batch_id,
+            source_id,
+            release_scope,
+            batch_id,
+            source_id,
+            release_scope,
+        ),
+    )
+
+    result = cursor.fetchone()
+
+    if result is None:
+        raise ValueError(
+            "NSW projection reconciliation returned no result"
+        )
+
+    (
+        crash_projection_count,
+        unit_projection_count,
+        duplicate_crash_key_count,
+        duplicate_unit_key_count,
+        orphan_projected_unit_count,
+        fatal_crash_count,
+        fatality_count,
+        casualty_count,
+        map_eligible_count,
+    ) = result
+
+    blockers = {
+        "duplicate_crash_key_count":
+            duplicate_crash_key_count,
+        "duplicate_unit_key_count":
+            duplicate_unit_key_count,
+        "orphan_projected_unit_count":
+            orphan_projected_unit_count,
+        "map_eligible_count":
+            map_eligible_count,
+    }
+
+    nonzero_blockers = {
+        name: value
+        for name, value in blockers.items()
+        if value != 0
+    }
+
+    if nonzero_blockers:
+        raise ValueError(
+            "NSW projection reconciliation failed: "
+            f"{nonzero_blockers}"
+        )
+
+    if crash_projection_count != inserted_crash_count:
+        raise ValueError(
+            "NSW Crash projection count mismatch: "
+            f"inserted={inserted_crash_count}, "
+            f"selected={crash_projection_count}"
+        )
+
+    if unit_projection_count != inserted_unit_count:
+        raise ValueError(
+            "NSW Traffic Unit projection count mismatch: "
+            f"inserted={inserted_unit_count}, "
+            f"selected={unit_projection_count}"
+        )
+
+    return {
+        "crash_projection_count":
+            crash_projection_count,
+        "unit_projection_count":
+            unit_projection_count,
+        "duplicate_crash_key_count":
+            duplicate_crash_key_count,
+        "duplicate_unit_key_count":
+            duplicate_unit_key_count,
+        "orphan_projected_unit_count":
+            orphan_projected_unit_count,
+        "fatal_crash_count":
+            fatal_crash_count,
+        "fatality_count":
+            fatality_count,
+        "casualty_count":
+            casualty_count,
+        "map_eligible_count":
+            map_eligible_count,
+    }
 
 
 def project(
@@ -363,18 +463,13 @@ def project(
 
     cursor = connection.cursor()
 
-    # 1. Create the temporary C-to-A projection tables.
-    projection_tables_sql = _load_sql(
-        PROJECTION_TABLES_SQL_PATH
-    )
-
+    # 1. Create temporary C-to-A projection tables.
     cursor.execute(
-        projection_tables_sql
+        _load_sql(PROJECTION_TABLES_SQL_PATH)
     )
 
-    # 2. Validate complete Crash / Traffic Unit
-    # identities and parent relationships before
-    # occurrence-year filtering.
+    # 2. Validate complete native Crash / Unit keys
+    # and relationships before year filtering.
     relationship_sql = _load_sql(
         RELATIONSHIP_SQL_PATH
     )
@@ -393,39 +488,33 @@ def project(
         ),
     )
 
-    relationship_counts = cursor.fetchone()
-
     _validate_relationship_counts(
-        relationship_counts
+        cursor.fetchone()
     )
 
-    # 3. Validate occurrence year.
+    # 3-6. Source-semantic validation.
     _validate_year(
         cursor,
         crash_input,
     )
 
-    # 4. Validate NSW month vocabulary.
     _validate_month(
         cursor,
         crash_input,
     )
 
-    # 5. Validate Crash severity/count semantics.
     _validate_semantics(
         cursor,
         crash_input,
     )
 
-    # 6. Validate NSW Traffic Unit categories.
     missing_unit_type_count = _validate_unit_types(
         cursor,
         crash_input,
         unit_input,
     )
 
-    # 7. Read confirmed NSW Crash rules from
-    # the frozen source contract.
+    # 7. Read frozen NSW rule values.
     release_scope = (
         crash_contract["content"]["identity"][
             "release_scope"
@@ -438,13 +527,32 @@ def project(
         ]
     )
 
-    # 8. Insert NSW Crash projection rows.
-    crash_insert_sql = _load_sql(
-        CRASH_INSERT_SQL_PATH
+    unit_release_scope = (
+        unit_contract["content"]["identity"][
+            "release_scope"
+        ]
     )
 
+    if unit_release_scope != release_scope:
+        raise ValueError(
+            "NSW Crash and Traffic Unit release scopes differ: "
+            f"{release_scope!r} != {unit_release_scope!r}"
+        )
+
+    if unit_input["source_id"] != crash_input["source_id"]:
+        raise ValueError(
+            "NSW Crash and Traffic Unit source IDs differ"
+        )
+
+    statistical_scope = (
+        unit_mapping["content"][
+            "statistical_scope"
+        ]
+    )
+
+    # 8. Insert Crash projection.
     cursor.execute(
-        crash_insert_sql,
+        _load_sql(CRASH_INSERT_SQL_PATH),
         (
             batch_id,
             release_scope,
@@ -464,33 +572,9 @@ def project(
             "a valid inserted-row count"
         )
 
-    # 9. Confirm Crash and Traffic Unit belong
-    # to the same frozen release scope.
-    unit_release_scope = (
-        unit_contract["content"]["identity"][
-            "release_scope"
-        ]
-    )
-
-    if unit_release_scope != release_scope:
-        raise ValueError(
-            "NSW Crash and Traffic Unit release scopes differ: "
-            f"{release_scope!r} != {unit_release_scope!r}"
-        )
-
-    statistical_scope = (
-        unit_mapping["content"][
-            "statistical_scope"
-        ]
-    )
-
-    # 10. Insert NSW Traffic Unit projection rows.
-    unit_insert_sql = _load_sql(
-        UNIT_INSERT_SQL_PATH
-    )
-
+    # 9. Insert Traffic Unit projection.
     cursor.execute(
-        unit_insert_sql,
+        _load_sql(UNIT_INSERT_SQL_PATH),
         (
             batch_id,
             unit_release_scope,
@@ -514,7 +598,31 @@ def project(
             "a valid inserted-row count"
         )
 
-    # Projection evidence/count reconciliation is added next.
-    _ = missing_unit_type_count
-    _ = crash_projection_count
-    _ = unit_projection_count
+    # 10. Reconcile the completed projection.
+    counts = _check_projection(
+        cursor,
+        batch_id=batch_id,
+        source_id=crash_input["source_id"],
+        release_scope=release_scope,
+        inserted_crash_count=crash_projection_count,
+        inserted_unit_count=unit_projection_count,
+    )
+
+    counts["missing_unit_type_count"] = (
+        missing_unit_type_count
+    )
+
+    counts["source_id"] = (
+        crash_input["source_id"]
+    )
+
+    counts["release_scope"] = (
+        release_scope
+    )
+
+    # 11. Record C03 build evidence for B10.
+    context.evidence.write_json(
+        "c03-nsw-projection-counts.json",
+        counts,
+    )
+    
