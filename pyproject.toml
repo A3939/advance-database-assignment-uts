@@ -15,6 +15,9 @@ arsia-prepare = "arsia_ingest.cli:main"
 [tool.setuptools.packages.find]
 where = ["src"]
 
+[tool.setuptools.package-data]
+arsia_c = ["sql/c07_vic_node_observations.sql"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src"]
