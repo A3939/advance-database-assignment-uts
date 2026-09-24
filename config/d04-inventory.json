@@ -1,0 +1,72 @@
+{
+  "scope": "D04 QA06 component; C QA, publication and final platform inventory remain separate",
+  "complete_qa06": true,
+  "final_platform": false,
+  "upstream": {
+    "b_base_commit": "a469ddae23fb420827185b59c25f63500f55da3a",
+    "b_branch": "peixian/dev",
+    "d03_commit": "e2a0c6e28a4dcef27659783efbe553c959bb55fc",
+    "c04_c05_commit": "ad8baeddd3f6d2eeccdc2e31bafd71b687ad4da8",
+    "c_branch": "yue/role-c"
+  },
+  "binding": {
+    "callback": "arsia_d04:runner_callback",
+    "code_path": "src/arsia_d04/reconciliation.py",
+    "version": "d04-0.1.0"
+  },
+  "components": {
+    "qa": [
+      "src/arsia_d04/__init__.py",
+      "src/arsia_d04/reconciliation.py",
+      "src/arsia_ingest/__init__.py",
+      "src/arsia_ingest/models.py",
+      "src/arsia_ingest/qa_input.py",
+      "pyproject.toml",
+      "requirements.txt"
+    ]
+  },
+  "code_files": [
+    {
+      "path": "src/arsia_d04/__init__.py",
+      "sha256": "6434fb6885873af063a01b34bd6ecf4af2f16bcdc725cf6101fe711d619447bd"
+    },
+    {
+      "path": "src/arsia_d04/reconciliation.py",
+      "sha256": "81a9fa4b974913c1b7ed30f04055bcd982c100cfdf31e604c7256f77d0620760"
+    },
+    {
+      "path": "src/arsia_ingest/__init__.py",
+      "sha256": "1b968d2191475834219bcb988e7a25867afb1eff95b73acd7aaccae34568cdd3"
+    },
+    {
+      "path": "src/arsia_ingest/models.py",
+      "sha256": "ed9ce88b03d4cb76e9b1a27e352345d4e6789e266431f40754bc0b2dba3fa8db"
+    },
+    {
+      "path": "src/arsia_ingest/qa_input.py",
+      "sha256": "7de668caf649cd1ead6b35d155cf213caabccfb4fa59ee110bd336bf57210723"
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "ac435613133ca0b860b97c6f336f980d75e26d514a77e55413aab1f607e49fdb"
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "b6f17223b854c27346eefdaeef137f2c0f5c5f8c85004c701a61662ccbc015eb"
+    }
+  ],
+  "dependencies": {
+    "distribution": "arsia-native-intake 0.1.0",
+    "python": ">=3.12,<3.13",
+    "external_packages": [],
+    "database": "PostgreSQL 16 with migrations 001-011",
+    "interfaces": [
+      "QAReport",
+      "write_results",
+      "ModuleConnection",
+      "RunContext",
+      "RunEvidence",
+      "IntakeError"
+    ]
+  }
+}
