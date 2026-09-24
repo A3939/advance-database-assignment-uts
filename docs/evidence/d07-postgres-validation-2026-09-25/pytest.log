@@ -1,0 +1,58 @@
+Processing ./repo
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting openpyxl==3.1.5 (from -r /tmp/repo/requirements.txt (line 2))
+  Downloading openpyxl-3.1.5-py2.py3-none-any.whl.metadata (2.5 kB)
+Collecting et_xmlfile==2.0.0 (from -r /tmp/repo/requirements.txt (line 3))
+  Downloading et_xmlfile-2.0.0-py3-none-any.whl.metadata (2.7 kB)
+Collecting pytest==8.4.2 (from -r /tmp/repo/requirements-dev.txt (line 2))
+  Downloading pytest-8.4.2-py3-none-any.whl.metadata (7.7 kB)
+Collecting iniconfig==2.1.0 (from -r /tmp/repo/requirements-dev.txt (line 3))
+  Downloading iniconfig-2.1.0-py3-none-any.whl.metadata (2.7 kB)
+Collecting packaging==25.0 (from -r /tmp/repo/requirements-dev.txt (line 4))
+  Downloading packaging-25.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting pluggy==1.6.0 (from -r /tmp/repo/requirements-dev.txt (line 5))
+  Downloading pluggy-1.6.0-py3-none-any.whl.metadata (4.8 kB)
+Collecting Pygments==2.19.2 (from -r /tmp/repo/requirements-dev.txt (line 6))
+  Downloading pygments-2.19.2-py3-none-any.whl.metadata (2.5 kB)
+Collecting setuptools==80.9.0 (from -r /tmp/repo/requirements-dev.txt (line 7))
+  Downloading setuptools-80.9.0-py3-none-any.whl.metadata (6.6 kB)
+Collecting wheel==0.45.1 (from -r /tmp/repo/requirements-dev.txt (line 8))
+  Downloading wheel-0.45.1-py3-none-any.whl.metadata (2.3 kB)
+Collecting psycopg==3.3.6 (from psycopg[binary]==3.3.6->-r /tmp/repo/requirements-db.txt (line 3))
+  Downloading psycopg-3.3.6-py3-none-any.whl.metadata (4.4 kB)
+Collecting typing-extensions>=4.6 (from psycopg==3.3.6->psycopg[binary]==3.3.6->-r /tmp/repo/requirements-db.txt (line 3))
+  Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting psycopg-binary==3.3.6 (from psycopg[binary]==3.3.6->-r /tmp/repo/requirements-db.txt (line 3))
+  Downloading psycopg_binary-3.3.6-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.7 kB)
+Downloading openpyxl-3.1.5-py2.py3-none-any.whl (250 kB)
+Downloading et_xmlfile-2.0.0-py3-none-any.whl (18 kB)
+Downloading pytest-8.4.2-py3-none-any.whl (365 kB)
+Downloading iniconfig-2.1.0-py3-none-any.whl (6.0 kB)
+Downloading packaging-25.0-py3-none-any.whl (66 kB)
+Downloading pluggy-1.6.0-py3-none-any.whl (20 kB)
+Downloading pygments-2.19.2-py3-none-any.whl (1.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 11.6 MB/s eta 0:00:00
+Downloading setuptools-80.9.0-py3-none-any.whl (1.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 8.6 MB/s eta 0:00:00
+Downloading wheel-0.45.1-py3-none-any.whl (72 kB)
+Downloading psycopg-3.3.6-py3-none-any.whl (215 kB)
+Downloading psycopg_binary-3.3.6-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.2/5.2 MB 6.3 MB/s eta 0:00:00
+Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+Building wheels for collected packages: arsia-native-intake
+  Building wheel for arsia-native-intake (pyproject.toml): started
+  Building wheel for arsia-native-intake (pyproject.toml): finished with status 'done'
+  Created wheel for arsia-native-intake: filename=arsia_native_intake-0.1.0-py3-none-any.whl size=118996 sha256=c6c2cd0441130d6b2a8be56f1e57d03f37d9eac3ecef75ca851ef534f969b661
+  Stored in directory: /tmp/pip-ephem-wheel-cache-8q_fujit/wheels/82/2c/4a/3604515d8fa4245e3afcc48a9a77fcfd9d1838224433f78411
+Successfully built arsia-native-intake
+Installing collected packages: wheel, typing-extensions, setuptools, Pygments, psycopg-binary, pluggy, packaging, iniconfig, et_xmlfile, pytest, psycopg, openpyxl, arsia-native-intake
+Successfully installed Pygments-2.19.2 arsia-native-intake-0.1.0 et_xmlfile-2.0.0 iniconfig-2.1.0 openpyxl-3.1.5 packaging-25.0 pluggy-1.6.0 psycopg-3.3.6 psycopg-binary-3.3.6 pytest-8.4.2 setuptools-80.9.0 typing-extensions-4.16.0 wheel-0.45.1
+.....................                                                    [100%]
+------------------- generated xml file: /evidence/pytest.xml -------------------
+21 passed in 1.51s
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
