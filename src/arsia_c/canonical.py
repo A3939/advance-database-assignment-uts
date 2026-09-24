@@ -5,7 +5,7 @@ import json
 
 from arsia_ingest.models import IntakeError
 from arsia_ingest.vault_load import iter_satellites
-
+from arsia_c.canonical_validation import validate_values, validate_snapshot, reconcile
 
 CRASH_ATTRIBUTE_KEYS = {
     "occurrence_year",
@@ -125,8 +125,7 @@ VALUES (
 
 def _allowed_scopes(manifest: dict) -> set[tuple[str, str]]:
     return {
-        (source["source_id"], source["release_scope"])
-        for source in manifest["sources"]
+        (source["source_id"], source["release_scope"]) for source in manifest["sources"]
     }
 
 
@@ -208,6 +207,8 @@ def _crash_parameters(
         key=row["crash_key"],
     )
 
+    validate_values(attributes, "crash")
+
     return (
         row["batch_id"],
         row["source_id"],
@@ -267,6 +268,8 @@ def _unit_parameters(
             link_crash_key=row["crash_key"],
         )
 
+    validate_values(attributes, "unit")
+
     return (
         row["batch_id"],
         row["source_id"],
@@ -284,12 +287,11 @@ def _unit_parameters(
 
 def load_canonical(connection, context) -> None:
     """B10 Canonical callback; rebuild only from selected current-batch Satellites."""
+    validate_snapshot(connection, context)
     manifest = context.manifest.as_dict()
     allowed_scopes = _allowed_scopes(manifest)
 
-    source_counts = defaultdict(
-        lambda: {"crash_count": 0, "unit_count": 0}
-    )
+    source_counts = defaultdict(lambda: {"crash_count": 0, "unit_count": 0})
 
     crash_rows = (
         _crash_parameters(
@@ -343,6 +345,12 @@ def load_canonical(connection, context) -> None:
             cursor.executemany(UNIT_INSERT_SQL, pending)
             unit_count += len(pending)
 
+    counts = reconcile(connection, context)
+    if counts != {"crash": crash_count, "unit": unit_count}:
+        raise IntakeError(
+            "CANONICAL_COUNTS", "Inserted counts differ from the database"
+        )
+
     context.evidence.write_json(
         "c09-canonical-counts.json",
         {
@@ -352,5 +360,7 @@ def load_canonical(connection, context) -> None:
             "sources": dict(source_counts),
             "source": "selected_raw_vault_satellites",
             "raw_recomputed": False,
+            "satellite_reconciled": True,
+            "lineage_validated": True,
         },
     )
