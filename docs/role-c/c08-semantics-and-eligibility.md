@@ -397,10 +397,12 @@ Under the current restricted profile:
 - Person remains Raw/check-only;
 - Person-dependent KPIs are unavailable;
 - Vehicle-dependent KPIs are unavailable;
-- valid in-scope Vehicle projections may be retained for lineage/checking;
-- Vehicle `count_eligible=false` where the required source definition remains
-  unconfirmed;
-- use reason `definition_unconfirmed`.
+- all valid in-scope Vehicle projections must be retained for lineage/checking;
+- every VIC unit must have `count_eligible=false`, regardless of vehicle category;
+- record `definition_unconfirmed` in each unit's `quality_notes`.
+
+Do not drop valid in-scope Vehicle projections or crashes to satisfy this
+restriction. Invalid core values still block.
 
 Undefined categories must remain visible and must not be silently mapped to
 another known category.
