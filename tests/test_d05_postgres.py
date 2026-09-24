@@ -8,9 +8,9 @@ import pytest
 from arsia_d03 import runner_callback as load_dw
 from arsia_d05 import TrendRequest, query_trend
 from arsia_ingest.runner import ModuleConnection
+from d_acceptance_support import connection, fault_injection
 from test_d04_postgres import prepared, frozen
 from test_ac_integration_postgres import begin, through_canonical
-from test_raw_load_postgres import connection
 
 
 pytestmark = pytest.mark.skipif(
@@ -121,17 +121,18 @@ def test_unknown_only_measures_keep_crashes_but_return_null_values(
     connection, prepared, frozen
 ):
     context = _loaded(connection, prepared, frozen)
-    connection.execute(
-        """UPDATE dw.fact_crash
-              SET is_fatal_crash=NULL,
-                  fatality_count=NULL,
-                  casualty_count=NULL,
-                  fatal_crash_eligible=false,
-                  fatality_eligible=false,
-                  casualty_eligible=false
-            WHERE batch_id=%s AND source_id='syn_nsw'""",
-        (context.batch_id,),
-    )
+    with fault_injection(connection):
+        connection.execute(
+            """UPDATE dw.fact_crash
+                  SET is_fatal_crash=NULL,
+                      fatality_count=NULL,
+                      casualty_count=NULL,
+                      fatal_crash_eligible=false,
+                      fatality_eligible=false,
+                      casualty_eligible=false
+                WHERE batch_id=%s AND source_id='syn_nsw'""",
+            (context.batch_id,),
+        )
     rows = query_trend(
         ModuleConnection(connection),
         TrendRequest(

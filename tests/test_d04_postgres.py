@@ -12,8 +12,8 @@ from arsia_ingest.manifest import FrozenManifest
 from arsia_ingest.pipeline import prepare
 from arsia_ingest.runner import ModuleConnection, RunEvidence
 from ac_support import ROOT, interface_manifest
+from d_acceptance_support import connection, fault_injection
 from test_ac_integration_postgres import begin, through_canonical
-from test_raw_load_postgres import connection
 
 
 pytestmark = pytest.mark.skipif(
@@ -100,13 +100,17 @@ def test_swapped_payload_is_found_even_when_aggregates_match(
         (context.batch_id,),
     ).fetchall()
     assert len(facts) == 2 and facts[0][1] != facts[1][1]
-    connection.execute(
-        """UPDATE dw.fact_crash
-              SET severity_code = CASE crash_key
-                  WHEN %s THEN %s WHEN %s THEN %s END
-            WHERE batch_id=%s AND source_id='syn_nsw'""",
-        (facts[0][0], facts[1][1], facts[1][0], facts[0][1], context.batch_id),
-    )
+    with fault_injection(connection):
+        connection.execute(
+            """UPDATE dw.fact_crash
+                  SET severity_code = CASE crash_key
+                      WHEN %s THEN %s WHEN %s THEN %s END
+                WHERE batch_id=%s AND source_id='syn_nsw'""",
+            (
+                facts[0][0], facts[1][1], facts[1][0], facts[0][1],
+                context.batch_id,
+            ),
+        )
 
     report = reconcile(
         ModuleConnection(connection), context.batch_id, frozen.as_dict(),
@@ -128,12 +132,13 @@ def test_wrong_source_year_creates_missing_and_extra_objects(
     connection, prepared, frozen
 ):
     context = loaded(connection, prepared, frozen)
-    changed = connection.execute(
-        """UPDATE dw.fact_crash SET occurrence_year=2021
-            WHERE batch_id=%s AND source_id='syn_nsw' AND month_id IS NULL
-            RETURNING crash_key""",
-        (context.batch_id,),
-    ).fetchall()
+    with fault_injection(connection):
+        changed = connection.execute(
+            """UPDATE dw.fact_crash SET occurrence_year=2021
+                WHERE batch_id=%s AND source_id='syn_nsw' AND month_id IS NULL
+                RETURNING crash_key""",
+            (context.batch_id,),
+        ).fetchall()
     assert len(changed) == 1
 
     report = reconcile(
@@ -152,11 +157,13 @@ def test_definition_error_and_caller_rollback(
     connection, prepared, frozen
 ):
     context = loaded(connection, prepared, frozen)
-    connection.execute(
-        """UPDATE dw.dim_severity SET definition_version='wrong-version'
-            WHERE batch_id=%s AND source_id='syn_nsw' AND severity_code='F'""",
-        (context.batch_id,),
-    )
+    with fault_injection(connection):
+        connection.execute(
+            """UPDATE dw.dim_severity SET definition_version='wrong-version'
+                WHERE batch_id=%s AND source_id='syn_nsw'
+                  AND severity_code='F'""",
+            (context.batch_id,),
+        )
     report = reconcile(
         ModuleConnection(connection), context.batch_id, frozen.as_dict(),
         evidence=RunEvidence(context.evidence.directory / "qa-d-definition"),

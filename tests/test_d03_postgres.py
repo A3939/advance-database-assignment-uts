@@ -7,14 +7,14 @@ from pathlib import Path
 
 import pytest
 
-from arsia_d03 import runner_callback
+from arsia_d02 import runner_callback as load_dimensions
+from arsia_d03 import FactContractError, load_facts, runner_callback
 from arsia_ingest.manifest import FrozenManifest
 from arsia_ingest.pipeline import prepare
-from arsia_ingest.models import IntakeError
 from arsia_ingest.runner import ModuleConnection, RunEvidence
 from ac_support import ROOT, interface_manifest
+from d_acceptance_support import connection, fault_injection
 from test_ac_integration_postgres import begin, through_canonical
-from test_raw_load_postgres import connection
 
 
 pytestmark = pytest.mark.skipif(
@@ -128,15 +128,20 @@ def test_combined_dw_callback_is_idempotent(connection, prepared, frozen):
 def test_dimension_definition_mismatch_blocks_facts(connection, prepared, frozen):
     context = begin(connection, prepared, frozen)
     through_canonical(connection, context)
-    value = frozen.as_dict()
-    for severity in value["rules"]["severity"]:
-        if severity["source_id"] == "syn_nsw" and severity["severity_code"] == "F":
-            severity["definition_version"] = "wrong-version"
-            break
-    changed = replace(context, manifest=FrozenManifest(json.dumps(value)))
+    dw_context = replace(context, evidence=context.evidence.for_stage("dw"))
+    assert load_dimensions(
+        ModuleConnection(connection), dw_context
+    )["dim_severity"] == 12
+    with fault_injection(connection):
+        connection.execute(
+            """UPDATE dw.dim_severity SET definition_version='wrong-version'
+                WHERE batch_id=%s AND source_id='syn_nsw'
+                  AND severity_code='F'""",
+            (context.batch_id,),
+        )
 
-    with pytest.raises(IntakeError) as error:
-        call_dw(connection, changed)
+    with pytest.raises(FactContractError) as error:
+        load_facts(ModuleConnection(connection), context.batch_id)
     assert error.value.code == "D03_DIMENSION_CONTRACT"
     assert error.value.details["failures"] == {
         "severity_definition_mismatch": 1

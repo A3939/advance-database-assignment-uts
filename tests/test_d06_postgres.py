@@ -8,9 +8,9 @@ import pytest
 from arsia_d03 import runner_callback as load_dw
 from arsia_d06 import SeverityRequest, query_severity
 from arsia_ingest.runner import ModuleConnection
+from d_acceptance_support import connection
 from test_d04_postgres import prepared, frozen
 from test_ac_integration_postgres import begin, through_canonical
-from test_raw_load_postgres import connection
 
 
 pytestmark = pytest.mark.skipif(
