@@ -1,17 +1,14 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
-from decimal import Decimal, InvalidOperation
-from pathlib import Path
+from dataclasses import dataclass, replace
+from decimal import Decimal, InvalidOperation, ROUND_HALF_UP, localcontext
+from importlib.resources import files
 import re
 from typing import Iterable, Iterator
 
 
-NODE_OBSERVATIONS_SQL_PATH = (
-    Path(__file__).resolve().parents[2]
-    / "sql"
-    / "projections"
-    / "c07_vic_node_observations.sql"
+NODE_OBSERVATIONS_SQL_PATH = files("arsia_c").joinpath(
+    "sql", "c07_vic_node_observations.sql"
 )
 
 
@@ -426,6 +423,13 @@ def build_location_update(
         for row in rows
     ]
 
+    if decision.map_eligible and confirmed_crs != "EPSG:4326":
+        decision = replace(
+            decision, latitude=None, longitude=None, location_record_id=None,
+            map_eligible=False, reason_code="crs_unconfirmed",
+            resolution="coordinates_not_confirmed_as_epsg4326",
+        )
+
     if decision.map_eligible:
         if (
             decision.latitude is None
@@ -437,6 +441,13 @@ def build_location_update(
                 "trusted location values"
             )
 
+        # Raw agreement and range checks happen before PostgreSQL-scale rounding.
+        with localcontext() as context:
+            context.prec = 10
+            scale = Decimal("0.0000001")
+            latitude = decision.latitude.quantize(scale, rounding=ROUND_HALF_UP)
+            longitude = decision.longitude.quantize(scale, rounding=ROUND_HALF_UP)
+
         notes.pop(
             "location",
             None,
@@ -444,9 +455,9 @@ def build_location_update(
 
         return {
             "latitude":
-                decision.latitude,
+                latitude,
             "longitude":
-                decision.longitude,
+                longitude,
             "location_crs":
                 confirmed_crs,
             "map_eligible":
