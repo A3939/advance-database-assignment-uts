@@ -1,5 +1,5 @@
 {
-  "scope": "D02 module integration and PostgreSQL专项 review; not full platform acceptance",
+  "scope": "D02 module integration and dedicated PostgreSQL validation; not full platform acceptance",
   "implementation_commit": "dd98354319c654f7e44f87bf9d0df8af85a9451f",
   "base_d02_commit": "5d871e58100348b8cfb7dd11e3978bb233652efc",
   "a_fixed_commit": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",

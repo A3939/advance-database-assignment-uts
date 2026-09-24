@@ -1,0 +1,10 @@
+     object      | count 
+-----------------+-------
+ dim_source      |     0
+ dim_month       |     0
+ dim_severity    |     0
+ fact_crash      |     0
+ batch           |     0
+ current_release |     0
+(6 rows)
+

@@ -1,0 +1,541 @@
+........FFFFFFFFFFF..........FFFFF..                                     [100%]
+=================================== FAILURES ===================================
+________________ test_postgres_and_python_collation_regression _________________
+
+connection = <psycopg.Connection [INTRANS] (host=127.0.0.1 port=56952 user=arsia_loader database=arsia) at 0x104f72a80>
+definitions = {'analysis': {'year_from': 2020, 'year_to': 2024}, 'contracts': [{'content': {'confirmation': {'basis': 'B07 synthetic...icial classifications.', 'definition_version': 'syn-1', 'is_fatal_crash': False, 'severity_code': 'I', ...}, ...], ...}
+
+    def test_postgres_and_python_collation_regression(connection, definitions):
+        codes = ["F", "I", "N", "__MISSING__"]
+        database_order = [r[0] for r in connection.execute(
+            "SELECT code FROM unnest(%s::text[]) AS code ORDER BY code", (codes,))]
+        batch = register(connection, definitions)
+>       assert load_dimensions(connection, batch, definitions) == COUNTS
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+artifacts/role-d02-integration-20260924/d-review/D02/integration/test_postgres.py:183: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:268: in load_dimensions
+    _verify(connection, str(rows.sources[0][0]), rows)
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:253: in _verify
+    _fail(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+code = 'D02_DATABASE_MISMATCH'
+message = 'database dimension rows differ from the frozen manifest'
+details = {'differences': {'dim_severity': {'actual': 12, 'expected': 12}}}
+
+    def _fail(code: str, message: str, **details: Any) -> None:
+>       raise DimensionContractError(code, message, **details)
+E       arsia_d02.dimensions.DimensionContractError: database dimension rows differ from the frozen manifest
+
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:64: DimensionContractError
+______ test_s0_exact_fields_complete_months_unused_categories_and_missing ______
+
+connection = <psycopg.Connection [INTRANS] (host=127.0.0.1 port=56952 user=arsia_loader database=arsia) at 0x104ac4f20>
+definitions = {'analysis': {'year_from': 2020, 'year_to': 2024}, 'contracts': [{'content': {'confirmation': {'basis': 'B07 synthetic...icial classifications.', 'definition_version': 'syn-1', 'is_fatal_crash': False, 'severity_code': 'I', ...}, ...], ...}
+
+    def test_s0_exact_fields_complete_months_unused_categories_and_missing(connection, definitions):
+        batch = register(connection, definitions)
+>       assert load_dimensions(connection, batch, definitions) == COUNTS
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+artifacts/role-d02-integration-20260924/d-review/D02/integration/test_postgres.py:190: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:268: in load_dimensions
+    _verify(connection, str(rows.sources[0][0]), rows)
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:253: in _verify
+    _fail(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+code = 'D02_DATABASE_MISMATCH'
+message = 'database dimension rows differ from the frozen manifest'
+details = {'differences': {'dim_severity': {'actual': 12, 'expected': 12}}}
+
+    def _fail(code: str, message: str, **details: Any) -> None:
+>       raise DimensionContractError(code, message, **details)
+E       arsia_d02.dimensions.DimensionContractError: database dimension rows differ from the frozen manifest
+
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:64: DimensionContractError
+________________________ test_idempotent_repeated_call _________________________
+
+connection = <psycopg.Connection [INTRANS] (host=127.0.0.1 port=56952 user=arsia_loader database=arsia) at 0x104faea80>
+definitions = {'analysis': {'year_from': 2020, 'year_to': 2024}, 'contracts': [{'content': {'confirmation': {'basis': 'B07 synthetic...icial classifications.', 'definition_version': 'syn-1', 'is_fatal_crash': False, 'severity_code': 'I', ...}, ...], ...}
+
+    def test_idempotent_repeated_call(connection, definitions):
+        batch = register(connection, definitions)
+>       assert load_dimensions(connection, batch, definitions) == COUNTS
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+artifacts/role-d02-integration-20260924/d-review/D02/integration/test_postgres.py:202: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:268: in load_dimensions
+    _verify(connection, str(rows.sources[0][0]), rows)
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:253: in _verify
+    _fail(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+code = 'D02_DATABASE_MISMATCH'
+message = 'database dimension rows differ from the frozen manifest'
+details = {'differences': {'dim_severity': {'actual': 12, 'expected': 12}}}
+
+    def _fail(code: str, message: str, **details: Any) -> None:
+>       raise DimensionContractError(code, message, **details)
+E       arsia_d02.dimensions.DimensionContractError: database dimension rows differ from the frozen manifest
+
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:64: DimensionContractError
+_________ test_same_key_changed_content_rejected[sources-source_name] __________
+
+connection = <psycopg.Connection [INTRANS] (host=127.0.0.1 port=56952 user=arsia_loader database=arsia) at 0x104faeea0>
+definitions = {'analysis': {'year_from': 2020, 'year_to': 2024}, 'contracts': [{'content': {'confirmation': {'basis': 'B07 synthetic...icial classifications.', 'definition_version': 'syn-1', 'is_fatal_crash': False, 'severity_code': 'I', ...}, ...], ...}
+group = 'sources', field = 'source_name'
+
+    @pytest.mark.parametrize("group,field", [
+        ("sources", "source_name"), ("sources", "jurisdiction_code"),
+        ("sources", "release_label"), ("sources", "release_scope"),
+        ("severity", "severity_label"), ("severity", "definition_version"),
+        ("severity", "definition_text"),
+    ])
+    def test_same_key_changed_content_rejected(connection, definitions, group, field):
+        batch = register(connection, definitions)
+>       load_dimensions(connection, batch, definitions)
+
+artifacts/role-d02-integration-20260924/d-review/D02/integration/test_postgres.py:216: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:268: in load_dimensions
+    _verify(connection, str(rows.sources[0][0]), rows)
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:253: in _verify
+    _fail(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+code = 'D02_DATABASE_MISMATCH'
+message = 'database dimension rows differ from the frozen manifest'
+details = {'differences': {'dim_severity': {'actual': 12, 'expected': 12}}}
+
+    def _fail(code: str, message: str, **details: Any) -> None:
+>       raise DimensionContractError(code, message, **details)
+E       arsia_d02.dimensions.DimensionContractError: database dimension rows differ from the frozen manifest
+
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:64: DimensionContractError
+______ test_same_key_changed_content_rejected[sources-jurisdiction_code] _______
+
+connection = <psycopg.Connection [INTRANS] (host=127.0.0.1 port=56952 user=arsia_loader database=arsia) at 0x104fad6d0>
+definitions = {'analysis': {'year_from': 2020, 'year_to': 2024}, 'contracts': [{'content': {'confirmation': {'basis': 'B07 synthetic...icial classifications.', 'definition_version': 'syn-1', 'is_fatal_crash': False, 'severity_code': 'I', ...}, ...], ...}
+group = 'sources', field = 'jurisdiction_code'
+
+    @pytest.mark.parametrize("group,field", [
+        ("sources", "source_name"), ("sources", "jurisdiction_code"),
+        ("sources", "release_label"), ("sources", "release_scope"),
+        ("severity", "severity_label"), ("severity", "definition_version"),
+        ("severity", "definition_text"),
+    ])
+    def test_same_key_changed_content_rejected(connection, definitions, group, field):
+        batch = register(connection, definitions)
+>       load_dimensions(connection, batch, definitions)
+
+artifacts/role-d02-integration-20260924/d-review/D02/integration/test_postgres.py:216: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:268: in load_dimensions
+    _verify(connection, str(rows.sources[0][0]), rows)
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:253: in _verify
+    _fail(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+code = 'D02_DATABASE_MISMATCH'
+message = 'database dimension rows differ from the frozen manifest'
+details = {'differences': {'dim_severity': {'actual': 12, 'expected': 12}}}
+
+    def _fail(code: str, message: str, **details: Any) -> None:
+>       raise DimensionContractError(code, message, **details)
+E       arsia_d02.dimensions.DimensionContractError: database dimension rows differ from the frozen manifest
+
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:64: DimensionContractError
+________ test_same_key_changed_content_rejected[sources-release_label] _________
+
+connection = <psycopg.Connection [INTRANS] (host=127.0.0.1 port=56952 user=arsia_loader database=arsia) at 0x104ad8830>
+definitions = {'analysis': {'year_from': 2020, 'year_to': 2024}, 'contracts': [{'content': {'confirmation': {'basis': 'B07 synthetic...icial classifications.', 'definition_version': 'syn-1', 'is_fatal_crash': False, 'severity_code': 'I', ...}, ...], ...}
+group = 'sources', field = 'release_label'
+
+    @pytest.mark.parametrize("group,field", [
+        ("sources", "source_name"), ("sources", "jurisdiction_code"),
+        ("sources", "release_label"), ("sources", "release_scope"),
+        ("severity", "severity_label"), ("severity", "definition_version"),
+        ("severity", "definition_text"),
+    ])
+    def test_same_key_changed_content_rejected(connection, definitions, group, field):
+        batch = register(connection, definitions)
+>       load_dimensions(connection, batch, definitions)
+
+artifacts/role-d02-integration-20260924/d-review/D02/integration/test_postgres.py:216: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:268: in load_dimensions
+    _verify(connection, str(rows.sources[0][0]), rows)
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:253: in _verify
+    _fail(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+code = 'D02_DATABASE_MISMATCH'
+message = 'database dimension rows differ from the frozen manifest'
+details = {'differences': {'dim_severity': {'actual': 12, 'expected': 12}}}
+
+    def _fail(code: str, message: str, **details: Any) -> None:
+>       raise DimensionContractError(code, message, **details)
+E       arsia_d02.dimensions.DimensionContractError: database dimension rows differ from the frozen manifest
+
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:64: DimensionContractError
+________ test_same_key_changed_content_rejected[sources-release_scope] _________
+
+connection = <psycopg.Connection [INTRANS] (host=127.0.0.1 port=56952 user=arsia_loader database=arsia) at 0x105143740>
+definitions = {'analysis': {'year_from': 2020, 'year_to': 2024}, 'contracts': [{'content': {'confirmation': {'basis': 'B07 synthetic...icial classifications.', 'definition_version': 'syn-1', 'is_fatal_crash': False, 'severity_code': 'I', ...}, ...], ...}
+group = 'sources', field = 'release_scope'
+
+    @pytest.mark.parametrize("group,field", [
+        ("sources", "source_name"), ("sources", "jurisdiction_code"),
+        ("sources", "release_label"), ("sources", "release_scope"),
+        ("severity", "severity_label"), ("severity", "definition_version"),
+        ("severity", "definition_text"),
+    ])
+    def test_same_key_changed_content_rejected(connection, definitions, group, field):
+        batch = register(connection, definitions)
+>       load_dimensions(connection, batch, definitions)
+
+artifacts/role-d02-integration-20260924/d-review/D02/integration/test_postgres.py:216: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:268: in load_dimensions
+    _verify(connection, str(rows.sources[0][0]), rows)
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:253: in _verify
+    _fail(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+code = 'D02_DATABASE_MISMATCH'
+message = 'database dimension rows differ from the frozen manifest'
+details = {'differences': {'dim_severity': {'actual': 12, 'expected': 12}}}
+
+    def _fail(code: str, message: str, **details: Any) -> None:
+>       raise DimensionContractError(code, message, **details)
+E       arsia_d02.dimensions.DimensionContractError: database dimension rows differ from the frozen manifest
+
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:64: DimensionContractError
+_______ test_same_key_changed_content_rejected[severity-severity_label] ________
+
+connection = <psycopg.Connection [INTRANS] (host=127.0.0.1 port=56952 user=arsia_loader database=arsia) at 0x105142210>
+definitions = {'analysis': {'year_from': 2020, 'year_to': 2024}, 'contracts': [{'content': {'confirmation': {'basis': 'B07 synthetic...icial classifications.', 'definition_version': 'syn-1', 'is_fatal_crash': False, 'severity_code': 'I', ...}, ...], ...}
+group = 'severity', field = 'severity_label'
+
+    @pytest.mark.parametrize("group,field", [
+        ("sources", "source_name"), ("sources", "jurisdiction_code"),
+        ("sources", "release_label"), ("sources", "release_scope"),
+        ("severity", "severity_label"), ("severity", "definition_version"),
+        ("severity", "definition_text"),
+    ])
+    def test_same_key_changed_content_rejected(connection, definitions, group, field):
+        batch = register(connection, definitions)
+>       load_dimensions(connection, batch, definitions)
+
+artifacts/role-d02-integration-20260924/d-review/D02/integration/test_postgres.py:216: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:268: in load_dimensions
+    _verify(connection, str(rows.sources[0][0]), rows)
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:253: in _verify
+    _fail(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+code = 'D02_DATABASE_MISMATCH'
+message = 'database dimension rows differ from the frozen manifest'
+details = {'differences': {'dim_severity': {'actual': 12, 'expected': 12}}}
+
+    def _fail(code: str, message: str, **details: Any) -> None:
+>       raise DimensionContractError(code, message, **details)
+E       arsia_d02.dimensions.DimensionContractError: database dimension rows differ from the frozen manifest
+
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:64: DimensionContractError
+_____ test_same_key_changed_content_rejected[severity-definition_version] ______
+
+connection = <psycopg.Connection [INTRANS] (host=127.0.0.1 port=56952 user=arsia_loader database=arsia) at 0x105143a70>
+definitions = {'analysis': {'year_from': 2020, 'year_to': 2024}, 'contracts': [{'content': {'confirmation': {'basis': 'B07 synthetic...icial classifications.', 'definition_version': 'syn-1', 'is_fatal_crash': False, 'severity_code': 'I', ...}, ...], ...}
+group = 'severity', field = 'definition_version'
+
+    @pytest.mark.parametrize("group,field", [
+        ("sources", "source_name"), ("sources", "jurisdiction_code"),
+        ("sources", "release_label"), ("sources", "release_scope"),
+        ("severity", "severity_label"), ("severity", "definition_version"),
+        ("severity", "definition_text"),
+    ])
+    def test_same_key_changed_content_rejected(connection, definitions, group, field):
+        batch = register(connection, definitions)
+>       load_dimensions(connection, batch, definitions)
+
+artifacts/role-d02-integration-20260924/d-review/D02/integration/test_postgres.py:216: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:268: in load_dimensions
+    _verify(connection, str(rows.sources[0][0]), rows)
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:253: in _verify
+    _fail(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+code = 'D02_DATABASE_MISMATCH'
+message = 'database dimension rows differ from the frozen manifest'
+details = {'differences': {'dim_severity': {'actual': 12, 'expected': 12}}}
+
+    def _fail(code: str, message: str, **details: Any) -> None:
+>       raise DimensionContractError(code, message, **details)
+E       arsia_d02.dimensions.DimensionContractError: database dimension rows differ from the frozen manifest
+
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:64: DimensionContractError
+_______ test_same_key_changed_content_rejected[severity-definition_text] _______
+
+connection = <psycopg.Connection [INTRANS] (host=127.0.0.1 port=56952 user=arsia_loader database=arsia) at 0x105142210>
+definitions = {'analysis': {'year_from': 2020, 'year_to': 2024}, 'contracts': [{'content': {'confirmation': {'basis': 'B07 synthetic...icial classifications.', 'definition_version': 'syn-1', 'is_fatal_crash': False, 'severity_code': 'I', ...}, ...], ...}
+group = 'severity', field = 'definition_text'
+
+    @pytest.mark.parametrize("group,field", [
+        ("sources", "source_name"), ("sources", "jurisdiction_code"),
+        ("sources", "release_label"), ("sources", "release_scope"),
+        ("severity", "severity_label"), ("severity", "definition_version"),
+        ("severity", "definition_text"),
+    ])
+    def test_same_key_changed_content_rejected(connection, definitions, group, field):
+        batch = register(connection, definitions)
+>       load_dimensions(connection, batch, definitions)
+
+artifacts/role-d02-integration-20260924/d-review/D02/integration/test_postgres.py:216: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:268: in load_dimensions
+    _verify(connection, str(rows.sources[0][0]), rows)
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:253: in _verify
+    _fail(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+code = 'D02_DATABASE_MISMATCH'
+message = 'database dimension rows differ from the frozen manifest'
+details = {'differences': {'dim_severity': {'actual': 12, 'expected': 12}}}
+
+    def _fail(code: str, message: str, **details: Any) -> None:
+>       raise DimensionContractError(code, message, **details)
+E       arsia_d02.dimensions.DimensionContractError: database dimension rows differ from the frozen manifest
+
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:64: DimensionContractError
+__________________ test_extra_category_in_same_batch_rejected __________________
+
+connection = <psycopg.Connection [INTRANS] (host=127.0.0.1 port=56952 user=arsia_loader database=arsia) at 0x105141820>
+definitions = {'analysis': {'year_from': 2020, 'year_to': 2024}, 'contracts': [{'content': {'confirmation': {'basis': 'B07 synthetic...icial classifications.', 'definition_version': 'syn-1', 'is_fatal_crash': False, 'severity_code': 'I', ...}, ...], ...}
+
+    def test_extra_category_in_same_batch_rejected(connection, definitions):
+        batch = register(connection, definitions)
+>       load_dimensions(connection, batch, definitions)
+
+artifacts/role-d02-integration-20260924/d-review/D02/integration/test_postgres.py:228: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:268: in load_dimensions
+    _verify(connection, str(rows.sources[0][0]), rows)
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:253: in _verify
+    _fail(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+code = 'D02_DATABASE_MISMATCH'
+message = 'database dimension rows differ from the frozen manifest'
+details = {'differences': {'dim_severity': {'actual': 12, 'expected': 12}}}
+
+    def _fail(code: str, message: str, **details: Any) -> None:
+>       raise DimensionContractError(code, message, **details)
+E       arsia_d02.dimensions.DimensionContractError: database dimension rows differ from the frozen manifest
+
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:64: DimensionContractError
+_________________ test_caller_rollback_removes_all_new_writes __________________
+
+connection = <psycopg.Connection [INTRANS] (host=127.0.0.1 port=56952 user=arsia_loader database=arsia) at 0x104fadb20>
+definitions = {'analysis': {'year_from': 2020, 'year_to': 2024}, 'contracts': [{'content': {'confirmation': {'basis': 'B07 synthetic...icial classifications.', 'definition_version': 'syn-1', 'is_fatal_crash': False, 'severity_code': 'I', ...}, ...], ...}
+
+    def test_caller_rollback_removes_all_new_writes(connection, definitions):
+        batch = register(connection, definitions)
+>       load_dimensions(connection, batch, definitions)
+
+artifacts/role-d02-integration-20260924/d-review/D02/integration/test_postgres.py:276: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:268: in load_dimensions
+    _verify(connection, str(rows.sources[0][0]), rows)
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:253: in _verify
+    _fail(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+code = 'D02_DATABASE_MISMATCH'
+message = 'database dimension rows differ from the frozen manifest'
+details = {'differences': {'dim_severity': {'actual': 12, 'expected': 12}}}
+
+    def _fail(code: str, message: str, **details: Any) -> None:
+>       raise DimensionContractError(code, message, **details)
+E       arsia_d02.dimensions.DimensionContractError: database dimension rows differ from the frozen manifest
+
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:64: DimensionContractError
+___________ test_new_batch_keeps_old_source_and_severity_definitions ___________
+
+connection = <psycopg.Connection [INTRANS] (host=127.0.0.1 port=56952 user=arsia_loader database=arsia) at 0x104fafd70>
+definitions = {'analysis': {'year_from': 2020, 'year_to': 2024}, 'contracts': [{'content': {'confirmation': {'basis': 'B07 synthetic...icial classifications.', 'definition_version': 'syn-1', 'is_fatal_crash': False, 'severity_code': 'I', ...}, ...], ...}
+
+    def test_new_batch_keeps_old_source_and_severity_definitions(connection, definitions):
+        first = register(connection, definitions)
+>       load_dimensions(connection, first, definitions)
+
+artifacts/role-d02-integration-20260924/d-review/D02/integration/test_postgres.py:289: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:268: in load_dimensions
+    _verify(connection, str(rows.sources[0][0]), rows)
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:253: in _verify
+    _fail(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+code = 'D02_DATABASE_MISMATCH'
+message = 'database dimension rows differ from the frozen manifest'
+details = {'differences': {'dim_severity': {'actual': 12, 'expected': 12}}}
+
+    def _fail(code: str, message: str, **details: Any) -> None:
+>       raise DimensionContractError(code, message, **details)
+E       arsia_d02.dimensions.DimensionContractError: database dimension rows differ from the frozen manifest
+
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:64: DimensionContractError
+___________ test_committed_batches_preserve_history_across_sessions ____________
+
+connection = <psycopg.Connection [IDLE] (host=127.0.0.1 port=56952 user=arsia_loader database=arsia) at 0x105161be0>
+definitions = {'analysis': {'year_from': 2020, 'year_to': 2024}, 'contracts': [{'content': {'confirmation': {'basis': 'B07 synthetic...icial classifications.', 'definition_version': 'syn-1', 'is_fatal_crash': False, 'severity_code': 'I', ...}, ...], ...}
+
+    def test_committed_batches_preserve_history_across_sessions(connection, definitions):
+        batches = []
+        try:
+            first = register(connection, definitions)
+            batches.append(first)
+>           load_dimensions(connection, first, definitions)
+
+artifacts/role-d02-integration-20260924/d-review/D02/integration/test_postgres.py:312: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:268: in load_dimensions
+    _verify(connection, str(rows.sources[0][0]), rows)
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:253: in _verify
+    _fail(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+code = 'D02_DATABASE_MISMATCH'
+message = 'database dimension rows differ from the frozen manifest'
+details = {'differences': {'dim_severity': {'actual': 12, 'expected': 12}}}
+
+    def _fail(code: str, message: str, **details: Any) -> None:
+>       raise DimensionContractError(code, message, **details)
+E       arsia_d02.dimensions.DimensionContractError: database dimension rows differ from the frozen manifest
+
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:64: DimensionContractError
+___________ test_real_frozen_manifest_and_real_b10_context_evidence ____________
+
+connection = <arsia_ingest.runner.ModuleConnection object at 0x104ab1460>
+context = RunContext(run_id='f19bc982-2833-48ef-a082-34b9d82caafb', dataset_kind='synthetic', batch_id='e8623e90-3277-414a-bd99-...dvanced Database/Assignment 2/Workspace/artifacts/role-d02-integration-20260924/baseline-complete/evidence/callback')))
+
+    def runner_callback(connection: Any, context: Any) -> dict[str, int]:
+        """B10 module callback for the D02-only integration stage."""
+    
+        try:
+            manifest = context.manifest.as_dict()
+>           counts = load_dimensions(connection, context.batch_id, manifest)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:277: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:268: in load_dimensions
+    _verify(connection, str(rows.sources[0][0]), rows)
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:253: in _verify
+    _fail(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+code = 'D02_DATABASE_MISMATCH'
+message = 'database dimension rows differ from the frozen manifest'
+details = {'differences': {'dim_severity': {'actual': 12, 'expected': 12}}}
+
+    def _fail(code: str, message: str, **details: Any) -> None:
+>       raise DimensionContractError(code, message, **details)
+E       arsia_d02.dimensions.DimensionContractError: database dimension rows differ from the frozen manifest
+
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:64: DimensionContractError
+
+The above exception was the direct cause of the following exception:
+
+connection = <psycopg.Connection [INTRANS] (host=127.0.0.1 port=56952 user=arsia_loader database=arsia) at 0x104ae8620>
+definitions = {'analysis': {'year_from': 2020, 'year_to': 2024}, 'contracts': [{'content': {'confirmation': {'basis': 'B07 synthetic...icial classifications.', 'definition_version': 'syn-1', 'is_fatal_crash': False, 'severity_code': 'I', ...}, ...], ...}
+manifest = FrozenManifest(_json='{\n  "analysis": {\n    "year_from": 2020,\n    "year_to": 2024\n  },\n  "contract_version": "te...syn_vic_vehicle"\n      ],\n      "source_id": "syn_vic",\n      "source_name": "Synthetic VIC (S0)"\n    }\n  ]\n}\n')
+
+    def test_real_frozen_manifest_and_real_b10_context_evidence(connection, definitions, manifest):
+        batch = register(connection, definitions)
+        context = RunContext(str(uuid4()), "synthetic", batch,
+                             hashlib.sha256(b"test context identifier; not FP1").hexdigest(), None,
+                             manifest, RunEvidence(EVIDENCE / "callback"))
+        shared = ModuleConnection(connection)
+        assert not hasattr(shared, "commit") and not hasattr(shared, "rollback") and not hasattr(shared, "close")
+>       assert runner_callback(shared, context) == COUNTS
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+artifacts/role-d02-integration-20260924/d-review/D02/integration/test_postgres.py:347: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+connection = <arsia_ingest.runner.ModuleConnection object at 0x104ab1460>
+context = RunContext(run_id='f19bc982-2833-48ef-a082-34b9d82caafb', dataset_kind='synthetic', batch_id='e8623e90-3277-414a-bd99-...dvanced Database/Assignment 2/Workspace/artifacts/role-d02-integration-20260924/baseline-complete/evidence/callback')))
+
+    def runner_callback(connection: Any, context: Any) -> dict[str, int]:
+        """B10 module callback for the D02-only integration stage."""
+    
+        try:
+            manifest = context.manifest.as_dict()
+            counts = load_dimensions(connection, context.batch_id, manifest)
+        except DimensionContractError as exc:
+            try:
+                from arsia_ingest.models import IntakeError
+            except ImportError:
+                raise
+>           raise IntakeError(exc.code, str(exc), **exc.details) from exc
+E           arsia_ingest.models.IntakeError: database dimension rows differ from the frozen manifest
+
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:283: IntakeError
+_________ test_callback_translates_contract_conflict_to_b_intake_error _________
+
+connection = <psycopg.Connection [INTRANS] (host=127.0.0.1 port=56952 user=arsia_loader database=arsia) at 0x105140860>
+definitions = {'analysis': {'year_from': 2020, 'year_to': 2024}, 'contracts': [{'content': {'confirmation': {'basis': 'B07 synthetic...icial classifications.', 'definition_version': 'syn-1', 'is_fatal_crash': False, 'severity_code': 'I', ...}, ...], ...}
+manifest = FrozenManifest(_json='{\n  "analysis": {\n    "year_from": 2020,\n    "year_to": 2024\n  },\n  "contract_version": "te...syn_vic_vehicle"\n      ],\n      "source_id": "syn_vic",\n      "source_name": "Synthetic VIC (S0)"\n    }\n  ]\n}\n')
+tmp_path = PosixPath('/private/var/folders/_c/prf4j4_d3cnc67s5crnwdyz40000gn/T/pytest-of-zhengpeixian/pytest-3/test_callback_translates_contr0')
+
+    def test_callback_translates_contract_conflict_to_b_intake_error(connection, definitions, manifest, tmp_path):
+        batch = register(connection, definitions)
+        changed = deepcopy(definitions)
+        changed["sources"][0]["source_name"] += " conflicting existing row"
+>       load_dimensions(connection, batch, changed)
+
+artifacts/role-d02-integration-20260924/d-review/D02/integration/test_postgres.py:371: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:268: in load_dimensions
+    _verify(connection, str(rows.sources[0][0]), rows)
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:253: in _verify
+    _fail(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+code = 'D02_DATABASE_MISMATCH'
+message = 'database dimension rows differ from the frozen manifest'
+details = {'differences': {'dim_severity': {'actual': 12, 'expected': 12}}}
+
+    def _fail(code: str, message: str, **details: Any) -> None:
+>       raise DimensionContractError(code, message, **details)
+E       arsia_d02.dimensions.DimensionContractError: database dimension rows differ from the frozen manifest
+
+artifacts/role-d02-integration-20260924/d-review/D02/src/arsia_d02/dimensions.py:64: DimensionContractError
+- generated xml file: /Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/artifacts/role-d02-integration-20260924/baseline-complete/pytest.xml -
+=========================== short test summary info ============================
+FAILED artifacts/role-d02-integration-20260924/d-review/D02/integration/test_postgres.py::test_postgres_and_python_collation_regression
+FAILED artifacts/role-d02-integration-20260924/d-review/D02/integration/test_postgres.py::test_s0_exact_fields_complete_months_unused_categories_and_missing
+FAILED artifacts/role-d02-integration-20260924/d-review/D02/integration/test_postgres.py::test_idempotent_repeated_call
+FAILED artifacts/role-d02-integration-20260924/d-review/D02/integration/test_postgres.py::test_same_key_changed_content_rejected[sources-source_name]
+FAILED artifacts/role-d02-integration-20260924/d-review/D02/integration/test_postgres.py::test_same_key_changed_content_rejected[sources-jurisdiction_code]
+FAILED artifacts/role-d02-integration-20260924/d-review/D02/integration/test_postgres.py::test_same_key_changed_content_rejected[sources-release_label]
+FAILED artifacts/role-d02-integration-20260924/d-review/D02/integration/test_postgres.py::test_same_key_changed_content_rejected[sources-release_scope]
+FAILED artifacts/role-d02-integration-20260924/d-review/D02/integration/test_postgres.py::test_same_key_changed_content_rejected[severity-severity_label]
+FAILED artifacts/role-d02-integration-20260924/d-review/D02/integration/test_postgres.py::test_same_key_changed_content_rejected[severity-definition_version]
+FAILED artifacts/role-d02-integration-20260924/d-review/D02/integration/test_postgres.py::test_same_key_changed_content_rejected[severity-definition_text]
+FAILED artifacts/role-d02-integration-20260924/d-review/D02/integration/test_postgres.py::test_extra_category_in_same_batch_rejected
+FAILED artifacts/role-d02-integration-20260924/d-review/D02/integration/test_postgres.py::test_caller_rollback_removes_all_new_writes
+FAILED artifacts/role-d02-integration-20260924/d-review/D02/integration/test_postgres.py::test_new_batch_keeps_old_source_and_severity_definitions
+FAILED artifacts/role-d02-integration-20260924/d-review/D02/integration/test_postgres.py::test_committed_batches_preserve_history_across_sessions
+FAILED artifacts/role-d02-integration-20260924/d-review/D02/integration/test_postgres.py::test_real_frozen_manifest_and_real_b10_context_evidence
+FAILED artifacts/role-d02-integration-20260924/d-review/D02/integration/test_postgres.py::test_callback_translates_contract_conflict_to_b_intake_error
+16 failed, 20 passed in 0.65s
