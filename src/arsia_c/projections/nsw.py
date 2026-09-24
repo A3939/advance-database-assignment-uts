@@ -56,6 +56,13 @@ CRASH_INSERT_SQL_PATH = (
     / "c03_nsw_crash_insert.sql"
 )
 
+UNIT_INSERT_SQL_PATH = (
+    Path(__file__).resolve().parents[3]
+    / "sql"
+    / "projections"
+    / "c03_nsw_unit_insert.sql"
+)
+
 
 def _contract_by_id(
     manifest: dict,
@@ -72,6 +79,27 @@ def _contract_by_id(
     if len(matches) != 1:
         raise ValueError(
             f"expected exactly one contract for {resource_id}, "
+            f"found {len(matches)}"
+        )
+
+    return matches[0]
+
+
+def _mapping_by_id(
+    manifest: dict,
+    mapping_id: str,
+) -> dict:
+    mappings = manifest["rules"]["mappings"]
+
+    matches = [
+        mapping
+        for mapping in mappings
+        if mapping["id"] == mapping_id
+    ]
+
+    if len(matches) != 1:
+        raise ValueError(
+            f"expected exactly one mapping for {mapping_id}, "
             f"found {len(matches)}"
         )
 
@@ -318,6 +346,19 @@ def project(
         unit_contract["content"]["input"]
     )
 
+    unit_mapping_ids = unit_contract["mapping_ids"]
+
+    if len(unit_mapping_ids) != 1:
+        raise ValueError(
+            "NSW Traffic Unit contract must reference "
+            "exactly one projection mapping"
+        )
+
+    unit_mapping = _mapping_by_id(
+        manifest,
+        unit_mapping_ids[0],
+    )
+
     batch_id = context.batch_id
 
     cursor = connection.cursor()
@@ -383,8 +424,8 @@ def project(
         unit_input,
     )
 
-    # 7. Read confirmed rules from the frozen
-    # NSW source contract.
+    # 7. Read confirmed NSW Crash rules from
+    # the frozen source contract.
     release_scope = (
         crash_contract["content"]["identity"][
             "release_scope"
@@ -423,6 +464,57 @@ def project(
             "a valid inserted-row count"
         )
 
-    # 9. NSW Traffic Unit projection is added next.
+    # 9. Confirm Crash and Traffic Unit belong
+    # to the same frozen release scope.
+    unit_release_scope = (
+        unit_contract["content"]["identity"][
+            "release_scope"
+        ]
+    )
+
+    if unit_release_scope != release_scope:
+        raise ValueError(
+            "NSW Crash and Traffic Unit release scopes differ: "
+            f"{release_scope!r} != {unit_release_scope!r}"
+        )
+
+    statistical_scope = (
+        unit_mapping["content"][
+            "statistical_scope"
+        ]
+    )
+
+    # 10. Insert NSW Traffic Unit projection rows.
+    unit_insert_sql = _load_sql(
+        UNIT_INSERT_SQL_PATH
+    )
+
+    cursor.execute(
+        unit_insert_sql,
+        (
+            batch_id,
+            unit_release_scope,
+            statistical_scope,
+            crash_input["source_id"],
+            crash_input["resource_id"],
+            crash_input["file_sha256"],
+            crash_input["parser_version"],
+            unit_input["source_id"],
+            unit_input["resource_id"],
+            unit_input["file_sha256"],
+            unit_input["parser_version"],
+        ),
+    )
+
+    unit_projection_count = cursor.rowcount
+
+    if unit_projection_count < 0:
+        raise ValueError(
+            "NSW Traffic Unit projection did not return "
+            "a valid inserted-row count"
+        )
+
+    # Projection evidence/count reconciliation is added next.
     _ = missing_unit_type_count
     _ = crash_projection_count
+    _ = unit_projection_count
