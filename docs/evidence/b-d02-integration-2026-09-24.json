@@ -1,0 +1,288 @@
+{
+  "date": "2026-09-24",
+  "scope": "B package integration of D02 only; no complete B10 build or publication",
+  "b_base": "bc4ed6b000a354babe3cab65e5b5028a41ae304a",
+  "integration_branch": "peixian/b-d02-integration",
+  "target_branch": "peixian/dev",
+  "tested_worktree": "New integration files were uncommitted during the runs; hashes below identify the tested inputs.",
+  "d02": {
+    "merge_commit": "e4fbefa29fc275a39ac299af70bbf8e829cdee6d",
+    "implementation_commit": "dd98354319c654f7e44f87bf9d0df8af85a9451f",
+    "pr": "https://github.com/A3939/advance-database-assignment-uts/pull/6",
+    "package_version": "0.1.0",
+    "merged": true,
+    "approved_review": {
+      "reviewer": "yyyZYH",
+      "reviewed_head": "306277bdf0b6a6fd9a0e97a2a6b207fba50d61fc",
+      "url": "https://github.com/A3939/advance-database-assignment-uts/pull/6#pullrequestreview-5303655984"
+    },
+    "runtime_byte_identical_to_both_commits": true,
+    "package_path": "src/arsia_d02",
+    "binding": {
+      "callback": "arsia_d02.dimensions:runner_callback",
+      "code_path": "src/arsia_d02/dimensions.py",
+      "version": "d02-0.1.0-e4fbefa"
+    }
+  },
+  "installation": {
+    "method": "Non-editable wheel, separate Python 3.12 venv; pytest -o pythonpath=",
+    "wheel": "arsia_native_intake-0.1.0-py3-none-any.whl",
+    "wheel_sha256": "bf0ebc19891c24b2572fe4a1dccd95f1ab8e3d2e8ff598633183e25fa0adbdf6",
+    "python": "3.12.6 (v3.12.6:a4a2d2b0d85, Sep  6 2024, 16:08:03) [Clang 13.0.0 (clang-1300.0.29.30)]",
+    "host_platform": "macOS-27.0-arm64-arm-64bit",
+    "installed_d02_sha256": "55f9524f0a5ea137d8ed5213d2f7c84ca4d86419798d5c0352a773012d02ae9b",
+    "source_and_installed_inventory_hashes_match": true
+  },
+  "code_files": [
+    {
+      "path": "src/arsia_d02/__init__.py",
+      "sha256": "5cda214c4deb6cf1a2f6830e3873b6c40925ecdb19a016ed4ba393f22fe462b3"
+    },
+    {
+      "path": "src/arsia_d02/dimensions.py",
+      "sha256": "55f9524f0a5ea137d8ed5213d2f7c84ca4d86419798d5c0352a773012d02ae9b"
+    },
+    {
+      "path": "src/arsia_ingest/__init__.py",
+      "sha256": "1b968d2191475834219bcb988e7a25867afb1eff95b73acd7aaccae34568cdd3"
+    },
+    {
+      "path": "src/arsia_ingest/models.py",
+      "sha256": "ed9ce88b03d4cb76e9b1a27e352345d4e6789e266431f40754bc0b2dba3fa8db"
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "75f9b36d2c7fc6d3e9a8df00b4e870b7e198d52412decf06786701e63f7f88a1"
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "b6f17223b854c27346eefdaeef137f2c0f5c5f8c85004c701a61662ccbc015eb"
+    }
+  ],
+  "test_files": [
+    {
+      "path": "tests/test_d02.py",
+      "sha256": "fac455586747e0df8a0a7e5e04f9951a400ae2a84c8c40c0a4b5721dd23dd302"
+    },
+    {
+      "path": "tests/test_d02_postgres.py",
+      "sha256": "ae75a9081f2e19885d3402f6ce23b54f9b9f1b6a8a56afb99c67326aaefd7796"
+    },
+    {
+      "path": "tests/d02_support.py",
+      "sha256": "0ed5d1b1b3b1e4c8616b09f614805292c48873974cf223b52c99252f864eadca"
+    },
+    {
+      "path": "tools/verify_d02_postgres.py",
+      "sha256": "93751698569d8f5c8459b2993056c842314a75e96db8832cd22d2086a60d5597"
+    }
+  ],
+  "inventory_file": {
+    "path": "config/d02-inventory.json",
+    "sha256": "518952291eaf03aae389b50a99ba051c6fd351a268326155bcd80872963798ab",
+    "complete_dw": false
+  },
+  "runs": {
+    "b_regression": {
+      "tests": 192,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 192,
+      "seconds": 4.288,
+      "timestamp": "2026-09-24T21:30:38.977989+10:00",
+      "selection": [
+        "tests/test_d02.py",
+        "tests/test_manifest.py",
+        "tests/test_runner.py",
+        "tests/test_fingerprint.py",
+        "tests/test_s0.py"
+      ]
+    },
+    "d02_postgres": {
+      "tests": 34,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 34,
+      "seconds": 2.387,
+      "timestamp": "2026-09-24T21:30:57.089166+10:00",
+      "definition_package_manifest_checks": 6,
+      "real_postgres_cases": 27,
+      "full_build_preflight_guard": 1,
+      "note": "The 6 definition/package/manifest checks are also in the B regression run."
+    }
+  },
+  "database": {
+    "a_commit": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
+    "image": "postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67",
+    "environment": {
+      "database_identity": [
+        "arsia_loader",
+        "arsia_loader",
+        "160015",
+        "UTF8",
+        "UTC",
+        false,
+        false,
+        false,
+        false
+      ],
+      "collation": [
+        "en_US.utf8",
+        "en_US.utf8"
+      ],
+      "map_constraint": "CHECK (((NOT map_eligible) OR ((latitude IS NOT NULL) AND (longitude IS NOT NULL) AND (location_crs IS NOT NULL) AND (location_crs = 'EPSG:4326'::text) AND (location_record_id IS NOT NULL))))",
+      "psycopg": "3.3.6"
+    },
+    "migrations_in_order": [
+      {
+        "path": "sql/migrations/001_meta_registry.sql",
+        "sha256": "b44608c4baee8ce1d4ac6c3912a1a7d671772a1b305a32976b10f7bf00fe1893"
+      },
+      {
+        "path": "sql/migrations/002_raw_record.sql",
+        "sha256": "550c022b204380af2c0b2ffffc48295df3b562fd217f99a62f392d8db15eb059"
+      },
+      {
+        "path": "sql/migrations/003_b08_loader_role.sql",
+        "sha256": "e84a2d122bcb8f5edd6ffeb9974ef48eac3910ae801d5a929286734978f9269d"
+      },
+      {
+        "path": "sql/migrations/004_meta_batch.sql",
+        "sha256": "5c828f4071cab7ea097ee5b001aa6aca8fb567f04889a091a02842cf14fbb801"
+      },
+      {
+        "path": "sql/migrations/005_raw_vault.sql",
+        "sha256": "36fedf6f1c6b128e8006ad2e76815c44099c5557de8140deb04e599d4c4f14f8"
+      },
+      {
+        "path": "sql/migrations/006_canonical.sql",
+        "sha256": "c6b414f581d15183d89d98bebda71f373827a945d9e3eb2d9a60e699054e37dd"
+      },
+      {
+        "path": "sql/migrations/007_warehouse.sql",
+        "sha256": "32add012cc1f2919e0aa07926fea86922999b02dd37bb070e4bb2b6247fc87ee"
+      },
+      {
+        "path": "sql/migrations/008_qa.sql",
+        "sha256": "408c3775b218808fceb40a4119f8e5f20735664e1775671f5876d838b6219e29"
+      },
+      {
+        "path": "sql/migrations/009_database_roles.sql",
+        "sha256": "cd1b8f3c4969111cab71777ea063dfe89e69dc29566dbd779c708e2f889d03d5"
+      },
+      {
+        "path": "sql/migrations/010_business_key.sql",
+        "sha256": "de7a14a6df0c0336c7f40c2178159e0f53a4f702da44cde9a20c53a95443d922"
+      },
+      {
+        "path": "sql/migrations/011_review_validation_fixes.sql",
+        "sha256": "fb4d03819dbb4a37366aa5b3cb59fe4e8bec0d76eae3fcfbc3783ebb13f51de6"
+      }
+    ],
+    "a03_audit_before": "passed",
+    "a03_audit_after": "passed",
+    "loader_grants_changed": false,
+    "isolation": "Private Docker container, loopback random port, tmpfs storage",
+    "container_removed": true,
+    "persistent_volume_created": false,
+    "final_counts": {
+      "dim_source": 0,
+      "dim_month": 0,
+      "dim_severity": 0,
+      "fact_crash": 0,
+      "batch": 0,
+      "current_release": 0
+    }
+  },
+  "checks": {
+    "s0_counts": {
+      "dim_source": 3,
+      "dim_month": 60,
+      "dim_severity": 12
+    },
+    "collation_regression": {
+      "database_order": [
+        "F",
+        "I",
+        "__MISSING__",
+        "N"
+      ],
+      "python_order": [
+        "F",
+        "I",
+        "N",
+        "__MISSING__"
+      ],
+      "ordering_differs": true,
+      "exact_content_load": "passed"
+    },
+    "fixed_s0": "Real s0_definitions(); every stored field, all months, unused categories and __MISSING__ verified",
+    "interface": "Real FrozenManifest constructor, ModuleBinding, ModuleConnection, RunContext and RunEvidence",
+    "manifest_scope": "Partial real code inventory and B schema files; not a final platform freeze",
+    "full_build": {
+      "result": "blocked",
+      "stage": "preflight",
+      "error_code": "MANIFEST_VERSION_MISSING",
+      "connection_opened": false
+    },
+    "fp1_used": false,
+    "publication_performed": false
+  },
+  "evidence_hashes": [
+    {
+      "path": "b-regression.xml",
+      "sha256": "97accbbb2a33fe6bb0922503e67055e326a58efcb2b9d3e9bd76f7055deba539"
+    },
+    {
+      "path": "postgres-installed/pytest.xml",
+      "sha256": "d54fc27696b99c8a687d4b04d5e1d326215a665f5c3b7530315f631064cb7120"
+    },
+    {
+      "path": "postgres-installed/inputs.json",
+      "sha256": "352dfe5af2798bcf3ccdd5fe9a70d60ef13fe19205059c33215a7431a015cd05"
+    },
+    {
+      "path": "postgres-installed/migrations.log",
+      "sha256": "a82236d6e3beed2c859d39313200a6015d460a7e09505404f5e0f9d729723ae9"
+    },
+    {
+      "path": "postgres-installed/a03-before.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+    },
+    {
+      "path": "postgres-installed/a03-after.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+    },
+    {
+      "path": "postgres-installed/final-state.log",
+      "sha256": "2b54e7b2d58691b61d478cf815182b06597dd74ef4de2217daf0dbdfa346a595"
+    },
+    {
+      "path": "postgres-installed/cleanup.json",
+      "sha256": "3833bbf74f28e486e50edb7deaaaa0f6bb2fb6a058891f3d34fc06a5360c5db1"
+    },
+    {
+      "path": "postgres-installed/evidence/s0-exact-rows.json",
+      "sha256": "674a3f9274f559fb3d9e94df7c0b6bf4c73cd44f7e8d183909ea52298f12caee"
+    },
+    {
+      "path": "postgres-installed/evidence/callback-interface-result.json",
+      "sha256": "3a951e1dcccf3540863e8ad4503ba9bd0a70411164d88d9192675442155b7d64"
+    },
+    {
+      "path": "postgres-installed/evidence/full-build-preflight-result.json",
+      "sha256": "3ddb0ba8450211eae52a29110e7c06984adeef7c638e8eb88ca6a221ff1d3c7d"
+    }
+  ],
+  "local_evidence_root": "artifacts/role-b-d02-integration-20260924/ (relative to Workspace; detailed logs not copied into B)",
+  "reproduction": "docs/d02-integration.md#reproduce",
+  "remaining": {
+    "D": "D03, combined DW callback, reconciliation QA and actual inventory",
+    "E": "E03 real FP1 and E06 publication implementation, bindings and deployment evidence",
+    "A_C_and_source_owners": "Integrate real schema, Vault, projection, Canonical, QA, mappings and review records",
+    "B": "Final combined inventory freeze and full B10 integration after those deliveries"
+  },
+  "new_user_s0_material_required": false
+}

@@ -1,0 +1,64 @@
+{
+  "scope": "D02-only; D03 and the combined DW callback are still required",
+  "complete_dw": false,
+  "upstream": {
+    "merge_commit": "e4fbefa29fc275a39ac299af70bbf8e829cdee6d",
+    "implementation_commit": "dd98354319c654f7e44f87bf9d0df8af85a9451f",
+    "pr": "https://github.com/A3939/advance-database-assignment-uts/pull/6",
+    "package_version": "0.1.0"
+  },
+  "binding": {
+    "callback": "arsia_d02.dimensions:runner_callback",
+    "code_path": "src/arsia_d02/dimensions.py",
+    "version": "d02-0.1.0-e4fbefa"
+  },
+  "components": {
+    "dw": [
+      "src/arsia_d02/__init__.py",
+      "src/arsia_d02/dimensions.py",
+      "src/arsia_ingest/__init__.py",
+      "src/arsia_ingest/models.py",
+      "pyproject.toml",
+      "requirements.txt"
+    ]
+  },
+  "code_files": [
+    {
+      "path": "src/arsia_d02/__init__.py",
+      "sha256": "5cda214c4deb6cf1a2f6830e3873b6c40925ecdb19a016ed4ba393f22fe462b3"
+    },
+    {
+      "path": "src/arsia_d02/dimensions.py",
+      "sha256": "55f9524f0a5ea137d8ed5213d2f7c84ca4d86419798d5c0352a773012d02ae9b"
+    },
+    {
+      "path": "src/arsia_ingest/__init__.py",
+      "sha256": "1b968d2191475834219bcb988e7a25867afb1eff95b73acd7aaccae34568cdd3"
+    },
+    {
+      "path": "src/arsia_ingest/models.py",
+      "sha256": "ed9ce88b03d4cb76e9b1a27e352345d4e6789e266431f40754bc0b2dba3fa8db"
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "75f9b36d2c7fc6d3e9a8df00b4e870b7e198d52412decf06786701e63f7f88a1"
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "b6f17223b854c27346eefdaeef137f2c0f5c5f8c85004c701a61662ccbc015eb"
+    }
+  ],
+  "dependencies": {
+    "distribution": "arsia-native-intake 0.1.0",
+    "python": ">=3.12,<3.13",
+    "d02_external_packages": [],
+    "connection": "Caller-owned PostgreSQL 16 connection; psycopg[binary]==3.3.6 in requirements-db.txt",
+    "b_interfaces": [
+      "ModuleBinding",
+      "ModuleConnection",
+      "RunContext",
+      "RunEvidence",
+      "IntakeError"
+    ]
+  }
+}
