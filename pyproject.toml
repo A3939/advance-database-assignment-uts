@@ -18,6 +18,7 @@ where = ["src"]
 [tool.setuptools.package-data]
 "arsia_c.projections" = ["sql/*.sql"]
 "arsia_d05" = ["sql/*.sql"]
+"arsia_d06" = ["sql/*.sql"]
 "arsia_ingest" = ["policies/*.json"]
 
 [tool.pytest.ini_options]
