@@ -46,7 +46,20 @@ SQL and permissions. PostgreSQL 16 cases exercise the real C09 to D03 path,
 source-defined NSW counts, ineligible rows, parent time filters, empty
 periods, unsuccessful batches, mode mismatches and unknown sources.
 
-The complete three-source S0 acceptance must also verify three eligible NSW
-units, three eligible VIC units and no QLD unit-detail rows using the current
-C04/C05 integration overlay. That validation is recorded separately so this
-branch does not copy or claim C's implementation.
+Final acceptance on 2026-09-25 produced:
+
+- 24 passed, 0 failed and 0 skipped in the focused D08 PostgreSQL 16 run;
+- 156 passed, 0 failed and 0 skipped in the temporary A/B/C/D integration
+  overlay; and
+- three eligible NSW units under `synthetic_traffic_unit`, three eligible VIC
+  units under `synthetic_vehicle`, no QLD unit-detail rows and an unchanged
+  six-row crash fact table for the full S0 fixture.
+
+Focused evidence is in
+`docs/evidence/d08-postgres-validation-2026-09-25/`. Integration evidence is
+in `docs/evidence/d08-c45-postgres-validation-2026-09-25/`; its input file
+records C commit `ad8baeddd3f6d2eeccdc2e31bafd71b687ad4da8`, the earlier D
+integration inputs and D08 commit
+`8df3b0c66bcd2eceb1fac394a2a795f8a3879f03`. The integration run used a
+local, hash-recorded overlay and did not publish or copy C's implementation
+into this branch.
