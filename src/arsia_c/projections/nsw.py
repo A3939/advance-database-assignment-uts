@@ -6,18 +6,11 @@ from pathlib import Path
 NSW_CRASH_RESOURCE_ID = "official_nsw_crash"
 NSW_TRAFFIC_UNIT_RESOURCE_ID = "official_nsw_traffic_unit"
 
-CRASH_SQL_PATH = (
+PROJECTION_TABLES_SQL_PATH = (
     Path(__file__).resolve().parents[3]
     / "sql"
     / "projections"
-    / "c03_nsw.sql"
-)
-
-TRAFFIC_UNIT_SQL_PATH = (
-    Path(__file__).resolve().parents[3]
-    / "sql"
-    / "projections"
-    / "c03_nsw_traffic_unit.sql"
+    / "c03_projection_tables.sql"
 )
 
 RELATIONSHIP_SQL_PATH = (
@@ -33,6 +26,7 @@ MONTH_CHECK_SQL_PATH = (
     / "projections"
     / "c03_nsw_month_check.sql"
 )
+
 
 def _contract_by_id(manifest: dict, resource_id: str) -> dict:
     contracts = manifest["rules"]["contracts"]
@@ -54,6 +48,7 @@ def _contract_by_id(manifest: dict, resource_id: str) -> dict:
 
 def _load_sql(path: Path) -> str:
     return path.read_text(encoding="utf-8")
+
 
 def _validate_relationship_counts(counts) -> None:
     if counts is None:
@@ -86,6 +81,7 @@ def _validate_relationship_counts(counts) -> None:
             f"NSW relationship validation failed: {nonzero}"
         )
 
+
 def project(connection, context) -> None:
     manifest = context.manifest.as_dict()
 
@@ -104,95 +100,58 @@ def project(connection, context) -> None:
 
     batch_id = context.batch_id
 
-crash_sql = _load_sql(CRASH_SQL_PATH)
-traffic_unit_sql = _load_sql(TRAFFIC_UNIT_SQL_PATH)
+    cursor = connection.cursor()
 
-cursor = connection.cursor()
+    # Create C-to-A temporary projection tables.
+    projection_tables_sql = _load_sql(PROJECTION_TABLES_SQL_PATH)
+    cursor.execute(projection_tables_sql)
 
-cursor.execute(
-    crash_sql,
-    (
-        crash_input["source_id"],
-        crash_input["resource_id"],
-        crash_input["file_sha256"],
-        crash_input["parser_version"],
-    ),
-)
-crash_rows = cursor.fetchall()
+    # Validate Crash / Traffic Unit keys and parent relationships
+    # against the complete frozen snapshot before year filtering.
+    relationship_sql = _load_sql(RELATIONSHIP_SQL_PATH)
 
-cursor.execute(
-    traffic_unit_sql,
-    (
-        unit_input["source_id"],
-        unit_input["resource_id"],
-        unit_input["file_sha256"],
-        unit_input["parser_version"],
-    ),
-)
-traffic_unit_rows = cursor.fetchall()
-
-traffic_unit_sql = _load_sql(TRAFFIC_UNIT_SQL_PATH)
-
-cursor.execute(
-    traffic_unit_sql,
-    (
-        unit_input["source_id"],
-        unit_input["resource_id"],
-        unit_input["file_sha256"],
-        unit_input["parser_version"],
-    ),
-)
-traffic_unit_rows = cursor.fetchall()
-
-relationship_sql = _load_sql(RELATIONSHIP_SQL_PATH)
-
-cursor.execute(
-    relationship_sql,
-    (
-        crash_input["source_id"],
-        crash_input["resource_id"],
-        crash_input["file_sha256"],
-        crash_input["parser_version"],
-        unit_input["source_id"],
-        unit_input["resource_id"],
-        unit_input["file_sha256"],
-        unit_input["parser_version"],
-    ),
-)
-
-relationship_counts = cursor.fetchone()
-_validate_relationship_counts(relationship_counts)
-
-month_check_sql = _load_sql(MONTH_CHECK_SQL_PATH)
-
-cursor.execute(
-    month_check_sql,
-    (
-        crash_input["source_id"],
-        crash_input["resource_id"],
-        crash_input["file_sha256"],
-        crash_input["parser_version"],
-    ),
-)
-
-month_check_result = cursor.fetchone()
-
-if month_check_result is None:
-    raise ValueError("NSW month validation returned no result")
-
-unknown_month_count = month_check_result[0]
-
-if unknown_month_count != 0:
-    raise ValueError(
-        f"NSW month validation failed: "
-        f"unknown_month_count={unknown_month_count}"
+    cursor.execute(
+        relationship_sql,
+        (
+            crash_input["source_id"],
+            crash_input["resource_id"],
+            crash_input["file_sha256"],
+            crash_input["parser_version"],
+            unit_input["source_id"],
+            unit_input["resource_id"],
+            unit_input["file_sha256"],
+            unit_input["parser_version"],
+        ),
     )
 
-# C03 transformation will be added next.
-    # Keep the full Raw crash snapshot at this stage.
-    # Do not filter occurrence year yet.
+    relationship_counts = cursor.fetchone()
+    _validate_relationship_counts(relationship_counts)
 
-_ = batch_id
-_ = crash_rows
-_ = traffic_unit_rows
-_ = relationship_counts
+    # Validate NSW native month values.
+    month_check_sql = _load_sql(MONTH_CHECK_SQL_PATH)
+
+    cursor.execute(
+        month_check_sql,
+        (
+            crash_input["source_id"],
+            crash_input["resource_id"],
+            crash_input["file_sha256"],
+            crash_input["parser_version"],
+        ),
+    )
+
+    month_check_result = cursor.fetchone()
+
+    if month_check_result is None:
+        raise ValueError("NSW month validation returned no result")
+
+    unknown_month_count = month_check_result[0]
+
+    if unknown_month_count != 0:
+        raise ValueError(
+            f"NSW month validation failed: "
+            f"unknown_month_count={unknown_month_count}"
+        )
+
+    # Crash and Unit projection inserts are added next.
+    _ = batch_id
