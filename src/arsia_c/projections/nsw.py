@@ -6,13 +6,19 @@ from pathlib import Path
 NSW_CRASH_RESOURCE_ID = "official_nsw_crash"
 NSW_TRAFFIC_UNIT_RESOURCE_ID = "official_nsw_traffic_unit"
 
-SQL_PATH = (
+CRASH_SQL_PATH = (
     Path(__file__).resolve().parents[3]
     / "sql"
     / "projections"
     / "c03_nsw.sql"
 )
 
+TRAFFIC_UNIT_SQL_PATH = (
+    Path(__file__).resolve().parents[3]
+    / "sql"
+    / "projections"
+    / "c03_nsw_traffic_unit.sql"
+)
 
 def _contract_by_id(manifest: dict, resource_id: str) -> dict:
     contracts = manifest["rules"]["contracts"]
@@ -32,8 +38,8 @@ def _contract_by_id(manifest: dict, resource_id: str) -> dict:
     return matches[0]
 
 
-def _load_sql() -> str:
-    return SQL_PATH.read_text(encoding="utf-8")
+def _load_sql(path: Path) -> str:
+    return path.read_text(encoding="utf-8")
 
 
 def project(connection, context) -> None:
@@ -54,25 +60,37 @@ def project(connection, context) -> None:
 
     batch_id = context.batch_id
 
-    sql = _load_sql()
+crash_sql = _load_sql(CRASH_SQL_PATH)
+traffic_unit_sql = _load_sql(TRAFFIC_UNIT_SQL_PATH)
 
-    cursor = connection.cursor()
-    cursor.execute(
-        sql,
-        (
-            crash_input["source_id"],
-            crash_input["resource_id"],
-            crash_input["file_sha256"],
-            crash_input["parser_version"],
-        ),
-    )
+cursor = connection.cursor()
 
-    crash_rows = cursor.fetchall()
+cursor.execute(
+    crash_sql,
+    (
+        crash_input["source_id"],
+        crash_input["resource_id"],
+        crash_input["file_sha256"],
+        crash_input["parser_version"],
+    ),
+)
+crash_rows = cursor.fetchall()
+
+cursor.execute(
+    traffic_unit_sql,
+    (
+        unit_input["source_id"],
+        unit_input["resource_id"],
+        unit_input["file_sha256"],
+        unit_input["parser_version"],
+    ),
+)
+traffic_unit_rows = cursor.fetchall()
 
     # C03 transformation will be added next.
     # Keep the full Raw crash snapshot at this stage.
     # Do not filter occurrence year yet.
 
-    _ = batch_id
-    _ = unit_input
-    _ = crash_rows
+_ = batch_id
+_ = crash_rows
+_ = traffic_unit_rows
