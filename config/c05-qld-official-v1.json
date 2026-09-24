@@ -1,0 +1,346 @@
+{
+  "sources": [
+    {
+      "source_id": "official_qld",
+      "jurisdiction_code": "QLD",
+      "source_name": "Queensland Road Crash Locations",
+      "publisher": "Queensland Department of Transport and Main Roads",
+      "release_label": "QLD Road crash locations, rqC45037 June 2025, pinned local snapshot",
+      "release_scope": "qld_pinned_2020_2024_v1",
+      "resource_ids": [
+        "official_qld_crash"
+      ]
+    }
+  ],
+  "analysis": {
+    "year_from": 2020,
+    "year_to": 2024
+  },
+  "contracts": [
+    {
+      "id": "official_qld_crash",
+      "version": "qld-pinned-no-map-2020-2024-v1",
+      "status": "confirmed",
+      "mapping_ids": [
+        "official_qld_crash_mapping"
+      ],
+      "content": {
+        "input": {
+          "source_id": "official_qld",
+          "resource_id": "official_qld_crash",
+          "resource_role": "crash",
+          "entity_kind": "crash",
+          "format": "csv",
+          "encoding": "utf-8",
+          "sheet": null,
+          "header_row": 1,
+          "header": [
+            "Crash_Ref_Number",
+            "Crash_Severity",
+            "Crash_Year",
+            "Crash_Month",
+            "Crash_Day_Of_Week",
+            "Crash_Hour",
+            "Crash_Nature",
+            "Crash_Type",
+            "Crash_Longitude",
+            "Crash_Latitude",
+            "Crash_Street",
+            "Crash_Street_Intersecting",
+            "State_Road_Name",
+            "Loc_Suburb",
+            "Loc_Local_Government_Area",
+            "Loc_Post_Code",
+            "Loc_Police_Division",
+            "Loc_Police_District",
+            "Loc_Police_Region",
+            "Loc_Queensland_Transport_Region",
+            "Loc_Main_Roads_Region",
+            "Loc_ABS_Statistical_Area_2",
+            "Loc_ABS_Statistical_Area_3",
+            "Loc_ABS_Statistical_Area_4",
+            "Loc_ABS_Remoteness",
+            "Loc_State_Electorate",
+            "Loc_Federal_Electorate",
+            "Crash_Controlling_Authority",
+            "Crash_Roadway_Feature",
+            "Crash_Traffic_Control",
+            "Crash_Speed_Limit",
+            "Crash_Road_Surface_Condition",
+            "Crash_Atmospheric_Condition",
+            "Crash_Lighting_Condition",
+            "Crash_Road_Horiz_Align",
+            "Crash_Road_Vert_Align",
+            "Crash_DCA_Code",
+            "Crash_DCA_Description",
+            "Crash_DCA_Group_Description",
+            "DCA_Key_Approach_Dir",
+            "Count_Casualty_Fatality",
+            "Count_Casualty_Hospitalised",
+            "Count_Casualty_MedicallyTreated",
+            "Count_Casualty_MinorInjury",
+            "Count_Casualty_Total",
+            "Count_Unit_Car",
+            "Count_Unit_Motorcycle_Moped",
+            "Count_Unit_Truck",
+            "Count_Unit_Bus",
+            "Count_Unit_Bicycle",
+            "Count_Unit_Pedestrian",
+            "Count_Unit_Other"
+          ],
+          "file_sha256": "975be4b02a235d06589de9b486f73bafe22d0f2007f0c07abb84f54cb926c704",
+          "raw_count": 415407,
+          "parser_version": "csv-native-v1",
+          "locator_version": "csv-logical-v1"
+        },
+        "identity": {
+          "release_label": "QLD Road crash locations, rqC45037 June 2025, pinned local snapshot",
+          "release_scope": "qld_pinned_2020_2024_v1",
+          "resource_ids": [
+            "official_qld_crash"
+          ],
+          "publisher_version": "rqC45037- June 2025",
+          "key": {
+            "fields": [
+              "Crash_Ref_Number"
+            ],
+            "unique": true,
+            "basis": "Opaque native text; never infer year from ID."
+          },
+          "parent": null,
+          "coverage": {
+            "year_from": 2020,
+            "year_to": 2024,
+            "months": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+            ],
+            "basis": "Q01/Q08 selected published snapshot and D01 full-file observations; coverage is of this export, not all real crashes."
+          },
+          "native_coverage": {
+            "from": "2001-01",
+            "to": "2025-06"
+          },
+          "bundle_basis": "Single pinned crash resource; no multi-file relationship required.",
+          "scope_filter": "Validate full input before filtering Crash_Year to 2020-2024 inclusive."
+        },
+        "semantics": {
+          "used_fields": [
+            "Crash_Ref_Number",
+            "Crash_Year",
+            "Crash_Month",
+            "Crash_Severity",
+            "Count_Casualty_Fatality",
+            "Count_Casualty_Hospitalised",
+            "Count_Casualty_MedicallyTreated",
+            "Count_Casualty_MinorInjury",
+            "Count_Casualty_Total",
+            "Crash_Latitude",
+            "Crash_Longitude"
+          ],
+          "unused_fields": [
+            "Crash_Day_Of_Week",
+            "Crash_Hour",
+            "Crash_Nature",
+            "Crash_Type",
+            "Crash_Street",
+            "Crash_Street_Intersecting",
+            "State_Road_Name",
+            "Loc_Suburb",
+            "Loc_Local_Government_Area",
+            "Loc_Post_Code",
+            "Loc_Police_Division",
+            "Loc_Police_District",
+            "Loc_Police_Region",
+            "Loc_Queensland_Transport_Region",
+            "Loc_Main_Roads_Region",
+            "Loc_ABS_Statistical_Area_2",
+            "Loc_ABS_Statistical_Area_3",
+            "Loc_ABS_Statistical_Area_4",
+            "Loc_ABS_Remoteness",
+            "Loc_State_Electorate",
+            "Loc_Federal_Electorate",
+            "Crash_Controlling_Authority",
+            "Crash_Roadway_Feature",
+            "Crash_Traffic_Control",
+            "Crash_Speed_Limit",
+            "Crash_Road_Surface_Condition",
+            "Crash_Atmospheric_Condition",
+            "Crash_Lighting_Condition",
+            "Crash_Road_Horiz_Align",
+            "Crash_Road_Vert_Align",
+            "Crash_DCA_Code",
+            "Crash_DCA_Description",
+            "Crash_DCA_Group_Description",
+            "DCA_Key_Approach_Dir",
+            "Count_Unit_Car",
+            "Count_Unit_Motorcycle_Moped",
+            "Count_Unit_Truck",
+            "Count_Unit_Bus",
+            "Count_Unit_Bicycle",
+            "Count_Unit_Pedestrian",
+            "Count_Unit_Other"
+          ],
+          "severity_codes": [
+            "FATAL",
+            "HOSPITALISATION",
+            "MEDICAL_TREATMENT",
+            "MINOR_INJURY",
+            "PROPERTY_DAMAGE_ONLY",
+            "__MISSING__"
+          ],
+          "severity_definition_version": "qld-native-severity-v1",
+          "missing_tokens": [
+            null,
+            ""
+          ],
+          "fatality_definition": "Source-reported deaths within 30 days.",
+          "hospitalisation_definition": "Taken to hospital, not proven admission or an interstate serious-injury equivalent.",
+          "unit_detail": false,
+          "official_map": false,
+          "cross_state_pooling": false
+        },
+        "snapshot": {
+          "policy": "Pinned full snapshot; changed bytes or reductions need a new reviewed version and exact before/after evidence.",
+          "change": null
+        },
+        "confirmation": {
+          "status": "confirmed",
+          "owner": "Role C / Role D interface",
+          "reviewed_by": "Codex implementation review requested by John; no teammate signature or publisher certification claimed.",
+          "checked_at": "2026-09-24",
+          "licence": "CC-BY-4.0",
+          "references": [
+            "https://arsia-team-design.vercel.app/official-decisions.html?lang=en#Q01",
+            "https://www.data.qld.gov.au/dataset/f3e0ca94-2d7b-44ee-abef-d6b06e9b0729/resource/e88943c0-5968-4972-a15f-38e120d72ec0",
+            "https://github.com/A3939/advance-database-assignment-uts/blob/b5395768d7242f4d42d5c78a7595babb6d9b1adf/docs/source-contracts/D01-QLD-source-contract-draft.md"
+          ],
+          "bundle_confirmed": true,
+          "contract_confirmed": true,
+          "unresolved": [],
+          "publisher_questions": [
+            "Exact original local download timestamp was not retained; publisher update date is not substituted."
+          ],
+          "limitations": [
+            "Pinned file SHA256 and 2020-2024 only.",
+            "Official map and unit/person outputs unavailable.",
+            "No pooled interstate measures.",
+            "PDO reporting ended after 2010; zero PDO records is not zero real property-only crashes.",
+            "Latest records may be preliminary and revised."
+          ],
+          "implementation_prerequisites": [
+            "Future map version needs a validated GDA2020 to EPSG:4326 operation and independent reference checks."
+          ],
+          "approval_basis": "Project decisions adopted 2026-09-23; confirms enabled meanings for this snapshot, not database QA, publication, or a publisher certificate."
+        }
+      }
+    }
+  ],
+  "mappings": [
+    {
+      "id": "official_qld_crash_mapping",
+      "version": "qld-pinned-no-map-2020-2024-v1",
+      "content": {
+        "occurrence_year": "Crash_Year",
+        "occurrence_month": "Crash_Month",
+        "occurrence_date": null,
+        "date_precision": "month if month is known; otherwise year",
+        "severity_raw": "Crash_Severity",
+        "native_severity_codes": {
+          "Fatal": "FATAL",
+          "Hospitalisation": "HOSPITALISATION",
+          "Medical treatment": "MEDICAL_TREATMENT",
+          "Minor injury": "MINOR_INJURY",
+          "Property damage only": "PROPERTY_DAMAGE_ONLY"
+        },
+        "fatality_count": "Count_Casualty_Fatality",
+        "casualty_count": "Count_Casualty_Total",
+        "casualty_components": [
+          "Count_Casualty_Fatality",
+          "Count_Casualty_Hospitalised",
+          "Count_Casualty_MedicallyTreated",
+          "Count_Casualty_MinorInjury"
+        ],
+        "missing_tokens": [
+          null,
+          ""
+        ],
+        "unknown_nonempty": "block",
+        "negative_counts": "block",
+        "casualty_reconciliation": "Known total equals all four known components; unknown required input makes casualty NULL and ineligible.",
+        "unit_counts": "Raw-only aggregate attributes; no artificial units or persons.",
+        "location": {
+          "latitude": "Crash_Latitude",
+          "longitude": "Crash_Longitude",
+          "source_crs": "GDA2020",
+          "target_crs": "EPSG:4326",
+          "map_enabled": false,
+          "reason_code": "definition_unconfirmed",
+          "resolution": "Source datum known; target operation has not been validated.",
+          "trusted_fields": null
+        },
+        "metric_scope": "Reported casualty crashes in the pinned 2020-2024 export; source-specific, no pooled interstate totals."
+      }
+    }
+  ],
+  "severity": [
+    {
+      "source_id": "official_qld",
+      "severity_code": "FATAL",
+      "severity_label": "Fatal",
+      "definition_version": "qld-native-severity-v1",
+      "definition_text": "QLD native source-specific severity; not an interstate harmonisation.",
+      "is_fatal_crash": true
+    },
+    {
+      "source_id": "official_qld",
+      "severity_code": "HOSPITALISATION",
+      "severity_label": "Hospitalisation",
+      "definition_version": "qld-native-severity-v1",
+      "definition_text": "QLD native source-specific severity; not an interstate harmonisation.",
+      "is_fatal_crash": false
+    },
+    {
+      "source_id": "official_qld",
+      "severity_code": "MEDICAL_TREATMENT",
+      "severity_label": "Medical treatment",
+      "definition_version": "qld-native-severity-v1",
+      "definition_text": "QLD native source-specific severity; not an interstate harmonisation.",
+      "is_fatal_crash": false
+    },
+    {
+      "source_id": "official_qld",
+      "severity_code": "MINOR_INJURY",
+      "severity_label": "Minor injury",
+      "definition_version": "qld-native-severity-v1",
+      "definition_text": "QLD native source-specific severity; not an interstate harmonisation.",
+      "is_fatal_crash": false
+    },
+    {
+      "source_id": "official_qld",
+      "severity_code": "PROPERTY_DAMAGE_ONLY",
+      "severity_label": "Property damage only",
+      "definition_version": "qld-native-severity-v1",
+      "definition_text": "QLD native source-specific severity; not an interstate harmonisation.",
+      "is_fatal_crash": false
+    },
+    {
+      "source_id": "official_qld",
+      "severity_code": "__MISSING__",
+      "severity_label": "Unknown",
+      "definition_version": "qld-native-severity-v1",
+      "definition_text": "Native null or empty severity remains unknown.",
+      "is_fatal_crash": null
+    }
+  ]
+}

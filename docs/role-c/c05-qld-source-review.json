@@ -1,0 +1,18 @@
+{
+  "resource_id": "official_qld_crash",
+  "contract_version": "qld-pinned-no-map-2020-2024-v1",
+  "file_sha256": "975be4b02a235d06589de9b486f73bafe22d0f2007f0c07abb84f54cb926c704",
+  "release_label": "QLD Road crash locations, rqC45037 June 2025, pinned local snapshot",
+  "release_scope": "qld_pinned_2020_2024_v1",
+  "status": "confirmed",
+  "bundle_confirmed": true,
+  "reviewed_by": "Codex implementation review requested by John; no teammate signature or publisher certification claimed.",
+  "references": [
+    "https://arsia-team-design.vercel.app/official-decisions.html?lang=en#Q01",
+    "https://www.data.qld.gov.au/dataset/f3e0ca94-2d7b-44ee-abef-d6b06e9b0729/resource/e88943c0-5968-4972-a15f-38e120d72ec0",
+    "https://github.com/A3939/advance-database-assignment-uts/blob/b5395768d7242f4d42d5c78a7595babb6d9b1adf/docs/source-contracts/D01-QLD-source-contract-draft.md",
+    "docs/role-c/c04-c05-validation-2026-09-24.json"
+  ],
+  "unresolved": [],
+  "scope": "Project contract for enabled no-map source-specific outputs only; not publisher certification or publication approval."
+}
