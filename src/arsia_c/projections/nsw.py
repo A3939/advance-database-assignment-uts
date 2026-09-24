@@ -42,6 +42,13 @@ SEMANTIC_CHECK_SQL_PATH = (
     / "c03_nsw_semantic_check.sql"
 )
 
+UNIT_CHECK_SQL_PATH = (
+    Path(__file__).resolve().parents[3]
+    / "sql"
+    / "projections"
+    / "c03_nsw_unit_check.sql"
+)
+
 CRASH_INSERT_SQL_PATH = (
     Path(__file__).resolve().parents[3]
     / "sql"
@@ -50,7 +57,10 @@ CRASH_INSERT_SQL_PATH = (
 )
 
 
-def _contract_by_id(manifest: dict, resource_id: str) -> dict:
+def _contract_by_id(
+    manifest: dict,
+    resource_id: str,
+) -> dict:
     contracts = manifest["rules"]["contracts"]
 
     matches = [
@@ -72,7 +82,9 @@ def _load_sql(path: Path) -> str:
     return path.read_text(encoding="utf-8")
 
 
-def _validate_relationship_counts(counts) -> None:
+def _validate_relationship_counts(
+    counts,
+) -> None:
     if counts is None:
         raise ValueError(
             "NSW relationship check returned no result"
@@ -87,11 +99,16 @@ def _validate_relationship_counts(counts) -> None:
     ) = counts
 
     failures = {
-        "crash_blank_key_count": crash_blank_key_count,
-        "crash_duplicate_key_count": crash_duplicate_key_count,
-        "unit_blank_key_count": unit_blank_key_count,
-        "unit_duplicate_key_count": unit_duplicate_key_count,
-        "orphan_unit_count": orphan_unit_count,
+        "crash_blank_key_count":
+            crash_blank_key_count,
+        "crash_duplicate_key_count":
+            crash_duplicate_key_count,
+        "unit_blank_key_count":
+            unit_blank_key_count,
+        "unit_duplicate_key_count":
+            unit_duplicate_key_count,
+        "orphan_unit_count":
+            orphan_unit_count,
     }
 
     nonzero = {
@@ -106,7 +123,10 @@ def _validate_relationship_counts(counts) -> None:
         )
 
 
-def _validate_year(cursor, crash_input: dict) -> None:
+def _validate_year(
+    cursor,
+    crash_input: dict,
+) -> None:
     year_check_sql = _load_sql(
         YEAR_CHECK_SQL_PATH
     )
@@ -137,7 +157,10 @@ def _validate_year(cursor, crash_input: dict) -> None:
         )
 
 
-def _validate_month(cursor, crash_input: dict) -> None:
+def _validate_month(
+    cursor,
+    crash_input: dict,
+) -> None:
     month_check_sql = _load_sql(
         MONTH_CHECK_SQL_PATH
     )
@@ -168,7 +191,10 @@ def _validate_month(cursor, crash_input: dict) -> None:
         )
 
 
-def _validate_semantics(cursor, crash_input: dict) -> None:
+def _validate_semantics(
+    cursor,
+    crash_input: dict,
+) -> None:
     semantic_check_sql = _load_sql(
         SEMANTIC_CHECK_SQL_PATH
     )
@@ -223,7 +249,55 @@ def _validate_semantics(cursor, crash_input: dict) -> None:
         )
 
 
-def project(connection, context) -> None:
+def _validate_unit_types(
+    cursor,
+    crash_input: dict,
+    unit_input: dict,
+) -> int:
+    unit_check_sql = _load_sql(
+        UNIT_CHECK_SQL_PATH
+    )
+
+    cursor.execute(
+        unit_check_sql,
+        (
+            crash_input["source_id"],
+            crash_input["resource_id"],
+            crash_input["file_sha256"],
+            crash_input["parser_version"],
+            unit_input["source_id"],
+            unit_input["resource_id"],
+            unit_input["file_sha256"],
+            unit_input["parser_version"],
+        ),
+    )
+
+    result = cursor.fetchone()
+
+    if result is None:
+        raise ValueError(
+            "NSW Traffic Unit validation returned no result"
+        )
+
+    (
+        missing_unit_type_count,
+        unknown_unit_type_count,
+    ) = result
+
+    if unknown_unit_type_count != 0:
+        raise ValueError(
+            "NSW Traffic Unit validation failed: "
+            f"unknown_unit_type_count="
+            f"{unknown_unit_type_count}"
+        )
+
+    return missing_unit_type_count
+
+
+def project(
+    connection,
+    context,
+) -> None:
     manifest = context.manifest.as_dict()
 
     crash_contract = _contract_by_id(
@@ -248,7 +322,7 @@ def project(connection, context) -> None:
 
     cursor = connection.cursor()
 
-    # 1. Create the C-to-A temporary projection tables.
+    # 1. Create the temporary C-to-A projection tables.
     projection_tables_sql = _load_sql(
         PROJECTION_TABLES_SQL_PATH
     )
@@ -257,9 +331,9 @@ def project(connection, context) -> None:
         projection_tables_sql
     )
 
-    # 2. Validate Crash / Traffic Unit keys and
-    # parent relationships against the complete
-    # frozen snapshot before year filtering.
+    # 2. Validate complete Crash / Traffic Unit
+    # identities and parent relationships before
+    # occurrence-year filtering.
     relationship_sql = _load_sql(
         RELATIONSHIP_SQL_PATH
     )
@@ -284,8 +358,7 @@ def project(connection, context) -> None:
         relationship_counts
     )
 
-    # 3. Validate occurrence year before
-    # downstream integer casts.
+    # 3. Validate occurrence year.
     _validate_year(
         cursor,
         crash_input,
@@ -297,14 +370,21 @@ def project(connection, context) -> None:
         crash_input,
     )
 
-    # 5. Validate severity and count semantics.
+    # 5. Validate Crash severity/count semantics.
     _validate_semantics(
         cursor,
         crash_input,
     )
 
-    # 6. Read confirmed rule values from
-    # the frozen NSW source contract.
+    # 6. Validate NSW Traffic Unit categories.
+    missing_unit_type_count = _validate_unit_types(
+        cursor,
+        crash_input,
+        unit_input,
+    )
+
+    # 7. Read confirmed rules from the frozen
+    # NSW source contract.
     release_scope = (
         crash_contract["content"]["identity"][
             "release_scope"
@@ -317,7 +397,7 @@ def project(connection, context) -> None:
         ]
     )
 
-    # 7. Insert NSW Crash projection rows.
+    # 8. Insert NSW Crash projection rows.
     crash_insert_sql = _load_sql(
         CRASH_INSERT_SQL_PATH
     )
@@ -343,5 +423,6 @@ def project(connection, context) -> None:
             "a valid inserted-row count"
         )
 
-    # 8. NSW Traffic Unit projection is added next.
+    # 9. NSW Traffic Unit projection is added next.
+    _ = missing_unit_type_count
     _ = crash_projection_count
