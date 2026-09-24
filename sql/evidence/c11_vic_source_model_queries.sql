@@ -86,3 +86,498 @@ SELECT
             WHERE a.accident_no = n.accident_no
         )
     ) AS node_orphan_count;
+
+
+-- ============================================================
+-- Q2. Non-empty Person -> Vehicle references that do not match
+-- ============================================================
+
+WITH vehicle AS (
+    SELECT
+        r.raw_record_id,
+        r.payload ->> 'ACCIDENT_NO' AS accident_no,
+        r.payload ->> 'VEHICLE_ID' AS vehicle_id
+    FROM raw.record AS r
+    WHERE r.source_id = %s
+      AND r.resource_id = %s
+      AND r.file_sha256 = %s
+      AND r.parser_version = %s
+),
+
+person AS (
+    SELECT
+        r.raw_record_id,
+        r.row_locator,
+        r.payload ->> 'ACCIDENT_NO' AS accident_no,
+        r.payload ->> 'PERSON_ID' AS person_id,
+        r.payload ->> 'VEHICLE_ID' AS vehicle_id,
+        r.payload ->> 'ROAD_USER_TYPE' AS road_user_type,
+        r.payload ->> 'SEATING_POSITION' AS seating_position
+    FROM raw.record AS r
+    WHERE r.source_id = %s
+      AND r.resource_id = %s
+      AND r.file_sha256 = %s
+      AND r.parser_version = %s
+)
+
+SELECT
+    p.raw_record_id,
+    p.row_locator,
+    p.accident_no,
+    p.person_id,
+    p.vehicle_id,
+    p.road_user_type,
+    p.seating_position
+
+FROM person AS p
+
+WHERE p.vehicle_id IS NOT NULL
+  AND p.vehicle_id <> ''
+
+  AND NOT EXISTS (
+      SELECT 1
+      FROM vehicle AS v
+      WHERE v.accident_no = p.accident_no
+        AND v.vehicle_id = p.vehicle_id
+  )
+
+ORDER BY
+    p.accident_no,
+    p.person_id;
+
+-- ============================================================
+-- Q3A. Exact duplicate Node observations
+-- ============================================================
+
+WITH node AS (
+    SELECT
+        r.raw_record_id,
+        r.row_locator,
+        r.payload
+    FROM raw.record AS r
+    WHERE r.source_id = %s
+      AND r.resource_id = %s
+      AND r.file_sha256 = %s
+      AND r.parser_version = %s
+),
+
+duplicate_payloads AS (
+    SELECT
+        payload,
+        COUNT(*) AS observation_count
+    FROM node
+    GROUP BY payload
+    HAVING COUNT(*) > 1
+)
+
+SELECT
+    COUNT(*) AS duplicate_group_count,
+
+    COALESCE(
+        SUM(observation_count - 1),
+        0
+    ) AS duplicate_extra_row_count
+
+FROM duplicate_payloads;
+
+-- ============================================================
+-- Q3B. Repeated ACCIDENT_NO + NODE_ID observation groups
+-- ============================================================
+
+WITH node AS (
+    SELECT
+        r.payload ->> 'ACCIDENT_NO'
+            AS accident_no,
+
+        r.payload ->> 'NODE_ID'
+            AS node_id
+
+    FROM raw.record AS r
+
+    WHERE r.source_id = %s
+      AND r.resource_id = %s
+      AND r.file_sha256 = %s
+      AND r.parser_version = %s
+)
+
+SELECT
+    accident_no,
+    node_id,
+    COUNT(*) AS observation_count
+
+FROM node
+
+GROUP BY
+    accident_no,
+    node_id
+
+HAVING COUNT(*) > 1
+
+ORDER BY
+    observation_count DESC,
+    accident_no,
+    node_id;
+
+-- ============================================================
+-- Q3C. Node groups where only DEG_URBAN_NAME differs
+-- ============================================================
+
+WITH node AS (
+    SELECT
+        r.payload - 'DEG_URBAN_NAME'
+            AS payload_without_deg_urban,
+
+        r.payload ->> 'DEG_URBAN_NAME'
+            AS deg_urban_name
+
+    FROM raw.record AS r
+
+    WHERE r.source_id = %s
+      AND r.resource_id = %s
+      AND r.file_sha256 = %s
+      AND r.parser_version = %s
+),
+
+varying_groups AS (
+    SELECT
+        payload_without_deg_urban,
+        COUNT(DISTINCT deg_urban_name)
+            AS distinct_deg_urban_names,
+        COUNT(*) AS observation_count
+
+    FROM node
+
+    GROUP BY payload_without_deg_urban
+
+    HAVING COUNT(DISTINCT deg_urban_name) > 1
+)
+
+SELECT
+    COUNT(*) AS groups_varying_only_deg_urban_name,
+    COALESCE(
+        SUM(observation_count),
+        0
+    ) AS observations_in_those_groups
+
+FROM varying_groups;
+
+-- ============================================================
+-- Q4. Node coordinate validity and conflict groups
+-- ============================================================
+
+WITH node AS (
+    SELECT
+        r.raw_record_id,
+
+        r.payload ->> 'ACCIDENT_NO'
+            AS accident_no,
+
+        r.payload ->> 'NODE_ID'
+            AS node_id,
+
+        r.payload ->> 'LATITUDE'
+            AS latitude_raw,
+
+        r.payload ->> 'LONGITUDE'
+            AS longitude_raw
+
+    FROM raw.record AS r
+
+    WHERE r.source_id = %s
+      AND r.resource_id = %s
+      AND r.file_sha256 = %s
+      AND r.parser_version = %s
+),
+
+parsed AS (
+    SELECT
+        *,
+
+        CASE
+            WHEN latitude_raw IS NOT NULL
+             AND btrim(latitude_raw) <> ''
+             AND pg_input_is_valid(
+                    latitude_raw,
+                    'numeric'
+                 )
+            THEN latitude_raw::numeric
+            ELSE NULL
+        END AS latitude_value,
+
+        CASE
+            WHEN longitude_raw IS NOT NULL
+             AND btrim(longitude_raw) <> ''
+             AND pg_input_is_valid(
+                    longitude_raw,
+                    'numeric'
+                 )
+            THEN longitude_raw::numeric
+            ELSE NULL
+        END AS longitude_value
+
+    FROM node
+),
+
+classified AS (
+    SELECT
+        *,
+
+        (
+            latitude_value IS NOT NULL
+            AND longitude_value IS NOT NULL
+            AND latitude_value BETWEEN -90 AND 90
+            AND longitude_value BETWEEN -180 AND 180
+        ) AS coordinate_valid
+
+    FROM parsed
+),
+
+grouped AS (
+    SELECT
+        accident_no,
+        node_id,
+
+        COUNT(*) AS observation_count,
+
+        COUNT(*) FILTER (
+            WHERE NOT coordinate_valid
+        ) AS invalid_observation_count,
+
+        COUNT(
+            DISTINCT (
+                latitude_value,
+                longitude_value
+            )
+        ) FILTER (
+            WHERE coordinate_valid
+        ) AS valid_coordinate_pair_count
+
+    FROM classified
+
+    GROUP BY
+        accident_no,
+        node_id
+)
+
+SELECT
+    COUNT(*) FILTER (
+        WHERE invalid_observation_count > 0
+    ) AS invalid_coordinate_group_count,
+
+    COUNT(*) FILTER (
+        WHERE valid_coordinate_pair_count > 1
+    ) AS coordinate_conflict_group_count,
+
+    COUNT(*) FILTER (
+        WHERE invalid_observation_count = 0
+          AND valid_coordinate_pair_count = 1
+    ) AS single_coordinate_pair_group_count
+
+FROM grouped;
+
+-- ============================================================
+-- Q5A. Safe JOIN-multiplication diagnostic
+-- ============================================================
+
+WITH vehicle_counts AS (
+    SELECT
+        r.payload ->> 'ACCIDENT_NO'
+            AS accident_no,
+        COUNT(*) AS vehicle_count
+
+    FROM raw.record AS r
+
+    WHERE r.source_id = %s
+      AND r.resource_id = %s
+      AND r.file_sha256 = %s
+      AND r.parser_version = %s
+
+    GROUP BY
+        r.payload ->> 'ACCIDENT_NO'
+),
+
+person_counts AS (
+    SELECT
+        r.payload ->> 'ACCIDENT_NO'
+            AS accident_no,
+        COUNT(*) AS person_count
+
+    FROM raw.record AS r
+
+    WHERE r.source_id = %s
+      AND r.resource_id = %s
+      AND r.file_sha256 = %s
+      AND r.parser_version = %s
+
+    GROUP BY
+        r.payload ->> 'ACCIDENT_NO'
+),
+
+node_counts AS (
+    SELECT
+        r.payload ->> 'ACCIDENT_NO'
+            AS accident_no,
+        COUNT(*) AS node_observation_count
+
+    FROM raw.record AS r
+
+    WHERE r.source_id = %s
+      AND r.resource_id = %s
+      AND r.file_sha256 = %s
+      AND r.parser_version = %s
+
+    GROUP BY
+        r.payload ->> 'ACCIDENT_NO'
+),
+
+all_accidents AS (
+    SELECT accident_no FROM vehicle_counts
+    UNION
+    SELECT accident_no FROM person_counts
+    UNION
+    SELECT accident_no FROM node_counts
+)
+
+SELECT
+    a.accident_no,
+
+    COALESCE(
+        v.vehicle_count,
+        0
+    ) AS vehicle_count,
+
+    COALESCE(
+        p.person_count,
+        0
+    ) AS person_count,
+
+    COALESCE(
+        n.node_observation_count,
+        0
+    ) AS node_observation_count,
+
+    GREATEST(
+        COALESCE(v.vehicle_count, 0),
+        1
+    )
+    *
+    GREATEST(
+        COALESCE(p.person_count, 0),
+        1
+    )
+    *
+    GREATEST(
+        COALESCE(n.node_observation_count, 0),
+        1
+    ) AS rows_from_naive_multi_join
+
+FROM all_accidents AS a
+
+LEFT JOIN vehicle_counts AS v
+  ON v.accident_no = a.accident_no
+
+LEFT JOIN person_counts AS p
+  ON p.accident_no = a.accident_no
+
+LEFT JOIN node_counts AS n
+  ON n.accident_no = a.accident_no
+
+ORDER BY
+    rows_from_naive_multi_join DESC,
+    a.accident_no
+
+LIMIT 50;
+
+-- ============================================================
+-- Q5B. Actual naive JOIN for one selected Accident
+--
+-- Final parameter = native ACCIDENT_NO to demonstrate.
+-- ============================================================
+
+WITH accident AS (
+    SELECT
+        r.payload ->> 'ACCIDENT_NO'
+            AS accident_no
+
+    FROM raw.record AS r
+
+    WHERE r.source_id = %s
+      AND r.resource_id = %s
+      AND r.file_sha256 = %s
+      AND r.parser_version = %s
+      AND r.payload ->> 'ACCIDENT_NO' = %s
+),
+
+vehicle AS (
+    SELECT
+        r.raw_record_id AS vehicle_raw_record_id,
+        r.payload ->> 'ACCIDENT_NO'
+            AS accident_no,
+        r.payload ->> 'VEHICLE_ID'
+            AS vehicle_id
+
+    FROM raw.record AS r
+
+    WHERE r.source_id = %s
+      AND r.resource_id = %s
+      AND r.file_sha256 = %s
+      AND r.parser_version = %s
+),
+
+person AS (
+    SELECT
+        r.raw_record_id AS person_raw_record_id,
+        r.payload ->> 'ACCIDENT_NO'
+            AS accident_no,
+        r.payload ->> 'PERSON_ID'
+            AS person_id
+
+    FROM raw.record AS r
+
+    WHERE r.source_id = %s
+      AND r.resource_id = %s
+      AND r.file_sha256 = %s
+      AND r.parser_version = %s
+),
+
+node AS (
+    SELECT
+        r.raw_record_id AS node_raw_record_id,
+        r.payload ->> 'ACCIDENT_NO'
+            AS accident_no,
+        r.payload ->> 'NODE_ID'
+            AS node_id
+
+    FROM raw.record AS r
+
+    WHERE r.source_id = %s
+      AND r.resource_id = %s
+      AND r.file_sha256 = %s
+      AND r.parser_version = %s
+)
+
+SELECT
+    a.accident_no,
+    v.vehicle_id,
+    p.person_id,
+    n.node_id,
+    v.vehicle_raw_record_id,
+    p.person_raw_record_id,
+    n.node_raw_record_id
+
+FROM accident AS a
+
+LEFT JOIN vehicle AS v
+  ON v.accident_no = a.accident_no
+
+LEFT JOIN person AS p
+  ON p.accident_no = a.accident_no
+
+LEFT JOIN node AS n
+  ON n.accident_no = a.accident_no
+
+ORDER BY
+    v.vehicle_id,
+    p.person_id,
+    n.node_raw_record_id;
+
