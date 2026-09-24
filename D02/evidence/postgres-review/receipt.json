@@ -1,0 +1,113 @@
+{
+  "scope": "D02 module integration and PostgreSQL专项 review; not full platform acceptance",
+  "implementation_commit": "dd98354319c654f7e44f87bf9d0df8af85a9451f",
+  "base_d02_commit": "5d871e58100348b8cfb7dd11e3978bb233652efc",
+  "a_fixed_commit": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
+  "b_commit": "bc4ed6b000a354babe3cab65e5b5028a41ae304a",
+  "baseline": {
+    "passed": 20,
+    "failed": 16,
+    "skipped": 0
+  },
+  "after_fix": {
+    "passed": 36,
+    "failed": 0,
+    "skipped": 0,
+    "real_postgresql_cases": 27,
+    "original_fake_database_cases": 7,
+    "dependency_guard_cases": 2
+  },
+  "fixed_s0_counts": {
+    "source": 3,
+    "month": 60,
+    "severity": 12
+  },
+  "real_frozen_manifest_object_test": "passed: actual constructor with validated schema and available real hashes; not final inventory freeze",
+  "full_build": "not completed: real B10 preflight rejected incomplete platform inventory; no connection opened",
+  "permissions": "original A03 audit passed before and after; loader grants unchanged",
+  "remaining": {
+    "D": "review fix, D03 and combined DW/QA bindings",
+    "E": "real E03 FP1 and E06 publication code and bindings",
+    "A/C/D/E with B": "register real module callbacks and full inventory; B freezes final manifest and runs full acceptance"
+  },
+  "additional_s0_material_from_peixian_required": false,
+  "publication_performed": false,
+  "files": [
+    {
+      "path": "a03-permissions-after.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+    },
+    {
+      "path": "a03-permissions-before.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+    },
+    {
+      "path": "baseline-pytest.log",
+      "sha256": "c22888fbf3fa914b55db22fc446904fad6549ad3ea06043e04b9090d8aef33ad"
+    },
+    {
+      "path": "baseline-summary.json",
+      "sha256": "b64a958e05f11b115c68a1ad41cebc7416b0a55f5199cbaf5d317f569bb04cdf"
+    },
+    {
+      "path": "callback-interface-result.json",
+      "sha256": "481fcba64fb09ac44a54fd8a8746b8c5def3e991664ec8af9002b3a29c43d1c8"
+    },
+    {
+      "path": "cleanup.json",
+      "sha256": "408d53423e1b93f48f26188e17e898c9f46868e3f6909d926883a7a6e27e41c6"
+    },
+    {
+      "path": "collation-regression.json",
+      "sha256": "087579a8d257a6f8192635bcb3c096c41d1d7867b16443a0558ed979c9c02467"
+    },
+    {
+      "path": "committed-history.json",
+      "sha256": "8d6c4f53d93826e3f8ca3d0953b23f7afc7a29074dbb20b62a3457f84e5e92a3"
+    },
+    {
+      "path": "container.json",
+      "sha256": "25cc8b25b56586dcb4abab59264b7960ee62d950217cd157f4ba904af196d522"
+    },
+    {
+      "path": "environment.json",
+      "sha256": "ca54ea1b201346d244d1116a5c7f56370bb48b8d0618372d83fd59a98f33421f"
+    },
+    {
+      "path": "final-database-state.log",
+      "sha256": "2b54e7b2d58691b61d478cf815182b06597dd74ef4de2217daf0dbdfa346a595"
+    },
+    {
+      "path": "full-build-preflight-result.json",
+      "sha256": "dcf26bb883dbdd106e6abb8438d7df2324a437bc408398c262c4e677da70f99a"
+    },
+    {
+      "path": "full-freeze-dependency.json",
+      "sha256": "e95c44bd3602ecc6c8b7324e733ad2ef4010cea9e78b2f70c72457005b3043e0"
+    },
+    {
+      "path": "inputs.json",
+      "sha256": "d181f65dbc6a5b2d2b7cc5c843b2c8384ffa663715eabe527a96d17587c6b013"
+    },
+    {
+      "path": "missing-bindings.json",
+      "sha256": "38ca5545c076d9bbb01cc53b29de10f2ad861231913dbe037ea492e0896dd701"
+    },
+    {
+      "path": "pytest.log",
+      "sha256": "d1606ee7446f721e4359e8c5a1bc5b9a6fe3e60100a2db1ffb81ff11ebf3626e"
+    },
+    {
+      "path": "pytest.xml",
+      "sha256": "563d0445d022765dc692b5f4b1172621e99562945ee8d31128b88b37d87afb2f"
+    },
+    {
+      "path": "s0-exact-rows.json",
+      "sha256": "663c75eb75c34ed0691251ff8639ebd25e34f305aa68fbf79bfec40f07d509dd"
+    },
+    {
+      "path": "summary.json",
+      "sha256": "3b399f78a09f00b4b909f768a6039c63b69a741135d9c6930b2a18dd787caf09"
+    }
+  ]
+}

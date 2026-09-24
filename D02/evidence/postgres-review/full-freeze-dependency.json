@@ -1,0 +1,20 @@
+{
+  "status": "blocked_as_expected",
+  "error_code": "MANIFEST_VERSION_MISSING",
+  "details": {
+    "required": [
+      "intake",
+      "raw",
+      "runner",
+      "project",
+      "vault",
+      "canonical",
+      "dw",
+      "qa",
+      "publish",
+      "analysis",
+      "fp1"
+    ]
+  },
+  "available_inventory_scope": "D02-only fragment"
+}

@@ -32,5 +32,6 @@
   "complete_dw": false,
   "requires_for_complete_dw": [
     "Role D D03 implementation and combined D02+D03 callback"
-  ]
+  ],
+  "validated_implementation_commit": "dd98354319c654f7e44f87bf9d0df8af85a9451f"
 }

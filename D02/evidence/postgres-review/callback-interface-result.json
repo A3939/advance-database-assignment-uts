@@ -1,0 +1,18 @@
+{
+  "manifest_class": "arsia_ingest.manifest.FrozenManifest",
+  "context_class": "arsia_ingest.runner.RunContext",
+  "connection_class": "arsia_ingest.runner.ModuleConnection",
+  "counts": {
+    "dim_source": 3,
+    "dim_month": 60,
+    "dim_severity": 12
+  },
+  "evidence_sha256": "7bd2cbad88e56540e968ab49df9a2437f9887f44d12016d09d6976a24f46a934",
+  "reference": {
+    "path": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/artifacts/role-d02-integration-20260924/verified-commit/evidence/callback/evidence-reference.json",
+    "sha256": "a37c9105a303ee2bc84cc67d54c6d2b58394036859c8d2079eb0fe78dc3f77db",
+    "row_count": 1
+  },
+  "rollback_verified": true,
+  "complete_b10_build": false
+}

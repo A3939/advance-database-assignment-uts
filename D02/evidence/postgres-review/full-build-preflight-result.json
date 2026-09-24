@@ -1,0 +1,10 @@
+{
+  "run_id": "25853d0e-2dd9-48a8-aabe-fd3a8fb8ddc9",
+  "dataset_kind": "synthetic",
+  "batch_id": null,
+  "evidence_ref": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/artifacts/role-d02-integration-20260924/verified-commit/evidence/full-build-preflight/synthetic/runs/25853d0e-2dd9-48a8-aabe-fd3a8fb8ddc9",
+  "result": "failed",
+  "stage": "preflight",
+  "error_code": "MANIFEST_VERSION_MISSING",
+  "message": "Supply code paths for every build component"
+}
