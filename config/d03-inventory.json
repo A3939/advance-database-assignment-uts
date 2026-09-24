@@ -1,0 +1,74 @@
+{
+  "scope": "Complete D02 + D03 DW component; platform QA and publication remain separate",
+  "complete_dw": true,
+  "upstream": {
+    "base_commit": "3af00089c94d309d5ceecb0b2e961eaef24b15e8",
+    "base_branch": "peixian/dev",
+    "c09_pr": "https://github.com/A3939/advance-database-assignment-uts/pull/9",
+    "d02_pr": "https://github.com/A3939/advance-database-assignment-uts/pull/6"
+  },
+  "binding": {
+    "callback": "arsia_d03:runner_callback",
+    "code_path": "src/arsia_d03/facts.py",
+    "version": "d03-0.1.0"
+  },
+  "components": {
+    "dw": [
+      "src/arsia_d02/__init__.py",
+      "src/arsia_d02/dimensions.py",
+      "src/arsia_d03/__init__.py",
+      "src/arsia_d03/facts.py",
+      "src/arsia_ingest/__init__.py",
+      "src/arsia_ingest/models.py",
+      "pyproject.toml",
+      "requirements.txt"
+    ]
+  },
+  "code_files": [
+    {
+      "path": "src/arsia_d02/__init__.py",
+      "sha256": "5cda214c4deb6cf1a2f6830e3873b6c40925ecdb19a016ed4ba393f22fe462b3"
+    },
+    {
+      "path": "src/arsia_d02/dimensions.py",
+      "sha256": "55f9524f0a5ea137d8ed5213d2f7c84ca4d86419798d5c0352a773012d02ae9b"
+    },
+    {
+      "path": "src/arsia_d03/__init__.py",
+      "sha256": "14fe33f3d0963688c04f28b975d8d7143ed79202742b9084f73c74f5e12a5cdf"
+    },
+    {
+      "path": "src/arsia_d03/facts.py",
+      "sha256": "3da0f752e304e17e65429a49e91206ef67ea416113254d34fb4cafeb193b078a"
+    },
+    {
+      "path": "src/arsia_ingest/__init__.py",
+      "sha256": "1b968d2191475834219bcb988e7a25867afb1eff95b73acd7aaccae34568cdd3"
+    },
+    {
+      "path": "src/arsia_ingest/models.py",
+      "sha256": "ed9ce88b03d4cb76e9b1a27e352345d4e6789e266431f40754bc0b2dba3fa8db"
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "2009bee6094fb4c166a7ccb1f2575d13f7c05486468d9e21aecb55f92b1cb472"
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "b6f17223b854c27346eefdaeef137f2c0f5c5f8c85004c701a61662ccbc015eb"
+    }
+  ],
+  "dependencies": {
+    "distribution": "arsia-native-intake 0.1.0",
+    "python": ">=3.12,<3.13",
+    "external_packages": [],
+    "connection": "Caller-owned PostgreSQL 16 connection; psycopg[binary]==3.3.6 in requirements-db.txt",
+    "interfaces": [
+      "D02 runner_callback",
+      "ModuleConnection",
+      "RunContext",
+      "RunEvidence",
+      "IntakeError"
+    ]
+  }
+}
