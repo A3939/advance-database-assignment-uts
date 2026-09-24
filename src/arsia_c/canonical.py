@@ -29,7 +29,6 @@ CRASH_ATTRIBUTE_KEYS = {
     "quality_notes",
 }
 
-
 UNIT_ATTRIBUTE_KEYS = {
     "crash_key",
     "unit_type_raw",
@@ -38,7 +37,6 @@ UNIT_ATTRIBUTE_KEYS = {
     "count_eligible",
     "quality_notes",
 }
-
 
 CRASH_INSERT_SQL = """
 INSERT INTO canonical.crash (
@@ -95,7 +93,6 @@ VALUES (
 )
 """
 
-
 UNIT_INSERT_SQL = """
 INSERT INTO canonical.unit (
     batch_id,
@@ -128,10 +125,7 @@ VALUES (
 
 def _allowed_scopes(manifest: dict) -> set[tuple[str, str]]:
     return {
-        (
-            source["source_id"],
-            source["release_scope"],
-        )
+        (source["source_id"], source["release_scope"])
         for source in manifest["sources"]
     }
 
@@ -152,16 +146,12 @@ def _validate_satellite_identity(
             expected_batch_id=str(batch_id),
         )
 
-    scope = (
-        row["source_id"],
-        row["release_scope"],
-    )
+    scope = (row["source_id"], row["release_scope"])
 
     if scope not in allowed_scopes:
         raise IntakeError(
             "CANONICAL_SCOPE",
-            "Satellite row belongs to a source/release "
-            "outside the frozen manifest",
+            "Satellite row belongs to a source/release outside the frozen manifest",
             entity_kind=entity_kind,
             source_id=row["source_id"],
             release_scope=row["release_scope"],
@@ -188,8 +178,7 @@ def _validate_attributes(
     if actual != expected:
         raise IntakeError(
             "CANONICAL_ATTRIBUTES",
-            "Satellite attributes do not match the fixed "
-            "Canonical attribute contract",
+            "Satellite attributes do not match the fixed Canonical attribute contract",
             entity_kind=entity_kind,
             key=key,
             missing=sorted(expected - actual),
@@ -269,14 +258,10 @@ def _unit_parameters(
         key=row["unit_key"],
     )
 
-    # The Unit Satellite retains crash_key inside attributes,
-    # while iter_satellites() independently returns the parent
-    # crash_key from rv.link_crash_unit. They must agree.
     if attributes["crash_key"] != row["crash_key"]:
         raise IntakeError(
             "CANONICAL_PARENT",
-            "Unit Satellite parent does not match "
-            "the Vault crash-unit Link",
+            "Unit Satellite parent does not match the Vault crash-unit Link",
             unit_key=row["unit_key"],
             satellite_crash_key=attributes["crash_key"],
             link_crash_key=row["crash_key"],
@@ -297,57 +282,13 @@ def _unit_parameters(
     )
 
 
-def _insert_batches(
-    cursor,
-    sql: str,
-    rows,
-    *,
-    batch_size: int = 1000,
-) -> int:
-    pending = []
-    inserted = 0
-
-    for row in rows:
-        pending.append(row)
-
-        if len(pending) >= batch_size:
-            cursor.executemany(
-                sql,
-                pending,
-            )
-            inserted += len(pending)
-            pending.clear()
-
-    if pending:
-        cursor.executemany(
-            sql,
-            pending,
-        )
-        inserted += len(pending)
-
-    return inserted
-
-
-def load_canonical(
-    connection,
-    context,
-) -> None:
-    """
-    B10 Canonical callback.
-
-    Rebuild Canonical Crash and real Unit rows only from the
-    selected current-batch Raw Vault Satellites.
-
-    This function does not read Raw and does not commit.
-    """
+def load_canonical(connection, context) -> None:
+    """B10 Canonical callback; rebuild only from selected current-batch Satellites."""
     manifest = context.manifest.as_dict()
     allowed_scopes = _allowed_scopes(manifest)
 
     source_counts = defaultdict(
-        lambda: {
-            "crash_count": 0,
-            "unit_count": 0,
-        }
+        lambda: {"crash_count": 0, "unit_count": 0}
     )
 
     crash_rows = (
@@ -356,11 +297,7 @@ def load_canonical(
             batch_id=context.batch_id,
             allowed_scopes=allowed_scopes,
         )
-        for row in iter_satellites(
-            connection,
-            context,
-            "crash",
-        )
+        for row in iter_satellites(connection, context, "crash")
     )
 
     with connection.cursor() as cursor:
@@ -369,40 +306,24 @@ def load_canonical(
 
         for parameters in crash_rows:
             pending.append(parameters)
-
-            source_key = parameters[1]
-            source_counts[source_key][
-                "crash_count"
-            ] += 1
+            source_counts[parameters[1]]["crash_count"] += 1
 
             if len(pending) >= 1000:
-                cursor.executemany(
-                    CRASH_INSERT_SQL,
-                    pending,
-                )
+                cursor.executemany(CRASH_INSERT_SQL, pending)
                 crash_count += len(pending)
                 pending.clear()
 
         if pending:
-            cursor.executemany(
-                CRASH_INSERT_SQL,
-                pending,
-            )
+            cursor.executemany(CRASH_INSERT_SQL, pending)
             crash_count += len(pending)
 
-    # Crashes must exist before units because canonical.unit
-    # has a foreign key to canonical.crash.
     unit_rows = (
         _unit_parameters(
             row,
             batch_id=context.batch_id,
             allowed_scopes=allowed_scopes,
         )
-        for row in iter_satellites(
-            connection,
-            context,
-            "unit",
-        )
+        for row in iter_satellites(connection, context, "unit")
     )
 
     with connection.cursor() as cursor:
@@ -411,37 +332,25 @@ def load_canonical(
 
         for parameters in unit_rows:
             pending.append(parameters)
-
-            source_key = parameters[1]
-            source_counts[source_key][
-                "unit_count"
-            ] += 1
+            source_counts[parameters[1]]["unit_count"] += 1
 
             if len(pending) >= 1000:
-                cursor.executemany(
-                    UNIT_INSERT_SQL,
-                    pending,
-                )
+                cursor.executemany(UNIT_INSERT_SQL, pending)
                 unit_count += len(pending)
                 pending.clear()
 
         if pending:
-            cursor.executemany(
-                UNIT_INSERT_SQL,
-                pending,
-            )
+            cursor.executemany(UNIT_INSERT_SQL, pending)
             unit_count += len(pending)
-
-    evidence = {
-        "batch_id": str(context.batch_id),
-        "crash_count": crash_count,
-        "unit_count": unit_count,
-        "sources": dict(source_counts),
-        "source": "selected_raw_vault_satellites",
-        "raw_recomputed": False,
-    }
 
     context.evidence.write_json(
         "c09-canonical-counts.json",
-        evidence,
+        {
+            "batch_id": str(context.batch_id),
+            "crash_count": crash_count,
+            "unit_count": unit_count,
+            "sources": dict(source_counts),
+            "source": "selected_raw_vault_satellites",
+            "raw_recomputed": False,
+        },
     )
