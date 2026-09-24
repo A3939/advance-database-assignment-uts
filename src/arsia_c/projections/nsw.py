@@ -42,6 +42,13 @@ SEMANTIC_CHECK_SQL_PATH = (
     / "c03_nsw_semantic_check.sql"
 )
 
+CRASH_INSERT_SQL_PATH = (
+    Path(__file__).resolve().parents[3]
+    / "sql"
+    / "projections"
+    / "c03_nsw_crash_insert.sql"
+)
+
 
 def _contract_by_id(manifest: dict, resource_id: str) -> dict:
     contracts = manifest["rules"]["contracts"]
@@ -100,7 +107,9 @@ def _validate_relationship_counts(counts) -> None:
 
 
 def _validate_year(cursor, crash_input: dict) -> None:
-    year_check_sql = _load_sql(YEAR_CHECK_SQL_PATH)
+    year_check_sql = _load_sql(
+        YEAR_CHECK_SQL_PATH
+    )
 
     cursor.execute(
         year_check_sql,
@@ -129,7 +138,9 @@ def _validate_year(cursor, crash_input: dict) -> None:
 
 
 def _validate_month(cursor, crash_input: dict) -> None:
-    month_check_sql = _load_sql(MONTH_CHECK_SQL_PATH)
+    month_check_sql = _load_sql(
+        MONTH_CHECK_SQL_PATH
+    )
 
     cursor.execute(
         month_check_sql,
@@ -225,8 +236,13 @@ def project(connection, context) -> None:
         NSW_TRAFFIC_UNIT_RESOURCE_ID,
     )
 
-    crash_input = crash_contract["content"]["input"]
-    unit_input = unit_contract["content"]["input"]
+    crash_input = (
+        crash_contract["content"]["input"]
+    )
+
+    unit_input = (
+        unit_contract["content"]["input"]
+    )
 
     batch_id = context.batch_id
 
@@ -236,11 +252,14 @@ def project(connection, context) -> None:
     projection_tables_sql = _load_sql(
         PROJECTION_TABLES_SQL_PATH
     )
-    cursor.execute(projection_tables_sql)
+
+    cursor.execute(
+        projection_tables_sql
+    )
 
     # 2. Validate Crash / Traffic Unit keys and
     # parent relationships against the complete
-    # frozen snapshot BEFORE occurrence-year filtering.
+    # frozen snapshot before year filtering.
     relationship_sql = _load_sql(
         RELATIONSHIP_SQL_PATH
     )
@@ -265,26 +284,64 @@ def project(connection, context) -> None:
         relationship_counts
     )
 
-    # 3. Validate occurrence year before any
-    # integer cast is used by downstream SQL.
+    # 3. Validate occurrence year before
+    # downstream integer casts.
     _validate_year(
         cursor,
         crash_input,
     )
 
-    # 4. Validate the versioned NSW month vocabulary.
+    # 4. Validate NSW month vocabulary.
     _validate_month(
         cursor,
         crash_input,
     )
 
-    # 5. Validate severity and count semantics
-    # before creating projection rows.
+    # 5. Validate severity and count semantics.
     _validate_semantics(
         cursor,
         crash_input,
     )
 
-    # 6. Crash and Traffic Unit projection inserts
-    # are added next.
-    _ = batch_id
+    # 6. Read confirmed rule values from
+    # the frozen NSW source contract.
+    release_scope = (
+        crash_contract["content"]["identity"][
+            "release_scope"
+        ]
+    )
+
+    severity_definition_version = (
+        crash_contract["content"]["semantics"][
+            "severity_definition_version"
+        ]
+    )
+
+    # 7. Insert NSW Crash projection rows.
+    crash_insert_sql = _load_sql(
+        CRASH_INSERT_SQL_PATH
+    )
+
+    cursor.execute(
+        crash_insert_sql,
+        (
+            batch_id,
+            release_scope,
+            severity_definition_version,
+            crash_input["source_id"],
+            crash_input["resource_id"],
+            crash_input["file_sha256"],
+            crash_input["parser_version"],
+        ),
+    )
+
+    crash_projection_count = cursor.rowcount
+
+    if crash_projection_count < 0:
+        raise ValueError(
+            "NSW Crash projection did not return "
+            "a valid inserted-row count"
+        )
+
+    # 8. NSW Traffic Unit projection is added next.
+    _ = crash_projection_count
