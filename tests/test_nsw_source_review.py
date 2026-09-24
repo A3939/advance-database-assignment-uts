@@ -118,24 +118,32 @@ def test_nsw_rules_retain_required_categories_and_no_map() -> None:
     assert missing["is_fatal_crash"] is None
 
 
-def test_nsw_confirmation_records_role_a_without_claiming_role_c_review() -> None:
+def test_nsw_owner_investigation_does_not_claim_joint_confirmation() -> None:
     package = _read("config/official-nsw-v1.json")
     handoff = _read(
         "docs/sources/evidence/nsw/nsw-source-confirmation-2026-09-23.json"
     )
-    assert package["status"] == handoff["status"] == "confirmed"
+    assert package["status"] == handoff["status"] == "draft"
     assert package["confirmed_by"] == handoff["confirmed_by"] == "Role A / JJ"
     assert package["reviewed_by"] is handoff["reviewed_by"] is None
-    assert package["confirmation"]["contract_confirmed"] is True
-    assert handoff["contract_confirmed"] is True
+    assert package["confirmation"]["contract_confirmed"] is False
+    assert handoff["contract_confirmed"] is False
     assert package["confirmation"]["bundle_confirmed"] is True
     assert handoff["bundle_confirmed"] is True
-    assert package["confirmation"]["unresolved"] == []
+    assert package["confirmation"]["status"] == "draft"
+    assert package["owner_investigation_status"] == handoff["owner_investigation_status"] == "completed"
+    pending = package["confirmation"]["unresolved"]
+    assert len(pending) == 1 and "Role C review" in pending[0]
+    assert {review["resource_id"] for review in handoff["reviews"]} == {
+        contract["resource_id"] for contract in package["contracts"]
+    }
+    assert all(contract["status"] == "draft" for contract in package["contracts"])
     for review in handoff["reviews"]:
-        assert review["status"] == "confirmed"
+        assert review["status"] == "draft"
         assert review["confirmed_by"] == "Role A / JJ"
         assert review["reviewed_by"] is None
-        assert review["unresolved"] == []
+        assert review["bundle_confirmed"] is True
+        assert review["unresolved"] == pending
 
 
 def test_nsw_contract_has_project_rule_versions_and_mappings() -> None:
