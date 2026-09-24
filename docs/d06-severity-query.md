@@ -61,7 +61,14 @@ The four D06 PostgreSQL cases passed on PostgreSQL 16 as part of the 16-case
 D03-D06 acceptance run recorded in
 `docs/d03-d06-postgres-validation.md`.
 
-The complete S0 acceptance target is six populated source/category groups in
-one successful batch. That final result remains pending B's integration of
-C04/C05 and D03 plus E's publication step; the code and tests do not claim it
-from the current NSW-only integration path.
+The complete S0 acceptance target of six populated source/category groups was
+met in the attributed C/D PostgreSQL 16 integration run:
+
+- NSW: `F`, `__MISSING__`;
+- VIC: `F`, `I`;
+- QLD: `I`, `N`.
+
+Each group contained one crash and all six reconciled to D03's six facts. The
+receipt is in `docs/d03-d06-postgres-validation.md`. B still needs to connect
+C04/C05 in the shared build branch; this local acceptance did not publish a
+release.

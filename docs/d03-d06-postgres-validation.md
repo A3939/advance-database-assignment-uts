@@ -22,13 +22,25 @@ database setup log, pytest log and XML, exact input hashes, resolved container
 images, summary, and cleanup record. The receipt can be reproduced with:
 
 ```powershell
-python tools/verify_d03_d06_postgres.py --output-dir <evidence-directory>
+python tools/verify_d03_d06_postgres.py --output <evidence-directory>
 ```
 
-## Scope boundary
+## Three-source integration receipt
 
 This run validates D03-D06 against the currently integrated NSW C09 path. It
 also checks D04's manifest-driven objects for every configured source and year.
-It does not claim populated VIC/QLD Canonical projections or D06's final six
-populated S0 source/severity groups. Those end-to-end checks require the C04
-and C05 projections to be integrated into the same B transaction and batch.
+
+A second disposable PostgreSQL 16 run combined D commit
+`144fb80e27e7004e5647cacbb245603f6f2d7d36` with C delivery
+`ad8baeddd3f6d2eeccdc2e31bafd71b687ad4da8`. All 144 selected C component and
+combined C/D tests passed with 0 failures, errors, or skips. The actual S0 path
+was B08 Raw -> C03/C04/C05 -> A06 Vault -> C09 Canonical -> D03/D04/D05/D06.
+It produced six crashes, six units, six facts, 16 passing QA06 rows, and the
+six required populated source/severity groups.
+
+The receipt, combined test, verifier, environment, logs, exact input hashes,
+and cleanup record are in
+`docs/evidence/c45-d03-d06-postgres-validation-2026-09-25/`. This was a local
+integration overlay of the two attributed deliveries. It did not copy C's
+implementation into D's branch, update B's production module bindings, publish
+a release, or create a persistent database volume.

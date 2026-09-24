@@ -1,0 +1,87 @@
+{
+  "head": "144fb80e27e7004e5647cacbb245603f6f2d7d36",
+  "c_head": "ad8baeddd3f6d2eeccdc2e31bafd71b687ad4da8",
+  "working_tree": [
+    "temporary integration overlay; exact file hashes follow"
+  ],
+  "postgres_image": "postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67",
+  "python_image": "python:3.12-slim-bookworm",
+  "migrations": [
+    {
+      "path": "sql\\migrations\\001_meta_registry.sql",
+      "sha256": "ad8c6a3380e18ef73fd7eabd07e0d421e1ba7bc8e3e20721946766e336afe8a9"
+    },
+    {
+      "path": "sql\\migrations\\002_raw_record.sql",
+      "sha256": "a2d6a720e65e19d42b63d71651daa00e037bae7dca6095698e30b951f1a00478"
+    },
+    {
+      "path": "sql\\migrations\\003_b08_loader_role.sql",
+      "sha256": "60ff0c25dd0dcc6a3981a21cd3c314284624be504ef34ab064d4bca7f87f6fc1"
+    },
+    {
+      "path": "sql\\migrations\\004_meta_batch.sql",
+      "sha256": "9062115f915a91b5f3aa1f4d6bc3fd91753938a5f1f74670960c4a8281edcd49"
+    },
+    {
+      "path": "sql\\migrations\\005_raw_vault.sql",
+      "sha256": "9b7a3516c051bb5c62c4a63d1632b37bb89d1b823ab640921c9ae673161c033f"
+    },
+    {
+      "path": "sql\\migrations\\006_canonical.sql",
+      "sha256": "fdd048ec2bf2f2c45e29462aa72ff7bad9a7f1c62a46ebb2c2599bbd22eb97e0"
+    },
+    {
+      "path": "sql\\migrations\\007_warehouse.sql",
+      "sha256": "b9dcfaac42ae06269aea8b298c264ba91c503d3f00600a23d770d1c36135d849"
+    },
+    {
+      "path": "sql\\migrations\\008_qa.sql",
+      "sha256": "6d792e6ac83c2b595e3cf0c8fc255fa395cfcf5b3c491dec145fa3463b76554b"
+    },
+    {
+      "path": "sql\\migrations\\009_database_roles.sql",
+      "sha256": "dd7142c9dd8f3dfbe229ab7a954361b2eae20c26bae5904ec5f055cb5826b390"
+    },
+    {
+      "path": "sql\\migrations\\010_business_key.sql",
+      "sha256": "bc2c18f03ffa9dd2e909bc1bb69560cf5a4f155595ddb17385ac84b4b323122c"
+    },
+    {
+      "path": "sql\\migrations\\011_review_validation_fixes.sql",
+      "sha256": "a6554e450f49cb51261869c395ab5c77b09d801670adb8ab89072c3bdec4c468"
+    }
+  ],
+  "deployment_sql": [
+    {
+      "path": "src\\arsia_d05\\sql\\d05_trend.sql",
+      "sha256": "347b6659846066f0c6d16d94766245bc595bb7ba6ccbb48b87132f4ca6451086"
+    },
+    {
+      "path": "src\\arsia_d06\\sql\\d06_severity.sql",
+      "sha256": "4e0c4eb0dbd68359b8d6b4deaeb39ceab75e0e3bd68b6844e4460bb27dc8e809"
+    }
+  ],
+  "tests": [
+    {
+      "path": "tests\\test_c04_vic_projection.py",
+      "sha256": "0c4d9d371d76bd4374595ee50532152f5b8ab202f7002a7d5c7170215718a852"
+    },
+    {
+      "path": "tests\\test_c05_manifest.py",
+      "sha256": "1ef6b7c5c85abafac59428985c9984367e9563c92bdf067d167abc625606107c"
+    },
+    {
+      "path": "tests\\test_c45_packaging.py",
+      "sha256": "c29c2ca5f92a327ca2a4e240becfc0ee8580cb80aa094a91d5a9a6bafacb13a1"
+    },
+    {
+      "path": "tests\\test_c45_postgres.py",
+      "sha256": "949775ba053d412edf0f284a429416d1e671c86e6d95dd4eb109e5b680665a1a"
+    },
+    {
+      "path": "tests\\test_d_c45_postgres.py",
+      "sha256": "a16ee8c712a5c401cad30b31a19ec86d0b928191e0b440ec0d56dc7c00224c5a"
+    }
+  ]
+}

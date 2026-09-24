@@ -50,11 +50,10 @@ publication gate; B remains responsible for the transaction.
 - C04/C05 reviewed delivery: `yue/role-c` at
   `ad8baeddd3f6d2eeccdc2e31bafd71b687ad4da8`.
 
-C04/C05 are present on C's branch but are not yet connected to B's complete
-projection callback. D04 is source-generic and can run for the existing NSW
-chain now. The included PostgreSQL tests exercise the real C09 → D03 → D04
-NSW path and all manifest source-year objects. Full VIC/QLD execution is
-pending B's integration of the new C projection callbacks.
+C04/C05 are present on C's branch but are not yet connected to B's production
+projection callback. A local attributed integration overlay has now exercised
+the actual three-state S0 path through C03/C04/C05, A06, C09, D03 and D04.
+B still needs to register those C callbacks in the shared build branch.
 
 ## Validation
 
@@ -73,4 +72,8 @@ If the PostgreSQL cases are skipped, D04 has not received database acceptance.
 The four D04 PostgreSQL cases passed on PostgreSQL 16 as part of the 16-case
 D03-D06 acceptance run recorded in
 `docs/d03-d06-postgres-validation.md`. This validates the current NSW path and
-the manifest-driven source/year coverage; the VIC/QLD boundary above remains.
+the manifest-driven source/year coverage.
+
+The subsequent three-source PostgreSQL 16 run wrote 15 passing source-year
+objects plus the passing batch summary from six real Canonical and fact rows.
+The combined 144-test receipt is recorded in the same validation document.
