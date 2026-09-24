@@ -1,0 +1,761 @@
+{
+  "sources": [
+    {
+      "source_id": "official_vic",
+      "jurisdiction_code": "VIC",
+      "source_name": "Victorian Road Crash Data",
+      "publisher": "Department of Transport and Planning",
+      "release_label": "Locally saved August 2026 VIC files; team-approved accident-only analysis",
+      "release_scope": "vic_pinned_2020_2024_r1",
+      "resource_ids": [
+        "official_vic_accident",
+        "official_vic_node",
+        "official_vic_person",
+        "official_vic_vehicle"
+      ]
+    }
+  ],
+  "analysis": {
+    "year_from": 2020,
+    "year_to": 2024
+  },
+  "contracts": [
+    {
+      "id": "official_vic_accident",
+      "version": "vic-accident-only-2020-2024-v1",
+      "status": "restricted",
+      "mapping_ids": [
+        "official_vic_restricted_use"
+      ],
+      "content": {
+        "input": {
+          "source_id": "official_vic",
+          "resource_id": "official_vic_accident",
+          "resource_role": "crash",
+          "entity_kind": "crash",
+          "format": "csv",
+          "encoding": "utf-8",
+          "sheet": null,
+          "header_row": 1,
+          "header": [
+            "ACCIDENT_NO",
+            "ACCIDENT_DATE",
+            "ACCIDENT_TIME",
+            "ACCIDENT_TYPE",
+            "ACCIDENT_TYPE_DESC",
+            "DAY_OF_WEEK",
+            "DAY_WEEK_DESC",
+            "DCA_CODE",
+            "DCA_DESC",
+            "LIGHT_CONDITION",
+            "NODE_ID",
+            "NO_OF_VEHICLES",
+            "NO_PERSONS_KILLED",
+            "NO_PERSONS_INJ_2",
+            "NO_PERSONS_INJ_3",
+            "NO_PERSONS_NOT_INJ",
+            "NO_PERSONS",
+            "POLICE_ATTEND",
+            "ROAD_GEOMETRY",
+            "ROAD_GEOMETRY_DESC",
+            "SEVERITY",
+            "SPEED_ZONE",
+            "RMA"
+          ],
+          "file_sha256": "a148c00601fab10d44368df80492c594123700a7f9e334ff896fd215295e91d9",
+          "raw_count": 200352,
+          "parser_version": "csv-native-v1",
+          "locator_version": "csv-logical-v1"
+        },
+        "identity": {
+          "release_label": "Locally saved August 2026 VIC files; team-approved accident-only analysis",
+          "release_scope": "vic_pinned_2020_2024_r1",
+          "resource_ids": [
+            "official_vic_accident",
+            "official_vic_node",
+            "official_vic_person",
+            "official_vic_vehicle"
+          ],
+          "key": {
+            "fields": [
+              "ACCIDENT_NO"
+            ],
+            "unique": true,
+            "basis": "Native source key."
+          },
+          "parent": null,
+          "coverage": {
+            "year_from": 2012,
+            "year_to": 2025,
+            "months": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+            ],
+            "basis": "Observed complete local files; child coverage follows Accident links, not a completeness guarantee."
+          },
+          "bundle_basis": "Team-approved pinned set for restricted Accident measures; publisher-compatible release unconfirmed.",
+          "scope_filter": "Preserve and check complete parents and child files; derive 2020-2024 scope from Accident.ACCIDENT_DATE after association checks."
+        },
+        "semantics": {
+          "policy_mapping_id": "official_vic_restricted_use",
+          "severity_codes": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "__MISSING__"
+          ],
+          "severity_definition_version": "vic-accident-only-2020-2024-v1",
+          "raw_values": "Preserve every native field and observation. No relationship repair, count replacement or Node deduplication.",
+          "business_rules": "Full adopted policy in the referenced mapping; projection and semantic SQL remain C responsibilities."
+        },
+        "snapshot": {
+          "policy": "Pinned full snapshots. Changed files, cases or coverage need a new reviewed profile; no automatic exceptions.",
+          "change": null
+        },
+        "confirmation": {
+          "status": "restricted",
+          "owner": "Role C",
+          "reviewed_by": "Team decision under C/E authority delegated through the user; no separate signatures claimed.",
+          "licence": "CC BY 4.0",
+          "checked_at": "2026-09-23",
+          "references": [
+            "docs/role-c/vic-restricted-use-decision.md",
+            "docs/sources/vic-accident-vehicle.md"
+          ],
+          "unresolved": [
+            {
+              "id": "person.blank_vehicle_rule",
+              "publisher_confirmed": false,
+              "disposition": "No publisher blank-permission rule; team allows pinned pedestrian/NA non-association and retains 24 unresolved cases."
+            },
+            {
+              "id": "person.export_inclusion_scope",
+              "publisher_confirmed": false,
+              "disposition": "NO_PERSONS is a declared total; export completeness is not guaranteed. Use Accident values for published person measures."
+            },
+            {
+              "id": "vehicle.export_count_scope",
+              "publisher_confirmed": false,
+              "disposition": "Declaration and detail inclusion differ or are incomplete. No vehicle KPI is published."
+            },
+            {
+              "id": "vehicle.type_21",
+              "publisher_confirmed": false,
+              "disposition": "Keep code and published label; no category-dependent metric."
+            },
+            {
+              "id": "vehicle.special_category_eligibility",
+              "publisher_confirmed": false,
+              "disposition": "18/99 and damaged 71/72 definitions do not establish count eligibility. No vehicle KPI is published."
+            },
+            {
+              "id": "person.road_user_type_16",
+              "publisher_confirmed": false,
+              "disposition": "Keep code and label; do not equate it to Vehicle21 or publish role-derived measures."
+            },
+            {
+              "id": "node.export_multiplicity",
+              "publisher_confirmed": false,
+              "disposition": "Preserve all observations; no direct Node join in accident totals."
+            },
+            {
+              "id": "node.negative_node_codes",
+              "publisher_confirmed": false,
+              "disposition": "Keep original -1/-10/-3; no fabricated Node or geographic interpretation."
+            },
+            {
+              "id": "node.crs",
+              "publisher_confirmed": false,
+              "disposition": "No official VIC map or geographic metric; all projected location fields are NULL."
+            },
+            {
+              "id": "bundle.compatible_release",
+              "publisher_confirmed": false,
+              "disposition": "Team accepts only this pinned set for direct Accident measures, not as a certified compatible release."
+            }
+          ],
+          "profile_approved": true,
+          "contract_confirmed": false,
+          "bundle_confirmed": false
+        }
+      }
+    },
+    {
+      "id": "official_vic_vehicle",
+      "version": "vic-accident-only-2020-2024-v1",
+      "status": "restricted",
+      "mapping_ids": [
+        "official_vic_restricted_use"
+      ],
+      "content": {
+        "input": {
+          "source_id": "official_vic",
+          "resource_id": "official_vic_vehicle",
+          "resource_role": "vehicle",
+          "entity_kind": "unit",
+          "format": "csv",
+          "encoding": "utf-8",
+          "sheet": null,
+          "header_row": 1,
+          "header": [
+            "ACCIDENT_NO",
+            "VEHICLE_ID",
+            "VEHICLE_YEAR_MANUF",
+            "VEHICLE_DCA_CODE",
+            "INITIAL_DIRECTION",
+            "ROAD_SURFACE_TYPE",
+            "ROAD_SURFACE_TYPE_DESC",
+            "REG_STATE",
+            "VEHICLE_BODY_STYLE",
+            "VEHICLE_MAKE",
+            "VEHICLE_MODEL",
+            "VEHICLE_POWER",
+            "VEHICLE_TYPE",
+            "VEHICLE_TYPE_DESC",
+            "VEHICLE_WEIGHT",
+            "CONSTRUCTION_TYPE",
+            "FUEL_TYPE",
+            "NO_OF_WHEELS",
+            "NO_OF_CYLINDERS",
+            "SEATING_CAPACITY",
+            "TARE_WEIGHT",
+            "TOTAL_NO_OCCUPANTS",
+            "CARRY_CAPACITY",
+            "CUBIC_CAPACITY",
+            "FINAL_DIRECTION",
+            "DRIVER_INTENT",
+            "VEHICLE_MOVEMENT",
+            "TRAILER_TYPE",
+            "VEHICLE_COLOUR_1",
+            "VEHICLE_COLOUR_2",
+            "CAUGHT_FIRE",
+            "INITIAL_IMPACT",
+            "LAMPS",
+            "LEVEL_OF_DAMAGE",
+            "TOWED_AWAY_FLAG",
+            "TRAFFIC_CONTROL",
+            "TRAFFIC_CONTROL_DESC"
+          ],
+          "file_sha256": "05a7a1b9171abaeb5c188df549dee38edde6e76d5a03553988305a8280dccd12",
+          "raw_count": 365470,
+          "parser_version": "csv-native-v1",
+          "locator_version": "csv-logical-v1"
+        },
+        "identity": {
+          "release_label": "Locally saved August 2026 VIC files; team-approved accident-only analysis",
+          "release_scope": "vic_pinned_2020_2024_r1",
+          "resource_ids": [
+            "official_vic_accident",
+            "official_vic_node",
+            "official_vic_person",
+            "official_vic_vehicle"
+          ],
+          "key": {
+            "fields": [
+              "ACCIDENT_NO",
+              "VEHICLE_ID"
+            ],
+            "unique": true,
+            "basis": "Native source key."
+          },
+          "parent": {
+            "resource_id": "official_vic_accident",
+            "fields": [
+              "ACCIDENT_NO"
+            ]
+          },
+          "coverage": {
+            "year_from": 2012,
+            "year_to": 2025,
+            "months": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+            ],
+            "basis": "Observed complete local files; child coverage follows Accident links, not a completeness guarantee."
+          },
+          "bundle_basis": "Team-approved pinned set for restricted Accident measures; publisher-compatible release unconfirmed.",
+          "scope_filter": "Preserve and check complete parents and child files; derive 2020-2024 scope from Accident.ACCIDENT_DATE after association checks."
+        },
+        "semantics": {
+          "policy_mapping_id": "official_vic_restricted_use",
+          "severity_codes": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "__MISSING__"
+          ],
+          "severity_definition_version": "vic-accident-only-2020-2024-v1",
+          "raw_values": "Preserve every native field and observation. No relationship repair, count replacement or Node deduplication.",
+          "business_rules": "Full adopted policy in the referenced mapping; projection and semantic SQL remain C responsibilities."
+        },
+        "snapshot": {
+          "policy": "Pinned full snapshots. Changed files, cases or coverage need a new reviewed profile; no automatic exceptions.",
+          "change": null
+        },
+        "confirmation": {
+          "status": "restricted",
+          "owner": "Role C",
+          "reviewed_by": "Team decision under C/E authority delegated through the user; no separate signatures claimed.",
+          "licence": "CC BY 4.0",
+          "checked_at": "2026-09-23",
+          "references": [
+            "docs/role-c/vic-restricted-use-decision.md",
+            "docs/sources/vic-accident-vehicle.md"
+          ],
+          "unresolved": [
+            {
+              "id": "person.blank_vehicle_rule",
+              "publisher_confirmed": false,
+              "disposition": "No publisher blank-permission rule; team allows pinned pedestrian/NA non-association and retains 24 unresolved cases."
+            },
+            {
+              "id": "person.export_inclusion_scope",
+              "publisher_confirmed": false,
+              "disposition": "NO_PERSONS is a declared total; export completeness is not guaranteed. Use Accident values for published person measures."
+            },
+            {
+              "id": "vehicle.export_count_scope",
+              "publisher_confirmed": false,
+              "disposition": "Declaration and detail inclusion differ or are incomplete. No vehicle KPI is published."
+            },
+            {
+              "id": "vehicle.type_21",
+              "publisher_confirmed": false,
+              "disposition": "Keep code and published label; no category-dependent metric."
+            },
+            {
+              "id": "vehicle.special_category_eligibility",
+              "publisher_confirmed": false,
+              "disposition": "18/99 and damaged 71/72 definitions do not establish count eligibility. No vehicle KPI is published."
+            },
+            {
+              "id": "person.road_user_type_16",
+              "publisher_confirmed": false,
+              "disposition": "Keep code and label; do not equate it to Vehicle21 or publish role-derived measures."
+            },
+            {
+              "id": "node.export_multiplicity",
+              "publisher_confirmed": false,
+              "disposition": "Preserve all observations; no direct Node join in accident totals."
+            },
+            {
+              "id": "node.negative_node_codes",
+              "publisher_confirmed": false,
+              "disposition": "Keep original -1/-10/-3; no fabricated Node or geographic interpretation."
+            },
+            {
+              "id": "node.crs",
+              "publisher_confirmed": false,
+              "disposition": "No official VIC map or geographic metric; all projected location fields are NULL."
+            },
+            {
+              "id": "bundle.compatible_release",
+              "publisher_confirmed": false,
+              "disposition": "Team accepts only this pinned set for direct Accident measures, not as a certified compatible release."
+            }
+          ],
+          "profile_approved": true,
+          "contract_confirmed": false,
+          "bundle_confirmed": false
+        }
+      }
+    },
+    {
+      "id": "official_vic_person",
+      "version": "vic-accident-only-2020-2024-v1",
+      "status": "restricted",
+      "mapping_ids": [
+        "official_vic_restricted_use"
+      ],
+      "content": {
+        "input": {
+          "source_id": "official_vic",
+          "resource_id": "official_vic_person",
+          "resource_role": "person",
+          "entity_kind": "person_raw",
+          "format": "csv",
+          "encoding": "utf-8",
+          "sheet": null,
+          "header_row": 1,
+          "header": [
+            "ACCIDENT_NO",
+            "PERSON_ID",
+            "VEHICLE_ID",
+            "SEX",
+            "AGE_GROUP",
+            "INJ_LEVEL",
+            "INJ_LEVEL_DESC",
+            "SEATING_POSITION",
+            "HELMET_BELT_WORN",
+            "ROAD_USER_TYPE",
+            "ROAD_USER_TYPE_DESC",
+            "LICENCE_STATE",
+            "TAKEN_HOSPITAL",
+            "EJECTED_CODE"
+          ],
+          "file_sha256": "71ca8fec01370e301f282fc83e8f11e4cde16a535ee421cbbb72512ceb7194f9",
+          "raw_count": 467730,
+          "parser_version": "csv-native-v1",
+          "locator_version": "csv-logical-v1"
+        },
+        "identity": {
+          "release_label": "Locally saved August 2026 VIC files; team-approved accident-only analysis",
+          "release_scope": "vic_pinned_2020_2024_r1",
+          "resource_ids": [
+            "official_vic_accident",
+            "official_vic_node",
+            "official_vic_person",
+            "official_vic_vehicle"
+          ],
+          "key": {
+            "fields": [
+              "ACCIDENT_NO",
+              "PERSON_ID"
+            ],
+            "unique": true,
+            "basis": "Native source key."
+          },
+          "parent": {
+            "resource_id": "official_vic_accident",
+            "fields": [
+              "ACCIDENT_NO"
+            ]
+          },
+          "coverage": {
+            "year_from": 2012,
+            "year_to": 2025,
+            "months": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+            ],
+            "basis": "Observed complete local files; child coverage follows Accident links, not a completeness guarantee."
+          },
+          "bundle_basis": "Team-approved pinned set for restricted Accident measures; publisher-compatible release unconfirmed.",
+          "scope_filter": "Preserve and check complete parents and child files; derive 2020-2024 scope from Accident.ACCIDENT_DATE after association checks."
+        },
+        "semantics": {
+          "policy_mapping_id": "official_vic_restricted_use",
+          "severity_codes": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "__MISSING__"
+          ],
+          "severity_definition_version": "vic-accident-only-2020-2024-v1",
+          "raw_values": "Preserve every native field and observation. No relationship repair, count replacement or Node deduplication.",
+          "business_rules": "Full adopted policy in the referenced mapping; projection and semantic SQL remain C responsibilities."
+        },
+        "snapshot": {
+          "policy": "Pinned full snapshots. Changed files, cases or coverage need a new reviewed profile; no automatic exceptions.",
+          "change": null
+        },
+        "confirmation": {
+          "status": "restricted",
+          "owner": "Role C",
+          "reviewed_by": "Team decision under C/E authority delegated through the user; no separate signatures claimed.",
+          "licence": "CC BY 4.0",
+          "checked_at": "2026-09-23",
+          "references": [
+            "docs/role-c/vic-restricted-use-decision.md",
+            "docs/sources/vic-accident-vehicle.md"
+          ],
+          "unresolved": [
+            {
+              "id": "person.blank_vehicle_rule",
+              "publisher_confirmed": false,
+              "disposition": "No publisher blank-permission rule; team allows pinned pedestrian/NA non-association and retains 24 unresolved cases."
+            },
+            {
+              "id": "person.export_inclusion_scope",
+              "publisher_confirmed": false,
+              "disposition": "NO_PERSONS is a declared total; export completeness is not guaranteed. Use Accident values for published person measures."
+            },
+            {
+              "id": "vehicle.export_count_scope",
+              "publisher_confirmed": false,
+              "disposition": "Declaration and detail inclusion differ or are incomplete. No vehicle KPI is published."
+            },
+            {
+              "id": "vehicle.type_21",
+              "publisher_confirmed": false,
+              "disposition": "Keep code and published label; no category-dependent metric."
+            },
+            {
+              "id": "vehicle.special_category_eligibility",
+              "publisher_confirmed": false,
+              "disposition": "18/99 and damaged 71/72 definitions do not establish count eligibility. No vehicle KPI is published."
+            },
+            {
+              "id": "person.road_user_type_16",
+              "publisher_confirmed": false,
+              "disposition": "Keep code and label; do not equate it to Vehicle21 or publish role-derived measures."
+            },
+            {
+              "id": "node.export_multiplicity",
+              "publisher_confirmed": false,
+              "disposition": "Preserve all observations; no direct Node join in accident totals."
+            },
+            {
+              "id": "node.negative_node_codes",
+              "publisher_confirmed": false,
+              "disposition": "Keep original -1/-10/-3; no fabricated Node or geographic interpretation."
+            },
+            {
+              "id": "node.crs",
+              "publisher_confirmed": false,
+              "disposition": "No official VIC map or geographic metric; all projected location fields are NULL."
+            },
+            {
+              "id": "bundle.compatible_release",
+              "publisher_confirmed": false,
+              "disposition": "Team accepts only this pinned set for direct Accident measures, not as a certified compatible release."
+            }
+          ],
+          "profile_approved": true,
+          "contract_confirmed": false,
+          "bundle_confirmed": false
+        }
+      }
+    },
+    {
+      "id": "official_vic_node",
+      "version": "vic-accident-only-2020-2024-v1",
+      "status": "restricted",
+      "mapping_ids": [
+        "official_vic_restricted_use"
+      ],
+      "content": {
+        "input": {
+          "source_id": "official_vic",
+          "resource_id": "official_vic_node",
+          "resource_role": "node",
+          "entity_kind": "node_raw",
+          "format": "csv",
+          "encoding": "utf-8",
+          "sheet": null,
+          "header_row": 1,
+          "header": [
+            "ACCIDENT_NO",
+            "NODE_ID",
+            "NODE_TYPE",
+            "AMG_X",
+            "AMG_Y",
+            "LGA_NAME",
+            "LGA NAME ALL",
+            "DEG_URBAN_NAME",
+            "LATITUDE",
+            "LONGITUDE",
+            "POSTCODE_CRASH"
+          ],
+          "file_sha256": "b0bdbec22ac33df66e15cff9b531ba3203320ec5fbe20076a2820b8fec966ed4",
+          "raw_count": 405918,
+          "parser_version": "csv-native-v1",
+          "locator_version": "csv-logical-v1"
+        },
+        "identity": {
+          "release_label": "Locally saved August 2026 VIC files; team-approved accident-only analysis",
+          "release_scope": "vic_pinned_2020_2024_r1",
+          "resource_ids": [
+            "official_vic_accident",
+            "official_vic_node",
+            "official_vic_person",
+            "official_vic_vehicle"
+          ],
+          "key": {
+            "fields": [
+              "ACCIDENT_NO",
+              "NODE_ID"
+            ],
+            "unique": false,
+            "basis": "Native business key; Node is an observation match key, not a unique export key."
+          },
+          "parent": {
+            "resource_id": "official_vic_accident",
+            "fields": [
+              "ACCIDENT_NO"
+            ]
+          },
+          "coverage": {
+            "year_from": 2012,
+            "year_to": 2025,
+            "months": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+            ],
+            "basis": "Observed complete local files; child coverage follows Accident links, not a completeness guarantee."
+          },
+          "bundle_basis": "Team-approved pinned set for restricted Accident measures; publisher-compatible release unconfirmed.",
+          "scope_filter": "Preserve and check complete parents and child files; derive 2020-2024 scope from Accident.ACCIDENT_DATE after association checks."
+        },
+        "semantics": {
+          "policy_mapping_id": "official_vic_restricted_use",
+          "severity_codes": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "__MISSING__"
+          ],
+          "severity_definition_version": "vic-accident-only-2020-2024-v1",
+          "raw_values": "Preserve every native field and observation. No relationship repair, count replacement or Node deduplication.",
+          "business_rules": "Full adopted policy in the referenced mapping; projection and semantic SQL remain C responsibilities."
+        },
+        "snapshot": {
+          "policy": "Pinned full snapshots. Changed files, cases or coverage need a new reviewed profile; no automatic exceptions.",
+          "change": null
+        },
+        "confirmation": {
+          "status": "restricted",
+          "owner": "Role C",
+          "reviewed_by": "Team decision under C/E authority delegated through the user; no separate signatures claimed.",
+          "licence": "CC BY 4.0",
+          "checked_at": "2026-09-23",
+          "references": [
+            "docs/role-c/vic-restricted-use-decision.md",
+            "docs/sources/vic-accident-vehicle.md"
+          ],
+          "unresolved": [
+            {
+              "id": "person.blank_vehicle_rule",
+              "publisher_confirmed": false,
+              "disposition": "No publisher blank-permission rule; team allows pinned pedestrian/NA non-association and retains 24 unresolved cases."
+            },
+            {
+              "id": "person.export_inclusion_scope",
+              "publisher_confirmed": false,
+              "disposition": "NO_PERSONS is a declared total; export completeness is not guaranteed. Use Accident values for published person measures."
+            },
+            {
+              "id": "vehicle.export_count_scope",
+              "publisher_confirmed": false,
+              "disposition": "Declaration and detail inclusion differ or are incomplete. No vehicle KPI is published."
+            },
+            {
+              "id": "vehicle.type_21",
+              "publisher_confirmed": false,
+              "disposition": "Keep code and published label; no category-dependent metric."
+            },
+            {
+              "id": "vehicle.special_category_eligibility",
+              "publisher_confirmed": false,
+              "disposition": "18/99 and damaged 71/72 definitions do not establish count eligibility. No vehicle KPI is published."
+            },
+            {
+              "id": "person.road_user_type_16",
+              "publisher_confirmed": false,
+              "disposition": "Keep code and label; do not equate it to Vehicle21 or publish role-derived measures."
+            },
+            {
+              "id": "node.export_multiplicity",
+              "publisher_confirmed": false,
+              "disposition": "Preserve all observations; no direct Node join in accident totals."
+            },
+            {
+              "id": "node.negative_node_codes",
+              "publisher_confirmed": false,
+              "disposition": "Keep original -1/-10/-3; no fabricated Node or geographic interpretation."
+            },
+            {
+              "id": "node.crs",
+              "publisher_confirmed": false,
+              "disposition": "No official VIC map or geographic metric; all projected location fields are NULL."
+            },
+            {
+              "id": "bundle.compatible_release",
+              "publisher_confirmed": false,
+              "disposition": "Team accepts only this pinned set for direct Accident measures, not as a certified compatible release."
+            }
+          ],
+          "profile_approved": true,
+          "contract_confirmed": false,
+          "bundle_confirmed": false
+        }
+      }
+    }
+  ],
+  "severity": [
+    {
+      "source_id": "official_vic",
+      "severity_code": "1",
+      "severity_label": "Fatal",
+      "definition_version": "vic-accident-only-2020-2024-v1",
+      "definition_text": "Native Accident SEVERITY; source-specific, not a cross-state classification. Missing severity remains unknown.",
+      "is_fatal_crash": true
+    },
+    {
+      "source_id": "official_vic",
+      "severity_code": "2",
+      "severity_label": "Serious injury",
+      "definition_version": "vic-accident-only-2020-2024-v1",
+      "definition_text": "Native Accident SEVERITY; source-specific, not a cross-state classification. Missing severity remains unknown.",
+      "is_fatal_crash": false
+    },
+    {
+      "source_id": "official_vic",
+      "severity_code": "3",
+      "severity_label": "Other injury",
+      "definition_version": "vic-accident-only-2020-2024-v1",
+      "definition_text": "Native Accident SEVERITY; source-specific, not a cross-state classification. Missing severity remains unknown.",
+      "is_fatal_crash": false
+    },
+    {
+      "source_id": "official_vic",
+      "severity_code": "4",
+      "severity_label": "Non-injury",
+      "definition_version": "vic-accident-only-2020-2024-v1",
+      "definition_text": "Native Accident SEVERITY; source-specific, not a cross-state classification. Missing severity remains unknown.",
+      "is_fatal_crash": false
+    },
+    {
+      "source_id": "official_vic",
+      "severity_code": "__MISSING__",
+      "severity_label": "Unknown",
+      "definition_version": "vic-accident-only-2020-2024-v1",
+      "definition_text": "Native Accident SEVERITY; source-specific, not a cross-state classification. Missing severity remains unknown.",
+      "is_fatal_crash": null
+    }
+  ]
+}

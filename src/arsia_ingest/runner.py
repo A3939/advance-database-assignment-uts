@@ -286,7 +286,7 @@ def run_build(*, connect, prepared_run, manifest, project_root, inventory, modul
             inputs = check_inputs(value, run.root, previous_manifest=current[2].as_dict() if current else None,
                                   evidence_dir=evidence.for_stage("input").directory,
                                   producer_version=producer_version, supported_mappings=supported_mappings,
-                                  official_reviews=official_reviews)
+                                  official_reviews=official_reviews, policy_evidence_root=project_root)
             evidence.write_json("qa01.json", inputs.as_dict())
             if inputs.blocked:
                 raise IntakeError("QA_BLOCK", "QA01_INPUT blocked the input", rule_id="QA01_INPUT", evidence="qa01.json")

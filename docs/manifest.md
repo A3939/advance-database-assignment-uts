@@ -49,6 +49,8 @@ B hashes the supplied files; authors must identify every file their modules use.
 
 [D02 is installed in B](d02-integration.md). Its [inventory fragment](../config/d02-inventory.json) records the relocated code and hashes. It covers dimensions only; D03 and the combined DW callback must be added before freezing the final platform inventory.
 
+The [A/C integration fragment](../config/ac-inventory.json) adds real C03/A06/C09 bindings, packaged SQL, B interface dependencies and A migrations 001–011. It remains a partial inventory; see the [tested scope and remaining modules](ac-integration.md).
+
 ## Using S0 and S8
 
 Definitions can be read now without a database:
@@ -122,7 +124,7 @@ The [initial receipt](evidence/b09-validation-2026-09-19.json) records 302 passe
 Still needed:
 
 - **E:** FP1 SQL/version, signature, deployment and independent test evidence. The QA specification is already shared.
-- **A:** integrate the fixed schema and actual schema inventory. The [D02 checks](d02-integration.md) use A's migrations 001–011 in isolation; this does not integrate them into B's checkout.
+- **A:** fixed migrations 001–011 are integrated and hashed in the A/C fragment. The shared deployment must use those same bytes and grants.
 - **Module authors:** actual code inventory and versioned contracts/mappings. Official draft contracts are blocked.
 
 On 2026-09-19, inspected remote branches had no E03 SQL. `setup` specified PostgreSQL 15; `yihua-zhang` contained a draft QLD review. The old `docs/phase1-design-lite` fingerprint is `reference_unexecuted` and includes provenance in its input. These were neither adopted nor changed.

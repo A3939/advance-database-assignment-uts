@@ -1,6 +1,7 @@
 """Restricted manifest transport and QA guards; native/SQL replies are labelled mocks."""
 from copy import deepcopy
 import hashlib
+from importlib.resources import files
 import json
 from pathlib import Path
 import shutil
@@ -13,11 +14,46 @@ from arsia_ingest.fingerprint import FP1Operation, fingerprint
 from arsia_ingest.manifest import REQUIRED_CHECKS, FrozenManifest, digest_inventory, freeze_manifest
 from arsia_ingest.models import IntakeError, NativeRow
 from arsia_ingest.vic_restricted import (
-    ROOT, PINS, PROTOCOL, check_profile_evidence, input_expectations, vic_restricted_definitions,
+    PINS, PROTOCOL, check_profile_evidence, input_expectations, vic_restricted_definitions,
 )
 from test_fingerprint import DIGEST, ENVIRONMENT, ScriptedConnection
 from test_manifest import build
 from test_qa_input import RawConnection
+
+
+ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_packaged_policy_copies_match_pins_outside_the_checkout(tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    for path, expected in PINS.items():
+        data = files("arsia_ingest").joinpath("policies", Path(path).name).read_bytes()
+        assert data == (ROOT / path).read_bytes()
+        assert hashlib.sha256(data).hexdigest() == expected
+    definitions = vic_restricted_definitions()
+    assert definitions["qa_contract"]["version"] == PROTOCOL
+    definitions["contracts"].clear()
+    assert len(vic_restricted_definitions()["contracts"]) == 4
+
+
+@pytest.mark.parametrize("change", ["missing", "changed", "symlink"])
+def test_packaged_policies_keep_integrity_checks(tmp_path, monkeypatch, change):
+    from arsia_ingest import vic_restricted
+
+    policies = tmp_path / "policies"
+    policies.mkdir()
+    for path in PINS:
+        shutil.copyfile(ROOT / path, policies / Path(path).name)
+    original = next(iter(PINS))
+    target = policies / Path(original).name
+    target.unlink()
+    if change == "changed":
+        target.write_text("{}", encoding="utf-8")
+    elif change == "symlink":
+        target.symlink_to(ROOT / original)
+    monkeypatch.setattr(vic_restricted, "files", lambda package: tmp_path)
+    with pytest.raises(IntakeError):
+        vic_restricted_definitions()
 
 
 @pytest.fixture
@@ -128,7 +164,7 @@ def test_real_frozen_manifest_reaches_fp1_with_no_provenance(vic_build):
 
 
 def test_all_portable_evidence_bytes_match_the_frozen_register():
-    binding = check_profile_evidence()
+    binding = check_profile_evidence(ROOT)
     assert len(binding['files']) == 15
     assert binding['semantic_checks_executed'] is False
 
@@ -147,6 +183,7 @@ def mocked_native(vic_build, monkeypatch):
 
 
 def qa(value, tmp_path, **kwargs):
+    kwargs.setdefault('policy_evidence_root', ROOT)
     return qa_input.check_inputs(value, tmp_path / 'mock-archive', evidence_dir=tmp_path / 'qa',
                                 producer_version='mock-native-vic-test-v1',
                                 supported_mappings=value['rules']['mappings'], **kwargs)
