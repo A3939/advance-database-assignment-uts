@@ -104,8 +104,9 @@ def resolve_node_location(
     """
     Resolve one ACCIDENT_NO + NODE_ID observation group.
 
-    All observations are evaluated together. No observation
-    may be silently dropped to make a location usable.
+    Every observation is evaluated together.
+    No observation may be silently dropped to make
+    a location usable.
     """
 
     rows = list(
@@ -395,3 +396,147 @@ def iter_node_observation_groups(
                 current_key,
                 current_rows,
             )
+
+
+def build_location_update(
+    decision: NodeLocationDecision,
+    observations: Iterable[NodeObservation],
+    *,
+    existing_quality_notes: dict | None = None,
+    evidence_ref: str,
+    confirmed_crs: str = "EPSG:4326",
+) -> dict:
+    """
+    Convert a Node resolution decision into the
+    location fields required by I_crash.
+
+    Existing non-location quality notes are preserved.
+    """
+
+    rows = list(
+        observations
+    )
+
+    notes = dict(
+        existing_quality_notes or {}
+    )
+
+    candidate_raw_record_ids = [
+        row.raw_record_id
+        for row in rows
+    ]
+
+    if decision.map_eligible:
+        if (
+            decision.latitude is None
+            or decision.longitude is None
+            or decision.location_record_id is None
+        ):
+            raise ValueError(
+                "map-eligible Node decision is missing "
+                "trusted location values"
+            )
+
+        notes.pop(
+            "location",
+            None,
+        )
+
+        return {
+            "latitude":
+                decision.latitude,
+            "longitude":
+                decision.longitude,
+            "location_crs":
+                confirmed_crs,
+            "map_eligible":
+                True,
+            "location_record_id":
+                decision.location_record_id,
+            "quality_notes":
+                notes,
+        }
+
+    allowed_reasons = {
+        "missing",
+        "unmapped",
+        "definition_unconfirmed",
+        "invalid_coordinate",
+        "crs_unconfirmed",
+        "location_conflict",
+        "no_location",
+    }
+
+    if (
+        decision.reason_code
+        not in allowed_reasons
+    ):
+        raise ValueError(
+            "unsupported location reason code: "
+            f"{decision.reason_code!r}"
+        )
+
+    notes["location"] = {
+        "reason_code":
+            decision.reason_code,
+        "candidate_raw_record_ids":
+            candidate_raw_record_ids,
+        "resolution":
+            decision.resolution,
+        "evidence_ref":
+            evidence_ref,
+    }
+
+    return {
+        "latitude":
+            None,
+        "longitude":
+            None,
+        "location_crs":
+            None,
+        "map_eligible":
+            False,
+        "location_record_id":
+            None,
+        "quality_notes":
+            notes,
+    }
+
+
+def resolve_location_update(
+    observations: Iterable[NodeObservation],
+    *,
+    expected_accident_no: str,
+    expected_node_id: str,
+    crs_confirmed: bool,
+    existing_quality_notes: dict | None = None,
+    evidence_ref: str,
+    confirmed_crs: str = "EPSG:4326",
+) -> dict:
+    """
+    Resolve a full Node observation group and convert it
+    into the location portion of I_crash.
+
+    This wrapper is intended for C04/C07 integration.
+    """
+
+    rows = list(
+        observations
+    )
+
+    decision = resolve_node_location(
+        rows,
+        expected_accident_no=expected_accident_no,
+        expected_node_id=expected_node_id,
+        crs_confirmed=crs_confirmed,
+    )
+
+    return build_location_update(
+        decision,
+        rows,
+        existing_quality_notes=(
+            existing_quality_notes
+        ),
+        evidence_ref=evidence_ref,
+        confirmed_crs=confirmed_crs,
+    )
