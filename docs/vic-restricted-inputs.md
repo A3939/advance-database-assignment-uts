@@ -20,6 +20,10 @@ Use existing metadata with `freeze_manifest(...)` when assembling explicitly;
 this still requires the actual complete code/schema inventory.
 Do not regenerate full inputs just to inspect these definitions.
 
+The wheel includes the three pinned definitions under `arsia_ingest/policies/`.
+They have the same bytes and hashes as the files under `config/`. Loading
+definitions works outside the checkout; it does not read or approve source data.
+
 The shared policy and supporting files under `docs/role-c/` and the evidence
 directory are unchanged copies from C’s handoff. They keep the original review
 context; this guide describes B’s current support. The mapping ID is
@@ -36,6 +40,7 @@ Three configuration files must appear in the actual code inventory:
 
 Include the executed Python/SQL and dependencies too. Missing team modules,
 E03 SQL or migrations cannot be replaced with test inventory files.
+Include the three packaged policy copies too, since installed code reads them.
 Root `contract_version` stays `team-v1.1`; the QA protocol has its own version.
 All seven required checks remain. FP1 receives the full rules and inventory,
 with provenance excluded; only E’s SQL may produce the build fingerprint.
@@ -57,8 +62,11 @@ SHA256 values and historical text. The two full-source confirmation metrics
 are false; the other six required metrics must be true. Unexecuted checks stay
 null. Evidence hashing proves identity, not that QA04/QA05 have run.
 
-`policy_evidence_root` defaults to this repository. A relocated copy can be
-passed explicitly; missing, modified or symlinked evidence blocks.
+When calling installed `check_inputs`, pass `policy_evidence_root` as the checkout
+or evidence directory containing the pinned `config/` and `docs/` paths.
+`check_profile_evidence(root)` uses the same layout. Historical evidence stays
+outside the wheel; missing, modified or symlinked evidence still blocks.
+`run_build` passes its `project_root` to this check.
 QA02 still compares native values, fields, identities and locators against
 actual Raw. It does not forgive data loss or repair registered anomalies.
 

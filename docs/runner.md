@@ -4,6 +4,8 @@
 
 The runner is ready for module integration. [Session contention and early cleanup](runner-locks.md) and the installed [D02 callback](d02-integration.md) have real PostgreSQL tests. Complete build paths still use scripted replies and test callbacks; real FP1, publication and full B12–B14 acceptance remain unverified.
 
+The installed [NSW → Vault → Canonical chain](ac-integration.md) now uses real B objects and persists B's QA01/QA02 rows in an isolated database. It covers the available component path, with D02-only dimensions. The complete build still needs the remaining C/D/E callbacks and inventory.
+
 ## Entry point
 
 Call `run_build` from a team bindings module:
@@ -96,8 +98,8 @@ PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -q -p no:cacheprovider
 
 The initial suite recorded **380 passed, 10 skipped** on 2026-09-19, including 44 runner tests with scripted replies. The [original receipt](evidence/b10-b11-validation-2026-09-19.json) is unchanged. The [2026-09-20 run](input-qa.md#validation) passed 426 tests, including the eight B08 and two QA02 PostgreSQL tests. [B12's later checks](runner-locks.md) exercise real locks and early runner exits. Complete build transactions, concurrent builds and recovery remain unverified.
 
-- **A:** integrate the fixed schema and existing A06 Vault callback. D02's isolated tests use A's migrations 001–011 with the original loader grants.
-- **C:** projection, Canonical and QA callbacks; accepted mappings and source reviews with the source owners.
+- **A:** fixed migrations 001–011 and A06 are now installed in B; the original loader grants remain unchanged.
+- **C:** C03 NSW and C09 are integrated. C04/C05, the all-source dispatcher, C10 QA, accepted mappings and remaining source reviews are still needed.
 - **D:** D03 facts, the combined DW callback and reconciliation QA. The installed D02-only callback and its B interface are [verified separately](d02-integration.md).
 - **E:** FP1 SQL/version and publication gate. Its existing QA protocol is already reused.
 

@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from copy import deepcopy
 import hashlib
+from importlib.resources import files
 import json
 from pathlib import Path
 
@@ -42,13 +43,27 @@ def _bytes(root, relative, expected):
 
 def vic_restricted_definitions():
     """Return independent copies of the approved input definitions, not a build."""
-    values = {path: json.loads(_bytes(ROOT, path, sha)) for path, sha in PINS.items()}
+    values = {path: json.loads(_policy_bytes(path, sha)) for path, sha in PINS.items()}
     policy = values["config/vic-restricted-use-v1.json"]
     return {
         **values["config/vic-restricted-inputs-v1.json"],
         "mappings": [{"id": MAPPING_ID, "version": PROFILE, "content": policy}],
         "qa_contract": values["config/qa-team-v1.1-vic-r1.json"],
     }
+
+
+def _policy_bytes(path, expected):
+    package = files("arsia_ingest")
+    relative = "policies/" + Path(path).name
+    if isinstance(package, Path):
+        return _bytes(package, relative, expected)
+    try:
+        data = package.joinpath(relative).read_bytes()
+    except OSError as exc:
+        raise IntakeError("VIC_EVIDENCE", "Packaged VIC policy is missing", path=path) from exc
+    if hashlib.sha256(data).hexdigest() != expected:
+        raise IntakeError("VIC_EVIDENCE", "Packaged VIC policy bytes changed", path=path)
+    return data
 
 
 def validate_profile(value):

@@ -15,6 +15,10 @@ arsia-prepare = "arsia_ingest.cli:main"
 [tool.setuptools.packages.find]
 where = ["src"]
 
+[tool.setuptools.package-data]
+"arsia_c.projections" = ["sql/*.sql"]
+"arsia_ingest" = ["policies/*.json"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src"]
