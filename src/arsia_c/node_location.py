@@ -2,9 +2,17 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from decimal import Decimal, InvalidOperation
-import math
+from pathlib import Path
 import re
-from typing import Iterable
+from typing import Iterable, Iterator
+
+
+NODE_OBSERVATIONS_SQL_PATH = (
+    Path(__file__).resolve().parents[2]
+    / "sql"
+    / "projections"
+    / "c07_vic_node_observations.sql"
+)
 
 
 @dataclass(frozen=True)
@@ -31,11 +39,10 @@ class NodeLocationDecision:
     resolution: str
 
 
-def _parse_decimal(value: str | None) -> Decimal | None:
-    if value is None:
-        return None
-
-    if value == "":
+def _parse_decimal(
+    value: str | None,
+) -> Decimal | None:
+    if value is None or value == "":
         return None
 
     try:
@@ -53,16 +60,23 @@ def _parse_decimal(value: str | None) -> Decimal | None:
     return result
 
 
-def _numeric_locator(row_locator: str) -> int:
-    match = re.search(r"(\d+)$", row_locator)
+def _numeric_locator(
+    row_locator: str,
+) -> int:
+    match = re.search(
+        r"(\d+)$",
+        row_locator,
+    )
 
     if match is None:
         raise ValueError(
-            f"row locator has no numeric native position: "
+            "row locator has no numeric native position: "
             f"{row_locator!r}"
         )
 
-    return int(match.group(1))
+    return int(
+        match.group(1)
+    )
 
 
 def _representative(
@@ -73,7 +87,9 @@ def _representative(
         key=lambda row: (
             row.file_sha256,
             row.parser_version,
-            _numeric_locator(row.row_locator),
+            _numeric_locator(
+                row.row_locator
+            ),
         ),
     )
 
@@ -85,7 +101,16 @@ def resolve_node_location(
     expected_node_id: str,
     crs_confirmed: bool,
 ) -> NodeLocationDecision:
-    rows = list(observations)
+    """
+    Resolve one ACCIDENT_NO + NODE_ID observation group.
+
+    All observations are evaluated together. No observation
+    may be silently dropped to make a location usable.
+    """
+
+    rows = list(
+        observations
+    )
 
     if not rows:
         return NodeLocationDecision(
@@ -96,17 +121,22 @@ def resolve_node_location(
             location_record_id=None,
             map_eligible=False,
             reason_code="no_location",
-            resolution="no_matching_node_observation",
+            resolution=(
+                "no_matching_node_observation"
+            ),
         )
 
     for row in rows:
         if (
-            row.accident_no != expected_accident_no
-            or row.node_id != expected_node_id
+            row.accident_no
+            != expected_accident_no
+            or row.node_id
+            != expected_node_id
         ):
             raise ValueError(
-                "Node observation does not belong to the "
-                "expected ACCIDENT_NO + NODE_ID group"
+                "Node observation does not belong "
+                "to the expected "
+                "ACCIDENT_NO + NODE_ID group"
             )
 
     coordinate_pairs: set[
@@ -118,11 +148,15 @@ def resolve_node_location(
             latitude = _parse_decimal(
                 row.latitude_raw
             )
+
             longitude = _parse_decimal(
                 row.longitude_raw
             )
 
-            if latitude is None or longitude is None:
+            if (
+                latitude is None
+                or longitude is None
+            ):
                 return NodeLocationDecision(
                     observation_count=len(rows),
                     coordinate_pair_count=0,
@@ -130,8 +164,12 @@ def resolve_node_location(
                     longitude=None,
                     location_record_id=None,
                     map_eligible=False,
-                    reason_code="invalid_coordinate",
-                    resolution="incomplete_coordinate_observation",
+                    reason_code=(
+                        "invalid_coordinate"
+                    ),
+                    resolution=(
+                        "incomplete_coordinate_observation"
+                    ),
                 )
 
             if not (
@@ -146,8 +184,12 @@ def resolve_node_location(
                     longitude=None,
                     location_record_id=None,
                     map_eligible=False,
-                    reason_code="invalid_coordinate",
-                    resolution="latitude_out_of_range",
+                    reason_code=(
+                        "invalid_coordinate"
+                    ),
+                    resolution=(
+                        "latitude_out_of_range"
+                    ),
                 )
 
             if not (
@@ -162,12 +204,19 @@ def resolve_node_location(
                     longitude=None,
                     location_record_id=None,
                     map_eligible=False,
-                    reason_code="invalid_coordinate",
-                    resolution="longitude_out_of_range",
+                    reason_code=(
+                        "invalid_coordinate"
+                    ),
+                    resolution=(
+                        "longitude_out_of_range"
+                    ),
                 )
 
             coordinate_pairs.add(
-                (latitude, longitude)
+                (
+                    latitude,
+                    longitude,
+                )
             )
 
     except ValueError:
@@ -179,7 +228,9 @@ def resolve_node_location(
             location_record_id=None,
             map_eligible=False,
             reason_code="invalid_coordinate",
-            resolution="invalid_coordinate_token",
+            resolution=(
+                "invalid_coordinate_token"
+            ),
         )
 
     if len(coordinate_pairs) != 1:
@@ -193,11 +244,15 @@ def resolve_node_location(
             location_record_id=None,
             map_eligible=False,
             reason_code="location_conflict",
-            resolution="conflicting_coordinate_observations",
+            resolution=(
+                "conflicting_coordinate_observations"
+            ),
         )
 
     latitude, longitude = next(
-        iter(coordinate_pairs)
+        iter(
+            coordinate_pairs
+        )
     )
 
     if not crs_confirmed:
@@ -214,7 +269,9 @@ def resolve_node_location(
             ),
         )
 
-    representative = _representative(rows)
+    representative = _representative(
+        rows
+    )
 
     return NodeLocationDecision(
         observation_count=len(rows),
@@ -226,5 +283,115 @@ def resolve_node_location(
         ),
         map_eligible=True,
         reason_code="",
-        resolution="equivalent_observations_resolved",
+        resolution=(
+            "equivalent_observations_resolved"
+        ),
     )
+
+
+def _load_node_sql() -> str:
+    return (
+        NODE_OBSERVATIONS_SQL_PATH
+        .read_text(
+            encoding="utf-8"
+        )
+    )
+
+
+def iter_node_observation_groups(
+    connection,
+    node_input: dict,
+) -> Iterator[
+    tuple[
+        tuple[str, str],
+        list[NodeObservation],
+    ]
+]:
+    """
+    Stream selected VIC Node Raw rows grouped by
+    ACCIDENT_NO + NODE_ID.
+
+    Every selected Raw observation remains represented.
+    This function does not deduplicate, select a
+    representative, resolve coordinates or infer CRS.
+    """
+
+    sql = _load_node_sql()
+
+    with connection.cursor() as cursor:
+        cursor.execute(
+            sql,
+            (
+                node_input["source_id"],
+                node_input["resource_id"],
+                node_input["file_sha256"],
+                node_input["parser_version"],
+            ),
+        )
+
+        current_key: (
+            tuple[str, str] | None
+        ) = None
+
+        current_rows: list[
+            NodeObservation
+        ] = []
+
+        for row in cursor:
+            (
+                raw_record_id,
+                _source_id,
+                _resource_id,
+                file_sha256,
+                parser_version,
+                row_locator,
+                accident_no,
+                node_id,
+                latitude_raw,
+                longitude_raw,
+                _deg_urban_name,
+            ) = row
+
+            key = (
+                accident_no,
+                node_id,
+            )
+
+            observation = (
+                NodeObservation(
+                    raw_record_id=str(
+                        raw_record_id
+                    ),
+                    accident_no=accident_no,
+                    node_id=node_id,
+                    latitude_raw=latitude_raw,
+                    longitude_raw=longitude_raw,
+                    file_sha256=file_sha256,
+                    parser_version=(
+                        parser_version
+                    ),
+                    row_locator=row_locator,
+                )
+            )
+
+            if current_key is None:
+                current_key = key
+
+            if key != current_key:
+                yield (
+                    current_key,
+                    current_rows,
+                )
+
+                current_key = key
+                current_rows = []
+
+            current_rows.append(
+                observation
+            )
+
+        if current_key is not None:
+            yield (
+                current_key,
+                current_rows,
+            )
