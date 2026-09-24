@@ -48,7 +48,7 @@
     },
     {
       "path": "pyproject.toml",
-      "sha256": "2009bee6094fb4c166a7ccb1f2575d13f7c05486468d9e21aecb55f92b1cb472"
+      "sha256": "dbd24052792598f24a262054b3dc896231c89a2e32741bfa56ab4978f11e6ea2"
     },
     {
       "path": "requirements.txt",

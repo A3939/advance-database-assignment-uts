@@ -1,0 +1,60 @@
+{
+  "scope": "D05 trend-analysis component; D06-D09 and final analysis inventory remain separate",
+  "complete_d05": true,
+  "complete_analysis": false,
+  "binding": {
+    "python": "arsia_d05:query_trend",
+    "sql": "published.d05_trend(text,uuid,text,text[],integer,integer,integer[])",
+    "version": "d05-0.1.0"
+  },
+  "components": {
+    "analysis": [
+      "src/arsia_d05/__init__.py",
+      "src/arsia_d05/trend.py",
+      "src/arsia_d05/sql/d05_trend.sql",
+      "src/arsia_ingest/models.py",
+      "pyproject.toml",
+      "requirements.txt"
+    ]
+  },
+  "code_files": [
+    {
+      "path": "src/arsia_d05/__init__.py",
+      "sha256": "8232bb0655c6ebeaa252131f8ebf3b99495f63f9af2b6cb2723ed3fed75af2b3"
+    },
+    {
+      "path": "src/arsia_d05/trend.py",
+      "sha256": "4a521fc42ef2234956cc0289c071393dda34319786e71039c184c8047c4ba078"
+    },
+    {
+      "path": "src/arsia_d05/sql/d05_trend.sql",
+      "sha256": "c249e48a5046e05c6dcb95652dcf8498143149190937354a9ece8d0f192f7112"
+    },
+    {
+      "path": "src/arsia_ingest/models.py",
+      "sha256": "ed9ce88b03d4cb76e9b1a27e352345d4e6789e266431f40754bc0b2dba3fa8db"
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "dbd24052792598f24a262054b3dc896231c89a2e32741bfa56ab4978f11e6ea2"
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "b6f17223b854c27346eefdaeef137f2c0f5c5f8c85004c701a61662ccbc015eb"
+    }
+  ],
+  "dependencies": {
+    "d03_commit": "e2a0c6e28a4dcef27659783efbe553c959bb55fc",
+    "database": "PostgreSQL 16 with migrations 001-011 and deployed D05 SQL",
+    "roles": [
+      "arsia_migrator",
+      "arsia_reader",
+      "arsia_loader"
+    ],
+    "inputs": [
+      "meta.batch.manifest",
+      "dw.dim_source",
+      "dw.fact_crash"
+    ]
+  }
+}
