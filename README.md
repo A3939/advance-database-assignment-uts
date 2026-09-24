@@ -1,6 +1,6 @@
 # ARSIA Role B: inputs and build runner
 
-Role B's code prepares native inputs, loads Raw, freezes manifests, checks input/Raw quality and coordinates the build. B08 loading and B11 native-to-Raw checks have passed against A's PostgreSQL environment. Full builds still need the remaining database structures and the team's SQL modules, including E's FP1 and publication functions.
+Role B's code prepares native inputs, loads Raw, freezes manifests, checks input/Raw quality and coordinates the build. A's fixed schema, A06, C03, C09 and D02 are integrated. Full builds still need the remaining C/D callbacks, E's FP1 and publication functions, and the final inventory.
 
 ## Quick start
 
@@ -49,6 +49,7 @@ Each run gets a new directory under the chosen output root, followed by `<datase
 | [VIC restricted input support](docs/vic-restricted-inputs.md) | B09/B11: adopted policy, exact case/evidence bindings and restricted QA01. |
 | [Input QA guide](docs/input-qa.md) | B11: per-file native and Raw comparisons, source reviews and evidence. |
 | [Build runner](docs/runner.md) | B10: module bindings, shared connection, transactions and run results. |
+| [B10 local validation](docs/b10-local-validation.md) | Transaction and failure-evidence fixes, installed-package tests and remaining build dependencies. |
 | [Runner lock checks](docs/runner-locks.md) | B12: real session locks, busy exit and early-failure cleanup; remaining build checks. |
 | [Run recovery](docs/recovery.md) | B14: resolve uncertain commits and abandoned runs; real state recovery awaits integration. |
 | [B06/B07 validation](docs/b06-b07-validation.md) | Tests and S0 preparation recorded on 2026-09-17. |
@@ -85,6 +86,6 @@ source_id, resource_id, file_sha256, parser_version, row_locator, payload
 
 CSV values remain text, including blanks and leading zeros; XLSX conversion follows the intake guide. Person rows, Node observations and QLD aggregate fields are retained. Filtering, business mappings and deduplication belong to later steps.
 
-`prepared` means native input preparation passed. The [2026-09-20 B11 run](docs/input-qa.md#validation) passed all 426 tests, including ten real PostgreSQL tests for B08/QA02. Test writes were rolled back. [B12's lock checks](docs/runner-locks.md) also verify real session contention and early runner cleanup. QA result persistence, real FP1 and full builds remain unverified; they need the remaining schema, actual code inventory and C/A/D/E callbacks. The adopted VIC policy permits only bounded Accident measures; full-source definitions and compatible release remain unconfirmed. B09/B11 enforce its input bindings, while downstream restrictions and publication still need integration.
+`prepared` means native input preparation passed. The [A/C integration](docs/ac-integration.md) verifies S0 input-to-Canonical loading and QA01/QA02 persistence. [B12's lock checks](docs/runner-locks.md) cover session contention and early cleanup. The latest [B10 local validation](docs/b10-local-validation.md) covers transaction isolation, failure evidence and recovery markers. Real FP1, complete C/D QA and publication remain unverified. B09/B11 enforce the adopted VIC input restrictions; full downstream integration is still required.
 
 The baseline is team v1.1: document 04 (L1 contracts and acceptance) and document 05 (sources and mappings, sections 1-2 and 7). The [online database design](https://arsia-team-design.vercel.app/) shows the shared model. Links in the guides to `F/` and `Resources/` refer to the shared course workspace outside this Git repository; they work locally but are unavailable in a standalone clone or on GitHub.

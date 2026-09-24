@@ -24,6 +24,7 @@ TESTS = (
     "test_c03_nsw_postgres.py", "test_c03_packaging.py", "test_c09_canonical.py",
     "test_c09_postgres.py", "test_c09_acceptance_postgres.py", "test_d02.py",
     "test_d02_postgres.py", "test_ac_inventory.py", "test_ac_integration_postgres.py",
+    "test_b10_lifecycle_postgres.py", "test_runner.py", "test_recovery.py",
 )
 TABLES = (
     "meta.source", "meta.resource", "meta.batch", "meta.current_release", "raw.record",

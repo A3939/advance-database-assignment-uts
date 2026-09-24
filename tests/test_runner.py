@@ -1,6 +1,8 @@
 """Runner control flow with S0 archives and scripted SQL; no PostgreSQL is run."""
 from copy import deepcopy
 from dataclasses import replace
+from datetime import date, datetime, timezone
+from decimal import Decimal
 import json
 from pathlib import Path
 from uuid import UUID, uuid4
@@ -317,6 +319,24 @@ def test_success_uses_one_connection_actual_native_load_and_qa(setup):
     assert json.loads((directory / "qa02.json").read_text())["rows"][-1]["result"] == "pass"
     assert json.loads((directory / "result.json").read_text()) == value
     assert db.events.count("lock") == 1
+    for phase in ("registration", "publication"):
+        marker = json.loads((directory / f"before-{phase}-commit.json").read_text())
+        assert marker["input_fingerprint"] == value["input_fingerprint"] == DIGEST
+
+
+@pytest.mark.parametrize("failure", [False, True])
+def test_read_committed_is_set_for_each_owned_transaction(setup, failure):
+    setup[0].fail_stage = "vault" if failure else None
+    db, _, value = execute(setup)
+    starts = [i for i, event in enumerate(db.events)
+              if event == "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"]
+    assert value["result"] == ("failed" if failure else "succeeded")
+    assert len(starts) == (3 if failure else 2)
+    assert starts[0] < db.events.index("lock") < db.events.index("stale")
+    assert db.events.index("commit:registration") < starts[1] < db.events.index("module:project")
+    if failure:
+        assert db.events.index("rollback") < starts[2] < db.events.index("failure_update")
+        assert db.events.index("failure_update") < db.events.index("commit:failure")
 
 
 def test_busy_has_no_batch_writes_or_commit(setup):
@@ -351,6 +371,79 @@ def test_stage_failure_rolls_back_build_then_persists_failed_attempt(setup, stag
     failure = db.durable["batches"][value["batch_id"]]
     assert failure["status"] == "failed" and failure["error"]["details"]["row_locator"] == "csv:1"
     assert [name for name, _, _ in db.callbacks][-1] == stage
+    assert value["input_fingerprint"] == DIGEST
+    for phase in ("registration", "failure"):
+        marker = json.loads((Path(value["evidence_ref"]) / f"before-{phase}-commit.json").read_text())
+        assert marker["input_fingerprint"] == DIGEST
+
+
+def test_typed_module_diagnostics_survive_evidence_and_failed_batch_record(setup):
+    raw_id = UUID("12345678-1234-5678-1234-567812345678")
+    checked_at = datetime(2026, 9, 24, 12, 30, tzinfo=timezone.utc)
+    details = {
+        "raw_record_id": raw_id,
+        "actual": Decimal("1.2300"),
+        "occurrence_date": date(2024, 2, 29),
+        "checked_at": checked_at,
+        "nested": {"values": [None, True, 42, {"expected": Decimal("2.0000")}]},
+    }
+
+    def reject(_connection, _context):
+        raise IntakeError("TYPED_DIAGNOSTIC", "The typed observation failed validation", **details)
+
+    modules = replace(setup[1]["modules"], vault=replace(setup[1]["modules"].vault, callback=reject))
+    db, result, value = execute(setup, modules=modules)
+    assert result.exit_code == 1 and value["result"] == "failed"
+    assert value["error_code"] == "TYPED_DIAGNOSTIC" and value["stage"] == "vault"
+    error = json.loads((Path(value["evidence_ref"]) / "error.json").read_text())
+    assert error["details"] == {
+        "raw_record_id": str(raw_id),
+        "actual": "1.2300",
+        "occurrence_date": "2024-02-29",
+        "checked_at": checked_at.isoformat(),
+        "nested": {"values": [None, True, 42, {"expected": "2.0000"}]},
+    }
+    failure = db.durable["batches"][value["batch_id"]]
+    assert failure["status"] == "failed" and failure["error"] == error
+    assert db.events.index("rollback") < db.events.index("failure_update") < db.events.index("commit:failure")
+    assert not db.durable["layers"] and not db.durable["qa"] and not db.durable["current"]
+    assert "diagnostics" not in value
+
+
+@pytest.mark.parametrize("case", ["unsupported", "list_cycle", "dict_cycle", "float_nan", "decimal_nan"])
+def test_unserializable_diagnostics_do_not_hide_the_original_failure(setup, case):
+    class PrivateDetails:
+        def __str__(self):
+            raise AssertionError("Do not stringify arbitrary diagnostic objects")
+
+        def __repr__(self):
+            raise AssertionError("Do not inspect arbitrary diagnostic objects with repr")
+
+    if case == "unsupported":
+        problem = PrivateDetails()
+    elif case == "list_cycle":
+        problem = []
+        problem.append(problem)
+    elif case == "dict_cycle":
+        problem = {}
+        problem["self"] = problem
+    else:
+        problem = float("nan") if case == "float_nan" else Decimal("NaN")
+
+    def reject(_connection, _context):
+        raise IntakeError("BAD_DIAGNOSTIC", "The module rejected this candidate",
+                          ordinary={"row_locator": "csv:2"}, problem=problem)
+
+    modules = replace(setup[1]["modules"], vault=replace(setup[1]["modules"].vault, callback=reject))
+    db, result, value = execute(setup, modules=modules)
+    assert result.exit_code == 1 and value["error_code"] == "BAD_DIAGNOSTIC"
+    error = json.loads((Path(value["evidence_ref"]) / "error.json").read_text())
+    assert error["details"]["ordinary"] == {"row_locator": "csv:2"}
+    assert error["details"]["problem"] is not None
+    json.dumps(error, allow_nan=False)
+    failure = db.durable["batches"][value["batch_id"]]
+    assert failure["status"] == "failed" and failure["error"] == error
+    assert "commit:failure" in db.events and "diagnostics" not in value
 
 
 @pytest.mark.parametrize("phase", ["registration", "publication", "failure"])
@@ -371,6 +464,9 @@ def test_lost_commit_response_stops_without_retry_or_reclassification(setup, pha
     if phase == "registration":
         assert not db.callbacks
     assert (Path(value["evidence_ref"]) / f"before-{phase}-commit.json").is_file()
+    assert value["input_fingerprint"] == DIGEST
+    for path in Path(value["evidence_ref"]).glob("before-*-commit.json"):
+        assert json.loads(path.read_text())["input_fingerprint"] == DIGEST
     assert "qa_summary" not in value
 
 

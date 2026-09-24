@@ -143,6 +143,7 @@ def assert_early_exit(observed, result, callbacks):
     assert callbacks == []
     assert observed.connection.closed
     assert observed.events == [
+        {"event": "sql", "sql": "SET TRANSACTION ISOLATION LEVEL READ COMMITTED", "parameters": None},
         {"event": "sql", "sql": "SET TIME ZONE 'UTC'", "parameters": None},
         {"event": "sql", "sql": "SET client_encoding TO 'UTF8'", "parameters": None},
         {"event": "sql", "sql": "SELECT pg_try_advisory_lock(%s,%s)", "parameters": KEY},

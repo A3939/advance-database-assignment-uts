@@ -237,6 +237,42 @@ def test_new_code_bytes_require_a_new_manifest_and_leave_old_snapshot(build):
     assert first.fingerprint_input() != second.fingerprint_input()
 
 
+def test_database_dependencies_are_hashed_and_require_refreezing(build):
+    project = build[1]["project_root"]
+    dependencies = ("requirements.txt", "requirements-dev.txt", "requirements-db.txt")
+    for name in dependencies:
+        shutil.copyfile(ROOT / name, project / name)
+    build[1]["inventory"]["components"]["runner"].extend(dependencies)
+    first = assemble(build)
+    hashes = {entry["path"]: entry["sha256"] for entry in first.as_dict()["rules"]["code_files"]}
+    for name in dependencies:
+        assert hashes[name] == hashlib.sha256((ROOT / name).read_bytes()).hexdigest()
+
+    target = project / "requirements-db.txt"
+    target.write_bytes(target.read_bytes() + b"\n# Changed dependency snapshot.\n")
+    with pytest.raises(IntakeError) as caught:
+        freeze_manifest(first.as_dict(), project_root=project, inventory=build[1]["inventory"])
+    assert caught.value.code == "MANIFEST_VERSION_CHANGED"
+    second = assemble(build)
+    assert first.fingerprint_input() != second.fingerprint_input()
+    assert next(entry["sha256"] for entry in first.as_dict()["rules"]["code_files"]
+                if entry["path"] == "requirements-db.txt") == hashes["requirements-db.txt"]
+
+
+@pytest.mark.parametrize("relative", [
+    "arbitrary.txt", "requirements-extra.txt", "docs/requirements-db.txt",
+    "raw_datasource/requirements-db.txt",
+])
+def test_dependency_allowlist_keeps_other_text_and_excluded_paths_blocked(build, relative):
+    path = build[1]["project_root"] / relative
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_bytes((ROOT / "requirements-db.txt").read_bytes())
+    build[1]["inventory"]["components"]["runner"].append(relative)
+    with pytest.raises(IntakeError) as caught:
+        assemble(build)
+    assert caught.value.code == "MANIFEST_INPUT"
+
+
 def test_writes_new_history_only_and_enforces_kind_directory(build, tmp_path):
     frozen = assemble(build)
     path = tmp_path / "history/synthetic/manifests/first.json"

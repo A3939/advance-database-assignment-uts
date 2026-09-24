@@ -2,7 +2,7 @@
 
 [`runner.py`](../src/arsia_ingest/runner.py) owns the connection, session lock and transactions. It reuses B08 loading, B09 manifest/FP1 and [B11 input checks](input-qa.md). Team modules must be registered explicitly; there are no default business functions.
 
-The runner is ready for module integration. [Session contention and early cleanup](runner-locks.md) and the installed [D02 callback](d02-integration.md) have real PostgreSQL tests. Complete build paths still use scripted replies and test callbacks; real FP1, publication and full B12–B14 acceptance remain unverified.
+The runner is ready for the remaining modules. [Session contention and early cleanup](runner-locks.md) and the installed [D02 callback](d02-integration.md) have real PostgreSQL tests. The [local B10 checks](b10-local-validation.md) cover transaction isolation and failure recording. Complete build paths still use scripted replies and test callbacks; real FP1, publication and full B12–B14 acceptance remain unverified.
 
 The installed [NSW → Vault → Canonical chain](ac-integration.md) now uses real B objects and persists B's QA01/QA02 rows in an isolated database. It covers the available component path, with D02-only dimensions. The complete build still needs the remaining C/D/E callbacks and inventory.
 
@@ -30,7 +30,7 @@ result = run_build(
 )
 ```
 
-All names in this example are supplied bindings, not installed functions. `connect_loader()` must return a fresh, dedicated PostgreSQL connection with `autocommit=False` and tuple cursor rows. Do not return a pooled wrapper: `close()` must end the database session. Keep credentials in A's connection setup, outside manifests and evidence. The runner sets client encoding to UTF8 and the session timezone to UTC; the existing FP1 adapter checks A/E's exact PostgreSQL 16 patch and SQL binding.
+All names in this example are supplied bindings, not installed functions. `connect_loader()` must return a fresh, dedicated PostgreSQL connection with `autocommit=False` and tuple cursor rows. Do not return a pooled wrapper: `close()` must end the database session. Keep credentials in A's connection setup, outside manifests and evidence. The runner sets UTF8, UTC and READ COMMITTED before reading history. It reapplies READ COMMITTED after registration commits and before failure recording, even when the driver starts transactions with a different default. The FP1 adapter checks A/E's exact PostgreSQL 16 patch and SQL binding.
 
 `manifest` is a `FrozenManifest`. The runner rechecks actual inventory hashes and the prepared file set before database work. Each module's `code_path` must be in its corresponding inventory component; both QA callbacks use `qa`. Versions and paths are recorded in the run evidence. Authors remain responsible for listing their full code/SQL dependencies and matching the installed implementation.
 
@@ -41,7 +41,7 @@ PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m arsia_ingest.runner \
   --bindings team_bindings:build_request
 ```
 
-`team_bindings` is the team's integration module. It is not included yet. A's fixed schema and downstream functions still need to be assembled in the shared build checkout. A missing binding fails explicitly. `python -m arsia_ingest` remains the native preparation command.
+`team_bindings` is the team's integration module. A complete version is not included yet. A's fixed schema, A06, C03/C09 and D02 are installed; the remaining C/D/E bindings are still needed. A missing binding fails explicitly. `python -m arsia_ingest` remains the native preparation command.
 
 ## Module interface
 
@@ -56,7 +56,7 @@ run_id, dataset_kind, batch_id, input_fingerprint,
 previous_batch_id, manifest, evidence
 ```
 
-Use `context.manifest.as_dict()` for a separate copy of the frozen definitions. Write module evidence with `context.evidence.write_json("counts.json", value)`. B supplies a separate stage directory; the writer returns a path, SHA256 and row count and refuses an existing filename. Modules can raise `IntakeError(code, message, **details)` with rule/object IDs, locators, actual/expected values and evidence references. Keep connection strings out of errors.
+Use `context.manifest.as_dict()` for a separate copy of the frozen definitions. Write module evidence with `context.evidence.write_json("counts.json", value)`. B supplies a separate stage directory; the writer returns a path, SHA256 and row count and refuses an existing filename. Modules can raise `IntakeError(code, message, **details)` with rule/object IDs, locators, actual/expected values and evidence references. Error details preserve UUID, Decimal and date/time values as text. Unsupported values receive a type marker so diagnostics cannot prevent failure recording. Keep connection strings out of errors.
 
 ## Lifecycle
 
@@ -82,7 +82,7 @@ E still derives and checks all required QA objects. B's summary check is a trans
 | `failed` | 1 | Known failure with rollback; database failure logging may still need repair. |
 | `unknown_commit` | 3 | Transaction outcome needs a database state check before retry. |
 
-An exception from registration, publication or failure-record COMMIT returns `unknown_commit`. The runner does not retry or mark the candidate failed after a lost response. An unconfirmed rollback also stops with this unresolved result. These outcomes are not new `meta.batch.status` values.
+An exception from registration, publication or failure-record COMMIT returns `unknown_commit`. Each pre-COMMIT marker and candidate outcome retains the fingerprint returned by E's adapter, so recovery can compare it with the database. The runner does not retry or mark the candidate failed after a lost response. An unconfirmed rollback also stops with this unresolved result. These outcomes are not new `meta.batch.status` values.
 
 [B14 recovery](recovery.md) reads the original run evidence and queries the same database through a new locked session. It preserves successful history and resolves only the selected batch. Its state tests use simulated replies; real recovery remains unverified.
 
@@ -103,4 +103,4 @@ The initial suite recorded **380 passed, 10 skipped** on 2026-09-19, including 4
 - **D:** D03 facts, the combined DW callback and reconciliation QA. The installed D02-only callback and its B interface are [verified separately](d02-integration.md).
 - **E:** FP1 SQL/version and publication gate. Its existing QA protocol is already reused.
 
-At the initial review, shared branches had no callable build/FP1/publication modules. JJ's later B08 environment supplies three tables; it does not supply these functions. Old reference SQL was not adopted. Full fault injection, concurrent builds, real recovery and end-to-end acceptance still need integration.
+The full build remains blocked by the actual missing modules, not by A's old three-table environment. The partial inventory stays marked `final_platform: false`. Full fault injection, concurrent published builds, real recovery and end-to-end acceptance still need integration.

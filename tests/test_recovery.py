@@ -459,7 +459,10 @@ def test_recovers_actual_runner_receipts_after_lost_commit(setup, tmp_path, phas
         original.fail_stage = "vault"
     _, outcome, value = execute(setup)
     assert outcome.exit_code == 3
+    assert value["input_fingerprint"] == DIGEST
     directory = Path(value["evidence_ref"])
+    for path in directory.glob("before-*-commit.json"):
+        assert json.loads(path.read_text())["input_fingerprint"] == DIGEST
     before = {str(p.relative_to(directory)): p.read_bytes() for p in directory.rglob("*") if p.is_file()}
     batch_id = value["batch_id"]
     stored = original.durable["batches"].get(batch_id)
@@ -476,6 +479,35 @@ def test_recovers_actual_runner_receipts_after_lost_commit(setup, tmp_path, phas
     assert result.exit_code == 0 and resolved["resolution"] == expected
     needs_update = row is not None and row[2] == "running"
     assert db.events.count("update") == db.events.count("commit") == int(needs_update)
+    assert {str(p.relative_to(directory)): p.read_bytes() for p in directory.rglob("*") if p.is_file()} == before
+
+
+@pytest.mark.parametrize("phase", ["registration", "publication", "failure"])
+def test_runner_commit_markers_reject_a_changed_database_fingerprint_without_result(setup, tmp_path, phase):
+    original, _ = setup
+    original.loss_phase = phase
+    original.loss_committed = phase == "registration"
+    if phase == "failure":
+        original.fail_stage = "vault"
+    _, outcome, value = execute(setup)
+    assert outcome.exit_code == 3
+    directory = Path(value["evidence_ref"])
+    for path in directory.glob("before-*-commit.json"):
+        assert json.loads(path.read_text())["input_fingerprint"] == DIGEST
+    # A crash can leave commit markers without the final result receipt.
+    (directory / "result.json").unlink()
+    before = {str(p.relative_to(directory)): p.read_bytes() for p in directory.rglob("*") if p.is_file()}
+    batch_id = value["batch_id"]
+    stored = original.durable["batches"][batch_id]
+    assert stored["status"] == "running"
+    row = (UUID(batch_id), stored["kind"], "running", "b2" * 32, stored["manifest"], None, None)
+    db = RecoveryConnection(row)
+    case = {"directory": directory, "base": value, "evidence_root": tmp_path / "recovered"}
+    result, resolved = recover(case, db)
+    assert result.exit_code == 3 and resolved["resolution"] == "unknown_commit"
+    assert db.durable == row and "update" not in db.events and "commit" not in db.events
+    assert any(item["error_code"] == "RECOVERY_STATE" for item in resolved["diagnostics"])
+    assert not any("pg_proc" in sql or "fp1" in sql for sql, _ in db.calls)
     assert {str(p.relative_to(directory)): p.read_bytes() for p in directory.rglob("*") if p.is_file()} == before
 
 

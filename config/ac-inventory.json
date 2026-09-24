@@ -104,6 +104,8 @@
     "config/qa-team-v1.1-vic-r1.json",
     "config/vic-restricted-inputs-v1.json",
     "config/vic-restricted-use-v1.json",
+    "requirements-db.txt",
+    "requirements-dev.txt",
     "src/arsia_ingest/__init__.py",
     "src/arsia_ingest/__main__.py",
     "src/arsia_ingest/cli.py",
@@ -139,6 +141,14 @@
     {
       "path": "pyproject.toml",
       "sha256": "2009bee6094fb4c166a7ccb1f2575d13f7c05486468d9e21aecb55f92b1cb472"
+    },
+    {
+      "path": "requirements-db.txt",
+      "sha256": "28936395acc85dae2c3bac9c374edde94f2e0a1a2be51a2cafa6c51ebd68ef3f"
+    },
+    {
+      "path": "requirements-dev.txt",
+      "sha256": "5613d0a59f1b435489e2343dd51c9d12b26311417cc93a85ee7607e53ec48671"
     },
     {
       "path": "requirements.txt",
@@ -230,7 +240,7 @@
     },
     {
       "path": "src/arsia_ingest/manifest.py",
-      "sha256": "288bddf9f2b29522a8c05c9d49f55280e6920d3abf6ace3117812d363c78da85"
+      "sha256": "29ba1a81e52bb0d16efa98cbd5c9fa3970747f0ed0ca4769e6fe7074d27e6e11"
     },
     {
       "path": "src/arsia_ingest/models.py",
@@ -270,7 +280,7 @@
     },
     {
       "path": "src/arsia_ingest/runner.py",
-      "sha256": "2deed1841ada2d1e9ebdb8bdfccbb1e931f1c9ee10a0e67319548cd446b8d96c"
+      "sha256": "e8ba28605def0b8e7834fac981772ef7bfcdf8b34d79189b8aa911b2e87b9f8f"
     },
     {
       "path": "src/arsia_ingest/vault_load.py",

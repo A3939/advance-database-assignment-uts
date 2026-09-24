@@ -3,12 +3,14 @@ from __future__ import annotations
 
 import argparse
 from dataclasses import dataclass, replace
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
+from decimal import Decimal
 import importlib
 import json
+import math
 from pathlib import Path
 from typing import Callable
-from uuid import uuid4
+from uuid import UUID, uuid4
 
 from .fingerprint import FP1Operation, fingerprint
 from .manifest import FrozenManifest, REQUIRED_CHECKS, freeze_manifest
@@ -153,6 +155,19 @@ def _execute(connection, sql):
         cursor.execute(sql)
 
 
+def _begin_transaction(connection):
+    # Driver settings can start each new transaction at a different isolation level.
+    _execute(connection, "SET TRANSACTION ISOLATION LEVEL READ COMMITTED")
+
+
+def _mark_failed(connection, batch_id, kind, error):
+    rows = _query(connection, """UPDATE meta.batch SET status='failed',finished_at=clock_timestamp(),
+        error_details=%s::jsonb WHERE batch_id=%s::uuid AND dataset_kind=%s AND status='running'
+        RETURNING batch_id""", (_json(error), batch_id, kind))
+    if len(rows) != 1 or str(rows[0][0]) != batch_id:
+        raise IntakeError("FAILURE_STATE", "Candidate is no longer running; inspect its state")
+
+
 def _bindings(modules, fp1, inventory):
     if not isinstance(modules, BuildModules):
         raise IntakeError("MODULE_UNAVAILABLE", "Supply explicit BuildModules from A/C/D/E")
@@ -206,11 +221,34 @@ def _qa_summary(connection, batch_id):
     return [summary[rule] for rule in REQUIRED_CHECKS]
 
 
+def _diagnostic_value(value, parents=frozenset(), depth=0):
+    """Keep database value details without calling arbitrary object formatters."""
+    if value is None or type(value) in (str, bool, int):
+        return value
+    if type(value) is float and math.isfinite(value):
+        return value
+    if isinstance(value, (UUID, Decimal)):
+        return str(value)
+    if isinstance(value, (date, datetime)):
+        return value.isoformat()
+    if depth >= 20 or id(value) in parents:
+        return {"omitted": "nested or cyclic diagnostic"}
+    parents = parents | {id(value)}
+    if isinstance(value, dict):
+        if all(isinstance(key, str) for key in value):
+            return {key: _diagnostic_value(item, parents, depth + 1) for key, item in value.items()}
+        return {"entries": [[_diagnostic_value(key, parents, depth + 1),
+                             _diagnostic_value(item, parents, depth + 1)] for key, item in value.items()]}
+    if isinstance(value, (list, tuple)):
+        return [_diagnostic_value(item, parents, depth + 1) for item in value]
+    return {"unsupported_type": type(value).__name__}
+
+
 def _error(exc, stage):
     # Driver errors may include connection strings. Keep their text out of receipts.
     return {"stage": stage, "error_code": exc.code if isinstance(exc, IntakeError) else "RUN_ERROR",
             "message": str(exc) if isinstance(exc, IntakeError) else f"{stage} raised {type(exc).__name__}",
-            "details": exc.details if isinstance(exc, IntakeError) else {}, "checked_at": _now()}
+            "details": _diagnostic_value(exc.details) if isinstance(exc, IntakeError) else {}, "checked_at": _now()}
 
 
 class _UnknownCommit(Exception):
@@ -264,6 +302,7 @@ def run_build(*, connect, prepared_run, manifest, project_root, inventory, modul
         if getattr(connection, "autocommit", None) is not False:
             raise IntakeError("RUN_AUTOCOMMIT", "The connection factory must return autocommit=False")
         shared = ModuleConnection(connection)
+        _begin_transaction(shared)
         _execute(shared, "SET TIME ZONE 'UTC'")
         _execute(shared, "SET client_encoding TO 'UTF8'")
         stage = "lock"
@@ -292,6 +331,7 @@ def run_build(*, connect, prepared_run, manifest, project_root, inventory, modul
                 raise IntakeError("QA_BLOCK", "QA01_INPUT blocked the input", rule_id="QA01_INPUT", evidence="qa01.json")
             stage = "fingerprint"
             digest = fingerprint(shared, frozen, fp1, project_root=project_root)
+            base["input_fingerprint"] = digest
             if current is not None and current[1] == digest:
                 summary = _qa_summary(shared, current[0])
                 connection.rollback()
@@ -308,6 +348,8 @@ def run_build(*, connect, prepared_run, manifest, project_root, inventory, modul
                     raise IntakeError("RUN_REGISTRATION", "The database did not return the candidate batch")
                 commit("registration")
                 registered = True
+                stage = "build"
+                _begin_transaction(shared)
                 context = RunContext(run_id, kind, batch_id, digest, previous_id, frozen, evidence)
                 for stage in ("project", "vault", "canonical", "dw"):
                     getattr(modules, stage).callback(shared, replace(context, evidence=evidence.for_stage(stage)))
@@ -351,12 +393,9 @@ def run_build(*, connect, prepared_run, manifest, project_root, inventory, modul
             outcome = {**base, "result": "unknown_commit", "batch_id": batch_id}
         elif registered:
             try:
+                _begin_transaction(connection)
                 _execute(connection, "SET TIME ZONE 'UTC'")
-                rows = _query(connection, """UPDATE meta.batch SET status='failed',finished_at=clock_timestamp(),
-                    error_details=%s::jsonb WHERE batch_id=%s::uuid AND dataset_kind=%s AND status='running'
-                    RETURNING batch_id""", (_json(error), batch_id, kind))
-                if len(rows) != 1 or str(rows[0][0]) != batch_id:
-                    raise IntakeError("FAILURE_STATE", "Candidate is no longer running; inspect its state")
+                _mark_failed(connection, batch_id, kind, error)
                 commit("failure")
             except _UnknownCommit:
                 outcome = {**base, "result": "unknown_commit", "batch_id": batch_id}

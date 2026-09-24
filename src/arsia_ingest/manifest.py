@@ -155,7 +155,9 @@ def _code_path(path, *, schema=False):
     excluded = {"docs", "evidence", "artifacts", "tests", "raw_datasource", "Resources",
                 ".git", ".venv", "__pycache__", "node_modules"}
     allowed = {".sql"} if schema else {".py", ".sql", ".toml", ".lock", ".json", ".yaml", ".yml", ".sh"}
-    dependency = not schema and relative.name in {"requirements.txt", "requirements-dev.txt"}
+    dependency = not schema and relative.name in {
+        "requirements.txt", "requirements-dev.txt", "requirements-db.txt",
+    }
     if excluded.intersection(relative.parts) or (relative.suffix not in allowed and not dependency) or relative.name.startswith(".env"):
         _fail("Code/schema lists cannot contain raw data, documentation or runtime output", path=path)
 
