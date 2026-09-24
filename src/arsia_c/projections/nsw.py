@@ -1,628 +1,349 @@
+"""C03: project the selected NSW snapshot in B's transaction.
+
+The caller supplies B09 manifest data; no commit, rollback, connection ownership,
+FP1 calculation or publication is performed here. See docs/role-c/c03-nsw.md.
+"""
+
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
-
-NSW_CRASH_RESOURCE_ID = "official_nsw_crash"
-NSW_TRAFFIC_UNIT_RESOURCE_ID = "official_nsw_traffic_unit"
-
-
-PROJECTION_TABLES_SQL_PATH = (
-    Path(__file__).resolve().parents[3]
-    / "sql"
-    / "projections"
-    / "c03_projection_tables.sql"
-)
-
-RELATIONSHIP_SQL_PATH = (
-    Path(__file__).resolve().parents[3]
-    / "sql"
-    / "projections"
-    / "c03_nsw_relationship_check.sql"
-)
-
-YEAR_CHECK_SQL_PATH = (
-    Path(__file__).resolve().parents[3]
-    / "sql"
-    / "projections"
-    / "c03_nsw_year_check.sql"
-)
-
-MONTH_CHECK_SQL_PATH = (
-    Path(__file__).resolve().parents[3]
-    / "sql"
-    / "projections"
-    / "c03_nsw_month_check.sql"
-)
-
-SEMANTIC_CHECK_SQL_PATH = (
-    Path(__file__).resolve().parents[3]
-    / "sql"
-    / "projections"
-    / "c03_nsw_semantic_check.sql"
-)
-
-UNIT_CHECK_SQL_PATH = (
-    Path(__file__).resolve().parents[3]
-    / "sql"
-    / "projections"
-    / "c03_nsw_unit_check.sql"
-)
-
-CRASH_INSERT_SQL_PATH = (
-    Path(__file__).resolve().parents[3]
-    / "sql"
-    / "projections"
-    / "c03_nsw_crash_insert.sql"
-)
-
-UNIT_INSERT_SQL_PATH = (
-    Path(__file__).resolve().parents[3]
-    / "sql"
-    / "projections"
-    / "c03_nsw_unit_insert.sql"
-)
-
-PROJECTION_CHECK_SQL_PATH = (
-    Path(__file__).resolve().parents[3]
-    / "sql"
-    / "projections"
-    / "c03_nsw_projection_check.sql"
+SQL_DIR = Path(__file__).resolve().parents[3] / "sql" / "projections"
+COUNT_FIELDS = (
+    "No. killed",
+    "No. seriously injured",
+    "No. moderately injured",
+    "No. minor-other injured",
 )
 
 
-def _contract_by_id(
-    manifest: dict,
-    resource_id: str,
-) -> dict:
-    contracts = manifest["rules"]["contracts"]
-
-    matches = [
-        contract
-        for contract in contracts
-        if contract["id"] == resource_id
-    ]
-
+def _contract_by_id(manifest: dict, resource_id: str) -> dict:
+    matches = [c for c in manifest["rules"]["contracts"] if c["id"] == resource_id]
     if len(matches) != 1:
         raise ValueError(
-            f"expected exactly one contract for {resource_id}, "
-            f"found {len(matches)}"
+            f"expected exactly one contract for {resource_id}, found {len(matches)}"
         )
-
     return matches[0]
 
 
-def _mapping_by_id(
-    manifest: dict,
-    mapping_id: str,
-) -> dict:
-    mappings = manifest["rules"]["mappings"]
-
-    matches = [
-        mapping
-        for mapping in mappings
-        if mapping["id"] == mapping_id
-    ]
-
+def _mapping_by_id(manifest: dict, mapping_id: str) -> dict:
+    matches = [m for m in manifest["rules"]["mappings"] if m["id"] == mapping_id]
     if len(matches) != 1:
         raise ValueError(
-            f"expected exactly one mapping for {mapping_id}, "
-            f"found {len(matches)}"
+            f"expected exactly one mapping for {mapping_id}, found {len(matches)}"
         )
-
     return matches[0]
 
 
-def _load_sql(path: Path) -> str:
-    return path.read_text(encoding="utf-8")
+def _mapping(manifest, contract):
+    ids = contract["mapping_ids"]
+    if len(ids) != 1:
+        raise ValueError("NSW contracts must reference exactly one projection mapping")
+    mapping = _mapping_by_id(manifest, ids[0])
+    if not mapping.get("version"):
+        raise ValueError("NSW projection mapping needs a version")
+    return mapping
 
 
-def _validate_relationship_counts(
-    counts,
-) -> None:
+def _parameters(manifest, batch_id):
+    """Resolve roles and frozen definitions; resource IDs are never hardcoded."""
+    kind = manifest.get("dataset_kind")
+    if kind not in ("synthetic", "official"):
+        raise ValueError("NSW needs explicit synthetic/official dataset_kind")
+    years = manifest["analysis"]
+    lo, hi = years["year_from"], years["year_to"]
+    if type(lo) is not int or type(hi) is not int or not 1 <= lo <= hi <= 9999:
+        raise ValueError("NSW needs an inclusive calendar-year interval")
+    sources = [s for s in manifest["sources"] if s["jurisdiction_code"] == "NSW"]
+    if len(sources) != 1:
+        raise ValueError("NSW module requires exactly one selected NSW source")
+    source = sources[0]
+    sid = source["source_id"]
+    prefix = "syn_" if kind == "synthetic" else "official_"
+    if not sid.startswith(prefix):
+        raise ValueError("NSW source namespace disagrees with dataset_kind")
+    files = [f for f in manifest["files"] if f["source_id"] == sid]
+    contracts = []
+    for role, entity in (("crash", "crash"), ("traffic_unit", "unit")):
+        matches = [
+            f
+            for f in files
+            if f["resource_role"] == role and f["entity_kind"] == entity
+        ]
+        if len(matches) != 1:
+            raise ValueError(f"NSW needs exactly one {role} input")
+        selected = matches[0]
+        contract = _contract_by_id(manifest, selected["resource_id"])
+        expected_status = "synthetic_defined" if kind == "synthetic" else "confirmed"
+        if contract.get("status") != expected_status:
+            raise ValueError(
+                "NSW requires synthetic_defined/confirmed contracts; drafts cannot execute"
+            )
+        content = contract["content"]
+        if (
+            not contract.get("version")
+            or content["input"] != selected
+            or content["identity"]["release_scope"] != source["release_scope"]
+        ):
+            raise ValueError(
+                "NSW contract input/release differs from selected manifest"
+            )
+        if (
+            not selected["resource_id"].startswith(prefix)
+            or type(selected.get("raw_count")) is not int
+            or selected["raw_count"] < 0
+        ):
+            raise ValueError("NSW requires namespaced inputs and declared Raw counts")
+        contracts.append(contract)
+    crash, unit = contracts
+    crash_input, unit_input = (c["content"]["input"] for c in contracts)
+    ci, ui = (c["content"]["identity"] for c in contracts)
+    if (
+        ci["key"]["fields"] != ["Crash ID"]
+        or ci["parent"] is not None
+        or ui["key"]["fields"] != ["Crash ID", "Traffic unit ID"]
+        or ui["parent"]
+        != {
+            "resource_id": crash_input["resource_id"],
+            "fields": ["Crash ID"],
+            "parent_fields": ["Crash ID"],
+        }
+    ):
+        raise ValueError("NSW key/parent contract is unsupported")
+    cm, um = (_mapping(manifest, c) for c in contracts)
+    crash_map, unit_map = cm["content"], um["content"]
+    year_mapping = crash_map.get("occurrence_year")
+    month_mapping = crash_map.get("occurrence_month")
+    if isinstance(month_mapping, dict):
+        month_mapping = month_mapping.get("field")
+    if (
+        year_mapping != "Year of crash"
+        or month_mapping != "Month of crash"
+        or crash_map.get("severity_raw") != "Degree of crash - detailed"
+        or crash_map.get("fatality_count") != COUNT_FIELDS[0]
+        or crash_map.get("casualty_components") != list(COUNT_FIELDS)
+        or unit_map.get("unit_type_raw") != "TU type group"
+    ):
+        raise ValueError(
+            "Unsupported NSW field mapping; a changed operation needs an adapter"
+        )
+    version = crash["content"]["semantics"]["severity_definition_version"]
+    definitions = [s for s in manifest["rules"]["severity"] if s["source_id"] == sid]
+    codes = {s["severity_code"]: s for s in definitions}
+    if (
+        not definitions
+        or len(codes) != len(definitions)
+        or any(s["definition_version"] != version for s in definitions)
+        or "__MISSING__" not in codes
+        or codes["__MISSING__"]["is_fatal_crash"] is not None
+        or any(
+            type(s["is_fatal_crash"]) is not bool
+            for c, s in codes.items()
+            if c != "__MISSING__"
+        )
+    ):
+        raise ValueError("NSW severity definitions are incomplete/inconsistent")
+    native_codes = crash_map.get("native_severity_codes")
+    if native_codes is None:
+        if kind == "synthetic":
+            # B07 S0/S8 explicitly defines direct fictional codes.
+            if crash_map.get("severity_code", {}).get("mapping") != version:
+                raise ValueError(
+                    "Synthetic severity needs its declared direct-code mapping"
+                )
+            native_codes = {c: c for c in codes if c != "__MISSING__"}
+        elif cm["id"] == "nsw-crash-projection-v1":
+            # A04 v1 declares its exact English labels as the native NSW values.
+            native_codes = {
+                s["severity_label"]: c for c, s in codes.items() if c != "__MISSING__"
+            }
+        else:
+            raise ValueError("Official NSW needs explicit native_severity_codes")
+    if (
+        not isinstance(native_codes, dict)
+        or not native_codes
+        or any(
+            not isinstance(k, str)
+            or not k.strip()
+            or v not in codes
+            or v == "__MISSING__"
+            for k, v in native_codes.items()
+        )
+    ):
+        raise ValueError("NSW native severity mapping is invalid")
+    severity = {
+        k: {"code": v, "fatal": codes[v]["is_fatal_crash"]}
+        for k, v in native_codes.items()
+    }
+    unit_types = unit_map.get("unit_types")
+    if unit_types is None and kind == "official":
+        # Preserve source-specific native group names as codes, without pooling.
+        groups = unit["content"]["semantics"].get("unit_type_groups", [])
+        unit_types = {g: g for g in groups}
+    if (
+        not isinstance(unit_types, dict)
+        or not unit_types
+        or any(
+            not isinstance(k, str)
+            or not k.strip()
+            or not isinstance(v, str)
+            or not v.strip()
+            for k, v in unit_types.items()
+        )
+    ):
+        raise ValueError("NSW needs a nonempty frozen unit type mapping")
+    scope = unit_map.get("statistical_scope")
+    if not isinstance(scope, str) or not scope.strip():
+        raise ValueError("NSW needs a declared statistical_scope")
+    location = crash_map.get("location", {})
+    if kind == "synthetic" and location.get("crs") not in (None, "EPSG:4326"):
+        raise ValueError("Synthetic NSW location requires an implemented CRS operation")
+    if location and (
+        location.get("latitude") != "Latitude"
+        or location.get("longitude") != "Longitude"
+    ):
+        raise ValueError("Unsupported NSW location field mapping")
+    map_enabled = kind == "synthetic" and location.get("crs") == "EPSG:4326"
+    if map_enabled and not location.get("basis"):
+        raise ValueError("Synthetic NSW CRS requires its declared basis")
+    params = {
+        "batch_id": batch_id,
+        "source_id": sid,
+        "release_scope": source["release_scope"],
+        "year_from": lo,
+        "year_to": hi,
+        "dataset_kind": kind,
+        "severity_version": version,
+        "severity_map": json.dumps(severity),
+        "unit_types": json.dumps(unit_types),
+        "statistical_scope": scope,
+        "crash_contract_version": crash["version"],
+        "unit_contract_version": unit["version"],
+        "empty_is_missing": kind == "synthetic",
+        "map_enabled": map_enabled,
+        "location_evidence": location.get("basis", cm["id"] + ":" + cm["version"]),
+    }
+    for name, item in (("crash", crash_input), ("unit", unit_input)):
+        for field in ("resource_id", "file_sha256", "parser_version", "raw_count"):
+            params[name + "_" + field] = item[field]
+    return params
+
+
+def _load_sql(name):
+    return (SQL_DIR / name).read_text(encoding="utf-8")
+
+
+def _validate_relationship_counts(counts):
     if counts is None:
-        raise ValueError(
-            "NSW relationship check returned no result"
-        )
-
-    (
-        crash_blank_key_count,
-        crash_duplicate_key_count,
-        unit_blank_key_count,
-        unit_duplicate_key_count,
-        orphan_unit_count,
-    ) = counts
-
-    failures = {
-        "crash_blank_key_count":
-            crash_blank_key_count,
-        "crash_duplicate_key_count":
-            crash_duplicate_key_count,
-        "unit_blank_key_count":
-            unit_blank_key_count,
-        "unit_duplicate_key_count":
-            unit_duplicate_key_count,
-        "orphan_unit_count":
-            orphan_unit_count,
-    }
-
-    nonzero = {
-        name: value
-        for name, value in failures.items()
-        if value != 0
-    }
-
-    if nonzero:
-        raise ValueError(
-            f"NSW relationship validation failed: {nonzero}"
-        )
-
-
-def _validate_year(
-    cursor,
-    crash_input: dict,
-) -> None:
-    sql = _load_sql(YEAR_CHECK_SQL_PATH)
-
-    cursor.execute(
-        sql,
-        (
-            crash_input["source_id"],
-            crash_input["resource_id"],
-            crash_input["file_sha256"],
-            crash_input["parser_version"],
-        ),
+        raise ValueError("NSW relationship check returned no result")
+    names = (
+        "crash_blank_key_count",
+        "crash_duplicate_key_count",
+        "unit_blank_key_count",
+        "unit_duplicate_key_count",
+        "orphan_unit_count",
     )
+    failures = {n: v for n, v in zip(names, counts, strict=True) if v != 0}
+    if failures:
+        raise ValueError(f"NSW relationship validation failed: {failures}")
 
+
+def _check(cursor, filename, params, label):
+    cursor.execute(_load_sql(filename), params)
     result = cursor.fetchone()
-
-    if result is None:
-        raise ValueError(
-            "NSW year validation returned no result"
-        )
-
-    invalid_year_count = result[0]
-
-    if invalid_year_count != 0:
-        raise ValueError(
-            "NSW year validation failed: "
-            f"invalid_year_count={invalid_year_count}"
-        )
+    if result is None or any(result):
+        raise ValueError(f"NSW {label} validation failed: {result}")
 
 
-def _validate_month(
-    cursor,
-    crash_input: dict,
-) -> None:
-    sql = _load_sql(MONTH_CHECK_SQL_PATH)
-
-    cursor.execute(
-        sql,
-        (
-            crash_input["source_id"],
-            crash_input["resource_id"],
-            crash_input["file_sha256"],
-            crash_input["parser_version"],
-        ),
-    )
-
-    result = cursor.fetchone()
-
-    if result is None:
-        raise ValueError(
-            "NSW month validation returned no result"
-        )
-
-    unknown_month_count = result[0]
-
-    if unknown_month_count != 0:
-        raise ValueError(
-            "NSW month validation failed: "
-            f"unknown_month_count={unknown_month_count}"
-        )
-
-
-def _validate_semantics(
-    cursor,
-    crash_input: dict,
-) -> None:
-    sql = _load_sql(SEMANTIC_CHECK_SQL_PATH)
-
-    cursor.execute(
-        sql,
-        (
-            crash_input["source_id"],
-            crash_input["resource_id"],
-            crash_input["file_sha256"],
-            crash_input["parser_version"],
-        ),
-    )
-
-    result = cursor.fetchone()
-
-    if result is None:
-        raise ValueError(
-            "NSW semantic validation returned no result"
-        )
-
-    (
-        unknown_severity_count,
-        invalid_fatality_count,
-        invalid_serious_count,
-        invalid_moderate_count,
-        invalid_minor_other_count,
-    ) = result
-
-    failures = {
-        "unknown_severity_count":
-            unknown_severity_count,
-        "invalid_fatality_count":
-            invalid_fatality_count,
-        "invalid_serious_count":
-            invalid_serious_count,
-        "invalid_moderate_count":
-            invalid_moderate_count,
-        "invalid_minor_other_count":
-            invalid_minor_other_count,
-    }
-
-    nonzero = {
-        name: value
-        for name, value in failures.items()
-        if value != 0
-    }
-
-    if nonzero:
-        raise ValueError(
-            f"NSW semantic validation failed: {nonzero}"
-        )
-
-
-def _validate_unit_types(
-    cursor,
-    crash_input: dict,
-    unit_input: dict,
-) -> int:
-    sql = _load_sql(UNIT_CHECK_SQL_PATH)
-
-    cursor.execute(
-        sql,
-        (
-            crash_input["source_id"],
-            crash_input["resource_id"],
-            crash_input["file_sha256"],
-            crash_input["parser_version"],
-            unit_input["source_id"],
-            unit_input["resource_id"],
-            unit_input["file_sha256"],
-            unit_input["parser_version"],
-        ),
-    )
-
-    result = cursor.fetchone()
-
-    if result is None:
-        raise ValueError(
-            "NSW Traffic Unit validation returned no result"
-        )
-
-    (
-        missing_unit_type_count,
-        unknown_unit_type_count,
-    ) = result
-
-    if unknown_unit_type_count != 0:
-        raise ValueError(
-            "NSW Traffic Unit validation failed: "
-            f"unknown_unit_type_count="
-            f"{unknown_unit_type_count}"
-        )
-
-    return missing_unit_type_count
-
-
-def _check_projection(
-    cursor,
-    *,
-    batch_id,
-    source_id: str,
-    release_scope: str,
-    inserted_crash_count: int,
-    inserted_unit_count: int,
-) -> dict:
-    sql = _load_sql(PROJECTION_CHECK_SQL_PATH)
-
-    cursor.execute(
-        sql,
-        (
-            batch_id,
-            source_id,
-            release_scope,
-            batch_id,
-            source_id,
-            release_scope,
-        ),
-    )
-
-    result = cursor.fetchone()
-
-    if result is None:
-        raise ValueError(
-            "NSW projection reconciliation returned no result"
-        )
-
-    (
-        crash_projection_count,
-        unit_projection_count,
-        duplicate_crash_key_count,
-        duplicate_unit_key_count,
-        orphan_projected_unit_count,
-        fatal_crash_count,
-        fatality_count,
-        casualty_count,
-        map_eligible_count,
-    ) = result
-
-    blockers = {
-        "duplicate_crash_key_count":
-            duplicate_crash_key_count,
-        "duplicate_unit_key_count":
-            duplicate_unit_key_count,
-        "orphan_projected_unit_count":
-            orphan_projected_unit_count,
-        "map_eligible_count":
-            map_eligible_count,
-    }
-
-    nonzero_blockers = {
-        name: value
-        for name, value in blockers.items()
-        if value != 0
-    }
-
-    if nonzero_blockers:
-        raise ValueError(
-            "NSW projection reconciliation failed: "
-            f"{nonzero_blockers}"
-        )
-
-    if crash_projection_count != inserted_crash_count:
-        raise ValueError(
-            "NSW Crash projection count mismatch: "
-            f"inserted={inserted_crash_count}, "
-            f"selected={crash_projection_count}"
-        )
-
-    if unit_projection_count != inserted_unit_count:
-        raise ValueError(
-            "NSW Traffic Unit projection count mismatch: "
-            f"inserted={inserted_unit_count}, "
-            f"selected={unit_projection_count}"
-        )
-
-    return {
-        "crash_projection_count":
-            crash_projection_count,
-        "unit_projection_count":
-            unit_projection_count,
-        "duplicate_crash_key_count":
-            duplicate_crash_key_count,
-        "duplicate_unit_key_count":
-            duplicate_unit_key_count,
-        "orphan_projected_unit_count":
-            orphan_projected_unit_count,
-        "fatal_crash_count":
-            fatal_crash_count,
-        "fatality_count":
-            fatality_count,
-        "casualty_count":
-            casualty_count,
-        "map_eligible_count":
-            map_eligible_count,
-    }
-
-
-def project(
-    connection,
-    context,
-) -> None:
+def project(connection, context) -> None:
     manifest = context.manifest.as_dict()
-
-    crash_contract = _contract_by_id(
-        manifest,
-        NSW_CRASH_RESOURCE_ID,
-    )
-
-    unit_contract = _contract_by_id(
-        manifest,
-        NSW_TRAFFIC_UNIT_RESOURCE_ID,
-    )
-
-    crash_input = (
-        crash_contract["content"]["input"]
-    )
-
-    unit_input = (
-        unit_contract["content"]["input"]
-    )
-
-    unit_mapping_ids = unit_contract["mapping_ids"]
-
-    if len(unit_mapping_ids) != 1:
-        raise ValueError(
-            "NSW Traffic Unit contract must reference "
-            "exactly one projection mapping"
+    p = _parameters(manifest, context.batch_id)
+    if getattr(context, "dataset_kind", p["dataset_kind"]) != p["dataset_kind"]:
+        raise ValueError("NSW context and manifest dataset_kind differ")
+    with connection.cursor() as cursor:
+        # Full-snapshot completeness and relationships precede all year filtering.
+        for name in ("crash", "unit"):
+            cursor.execute(
+                "SELECT count(*) FROM raw.record WHERE source_id=%s AND resource_id=%s "
+                "AND file_sha256=%s AND parser_version=%s",
+                (
+                    p["source_id"],
+                    p[name + "_resource_id"],
+                    p[name + "_file_sha256"],
+                    p[name + "_parser_version"],
+                ),
+            )
+            actual = cursor.fetchone()[0]
+            if actual != p[name + "_raw_count"]:
+                raise ValueError(
+                    f"NSW incomplete Raw {name}: expected {p[name + '_raw_count']}, found {actual}"
+                )
+        cursor.execute(_load_sql("c03_nsw_relationship_check.sql"), p)
+        _validate_relationship_counts(cursor.fetchone())
+        for filename, label in (
+            ("c03_nsw_year_check.sql", "year"),
+            ("c03_nsw_month_check.sql", "month"),
+            ("c03_nsw_semantic_check.sql", "semantic"),
+            ("c03_nsw_unit_check.sql", "Traffic Unit"),
+        ):
+            _check(cursor, filename, p, label)
+        cursor.execute(_load_sql("c03_projection_tables.sql"))
+        # Preserve other modules' rows. Repeating this source within the transaction
+        # replaces only this exact batch/source/release projection.
+        for table in ("arsia_i_unit", "arsia_i_crash"):
+            cursor.execute(
+                f"DELETE FROM pg_temp.{table} WHERE batch_id=%s AND source_id=%s AND release_scope=%s",
+                (p["batch_id"], p["source_id"], p["release_scope"]),
+            )
+        cursor.execute(_load_sql("c03_nsw_crash_insert.sql"), p)
+        crash_count = cursor.rowcount
+        cursor.execute(_load_sql("c03_nsw_unit_insert.sql"), p)
+        unit_count = cursor.rowcount
+        cursor.execute(_load_sql("c03_nsw_projection_check.sql"), p)
+        row = cursor.fetchone()
+        names = (
+            "crash_projection_count",
+            "unit_projection_count",
+            "duplicate_crash_key_count",
+            "duplicate_unit_key_count",
+            "orphan_projected_unit_count",
+            "fatal_crash_count",
+            "fatality_count",
+            "casualty_count",
+            "map_eligible_count",
+            "missing_unit_type_count",
+            "invalid_unit_eligibility_count",
         )
-
-    unit_mapping = _mapping_by_id(
-        manifest,
-        unit_mapping_ids[0],
+        if row is None:
+            raise ValueError("NSW projection reconciliation returned no result")
+        counts = dict(zip(names, row, strict=True))
+        if (
+            row[0:2] != (crash_count, unit_count)
+            or min(crash_count, unit_count) < 0
+            or any(row[2:5])
+            or row[10]
+            or (not p["map_enabled"] and row[8])
+        ):
+            raise ValueError(f"NSW projection reconciliation failed: {counts}")
+    counts.update(
+        {
+            k: p[k]
+            for k in (
+                "source_id",
+                "release_scope",
+                "dataset_kind",
+                "year_from",
+                "year_to",
+            )
+        }
     )
-
-    batch_id = context.batch_id
-
-    cursor = connection.cursor()
-
-    # 1. Create temporary C-to-A projection tables.
-    cursor.execute(
-        _load_sql(PROJECTION_TABLES_SQL_PATH)
+    counts.update(
+        {
+            "raw_crash_count": p["crash_raw_count"],
+            "raw_unit_count": p["unit_raw_count"],
+            "excluded_crash_count": p["crash_raw_count"] - crash_count,
+            "excluded_unit_count": p["unit_raw_count"] - unit_count,
+        }
     )
-
-    # 2. Validate complete native Crash / Unit keys
-    # and relationships before year filtering.
-    relationship_sql = _load_sql(
-        RELATIONSHIP_SQL_PATH
-    )
-
-    cursor.execute(
-        relationship_sql,
-        (
-            crash_input["source_id"],
-            crash_input["resource_id"],
-            crash_input["file_sha256"],
-            crash_input["parser_version"],
-            unit_input["source_id"],
-            unit_input["resource_id"],
-            unit_input["file_sha256"],
-            unit_input["parser_version"],
-        ),
-    )
-
-    _validate_relationship_counts(
-        cursor.fetchone()
-    )
-
-    # 3-6. Source-semantic validation.
-    _validate_year(
-        cursor,
-        crash_input,
-    )
-
-    _validate_month(
-        cursor,
-        crash_input,
-    )
-
-    _validate_semantics(
-        cursor,
-        crash_input,
-    )
-
-    missing_unit_type_count = _validate_unit_types(
-        cursor,
-        crash_input,
-        unit_input,
-    )
-
-    # 7. Read frozen NSW rule values.
-    release_scope = (
-        crash_contract["content"]["identity"][
-            "release_scope"
-        ]
-    )
-
-    severity_definition_version = (
-        crash_contract["content"]["semantics"][
-            "severity_definition_version"
-        ]
-    )
-
-    unit_release_scope = (
-        unit_contract["content"]["identity"][
-            "release_scope"
-        ]
-    )
-
-    if unit_release_scope != release_scope:
-        raise ValueError(
-            "NSW Crash and Traffic Unit release scopes differ: "
-            f"{release_scope!r} != {unit_release_scope!r}"
-        )
-
-    if unit_input["source_id"] != crash_input["source_id"]:
-        raise ValueError(
-            "NSW Crash and Traffic Unit source IDs differ"
-        )
-
-    statistical_scope = (
-        unit_mapping["content"][
-            "statistical_scope"
-        ]
-    )
-
-    # 8. Insert Crash projection.
-    cursor.execute(
-        _load_sql(CRASH_INSERT_SQL_PATH),
-        (
-            batch_id,
-            release_scope,
-            severity_definition_version,
-            crash_input["source_id"],
-            crash_input["resource_id"],
-            crash_input["file_sha256"],
-            crash_input["parser_version"],
-        ),
-    )
-
-    crash_projection_count = cursor.rowcount
-
-    if crash_projection_count < 0:
-        raise ValueError(
-            "NSW Crash projection did not return "
-            "a valid inserted-row count"
-        )
-
-    # 9. Insert Traffic Unit projection.
-    cursor.execute(
-        _load_sql(UNIT_INSERT_SQL_PATH),
-        (
-            batch_id,
-            unit_release_scope,
-            statistical_scope,
-            crash_input["source_id"],
-            crash_input["resource_id"],
-            crash_input["file_sha256"],
-            crash_input["parser_version"],
-            unit_input["source_id"],
-            unit_input["resource_id"],
-            unit_input["file_sha256"],
-            unit_input["parser_version"],
-        ),
-    )
-
-    unit_projection_count = cursor.rowcount
-
-    if unit_projection_count < 0:
-        raise ValueError(
-            "NSW Traffic Unit projection did not return "
-            "a valid inserted-row count"
-        )
-
-    # 10. Reconcile the completed projection.
-    counts = _check_projection(
-        cursor,
-        batch_id=batch_id,
-        source_id=crash_input["source_id"],
-        release_scope=release_scope,
-        inserted_crash_count=crash_projection_count,
-        inserted_unit_count=unit_projection_count,
-    )
-
-    counts["missing_unit_type_count"] = (
-        missing_unit_type_count
-    )
-
-    counts["source_id"] = (
-        crash_input["source_id"]
-    )
-
-    counts["release_scope"] = (
-        release_scope
-    )
-
-    # 11. Record C03 build evidence for B10.
-    context.evidence.write_json(
-        "c03-nsw-projection-counts.json",
-        counts,
-    )
-    
+    context.evidence.write_json("c03-nsw-projection-counts.json", counts)
