@@ -1,10 +1,7 @@
 -- C03 C-to-A temporary projection contracts.
 -- These tables exist only in B's shared PostgreSQL session.
 
-DROP TABLE IF EXISTS pg_temp.arsia_i_crash;
-DROP TABLE IF EXISTS pg_temp.arsia_i_unit;
-
-CREATE TEMP TABLE arsia_i_crash (
+CREATE TEMP TABLE IF NOT EXISTS arsia_i_crash (
     batch_id uuid NOT NULL,
     source_id text NOT NULL,
     release_scope text NOT NULL,
@@ -28,10 +25,11 @@ CREATE TEMP TABLE arsia_i_crash (
     location_crs text,
     map_eligible boolean NOT NULL,
     location_record_id uuid,
-    quality_notes jsonb NOT NULL
-);
+    quality_notes jsonb NOT NULL,
+    CHECK (jsonb_typeof(quality_notes) = 'object')
+) ON COMMIT DROP;
 
-CREATE TEMP TABLE arsia_i_unit (
+CREATE TEMP TABLE IF NOT EXISTS arsia_i_unit (
     batch_id uuid NOT NULL,
     source_id text NOT NULL,
     release_scope text NOT NULL,
@@ -42,5 +40,7 @@ CREATE TEMP TABLE arsia_i_unit (
     unit_type_code text,
     statistical_scope text NOT NULL,
     count_eligible boolean NOT NULL,
-    quality_notes jsonb NOT NULL
-);
+    quality_notes jsonb NOT NULL,
+    CHECK (NOT count_eligible OR unit_type_code IS NOT NULL),
+    CHECK (jsonb_typeof(quality_notes) = 'object')
+) ON COMMIT DROP;

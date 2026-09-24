@@ -1,4 +1,5 @@
--- C03 NSW Crash projection
+-- Legacy partial inspection query; use nsw.project for the complete C01 rowset.
+-- Parameters: batch, release, source, resource, hash, parser, year_from, year_to.
 -- Relationship validation must already have passed before this query runs.
 
 SELECT
@@ -59,4 +60,4 @@ WHERE r.source_id = %s
   AND r.parser_version = %s
 
   AND (r.payload ->> 'Year of crash')::integer
-      BETWEEN 2020 AND 2024;
+      BETWEEN %s AND %s;
