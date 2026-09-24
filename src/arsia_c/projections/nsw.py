@@ -108,6 +108,24 @@ cursor.execute(
 
 traffic_unit_rows = cursor.fetchall()
 
+relationship_sql = _load_sql(RELATIONSHIP_SQL_PATH)
+
+cursor.execute(
+    relationship_sql,
+    (
+        crash_input["source_id"],
+        crash_input["resource_id"],
+        crash_input["file_sha256"],
+        crash_input["parser_version"],
+        unit_input["source_id"],
+        unit_input["resource_id"],
+        unit_input["file_sha256"],
+        unit_input["parser_version"],
+    ),
+)
+
+relationship_counts = cursor.fetchone()
+
     # C03 transformation will be added next.
     # Keep the full Raw crash snapshot at this stage.
     # Do not filter occurrence year yet.
