@@ -623,3 +623,99 @@ Before C08 QLD rules are frozen for official projection use, they must be
 checked against the latest D01 source contract/evidence for exact rule
 versions, missing-token treatment, coverage wording and remaining
 source-specific limitations.
+
+## 5. C08 implementation and freeze rules
+
+### 5.1 Projection requirements
+
+C03, C04 and C05 must apply the C08 rules before producing rows for
+Vault loading.
+
+Each projected crash must determine independently:
+
+- `fatal_crash_eligible`
+- `fatality_eligible`
+- `casualty_eligible`
+- `map_eligible`
+
+Each projected real unit must determine:
+
+- `count_eligible`
+
+A false eligibility flag must have corresponding structured evidence in
+`quality_notes`.
+
+Unknown, unsupported or invalid values must not be repaired through defaults.
+
+### 5.2 Blocking conditions
+
+The following conditions block semantic acceptance:
+
+- a new non-empty category not registered by the applicable versioned rule;
+- an invalid required key;
+- an invalid occurrence year/date;
+- malformed or negative required counts;
+- a derived count whose required known components do not reconcile;
+- an enabled definition whose meaning remains unconfirmed.
+
+A blocking value must not be made acceptable by setting all eligibility
+flags to false.
+
+### 5.3 Non-blocking unavailable measures
+
+A crash may remain usable for other measures when one metric is genuinely
+unavailable under a confirmed rule.
+
+Examples include:
+
+- known crash identity but unavailable fatality count;
+- known fatality count but unavailable casualty total;
+- valid non-spatial crash with unavailable official location.
+
+Known zero remains zero; unavailable remains NULL.
+
+### 5.4 Official location policy
+
+For the current first official version:
+
+- NSW official map: unavailable
+- VIC official map: unavailable
+- QLD official map: unavailable
+
+Synthetic S0/S8 location rules remain separate and continue to support their
+defined map scenarios.
+
+Official map restrictions must not change synthetic acceptance expectations.
+
+### 5.5 Source-rule ownership
+
+C08 consumes source decisions without redefining them:
+
+- NSW source semantics: A04
+- VIC source semantics/restrictions: B06 + C02/C06 restricted policy
+- QLD source semantics: D01
+
+If implementation conflicts with an adopted source decision, C must record
+the conflict rather than silently changing the source meaning.
+
+### 5.6 Current freeze status
+
+Shared rules: ready for implementation.
+
+NSW:
+- source contract confirmed;
+- bundle confirmed;
+- C08 rules ready for C03 implementation.
+
+VIC:
+- restricted profile adopted;
+- full bundle/contract not confirmed;
+- Accident-level restricted rules ready for C04 implementation;
+- C07 remains responsible for Node/location handling.
+
+QLD:
+- adopted project rules available for development;
+- final C08 freeze pending alignment with the latest D01 evidence.
+
+C08 may be used for synthetic and source-specific projection development
+while the remaining D01 alignment is tracked explicitly.
