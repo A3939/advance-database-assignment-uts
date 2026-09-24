@@ -1,0 +1,84 @@
+{
+  "validated_at": "2026-09-24",
+  "scope": "C09 component delivery; not full-project acceptance",
+  "source_base": "cc39c6ffda18ea02ce1b393beaded1e5d6379176",
+  "a06_dependency": "d30405eab42ffb2475dea9f7322e7b803b879963",
+  "a_migration_source": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
+  "b_compatibility_source": "bc4ed6b000a354babe3cab65e5b5028a41ae304a",
+  "environment": {
+    "python": "3.12.6",
+    "psycopg": "3.3.6",
+    "pytest": "8.4.2",
+    "postgresql": "16.15 (Debian 16.15-1.pgdg12+2)",
+    "role": "arsia_loader (NOSUPERUSER)"
+  },
+  "results": {
+    "default_c09": {
+      "tests": 65,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 27
+    },
+    "c09_with_current_b": {
+      "tests": 65,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "related_c09_c03_a06": {
+      "tests": 139,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "original_c09_regression_probes": {
+      "tests": 5,
+      "failures": 5,
+      "errors": 0,
+      "skipped": 0,
+      "expected_failures": 5,
+      "meaning": "Original C09 accepted four invalid crash/Node relationships and omitted a unit without its Link."
+    }
+  },
+  "verified_paths": [
+    "Actual B08 to C03 to A06 to C09: 19 native Raw rows, 2 NSW crashes, 3 units, 1 mapped crash.",
+    "C01 three-state expected projections through real B08/A06/C09: 6 crashes, 6 real units, 4 mapped crashes; all 24/11 fields match.",
+    "Normal B ModuleConnection, full caller rollback, successful history isolation and more than 1000 rows."
+  ],
+  "database_rows_after_rollback": {
+    "raw.record": 0,
+    "rv.sat_crash": 0,
+    "rv.sat_unit": 0,
+    "canonical.crash": 0,
+    "canonical.unit": 0,
+    "meta.batch": 0
+  },
+  "limitations": [
+    "The three-state boundary uses C01 expected projections; C04/C05 callbacks are not executed.",
+    "C07 owns complete Node observation agreement and CRS policy; C09 validates selected location lineage.",
+    "No real FP1/full inventory build, official-source acceptance, C10 QA persistence, DW or publication is claimed."
+  ],
+  "sha256": {
+    "src/arsia_c/canonical.py": "5170b5e40de03a746e5a9663c2b00348ac00e1075afcb021085ce45aec333bf5",
+    "src/arsia_c/canonical_validation.py": "87bbdad1e9577b25f6c4a26edb03301a4c13009e0c8b5c43ebd000bbe2ded2c2",
+    "src/arsia_ingest/vault_load.py": "90cd7acf8e04011f6fe13f0550005cfb2d1cd95d52035635d0fd319b41655e26",
+    "tests/test_c09_canonical.py": "c181656e420457b2b730d029b98d4a9b75d44cec06419d8ac6a2c63acb0352dd",
+    "tests/test_c09_postgres.py": "e723a9043162497429e2ec1654efbc107b04c1a74e800a7f77624f3a3646f057",
+    "tests/test_c09_acceptance_postgres.py": "e6e489685f637fc3029db9f9ae888f552a4d7f6edf1465facc5e3a3233bfc827",
+    "tests/test_vault_load_postgres.py": "6dd8b717606072989e2f282418f397970b84993b7b8acbbbb784b568a86761ad",
+    "docs/role-c/c09-canonical.md": "3b67f50c8adaf49c4d46931ef501ac61f2f06ed491f4cc1a86121acfd59ae689"
+  },
+  "migration_sha256": {
+    "001_meta_registry.sql": "b44608c4baee8ce1d4ac6c3912a1a7d671772a1b305a32976b10f7bf00fe1893",
+    "002_raw_record.sql": "550c022b204380af2c0b2ffffc48295df3b562fd217f99a62f392d8db15eb059",
+    "003_b08_loader_role.sql": "e84a2d122bcb8f5edd6ffeb9974ef48eac3910ae801d5a929286734978f9269d",
+    "004_meta_batch.sql": "5c828f4071cab7ea097ee5b001aa6aca8fb567f04889a091a02842cf14fbb801",
+    "005_raw_vault.sql": "36fedf6f1c6b128e8006ad2e76815c44099c5557de8140deb04e599d4c4f14f8",
+    "006_canonical.sql": "c6b414f581d15183d89d98bebda71f373827a945d9e3eb2d9a60e699054e37dd",
+    "007_warehouse.sql": "32add012cc1f2919e0aa07926fea86922999b02dd37bb070e4bb2b6247fc87ee",
+    "008_qa.sql": "408c3775b218808fceb40a4119f8e5f20735664e1775671f5876d838b6219e29",
+    "009_database_roles.sql": "cd1b8f3c4969111cab71777ea063dfe89e69dc29566dbd779c708e2f889d03d5",
+    "010_business_key.sql": "de7a14a6df0c0336c7f40c2178159e0f53a4f702da44cde9a20c53a95443d922",
+    "011_review_validation_fixes.sql": "fb4d03819dbb4a37366aa5b3cb59fe4e8bec0d76eae3fcfbc3783ebb13f51de6"
+  }
+}
