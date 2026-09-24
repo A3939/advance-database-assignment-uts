@@ -17,13 +17,13 @@ import pytest
 
 from arsia_c.canonical import load_canonical
 from arsia_ingest.vault_load import load_vault
-
+from arsia_ingest.runner import ModuleConnection
 
 pytestmark = pytest.mark.skipif(
     "ARSIA_TEST_DSN" not in os.environ,
     reason=(
         "Set ARSIA_TEST_DSN to A's migrated PostgreSQL 16 "
-        "test database with migrations through 006_canonical.sql"
+        "test database with migrations through 011_review_validation_fixes.sql"
     ),
 )
 
@@ -128,13 +128,15 @@ def connection():
         )
     except psycopg.Error as exc:
         pytest.fail(
-            "Test database connection failed "
-            f"({type(exc).__name__})",
+            "Test database connection failed " f"({type(exc).__name__})",
             pytrace=False,
         )
 
     try:
         assert conn.info.server_version // 10000 == 16
+        assert conn.execute(
+            "SELECT current_user, rolsuper FROM pg_roles WHERE rolname=current_user"
+        ).fetchone() == ("arsia_loader", False)
 
         required_tables = (
             "meta.source",
@@ -158,7 +160,7 @@ def connection():
 
             assert exists, (
                 f"{table} is not installed; apply the shared "
-                "PostgreSQL migrations through 006_canonical.sql"
+                "PostgreSQL migrations through 011_review_validation_fixes.sql"
             )
 
         conn.rollback()
@@ -177,12 +179,8 @@ class C09Case:
         self.source_id = f"syn_c09_{token}"
         self.release_scope = f"c09_test_{token}"
 
-        self.crash_resource_id = (
-            f"{self.source_id}_crash"
-        )
-        self.unit_resource_id = (
-            f"{self.source_id}_unit"
-        )
+        self.crash_resource_id = f"{self.source_id}_crash"
+        self.unit_resource_id = f"{self.source_id}_unit"
 
         self.crash_sha = "a" * 64
         self.unit_sha = "b" * 64
@@ -264,11 +262,7 @@ class C09Case:
             (
                 self.batch_id,
                 "c" * 64,
-                json.dumps(
-                    {
-                        "test": "C09 A06-to-Canonical integration"
-                    }
-                ),
+                json.dumps({"test": "C09 A06-to-Canonical integration"}),
             ),
         )
 
@@ -368,7 +362,12 @@ class C09Case:
                 self.crash_raw_id,
                 json.dumps(
                     {
-                        "location": "crs_unconfirmed"
+                        "location": {
+                            "reason_code": "crs_unconfirmed",
+                            "candidate_raw_record_ids": [],
+                            "resolution": "Retain the crash without trusted coordinates.",
+                            "evidence_ref": "synthetic:C09",
+                        }
                     }
                 ),
             ),
@@ -409,7 +408,7 @@ class C09Case:
         )
 
     def _manifest(self):
-        return {
+        manifest = {
             "sources": [
                 {
                     "source_id": self.source_id,
@@ -434,14 +433,49 @@ class C09Case:
             ],
         }
 
+        manifest["rules"] = {
+            "contracts": [
+                {
+                    "id": f["resource_id"],
+                    "version": "c09-fixture-v1",
+                    "status": "synthetic_defined",
+                    "content": {
+                        "input": dict(f),
+                        "identity": {
+                            "release_scope": self.release_scope,
+                            "key": {
+                                "fields": ["Crash ID"]
+                                + (
+                                    ["Traffic unit ID"]
+                                    if f["entity_kind"] == "unit"
+                                    else []
+                                )
+                            },
+                            "parent": (
+                                {
+                                    "resource_id": self.crash_resource_id,
+                                    "fields": ["Crash ID"],
+                                    "parent_fields": ["Crash ID"],
+                                }
+                                if f["entity_kind"] == "unit"
+                                else None
+                            ),
+                        },
+                    },
+                }
+                for f in manifest["files"]
+            ]
+        }
+        return manifest
+
     def load_vault_then_canonical(self):
         load_vault(
-            self.connection,
+            ModuleConnection(self.connection),
             self.context,
         )
 
         load_canonical(
-            self.connection,
+            ModuleConnection(self.connection),
             self.context,
         )
 
@@ -530,7 +564,12 @@ def test_c09_loads_selected_satellites_into_canonical(
     )
 
     assert crash[23] == {
-        "location": "crs_unconfirmed"
+        "location": {
+            "reason_code": "crs_unconfirmed",
+            "candidate_raw_record_ids": [],
+            "resolution": "Retain the crash without trusted coordinates.",
+            "evidence_ref": "synthetic:C09",
+        }
     }
 
     unit = c09_case.connection.execute(
@@ -614,21 +653,15 @@ def test_c09_records_canonical_evidence(
 ):
     c09_case.load_vault_then_canonical()
 
-    evidence = c09_case.context.evidence.files[
-        "c09-canonical-counts.json"
-    ]
+    evidence = c09_case.context.evidence.files["c09-canonical-counts.json"]
 
-    assert evidence["batch_id"] == str(
-        c09_case.batch_id
-    )
+    assert evidence["batch_id"] == str(c09_case.batch_id)
 
     assert evidence["crash_count"] == 1
     assert evidence["unit_count"] == 1
     assert evidence["raw_recomputed"] is False
 
-    assert evidence["sources"][
-        c09_case.source_id
-    ] == {
+    assert evidence["sources"][c09_case.source_id] == {
         "crash_count": 1,
         "unit_count": 1,
     }
