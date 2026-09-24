@@ -37,8 +37,7 @@ def _crash_row():
     return {
         "batch_id": BATCH_ID,
         "source_id": "official_nsw",
-        "release_scope":
-            "nsw_pinned_2020_2024_v1",
+        "release_scope": "nsw_pinned_2020_2024_v1",
         "crash_key": '["000123"]',
         "raw_record_id": CRASH_RAW_ID,
         "attributes": {
@@ -48,8 +47,7 @@ def _crash_row():
             "date_precision": "month",
             "severity_raw": "Fatal",
             "severity_code": "FATAL",
-            "severity_definition_version":
-                "nsw-crash-severity-v1",
+            "severity_definition_version": "nsw-crash-severity-v1",
             "is_fatal_crash": True,
             "fatality_count": 1,
             "casualty_count": 1,
@@ -72,19 +70,15 @@ def _unit_row():
     return {
         "batch_id": BATCH_ID,
         "source_id": "official_nsw",
-        "release_scope":
-            "nsw_pinned_2020_2024_v1",
+        "release_scope": "nsw_pinned_2020_2024_v1",
         "unit_key": '["000123", "01"]',
         "crash_key": '["000123"]',
         "raw_record_id": UNIT_RAW_ID,
         "attributes": {
             "crash_key": '["000123"]',
-            "unit_type_raw":
-                "Car/car derivative",
-            "unit_type_code":
-                "Car/car derivative",
-            "statistical_scope":
-                "NSW traffic units",
+            "unit_type_raw": "Car/car derivative",
+            "unit_type_code": "Car/car derivative",
+            "statistical_scope": "NSW traffic units",
             "count_eligible": True,
             "quality_notes": {},
         },
@@ -100,10 +94,7 @@ def test_crash_parameters_rebuild_fixed_contract():
 
     assert parameters[0] == BATCH_ID
     assert parameters[1] == "official_nsw"
-    assert (
-        parameters[2]
-        == "nsw_pinned_2020_2024_v1"
-    )
+    assert parameters[2] == "nsw_pinned_2020_2024_v1"
     assert parameters[3] == '["000123"]'
     assert parameters[4] == CRASH_RAW_ID
     assert parameters[5] == 2020
@@ -118,7 +109,6 @@ def test_crash_parameters_rebuild_fixed_contract():
 
 def test_crash_rejects_wrong_batch():
     row = _crash_row()
-
     row["batch_id"] = UUID(
         "00000000-0000-0000-0000-000000000999"
     )
@@ -136,7 +126,6 @@ def test_crash_rejects_wrong_batch():
 
 def test_crash_rejects_scope_outside_manifest():
     row = _crash_row()
-
     row["release_scope"] = "wrong-release"
 
     with pytest.raises(
@@ -152,7 +141,6 @@ def test_crash_rejects_scope_outside_manifest():
 
 def test_crash_rejects_missing_attribute():
     row = _crash_row()
-
     del row["attributes"]["casualty_count"]
 
     with pytest.raises(
@@ -178,24 +166,14 @@ def test_unit_parameters_keep_link_parent():
     assert parameters[3] == '["000123", "01"]'
     assert parameters[4] == '["000123"]'
     assert parameters[5] == UNIT_RAW_ID
-    assert (
-        parameters[6]
-        == "Car/car derivative"
-    )
-    assert (
-        parameters[7]
-        == "Car/car derivative"
-    )
-    assert (
-        parameters[8]
-        == "NSW traffic units"
-    )
+    assert parameters[6] == "Car/car derivative"
+    assert parameters[7] == "Car/car derivative"
+    assert parameters[8] == "NSW traffic units"
     assert parameters[9] is True
 
 
 def test_unit_rejects_parent_mismatch():
     row = _unit_row()
-
     row["attributes"]["crash_key"] = '["999999"]'
 
     with pytest.raises(
