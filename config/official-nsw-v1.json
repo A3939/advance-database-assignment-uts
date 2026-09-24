@@ -2,8 +2,9 @@
   "source_contract_version": "nsw-source-contract-v1",
   "team_contract_version": "team-v1.1",
   "dataset_kind": "official",
-  "status": "confirmed",
+  "status": "draft",
   "owner": "Role A / JJ",
+  "owner_investigation_status": "completed",
   "confirmed_by": "Role A / JJ",
   "reviewed_by": null,
   "checked_at": "2026-09-23",
@@ -44,7 +45,7 @@
       "resource_id": "official_nsw_crash",
       "contract_version": "nsw-crash-contract-v1",
       "mapping_ids": ["nsw-crash-projection-v1"],
-      "status": "confirmed",
+      "status": "draft",
       "input": {
         "source_id": "official_nsw",
         "resource_id": "official_nsw_crash",
@@ -166,7 +167,7 @@
       "resource_id": "official_nsw_traffic_unit",
       "contract_version": "nsw-traffic-unit-contract-v1",
       "mapping_ids": ["nsw-traffic-unit-projection-v1"],
-      "status": "confirmed",
+      "status": "draft",
       "input": {
         "source_id": "official_nsw",
         "resource_id": "official_nsw_traffic_unit",
@@ -368,13 +369,13 @@
     }
   },
   "confirmation": {
-    "status": "confirmed",
+    "status": "draft",
     "owner": "Role A / JJ",
     "confirmed_by": "Role A / JJ",
     "reviewed_by": null,
     "checked_at": "2026-09-23",
     "bundle_confirmed": true,
-    "contract_confirmed": true,
+    "contract_confirmed": false,
     "references": [
       "config/native-inputs.json",
       "docs/sources/evidence/nsw/nsw-source-validation-2026-09-23.json",
@@ -382,7 +383,7 @@
       "https://www.data.nsw.gov.au/data/dataset/2-nsw-crash-data",
       "https://opendata.transport.nsw.gov.au/data/dataset/06f9cf3d-0a9d-4098-b0f0-fa9efbdd3921/resource/ceafc11f-49a9-441d-b0b4-f53019ee00e1/download/data-manual-static-for-open-data-20211020.pdf"
     ],
-    "unresolved": [],
+    "unresolved": ["Role C review of the exact NSW resources, hashes, release scope and source semantics is pending; official activation/publication remains blocked."],
     "publisher_questions": [
       "The publisher does not state an official release-version identifier for this pair.",
       "The licence page names Creative Commons Attribution but does not state a version.",
@@ -394,7 +395,7 @@
       "State-specific severity and traffic-unit definitions must not be pooled with superficially similar VIC or QLD categories."
     ],
     "downstream_requirements": [
-      "Role C projection and QA modules consume these confirmed source rules without changing their meaning.",
+      "Role C reviews these draft source rules against the retained evidence before official activation; development must preserve their recorded meaning.",
       "Projection and QA modules use occurrence year/month and preserve all Raw rows.",
       "Any future map feature remains unavailable until a separately reviewed datum and transformation version is supplied."
     ]

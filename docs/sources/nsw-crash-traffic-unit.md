@@ -1,6 +1,6 @@
 # A04: NSW Crash and Traffic Unit source confirmation
 
-Role A has confirmed this source decision under A04. The machine-readable contract is [official-nsw-v1.json](../../config/official-nsw-v1.json), the local scan is [nsw-source-validation-2026-09-23.json](evidence/nsw/nsw-source-validation-2026-09-23.json), and the downstream handoff is [nsw-source-confirmation-2026-09-23.json](evidence/nsw/nsw-source-confirmation-2026-09-23.json). `reviewed_by` is intentionally null because no Role C review is claimed or required for A04 completion.
+Role A has completed the source investigation under A04; official contract confirmation remains pending Role C review. The machine-readable contract is [official-nsw-v1.json](../../config/official-nsw-v1.json), the local scan is [nsw-source-validation-2026-09-23.json](evidence/nsw/nsw-source-validation-2026-09-23.json), and the downstream handoff is [nsw-source-confirmation-2026-09-23.json](evidence/nsw/nsw-source-confirmation-2026-09-23.json). `reviewed_by` remains null because no Role C review is recorded. Owner investigation completion does not satisfy the joint source-owner/C confirmation required by [05 §5](https://arsia-team-design.vercel.app/?lang=en#sources) and [04 §8 / DEC04](https://arsia-team-design.vercel.app/?lang=en#contracts).
 
 ## Selected official snapshot
 
@@ -46,10 +46,12 @@ The data describes a revisable reported snapshot of police-reported public-road 
 
 Role A confirms the exact hashes, inputs, keys, pairing basis, time rules, severity and count definitions, TU categories and no-map rule. The two source contracts are versioned `nsw-crash-contract-v1` and `nsw-traffic-unit-contract-v1`; their mappings are `nsw-crash-projection-v1` and `nsw-traffic-unit-projection-v1`; severity uses `nsw-crash-severity-v1`. These are ARSIA project rule versions, not publisher release versions.
 
-- both contracts have `status=confirmed`;
+- both contracts have `status=draft` until C reviews them;
 - `confirmed_by` is `Role A / JJ`;
 - `reviewed_by` remains `null` because no C review is claimed;
-- `contract_confirmed` and `bundle_confirmed` are true;
-- there are no unresolved blockers to the enabled NSW crash and traffic-unit products.
+- `contract_confirmed=false`; `bundle_confirmed=true` retains the documented pairing finding;
+- `unresolved` records the pending C review, which blocks official activation/publication. The previously recorded source limitations remain in force.
 
-Role C receives these decisions as projection and QA inputs. C must keep maps disabled, preserve all Raw rows and report any implementation conflict rather than silently changing the source semantics. Database projection, downstream QA and publication remain separate tasks; their absence does not make the A04 source decision incomplete.
+Role C can use these investigated rules for development and review. C must keep maps disabled, preserve all Raw rows and report any implementation conflict rather than silently changing source semantics.
+
+To close the confirmation gate, A and C must record C's real reviewer identity, review date, evidence references and issue dispositions for each exact resource/hash/release scope in the handoff. After that review, update both per-resource records, the corresponding contract statuses and the package confirmation together, then provide the `reviews` array to B's QA01 and retain a passing result. Do not invent a reviewer, waive a null `reviewed_by`, or treat this metadata correction as publication acceptance. E still records DEC04 and the remaining build/publication gates apply.
