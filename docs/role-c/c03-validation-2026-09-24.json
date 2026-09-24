@@ -1,0 +1,124 @@
+{
+  "checked_at": "2026-09-24T10:42:19.339893+00:00",
+  "scope": "C03 component implementation, SQL and database validation; not full-project acceptance",
+  "reviewed_c03_commit": "e381d5ac84427f8e29e7be11497c7fd4e7ecf6cf",
+  "pr_branch_base": "6f2e1accfd761b8e9f5744429adbcf5e113fe430",
+  "a_migration_commit": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
+  "b_compatibility_commit": "bc4ed6b000a354babe3cab65e5b5028a41ae304a",
+  "environment": {
+    "database_user": "arsia_loader",
+    "postgresql": "16.15 (Debian 16.15-1.pgdg12+2)",
+    "encoding": "UTF8",
+    "timezone": "UTC",
+    "superuser": false
+  },
+  "python": "3.12.6",
+  "psycopg": "3.3.6",
+  "results": {
+    "c03_with_latest_b": {
+      "tests": 67,
+      "passed": 67,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "c03_and_related_b_tests": {
+      "tests": 201,
+      "passed": 201,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "original_code_regression_probes": {
+      "tests": 4,
+      "passed": 0,
+      "failed": 4,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "original_regressions": [
+    "Canonical rejects count_eligible=true with NULL unit_type_code",
+    "2019 manifest interval ignored",
+    "Other source temporary rows erased",
+    "B09 synthetic resource IDs rejected"
+  ],
+  "test_groups": {
+    "unit": 25,
+    "postgresql": 42
+  },
+  "s0_assertions": {
+    "native_rows_loaded": 19,
+    "nsw_crashes": 2,
+    "nsw_real_units": 3,
+    "nsw_map_eligible": 1,
+    "fatal_crashes": 1,
+    "fatalities": 2,
+    "casualties": 3,
+    "raw_unchanged": true,
+    "real_lineage": true,
+    "caller_rollback_verified": true
+  },
+  "database_raw_rows_after_tests": 0,
+  "checks_include": [
+    "A02/011 CHECK constraints on actual projected rows",
+    "Role arsia_loader without superuser",
+    "Non-default and empty analysis intervals",
+    "Full-snapshot orphan/duplicate/Unicode-blank keys",
+    "Missing, undefined, negative and overflowing counts",
+    "Synthetic coordinate precision, invalid values and real lineage",
+    "Official map-disabled policy with artificial rows",
+    "Incomplete Raw rejection",
+    "Source-scoped repeat projection",
+    "Versioned unit mapping and structured reasons"
+  ],
+  "limitations": [
+    "S0 component snapshot uses actual B09 definitions; it is not a full frozen build inventory or FP1 result.",
+    "Temporary copies of Canonical CHECK constraints test C03 output; A06/C09 are not executed.",
+    "Official policy cases use artificial rows and contract declarations; no real official approval is inferred.",
+    "No C10 persisted QA or full build/publication acceptance is claimed.",
+    "Focused source checkout; this is not a run of all Role C tests."
+  ],
+  "modified_code_sha256": {
+    "sql/projections/c03_nsw_crash_insert.sql": "d1e78ff96178a6c43305cb0b249b935c4e71e9f24594ab4ca23540aecc0ee5bc",
+    "sql/projections/c03_nsw_crash_projection.sql": "692e16e6fbf0f4976bf9da57921da9ed5a39753c52149d01f156a40fdc71fd6f",
+    "sql/projections/c03_nsw_month_check.sql": "52a63e6be5132b8064b9f88541af57acca5f7907016bc7baa2a74f42ee4aa438",
+    "sql/projections/c03_nsw_projection_check.sql": "4e57e39ce2919cb5af2567ddae69a4c68f12345f5e8403b398be2d7654e2072b",
+    "sql/projections/c03_nsw_relationship_check.sql": "996335de7b30d15dcde86535793aba66ca48e41d4807b372964d87e57025cebc",
+    "sql/projections/c03_nsw_semantic_check.sql": "fb71f3ec1454b8a5ee212aa28ee8c956cdfd8987b8eaa97ecdf0406feb0bf547",
+    "sql/projections/c03_nsw_unit_check.sql": "8b9fe0f1769a6660c6433913a5e56657e01cff6237a51f6d77542317daa41401",
+    "sql/projections/c03_nsw_unit_insert.sql": "851336d277c0e0fb25c74193ee5e263aba9f01a5b62006bb68c68c8865185093",
+    "sql/projections/c03_nsw_year_check.sql": "77b142636574e5559351bd651c5317faea6594c588ce96422b314c479c1419a6",
+    "sql/projections/c03_projection_tables.sql": "828410b21258663d63a2737e0ba612ae33bbae6849c2fbdc09dac1deb38ae15d",
+    "src/arsia_c/projections/nsw.py": "0a5543b8e9219724d6c503ee80f28d843e877bf3d5c4ffca16056fa2dae6aef7",
+    "tests/test_c03_nsw_postgres.py": "10c352eadfe9976c063ef7b485b4f0dbd6c6842fa5badcf35f5a57d03a6ed49b",
+    "tests/test_c03_nsw_projection.py": "f4c316372e92ec5edc3e772e2faea002ca4622daf413e559e25fb1697a012e46"
+  },
+  "a_migration_sha256": {
+    "001_meta_registry.sql": "b44608c4baee8ce1d4ac6c3912a1a7d671772a1b305a32976b10f7bf00fe1893",
+    "002_raw_record.sql": "550c022b204380af2c0b2ffffc48295df3b562fd217f99a62f392d8db15eb059",
+    "003_b08_loader_role.sql": "e84a2d122bcb8f5edd6ffeb9974ef48eac3910ae801d5a929286734978f9269d",
+    "004_meta_batch.sql": "5c828f4071cab7ea097ee5b001aa6aca8fb567f04889a091a02842cf14fbb801",
+    "005_raw_vault.sql": "36fedf6f1c6b128e8006ad2e76815c44099c5557de8140deb04e599d4c4f14f8",
+    "006_canonical.sql": "c6b414f581d15183d89d98bebda71f373827a945d9e3eb2d9a60e699054e37dd",
+    "007_warehouse.sql": "32add012cc1f2919e0aa07926fea86922999b02dd37bb070e4bb2b6247fc87ee",
+    "008_qa.sql": "408c3775b218808fceb40a4119f8e5f20735664e1775671f5876d838b6219e29",
+    "009_database_roles.sql": "cd1b8f3c4969111cab71777ea063dfe89e69dc29566dbd779c708e2f889d03d5",
+    "010_business_key.sql": "de7a14a6df0c0336c7f40c2178159e0f53a4f702da44cde9a20c53a95443d922",
+    "011_review_validation_fixes.sql": "fb4d03819dbb4a37366aa5b3cb59fe4e8bec0d76eae3fcfbc3783ebb13f51de6"
+  },
+  "b_interface_sha256": {
+    "arsia_ingest.manifest": {
+      "path": "src/arsia_ingest/manifest.py",
+      "sha256": "288bddf9f2b29522a8c05c9d49f55280e6920d3abf6ace3117812d363c78da85"
+    },
+    "arsia_ingest.raw_load": {
+      "path": "src/arsia_ingest/raw_load.py",
+      "sha256": "7d5fbc8af504dd4916a3083797beb1aa692234b0026ffd1983e254f72c4787e0"
+    },
+    "arsia_ingest.runner": {
+      "path": "src/arsia_ingest/runner.py",
+      "sha256": "e485e0a49cc11bc2b10f5e3c9cb43e76f5d2e927f6f542628850bbff361d43cb"
+    }
+  }
+}
