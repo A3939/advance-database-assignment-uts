@@ -48,6 +48,36 @@ def _contract_by_id(manifest: dict, resource_id: str) -> dict:
 def _load_sql(path: Path) -> str:
     return path.read_text(encoding="utf-8")
 
+def _validate_relationship_counts(counts) -> None:
+    if counts is None:
+        raise ValueError("NSW relationship check returned no result")
+
+    (
+        crash_blank_key_count,
+        crash_duplicate_key_count,
+        unit_blank_key_count,
+        unit_duplicate_key_count,
+        orphan_unit_count,
+    ) = counts
+
+    failures = {
+        "crash_blank_key_count": crash_blank_key_count,
+        "crash_duplicate_key_count": crash_duplicate_key_count,
+        "unit_blank_key_count": unit_blank_key_count,
+        "unit_duplicate_key_count": unit_duplicate_key_count,
+        "orphan_unit_count": orphan_unit_count,
+    }
+
+    nonzero = {
+        name: value
+        for name, value in failures.items()
+        if value != 0
+    }
+
+    if nonzero:
+        raise ValueError(
+            f"NSW relationship validation failed: {nonzero}"
+        )
 
 def project(connection, context) -> None:
     manifest = context.manifest.as_dict()
@@ -105,7 +135,6 @@ cursor.execute(
         unit_input["parser_version"],
     ),
 )
-
 traffic_unit_rows = cursor.fetchall()
 
 relationship_sql = _load_sql(RELATIONSHIP_SQL_PATH)
@@ -125,8 +154,9 @@ cursor.execute(
 )
 
 relationship_counts = cursor.fetchone()
+_validate_relationship_counts(relationship_counts)
 
-    # C03 transformation will be added next.
+# C03 transformation will be added next.
     # Keep the full Raw crash snapshot at this stage.
     # Do not filter occurrence year yet.
 
