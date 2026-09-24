@@ -486,3 +486,140 @@ Unknown definitions remain visible and version-bound.
 
 Any new source bytes, new category, changed exception set or expanded output
 scope requires a new reviewed rule version.
+
+
+## 4. QLD semantic rules
+
+> Status: adopted project rules for development.
+> Final freeze remains subject to alignment with the latest D01 source evidence.
+
+### 4.1 Rule scope
+
+Source:
+
+`official_qld`
+
+The selected source is the pinned QLD crash-location CSV.
+
+QLD is a crash-grain source. Aggregate `Count_Unit_*` fields remain
+attributes of the crash source and must not be expanded into artificial
+Person or Unit rows.
+
+### 4.2 Crash identity and occurrence time
+
+Crash identity uses:
+
+`Crash_Ref_Number`
+
+`Crash_Ref_Number` must be preserved as opaque native text.
+
+The identifier must not be parsed to infer occurrence year, even where
+publisher documentation suggests a year-based format.
+
+Occurrence time uses:
+
+- year: `Crash_Year`
+- month: `Crash_Month`
+
+`occurrence_date = NULL`.
+
+Date precision is:
+
+- `month` when the declared month is valid and known;
+- `year` only under a contract-declared missing month.
+
+Unknown non-empty month values must block rather than being converted to
+year precision.
+
+### 4.3 Severity classification
+
+Source field:
+
+`Crash_Severity`
+
+Registered categories:
+
+- `Fatal`
+- `Hospitalisation`
+- `Medical treatment`
+- `Minor injury`
+- `Property damage only`
+- native missing → `__MISSING__`
+
+`Fatal` maps to `is_fatal_crash=true`.
+
+Other registered non-missing categories map to
+`is_fatal_crash=false`.
+
+A new non-empty category must not be silently mapped to false,
+missing or another source category.
+
+### 4.4 Fatality and casualty counts
+
+Fatality count:
+
+`Count_Casualty_Fatality`
+
+Casualty count:
+
+`Count_Casualty_Total`
+
+The total casualty count must be checked against:
+
+- `Count_Casualty_Fatality`
+- `Count_Casualty_Hospitalised`
+- `Count_Casualty_MedicallyTreated`
+- `Count_Casualty_MinorInjury`
+
+Unknown required inputs remain NULL and make the corresponding
+metric ineligible.
+
+Negative, malformed or unexplained inconsistent values block.
+
+### 4.5 Aggregate unit attributes
+
+The following fields remain crash-level aggregate source attributes:
+
+- `Count_Unit_Car`
+- `Count_Unit_Motorcycle_Moped`
+- `Count_Unit_Truck`
+- `Count_Unit_Bus`
+- `Count_Unit_Bicycle`
+- `Count_Unit_Pedestrian`
+- `Count_Unit_Other`
+
+C08 must not expand these counts into individual Person or Unit rows.
+
+No Canonical unit rows may be fabricated from QLD aggregate counts.
+
+### 4.6 QLD location rule
+
+The source datum is documented as GDA2020.
+
+However, the source-to-EPSG:4326 transformation operation has not yet been
+validated for the official product.
+
+Therefore:
+
+- `latitude = NULL`
+- `longitude = NULL`
+- `location_crs = NULL`
+- `location_record_id = NULL`
+- `map_eligible = false`
+
+Use reason:
+
+`definition_unconfirmed`
+
+The known source datum must not be relabelled as EPSG:4326 without an
+executed and validated transformation.
+
+### 4.7 D01 alignment status
+
+These rules reflect the adopted team decisions available on
+23 September 2026.
+
+Before C08 QLD rules are frozen for official projection use, they must be
+checked against the latest D01 source contract/evidence for exact rule
+versions, missing-token treatment, coverage wording and remaining
+source-specific limitations.
