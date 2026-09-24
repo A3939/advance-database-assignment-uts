@@ -1,0 +1,5 @@
+{
+  "database_container_removed": true,
+  "network_removed": true,
+  "persistent_volume_created": false
+}

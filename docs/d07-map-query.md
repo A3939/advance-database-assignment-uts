@@ -48,3 +48,19 @@ SQL, permissions, batch/mode guards, identity-preserving point selection and
 SQL coverage calculation. PostgreSQL 16 cases exercise the current real
 C09 -> D03 path, identical-coordinate identities, exact month denominators,
 empty periods and invalid batch/source requests.
+
+Final acceptance on 2026-09-25 produced:
+
+- 21 passed, 0 failed and 0 skipped in the focused D07 PostgreSQL 16 run;
+- 150 passed, 0 failed and 0 skipped in the temporary A/B/C/D integration
+  overlay; and
+- 6 crash facts, 4 eligible map points and 66.67 percent coverage for the
+  full six-combination S0 fixture.
+
+The focused evidence is in
+`docs/evidence/d07-postgres-validation-2026-09-25/`. The integration evidence
+is in `docs/evidence/d07-c45-postgres-validation-2026-09-25/`; its input file
+records C commit `ad8baeddd3f6d2eeccdc2e31bafd71b687ad4da8`, the D integration
+base and D07 commit `6c32a65b74214a3d7c2a3c841340301f1bb0ce6d`. That run used a
+local, hash-recorded overlay and did not publish or copy C's implementation
+into this branch.
