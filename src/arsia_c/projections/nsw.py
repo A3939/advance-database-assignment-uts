@@ -20,6 +20,13 @@ TRAFFIC_UNIT_SQL_PATH = (
     / "c03_nsw_traffic_unit.sql"
 )
 
+RELATIONSHIP_SQL_PATH = (
+    Path(__file__).resolve().parents[3]
+    / "sql"
+    / "projections"
+    / "c03_nsw_relationship_check.sql"
+)
+
 def _contract_by_id(manifest: dict, resource_id: str) -> dict:
     contracts = manifest["rules"]["contracts"]
 
@@ -87,6 +94,20 @@ cursor.execute(
 )
 traffic_unit_rows = cursor.fetchall()
 
+traffic_unit_sql = _load_sql(TRAFFIC_UNIT_SQL_PATH)
+
+cursor.execute(
+    traffic_unit_sql,
+    (
+        unit_input["source_id"],
+        unit_input["resource_id"],
+        unit_input["file_sha256"],
+        unit_input["parser_version"],
+    ),
+)
+
+traffic_unit_rows = cursor.fetchall()
+
     # C03 transformation will be added next.
     # Keep the full Raw crash snapshot at this stage.
     # Do not filter occurrence year yet.
@@ -94,3 +115,4 @@ traffic_unit_rows = cursor.fetchall()
 _ = batch_id
 _ = crash_rows
 _ = traffic_unit_rows
+_ = relationship_counts
