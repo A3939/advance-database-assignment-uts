@@ -60,6 +60,8 @@ The SQL targets the A02 table contract currently published in the team design:
 - `dw.dim_month(month_id, calendar_year, calendar_month)`
 - `dw.dim_severity(batch_id, source_id, severity_code, severity_label, definition_version, definition_text)`
 
-Before merging, run the callback against A02's actual PostgreSQL 16 migrations.
-The local scripted database check verifies row generation, idempotence and the
-B10 callback shape; it is not PostgreSQL execution evidence.
+The [PostgreSQL review](docs/postgres-review.md) records real loader-role tests
+against fixed A migrations 001–011, the collation fix, and reproducible commands.
+The original seven scripted tests remain separate from that database evidence.
+The real FrozenManifest object and B10 callback interface are verified; final
+platform inventory freezing, D03, FP1 and full build/publication remain dependencies.

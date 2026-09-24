@@ -222,7 +222,11 @@ def _verify(connection: Any, batch_id: str, rows: DimensionRows) -> None:
                 ORDER BY source_id""",
             (batch_id,),
         )
-        actual_sources = _normalise_batch_rows(cursor.fetchall())
+        # PostgreSQL's locale collation can order text differently from Python
+        # (notably __MISSING__). Compare by the same keys used for expected rows.
+        actual_sources = tuple(sorted(
+            _normalise_batch_rows(cursor.fetchall()), key=lambda row: row[1]
+        ))
         cursor.execute(
             """SELECT month_id, calendar_year, calendar_month
                  FROM dw.dim_month
@@ -239,7 +243,9 @@ def _verify(connection: Any, batch_id: str, rows: DimensionRows) -> None:
                 ORDER BY source_id, severity_code""",
             (batch_id,),
         )
-        actual_severities = _normalise_batch_rows(cursor.fetchall())
+        actual_severities = tuple(sorted(
+            _normalise_batch_rows(cursor.fetchall()), key=lambda row: (row[1], row[2])
+        ))
 
     expected = (rows.sources, rows.months, rows.severities)
     actual = (actual_sources, actual_months, actual_severities)
