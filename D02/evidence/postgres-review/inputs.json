@@ -1,0 +1,74 @@
+{
+  "a_commit": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
+  "a_base": "d30405eab42ffb2475dea9f7322e7b803b879963",
+  "b_commit": "bc4ed6b000a354babe3cab65e5b5028a41ae304a",
+  "d_base": "5d871e58100348b8cfb7dd11e3978bb233652efc",
+  "d_checkout_head": "dd98354319c654f7e44f87bf9d0df8af85a9451f",
+  "d_tracked_diff": "",
+  "migrations": [
+    {
+      "path": "sql/migrations/001_meta_registry.sql",
+      "sha256": "b44608c4baee8ce1d4ac6c3912a1a7d671772a1b305a32976b10f7bf00fe1893"
+    },
+    {
+      "path": "sql/migrations/002_raw_record.sql",
+      "sha256": "550c022b204380af2c0b2ffffc48295df3b562fd217f99a62f392d8db15eb059"
+    },
+    {
+      "path": "sql/migrations/003_b08_loader_role.sql",
+      "sha256": "e84a2d122bcb8f5edd6ffeb9974ef48eac3910ae801d5a929286734978f9269d"
+    },
+    {
+      "path": "sql/migrations/004_meta_batch.sql",
+      "sha256": "5c828f4071cab7ea097ee5b001aa6aca8fb567f04889a091a02842cf14fbb801"
+    },
+    {
+      "path": "sql/migrations/005_raw_vault.sql",
+      "sha256": "36fedf6f1c6b128e8006ad2e76815c44099c5557de8140deb04e599d4c4f14f8"
+    },
+    {
+      "path": "sql/migrations/006_canonical.sql",
+      "sha256": "c6b414f581d15183d89d98bebda71f373827a945d9e3eb2d9a60e699054e37dd"
+    },
+    {
+      "path": "sql/migrations/007_warehouse.sql",
+      "sha256": "32add012cc1f2919e0aa07926fea86922999b02dd37bb070e4bb2b6247fc87ee"
+    },
+    {
+      "path": "sql/migrations/008_qa.sql",
+      "sha256": "408c3775b218808fceb40a4119f8e5f20735664e1775671f5876d838b6219e29"
+    },
+    {
+      "path": "sql/migrations/009_database_roles.sql",
+      "sha256": "cd1b8f3c4969111cab71777ea063dfe89e69dc29566dbd779c708e2f889d03d5"
+    },
+    {
+      "path": "sql/migrations/010_business_key.sql",
+      "sha256": "de7a14a6df0c0336c7f40c2178159e0f53a4f702da44cde9a20c53a95443d922"
+    },
+    {
+      "path": "sql/migrations/011_review_validation_fixes.sql",
+      "sha256": "fb4d03819dbb4a37366aa5b3cb59fe4e8bec0d76eae3fcfbc3783ebb13f51de6"
+    }
+  ],
+  "d_runtime_files": [
+    {
+      "path": "D02/src/arsia_d02/__init__.py",
+      "sha256": "5cda214c4deb6cf1a2f6830e3873b6c40925ecdb19a016ed4ba393f22fe462b3"
+    },
+    {
+      "path": "D02/src/arsia_d02/dimensions.py",
+      "sha256": "55f9524f0a5ea137d8ed5213d2f7c84ca4d86419798d5c0352a773012d02ae9b"
+    },
+    {
+      "path": "D02/pyproject.toml",
+      "sha256": "f4da87c6d36d84c9104041be04338f7cf9cd26f06e2f717c3aefa73802e3e60a"
+    }
+  ],
+  "test_file_sha256": "1f55e69dca7caded18e62ece12c988e2b04770f7207da632c0477c2b093bdeb2",
+  "harness_sha256": "bb6468b4e3635f9f454224744eba1fdb9c38d96895578212796afc3120f9399c",
+  "python": "3.12.6 (v3.12.6:a4a2d2b0d85, Sep  6 2024, 16:08:03) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "host_platform": "macOS-27.0-arm64-arm-64bit",
+  "requested_image": "postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67",
+  "scope": "synthetic D02-only integration; no FP1, D03, publication or full-platform acceptance"
+}

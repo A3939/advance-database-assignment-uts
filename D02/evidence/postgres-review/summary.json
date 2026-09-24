@@ -1,0 +1,18 @@
+{
+  "name": "pytest",
+  "errors": "0",
+  "failures": "0",
+  "skipped": "0",
+  "tests": "36",
+  "time": "0.609",
+  "timestamp": "2026-09-24T20:27:46.393596+10:00",
+  "hostname": "ZHENGs-MacBook-Pro.local",
+  "pytest_exit_code": 0,
+  "validation_layers": {
+    "fixed_s0_definitions": "executed",
+    "real_FrozenManifest_constructor_and_B10_objects": "executed with actual indexed bytes; interface-only",
+    "full_B09_freeze_and_B10_build": "blocked at preflight: incomplete platform inventory and bindings"
+  },
+  "a03_permissions_unchanged": true,
+  "publication_performed": false
+}

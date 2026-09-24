@@ -1,0 +1,20 @@
+{
+  "database_identity": [
+    "arsia_loader",
+    "arsia_loader",
+    "160015",
+    "UTF8",
+    "UTC",
+    false,
+    false,
+    false,
+    false
+  ],
+  "collation": [
+    "en_US.utf8",
+    "en_US.utf8"
+  ],
+  "map_constraint": "CHECK (((NOT map_eligible) OR ((latitude IS NOT NULL) AND (longitude IS NOT NULL) AND (location_crs IS NOT NULL) AND (location_crs = 'EPSG:4326'::text) AND (location_record_id IS NOT NULL))))",
+  "python": "3.12.6 (v3.12.6:a4a2d2b0d85, Sep  6 2024, 16:08:03) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "psycopg": "3.3.6"
+}

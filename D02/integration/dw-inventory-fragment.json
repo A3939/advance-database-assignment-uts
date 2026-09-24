@@ -1,0 +1,37 @@
+{
+  "scope": "D02 dimension-stage fragment; not a complete dw or platform inventory",
+  "upstream_commit": "5d871e58100348b8cfb7dd11e3978bb233652efc",
+  "component": "dw",
+  "paths": [
+    "D02/src/arsia_d02/__init__.py",
+    "D02/src/arsia_d02/dimensions.py",
+    "D02/pyproject.toml"
+  ],
+  "files": [
+    {
+      "path": "D02/src/arsia_d02/__init__.py",
+      "sha256": "5cda214c4deb6cf1a2f6830e3873b6c40925ecdb19a016ed4ba393f22fe462b3"
+    },
+    {
+      "path": "D02/src/arsia_d02/dimensions.py",
+      "sha256": "55f9524f0a5ea137d8ed5213d2f7c84ca4d86419798d5c0352a773012d02ae9b"
+    },
+    {
+      "path": "D02/pyproject.toml",
+      "sha256": "f4da87c6d36d84c9104041be04338f7cf9cd26f06e2f717c3aefa73802e3e60a"
+    }
+  ],
+  "callback": "arsia_d02.dimensions.runner_callback",
+  "binding_code_path": "D02/src/arsia_d02/dimensions.py",
+  "package_version": "0.1.0",
+  "runtime_dependencies": [
+    "Python >=3.12,<3.13 standard library",
+    "B RunContext, ModuleConnection, RunEvidence and IntakeError interfaces",
+    "caller-owned PostgreSQL 16 connection"
+  ],
+  "complete_dw": false,
+  "requires_for_complete_dw": [
+    "Role D D03 implementation and combined D02+D03 callback"
+  ],
+  "validated_implementation_commit": "dd98354319c654f7e44f87bf9d0df8af85a9451f"
+}

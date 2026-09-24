@@ -1,0 +1,8 @@
+{
+  "name": "arsia-d02-review-d7fe71007544",
+  "image_id": "sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67",
+  "host": "127.0.0.1",
+  "port": 57543,
+  "storage": "private tmpfs",
+  "shared_database_used": false
+}

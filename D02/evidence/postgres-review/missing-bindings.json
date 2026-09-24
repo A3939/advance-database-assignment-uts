@@ -1,0 +1,15 @@
+{
+  "error_code": "MODULE_UNAVAILABLE",
+  "details": {
+    "modules": [
+      "project",
+      "vault",
+      "canonical",
+      "qa_c",
+      "qa_d",
+      "publish"
+    ]
+  },
+  "fp1": "unavailable; not substituted",
+  "dw": "D02 only; D03 required"
+}
