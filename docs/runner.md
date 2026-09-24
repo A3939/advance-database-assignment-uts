@@ -2,7 +2,7 @@
 
 [`runner.py`](../src/arsia_ingest/runner.py) owns the connection, session lock and transactions. It reuses B08 loading, B09 manifest/FP1 and [B11 input checks](input-qa.md). Team modules must be registered explicitly; there are no default business functions.
 
-The runner is ready for module integration. [Session contention and early cleanup](runner-locks.md) have real PostgreSQL tests. Build paths still use scripted replies and test callbacks; real FP1, publication and full B12–B14 acceptance remain unverified.
+The runner is ready for module integration. [Session contention and early cleanup](runner-locks.md) and the installed [D02 callback](d02-integration.md) have real PostgreSQL tests. Complete build paths still use scripted replies and test callbacks; real FP1, publication and full B12–B14 acceptance remain unverified.
 
 ## Entry point
 
@@ -39,7 +39,7 @@ PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m arsia_ingest.runner \
   --bindings team_bindings:build_request
 ```
 
-`team_bindings` is the team's integration module. It is not included yet: A's three B08 tables are available, but the remaining schema and downstream functions are still needed. A missing binding fails explicitly. `python -m arsia_ingest` remains the native preparation command.
+`team_bindings` is the team's integration module. It is not included yet. A's fixed schema and downstream functions still need to be assembled in the shared build checkout. A missing binding fails explicitly. `python -m arsia_ingest` remains the native preparation command.
 
 ## Module interface
 
@@ -96,9 +96,9 @@ PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -q -p no:cacheprovider
 
 The initial suite recorded **380 passed, 10 skipped** on 2026-09-19, including 44 runner tests with scripted replies. The [original receipt](evidence/b10-b11-validation-2026-09-19.json) is unchanged. The [2026-09-20 run](input-qa.md#validation) passed 426 tests, including the eight B08 and two QA02 PostgreSQL tests. [B12's later checks](runner-locks.md) exercise real locks and early runner exits. Complete build transactions, concurrent builds and recovery remain unverified.
 
-- **A:** remaining schema/loader grants and Vault callback. The B08 tables, PostgreSQL 16 environment and pinned driver have been verified locally.
+- **A:** integrate the fixed schema and existing A06 Vault callback. D02's isolated tests use A's migrations 001–011 with the original loader grants.
 - **C:** projection, Canonical and QA callbacks; accepted mappings and source reviews with the source owners.
-- **D:** dimensions/facts and reconciliation QA callbacks.
+- **D:** D03 facts, the combined DW callback and reconciliation QA. The installed D02-only callback and its B interface are [verified separately](d02-integration.md).
 - **E:** FP1 SQL/version and publication gate. Its existing QA protocol is already reused.
 
 At the initial review, shared branches had no callable build/FP1/publication modules. JJ's later B08 environment supplies three tables; it does not supply these functions. Old reference SQL was not adopted. Full fault injection, concurrent builds, real recovery and end-to-end acceptance still need integration.
