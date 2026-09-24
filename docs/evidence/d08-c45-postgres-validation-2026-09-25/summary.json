@@ -1,0 +1,10 @@
+{
+  "tests": 156,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "pytest_exit_code": 0,
+  "exit_code": 0,
+  "postgresql_major": 16,
+  "publication_performed": false
+}
