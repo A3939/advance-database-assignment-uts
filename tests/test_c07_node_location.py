@@ -2,8 +2,11 @@ from __future__ import annotations
 
 from decimal import Decimal
 
+import pytest
+
 from arsia_c.node_location import (
     NodeObservation,
+    iter_node_observation_groups,
     resolve_node_location,
 )
 
@@ -201,18 +204,15 @@ def test_wrong_accident_or_node_group_blocks():
         )
     ]
 
-    try:
+    with pytest.raises(
+        ValueError,
+        match=r"ACCIDENT_NO \+ NODE_ID",
+    ):
         resolve_node_location(
             rows,
             expected_accident_no="A1",
             expected_node_id="N1",
             crs_confirmed=True,
-        )
-    except ValueError as exc:
-        assert "ACCIDENT_NO + NODE_ID" in str(exc)
-    else:
-        raise AssertionError(
-            "Expected mismatched Node group to raise ValueError"
         )
 
 
@@ -236,3 +236,174 @@ def test_representative_selection_uses_numeric_row_locator():
     )
 
     assert result.location_record_id == "raw-2"
+
+
+class FakeCursor:
+    def __init__(self, rows):
+        self.rows = rows
+        self.executed_sql = None
+        self.executed_params = None
+
+    def __enter__(self):
+        return self
+
+    def __exit__(
+        self,
+        exc_type,
+        exc,
+        tb,
+    ):
+        return False
+
+    def execute(
+        self,
+        sql,
+        params,
+    ):
+        self.executed_sql = sql
+        self.executed_params = params
+
+    def __iter__(self):
+        return iter(
+            self.rows
+        )
+
+
+class FakeConnection:
+    def __init__(self, rows):
+        self.cursor_instance = FakeCursor(
+            rows
+        )
+
+    def cursor(self):
+        return self.cursor_instance
+
+
+def test_raw_adapter_groups_without_dropping_observations():
+    rows = [
+        (
+            "raw-1",
+            "official_vic",
+            "official_vic_node",
+            "a" * 64,
+            "csv-native-v1",
+            "csv:1",
+            "A1",
+            "N1",
+            "-37.8",
+            "144.9",
+            "Urban A",
+        ),
+        (
+            "raw-2",
+            "official_vic",
+            "official_vic_node",
+            "a" * 64,
+            "csv-native-v1",
+            "csv:2",
+            "A1",
+            "N1",
+            "-37.8",
+            "144.9",
+            "Urban A",
+        ),
+        (
+            "raw-3",
+            "official_vic",
+            "official_vic_node",
+            "a" * 64,
+            "csv-native-v1",
+            "csv:3",
+            "A2",
+            "N2",
+            "-37.9",
+            "145.0",
+            "Urban B",
+        ),
+        (
+            "raw-4",
+            "official_vic",
+            "official_vic_node",
+            "a" * 64,
+            "csv-native-v1",
+            "csv:4",
+            "A2",
+            "N2",
+            "-38.0",
+            "145.1",
+            "Urban B",
+        ),
+    ]
+
+    connection = FakeConnection(
+        rows
+    )
+
+    node_input = {
+        "source_id":
+            "official_vic",
+        "resource_id":
+            "official_vic_node",
+        "file_sha256":
+            "a" * 64,
+        "parser_version":
+            "csv-native-v1",
+    }
+
+    groups = list(
+        iter_node_observation_groups(
+            connection,
+            node_input,
+        )
+    )
+
+    assert len(groups) == 2
+
+    first_key, first_rows = groups[0]
+    second_key, second_rows = groups[1]
+
+    assert first_key == (
+        "A1",
+        "N1",
+    )
+
+    assert len(
+        first_rows
+    ) == 2
+
+    assert {
+        row.raw_record_id
+        for row in first_rows
+    } == {
+        "raw-1",
+        "raw-2",
+    }
+
+    assert second_key == (
+        "A2",
+        "N2",
+    )
+
+    assert len(
+        second_rows
+    ) == 2
+
+    assert {
+        row.raw_record_id
+        for row in second_rows
+    } == {
+        "raw-3",
+        "raw-4",
+    }
+
+    assert (
+        connection
+        .cursor_instance
+        .executed_params
+        == (
+            "official_vic",
+            "official_vic_node",
+            "a" * 64,
+            "csv-native-v1",
+        )
+    )
