@@ -6,6 +6,7 @@ from pathlib import Path
 NSW_CRASH_RESOURCE_ID = "official_nsw_crash"
 NSW_TRAFFIC_UNIT_RESOURCE_ID = "official_nsw_traffic_unit"
 
+
 PROJECTION_TABLES_SQL_PATH = (
     Path(__file__).resolve().parents[3]
     / "sql"
@@ -20,11 +21,25 @@ RELATIONSHIP_SQL_PATH = (
     / "c03_nsw_relationship_check.sql"
 )
 
+YEAR_CHECK_SQL_PATH = (
+    Path(__file__).resolve().parents[3]
+    / "sql"
+    / "projections"
+    / "c03_nsw_year_check.sql"
+)
+
 MONTH_CHECK_SQL_PATH = (
     Path(__file__).resolve().parents[3]
     / "sql"
     / "projections"
     / "c03_nsw_month_check.sql"
+)
+
+SEMANTIC_CHECK_SQL_PATH = (
+    Path(__file__).resolve().parents[3]
+    / "sql"
+    / "projections"
+    / "c03_nsw_semantic_check.sql"
 )
 
 
@@ -52,7 +67,9 @@ def _load_sql(path: Path) -> str:
 
 def _validate_relationship_counts(counts) -> None:
     if counts is None:
-        raise ValueError("NSW relationship check returned no result")
+        raise ValueError(
+            "NSW relationship check returned no result"
+        )
 
     (
         crash_blank_key_count,
@@ -82,6 +99,119 @@ def _validate_relationship_counts(counts) -> None:
         )
 
 
+def _validate_year(cursor, crash_input: dict) -> None:
+    year_check_sql = _load_sql(YEAR_CHECK_SQL_PATH)
+
+    cursor.execute(
+        year_check_sql,
+        (
+            crash_input["source_id"],
+            crash_input["resource_id"],
+            crash_input["file_sha256"],
+            crash_input["parser_version"],
+        ),
+    )
+
+    result = cursor.fetchone()
+
+    if result is None:
+        raise ValueError(
+            "NSW year validation returned no result"
+        )
+
+    invalid_year_count = result[0]
+
+    if invalid_year_count != 0:
+        raise ValueError(
+            "NSW year validation failed: "
+            f"invalid_year_count={invalid_year_count}"
+        )
+
+
+def _validate_month(cursor, crash_input: dict) -> None:
+    month_check_sql = _load_sql(MONTH_CHECK_SQL_PATH)
+
+    cursor.execute(
+        month_check_sql,
+        (
+            crash_input["source_id"],
+            crash_input["resource_id"],
+            crash_input["file_sha256"],
+            crash_input["parser_version"],
+        ),
+    )
+
+    result = cursor.fetchone()
+
+    if result is None:
+        raise ValueError(
+            "NSW month validation returned no result"
+        )
+
+    unknown_month_count = result[0]
+
+    if unknown_month_count != 0:
+        raise ValueError(
+            "NSW month validation failed: "
+            f"unknown_month_count={unknown_month_count}"
+        )
+
+
+def _validate_semantics(cursor, crash_input: dict) -> None:
+    semantic_check_sql = _load_sql(
+        SEMANTIC_CHECK_SQL_PATH
+    )
+
+    cursor.execute(
+        semantic_check_sql,
+        (
+            crash_input["source_id"],
+            crash_input["resource_id"],
+            crash_input["file_sha256"],
+            crash_input["parser_version"],
+        ),
+    )
+
+    result = cursor.fetchone()
+
+    if result is None:
+        raise ValueError(
+            "NSW semantic validation returned no result"
+        )
+
+    (
+        unknown_severity_count,
+        invalid_fatality_count,
+        invalid_serious_count,
+        invalid_moderate_count,
+        invalid_minor_other_count,
+    ) = result
+
+    failures = {
+        "unknown_severity_count":
+            unknown_severity_count,
+        "invalid_fatality_count":
+            invalid_fatality_count,
+        "invalid_serious_count":
+            invalid_serious_count,
+        "invalid_moderate_count":
+            invalid_moderate_count,
+        "invalid_minor_other_count":
+            invalid_minor_other_count,
+    }
+
+    nonzero = {
+        name: value
+        for name, value in failures.items()
+        if value != 0
+    }
+
+    if nonzero:
+        raise ValueError(
+            f"NSW semantic validation failed: {nonzero}"
+        )
+
+
 def project(connection, context) -> None:
     manifest = context.manifest.as_dict()
 
@@ -102,13 +232,18 @@ def project(connection, context) -> None:
 
     cursor = connection.cursor()
 
-    # Create C-to-A temporary projection tables.
-    projection_tables_sql = _load_sql(PROJECTION_TABLES_SQL_PATH)
+    # 1. Create the C-to-A temporary projection tables.
+    projection_tables_sql = _load_sql(
+        PROJECTION_TABLES_SQL_PATH
+    )
     cursor.execute(projection_tables_sql)
 
-    # Validate Crash / Traffic Unit keys and parent relationships
-    # against the complete frozen snapshot before year filtering.
-    relationship_sql = _load_sql(RELATIONSHIP_SQL_PATH)
+    # 2. Validate Crash / Traffic Unit keys and
+    # parent relationships against the complete
+    # frozen snapshot BEFORE occurrence-year filtering.
+    relationship_sql = _load_sql(
+        RELATIONSHIP_SQL_PATH
+    )
 
     cursor.execute(
         relationship_sql,
@@ -125,33 +260,31 @@ def project(connection, context) -> None:
     )
 
     relationship_counts = cursor.fetchone()
-    _validate_relationship_counts(relationship_counts)
 
-    # Validate NSW native month values.
-    month_check_sql = _load_sql(MONTH_CHECK_SQL_PATH)
-
-    cursor.execute(
-        month_check_sql,
-        (
-            crash_input["source_id"],
-            crash_input["resource_id"],
-            crash_input["file_sha256"],
-            crash_input["parser_version"],
-        ),
+    _validate_relationship_counts(
+        relationship_counts
     )
 
-    month_check_result = cursor.fetchone()
+    # 3. Validate occurrence year before any
+    # integer cast is used by downstream SQL.
+    _validate_year(
+        cursor,
+        crash_input,
+    )
 
-    if month_check_result is None:
-        raise ValueError("NSW month validation returned no result")
+    # 4. Validate the versioned NSW month vocabulary.
+    _validate_month(
+        cursor,
+        crash_input,
+    )
 
-    unknown_month_count = month_check_result[0]
+    # 5. Validate severity and count semantics
+    # before creating projection rows.
+    _validate_semantics(
+        cursor,
+        crash_input,
+    )
 
-    if unknown_month_count != 0:
-        raise ValueError(
-            f"NSW month validation failed: "
-            f"unknown_month_count={unknown_month_count}"
-        )
-
-    # Crash and Unit projection inserts are added next.
+    # 6. Crash and Traffic Unit projection inserts
+    # are added next.
     _ = batch_id
