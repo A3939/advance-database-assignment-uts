@@ -19,7 +19,9 @@ SELECT %(batch_id)s::uuid,%(source_id)s,%(release_scope)s,crash_key,raw_record_i
                     WHEN NULLIF(payload->>'Crash_Latitude','') IS NULL OR NULLIF(payload->>'Crash_Longitude','') IS NULL THEN 'missing' ELSE 'invalid_coordinate' END,
   'candidate_raw_record_ids',CASE WHEN %(state)s='VIC' THEN '[]'::jsonb ELSE jsonb_build_array(raw_record_id) END,
   'resolution',CASE WHEN %(state)s='VIC' THEN 'Pending C07 assembly in the same projection callback.'
-                    WHEN NOT %(map_enabled)s THEN 'Known GDA2020 source datum; EPSG:4326 operation unverified. Official map disabled.'
+                    WHEN NOT %(map_enabled)s THEN CASE WHEN %(dataset_kind)s='official'
+                      THEN 'Known GDA2020 source datum; EPSG:4326 operation unverified. Official map disabled.'
+                      ELSE 'Synthetic source CRS is unconfirmed; map disabled.' END
                     ELSE 'Untrusted source coordinate; crash retained without location.' END,
   'evidence_ref',%(location_evidence)s::text)) END
 FROM mapped;

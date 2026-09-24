@@ -319,6 +319,55 @@ def test_qld_invalid_coordinate_does_not_enable_map(connection, value):
     )
 
 
+def test_qld_unconfirmed_synthetic_crs_keeps_truthful_reason(connection):
+    case = Case(connection, "QLD")
+    case.manifest["rules"]["mappings"][0]["content"]["location"]["crs"] = None
+    case.load()
+    case.run()
+    rows = case.crashes()
+    assert len(rows) == 2
+    assert sum(row["fatality_count"] for row in rows) == 0
+    assert sum(row["casualty_count"] for row in rows) == 1
+    for row in rows:
+        assert not row["map_eligible"]
+        assert all(row[key] is None for key in (
+            "latitude", "longitude", "location_crs", "location_record_id"
+        ))
+        note = row["quality_notes"]["location"]
+        assert note["reason_code"] == "definition_unconfirmed"
+        assert note["resolution"] == "Synthetic source CRS is unconfirmed; map disabled."
+        assert note["candidate_raw_record_ids"] == [str(row["raw_record_id"])]
+
+
+def test_qld_official_sql_keeps_known_datum_reason(connection):
+    from arsia_c.projections.source_contracts import parameters, clear_projection, sql
+
+    case = Case(connection, "QLD").load()
+    case.run()
+    before = case.crashes()
+    p = parameters(case.manifest, case.context.batch_id, "QLD")
+    # Test the official SQL branch with synthetic rows, not an official snapshot.
+    p.update(dataset_kind="official", map_enabled=False,
+             fatality_field="Count_Casualty_Fatality")
+    with connection.cursor() as cursor:
+        clear_projection(cursor, p)
+        cursor.execute(sql("c45_crash_insert.sql"), p)
+    after = case.crashes()
+    assert len(after) == len(before)
+    changed = {"latitude", "longitude", "location_crs", "location_record_id",
+               "map_eligible", "quality_notes"}
+    for old, new in zip(before, after):
+        assert {k: v for k, v in new.items() if k not in changed} == {
+            k: v for k, v in old.items() if k not in changed
+        }
+        assert not new["map_eligible"]
+        note = new["quality_notes"]["location"]
+        assert note["reason_code"] == "definition_unconfirmed"
+        assert note["resolution"] == (
+            "Known GDA2020 source datum; EPSG:4326 operation unverified. Official map disabled."
+        )
+
+
 @pytest.mark.parametrize("state", ["VIC", "QLD"])
 def test_sum_overflow_blocks_before_integer_projection(connection, state):
     case = Case(connection, state)
