@@ -1,0 +1,46 @@
+{
+  "check": "D02 fixed S0 dimension generation",
+  "checked_at": "2026-09-24T09:31:49.224645+00:00",
+  "contract": "..\\team-repo\\tests\\fixtures\\s0\\contract.json",
+  "contract_sha256": "c767c76161702bb121492f8bbb86c9a8965d12b6de129db9e8e73af9f02f1d6b",
+  "batch_id": "12345678-1234-5678-9234-567812345678",
+  "counts": {
+    "dim_source": 3,
+    "dim_month": 60,
+    "dim_severity": 12
+  },
+  "source_ids": [
+    "syn_nsw",
+    "syn_qld",
+    "syn_vic"
+  ],
+  "month_range": [
+    202001,
+    202412
+  ],
+  "severity_codes": {
+    "syn_nsw": [
+      "F",
+      "I",
+      "N",
+      "__MISSING__"
+    ],
+    "syn_qld": [
+      "F",
+      "I",
+      "N",
+      "__MISSING__"
+    ],
+    "syn_vic": [
+      "F",
+      "I",
+      "N",
+      "__MISSING__"
+    ]
+  },
+  "result": "passed",
+  "limitations": [
+    "This verifies B's fixed S0 definitions and D02 row generation.",
+    "It does not claim PostgreSQL execution or final frozen-manifest integration."
+  ]
+}

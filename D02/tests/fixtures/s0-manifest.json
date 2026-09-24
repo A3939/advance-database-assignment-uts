@@ -1,0 +1,145 @@
+{
+  "analysis": {
+    "year_from": 2020,
+    "year_to": 2024
+  },
+  "sources": [
+    {
+      "source_id": "syn_nsw",
+      "jurisdiction_code": "NSW",
+      "source_name": "Synthetic NSW (S0)",
+      "publisher": "ARSIA team",
+      "release_label": "Synthetic S0 v1",
+      "release_scope": "s0",
+      "resource_ids": [
+        "syn_nsw_crash",
+        "syn_nsw_traffic_unit"
+      ]
+    },
+    {
+      "source_id": "syn_vic",
+      "jurisdiction_code": "VIC",
+      "source_name": "Synthetic VIC (S0)",
+      "publisher": "ARSIA team",
+      "release_label": "Synthetic S0 v1",
+      "release_scope": "s0",
+      "resource_ids": [
+        "syn_vic_accident",
+        "syn_vic_vehicle",
+        "syn_vic_person",
+        "syn_vic_node"
+      ]
+    },
+    {
+      "source_id": "syn_qld",
+      "jurisdiction_code": "QLD",
+      "source_name": "Synthetic QLD (S0)",
+      "publisher": "ARSIA team",
+      "release_label": "Synthetic S0 v1",
+      "release_scope": "s0",
+      "resource_ids": [
+        "syn_qld_crash"
+      ]
+    }
+  ],
+  "rules": {
+    "severity": [
+      {
+        "source_id": "syn_nsw",
+        "severity_code": "F",
+        "severity_label": "Fatal",
+        "is_fatal_crash": true,
+        "definition_version": "syn-1",
+        "definition_text": "F/I/N map directly. Native missing values map to __MISSING__; every other nonempty value is undefined and must block. These are fictional codes, not official classifications."
+      },
+      {
+        "source_id": "syn_nsw",
+        "severity_code": "I",
+        "severity_label": "Injury",
+        "is_fatal_crash": false,
+        "definition_version": "syn-1",
+        "definition_text": "F/I/N map directly. Native missing values map to __MISSING__; every other nonempty value is undefined and must block. These are fictional codes, not official classifications."
+      },
+      {
+        "source_id": "syn_nsw",
+        "severity_code": "N",
+        "severity_label": "Non-injury",
+        "is_fatal_crash": false,
+        "definition_version": "syn-1",
+        "definition_text": "F/I/N map directly. Native missing values map to __MISSING__; every other nonempty value is undefined and must block. These are fictional codes, not official classifications."
+      },
+      {
+        "source_id": "syn_nsw",
+        "severity_code": "__MISSING__",
+        "severity_label": "Unknown",
+        "is_fatal_crash": null,
+        "definition_version": "syn-1",
+        "definition_text": "F/I/N map directly. Native missing values map to __MISSING__; every other nonempty value is undefined and must block. These are fictional codes, not official classifications."
+      },
+      {
+        "source_id": "syn_vic",
+        "severity_code": "F",
+        "severity_label": "Fatal",
+        "is_fatal_crash": true,
+        "definition_version": "syn-1",
+        "definition_text": "F/I/N map directly. Native missing values map to __MISSING__; every other nonempty value is undefined and must block. These are fictional codes, not official classifications."
+      },
+      {
+        "source_id": "syn_vic",
+        "severity_code": "I",
+        "severity_label": "Injury",
+        "is_fatal_crash": false,
+        "definition_version": "syn-1",
+        "definition_text": "F/I/N map directly. Native missing values map to __MISSING__; every other nonempty value is undefined and must block. These are fictional codes, not official classifications."
+      },
+      {
+        "source_id": "syn_vic",
+        "severity_code": "N",
+        "severity_label": "Non-injury",
+        "is_fatal_crash": false,
+        "definition_version": "syn-1",
+        "definition_text": "F/I/N map directly. Native missing values map to __MISSING__; every other nonempty value is undefined and must block. These are fictional codes, not official classifications."
+      },
+      {
+        "source_id": "syn_vic",
+        "severity_code": "__MISSING__",
+        "severity_label": "Unknown",
+        "is_fatal_crash": null,
+        "definition_version": "syn-1",
+        "definition_text": "F/I/N map directly. Native missing values map to __MISSING__; every other nonempty value is undefined and must block. These are fictional codes, not official classifications."
+      },
+      {
+        "source_id": "syn_qld",
+        "severity_code": "F",
+        "severity_label": "Fatal",
+        "is_fatal_crash": true,
+        "definition_version": "syn-1",
+        "definition_text": "F/I/N map directly. Native missing values map to __MISSING__; every other nonempty value is undefined and must block. These are fictional codes, not official classifications."
+      },
+      {
+        "source_id": "syn_qld",
+        "severity_code": "I",
+        "severity_label": "Injury",
+        "is_fatal_crash": false,
+        "definition_version": "syn-1",
+        "definition_text": "F/I/N map directly. Native missing values map to __MISSING__; every other nonempty value is undefined and must block. These are fictional codes, not official classifications."
+      },
+      {
+        "source_id": "syn_qld",
+        "severity_code": "N",
+        "severity_label": "Non-injury",
+        "is_fatal_crash": false,
+        "definition_version": "syn-1",
+        "definition_text": "F/I/N map directly. Native missing values map to __MISSING__; every other nonempty value is undefined and must block. These are fictional codes, not official classifications."
+      },
+      {
+        "source_id": "syn_qld",
+        "severity_code": "__MISSING__",
+        "severity_label": "Unknown",
+        "is_fatal_crash": null,
+        "definition_version": "syn-1",
+        "definition_text": "F/I/N map directly. Native missing values map to __MISSING__; every other nonempty value is undefined and must block. These are fictional codes, not official classifications."
+      }
+    ]
+  }
+}
