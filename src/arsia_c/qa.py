@@ -13,7 +13,7 @@ from .qa_expectations import Source, coordinate, different, reference, missing_r
 from .person_checks import review_manifest
 from .restricted_person import restricted_inputs
 
-PRODUCER_VERSION = "c10-role-c-v1.1"
+PRODUCER_VERSION = "c10-role-c-v1.2"
 RULES = ("QA03_PROJECTED", "QA04_AUXILIARY", "QA05_SEMANTICS", "QA07_LOCATION")
 
 
@@ -689,7 +689,7 @@ def qa05(source, projected, crashes, units, restriction):
     )
 
 
-def qa07(source, year, crashes, facts):
+def qa07(source, year, crashes, facts, invalid_raw=()):
     wanted = [
         r
         for r in source.projected[source.by_role["crash"]["resource_id"]]
@@ -777,15 +777,9 @@ def qa07(source, year, crashes, facts):
                     ],
                 }
             )
-    # Invalid Raw rows must not disappear from the expected population.
-    for row in source.rows("crash"):
-        if source.errors.get(row["raw_record_id"], ()):
-            findings.raw(
-                row,
-                source.by_role["crash"],
-                "invalid_raw_crash",
-                reasons=sorted(source.errors.get(row["raw_record_id"], ())),
-            )
+    for row in invalid_raw:
+        findings.raw(row, source.by_role["crash"], "invalid_raw_crash",
+                     reasons=sorted(source.errors[row["raw_record_id"]]))
     mapped = sum(r["map_eligible"] is True for r in actual)
     expected_maps = sum(r["map_eligible"] for r in wanted)
     metrics = {
@@ -821,6 +815,19 @@ def qa07(source, year, crashes, facts):
         refs,
         limited=len(wanted) - expected_maps,
         details=detail,
+    )
+
+
+def qa07_unknown_year(source, invalid_raw):
+    findings = Findings()
+    for row in invalid_raw:
+        findings.raw(row, source.by_role["crash"], "invalid_raw_crash",
+                     reasons=sorted(source.errors[row["raw_record_id"]]))
+        findings.raw(row, source.by_role["crash"], "unknown_occurrence_year")
+    return _row(
+        RULES[3], "unknown_year:" + source.sid,
+        {"unassigned_raw_count": len(invalid_raw)}, {"unassigned_raw_count": 0},
+        len(invalid_raw), 0, findings, _refs(source),
     )
 
 
@@ -974,14 +981,21 @@ def evaluate(connection, manifest, batch_id):
                     qa04(source, file, persons.get(file["resource_id"]), restriction)
                 )
         rows.append(qa05(source, projected, crashes, units, restriction))
+        invalid_by_year = defaultdict(list)
+        for row in source.rows("crash"):
+            if source.errors.get(row["raw_record_id"]):
+                invalid_by_year[source.raw_year(row["payload"])].append(row)
         years = set(range(
             manifest["analysis"]["year_from"], manifest["analysis"]["year_to"] + 1
         ))
         # Inspect actual years too; out-of-scope stored rows must not disappear.
         years.update(r["occurrence_year"] for records in (crashes, facts) for r in records
                      if r["source_id"] == source.sid)
+        years.update(year for year in invalid_by_year if year is not None)
         for year in sorted(years):
-            rows.append(qa07(source, year, crashes, facts))
+            rows.append(qa07(source, year, crashes, facts, invalid_by_year[year]))
+        if invalid_by_year[None]:
+            rows.append(qa07_unknown_year(source, invalid_by_year[None]))
     selected = {s.sid for s in sources}
     unexpected = [
         r

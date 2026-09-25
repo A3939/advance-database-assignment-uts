@@ -114,6 +114,20 @@ class Source:
         a = self.manifest["analysis"]
         return year is not None and a["year_from"] <= year <= a["year_to"]
 
+    def raw_year(self, payload):
+        """Locate an invalid crash by its native year, even if its month/day is bad."""
+        if self.state == "VIC":
+            token = payload.get("ACCIDENT_DATE")
+            if not isinstance(token, str) or not re.fullmatch(r"[0-9]{4}-[0-9]{2}-[0-9]{2}", token):
+                return None
+            token = token[:4]
+        else:
+            token = payload.get("Year of crash" if self.state == "NSW" else "Crash_Year")
+        if (isinstance(token, str) and re.fullmatch(r"[0-9]{4}", token)
+                and 1900 <= int(token) <= 2100):
+            return int(token)
+        return None
+
     def time(self, payload):
         if self.state == "VIC":
             token = payload.get("ACCIDENT_DATE")
