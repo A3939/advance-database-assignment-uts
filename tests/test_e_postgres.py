@@ -122,6 +122,9 @@ CASES = [
     "limited_detail_count", "zero_coverage", "extra_object", "extra_pass_rule", "wrong_file",
     "violation", "expected_violation", "negative_coverage", "forged_zero_expected",
     "meaningless_evidence", "boolean_coverage", "wrong_batch_evidence",
+    "other_file_reference", "other_resource_reference", "other_source_reference",
+    "other_year_reference", "other_object_reference", "source_without_year",
+    "other_summary_object", "missing_summary_reference", "other_detail_object", "other_summary_document",
 ]
 
 
@@ -179,6 +182,32 @@ def mutate(conn, batch, case):
         next(r for r in row["evidence"]["references"] if "coverage" in r)["coverage"] = True
     elif case == "wrong_batch_evidence":
         row = pick("QA06"); row["evidence"]["references"][0]["batch_id"] = str(uuid4())
+    elif case in {"other_file_reference", "other_resource_reference", "other_source_reference"}:
+        prefix = {"other_file_reference": "QA01", "other_resource_reference": "QA03", "other_source_reference": "QA05"}[case]
+        row = pick(prefix)
+        other = next(r for r in rows if r["rule_id"] == row["rule_id"] and r["object_key"] not in {"batch", row["object_key"]})
+        row["evidence"]["references"] = other["evidence"]["references"]
+        if case == "other_resource_reference":
+            row["evidence"]["references"] = [ref for ref in row["evidence"]["references"]
+                                            if ref.get("resource_id") != row["object_key"].removeprefix("resource:")]
+    elif case in {"other_year_reference", "source_without_year"}:
+        row = pick("QA06")
+        if case == "other_year_reference": row["evidence"]["references"][0]["occurrence_year"] += 1
+        else: row["evidence"]["references"][0].pop("occurrence_year")
+    elif case == "other_object_reference":
+        row["evidence"]["references"].append({"object_key": pick("QA06")["object_key"]})
+    elif case in {"other_summary_object", "missing_summary_reference"}:
+        row = pick("QA06", "batch")
+        if case == "other_summary_object": row["evidence"]["references"][0]["object_key"] = "source_year:syn_nsw:9999"
+        else: row["evidence"]["references"].pop()
+    elif case == "other_detail_object":
+        row = pick("QA04")
+        detail = next(ref for r in rows if r["rule_id"] == "QA07_LOCATION" and r["object_key"] != "batch"
+                      for ref in r["evidence"]["references"] if "detail_row_count" in ref)
+        row["evidence"]["references"].append(detail)
+    elif case == "other_summary_document":
+        row = pick("QA03", "batch")
+        row["evidence"]["references"] = pick("QA01")["evidence"]["references"]
     elif case == "wrong_file": row["evidence"]["references"][0]["file_sha256"] = "0"*64
     elif case == "violation": row["actual"]["violation_count"] = 1
     elif case == "expected_violation": row["expected"]["violation_count"] = 1
@@ -204,6 +233,8 @@ def test_gate_rejects_fault_and_keeps_running_batch(prepared, frozen, case):
         with pytest.raises(IntakeError) as error:
             publish(ModuleConnection(conn), context)
         assert error.value.code.startswith("PUBLICATION_QA")
+        if case.startswith("other_") or case in {"source_without_year", "missing_summary_reference"}:
+            assert error.value.code == "PUBLICATION_QA_EVIDENCE"
         if case in {"required_block", "extra_block"}:
             assert error.value.code == "PUBLICATION_QA_BLOCK"
         assert conn.execute("SELECT status FROM meta.batch WHERE batch_id=%s", (context.batch_id,)).fetchone() == ("running",)

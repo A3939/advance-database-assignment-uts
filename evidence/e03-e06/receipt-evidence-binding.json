@@ -1,0 +1,336 @@
+{
+  "checked_date": "2026-09-26",
+  "scope": "E03/E06 installed component acceptance; no full run_build or official replay",
+  "e_base": "0929eed1013263c3ccb2e8ad6ae48ffbd9cceff0",
+  "b_components": "1ae5ddbde746f3190fec5d58daaf948b0c483817",
+  "a_schema": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
+  "original_e_implementation": [
+    "ac06a93cf85891ad875b98d9890680a693dda1eb",
+    "2334444f39c3d60ea3c92d1a50044451d0a41a82"
+  ],
+  "repair_author": "Role B / Peixian",
+  "image": "postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67",
+  "postgresql_version_num": 160015,
+  "python": "3.12.6 (v3.12.6:a4a2d2b0d85, Sep  6 2024, 16:08:03) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "packages": {
+    "arsia-native-intake": "0.1.0",
+    "openpyxl": "3.1.5",
+    "psycopg": "3.3.6",
+    "psycopg-binary": "3.3.6",
+    "pytest": "8.4.2"
+  },
+  "wheel_sha256": "f8d5c1072e244a93308fe3a6a9408ca7d717982537e9d0d96edcf6f3563f72a9",
+  "acceptance": {
+    "tests": 61,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pytest_exit_code": 0,
+    "exit_code": 0,
+    "permissions": "Original A03 audit passed before and after",
+    "final_tables_empty": true,
+    "boundary": "E03/E06 and real S0 producers; not final inventory freeze, run_build acceptance or official replay",
+    "official_publication": false,
+    "isolated_test_pointer_updates": true
+  },
+  "postgresql_tests": 51,
+  "policy_tests": 6,
+  "original_e_tests": 4,
+  "default_suite": {
+    "tests": 781,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 156
+  },
+  "source_files": [
+    {
+      "path": "sql/e/fp1.sql",
+      "sha256": "871577a7aab58a2b67017b47e9cb7e2527fa38851b20e22e2dcc339cc5475d47"
+    },
+    {
+      "path": "src/arsia_ingest/publication.py",
+      "sha256": "7a72b4243a4d9cda7206d4892a990f898d52487f9db6efeeff02dd3dcfe5b014"
+    },
+    {
+      "path": "src/arsia_ingest/publication_checks.py",
+      "sha256": "10ead8f0850bf05c97d2d627f7a7c3edc305c7cd28179ca63f7297c0394e623b"
+    },
+    {
+      "path": "tests/test_e_postgres.py",
+      "sha256": "d3834748d9902e0c2db5aabb04171aea8e7d1aedc6c018a9aa9a78da1c7b2cb6"
+    },
+    {
+      "path": "tests/test_e_gate_contract.py",
+      "sha256": "d443f5ab625cba2bdc2f0366c93ce2d1405981f0b831ea6e1ae83e0f363c5562"
+    },
+    {
+      "path": "tests/test_e_publication.py",
+      "sha256": "ce68140eec58a125ae32811c3b12d1fd355c6ed69aa3939c8ccc6e41da3c26fe"
+    },
+    {
+      "path": "tools/verify_e_postgres.py",
+      "sha256": "d61e40b73d6a95fbe5a474825390c5897d4abb0ee0e630986f572f65cb2325eb"
+    }
+  ],
+  "migrations": [
+    {
+      "path": "sql/migrations/001_meta_registry.sql",
+      "sha256": "b44608c4baee8ce1d4ac6c3912a1a7d671772a1b305a32976b10f7bf00fe1893"
+    },
+    {
+      "path": "sql/migrations/002_raw_record.sql",
+      "sha256": "550c022b204380af2c0b2ffffc48295df3b562fd217f99a62f392d8db15eb059"
+    },
+    {
+      "path": "sql/migrations/003_b08_loader_role.sql",
+      "sha256": "e84a2d122bcb8f5edd6ffeb9974ef48eac3910ae801d5a929286734978f9269d"
+    },
+    {
+      "path": "sql/migrations/004_meta_batch.sql",
+      "sha256": "5c828f4071cab7ea097ee5b001aa6aca8fb567f04889a091a02842cf14fbb801"
+    },
+    {
+      "path": "sql/migrations/005_raw_vault.sql",
+      "sha256": "36fedf6f1c6b128e8006ad2e76815c44099c5557de8140deb04e599d4c4f14f8"
+    },
+    {
+      "path": "sql/migrations/006_canonical.sql",
+      "sha256": "c6b414f581d15183d89d98bebda71f373827a945d9e3eb2d9a60e699054e37dd"
+    },
+    {
+      "path": "sql/migrations/007_warehouse.sql",
+      "sha256": "32add012cc1f2919e0aa07926fea86922999b02dd37bb070e4bb2b6247fc87ee"
+    },
+    {
+      "path": "sql/migrations/008_qa.sql",
+      "sha256": "408c3775b218808fceb40a4119f8e5f20735664e1775671f5876d838b6219e29"
+    },
+    {
+      "path": "sql/migrations/009_database_roles.sql",
+      "sha256": "cd1b8f3c4969111cab71777ea063dfe89e69dc29566dbd779c708e2f889d03d5"
+    },
+    {
+      "path": "sql/migrations/010_business_key.sql",
+      "sha256": "de7a14a6df0c0336c7f40c2178159e0f53a4f702da44cde9a20c53a95443d922"
+    },
+    {
+      "path": "sql/migrations/011_review_validation_fixes.sql",
+      "sha256": "fb4d03819dbb4a37366aa5b3cb59fe4e8bec0d76eae3fcfbc3783ebb13f51de6"
+    }
+  ],
+  "report_hashes": {
+    "pytest.xml": "f4b3ec3433c930d44e015b48ab683ceabfa3d4fd1920f0008baac757d8b5233e",
+    "pytest.log": "e25f122b769cd17b123ba7885d8322747e17abb00f3800844e20c969eca1a945",
+    "a03-before.log": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4",
+    "a03-after.log": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4",
+    "inputs.json": "15158e01c460f712b256bea315e48fd55a21604bbedcdbe4db7fe8602ff872b0",
+    "environment.json": "a0c3132d813f8f18e3d68d3f024c228b53d3c1be37382574e8c95b31b32fa0c4",
+    "final-state.json": "dbc4b9c36a78e26384cbe23a4d657bae8af990f1ab2bbf3300c91aedc6becd18",
+    "cleanup.json": "ada9860059022f338c292eb9d147ef35bf1bad9b7c9a25970e2c6d315a1bec2a"
+  },
+  "rejected_faults": [
+    {
+      "case": "boolean_coverage",
+      "code": "PUBLICATION_QA_EVIDENCE"
+    },
+    {
+      "case": "boolean_metric",
+      "code": "PUBLICATION_QA_METRICS"
+    },
+    {
+      "case": "coverage",
+      "code": "PUBLICATION_QA_COVERAGE"
+    },
+    {
+      "case": "evidence",
+      "code": "PUBLICATION_QA_EVIDENCE"
+    },
+    {
+      "case": "evidence_count",
+      "code": "PUBLICATION_QA_EVIDENCE"
+    },
+    {
+      "case": "evidence_file",
+      "code": "PUBLICATION_QA_EVIDENCE"
+    },
+    {
+      "case": "evidence_hash",
+      "code": "PUBLICATION_QA_EVIDENCE"
+    },
+    {
+      "case": "expected_violation",
+      "code": "PUBLICATION_QA_VIOLATION"
+    },
+    {
+      "case": "extra_block",
+      "code": "PUBLICATION_QA_BLOCK"
+    },
+    {
+      "case": "extra_object",
+      "code": "PUBLICATION_QA_EXTRA"
+    },
+    {
+      "case": "extra_pass_rule",
+      "code": "PUBLICATION_QA_EXTRA"
+    },
+    {
+      "case": "forged_zero_expected",
+      "code": "PUBLICATION_QA_COVERAGE"
+    },
+    {
+      "case": "invented_expectation",
+      "code": "PUBLICATION_QA_EXPECTED"
+    },
+    {
+      "case": "limited_affected",
+      "code": "PUBLICATION_QA_AFFECTED"
+    },
+    {
+      "case": "limited_detail_count",
+      "code": "PUBLICATION_QA_EVIDENCE"
+    },
+    {
+      "case": "limited_reasons",
+      "code": "PUBLICATION_QA_EVIDENCE"
+    },
+    {
+      "case": "meaningless_evidence",
+      "code": "PUBLICATION_QA_EVIDENCE"
+    },
+    {
+      "case": "metric_keys",
+      "code": "PUBLICATION_QA_METRICS"
+    },
+    {
+      "case": "metrics",
+      "code": "PUBLICATION_QA_METRICS"
+    },
+    {
+      "case": "missing_object",
+      "code": "PUBLICATION_QA_MISSING"
+    },
+    {
+      "case": "missing_summary",
+      "code": "PUBLICATION_QA_MISSING"
+    },
+    {
+      "case": "missing_summary_reference",
+      "code": "PUBLICATION_QA_EVIDENCE"
+    },
+    {
+      "case": "negative_coverage",
+      "code": "PUBLICATION_QA"
+    },
+    {
+      "case": "nonqa07_limited",
+      "code": "PUBLICATION_QA_LIMITED"
+    },
+    {
+      "case": "null_skip",
+      "code": "PUBLICATION_QA_EXPECTED"
+    },
+    {
+      "case": "null_without_reason",
+      "code": "PUBLICATION_QA_EVIDENCE"
+    },
+    {
+      "case": "other_detail_object",
+      "code": "PUBLICATION_QA_EVIDENCE"
+    },
+    {
+      "case": "other_file_reference",
+      "code": "PUBLICATION_QA_EVIDENCE"
+    },
+    {
+      "case": "other_object_reference",
+      "code": "PUBLICATION_QA_EVIDENCE"
+    },
+    {
+      "case": "other_resource_reference",
+      "code": "PUBLICATION_QA_EVIDENCE"
+    },
+    {
+      "case": "other_source_reference",
+      "code": "PUBLICATION_QA_EVIDENCE"
+    },
+    {
+      "case": "other_summary_document",
+      "code": "PUBLICATION_QA_EVIDENCE"
+    },
+    {
+      "case": "other_summary_object",
+      "code": "PUBLICATION_QA_EVIDENCE"
+    },
+    {
+      "case": "other_year_reference",
+      "code": "PUBLICATION_QA_EVIDENCE"
+    },
+    {
+      "case": "required_block",
+      "code": "PUBLICATION_QA_BLOCK"
+    },
+    {
+      "case": "source_without_year",
+      "code": "PUBLICATION_QA_EVIDENCE"
+    },
+    {
+      "case": "summary",
+      "code": "PUBLICATION_QA_SUMMARY"
+    },
+    {
+      "case": "summary_affected",
+      "code": "PUBLICATION_QA_SUMMARY"
+    },
+    {
+      "case": "summary_expected",
+      "code": "PUBLICATION_QA_SUMMARY"
+    },
+    {
+      "case": "violation",
+      "code": "PUBLICATION_QA_VIOLATION"
+    },
+    {
+      "case": "wrong_batch_evidence",
+      "code": "PUBLICATION_QA_EVIDENCE"
+    },
+    {
+      "case": "wrong_file",
+      "code": "PUBLICATION_QA_EVIDENCE"
+    },
+    {
+      "case": "zero_coverage",
+      "code": "PUBLICATION_QA_EVIDENCE"
+    }
+  ],
+  "final_state": {
+    "rows": {
+      "meta.source": 0,
+      "meta.resource": 0,
+      "meta.batch": 0,
+      "meta.current_release": 0,
+      "raw.record": 0,
+      "rv.hub_crash": 0,
+      "rv.hub_unit": 0,
+      "rv.sat_crash": 0,
+      "rv.sat_unit": 0,
+      "rv.link_crash_unit": 0,
+      "canonical.crash": 0,
+      "canonical.unit": 0,
+      "dw.dim_source": 0,
+      "dw.dim_month": 0,
+      "dw.dim_severity": 0,
+      "dw.fact_crash": 0,
+      "qa.check_result": 0
+    },
+    "all_zero": true
+  },
+  "container_removed": true,
+  "boundaries": [
+    "Real S0 QA01-07 producers and FrozenManifest, partial inventory.",
+    "VIC policy tests only; no official records replayed.",
+    "Only private test pointer updates, all rolled back.",
+    "Final inventory freeze and full B10 acceptance remain separate."
+  ],
+  "previous_receipt": "receipt.json",
+  "review_comment": "https://github.com/A3939/advance-database-assignment-uts/pull/30#discussion_r4105832607"
+}

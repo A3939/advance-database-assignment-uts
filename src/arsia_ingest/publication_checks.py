@@ -41,7 +41,59 @@ def shape(value):
         fail("Invalid actual/expected shape")
 
 
-def evidence(row, files, cache, *, batch_id=None, empty=False):
+def evidence(row, files, cache, *, batch_id=None, concrete=None, empty=False):
+    rule, object_key = row[:2]
+    targets = list(concrete) if concrete is not None else [row]
+    by_key = {r[1]: r for r in targets}
+    wanted, seen = set(by_key), set()
+
+    def identity(ref):
+        key = ref.get("object_key")
+        if key is not None and key not in wanted:
+            fail("Evidence object differs from the checked object", "PUBLICATION_QA_EVIDENCE")
+        if "rule_id" in ref and ref["rule_id"] != rule:
+            fail("Evidence rule differs from the checked rule", "PUBLICATION_QA_EVIDENCE")
+        if key is not None and "result" in ref and ref["result"] != by_key[key][2]:
+            fail("Evidence disposition differs from its object", "PUBLICATION_QA_EVIDENCE")
+        rid, sid, year = ref.get("resource_id"), ref.get("source_id"), ref.get("occurrence_year")
+        if rid is not None and rid not in files:
+            fail("Evidence resource is not frozen", "PUBLICATION_QA_EVIDENCE")
+        if rid is not None:
+            sid = files[rid]["source_id"]
+        if rid is None and sid is None and year is None:
+            if object_key == "batch" and key is not None:
+                seen.add(key)
+            return
+        allowed = False
+        for target in wanted:
+            parts = target.split(":")
+            kind = parts[0]
+            target_file = files.get(parts[1]) if kind in {"file", "resource"} else None
+            target_source = target_file["source_id"] if target_file else parts[1]
+            if sid != target_source:
+                continue
+            if kind == "file":
+                matched = rid == parts[1]
+                allowed |= matched
+            elif kind == "resource":
+                # C includes parent/child references from the same source.
+                allowed = True
+                matched = rid == parts[1]
+            elif kind == "source":
+                allowed = True
+                matched = rid is not None or sid is not None
+            else:
+                if year is not None and (type(year) is not int or year != int(parts[2])):
+                    continue
+                allowed = True
+                matched = (year == int(parts[2]) and ref.get("batch_id") == batch_id)
+                if rule == "QA07_LOCATION":
+                    matched |= rid is not None
+            if matched:
+                seen.add(target)
+        if not allowed:
+            fail("Evidence belongs to another QA object or source-year", "PUBLICATION_QA_EVIDENCE")
+
     item = row[6]
     if (not isinstance(item, dict)
             or not isinstance(item.get("reason_codes"), list)
@@ -60,6 +112,7 @@ def evidence(row, files, cache, *, batch_id=None, empty=False):
             for child in ref:
                 visit(child)
         elif isinstance(ref, dict):
+            identity(ref)
             if "batch_id" in ref and ref["batch_id"] != batch_id:
                 fail("Evidence refers to another batch", "PUBLICATION_QA_EVIDENCE")
             if "source_id" in ref and ref["source_id"] not in {f["source_id"] for f in files.values()}:
@@ -93,6 +146,20 @@ def evidence(row, files, cache, *, batch_id=None, empty=False):
                         raise IntakeError("PUBLICATION_QA_EVIDENCE", "Evidence file is missing or invalid", path=path) from exc
                     cache[key] = parsed
                 parsed = cache[key]
+                if isinstance(parsed, dict):
+                    if "rule_id" in parsed or "object_key" in parsed:
+                        identity(parsed)
+                    if "batch_id" in parsed and parsed["batch_id"] != batch_id:
+                        fail("Evidence document belongs to another batch", "PUBLICATION_QA_EVIDENCE")
+                    if object_key == "batch" and isinstance(parsed.get("rows"), list):
+                        selected = [r for r in parsed["rows"] if r.get("rule_id") == rule]
+                        keys = [r.get("object_key") for r in selected]
+                        if Counter(keys) != Counter({k: 1 for k in wanted}):
+                            fail("Evidence document does not cover this summary", "PUBLICATION_QA_EVIDENCE")
+                        fields = ("rule_id", "object_key", "result", "affected_count", "actual", "expected", "evidence")
+                        if any(tuple(r.get(k) for k in fields) != by_key[r["object_key"]] for r in selected):
+                            fail("Evidence document differs from stored QA objects", "PUBLICATION_QA_EVIDENCE")
+                        seen.update(keys)
                 if "detail_row_count" in ref:
                     rows = parsed.get("rows") if isinstance(parsed, dict) else None
                     if (not isinstance(rows, list) or not count(ref["detail_row_count"])
@@ -112,6 +179,8 @@ def evidence(row, files, cache, *, batch_id=None, empty=False):
                 or not set(ref) & {"resource_id", "source_id", "object_key", "path", "null_metric_reasons", "coverage", "definition_version"}):
             fail("Evidence references need an object identity or detail file", "PUBLICATION_QA_EVIDENCE")
         visit(ref)
+    if seen != wanted:
+        fail("Evidence does not identify every checked object", "PUBLICATION_QA_EVIDENCE")
     return details, null_reasons, coverage
 
 
@@ -256,5 +325,5 @@ class Requirements:
         total = sum(r[3] for r in concrete)
         if result != state or not count(affected) or affected != total:
             fail("Summary disposition differs from concrete QA objects", "PUBLICATION_QA_SUMMARY")
-        evidence(row, self.files, self.cache, batch_id=self.batch, empty=not concrete)
+        evidence(row, self.files, self.cache, batch_id=self.batch, concrete=concrete, empty=not concrete)
         return {"rule_id": rule, "result": state, "affected_count": total}

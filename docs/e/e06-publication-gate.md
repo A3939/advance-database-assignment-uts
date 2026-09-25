@@ -19,7 +19,9 @@ NULL expectations are limited to the agreed inapplicable/Node fields and
 need reasons. VIC exceptions use the exact pinned restricted policy.
 
 Evidence needs its producer, resolution, references and reason list. Detail
-files must exist and match their SHA256 and record counts. Every QA07 limited
+files must exist and match their SHA256 and record counts. References must
+cover the checked object, not another file, source or year. Same-source parent
+and child references can support a check, but cannot replace its own identity. Every QA07 limited
 crash needs its stored location reason. Zero-crash coverage stays NULL.
 The evidence paths must remain available to the gate during the transaction.
 

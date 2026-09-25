@@ -44,8 +44,8 @@ audit runs before and after. The container is removed even if tests fail.
 
 ## Results
 
-- Installed acceptance: **51 passed, 0 skipped, 0 failed**.
-- **41 real PostgreSQL tests**: actual FP1, all seven real S0 producers, 33 gate
+- Installed acceptance: **61 passed, 0 skipped, 0 failed**.
+- **51 real PostgreSQL tests**: actual FP1, all seven real S0 producers, 43 gate
   fault cases, context checks and rollback. The three year scopes produce
   63, 57 and 51 persisted QA rows. Valid limited and zero-crash cases pass.
 - **6 VIC policy tests** and **4 original E tests**. Policy tests do not load
@@ -56,9 +56,19 @@ audit runs before and after. The container is removed even if tests fail.
 - A03 audits passed. All 17 data tables were empty after cleanup. Test pointer
   updates were rolled back; no shared database or official release changed.
 
-[Receipt and file hashes](../../evidence/e03-e06/receipt.json) record the tested
+[Receipt and file hashes](../../evidence/e03-e06/receipt-evidence-binding.json) record the tested
 inputs. Full logs are generated under `OUTPUT/postgres/`; the assembly and wheel
 hash are in `OUTPUT/assembly.json`.
+
+## Evidence binding follow-up
+
+PR #30 review found that a valid file reference could belong to another QA
+object. The gate now checks file/resource/source/year identities and requires
+every concrete object to be covered. C's same-source parent/child references
+remain valid. Detail documents must name the right rule/object; summary files
+must contain the exact stored concrete results for that batch and rule.
+Ten additional PostgreSQL cases cover these substitutions and omissions.
+The earlier 51-test receipt remains as the initial run record.
 
 ## E review and next steps
 
