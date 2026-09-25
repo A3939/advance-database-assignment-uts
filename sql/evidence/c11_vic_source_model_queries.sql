@@ -581,3 +581,74 @@ ORDER BY
     p.person_id,
     n.node_raw_record_id;
 
+
+-- Q0. Native keys: physical rows, blank keys and repeated key groups.
+WITH selected AS (
+  SELECT r.*, f.entity_kind
+  FROM jsonb_to_recordset(%s::jsonb) f(source_id text, resource_id text,
+       file_sha256 text, parser_version text, entity_kind text)
+  JOIN raw.record r USING (source_id, resource_id, file_sha256, parser_version)
+), keyed AS (
+  SELECT *, CASE entity_kind
+    WHEN 'crash' THEN jsonb_build_array(payload->>'ACCIDENT_NO')
+    WHEN 'unit' THEN jsonb_build_array(payload->>'ACCIDENT_NO',payload->>'VEHICLE_ID')
+    WHEN 'person_raw' THEN jsonb_build_array(payload->>'ACCIDENT_NO',payload->>'PERSON_ID')
+    WHEN 'node_raw' THEN jsonb_build_array(payload->>'ACCIDENT_NO',payload->>'NODE_ID') END AS native_key
+  FROM selected
+), groups AS (
+  SELECT resource_id,native_key,count(*) n FROM keyed GROUP BY resource_id,native_key
+)
+SELECT k.resource_id,count(*) AS raw_count,
+ count(*) FILTER (WHERE EXISTS (SELECT 1 FROM jsonb_array_elements_text(k.native_key) v
+                               WHERE v IS NULL OR btrim(v)='')) AS blank_key_rows,
+ (SELECT count(*) FROM groups g WHERE g.resource_id=k.resource_id AND n>1) AS duplicate_key_groups,
+ (SELECT coalesce(sum(n-1),0) FROM groups g WHERE g.resource_id=k.resource_id AND n>1) AS duplicate_extra_rows
+FROM keyed k GROUP BY k.resource_id ORDER BY k.resource_id;
+
+-- Q2B. Exact native empty, NULL and whitespace-only vehicle references differ.
+WITH person AS (
+ SELECT payload FROM raw.record WHERE source_id=%s AND resource_id=%s
+ AND file_sha256=%s AND parser_version=%s
+)
+SELECT count(*) AS person_rows,
+ count(*) FILTER (WHERE payload->>'VEHICLE_ID'='') AS empty_vehicle_refs,
+ count(*) FILTER (WHERE payload->>'VEHICLE_ID' IS NULL) AS null_vehicle_refs,
+ count(*) FILTER (WHERE payload->>'VEHICLE_ID'<>'' AND btrim(payload->>'VEHICLE_ID')='') AS space_only_vehicle_refs,
+ count(*) FILTER (WHERE payload->>'VEHICLE_ID'='' AND payload->>'ROAD_USER_TYPE'='1'
+                   AND payload->>'SEATING_POSITION'='NA') AS registered_pedestrian_nonassociation,
+ count(*) FILTER (WHERE payload->>'VEHICLE_ID'='' AND NOT
+   (payload->>'ROAD_USER_TYPE'='1' AND payload->>'SEATING_POSITION'='NA')) AS other_empty_refs
+FROM person;
+
+-- Q5C. Person-to-Vehicle join uses both key fields and preserves Person grain.
+WITH vehicle AS (
+ SELECT payload FROM raw.record WHERE source_id=%s AND resource_id=%s
+ AND file_sha256=%s AND parser_version=%s
+), person AS (
+ SELECT raw_record_id,payload FROM raw.record WHERE source_id=%s AND resource_id=%s
+ AND file_sha256=%s AND parser_version=%s
+), matched AS (
+ SELECT p.raw_record_id,count(v.payload) matches FROM person p LEFT JOIN vehicle v
+ ON p.payload->>'ACCIDENT_NO'=v.payload->>'ACCIDENT_NO'
+ AND p.payload->>'VEHICLE_ID'=v.payload->>'VEHICLE_ID'
+ AND p.payload->>'VEHICLE_ID' IS NOT NULL AND p.payload->>'VEHICLE_ID'<>''
+ GROUP BY p.raw_record_id
+)
+SELECT count(*) AS person_rows,coalesce(sum(greatest(matches,1)),0) AS joined_rows,
+ count(*) FILTER (WHERE matches>1) AS multiplied_person_rows,
+ count(*) FILTER (WHERE matches=1) AS matched_person_rows,
+ count(*) FILTER (WHERE matches=0) AS unmatched_or_nonassociated_rows FROM matched;
+
+-- Q6. Accident/Node matching uses the complete pair; retain missing observations.
+WITH accident AS (
+ SELECT raw_record_id,row_locator,payload FROM raw.record WHERE source_id=%s AND resource_id=%s
+ AND file_sha256=%s AND parser_version=%s
+), node AS (
+ SELECT payload FROM raw.record WHERE source_id=%s AND resource_id=%s
+ AND file_sha256=%s AND parser_version=%s
+)
+SELECT a.raw_record_id,a.row_locator,a.payload->>'ACCIDENT_NO' accident_no,
+ a.payload->>'NODE_ID' node_id,a.payload->>'ACCIDENT_DATE' accident_date
+FROM accident a WHERE NOT EXISTS (
+ SELECT 1 FROM node n WHERE n.payload->>'ACCIDENT_NO'=a.payload->>'ACCIDENT_NO'
+ AND n.payload->>'NODE_ID'=a.payload->>'NODE_ID') ORDER BY a.row_locator;
