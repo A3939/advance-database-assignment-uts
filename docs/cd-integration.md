@@ -62,7 +62,7 @@ Committed history fixtures stay explicitly unpublished. These tests do not valid
 
 ## Next inputs
 
-- **B with C:** run combined QA01–07 acceptance. The QA07 year-coverage fix from PR #28 is included and tested. The [C10 integration](c10-integration.md) supplies its real binding, resources and hashes. C11 evidence is available in merged PR #25.
+- **B with C/D:** extend the [passed S0 QA01–QA07 joint checks](qa-joint-validation.md) to agreed official scopes. The QA07 year-coverage fix from PR #28 is included and tested. The [C10 integration](c10-integration.md) supplies its real binding, resources and hashes. C11 evidence is available in merged PR #25.
 - **E:** corrected and database-tested E03 FP1 and E06 publication, plus their real code/schema inventory and acceptance inputs.
 - **B with C/D/E:** freeze the complete inventory, then run full B10 success, no-change, failure, concurrency, publication and recovery acceptance.
 - **D/B:** integrate D05–D08 query interfaces and reader permissions separately. They are outside this loading-stage delivery.

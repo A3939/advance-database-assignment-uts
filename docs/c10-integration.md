@@ -67,7 +67,7 @@ The year regression first recorded 71 passes and 7 failures: QA07 omitted extra 
 
 Next work:
 
-- **B with C:** run QA01–07 together. The QA07 year-coverage and Raw-attribution fixes are tested here and merged into C through PR #28.
+- **B with C/D:** extend the [passed S0 QA01–QA07 joint checks](qa-joint-validation.md) to agreed official scopes. The QA07 fixes are merged into C through PR #28.
 - **E:** supply corrected, database-tested FP1 and publication code with their real inventory entries.
 - **B and module owners:** assemble the final inventory, including D's analysis/query code, then run complete B10 acceptance.
 

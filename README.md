@@ -13,7 +13,7 @@ This development version extends the shared baseline from PR #17 with the three-
 | Packaged NSW/VIC/QLD projections, VIC location handling, Canonical loading and C10 QA | C / Serenity |
 | D02 dimensions, D03 crash facts and D04 reconciliation QA | D / Yihua |
 
-D05–D08 query integration and reader checks remain separate work. E's PR #16 needs FP1/publication fixes and validation. [C10 is connected to B](docs/c10-integration.md) using the merged PR #26 code. The QA07 year-coverage fix from [PR #28](https://github.com/A3939/advance-database-assignment-uts/pull/28) is included with real database regressions. Combined QA01–07 acceptance remains pending. Final inventory and full-build acceptance remain pending.
+D05–D08 query integration and reader checks remain separate work. E's PR #16 needs FP1/publication fixes and validation. [C10 is connected to B](docs/c10-integration.md) using the merged PR #26 code. The QA07 year-coverage fix from [PR #28](https://github.com/A3939/advance-database-assignment-uts/pull/28) is included with real database regressions. [S0 QA01–QA07 joint validation](docs/qa-joint-validation.md) passed 125 focused checks; the normal batch has 56 concrete results and seven summaries. Official-scope joint validation remains separate. Final inventory and full-build acceptance remain pending.
 
 The [C/D integration record](docs/cd-integration.md) reports 733 passed / 309 skipped in the installed default suite and 619 passed / 0 skipped in the PostgreSQL-enabled suite. The focused D04 lineage acceptance passed all 31 checks. These suites overlap. The [earlier B10 record](docs/b10-local-validation.md) retains the runner-fix evidence.
 

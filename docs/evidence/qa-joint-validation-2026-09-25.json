@@ -1,0 +1,330 @@
+{
+  "scope": "S0 QA01-QA07 joint component validation; no full B10 acceptance",
+  "b_base": "8b752870c624eed10d87ad6e52b636453e621f2e",
+  "test_code_commit": "44b4e975510eb2ae7a87a9dc59f18322b4e1e811",
+  "validation_state": "Tests ran before their commit; selected Python test and verifier hashes match the committed files.",
+  "c_merge": "6987e604bb93809aa94a736085c3e8320452461d",
+  "d04_fix": "daa9e575732b9016ffbe0b5024f67a055a2947ad",
+  "a_schema": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
+  "inputs": [
+    {
+      "path": "tests/test_qa_joint_postgres.py",
+      "sha256": "1d5d7fbc0edf3f44d5bb0493c034f0e80a983008de7354bcf816e5e47412b7ab"
+    },
+    {
+      "path": "tools/verify_qa_joint_postgres.py",
+      "sha256": "8b6a353152a8200ecea958103665a28c84db372bb6bb03352dfe5192e4350aa0"
+    },
+    {
+      "path": "tools/verify_ac_postgres.py",
+      "sha256": "634eea703798f7e1176a8196d24aa667674ad0e8ac9a63cebac2e34645858f4e"
+    },
+    {
+      "path": "tools/verify_d04_lineage_postgres.py",
+      "sha256": "1a13a1c40cdd35a5a4cf49af3a9f6cf587ca22b6d61ccb93431418f00e310aff"
+    },
+    {
+      "path": "tests/fixtures/s0/contract.json",
+      "sha256": "a73bdac78cb3b3ec4aff66658c37108ca84c34572ef3f42460a73e169b9411b6"
+    },
+    {
+      "path": "config/qa-team-v1.1.json",
+      "sha256": "d1729d38c890645cad18b55fdb3b0c8451cdf89f4627db507e5adc8abf5b6893"
+    },
+    {
+      "path": "config/cd-inventory.json",
+      "sha256": "eefb354e1436daac699df812ec3edc2d2b1718d73e424177df0115d060a25d42"
+    },
+    {
+      "path": "src/arsia_ingest/qa_input.py",
+      "sha256": "7de668caf649cd1ead6b35d155cf213caabccfb4fa59ee110bd336bf57210723"
+    },
+    {
+      "path": "src/arsia_ingest/runner.py",
+      "sha256": "e8ba28605def0b8e7834fac981772ef7bfcdf8b34d79189b8aa911b2e87b9f8f"
+    },
+    {
+      "path": "src/arsia_c/qa.py",
+      "sha256": "b20de487502274113713e45ed2584a622fd0f5d9070061890f963ff642422190"
+    },
+    {
+      "path": "src/arsia_d04/reconciliation.py",
+      "sha256": "793101b7ae2d03cf87b84b68fd7bf21392b292b86ea8e3eb4c5a07187a8c12c9"
+    }
+  ],
+  "runtime": {
+    "python": "3.12.6 (v3.12.6:a4a2d2b0d85, Sep  6 2024, 16:08:03) [Clang 13.0.0 (clang-1300.0.29.30)]",
+    "postgresql": [
+      "PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+      "arsia_loader",
+      "arsia_loader",
+      "UTF8",
+      "UTC",
+      "en_US.utf8",
+      "en_US.utf8",
+      false,
+      false,
+      false,
+      false
+    ],
+    "image": "postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67",
+    "packages": {
+      "arsia-native-intake": "0.1.0",
+      "openpyxl": "3.1.5",
+      "psycopg": "3.3.6",
+      "psycopg-binary": "3.3.6",
+      "pytest": "8.4.2"
+    },
+    "wheel_sha256": "e3b04e8f917862763ee00102617726005864d822ddfa8ba02a500a566ae343e0"
+  },
+  "tests": {
+    "focused": {
+      "tests": 125,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "pytest_exit_code": 0,
+      "exit_code": 0,
+      "permissions": "Original A03 audit passed before and after",
+      "final_tables_empty": true,
+      "publication_performed": false,
+      "boundary": "Component chain only; full B10 still requires the remaining real modules and inventory"
+    },
+    "focused_cases_by_module": {
+      "tests.test_qa_joint_postgres": 23,
+      "tests.test_input_qa_postgres": 2,
+      "tests.test_c10_integration_postgres": 5,
+      "tests.test_c10_year_coverage_postgres": 16,
+      "tests.test_d04_lineage_postgres": 16,
+      "tests.test_cd_inventory": 4,
+      "tests.test_cd_integration_postgres": 7,
+      "tests.test_runner": 52
+    },
+    "real_database_cases": 68,
+    "new_joint_cases": 23,
+    "default": {
+      "passed": 734,
+      "skipped": 353,
+      "failed": 0
+    },
+    "counts_overlap": true
+  },
+  "normal_s0": {
+    "batch_id": "3d7fb565-b277-4ca5-8b9a-15caa64121d2",
+    "raw_rows": 19,
+    "crashes": 6,
+    "units": 6,
+    "map_points": 4,
+    "dimensions": {
+      "sources": 3,
+      "months": 60,
+      "severity": 12
+    },
+    "concrete_results": 56,
+    "summaries": 7,
+    "objects_by_rule": {
+      "QA01_INPUT": 7,
+      "QA02_RAW": 7,
+      "QA03_PROJECTED": 5,
+      "QA04_AUXILIARY": 4,
+      "QA05_SEMANTICS": 3,
+      "QA06_RECONCILIATION": 15,
+      "QA07_LOCATION": 15
+    },
+    "qa_summary": [
+      {
+        "affected_count": 0,
+        "result": "pass",
+        "rule_id": "QA01_INPUT"
+      },
+      {
+        "affected_count": 0,
+        "result": "pass",
+        "rule_id": "QA02_RAW"
+      },
+      {
+        "affected_count": 0,
+        "result": "pass",
+        "rule_id": "QA03_PROJECTED"
+      },
+      {
+        "affected_count": 0,
+        "result": "pass",
+        "rule_id": "QA04_AUXILIARY"
+      },
+      {
+        "affected_count": 0,
+        "result": "pass",
+        "rule_id": "QA05_SEMANTICS"
+      },
+      {
+        "affected_count": 0,
+        "result": "pass",
+        "rule_id": "QA06_RECONCILIATION"
+      },
+      {
+        "affected_count": 2,
+        "result": "limited",
+        "rule_id": "QA07_LOCATION"
+      }
+    ],
+    "unmapped_crashes": 2,
+    "node_observations": 4,
+    "node_duplicate_groups": 2,
+    "node_conflict_groups": 1
+  },
+  "checks": {
+    "installed_wheel_outside_source": true,
+    "real_frozen_manifest": true,
+    "final_platform_inventory": false,
+    "all_inventory_runtime_schema_hashes_unchanged": true,
+    "original_a03_before_after": true,
+    "all_17_tables_empty": true,
+    "container_removed": "arsia-b-ac-c0283d5eb9b7",
+    "callers_own_rollback": true,
+    "evidence_retained_after_rollback": true,
+    "previous_qa_rows_preserved": true,
+    "duplicate_writes_rejected": true,
+    "each_missing_summary_rejected": true,
+    "missing_concrete_result_rejected_by_test_oracle_only": true,
+    "later_groups_not_filled_after_block": true
+  },
+  "boundaries": {
+    "official_archive_replay": false,
+    "vic_restricted_profile_replay": false,
+    "real_fp1": false,
+    "e_object_gate": false,
+    "publication": false,
+    "run_build_end_to_end": false,
+    "shared_database": false,
+    "business_code_changed": false
+  },
+  "remaining": {
+    "B_with_C_D": "Joint validation of agreed official scopes; preserve existing restricted-use policies.",
+    "E": "Corrected and database-tested FP1, complete QA object gate and publication implementation.",
+    "B_with_module_owners": "Final platform inventory and full B10 acceptance."
+  },
+  "local_evidence_root": "artifacts/role-b-qa-joint-20260925",
+  "evidence": [
+    {
+      "path": "postgres-first/inputs.json",
+      "sha256": "a05f8a82d8bb16a335ceba954a9a5da882cf80b29fffb7344bcacdfe8b6e4f30"
+    },
+    {
+      "path": "postgres-first/command.json",
+      "sha256": "9c0669a5368131bd9d6c932e5e7900b14fb7cb60de72ae08b61754fcff3bc4c6"
+    },
+    {
+      "path": "postgres-first/environment.json",
+      "sha256": "a0c3132d813f8f18e3d68d3f024c228b53d3c1be37382574e8c95b31b32fa0c4"
+    },
+    {
+      "path": "postgres-first/summary.json",
+      "sha256": "999f45606f276dfe87d11dfa5e5d0df863da9183a0c055b178e6f81d88d87af7"
+    },
+    {
+      "path": "postgres-first/pytest.xml",
+      "sha256": "5776f7321d4310f51d20138ded7a2fb97be2a023ce6c50c1b455fdd00e42534e"
+    },
+    {
+      "path": "postgres-first/pytest.log",
+      "sha256": "6fed64d1151591f2ad4fc7b0859ee17e4db33528a1472a9c3b51bcdf292d7c93"
+    },
+    {
+      "path": "postgres-first/migrations.log",
+      "sha256": "a82236d6e3beed2c859d39313200a6015d460a7e09505404f5e0f9d729723ae9"
+    },
+    {
+      "path": "postgres-first/a03-before.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+    },
+    {
+      "path": "postgres-first/a03-after.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+    },
+    {
+      "path": "postgres-first/final-state.json",
+      "sha256": "dbc4b9c36a78e26384cbe23a4d657bae8af990f1ab2bbf3300c91aedc6becd18"
+    },
+    {
+      "path": "postgres-first/cleanup.json",
+      "sha256": "345f75a683c78c2bfd68b00fc9f1f883c2cba061207b2f491747679fe5934735"
+    },
+    {
+      "path": "default-suite.xml",
+      "sha256": "326355ff6cd4a933c9ff0e7b0a45de2c22fe12f1b846c7ed2e793a4118c7a64f"
+    },
+    {
+      "path": "default-suite.log",
+      "sha256": "39e1cff317da7fcf12df1e3cf9c3c6bc1968a71c7d84ba63164d49fff9bbcd4f"
+    },
+    {
+      "path": "postgres-first/cd-evidence/joint-runs/8b6dc76e933a4b7cb7b3431dd3829cc7/joint-result.json",
+      "sha256": "428c83295ccd229161069f2160262c6ba6762596bf04cb0ea2a5a76b5227f4cb"
+    },
+    {
+      "path": "postgres-first/cd-evidence/joint-runs/8b6dc76e933a4b7cb7b3431dd3829cc7/manifest.json",
+      "sha256": "5b24a9a99641aa1b8b66ac16ed723725740ccb8b89f67e459937792da95476ac"
+    },
+    {
+      "path": "postgres-first/cd-evidence/joint-runs/199d2f2a54d04ca7a7ceabb4741a2a2c/joint-block.json",
+      "sha256": "b4b1c05dfe8a6248a0494b3c7459e3e59d96c6052cbe0167ead294a8a1c929fc"
+    },
+    {
+      "path": "postgres-first/cd-evidence/joint-runs/2e406b2e54e14c36b8bf0744f7f1c5d6/joint-block.json",
+      "sha256": "e4965583bf6fbe4bd147d6681a69ebd535b83c8cc4d3ff0cf666b07a520505c6"
+    },
+    {
+      "path": "postgres-first/cd-evidence/joint-runs/37bf6f9979634092ba6223c1b169b87d/joint-block.json",
+      "sha256": "a5ca56f62eafcf3145d4e34462f142ba55d2ebfb1456ff2e8d0ef88cb5c97dc7"
+    },
+    {
+      "path": "postgres-first/cd-evidence/joint-runs/3b598388bbe84b758710afe6f4f7f915/joint-block.json",
+      "sha256": "cd366086e646ea6099fb88b26550df5045b062375bf344ae0aec0b86eb9925b4"
+    },
+    {
+      "path": "postgres-first/cd-evidence/joint-runs/63f453dd843c4fb08d176b93cbd11d7b/joint-block.json",
+      "sha256": "8d3a684e92003b48d51ce0327923edf095e68111df3ef433a6a6d6b5131c68f1"
+    },
+    {
+      "path": "postgres-first/cd-evidence/joint-runs/d3b66a12cfb64c87b22943a39d2b4470/joint-block.json",
+      "sha256": "bf5b6e1e87405f2b887328e0a6b86b683b4f23092d4088f4f45498f39419d251"
+    },
+    {
+      "path": "postgres-first/cd-evidence/joint-runs/68941056ac134604912836bdd17cfa7a/missing-summary.json",
+      "sha256": "4cd3bd70a35b28f4770c48eb9427e9dc25c854e4c10ce49bb63213b869049001"
+    },
+    {
+      "path": "postgres-first/cd-evidence/joint-runs/6b9be29dec234985801eafd589e0aaed/missing-summary.json",
+      "sha256": "2cd72b74e9049beceec827d2c537217ce9909f19aa864be9b0c99eaddc84e130"
+    },
+    {
+      "path": "postgres-first/cd-evidence/joint-runs/ac7a3b83de024f3fadf954eb73a77f26/missing-summary.json",
+      "sha256": "5e6ba8b90d7686e2e0747c83a2166939a19758e488398b1e965e3c57fcfae884"
+    },
+    {
+      "path": "postgres-first/cd-evidence/joint-runs/cb387bad0bae43cd8de0ad364c585109/missing-summary.json",
+      "sha256": "10048955767bd0bfaaf86b85923444982645d4ad01a0a7ae75aec2fab8c56259"
+    },
+    {
+      "path": "postgres-first/cd-evidence/joint-runs/d492371da09d43cc84392ec0414bce56/missing-summary.json",
+      "sha256": "d61f027f4b0e3668d9d83a5864f4ae600b256f910a455561b2857319623935ad"
+    },
+    {
+      "path": "postgres-first/cd-evidence/joint-runs/f91775da98cc4dbe8a5aaef036f92ac3/missing-summary.json",
+      "sha256": "7e7f5d6d324f22361e2b62a1f2b99cf15e522bd8634685d61355f3ac39e8cacb"
+    },
+    {
+      "path": "postgres-first/cd-evidence/joint-runs/ff24ac3c3fce4587a135e4699c30d3e1/missing-summary.json",
+      "sha256": "d38684c006d380175a415017e541f5f7c8355c262809ec79404f2293f37b0714"
+    },
+    {
+      "path": "postgres-first/cd-evidence/joint-runs/b0769667ed5f461e948ac5ddd9a3e430/object-gate-boundary.json",
+      "sha256": "f77ca4a8416dd8e82e97eaf1b08bcc14e4acaf6e8cae9786ba82705430265558"
+    },
+    {
+      "path": "postgres-first/cd-evidence/joint-input-block/a1446b5dd6704039843618267f698bb0/qa01.json",
+      "sha256": "18429aa4f440de41a03499472d7f58bbe00774b2a5bcf533cd8906ea52619b15"
+    }
+  ]
+}
