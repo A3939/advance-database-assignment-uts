@@ -1,17 +1,18 @@
 {
-  "scope": "C03/C04/C05 project, A06 Vault, C09 Canonical, D02/D03 DW and D04 QA06 components",
+  "scope": "C03/C04/C05 project, A06 Vault, C09 Canonical, D02/D03 DW, C10 QA03/04/05/07 and D04 QA06 components",
   "final_platform": false,
   "component_scope": {
     "project": "NSW, VIC and QLD; source restrictions remain enforced",
     "vault": "A06 projection-to-Vault loader",
     "canonical": "C09 validation and Canonical loader",
     "dw": "D02 dimensions and D03 crash facts",
-    "qa_d": "D04 QA06 reconciliation"
+    "qa_d": "D04 QA06 reconciliation",
+    "qa_c": "C10 QA03/04/05/07 with C06 Person checks; seven-QA acceptance remains separate"
   },
   "upstream": {
     "b": {
       "branch": "peixian/dev",
-      "commit": "a1768623aef837daa082f7ed564d97c07b60b4cf"
+      "commit": "b51dc2860f50feb9ea52d4336f7bfaa1db5471fb"
     },
     "a": {
       "merge_commit": "a94314d5a53934cfae1e77f6aa9f6ca4a3f9b893",
@@ -39,6 +40,36 @@
       ],
       "fix_commit": "daa9e575732b9016ffbe0b5024f67a055a2947ad",
       "fix_pr": "https://github.com/A3939/advance-database-assignment-uts/pull/23"
+    },
+    "c10": {
+      "branch": "yue/role-c",
+      "checked_head": "6987e604bb93809aa94a736085c3e8320452461d",
+      "implementation_commit": "3f6c94795ee0fc8ec0f17903f23fd4a85b5646ac",
+      "merge_commit": "cd576d05c09d796d111d3c37b0321e11d510dda7",
+      "pr": "https://github.com/A3939/advance-database-assignment-uts/pull/26",
+      "imported_paths": [
+        "src/arsia_c/qa.py",
+        "src/arsia_c/qa_expectations.py",
+        "src/arsia_c/person_checks.py",
+        "src/arsia_c/restricted_person.py",
+        "src/arsia_c/sql/c10_qa03_expectation.sql",
+        "src/arsia_c/sql/c10_qa03_projected.sql",
+        "src/arsia_c/sql/c10_qa04_auxiliary.sql",
+        "src/arsia_c/sql/c10_qa05_semantics.sql",
+        "src/arsia_c/sql/c10_qa07_location.sql",
+        "src/arsia_c/sql/c06_vic_person_checks.sql",
+        "src/arsia_c/config/c06-syn-1.json",
+        "src/arsia_c/config/c06-vic-r1.json",
+        "src/arsia_c/config/vic-restricted-inputs-v1.json",
+        "src/arsia_c/config/vic-restricted-use-v1.json"
+      ],
+      "note": "All 14 imported files match checked_head after PR #28. Existing projection/Canonical versions are unchanged.",
+      "fix_commit": "c3fbbd45f6d5511e89cee7083f80a42c8347b6f1",
+      "fix_branch": "peixian/c10-year-coverage",
+      "fix_status": "Merged into yue/role-c via PR #28",
+      "fix_pr": "https://github.com/A3939/advance-database-assignment-uts/pull/28",
+      "year_range_fix_commit": "975d8b6456d3e31cf711e48dd7c449610db0dc0d",
+      "fix_merge_commit": "6987e604bb93809aa94a736085c3e8320452461d"
     }
   },
   "bindings": {
@@ -66,6 +97,11 @@
       "callback": "arsia_d04.reconciliation:runner_callback",
       "code_path": "src/arsia_d04/reconciliation.py",
       "version": "d04-daa9e57"
+    },
+    "qa_c": {
+      "callback": "arsia_c.qa:runner_callback",
+      "code_path": "src/arsia_c/qa.py",
+      "version": "c10-role-c-v1.2"
     }
   },
   "components": {
@@ -154,10 +190,31 @@
     "qa": [
       "pyproject.toml",
       "requirements.txt",
+      "src/arsia_c/__init__.py",
+      "src/arsia_c/config/c06-syn-1.json",
+      "src/arsia_c/config/c06-vic-r1.json",
+      "src/arsia_c/config/vic-restricted-inputs-v1.json",
+      "src/arsia_c/config/vic-restricted-use-v1.json",
+      "src/arsia_c/person_checks.py",
+      "src/arsia_c/projections/__init__.py",
+      "src/arsia_c/projections/nsw.py",
+      "src/arsia_c/projections/source_contracts.py",
+      "src/arsia_c/qa.py",
+      "src/arsia_c/qa_expectations.py",
+      "src/arsia_c/restricted_person.py",
+      "src/arsia_c/sql/c06_vic_person_checks.sql",
+      "src/arsia_c/sql/c10_qa03_expectation.sql",
+      "src/arsia_c/sql/c10_qa03_projected.sql",
+      "src/arsia_c/sql/c10_qa04_auxiliary.sql",
+      "src/arsia_c/sql/c10_qa05_semantics.sql",
+      "src/arsia_c/sql/c10_qa07_location.sql",
       "src/arsia_d04/__init__.py",
       "src/arsia_d04/reconciliation.py",
+      "src/arsia_ingest/__init__.py",
+      "src/arsia_ingest/manifest.py",
       "src/arsia_ingest/models.py",
-      "src/arsia_ingest/qa_input.py"
+      "src/arsia_ingest/qa_input.py",
+      "src/arsia_ingest/vic_restricted.py"
     ]
   },
   "interface_scope": "Actual B interface code; partial inventory, not a final FrozenManifest",
@@ -237,6 +294,14 @@
       "sha256": "40c0535ae002e57bd3a072ce90415c9ca619a801d3063db1ab524d8684fddeb4"
     },
     {
+      "path": "src/arsia_c/config/c06-syn-1.json",
+      "sha256": "9de8aa68d9607415137a8b0c9bac598dbb1de9aea681241006391c61136a472a"
+    },
+    {
+      "path": "src/arsia_c/config/c06-vic-r1.json",
+      "sha256": "e3e52e87ac2200025dffe32e011ebeed2e9eeccc51973285f75540a1f6830f29"
+    },
+    {
       "path": "src/arsia_c/config/vic-restricted-inputs-v1.json",
       "sha256": "7eaf1e4834c6dcdb8c74e933aaff602dcaad0094e72f5508fe64ab3a34b583a3"
     },
@@ -247,6 +312,10 @@
     {
       "path": "src/arsia_c/node_location.py",
       "sha256": "d116527bdfcf240dfba342073b5a367630f4852106892abe054270c98b0cba58"
+    },
+    {
+      "path": "src/arsia_c/person_checks.py",
+      "sha256": "bae217a18bc7adb6473a415222c13e365e3e26ae714c7b928fa1f6d3dfbe32f5"
     },
     {
       "path": "src/arsia_c/projections/__init__.py",
@@ -309,6 +378,18 @@
       "sha256": "703c8e67630de8d6d937aab49d5232ea91e92b0dd3df6dd060e3f4dcf4e5c599"
     },
     {
+      "path": "src/arsia_c/qa.py",
+      "sha256": "b20de487502274113713e45ed2584a622fd0f5d9070061890f963ff642422190"
+    },
+    {
+      "path": "src/arsia_c/qa_expectations.py",
+      "sha256": "d78d1e82c5404055c987d2c30fce6e641beb01bd5af131046d34227f4e215564"
+    },
+    {
+      "path": "src/arsia_c/restricted_person.py",
+      "sha256": "a03a81bcff6ed858aee8aa7c8af0cd92f7e0a2016fe4fa1b0122a2a1684fcc3b"
+    },
+    {
       "path": "src/arsia_c/sql/c03_projection_tables.sql",
       "sha256": "828410b21258663d63a2737e0ba612ae33bbae6849c2fbdc09dac1deb38ae15d"
     },
@@ -337,8 +418,32 @@
       "sha256": "86474abc07b6c0a3198e9733db4b295219d96b055b45af989507b641b7ea39f5"
     },
     {
+      "path": "src/arsia_c/sql/c06_vic_person_checks.sql",
+      "sha256": "045a4dfff6dab47251abcefa969bd75f5dee85f8df65d3b7acb63fdbf9d426bc"
+    },
+    {
       "path": "src/arsia_c/sql/c07_vic_node_observations.sql",
       "sha256": "deeb7633ad61ee14e5f4f32ec8935a4cebeaf3ba46e9c04ffabc23a5c6dd047f"
+    },
+    {
+      "path": "src/arsia_c/sql/c10_qa03_expectation.sql",
+      "sha256": "8a38f99fbe501580bcdaf278dc41fd27c71b2b1f28fe5346e6947a4ccc6eeec5"
+    },
+    {
+      "path": "src/arsia_c/sql/c10_qa03_projected.sql",
+      "sha256": "5446f8255d164408280840c60d95fdbbf1b0b502dccfd80028718af5b09cdd8d"
+    },
+    {
+      "path": "src/arsia_c/sql/c10_qa04_auxiliary.sql",
+      "sha256": "2d9a1ded01115d4d34056a1155906d340104dc0446704a2a1615ef38f4589390"
+    },
+    {
+      "path": "src/arsia_c/sql/c10_qa05_semantics.sql",
+      "sha256": "db8af3424b7d12e2fd8ada9511846be6dabce983a68f42bd78ea13ab8c643014"
+    },
+    {
+      "path": "src/arsia_c/sql/c10_qa07_location.sql",
+      "sha256": "ab4e392ee199512284fe9971ed6281f1fab0ccbe84dd86e1ddea112a615023d6"
     },
     {
       "path": "src/arsia_c/sql/c45_crash_check.sql",
@@ -386,7 +491,7 @@
     },
     {
       "path": "src/arsia_ingest/components.py",
-      "sha256": "188bff8f6c3fa3409f656eecbd931fbcee19baf08c4ede8b4d949c55d5701bf2"
+      "sha256": "cff2a922877a7b343e878e471f3390a4181a07aba89a743b99adbcec7607c27d"
     },
     {
       "path": "src/arsia_ingest/config.py",
@@ -501,12 +606,30 @@
     "runtime_requirements": "requirements.txt",
     "database": "PostgreSQL 16; original A03 arsia_loader grants",
     "test_driver": "psycopg[binary]==3.3.6 in requirements-db.txt",
-    "new_external_packages": []
+    "new_external_packages": [],
+    "qa_c": {
+      "version": "c10-role-c-v1.2",
+      "runtime_requirements": "No new external packages; C06 code, SQL and policy files are included",
+      "input_stages": [
+        "C03/C04/C05/C07 temporary projections",
+        "C09 canonical tables",
+        "D02/D03 dimensions and facts"
+      ],
+      "interfaces": [
+        "FrozenManifest",
+        "ModuleBinding",
+        "ModuleConnection",
+        "RunContext",
+        "RunEvidence",
+        "QAReport",
+        "write_results"
+      ]
+    }
   },
   "remaining_dependencies": [
     {
       "owner": "B",
-      "delivery": "Integrate C10 merged in C PR26 and verify its outstanding QA07 year-coverage finding"
+      "delivery": "Run combined QA01-07 acceptance; the QA07 year-coverage fix has component validation in both C and B"
     },
     {
       "owner": "E",

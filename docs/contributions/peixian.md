@@ -30,9 +30,10 @@ This index links the work and its evidence. It does not estimate hours or a cont
 | [#24](https://github.com/A3939/advance-database-assignment-uts/pull/24) | Returned B's C03 resource-loading fix to C and added a clean-wheel installation regression | C |
 | [#25](https://github.com/A3939/advance-database-assignment-uts/pull/25) | Completed the C11 handoff and ran 12 PostgreSQL queries over the four full VIC originals | C |
 | [#26](https://github.com/A3939/advance-database-assignment-uts/pull/26) | Extended C's initial C10 with QA03/04/05/07, persistence, resources and database checks | C |
+| [#28](https://github.com/A3939/advance-database-assignment-uts/pull/28) | Reproduced QA07's year-coverage gap, fixed Raw year attribution, added blocking objects/evidence and sixteen database regressions; merged into C | C |
 
 PR #5 has JJ's Approved review. PR #6 has D's Approved review, submitted after its merge.
-The other listed fixes were merged; this record does not claim formal approvals for them.
+PRs #4–#26 listed above and PR #28 were merged. Peixian merged PR #28 with C's agreement, as confirmed by Peixian; no formal GitHub Approved review was submitted for it. This record does not claim other formal approvals.
 
 ## Integration and validation
 
@@ -44,8 +45,9 @@ The other listed fixes were merged; this record does not claim formal approvals 
 | [PR #19](https://github.com/A3939/advance-database-assignment-uts/pull/19) | Added real PostgreSQL recovery tests and a verifier pinned to A's fixed migrations; see the [B14 record](b14-postgres.md) |
 | [Three-source C/D integration](../cd-integration.md) | Added the source dispatcher, real bindings, inventory and installed-package PostgreSQL validation in B |
 | [PR18 D04 lineage acceptance](../d04-lineage-review.md) | Reproduced six missed checks, added controls, then imported D's PR #23 fix and updated B's inventory. All 31 focused checks and 619 broader checks passed; totals overlap. D owns the runtime fix. |
+| [C10 integration](../c10-integration.md) | Connected C's merged QA callback to B, included C06 resources, updated inventory and added clean-wheel and real PostgreSQL interface tests |
 | [PR #16 review](https://github.com/A3939/advance-database-assignment-uts/pull/16#pullrequestreview-5312480114) | Reproduced E's FP1 deployment, permission and publication-gate defects and published a request-changes review; E owns the follow-up fixes |
 
 A's migrations/A06, C's projection/Canonical modules and D's dimensions/facts/reconciliation remain their work.
 Importing those files into B is integration, not original authorship. Test totals in different receipts overlap.
-PRs #24–#26 are merged into C's branch. C10 still needs B integration and its QA07 year-coverage follow-up. E FP1, publication and the final inventory still need full-build acceptance. The contribution records distinguish original module work, B's additions and integration; they do not claim team-wide completion.
+PRs #24–#26 are merged into C's branch. C10 and the QA07 fix are included in B PR #27. Combined QA01–07 acceptance remains pending. E FP1, publication and the final inventory still need full-build acceptance. The contribution records distinguish original module work, B's additions and integration; they do not claim team-wide completion.

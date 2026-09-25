@@ -2,6 +2,7 @@
 
 from arsia_c.canonical import load_canonical
 from arsia_c.projections.dispatcher import project
+from arsia_c.qa import runner_callback as qa_c
 from arsia_d03.facts import runner_callback as load_dw
 from arsia_d04.reconciliation import runner_callback as qa_d
 from .runner import ModuleBinding
@@ -18,14 +19,16 @@ BINDING_SPECS = {
                   "src/arsia_c/canonical.py", "c09-ad8baed"),
     "dw": ("arsia_d03.facts:runner_callback",
            "src/arsia_d03/facts.py", "d03-337101f"),
+    "qa_c": ("arsia_c.qa:runner_callback",
+             "src/arsia_c/qa.py", "c10-role-c-v1.2"),
     "qa_d": ("arsia_d04.reconciliation:runner_callback",
              "src/arsia_d04/reconciliation.py", "d04-daa9e57"),
 }
 
 
 def bindings():
-    """C10 qa_c and E publish must be supplied before a full build."""
+    """Available loading and QA stages; E publish is still required."""
     callbacks = {"project": project, "vault": load_vault, "canonical": load_canonical,
-                 "dw": load_dw, "qa_d": qa_d}
+                 "dw": load_dw, "qa_c": qa_c, "qa_d": qa_d}
     return {stage: ModuleBinding(callbacks[stage], path, version)
             for stage, (_, path, version) in BINDING_SPECS.items()}

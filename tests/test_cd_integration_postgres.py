@@ -280,7 +280,7 @@ def test_new_batch_definitions_and_facts_preserve_committed_history(connection, 
         cleanup(batches, frozen)
 
 
-def test_full_build_still_requires_real_c10_e_and_final_inventory(prepared, frozen):
+def test_full_build_still_requires_real_e_and_final_inventory(prepared, frozen):
     def forbidden_connection():
         raise AssertionError("Partial inventory must block before connecting")
     modules = BuildModules(**bindings())
@@ -291,4 +291,4 @@ def test_full_build_still_requires_real_c10_e_and_final_inventory(prepared, froz
     with pytest.raises(IntakeError) as error:
         _bindings(modules, None, inventory())
     assert error.value.code == "MODULE_UNAVAILABLE"
-    assert set(error.value.details["modules"]) == {"qa_c", "publish"}
+    assert set(error.value.details["modules"]) == {"publish"}
