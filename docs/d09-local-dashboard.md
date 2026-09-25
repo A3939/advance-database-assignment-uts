@@ -53,6 +53,15 @@ all D05-D08 components returning the same batch. PostgreSQL acceptance also
 pins one release, changes `current_release` to another successful batch, and
 confirms that the already-started page read continues to use the first batch.
 
+The recorded 2026-09-25 PostgreSQL 16 run passed 19 tests with 0 failures,
+0 errors and 0 skips. It used D09 implementation commit
+`d468cec2392a10a10b83c2ae8d6a5caac0516995`, exercised the actual
+`arsia_reader` role, and published no release outside its disposable test
+database. Reproduction logs and exact inputs are in
+`docs/evidence/d09-postgres-validation-2026-09-25/`. The rendered fixed-example
+page and visual-check screenshot are in
+`docs/evidence/d09-ui-preview-2026-09-25/`.
+
 ## Remaining team acceptance
 
 The independent test creates controlled successful batches because the shared
