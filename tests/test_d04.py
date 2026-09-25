@@ -3,6 +3,7 @@
 import hashlib
 import importlib
 import json
+from copy import deepcopy
 from pathlib import Path
 
 import pytest
@@ -17,7 +18,7 @@ BATCH = "12345678-1234-5678-9234-567812345678"
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = {
     "analysis": {"year_from": 2020, "year_to": 2020},
-    "sources": [{"source_id": "syn_nsw"}],
+    "sources": [{"source_id": "syn_nsw", "release_scope": "s0"}],
     "files": [{
         "source_id": "syn_nsw",
         "resource_id": "syn_nsw_crash",
@@ -25,6 +26,24 @@ MANIFEST = {
         "file_sha256": "a" * 64,
         "parser_version": "xlsx-native-v1",
     }],
+    "rules": {"contracts": [{
+        "id": "syn_nsw_crash",
+        "status": "synthetic_defined",
+        "content": {
+            "input": {
+                "source_id": "syn_nsw",
+                "resource_id": "syn_nsw_crash",
+                "entity_kind": "crash",
+                "file_sha256": "a" * 64,
+                "parser_version": "xlsx-native-v1",
+            },
+            "identity": {
+                "release_scope": "s0",
+                "key": {"fields": ["Crash ID"]},
+                "parent": None,
+            },
+        },
+    }]},
 }
 
 
@@ -175,6 +194,11 @@ def test_sql_uses_full_identity_null_safe_fields_and_no_units():
     assert "raw.record" in sql
     assert "allowed_lineage" in sql
     assert "file_sha256 = primary_raw.file_sha256" in sql
+    assert "rv.encode_business_key" in sql
+    assert "from unnest(allowed.key_fields)" in sql
+    assert "location_raw.raw_record_id = primary_raw.raw_record_id" in sql
+    assert "allowed.parent_resource_id = primary_raw.resource_id" in sql
+    assert "unnest( allowed.parent_fields, allowed.parent_crash_fields" in sql
     assert "severity_definition_version" in sql
     assert "canonical.unit" not in sql
     assert "dw.fact_unit" not in sql
@@ -188,18 +212,67 @@ def test_frozen_manifest_lineage_identities_are_bound_to_query():
     allowed = json.loads(connection.executed[0][1][0])
     assert allowed == [
         {
+            "entity_kind": "crash",
+            "key_fields": ["Crash ID"],
             "lineage_kind": "primary",
+            "parent_crash_fields": [],
+            "parent_fields": [],
+            "parent_resource_id": None,
             "resource_id": "syn_nsw_crash",
             "file_sha256": "a" * 64,
             "parser_version": "xlsx-native-v1",
         },
         {
+            "entity_kind": "crash",
+            "key_fields": ["Crash ID"],
             "lineage_kind": "location",
+            "parent_crash_fields": [],
+            "parent_fields": [],
+            "parent_resource_id": None,
             "resource_id": "syn_nsw_crash",
             "file_sha256": "a" * 64,
             "parser_version": "xlsx-native-v1",
         },
     ]
+
+
+def test_frozen_node_parent_fields_are_bound_in_order():
+    manifest = deepcopy(MANIFEST)
+    manifest["files"].append({
+        "source_id": "syn_nsw",
+        "resource_id": "syn_nsw_node",
+        "entity_kind": "node_raw",
+        "file_sha256": "b" * 64,
+        "parser_version": "xlsx-native-v1",
+    })
+    manifest["rules"]["contracts"].append({
+        "id": "syn_nsw_node",
+        "status": "synthetic_defined",
+        "content": {
+            "input": dict(manifest["files"][-1]),
+            "identity": {
+                "release_scope": "s0",
+                "key": {"fields": ["Crash ID", "Node ID"]},
+                "parent": {
+                    "resource_id": "syn_nsw_crash",
+                    "fields": ["Crash ID", "Node ID"],
+                    "parent_fields": ["Crash ID", "Node ID"],
+                },
+            },
+        },
+    })
+    connection = Connection()
+    reconcile(connection, BATCH, manifest)
+
+    allowed = json.loads(connection.executed[0][1][0])
+    node = next(
+        item for item in allowed
+        if item["lineage_kind"] == "location"
+        and item["resource_id"] == "syn_nsw_node"
+    )
+    assert node["parent_resource_id"] == "syn_nsw_crash"
+    assert node["parent_fields"] == ["Crash ID", "Node ID"]
+    assert node["parent_crash_fields"] == ["Crash ID", "Node ID"]
 
 
 @pytest.mark.parametrize(
