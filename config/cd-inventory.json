@@ -263,7 +263,7 @@
     },
     {
       "path": "pyproject.toml",
-      "sha256": "3441d32c19b54c30b0f112ddba0e50bb855eae0c7ff3ecf3777e9645c0e2ec5a"
+      "sha256": "e9f6cc4c12984fd24ff6131741056a0d44074c5633b0dc9220d507cedc6dfbad"
     },
     {
       "path": "requirements-db.txt",

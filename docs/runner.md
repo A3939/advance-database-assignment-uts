@@ -2,7 +2,7 @@
 
 [`runner.py`](../src/arsia_ingest/runner.py) owns the connection, session lock and transactions. It reuses B08 loading, B09 manifest/FP1 and [B11 input checks](input-qa.md). Team modules must be registered explicitly; there are no default business functions.
 
-The runner is ready for the remaining modules. [Session contention and early cleanup](runner-locks.md) and the installed [D02 callback](d02-integration.md) have real PostgreSQL tests. The [local B10 checks](b10-local-validation.md) cover transaction isolation and failure recording. Complete build paths still use scripted replies and test callbacks; real FP1, publication and full B12–B14 acceptance remain unverified.
+The runner is ready for the remaining modules. [Session contention and early cleanup](runner-locks.md) and the installed [D02 callback](d02-integration.md) have real PostgreSQL tests. The [local B10 checks](b10-local-validation.md) cover transaction isolation and failure recording. Full build acceptance still needs the reviewed E bindings and final inventory. [B14](recovery.md) already has real PostgreSQL component tests; recovery around a complete published build remains separate.
 
 The [three-source component chain](cd-integration.md) includes projection, Vault, Canonical, D02/D03 facts and D04 QA. [C10](c10-integration.md) now supplies `qa_c`. [S0 QA01–QA07 joint checks](qa-joint-validation.md) now pass using real B objects and a partial inventory. Complete build acceptance remains separate.
 
@@ -84,7 +84,7 @@ E still derives and checks all required QA objects. B's summary check is a trans
 
 An exception from registration, publication or failure-record COMMIT returns `unknown_commit`. Each pre-COMMIT marker and candidate outcome retains the fingerprint returned by E's adapter, so recovery can compare it with the database. The runner does not retry or mark the candidate failed after a lost response. An unconfirmed rollback also stops with this unresolved result. These outcomes are not new `meta.batch.status` values.
 
-[B14 recovery](recovery.md) reads the original run evidence and queries the same database through a new locked session. It preserves successful history and resolves only the selected batch. Its state tests use simulated replies; real recovery remains unverified.
+[B14 recovery](recovery.md) reads the original run evidence and queries the same database through a new locked session. It preserves successful history and resolves only the selected batch. Its database tests use labelled batch fixtures; recovery around the complete team build remains separate.
 
 Known failures save diagnostics, roll back the build and update only this candidate's `running` row in a separate transaction. Rolled-back QA passes are not reinserted. If failure logging is unavailable, file evidence remains and the unresolved database row needs inspection. Successful history is never updated by this path. Cleanup or receipt errors after acknowledged publication do not turn success into failure.
 
@@ -100,7 +100,7 @@ The initial suite recorded **380 passed, 10 skipped** on 2026-09-19, including 4
 
 - **A:** fixed migrations 001–011 and A06 are now installed in B; the original loader grants remain unchanged.
 - **C/B:** C03/C04/C05/C07/C09 and C10 are installed. The QA07 year-coverage fix is included. S0 QA01–QA07 joint checks pass; official-scope joint validation and remaining source confirmations are still needed.
-- **D:** D02/D03 facts and D04 reconciliation are installed. D05–D08 analysis/query integration remains separate.
-- **E:** FP1 SQL/version and publication gate. Its existing QA protocol is already reused.
+- **D/B:** D02/D03 facts, D04 reconciliation and [D05–D08 installed queries](analysis-integration.md) are integrated. D09 and official reader/report acceptance remain separate.
+- **E/B:** corrected FP1 and publication are tested in PR #30, pending E review and integration through PR #16. They are not yet bindings in this B branch.
 
 The full build remains blocked by the actual missing modules, not by A's old three-table environment. The partial inventory stays marked `final_platform: false`. Full fault injection, concurrent published builds, real recovery and end-to-end acceptance still need integration.
