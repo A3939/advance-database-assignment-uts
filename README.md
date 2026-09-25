@@ -1,6 +1,28 @@
-# ARSIA Role B: inputs and build runner
+# ARSIA: shared development baseline
 
 Role B's code prepares native inputs, loads Raw, freezes manifests, checks input/Raw quality and coordinates the build. A's fixed schema, A06, C03, C09 and D02 are integrated. Full builds still need the remaining C/D callbacks, E's FP1 and publication functions, and the final inventory.
+
+## Current scope
+
+This baseline brings the tested integration from `peixian/dev` at `a469dda` into `main`. It is a shared starting point for development. Full platform acceptance is still pending.
+
+| Included | Owner |
+|---|---|
+| Fixed migrations 001–011, loader permissions and A06 Vault loading | A / JJ |
+| Native readers, Raw loading, manifest, QA01/QA02 and build runner | B / Peixian |
+| Packaged C03 NSW projection and C09 Canonical loading | C / Serenity |
+| D02 Source, Month and Severity dimensions | D / Yihua |
+
+Newer C04/C05/C09 work on `yue/role-c` and D03–D08 on `yihua/dev` still need integration here. E's draft PR #16 is under review. Complete C10 QA, final module bindings and inventory, and full FP1/publication tests are also required.
+
+The [B10 validation record](docs/b10-local-validation.md) reports 615 passed / 155 skipped in the installed default suite and 377 passed / 0 skipped in the PostgreSQL-enabled suite. These suites overlap and cover the stated component scope.
+
+## Branch workflow
+
+- Use `main` as the tested shared baseline and continue unfinished work on each member's branch.
+- Bring verified changes into `main` through a PR with scope and test results.
+- Keep member, task and fix branches after merging so the work remains easy to trace.
+- Use merge commits to retain the original commit history. Integration does not change who owns each module.
 
 ## Quick start
 
