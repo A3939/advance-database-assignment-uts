@@ -75,6 +75,6 @@ The [receipt](evidence/b-cd-integration-2026-09-25.json) records versions, file 
 
 These suites overlap. The PostgreSQL-enabled run includes unit and packaging checks. The default skips require a database or optional official archives. Seven new database integration cases use B's actual interfaces; imported component tests retain their original fixtures.
 
-All eleven migrations match A's fixed commit byte for byte. The original A03 audit passed before and after. All 17 tables were empty after cleanup and the private container was removed. No upstream runtime defect was found in this delivery. The new work is B's dispatcher, package integration, bindings, inventory and validation.
+All eleven migrations match A's fixed commit byte for byte. The original A03 audit passed before and after. All 17 tables were empty after cleanup and the private container was removed. The initial suite passed; the later [D04 lineage review](d04-lineage-review.md) confirms six same-file wrong-row cases that QA06 misses. PR18 still needs D's fix and B's integration rerun. B's work covers the dispatcher, package integration, bindings, inventory and validation.
 
 Full local logs are under `artifacts/role-b-next-20260925/cd-postgres-3/` in the course workspace.

@@ -39,6 +39,7 @@ The other listed fixes were merged; this record does not claim formal approvals 
 | [PR #10](https://github.com/A3939/advance-database-assignment-uts/pull/10) | Integrated A06, C03, C09 and D02; fixed package resources and validated the NSW component chain |
 | [PR #17](https://github.com/A3939/advance-database-assignment-uts/pull/17) | Prepared the tested shared main baseline and documented module ownership |
 | [Three-source C/D integration](../cd-integration.md) | Added the source dispatcher, real bindings, inventory and installed-package PostgreSQL validation in B |
+| [PR18 D04 lineage reproduction](../d04-lineage-review.md) | Reproduced six missed checks in PostgreSQL; added C09, permission, FK and rollback controls plus fix acceptance tests. D owns the pending module fix. |
 
 A's migrations/A06, C's projection/Canonical modules and D's dimensions/facts/reconciliation remain their work.
 Importing those files into B is integration, not original authorship. Test totals in different receipts overlap.

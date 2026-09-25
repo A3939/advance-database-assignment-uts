@@ -77,7 +77,7 @@ def check_install(inventory):
     return installed
 
 
-def main(*, inventory_path="config/ac-inventory.json", additional_tests=(),
+def main(*, inventory_path="config/ac-inventory.json", additional_tests=(), tests=TESTS,
          scope="Installed NSW component chain and D02; no full inventory freeze or publication"):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, required=True)
@@ -94,7 +94,7 @@ def main(*, inventory_path="config/ac-inventory.json", additional_tests=(),
         item["path"] for item in inventory["schema_files"]
     }:
         parser.error("The inventory must include all eleven migrations")
-    selected = [ROOT / "tests" / name for name in dict.fromkeys((*TESTS, *additional_tests))]
+    selected = [ROOT / "tests" / name for name in dict.fromkeys((*tests, *additional_tests))]
     for path in selected:
         if not path.is_file():
             parser.error("Missing test: " + str(path))
@@ -104,7 +104,7 @@ def main(*, inventory_path="config/ac-inventory.json", additional_tests=(),
         if p.is_file() and "__pycache__" not in p.parts
     } | set(ROOT.glob("requirements*.txt")) | set((ROOT / "config").glob("*.json")) | {
         ROOT / "pyproject.toml", Path(__file__).resolve(), audit_path,
-    } | {p for p in [ROOT / "tools/verify_cd_postgres.py"] if p.exists()})
+    } | set((ROOT / "tools").glob("verify_*postgres.py")))
     out = args.output.resolve()
     out.mkdir(parents=True, exist_ok=False)
     write(out, "inputs.json", {
