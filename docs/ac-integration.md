@@ -1,5 +1,7 @@
 # B integration: NSW projection, Vault and Canonical
 
+This page records the PR #10 delivery. The [three-source integration](cd-integration.md) extends it with C04/C05, D03 and D04. The AC fragment remains a supported NSW-only subset; its C09 validation dependency and hashes now match the newer C delivery.
+
 B now installs the fixed A schema, A06, C03 NSW projection and C09 Canonical loader alongside D02. The verified path is native S0 input → Raw → NSW projection → Vault → Canonical. D02 runs on the same caller-owned transaction.
 
 This is a component integration. Raw and dimensions cover all three S0 sources; projection and Canonical output cover NSW only. No FP1, full B10 build or publication is claimed.
@@ -86,9 +88,8 @@ The real `FrozenManifest` object includes actual files and hashes but only parti
 
 ## Remaining work
 
-- **C:** C04 VIC, C05 QLD, the all-source projection dispatcher, C10 persisted QA and source-rule alignment. The final remote check at `e2a897ae41c11ec1a0c4051becfe71f9c475e66c` adds C04 relationship SQL and C11 notes. C04 Python, insertion SQL and its test are still empty; C05/C10 are not implemented. C03/C09 bytes are unchanged. Existing C06/C07 remain separate components.
-- **D:** D03 facts, the combined DW callback and reconciliation QA.
-- **E:** real E03 FP1 SQL/signature/version/deployment evidence, E06 publication and analysis inventory.
-- **B with module owners:** assemble the complete actual inventory, freeze it and run full B10. Then validate publication, no-change, concurrent builds, failure handling and recovery with the real modules.
+- **C:** complete C10 QA and persistence. C04/C05 and the all-source dispatcher are now integrated; see the [new delivery](cd-integration.md).
+- **E:** corrected and database-tested E03 FP1, E06 publication and their actual inventory.
+- **B with module owners:** assemble and freeze the final inventory, then validate full B10 and publication/recovery. D03 and D04 are now integrated; D05–D08 query integration remains separate.
 
-No new S0 source, month or severity material is needed. Official-data acceptance, website status and other roles' branches are outside this delivery.
+No new S0 definitions are needed. The historical receipt above remains unchanged.

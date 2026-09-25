@@ -187,6 +187,27 @@ def validate_notes(notes):
 
 def selected_contracts(manifest):
     """Resolve selected file identities and native key/parent fields from B09."""
+    restricted_ids = set()
+    if any(f.get("source_id") == "official_vic" for f in manifest["files"]) or any(
+        c.get("status") == "restricted"
+        for c in manifest.get("rules", {}).get("contracts", [])
+    ):
+        # Only the exact adopted VIC policy is admitted; arbitrary restricted
+        # contracts and changed files/years/cases remain blocked.
+        from .projections.source_contracts import parameters
+
+        try:
+            pinned = parameters(manifest, "contract-validation", "VIC")
+        except (ValueError, KeyError) as exc:
+            reject("Unsupported restricted VIC contract", reason=str(exc))
+        if not pinned["official_vic"]:
+            reject("Restricted contracts require the adopted official VIC profile")
+        restricted_ids = {f["resource_id"] for f in pinned["selected"].values()}
+        if any(
+            c.get("status") == "restricted" and c.get("id") not in restricted_ids
+            for c in manifest["rules"]["contracts"]
+        ):
+            reject("VIC restricted policy cannot approve another source")
     sources = {s["source_id"]: s for s in manifest["sources"]}
     if len(sources) != len(manifest["sources"]):
         reject("Each selected source must have exactly one release scope")
@@ -216,7 +237,12 @@ def selected_contracts(manifest):
         contract = matches[0]
         native = contract["content"]["input"]
         spec = contract["content"]["identity"]
-        if contract.get("status") not in {"confirmed", "synthetic_defined"} or any(
+        permitted_status = (
+            {"restricted"}
+            if file["resource_id"] in restricted_ids
+            else {"confirmed", "synthetic_defined"}
+        )
+        if contract.get("status") not in permitted_status or any(
             native.get(k) != file[k]
             for k in (
                 "source_id",
@@ -254,7 +280,14 @@ def selected_contracts(manifest):
                 "key_fields": fields,
                 "parent_resource_id": parent.get("resource_id"),
                 "parent_fields": parent.get("fields", []),
-                "parent_crash_fields": parent.get("parent_fields", []),
+                "parent_crash_fields": parent.get(
+                    "parent_fields",
+                    (
+                        parent.get("fields", [])
+                        if file["resource_id"] in restricted_ids
+                        else []
+                    ),
+                ),
             }
         )
     for item in selected:
@@ -300,6 +333,23 @@ def validate_snapshot(connection, context):
     manifest = context.manifest.as_dict()
     files = selected_contracts(manifest)
     batch = str(context.batch_id)
+    if any(f["source_id"] == "official_vic" for f in files):
+        # The file-bound profile never enables official maps or vehicle KPIs,
+        # even if a caller supplies Satellites without executing C04 first.
+        for kind, clause in (
+            (
+                "crash",
+                "attributes->>'map_eligible' IS DISTINCT FROM 'false' OR attributes->>'latitude' IS NOT NULL OR attributes->>'longitude' IS NOT NULL OR attributes->>'location_crs' IS NOT NULL OR attributes->>'location_record_id' IS NOT NULL",
+            ),
+            ("unit", "attributes->>'count_eligible' IS DISTINCT FROM 'false'"),
+        ):
+            bad = _scalar(
+                connection,
+                f"SELECT count(*) FROM rv.sat_{kind} WHERE batch_id=%s::uuid AND source_id='official_vic' AND ({clause})",
+                (batch,),
+            )
+            if bad:
+                reject("Restricted VIC Satellite enables an unavailable output")
     status = _scalar(
         connection,
         "SELECT count(*) FROM meta.batch WHERE batch_id=%s::uuid AND status='running'",
@@ -335,7 +385,11 @@ def validate_snapshot(connection, context):
             connection,
             SELECTED_CTE + f"""
         SELECT count(*) FROM rv.sat_{kind} s
-        LEFT JOIN raw.record r ON r.raw_record_id=s.raw_record_id AND r.source_id=s.source_id
+        LEFT JOIN LATERAL (
+          SELECT r.* FROM raw.record r
+          WHERE r.raw_record_id=s.raw_record_id AND r.source_id=s.source_id
+          OFFSET 0
+        ) r ON true
         LEFT JOIN selected f ON f.source_id=s.source_id AND f.release_scope=s.release_scope
           AND f.resource_id=r.resource_id AND f.file_sha256=r.file_sha256
           AND f.parser_version=r.parser_version AND f.entity_kind='{kind}'

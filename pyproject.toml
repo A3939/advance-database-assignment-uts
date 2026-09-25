@@ -16,6 +16,7 @@ arsia-prepare = "arsia_ingest.cli:main"
 where = ["src"]
 
 [tool.setuptools.package-data]
+"arsia_c" = ["sql/*.sql", "config/*.json"]
 "arsia_c.projections" = ["sql/*.sql"]
 "arsia_ingest" = ["policies/*.json"]
 
