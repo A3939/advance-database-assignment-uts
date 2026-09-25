@@ -1,4 +1,4 @@
-"""PR18 defect reproductions and controls; use --require-fix for acceptance."""
+"""PR18 lineage regression checks against D's accepted fix."""
 from dataclasses import replace
 import json
 import os
@@ -25,7 +25,6 @@ pytestmark = pytest.mark.skipif(
 CASES = [("primary", source) for source in ("syn_nsw", "syn_vic", "syn_qld")] + [
     ("direct", "syn_nsw"), ("direct", "syn_qld"), ("node", "syn_vic"),
 ]
-REQUIRE_FIX = os.environ.get("D04_REQUIRE_LINEAGE_FIX") == "1"
 
 
 @pytest.fixture(scope="module")
@@ -197,21 +196,14 @@ def test_wrong_row_lineage(connection, prepared, frozen, kind, source):
     context.evidence.write_json("lineage-case.json", {
         **evidence, "injected_by": "test owner after normal C09 and D03",
         "application_role": "arsia_loader", "facts_unchanged": True,
-        "mode": "require-fix" if REQUIRE_FIX else "reproduce", "expected_result": "block",
+        "mode": "fix-acceptance", "expected_result": "block",
         "callback_counts": returned, "actual_object": row, "actual_batch": summary,
         "all_qa_results": rows,
     })
-    if REQUIRE_FIX:
-        blocked(row, summary, context, metric="lineage_error_count", target=target)
-        assert returned == {"qa06_object_count": 15, "qa06_pass_count": 14, "qa06_block_count": 1}
-        assert not any(value for name, value in row["actual"]["metrics"].items()
-                       if name != "lineage_error_count")
-    else:
-        # These assertions confirm the defect, not module acceptance.
-        assert returned == {"qa06_object_count": 15, "qa06_pass_count": 15, "qa06_block_count": 0}
-        assert all(r["result"] == "pass" and r["affected_count"] == 0 for r in rows.values())
-        assert not any(row["actual"]["metrics"].values())
-        assert not list((context.evidence.directory / "qa_d").glob("*-differences.jsonl"))
+    blocked(row, summary, context, metric="lineage_error_count", target=target)
+    assert returned == {"qa06_object_count": 15, "qa06_pass_count": 14, "qa06_block_count": 1}
+    assert not any(value for name, value in row["actual"]["metrics"].items()
+                   if name != "lineage_error_count")
 
 
 @pytest.mark.parametrize("kind,source", CASES)

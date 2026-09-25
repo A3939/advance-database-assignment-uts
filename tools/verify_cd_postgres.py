@@ -12,6 +12,7 @@ if __name__ == "__main__":
             "test_c07_node_location.py", "test_c07_boundaries.py", "test_c07_packaging.py",
             "test_c07_postgres.py", "test_d03.py", "test_d03_postgres.py",
             "test_d04.py", "test_d04_postgres.py",
+            "test_d04_lineage_postgres.py",
         ),
         scope="Installed three-source projection, A06, C09, D02/D03 and D04; no full B10 or publication",
     ))

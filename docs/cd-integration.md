@@ -6,12 +6,15 @@ B now provides the real bindings for NSW, VIC and QLD projection, A06 Vault, C09
 
 | Input | Commit |
 |---|---|
-| B base | `60cb7fea76ece5af9a9e32a3f0a7acf11246b951` |
+| B base, including B14 | `a1768623aef837daa082f7ed564d97c07b60b4cf` |
 | C | `ad8baeddd3f6d2eeccdc2e31bafd71b687ad4da8` |
-| D | `337101f68079ed666701c43f387a5df1c526ed4a` |
+| D merged branch | `d57c3f4ff2fb57eb84ebc414ef77911073c0de06` |
+| D04 fix from PR #23 | `daa9e575732b9016ffbe0b5024f67a055a2947ad` |
 | A fixed schema and A06 | `c0824da06b6e7b3f73c4ddeab2114d10b7156913` |
 
 C owns the projections, C07 location logic and C09 validation. D owns D02/D03 and D04. A owns the schema and Vault loader. B adds installation support, the dispatcher, bindings, inventory and integration tests. The existing B fix that loads C03 SQL from package resources is retained.
+
+D04 was cherry-picked as `f21dd70`, preserving D's author and original commit reference. Its runtime matches D's merged file byte for byte. B updated the combined inventory and uses binding version `d04-daa9e57` (producer `d04-0.1.1`). D02/D03 runtime files are unchanged and still match D's branch.
 
 ## Runtime
 
@@ -57,7 +60,7 @@ Committed history fixtures stay explicitly unpublished. These tests do not valid
 
 ## Next inputs
 
-- **C:** complete C10 `qa_c`, with all required QA03/QA04/QA05/QA07 objects, summaries and persistence.
+- **B:** integrate C10 `qa_c` from C's merged PR #26, verify its QA07 year-coverage finding, and include its real code/resource hashes. C11 source-model evidence is available in merged PR #25.
 - **E:** corrected and database-tested E03 FP1 and E06 publication, plus their real code/schema inventory and acceptance inputs.
 - **B with C/D/E:** freeze the complete inventory, then run full B10 success, no-change, failure, concurrency, publication and recovery acceptance.
 - **D/B:** integrate D05–D08 query interfaces and reader permissions separately. They are outside this loading-stage delivery.
@@ -66,15 +69,16 @@ No new S0 definitions are needed.
 
 ## Local validation
 
-The [receipt](evidence/b-cd-integration-2026-09-25.json) records versions, file hashes and evidence locations.
+The [current receipt](evidence/d04-lineage-acceptance-2026-09-25.json) records versions, file hashes and evidence locations. The [initial receipt](evidence/b-cd-integration-2026-09-25.json) remains a record of the earlier D04 version.
 
 | Installed-package run | Passed | Skipped | Failed |
 |---|---:|---:|---:|
-| Default regression | 725 | 270 | 0 |
-| PostgreSQL-enabled regression | 602 | 0 | 0 |
+| Default regression | 733 | 309 | 0 |
+| PostgreSQL-enabled regression | 619 | 0 | 0 |
+| Focused D04 lineage acceptance | 31 | 0 | 0 |
 
-These suites overlap. The PostgreSQL-enabled run includes unit and packaging checks. The default skips require a database or optional official archives. Seven new database integration cases use B's actual interfaces; imported component tests retain their original fixtures.
+These suites overlap. The PostgreSQL-enabled run includes unit and packaging checks. The default skips require a database or optional official archives. Tests use B's actual interfaces and the installed wheel. Six wrong-row lineage cases are now permanent regression checks in the normal CD database suite.
 
-All eleven migrations match A's fixed commit byte for byte. The original A03 audit passed before and after. All 17 tables were empty after cleanup and the private container was removed. The initial suite passed; the later [D04 lineage review](d04-lineage-review.md) confirms six same-file wrong-row cases that QA06 misses. PR18 still needs D's fix and B's integration rerun. B's work covers the dispatcher, package integration, bindings, inventory and validation.
+All eleven migrations match A's fixed commit byte for byte. The original A03 audit passed before and after each database run. All 17 tables were empty after cleanup and both private containers were removed. The [D04 lineage acceptance](d04-lineage-review.md) confirms that all six wrong-row cases now block, with one located lineage error each. This clears PR18's D04 merge blocker.
 
-Full local logs are under `artifacts/role-b-next-20260925/cd-postgres-3/` in the course workspace.
+Current local logs are under `artifacts/role-b-d04-refresh-20260925/` in the course workspace. No official-data publication or full B10 acceptance is claimed.

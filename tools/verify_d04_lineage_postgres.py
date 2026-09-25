@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
-"""Reproduce PR18's lineage gap, or check the required fix, in private PG16."""
+"""Check D04's lineage fix in B's installed package and private PG16."""
 import argparse
-import os
 import subprocess
 import sys
 
@@ -28,15 +27,14 @@ def check_schema():
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(add_help=False)
-    parser.add_argument("--require-fix", action="store_true")
-    args, remaining = parser.parse_known_args()
+    parser.add_argument("--require-fix", action="store_true",
+                        help="Compatibility flag; fix acceptance is always enforced")
+    _, remaining = parser.parse_known_args()
     sys.argv[1:] = remaining
     check_schema()
-    os.environ["D04_REQUIRE_LINEAGE_FIX"] = "1" if args.require_fix else "0"
-    mode = "fix acceptance" if args.require_fix else "defect reproduction"
     raise SystemExit(main(
         inventory_path="config/cd-inventory.json",
         tests=("test_d04_lineage_postgres.py", "test_cd_integration_postgres.py",
                "test_d04_postgres.py", "test_cd_inventory.py"),
-        scope=f"D04 lineage {mode}; A {A_COMMIT}; partial inventory; no publication",
+        scope=f"D04 lineage fix acceptance; A {A_COMMIT}; partial inventory; no publication",
     ))

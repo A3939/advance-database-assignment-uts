@@ -19,7 +19,7 @@ BINDING_SPECS = {
     "dw": ("arsia_d03.facts:runner_callback",
            "src/arsia_d03/facts.py", "d03-337101f"),
     "qa_d": ("arsia_d04.reconciliation:runner_callback",
-             "src/arsia_d04/reconciliation.py", "d04-337101f"),
+             "src/arsia_d04/reconciliation.py", "d04-daa9e57"),
 }
 
 
