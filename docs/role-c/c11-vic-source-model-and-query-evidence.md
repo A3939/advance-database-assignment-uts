@@ -1,7 +1,7 @@
 # C11: VIC source model and query evidence
 
-Role C wrote the original model and queries in `d8d5863`, `46f3409` and
-`a43a6b0`. Role B / Peixian added the missing checks and ran the complete
+Role C wrote the model in `497667f` / `e2a897a` and the queries in
+`d8d5863`, `46f3409` and `a43a6b0`. Role B / Peixian added the missing checks and ran the complete
 pinned snapshots on PostgreSQL 16.15. The base is `ad8baed`.
 
 ## Native model
