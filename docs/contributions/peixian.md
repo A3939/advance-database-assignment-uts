@@ -30,9 +30,10 @@ This index links the work and its evidence. It does not estimate hours or a cont
 | [#24](https://github.com/A3939/advance-database-assignment-uts/pull/24) | Returned B's C03 resource-loading fix to C and added a clean-wheel installation regression | C |
 | [#25](https://github.com/A3939/advance-database-assignment-uts/pull/25) | Completed the C11 handoff and ran 12 PostgreSQL queries over the four full VIC originals | C |
 | [#26](https://github.com/A3939/advance-database-assignment-uts/pull/26) | Extended C's initial C10 with QA03/04/05/07, persistence, resources and database checks | C |
+| [#28](https://github.com/A3939/advance-database-assignment-uts/pull/28) | Reproduced QA07's year-coverage gap, added blocking objects/evidence and ten database regressions; proposed to C, not yet merged | C |
 
 PR #5 has JJ's Approved review. PR #6 has D's Approved review, submitted after its merge.
-The other listed fixes were merged; this record does not claim formal approvals for them.
+PRs #4–#26 listed above were merged; PR #28 is open for C review. This record does not claim other formal approvals.
 
 ## Integration and validation
 
@@ -49,4 +50,4 @@ The other listed fixes were merged; this record does not claim formal approvals 
 
 A's migrations/A06, C's projection/Canonical modules and D's dimensions/facts/reconciliation remain their work.
 Importing those files into B is integration, not original authorship. Test totals in different receipts overlap.
-PRs #24–#26 are merged into C's branch. C10 is now integrated in B; combined QA01–07 acceptance and its QA07 year-coverage follow-up remain pending. E FP1, publication and the final inventory still need full-build acceptance. The contribution records distinguish original module work, B's additions and integration; they do not claim team-wide completion.
+PRs #24–#26 are merged into C's branch. C10 and the QA07 fix are included in B PR #27. Combined QA01–07 acceptance remains pending. E FP1, publication and the final inventory still need full-build acceptance. The contribution records distinguish original module work, B's additions and integration; they do not claim team-wide completion.

@@ -1,0 +1,170 @@
+{
+  "scope": "C10 integration with the QA07 year-coverage fix; no full B10 acceptance",
+  "b_integration_base": "8e794241a231dc53857b67e1829ac9d80111b4ab",
+  "c_base": "9697c9f65b35477b03d5d05e0adc00bf15235e2c",
+  "c_fix_commit": "975d8b6456d3e31cf711e48dd7c449610db0dc0d",
+  "c_fix_pr": "https://github.com/A3939/advance-database-assignment-uts/pull/28",
+  "c_fix_status": "Proposed; not merged into yue/role-c",
+  "b_cherry_pick": "02ee910",
+  "producer_version": "c10-role-c-v1.1",
+  "a_schema_commit": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
+  "inventory": {
+    "code_files": 77,
+    "schema_files": 11,
+    "final_platform": false
+  },
+  "inputs": [
+    {
+      "path": "src/arsia_c/qa.py",
+      "sha256": "73b6ffd94880d3c79228a68800ef9433f53f57dbc72b338a68f12b0b28ac6405"
+    },
+    {
+      "path": "src/arsia_ingest/components.py",
+      "sha256": "fa6341e1bcd12e83987ab160ca70fb444271590242c5edef8799b934adb7933c"
+    },
+    {
+      "path": "tests/test_c10_year_coverage_postgres.py",
+      "sha256": "7192b09e2ca832ab5c088392c498aaab2247dfa2cf5dc3fe07a7b2506c73020e"
+    },
+    {
+      "path": "tests/test_c10_integration_postgres.py",
+      "sha256": "0d5ed3daea31d47dfa14b78351f0444d86f01636d232e7bcf469baacb528b422"
+    },
+    {
+      "path": "tests/test_c10_packaging.py",
+      "sha256": "9dd7dc71febb4f767d4c3d9333f431b8b4e5bfece7459360855f13f48213d338"
+    },
+    {
+      "path": "config/cd-inventory.json",
+      "sha256": "bffd7f1002608e73a57d154362a7224b9e8f3796146038fede5826cd0d47fac5"
+    },
+    {
+      "path": "tools/verify_c10_integration_postgres.py",
+      "sha256": "f7c64bd34aa928dce15c26d0048adf3a743acf246b98b4263a542a7730ca6aef"
+    }
+  ],
+  "wheel": {
+    "filename": "arsia_native_intake-0.1.0-py3-none-any.whl",
+    "sha256": "2de0afca3f30bfcb52faf21fd1662d718f6f9dce19443a0933098723b5826392"
+  },
+  "tests": {
+    "before": {
+      "passed": 71,
+      "failed": 7,
+      "skipped": 0,
+      "observation": "QA05 blocked all seven corrupt cases; QA07 incorrectly remained limited"
+    },
+    "b_database_interface": {
+      "tests": 78,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "pytest_exit_code": 0,
+      "exit_code": 0,
+      "permissions": "Original A03 audit passed before and after",
+      "final_tables_empty": true,
+      "publication_performed": false,
+      "boundary": "Component chain only; full B10 still requires the remaining real modules and inventory"
+    },
+    "b_default": {
+      "passed": 734,
+      "failed": 0,
+      "skipped": 324
+    },
+    "c_database": {
+      "passed": 107,
+      "failed": 0,
+      "skipped": 0
+    },
+    "c_packaging_adapter": {
+      "passed": 21,
+      "failed": 0,
+      "skipped": 0
+    },
+    "new_year_cases": 10,
+    "counts_overlap": true
+  },
+  "environment": {
+    "postgresql": [
+      "PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+      "arsia_loader",
+      "arsia_loader",
+      "UTF8",
+      "UTC",
+      "en_US.utf8",
+      "en_US.utf8",
+      false,
+      false,
+      false,
+      false
+    ],
+    "image": "postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67"
+  },
+  "checks": {
+    "fix_runtime_and_tests_match_c_commit": true,
+    "all_17_tables_empty_after_cleanup": true,
+    "original_a03_audit_passed": true,
+    "containers_removed": true,
+    "raw_retained": true,
+    "historical_batch_unchanged": true,
+    "shared_database_used": false,
+    "official_archive_replay": false,
+    "publication_performed": false
+  },
+  "local_evidence_root": "artifacts/c10-year-coverage-20260925",
+  "evidence": [
+    {
+      "path": "before/pytest.xml",
+      "sha256": "e0f7b998906fd9afa465c306f441febecc8afe9ab11d57162614cde4af46c587"
+    },
+    {
+      "path": "before/summary.json",
+      "sha256": "b29018558d2de2883a247be9c872c7f7e5e7b871f1a9c0fe5371c5493513f3d4"
+    },
+    {
+      "path": "b-final/inputs.json",
+      "sha256": "f09a0d247f81f2deff79d29e4a0abac97228d21a5dc0a41b0023f91fccbf99a2"
+    },
+    {
+      "path": "b-final/pytest.xml",
+      "sha256": "e8d7b19a2440fc5c6df2ccd47950dbb2a7ffae5864c91502f5002a7d638ce32f"
+    },
+    {
+      "path": "b-final/summary.json",
+      "sha256": "8d6f130a28c18c9e6be764e6306e5d51a251b823b65ccd1332fa35457cb3cf08"
+    },
+    {
+      "path": "b-final/a03-before.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+    },
+    {
+      "path": "b-final/a03-after.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+    },
+    {
+      "path": "b-final/final-state.json",
+      "sha256": "dbc4b9c36a78e26384cbe23a4d657bae8af990f1ab2bbf3300c91aedc6becd18"
+    },
+    {
+      "path": "b-final/cleanup.json",
+      "sha256": "7fc48384835d11ccdd4463cfd35586d629532312ae35f3e36da244d8d8c7d90b"
+    },
+    {
+      "path": "b-default.xml",
+      "sha256": "8da91a03f68a9ea36ec5122b7e711a17f699f9965b1b85bf866c79aa6a67c17e"
+    },
+    {
+      "path": "c-fixed/postgres/summary.json",
+      "sha256": "a7f8f76ab5f84b22547ce3b20c7f0e9ba0ae66d11b5b90ede35d6b6559184743"
+    },
+    {
+      "path": "c-packaging.xml",
+      "sha256": "969926716a8cd4497645da315c082f6c4ef644b433ed60ea0d608e9fdeac88e2"
+    }
+  ],
+  "remaining": [
+    "C reviews and merges PR28; B already pins the validated fix",
+    "Combined QA01-07 component acceptance",
+    "E corrected FP1/publication, final inventory and full B10 acceptance"
+  ]
+}

@@ -63,7 +63,11 @@
         "src/arsia_c/config/vic-restricted-inputs-v1.json",
         "src/arsia_c/config/vic-restricted-use-v1.json"
       ],
-      "note": "All imported bytes match the checked C branch. Existing projection/Canonical versions above are unchanged."
+      "note": "C10 QA07 uses the recorded fix commit; the other 13 imported files match checked_head. Existing projection/Canonical versions are unchanged.",
+      "fix_commit": "975d8b6456d3e31cf711e48dd7c449610db0dc0d",
+      "fix_branch": "peixian/c10-year-coverage",
+      "fix_status": "Proposed to C; not merged into yue/role-c",
+      "fix_pr": "https://github.com/A3939/advance-database-assignment-uts/pull/28"
     }
   },
   "bindings": {
@@ -95,7 +99,7 @@
     "qa_c": {
       "callback": "arsia_c.qa:runner_callback",
       "code_path": "src/arsia_c/qa.py",
-      "version": "c10-role-c-v1"
+      "version": "c10-role-c-v1.1"
     }
   },
   "components": {
@@ -373,7 +377,7 @@
     },
     {
       "path": "src/arsia_c/qa.py",
-      "sha256": "4b0842ae0728cb1e14a2925daff472545c2e82af543703a33a518c17ece12b45"
+      "sha256": "73b6ffd94880d3c79228a68800ef9433f53f57dbc72b338a68f12b0b28ac6405"
     },
     {
       "path": "src/arsia_c/qa_expectations.py",
@@ -485,7 +489,7 @@
     },
     {
       "path": "src/arsia_ingest/components.py",
-      "sha256": "d5fd31fefb0c2dc9caa60f4e9da666175e341971b31d4c35aceb838bfbbf7f5e"
+      "sha256": "fa6341e1bcd12e83987ab160ca70fb444271590242c5edef8799b934adb7933c"
     },
     {
       "path": "src/arsia_ingest/config.py",
@@ -602,7 +606,7 @@
     "test_driver": "psycopg[binary]==3.3.6 in requirements-db.txt",
     "new_external_packages": [],
     "qa_c": {
-      "version": "c10-role-c-v1",
+      "version": "c10-role-c-v1.1",
       "runtime_requirements": "No new external packages; C06 code, SQL and policy files are included",
       "input_stages": [
         "C03/C04/C05/C07 temporary projections",
@@ -623,7 +627,7 @@
   "remaining_dependencies": [
     {
       "owner": "B",
-      "delivery": "Run combined QA01-07 acceptance and resolve the outstanding PR26 QA07 year-coverage finding"
+      "delivery": "Run combined QA01-07 acceptance; the QA07 year-coverage fix has component validation in both C and B"
     },
     {
       "owner": "E",
