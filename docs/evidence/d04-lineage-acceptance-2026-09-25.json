@@ -1,0 +1,354 @@
+{
+  "scope": "B installed component integration; partial inventory; no FP1, publication or full B10 acceptance",
+  "b_base": "a1768623aef837daa082f7ed564d97c07b60b4cf",
+  "d_merge": "d57c3f4ff2fb57eb84ebc414ef77911073c0de06",
+  "d_original_fix": "daa9e575732b9016ffbe0b5024f67a055a2947ad",
+  "d_import_commit": "f21dd7006771ff91688e6727b05477ce0722cbc2",
+  "ownership": {
+    "D": "D04 runtime fix in PR23; original author retained",
+    "B": "Fault reproductions, downstream bindings/inventory, permanent regressions and independent acceptance"
+  },
+  "c_input": "ad8baeddd3f6d2eeccdc2e31bafd71b687ad4da8",
+  "a_schema": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
+  "runtime_path": "src/arsia_d04/reconciliation.py",
+  "runtime_sha256": "793101b7ae2d03cf87b84b68fd7bf21392b292b86ea8e3eb4c5a07187a8c12c9",
+  "producer_version": "d04-0.1.1",
+  "binding": {
+    "callback": "arsia_d04.reconciliation:runner_callback",
+    "code_path": "src/arsia_d04/reconciliation.py",
+    "version": "d04-daa9e57"
+  },
+  "combined_inventory": {
+    "path": "config/cd-inventory.json",
+    "sha256": "e6cb35f41e63c3c9c92eb2f78870aee872b33aeb55a140b5a1fc93602015c661",
+    "code_files": 65,
+    "schema_files": 11,
+    "final_platform": false
+  },
+  "python": "3.12.6 (v3.12.6:a4a2d2b0d85, Sep  6 2024, 16:08:03) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "packages": {
+    "arsia-native-intake": "0.1.0",
+    "openpyxl": "3.1.5",
+    "psycopg": "3.3.6",
+    "psycopg-binary": "3.3.6",
+    "pytest": "8.4.2"
+  },
+  "postgres": {
+    "postgresql": [
+      "PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+      "arsia_loader",
+      "arsia_loader",
+      "UTF8",
+      "UTC",
+      "en_US.utf8",
+      "en_US.utf8",
+      false,
+      false,
+      false,
+      false
+    ],
+    "image": "postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67"
+  },
+  "wheel": [
+    {
+      "file": "arsia_native_intake-0.1.0-py3-none-any.whl",
+      "sha256": "5932d1a6336aff59997b3ede99da5ec5585098c391107e80caec5a932c90c63c"
+    }
+  ],
+  "commands": {
+    "focused": "python tools/verify_d04_lineage_postgres.py --require-fix --output /new/lineage",
+    "components": "python tools/verify_cd_postgres.py --output /new/components",
+    "default": "AC_REQUIRE_INSTALLED=1 CD_REQUIRE_INSTALLED=1 D02_REQUIRE_INSTALLED=1 python -m pytest -q -o pythonpath= tests"
+  },
+  "default_tests": {
+    "passed": 733,
+    "skipped": 309,
+    "failed": 0,
+    "log_sha256": "02406189f34f2ff4f76a909947a9a49f09e542e9e63a67cf7637ef9576c09218",
+    "skip_reason": "Optional database and official-archive cases; database acceptance is recorded separately"
+  },
+  "database_runs": {
+    "lineage": {
+      "summary": {
+        "tests": 31,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "pytest_exit_code": 0,
+        "exit_code": 0,
+        "permissions": "Original A03 audit passed before and after",
+        "final_tables_empty": true,
+        "publication_performed": false,
+        "boundary": "Component chain only; full B10 still requires the remaining real modules and inventory"
+      },
+      "cleanup": {
+        "container_removed": "arsia-b-ac-2166704d8e59",
+        "persistent_volume_created": false
+      },
+      "records": [
+        {
+          "path": "lineage/inputs.json",
+          "sha256": "b4070989a4a908e6384b29b6dd900ada2496f6e2ad91b8ac727cd532d2c87dd0"
+        },
+        {
+          "path": "lineage/command.json",
+          "sha256": "3adc6f896f6fa1c620f4adb32d3b06abb2b312e8fb27c48b037ef91b6bf7aeb1"
+        },
+        {
+          "path": "lineage/pytest.log",
+          "sha256": "6938afcf040e9cbd2f3c1536924caa46b25d14d81dc85950ae999438f432d12b"
+        },
+        {
+          "path": "lineage/pytest.xml",
+          "sha256": "c5ebd708b1425a549ee7fa274254185d3aaca056b78f588208e8bce88e9b48df"
+        },
+        {
+          "path": "lineage/a03-before.log",
+          "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+        },
+        {
+          "path": "lineage/a03-after.log",
+          "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+        },
+        {
+          "path": "lineage/final-state.json",
+          "sha256": "dbc4b9c36a78e26384cbe23a4d657bae8af990f1ab2bbf3300c91aedc6becd18"
+        }
+      ]
+    },
+    "components": {
+      "summary": {
+        "tests": 619,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "pytest_exit_code": 0,
+        "exit_code": 0,
+        "permissions": "Original A03 audit passed before and after",
+        "final_tables_empty": true,
+        "publication_performed": false,
+        "boundary": "Component chain only; full B10 still requires the remaining real modules and inventory"
+      },
+      "cleanup": {
+        "container_removed": "arsia-b-ac-38c0f048933b",
+        "persistent_volume_created": false
+      },
+      "records": [
+        {
+          "path": "components/inputs.json",
+          "sha256": "c3be2f7a07d8a44250bd18401afbb7d223f9cfb0e0fe451aeaa180822059e820"
+        },
+        {
+          "path": "components/command.json",
+          "sha256": "061d44118717c7146b8a88e78452bfe6dd7bc4f1e4fc161f12f014a52f3cbdb1"
+        },
+        {
+          "path": "components/pytest.log",
+          "sha256": "ea314c643a55b29c89517d8a09be95588cfa51f851a32af19551e9cafa18df5b"
+        },
+        {
+          "path": "components/pytest.xml",
+          "sha256": "35bf774bf3c7c8b38623dbb3c84d2c965c3a46d1f40a04e8a48ea6a8d42d9bfc"
+        },
+        {
+          "path": "components/a03-before.log",
+          "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+        },
+        {
+          "path": "components/a03-after.log",
+          "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+        },
+        {
+          "path": "components/final-state.json",
+          "sha256": "dbc4b9c36a78e26384cbe23a4d657bae8af990f1ab2bbf3300c91aedc6becd18"
+        }
+      ]
+    }
+  },
+  "six_cases": [
+    {
+      "source": "syn_nsw",
+      "kind": "direct",
+      "crash_key": "[\"0001\"]",
+      "same_frozen_file": true,
+      "facts_unchanged": true,
+      "object_result": "block",
+      "batch_result": "block",
+      "lineage_error_count": 1,
+      "affected_count": 1,
+      "producer_version": "d04-0.1.1",
+      "callback": {
+        "qa06_block_count": 1,
+        "qa06_object_count": 15,
+        "qa06_pass_count": 14
+      },
+      "details": [
+        {
+          "path": "lineage/cd-evidence/lineage/runs/a8f380a7-08a7-4afc-9e17-9ba74d5c0c8c/qa_d/qa06-syn_nsw-2020-differences.jsonl",
+          "sha256": "01cb20f1bd2f398547684ab6d0eaacd7dab3dad937992d986471507195a4f4a1",
+          "rows": 1
+        }
+      ],
+      "snapshot": {
+        "path": "lineage/cd-evidence/lineage/runs/a8f380a7-08a7-4afc-9e17-9ba74d5c0c8c/lineage-case.json",
+        "sha256": "f824ede54ed19e2f11079ce7d7915acea8af09637393cd2dc865985e44145a20"
+      }
+    },
+    {
+      "source": "syn_qld",
+      "kind": "direct",
+      "crash_key": "[\"0001\"]",
+      "same_frozen_file": true,
+      "facts_unchanged": true,
+      "object_result": "block",
+      "batch_result": "block",
+      "lineage_error_count": 1,
+      "affected_count": 1,
+      "producer_version": "d04-0.1.1",
+      "callback": {
+        "qa06_block_count": 1,
+        "qa06_object_count": 15,
+        "qa06_pass_count": 14
+      },
+      "details": [
+        {
+          "path": "lineage/cd-evidence/lineage/runs/0deb51c4-d9b7-4849-a37d-1e51130e044e/qa_d/qa06-syn_qld-2020-differences.jsonl",
+          "sha256": "8bfe17cc1e5c064b8680cb68014c6357f6647521a0690643be72ca33cee317e4",
+          "rows": 1
+        }
+      ],
+      "snapshot": {
+        "path": "lineage/cd-evidence/lineage/runs/0deb51c4-d9b7-4849-a37d-1e51130e044e/lineage-case.json",
+        "sha256": "624ba453bd4ebb51c07b9ce55dbf4ef6a42a4f4fe77d06dca882ed106acb5e97"
+      }
+    },
+    {
+      "source": "syn_vic",
+      "kind": "node",
+      "crash_key": "[\"0001\"]",
+      "same_frozen_file": true,
+      "facts_unchanged": true,
+      "object_result": "block",
+      "batch_result": "block",
+      "lineage_error_count": 1,
+      "affected_count": 1,
+      "producer_version": "d04-0.1.1",
+      "callback": {
+        "qa06_block_count": 1,
+        "qa06_object_count": 15,
+        "qa06_pass_count": 14
+      },
+      "details": [
+        {
+          "path": "lineage/cd-evidence/lineage/runs/75bdd36e-05ca-4c03-b54f-d9b9c1432657/qa_d/qa06-syn_vic-2020-differences.jsonl",
+          "sha256": "56429d89b13b819b91d542e31569333463bdf66aed1114c8ccaa5f390de936f2",
+          "rows": 1
+        }
+      ],
+      "snapshot": {
+        "path": "lineage/cd-evidence/lineage/runs/75bdd36e-05ca-4c03-b54f-d9b9c1432657/lineage-case.json",
+        "sha256": "bd812a9a03d6e87e9a130d1836cdceeded8e30c3bba971cacf4f535f8d198acf"
+      }
+    },
+    {
+      "source": "syn_nsw",
+      "kind": "primary",
+      "crash_key": "[\"0001\"]",
+      "same_frozen_file": true,
+      "facts_unchanged": true,
+      "object_result": "block",
+      "batch_result": "block",
+      "lineage_error_count": 1,
+      "affected_count": 1,
+      "producer_version": "d04-0.1.1",
+      "callback": {
+        "qa06_block_count": 1,
+        "qa06_object_count": 15,
+        "qa06_pass_count": 14
+      },
+      "details": [
+        {
+          "path": "lineage/cd-evidence/lineage/runs/a3f32b24-a1a9-48ea-8b89-f9045581804e/qa_d/qa06-syn_nsw-2020-differences.jsonl",
+          "sha256": "9d78c7c2f5089fd3df752060b2e2698359023b17869d795904e7b70f6e33f891",
+          "rows": 1
+        }
+      ],
+      "snapshot": {
+        "path": "lineage/cd-evidence/lineage/runs/a3f32b24-a1a9-48ea-8b89-f9045581804e/lineage-case.json",
+        "sha256": "6822e6b31cc6b9b8fd57f70604cb3e8eb22308cbf62ed76b413d2c8020e5841d"
+      }
+    },
+    {
+      "source": "syn_qld",
+      "kind": "primary",
+      "crash_key": "[\"0001\"]",
+      "same_frozen_file": true,
+      "facts_unchanged": true,
+      "object_result": "block",
+      "batch_result": "block",
+      "lineage_error_count": 1,
+      "affected_count": 1,
+      "producer_version": "d04-0.1.1",
+      "callback": {
+        "qa06_block_count": 1,
+        "qa06_object_count": 15,
+        "qa06_pass_count": 14
+      },
+      "details": [
+        {
+          "path": "lineage/cd-evidence/lineage/runs/4d0ae75b-cd6b-44f8-9642-3011814030ae/qa_d/qa06-syn_qld-2020-differences.jsonl",
+          "sha256": "bdff026de1d916ed2a61cce7053c5259ef3a39eb3e6860aa4feaefc7cefda848",
+          "rows": 1
+        }
+      ],
+      "snapshot": {
+        "path": "lineage/cd-evidence/lineage/runs/4d0ae75b-cd6b-44f8-9642-3011814030ae/lineage-case.json",
+        "sha256": "eac3a471a53c378f3aba8adc26bb2ff768beb10850bf138ae001753ed70b212b"
+      }
+    },
+    {
+      "source": "syn_vic",
+      "kind": "primary",
+      "crash_key": "[\"0001\"]",
+      "same_frozen_file": true,
+      "facts_unchanged": true,
+      "object_result": "block",
+      "batch_result": "block",
+      "lineage_error_count": 1,
+      "affected_count": 1,
+      "producer_version": "d04-0.1.1",
+      "callback": {
+        "qa06_block_count": 1,
+        "qa06_object_count": 15,
+        "qa06_pass_count": 14
+      },
+      "details": [
+        {
+          "path": "lineage/cd-evidence/lineage/runs/9ebdaa82-e9c5-4a1f-8606-40828894eb72/qa_d/qa06-syn_vic-2020-differences.jsonl",
+          "sha256": "433e3a611fe40cabaf8e8b0a192a72f513b00e4df1a34d2283ce6037e58249fb",
+          "rows": 1
+        }
+      ],
+      "snapshot": {
+        "path": "lineage/cd-evidence/lineage/runs/9ebdaa82-e9c5-4a1f-8606-40828894eb72/lineage-case.json",
+        "sha256": "0a31852dd65f41038db369032aae3cab68555c8882fb17a146aa1b530c97eda9"
+      }
+    }
+  ],
+  "suite_note": "The 31-check focused suite is contained in the 619-check component run. Default and database-enabled totals also overlap.",
+  "local_evidence_root": "artifacts/role-b-d04-refresh-20260925",
+  "remaining": [
+    {
+      "owner": "B",
+      "delivery": "Integrate C10 merged in C PR26 and verify its outstanding QA07 year-coverage finding"
+    },
+    {
+      "owner": "E",
+      "delivery": "Reviewed FP1 SQL, publication gate and database validation"
+    },
+    {
+      "owner": "B and module owners",
+      "delivery": "Final platform inventory including analysis code, then full B10 integration"
+    }
+  ]
+}

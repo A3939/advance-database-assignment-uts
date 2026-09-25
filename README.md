@@ -1,21 +1,21 @@
 # ARSIA: shared development baseline
 
-Role B's code prepares native inputs, loads Raw, freezes manifests, checks input/Raw quality and coordinates the build. A's fixed schema, A06, C03, C09 and D02 are integrated. Full builds still need the remaining C/D callbacks, E's FP1 and publication functions, and the final inventory.
+Role B's code prepares native inputs, loads Raw, freezes manifests, checks input/Raw quality and coordinates the build. A's fixed schema/A06, C03/C04/C05/C07/C09 and D02/D03/D04 are integrated. Full builds still need C10, E's FP1 and publication functions, and the final inventory.
 
 ## Current scope
 
-This baseline brings the tested integration from `peixian/dev` at `a469dda` into `main`. It is a shared starting point for development. Full platform acceptance is still pending.
+This development version extends the shared baseline from PR #17 with the three-source C/D component chain. Full platform acceptance is still pending.
 
 | Included | Owner |
 |---|---|
 | Fixed migrations 001–011, loader permissions and A06 Vault loading | A / JJ |
 | Native readers, Raw loading, manifest, QA01/QA02 and build runner | B / Peixian |
-| Packaged C03 NSW projection and C09 Canonical loading | C / Serenity |
-| D02 Source, Month and Severity dimensions | D / Yihua |
+| Packaged NSW/VIC/QLD projections, VIC location handling and Canonical loading | C / Serenity |
+| D02 dimensions, D03 crash facts and D04 reconciliation QA | D / Yihua |
 
-Newer C04/C05/C09 work on `yue/role-c` and D03–D08 on `yihua/dev` still need integration here. E's draft PR #16 is under review. Complete C10 QA, final module bindings and inventory, and full FP1/publication tests are also required.
+D05–D08 query integration and reader checks remain separate work. E's PR #16 needs FP1/publication fixes and validation. C10 is merged into C's branch through PR #26; B still needs to integrate it and verify its QA07 year-coverage finding. Final inventory and full-build acceptance remain pending.
 
-The [B10 validation record](docs/b10-local-validation.md) reports 615 passed / 155 skipped in the installed default suite and 377 passed / 0 skipped in the PostgreSQL-enabled suite. These suites overlap and cover the stated component scope.
+The [C/D integration record](docs/cd-integration.md) reports 733 passed / 309 skipped in the installed default suite and 619 passed / 0 skipped in the PostgreSQL-enabled suite. The focused D04 lineage acceptance passed all 31 checks. These suites overlap. The [earlier B10 record](docs/b10-local-validation.md) retains the runner-fix evidence.
 
 ## Branch workflow
 
@@ -70,10 +70,12 @@ Each run gets a new directory under the chosen output root, followed by `<datase
 | [Manifest guide](docs/manifest.md) | B09: complete build inputs, frozen definitions and the proposed FP1 call. |
 | [VIC restricted input support](docs/vic-restricted-inputs.md) | B09/B11: adopted policy, exact case/evidence bindings and restricted QA01. |
 | [Input QA guide](docs/input-qa.md) | B11: per-file native and Raw comparisons, source reviews and evidence. |
+| [Three-source C/D integration](docs/cd-integration.md) | Actual bindings, partial inventory, installed-package and PostgreSQL validation. |
+| [Peixian's contribution record](docs/contributions/peixian.md) | B implementation, cross-role fixes and integration evidence. |
 | [Build runner](docs/runner.md) | B10: module bindings, shared connection, transactions and run results. |
 | [B10 local validation](docs/b10-local-validation.md) | Transaction and failure-evidence fixes, installed-package tests and remaining build dependencies. |
 | [Runner lock checks](docs/runner-locks.md) | B12: real session locks, busy exit and early-failure cleanup; remaining build checks. |
-| [Run recovery](docs/recovery.md) | B14: resolve uncertain commits and abandoned runs; real state recovery awaits integration. |
+| [Run recovery](docs/recovery.md) | B14: resolve uncertain commits and abandoned runs; scope and validation are recorded in the guide. |
 | [B06/B07 validation](docs/b06-b07-validation.md) | Tests and S0 preparation recorded on 2026-09-17. |
 
 The earlier [2026-09-15 validation](docs/native-intake.md#recorded-validation-2026-09-15) records the full-input run and its counts.
@@ -108,6 +110,6 @@ source_id, resource_id, file_sha256, parser_version, row_locator, payload
 
 CSV values remain text, including blanks and leading zeros; XLSX conversion follows the intake guide. Person rows, Node observations and QLD aggregate fields are retained. Filtering, business mappings and deduplication belong to later steps.
 
-`prepared` means native input preparation passed. The [A/C integration](docs/ac-integration.md) verifies S0 input-to-Canonical loading and QA01/QA02 persistence. [B12's lock checks](docs/runner-locks.md) cover session contention and early cleanup. The latest [B10 local validation](docs/b10-local-validation.md) covers transaction isolation, failure evidence and recovery markers. Real FP1, complete C/D QA and publication remain unverified. B09/B11 enforce the adopted VIC input restrictions; full downstream integration is still required.
+`prepared` means native input preparation passed. The [C/D integration](docs/cd-integration.md) verifies three-source S0 loading through crash facts, with QA01/QA02 and QA06 persistence. [B12's lock checks](docs/runner-locks.md) cover session contention and early cleanup. The [B10 local validation](docs/b10-local-validation.md) covers transaction isolation, failure evidence and recovery markers. C10 has separate component evidence but is not yet connected to B's bindings. Real FP1 and complete publication remain unverified. B09/B11 enforce the adopted VIC input restrictions; full downstream integration is still required.
 
 The baseline is team v1.1: document 04 (L1 contracts and acceptance) and document 05 (sources and mappings, sections 1-2 and 7). The [online database design](https://arsia-team-design.vercel.app/) shows the shared model. Links in the guides to `F/` and `Resources/` refer to the shared course workspace outside this Git repository; they work locally but are unavailable in a standalone clone or on GitHub.

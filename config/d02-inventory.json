@@ -24,6 +24,14 @@
   },
   "code_files": [
     {
+      "path": "pyproject.toml",
+      "sha256": "3441d32c19b54c30b0f112ddba0e50bb855eae0c7ff3ecf3777e9645c0e2ec5a"
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "b6f17223b854c27346eefdaeef137f2c0f5c5f8c85004c701a61662ccbc015eb"
+    },
+    {
       "path": "src/arsia_d02/__init__.py",
       "sha256": "5cda214c4deb6cf1a2f6830e3873b6c40925ecdb19a016ed4ba393f22fe462b3"
     },
@@ -38,14 +46,6 @@
     {
       "path": "src/arsia_ingest/models.py",
       "sha256": "ed9ce88b03d4cb76e9b1a27e352345d4e6789e266431f40754bc0b2dba3fa8db"
-    },
-    {
-      "path": "pyproject.toml",
-      "sha256": "2009bee6094fb4c166a7ccb1f2575d13f7c05486468d9e21aecb55f92b1cb472"
-    },
-    {
-      "path": "requirements.txt",
-      "sha256": "b6f17223b854c27346eefdaeef137f2c0f5c5f8c85004c701a61662ccbc015eb"
     }
   ],
   "dependencies": {

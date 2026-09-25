@@ -1,16 +1,17 @@
 {
-  "scope": "NSW C03 project, A06 Vault, C09 Canonical and D02 dimensions only",
+  "scope": "C03/C04/C05 project, A06 Vault, C09 Canonical, D02/D03 DW and D04 QA06 components",
   "final_platform": false,
   "component_scope": {
-    "project": "NSW only; C04/C05 and the all-source dispatcher remain required",
-    "vault": "A06 projection-to-Vault loader and Satellite iterator",
-    "canonical": "C09 with current C04/C05 contract validation; legacy NSW subset only",
-    "dw": "D02 only; D03 and the combined DW callback remain required"
+    "project": "NSW, VIC and QLD; source restrictions remain enforced",
+    "vault": "A06 projection-to-Vault loader",
+    "canonical": "C09 validation and Canonical loader",
+    "dw": "D02 dimensions and D03 crash facts",
+    "qa_d": "D04 QA06 reconciliation"
   },
   "upstream": {
     "b": {
-      "commit": "aff27d3f9bcaa5fcc0d84e9dcda4276b0fe7a636",
-      "branch": "peixian/dev"
+      "branch": "peixian/dev",
+      "commit": "a1768623aef837daa082f7ed564d97c07b60b4cf"
     },
     "a": {
       "merge_commit": "a94314d5a53934cfae1e77f6aa9f6ca4a3f9b893",
@@ -18,26 +19,33 @@
       "pr": "https://github.com/A3939/advance-database-assignment-uts/pull/5"
     },
     "c": {
-      "commit": "ad8baeddd3f6d2eeccdc2e31bafd71b687ad4da8",
       "branch": "yue/role-c",
-      "c03_merge_commit": "cc39c6ffda18ea02ce1b393beaded1e5d6379176",
-      "c03_pr": "https://github.com/A3939/advance-database-assignment-uts/pull/7",
-      "c09_merge_commit": "bec3b1a213938404571d656a187681684977a905",
-      "c09_pr": "https://github.com/A3939/advance-database-assignment-uts/pull/9",
-      "previous_commit": "f5e26e2e81c56a8ec8fa0fc0f26341eeecb8e32c"
+      "commit": "ad8baeddd3f6d2eeccdc2e31bafd71b687ad4da8",
+      "modules": [
+        "C04",
+        "C05",
+        "C07",
+        "C09"
+      ],
+      "nsw_packaging": "B keeps the reviewed package-resource fix"
     },
-    "d02": {
-      "merge_commit": "e4fbefa29fc275a39ac299af70bbf8e829cdee6d",
-      "implementation_commit": "dd98354319c654f7e44f87bf9d0df8af85a9451f",
-      "pr": "https://github.com/A3939/advance-database-assignment-uts/pull/6",
-      "package_version": "0.1.0"
+    "d": {
+      "branch": "yihua/dev",
+      "commit": "d57c3f4ff2fb57eb84ebc414ef77911073c0de06",
+      "modules": [
+        "D02",
+        "D03",
+        "D04"
+      ],
+      "fix_commit": "daa9e575732b9016ffbe0b5024f67a055a2947ad",
+      "fix_pr": "https://github.com/A3939/advance-database-assignment-uts/pull/23"
     }
   },
   "bindings": {
     "project": {
-      "callback": "arsia_c.projections.nsw:project",
-      "code_path": "src/arsia_c/projections/nsw.py",
-      "version": "c03-nsw-v2-packaged"
+      "callback": "arsia_c.projections.dispatcher:project",
+      "code_path": "src/arsia_c/projections/dispatcher.py",
+      "version": "b-cd-project-v1"
     },
     "vault": {
       "callback": "arsia_ingest.vault_load:load_vault",
@@ -50,18 +58,31 @@
       "version": "c09-ad8baed"
     },
     "dw": {
-      "callback": "arsia_d02.dimensions:runner_callback",
-      "code_path": "src/arsia_d02/dimensions.py",
-      "version": "d02-0.1.0-e4fbefa"
+      "callback": "arsia_d03.facts:runner_callback",
+      "code_path": "src/arsia_d03/facts.py",
+      "version": "d03-337101f"
+    },
+    "qa_d": {
+      "callback": "arsia_d04.reconciliation:runner_callback",
+      "code_path": "src/arsia_d04/reconciliation.py",
+      "version": "d04-daa9e57"
     }
   },
   "components": {
     "project": [
+      "config/c05-qld-official-v1.json",
       "pyproject.toml",
       "requirements.txt",
       "src/arsia_c/__init__.py",
+      "src/arsia_c/config/c05-qld-official-v1.json",
+      "src/arsia_c/config/vic-restricted-inputs-v1.json",
+      "src/arsia_c/config/vic-restricted-use-v1.json",
+      "src/arsia_c/node_location.py",
       "src/arsia_c/projections/__init__.py",
+      "src/arsia_c/projections/dispatcher.py",
       "src/arsia_c/projections/nsw.py",
+      "src/arsia_c/projections/qld.py",
+      "src/arsia_c/projections/source_contracts.py",
       "src/arsia_c/projections/sql/c03_nsw_crash_insert.sql",
       "src/arsia_c/projections/sql/c03_nsw_month_check.sql",
       "src/arsia_c/projections/sql/c03_nsw_projection_check.sql",
@@ -71,7 +92,19 @@
       "src/arsia_c/projections/sql/c03_nsw_unit_insert.sql",
       "src/arsia_c/projections/sql/c03_nsw_year_check.sql",
       "src/arsia_c/projections/sql/c03_projection_tables.sql",
+      "src/arsia_c/projections/vic.py",
+      "src/arsia_c/sql/c03_projection_tables.sql",
+      "src/arsia_c/sql/c04_vic_crash_base_insert.sql",
+      "src/arsia_c/sql/c04_vic_semantic_check.sql",
+      "src/arsia_c/sql/c04_vic_staged_relationship_check.sql",
+      "src/arsia_c/sql/c04_vic_unit_insert.sql",
+      "src/arsia_c/sql/c05_qld_reconciliation.sql",
+      "src/arsia_c/sql/c05_qld_values.sql",
+      "src/arsia_c/sql/c07_vic_node_observations.sql",
+      "src/arsia_c/sql/c45_crash_check.sql",
+      "src/arsia_c/sql/c45_crash_insert.sql",
       "src/arsia_ingest/__init__.py",
+      "src/arsia_ingest/components.py",
       "src/arsia_ingest/models.py"
     ],
     "vault": [
@@ -113,11 +146,21 @@
       "requirements.txt",
       "src/arsia_d02/__init__.py",
       "src/arsia_d02/dimensions.py",
+      "src/arsia_d03/__init__.py",
+      "src/arsia_d03/facts.py",
       "src/arsia_ingest/__init__.py",
       "src/arsia_ingest/models.py"
+    ],
+    "qa": [
+      "pyproject.toml",
+      "requirements.txt",
+      "src/arsia_d04/__init__.py",
+      "src/arsia_d04/reconciliation.py",
+      "src/arsia_ingest/models.py",
+      "src/arsia_ingest/qa_input.py"
     ]
   },
-  "interface_scope": "Conservative hash coverage of the actual B package; this does not register missing build stages or E FP1",
+  "interface_scope": "Actual B interface code; partial inventory, not a final FrozenManifest",
   "interface_code_paths": [
     "config/qa-team-v1.1-vic-r1.json",
     "config/vic-restricted-inputs-v1.json",
@@ -127,6 +170,7 @@
     "src/arsia_ingest/__init__.py",
     "src/arsia_ingest/__main__.py",
     "src/arsia_ingest/cli.py",
+    "src/arsia_ingest/components.py",
     "src/arsia_ingest/config.py",
     "src/arsia_ingest/fingerprint.py",
     "src/arsia_ingest/manifest.py",
@@ -144,6 +188,10 @@
     "src/arsia_ingest/vic_restricted.py"
   ],
   "code_files": [
+    {
+      "path": "config/c05-qld-official-v1.json",
+      "sha256": "40c0535ae002e57bd3a072ce90415c9ca619a801d3063db1ab524d8684fddeb4"
+    },
     {
       "path": "config/qa-team-v1.1-vic-r1.json",
       "sha256": "859a5684b2a276cd69509877ea4660344fecac4ca6e5041de77280d40ebaca6b"
@@ -203,6 +251,10 @@
     {
       "path": "src/arsia_c/projections/__init__.py",
       "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "src/arsia_c/projections/dispatcher.py",
+      "sha256": "c8d1882ec43bcc019077068a41121625d13038aa11afa9a184c7388de7a1c380"
     },
     {
       "path": "src/arsia_c/projections/nsw.py",
@@ -305,6 +357,22 @@
       "sha256": "55f9524f0a5ea137d8ed5213d2f7c84ca4d86419798d5c0352a773012d02ae9b"
     },
     {
+      "path": "src/arsia_d03/__init__.py",
+      "sha256": "14fe33f3d0963688c04f28b975d8d7143ed79202742b9084f73c74f5e12a5cdf"
+    },
+    {
+      "path": "src/arsia_d03/facts.py",
+      "sha256": "3da0f752e304e17e65429a49e91206ef67ea416113254d34fb4cafeb193b078a"
+    },
+    {
+      "path": "src/arsia_d04/__init__.py",
+      "sha256": "6434fb6885873af063a01b34bd6ecf4af2f16bcdc725cf6101fe711d619447bd"
+    },
+    {
+      "path": "src/arsia_d04/reconciliation.py",
+      "sha256": "793101b7ae2d03cf87b84b68fd7bf21392b292b86ea8e3eb4c5a07187a8c12c9"
+    },
+    {
       "path": "src/arsia_ingest/__init__.py",
       "sha256": "1b968d2191475834219bcb988e7a25867afb1eff95b73acd7aaccae34568cdd3"
     },
@@ -315,6 +383,10 @@
     {
       "path": "src/arsia_ingest/cli.py",
       "sha256": "1f641c621a1408f3f997392841e910bff8ff2705dc0dedfd22d7ac88290b6918"
+    },
+    {
+      "path": "src/arsia_ingest/components.py",
+      "sha256": "188bff8f6c3fa3409f656eecbd931fbcee19baf08c4ede8b4d949c55d5701bf2"
     },
     {
       "path": "src/arsia_ingest/config.py",
@@ -423,53 +495,6 @@
       "sha256": "fb4d03819dbb4a37366aa5b3cb59fe4e8bec0d76eae3fcfbc3783ebb13f51de6"
     }
   ],
-  "path_moves": [
-    {
-      "upstream_path": "sql/projections/c03_nsw_crash_insert.sql",
-      "path": "src/arsia_c/projections/sql/c03_nsw_crash_insert.sql",
-      "sha256": "d1e78ff96178a6c43305cb0b249b935c4e71e9f24594ab4ca23540aecc0ee5bc"
-    },
-    {
-      "upstream_path": "sql/projections/c03_nsw_month_check.sql",
-      "path": "src/arsia_c/projections/sql/c03_nsw_month_check.sql",
-      "sha256": "52a63e6be5132b8064b9f88541af57acca5f7907016bc7baa2a74f42ee4aa438"
-    },
-    {
-      "upstream_path": "sql/projections/c03_nsw_projection_check.sql",
-      "path": "src/arsia_c/projections/sql/c03_nsw_projection_check.sql",
-      "sha256": "4e57e39ce2919cb5af2567ddae69a4c68f12345f5e8403b398be2d7654e2072b"
-    },
-    {
-      "upstream_path": "sql/projections/c03_nsw_relationship_check.sql",
-      "path": "src/arsia_c/projections/sql/c03_nsw_relationship_check.sql",
-      "sha256": "996335de7b30d15dcde86535793aba66ca48e41d4807b372964d87e57025cebc"
-    },
-    {
-      "upstream_path": "sql/projections/c03_nsw_semantic_check.sql",
-      "path": "src/arsia_c/projections/sql/c03_nsw_semantic_check.sql",
-      "sha256": "fb71f3ec1454b8a5ee212aa28ee8c956cdfd8987b8eaa97ecdf0406feb0bf547"
-    },
-    {
-      "upstream_path": "sql/projections/c03_nsw_unit_check.sql",
-      "path": "src/arsia_c/projections/sql/c03_nsw_unit_check.sql",
-      "sha256": "8b9fe0f1769a6660c6433913a5e56657e01cff6237a51f6d77542317daa41401"
-    },
-    {
-      "upstream_path": "sql/projections/c03_nsw_unit_insert.sql",
-      "path": "src/arsia_c/projections/sql/c03_nsw_unit_insert.sql",
-      "sha256": "851336d277c0e0fb25c74193ee5e263aba9f01a5b62006bb68c68c8865185093"
-    },
-    {
-      "upstream_path": "sql/projections/c03_nsw_year_check.sql",
-      "path": "src/arsia_c/projections/sql/c03_nsw_year_check.sql",
-      "sha256": "77b142636574e5559351bd651c5317faea6594c588ce96422b314c479c1419a6"
-    },
-    {
-      "upstream_path": "sql/projections/c03_projection_tables.sql",
-      "path": "src/arsia_c/projections/sql/c03_projection_tables.sql",
-      "sha256": "828410b21258663d63a2737e0ba612ae33bbae6849c2fbdc09dac1deb38ae15d"
-    }
-  ],
   "dependencies": {
     "distribution": "arsia-native-intake 0.1.0",
     "python": ">=3.12,<3.13",
@@ -477,5 +502,19 @@
     "database": "PostgreSQL 16; original A03 arsia_loader grants",
     "test_driver": "psycopg[binary]==3.3.6 in requirements-db.txt",
     "new_external_packages": []
-  }
+  },
+  "remaining_dependencies": [
+    {
+      "owner": "B",
+      "delivery": "Integrate C10 merged in C PR26 and verify its outstanding QA07 year-coverage finding"
+    },
+    {
+      "owner": "E",
+      "delivery": "Reviewed FP1 SQL, publication gate and database validation"
+    },
+    {
+      "owner": "B and module owners",
+      "delivery": "Final platform inventory including analysis code, then full B10 integration"
+    }
+  ]
 }

@@ -1,0 +1,3470 @@
+{
+  "profile_id": "vic-accident-only-2020-2024-v1",
+  "protocol_version": "team-v1.1-vic-r1",
+  "decision_status": "adopted",
+  "decided_on": "2026-09-23",
+  "authority": {
+    "basis": "User reported C/E delegation in this conversation and instructed us to decide the minimum-impact rules.",
+    "team_use_approved": true,
+    "separate_teammate_signature_claimed": false,
+    "publisher_confirmation_claimed": false
+  },
+  "runtime_integrated": false,
+  "full_source_contract_confirmed": false,
+  "publisher_bundle_confirmed": false,
+  "source_id": "official_vic",
+  "dataset_kind": "official",
+  "analysis": {
+    "year_from": 2020,
+    "year_to": 2024
+  },
+  "local_release": {
+    "release_label": "Locally saved August 2026 VIC files; team-approved accident-only analysis",
+    "release_scope": "vic_pinned_2020_2024_r1",
+    "not_a_publisher_release_id": true
+  },
+  "files": {
+    "official_vic_accident": {
+      "file_sha256": "a148c00601fab10d44368df80492c594123700a7f9e334ff896fd215295e91d9",
+      "raw_count": 200352,
+      "parser_version": "csv-native-v1",
+      "locator_version": "csv-logical-v1"
+    },
+    "official_vic_vehicle": {
+      "file_sha256": "05a7a1b9171abaeb5c188df549dee38edde6e76d5a03553988305a8280dccd12",
+      "raw_count": 365470,
+      "parser_version": "csv-native-v1",
+      "locator_version": "csv-logical-v1"
+    },
+    "official_vic_person": {
+      "file_sha256": "71ca8fec01370e301f282fc83e8f11e4cde16a535ee421cbbb72512ceb7194f9",
+      "raw_count": 467730,
+      "parser_version": "csv-native-v1",
+      "locator_version": "csv-logical-v1"
+    },
+    "official_vic_node": {
+      "file_sha256": "b0bdbec22ac33df66e15cff9b531ba3203320ec5fbe20076a2820b8fec966ed4",
+      "raw_count": 405918,
+      "parser_version": "csv-native-v1",
+      "locator_version": "csv-logical-v1"
+    }
+  },
+  "permitted_metrics": {
+    "crash_count": "One valid unique Accident row per identity; no child join.",
+    "occurrence_trend": "ACCIDENT_DATE; calendar year/month in 2020-2024.",
+    "severity_distribution": {
+      "field": "SEVERITY",
+      "codes": {
+        "1": "Fatal",
+        "2": "Serious injury",
+        "3": "Other injury",
+        "4": "Non-injury"
+      }
+    },
+    "fatal_crash_count": "SEVERITY=1, separately from fatality_count.",
+    "fatality_count": "NO_PERSONS_KILLED",
+    "casualty_count": {
+      "sum": [
+        "NO_PERSONS_KILLED",
+        "NO_PERSONS_INJ_2",
+        "NO_PERSONS_INJ_3"
+      ],
+      "missing_component_result": null
+    }
+  },
+  "unavailable_outputs": [
+    "person_export_totals",
+    "vehicle_export_totals",
+    "declared_vehicle_kpi",
+    "person_vehicle_link_statistics",
+    "person_or_vehicle_category_metrics",
+    "vic_official_map_points",
+    "node_geographic_analysis",
+    "cross_state_harmonized_totals"
+  ],
+  "reporting": {
+    "label": "VIC recorded crashes in the pinned Accident snapshot, 2020-2024; restricted use.",
+    "unavailable_result": "Explicit unavailable plus reason, never zero, an empty valid total or a claim of complete coverage.",
+    "quality_limits_required": true,
+    "observed_crash_rows_by_year": {
+      "2020": 12170,
+      "2021": 14013,
+      "2022": 15043,
+      "2023": 15558,
+      "2024": 15386
+    },
+    "observed_analysis_crashes": 72170,
+    "not_current_official_totals": true,
+    "not_population_completeness": true
+  },
+  "retention": {
+    "all_raw_records": true,
+    "all_valid_in_scope_crashes": true,
+    "all_valid_in_scope_vehicle_projection_rows": true,
+    "person_stays_raw_only": true,
+    "repair_links": false,
+    "change_declared_counts": false,
+    "deduplicate_raw_nodes": false,
+    "vic_unit_count_eligible": false,
+    "unit_quality_reason": "definition_unconfirmed",
+    "vic_map_eligible": false,
+    "trusted_location_fields": {
+      "latitude": null,
+      "longitude": null,
+      "location_crs": null,
+      "location_record_id": null
+    },
+    "location_reasons": [
+      "crs_unconfirmed",
+      "no_location"
+    ]
+  },
+  "blank_vehicle_rules": {
+    "only_native_csv_empty_string": true,
+    "whitespace_only_keys_block": true,
+    "pedestrian_nonassociation": {
+      "native_predicate": {
+        "VEHICLE_ID": "",
+        "ROAD_USER_TYPE": "1",
+        "SEATING_POSITION": "NA"
+      },
+      "disposition": "Team-approved non-association for these pinned files; not publisher permission.",
+      "expected_full_rows": 18752,
+      "expected_analysis_rows": 6186
+    },
+    "unknown_role": "Exact 24 cases below remain unresolved, excluded from linked metrics.",
+    "all_other_blank_cases": "block",
+    "preserve_nonempty_pedestrian_links": true
+  },
+  "count_rules": {
+    "accident_is_authority_for_approved_person_metrics": true,
+    "participant_total_and_vehicle_declarations": "Raw/audit only; do not publish these as Person/Vehicle export totals.",
+    "detail_comparison": "Run full-file diagnostic comparisons and report in-scope differences separately.",
+    "common_export_completeness_confirmed": false,
+    "declared_count_delta_in_qa04": null,
+    "nonzero_cases_require_exact_match": true,
+    "opposite_deltas_may_cancel": false
+  },
+  "case_counts": {
+    "unmatched_person_vehicle": {
+      "full": 39,
+      "analysis": 39
+    },
+    "unknown_role_blank_vehicle": {
+      "full": 24,
+      "analysis": 6
+    },
+    "declared_person_differences": {
+      "full": 2,
+      "analysis": 0
+    },
+    "declared_vehicle_differences": {
+      "full": 5,
+      "analysis": 3
+    },
+    "missing_node_matches": {
+      "full": 85,
+      "analysis": 7
+    }
+  },
+  "cases": {
+    "unmatched_person_vehicle": [
+      {
+        "accident_no": "T20210002973",
+        "person_id": "01",
+        "vehicle_id": "B",
+        "scope": "2020-2024",
+        "occurrence_date": "2021-02-09",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:281006"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:64587"
+        },
+        "available_vehicle_refs": [
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:143956"
+          }
+        ],
+        "missing_target": [
+          "T20210002973",
+          "B"
+        ],
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20210002973",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "B",
+          "ROAD_USER_TYPE": "9",
+          "INJ_LEVEL": "3",
+          "SEATING_POSITION": "NA"
+        },
+        "disposition": "retain_unresolved_link; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20210012594",
+        "person_id": "01",
+        "vehicle_id": "B",
+        "scope": "2020-2024",
+        "occurrence_date": "2021-06-06",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:315473"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:108639"
+        },
+        "available_vehicle_refs": [
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:145784"
+          }
+        ],
+        "missing_target": [
+          "T20210012594",
+          "B"
+        ],
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20210012594",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "B",
+          "ROAD_USER_TYPE": "2",
+          "INJ_LEVEL": "3",
+          "SEATING_POSITION": "NA"
+        },
+        "disposition": "retain_unresolved_link; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20210014050",
+        "person_id": "01",
+        "vehicle_id": "B",
+        "scope": "2020-2024",
+        "occurrence_date": "2021-06-26",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:315002"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:4454"
+        },
+        "available_vehicle_refs": [
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:146046"
+          }
+        ],
+        "missing_target": [
+          "T20210014050",
+          "B"
+        ],
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20210014050",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "B",
+          "ROAD_USER_TYPE": "2",
+          "INJ_LEVEL": "3",
+          "SEATING_POSITION": "D"
+        },
+        "disposition": "retain_unresolved_link; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20210020918",
+        "person_id": "01",
+        "vehicle_id": "B",
+        "scope": "2020-2024",
+        "occurrence_date": "2021-10-09",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:30047"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:115739"
+        },
+        "available_vehicle_refs": [
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:147299"
+          },
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:147300"
+          },
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:147301"
+          },
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:293007"
+          }
+        ],
+        "missing_target": [
+          "T20210020918",
+          "B"
+        ],
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20210020918",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "B",
+          "ROAD_USER_TYPE": "3",
+          "INJ_LEVEL": "3",
+          "SEATING_POSITION": "LR"
+        },
+        "disposition": "retain_unresolved_link; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20210021340",
+        "person_id": "01",
+        "vehicle_id": "B",
+        "scope": "2020-2024",
+        "occurrence_date": "2021-10-22",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:82687"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:129982"
+        },
+        "available_vehicle_refs": [
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:61084"
+          }
+        ],
+        "missing_target": [
+          "T20210021340",
+          "B"
+        ],
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20210021340",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "B",
+          "ROAD_USER_TYPE": "2",
+          "INJ_LEVEL": "3",
+          "SEATING_POSITION": "D"
+        },
+        "disposition": "retain_unresolved_link; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20210022263",
+        "person_id": "01",
+        "vehicle_id": "A",
+        "scope": "2020-2024",
+        "occurrence_date": "2021-11-02",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:423317"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:184156"
+        },
+        "available_vehicle_refs": [],
+        "missing_target": [
+          "T20210022263",
+          "A"
+        ],
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20210022263",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "A",
+          "ROAD_USER_TYPE": "2",
+          "INJ_LEVEL": "3",
+          "SEATING_POSITION": "D"
+        },
+        "disposition": "retain_unresolved_link; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20210022607",
+        "person_id": "01",
+        "vehicle_id": "A",
+        "scope": "2020-2024",
+        "occurrence_date": "2021-10-31",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:81696"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:183745"
+        },
+        "available_vehicle_refs": [],
+        "missing_target": [
+          "T20210022607",
+          "A"
+        ],
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20210022607",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "A",
+          "ROAD_USER_TYPE": "2",
+          "INJ_LEVEL": "3",
+          "SEATING_POSITION": "D"
+        },
+        "disposition": "retain_unresolved_link; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20210023956",
+        "person_id": "01",
+        "vehicle_id": "B",
+        "scope": "2020-2024",
+        "occurrence_date": "2021-11-24",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:224272"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:146888"
+        },
+        "available_vehicle_refs": [
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:346665"
+          }
+        ],
+        "missing_target": [
+          "T20210023956",
+          "B"
+        ],
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20210023956",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "B",
+          "ROAD_USER_TYPE": "2",
+          "INJ_LEVEL": "2",
+          "SEATING_POSITION": "D"
+        },
+        "disposition": "retain_unresolved_link; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20220018761",
+        "person_id": "02",
+        "vehicle_id": "B",
+        "scope": "2020-2024",
+        "occurrence_date": "2022-08-20",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:328735"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:42059"
+        },
+        "available_vehicle_refs": [
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:346783"
+          }
+        ],
+        "missing_target": [
+          "T20220018761",
+          "B"
+        ],
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20220018761",
+          "PERSON_ID": "02",
+          "VEHICLE_ID": "B",
+          "ROAD_USER_TYPE": "2",
+          "INJ_LEVEL": "2",
+          "SEATING_POSITION": "D"
+        },
+        "disposition": "retain_unresolved_link; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20220019497",
+        "person_id": "01",
+        "vehicle_id": "B",
+        "scope": "2020-2024",
+        "occurrence_date": "2022-08-29",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:463738"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:97266"
+        },
+        "available_vehicle_refs": [
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:352600"
+          }
+        ],
+        "missing_target": [
+          "T20220019497",
+          "B"
+        ],
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20220019497",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "B",
+          "ROAD_USER_TYPE": "9",
+          "INJ_LEVEL": "2",
+          "SEATING_POSITION": "D"
+        },
+        "disposition": "retain_unresolved_link; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20220019925",
+        "person_id": "01",
+        "vehicle_id": "B",
+        "scope": "2020-2024",
+        "occurrence_date": "2022-09-03",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:281518"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:37996"
+        },
+        "available_vehicle_refs": [
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:152236"
+          }
+        ],
+        "missing_target": [
+          "T20220019925",
+          "B"
+        ],
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20220019925",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "B",
+          "ROAD_USER_TYPE": "2",
+          "INJ_LEVEL": "3",
+          "SEATING_POSITION": "D"
+        },
+        "disposition": "retain_unresolved_link; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20230008808",
+        "person_id": "01",
+        "vehicle_id": "B",
+        "scope": "2020-2024",
+        "occurrence_date": "2023-04-15",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:210521"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:65925"
+        },
+        "available_vehicle_refs": [
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:69356"
+          }
+        ],
+        "missing_target": [
+          "T20230008808",
+          "B"
+        ],
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20230008808",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "B",
+          "ROAD_USER_TYPE": "2",
+          "INJ_LEVEL": "3",
+          "SEATING_POSITION": "D"
+        },
+        "disposition": "retain_unresolved_link; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20230009098",
+        "person_id": "01",
+        "vehicle_id": "A",
+        "scope": "2020-2024",
+        "occurrence_date": "2023-04-18",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:357666"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:148970"
+        },
+        "available_vehicle_refs": [],
+        "missing_target": [
+          "T20230009098",
+          "A"
+        ],
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20230009098",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "A",
+          "ROAD_USER_TYPE": "2",
+          "INJ_LEVEL": "3",
+          "SEATING_POSITION": "OR"
+        },
+        "disposition": "retain_unresolved_link; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20230013618",
+        "person_id": "01",
+        "vehicle_id": "A",
+        "scope": "2020-2024",
+        "occurrence_date": "2023-04-16",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:321373"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:731"
+        },
+        "available_vehicle_refs": [
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:242570"
+          },
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:242571"
+          }
+        ],
+        "missing_target": [
+          "T20230013618",
+          "A"
+        ],
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20230013618",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "A",
+          "ROAD_USER_TYPE": "3",
+          "INJ_LEVEL": "3",
+          "SEATING_POSITION": "LF"
+        },
+        "disposition": "retain_unresolved_link; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20230028026",
+        "person_id": "01",
+        "vehicle_id": "B",
+        "scope": "2020-2024",
+        "occurrence_date": "2023-11-16",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:465286"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:197512"
+        },
+        "available_vehicle_refs": [
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:353633"
+          }
+        ],
+        "missing_target": [
+          "T20230028026",
+          "B"
+        ],
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20230028026",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "B",
+          "ROAD_USER_TYPE": "6",
+          "INJ_LEVEL": "2",
+          "SEATING_POSITION": "NA"
+        },
+        "disposition": "retain_unresolved_link; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20230028873",
+        "person_id": "01",
+        "vehicle_id": "B",
+        "scope": "2020-2024",
+        "occurrence_date": "2023-12-01",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:438986"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:23374"
+        },
+        "available_vehicle_refs": [
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:159371"
+          }
+        ],
+        "missing_target": [
+          "T20230028873",
+          "B"
+        ],
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20230028873",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "B",
+          "ROAD_USER_TYPE": "2",
+          "INJ_LEVEL": "2",
+          "SEATING_POSITION": "OR"
+        },
+        "disposition": "retain_unresolved_link; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20240002735",
+        "person_id": "02",
+        "vehicle_id": "C",
+        "scope": "2020-2024",
+        "occurrence_date": "2024-02-03",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:439490"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:131284"
+        },
+        "available_vehicle_refs": [
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:160144"
+          },
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:246059"
+          }
+        ],
+        "missing_target": [
+          "T20240002735",
+          "C"
+        ],
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20240002735",
+          "PERSON_ID": "02",
+          "VEHICLE_ID": "C",
+          "ROAD_USER_TYPE": "6",
+          "INJ_LEVEL": "3",
+          "SEATING_POSITION": "OR"
+        },
+        "disposition": "retain_unresolved_link; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20240004372",
+        "person_id": "01",
+        "vehicle_id": "B",
+        "scope": "2020-2024",
+        "occurrence_date": "2024-02-21",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:156632"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:111230"
+        },
+        "available_vehicle_refs": [
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:74164"
+          }
+        ],
+        "missing_target": [
+          "T20240004372",
+          "B"
+        ],
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20240004372",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "B",
+          "ROAD_USER_TYPE": "2",
+          "INJ_LEVEL": "2",
+          "SEATING_POSITION": "OR"
+        },
+        "disposition": "retain_unresolved_link; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20240005356",
+        "person_id": "01",
+        "vehicle_id": "B",
+        "scope": "2020-2024",
+        "occurrence_date": "2024-02-29",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:249824"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:67240"
+        },
+        "available_vehicle_refs": [
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:300592"
+          }
+        ],
+        "missing_target": [
+          "T20240005356",
+          "B"
+        ],
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20240005356",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "B",
+          "ROAD_USER_TYPE": "6",
+          "INJ_LEVEL": "3",
+          "SEATING_POSITION": "OR"
+        },
+        "disposition": "retain_unresolved_link; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20240005963",
+        "person_id": "01",
+        "vehicle_id": "B",
+        "scope": "2020-2024",
+        "occurrence_date": "2024-03-09",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:228136"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:44293"
+        },
+        "available_vehicle_refs": [
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:355046"
+          }
+        ],
+        "missing_target": [
+          "T20240005963",
+          "B"
+        ],
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20240005963",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "B",
+          "ROAD_USER_TYPE": "2",
+          "INJ_LEVEL": "2",
+          "SEATING_POSITION": "D"
+        },
+        "disposition": "retain_unresolved_link; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20240009606",
+        "person_id": "01",
+        "vehicle_id": "B",
+        "scope": "2020-2024",
+        "occurrence_date": "2024-04-17",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:142993"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:59565"
+        },
+        "available_vehicle_refs": [
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:247255"
+          }
+        ],
+        "missing_target": [
+          "T20240009606",
+          "B"
+        ],
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20240009606",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "B",
+          "ROAD_USER_TYPE": "6",
+          "INJ_LEVEL": "3",
+          "SEATING_POSITION": "D"
+        },
+        "disposition": "retain_unresolved_link; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20240009631",
+        "person_id": "03",
+        "vehicle_id": "B",
+        "scope": "2020-2024",
+        "occurrence_date": "2024-04-17",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:439499"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:179577"
+        },
+        "available_vehicle_refs": [
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:247261"
+          }
+        ],
+        "missing_target": [
+          "T20240009631",
+          "B"
+        ],
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20240009631",
+          "PERSON_ID": "03",
+          "VEHICLE_ID": "B",
+          "ROAD_USER_TYPE": "6",
+          "INJ_LEVEL": "3",
+          "SEATING_POSITION": "OR"
+        },
+        "disposition": "retain_unresolved_link; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20240009746",
+        "person_id": "01",
+        "vehicle_id": "B",
+        "scope": "2020-2024",
+        "occurrence_date": "2024-04-18",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:308320"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:118292"
+        },
+        "available_vehicle_refs": [
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:247278"
+          }
+        ],
+        "missing_target": [
+          "T20240009746",
+          "B"
+        ],
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20240009746",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "B",
+          "ROAD_USER_TYPE": "4",
+          "INJ_LEVEL": "3",
+          "SEATING_POSITION": "D"
+        },
+        "disposition": "retain_unresolved_link; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20240010811",
+        "person_id": "01",
+        "vehicle_id": "B",
+        "scope": "2020-2024",
+        "occurrence_date": "2023-03-06",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:440964"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:172007"
+        },
+        "available_vehicle_refs": [
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:161519"
+          }
+        ],
+        "missing_target": [
+          "T20240010811",
+          "B"
+        ],
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20240010811",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "B",
+          "ROAD_USER_TYPE": "2",
+          "INJ_LEVEL": "3",
+          "SEATING_POSITION": "OR"
+        },
+        "disposition": "retain_unresolved_link; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20240010944",
+        "person_id": "02",
+        "vehicle_id": "B",
+        "scope": "2020-2024",
+        "occurrence_date": "2024-04-22",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:432197"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:78995"
+        },
+        "available_vehicle_refs": [
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:301142"
+          }
+        ],
+        "missing_target": [
+          "T20240010944",
+          "B"
+        ],
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20240010944",
+          "PERSON_ID": "02",
+          "VEHICLE_ID": "B",
+          "ROAD_USER_TYPE": "4",
+          "INJ_LEVEL": "3",
+          "SEATING_POSITION": "OR"
+        },
+        "disposition": "retain_unresolved_link; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20240011214",
+        "person_id": "01",
+        "vehicle_id": "B",
+        "scope": "2020-2024",
+        "occurrence_date": "2024-05-03",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:326212"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:89079"
+        },
+        "available_vehicle_refs": [
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:161603"
+          }
+        ],
+        "missing_target": [
+          "T20240011214",
+          "B"
+        ],
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20240011214",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "B",
+          "ROAD_USER_TYPE": "6",
+          "INJ_LEVEL": "3",
+          "SEATING_POSITION": "OR"
+        },
+        "disposition": "retain_unresolved_link; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20240011771",
+        "person_id": "01",
+        "vehicle_id": "B",
+        "scope": "2020-2024",
+        "occurrence_date": "2024-05-09",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:34147"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:183818"
+        },
+        "available_vehicle_refs": [
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:247637"
+          }
+        ],
+        "missing_target": [
+          "T20240011771",
+          "B"
+        ],
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20240011771",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "B",
+          "ROAD_USER_TYPE": "6",
+          "INJ_LEVEL": "3",
+          "SEATING_POSITION": "D"
+        },
+        "disposition": "retain_unresolved_link; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20240012385",
+        "person_id": "01",
+        "vehicle_id": "B",
+        "scope": "2020-2024",
+        "occurrence_date": "2024-05-15",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:245849"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:32068"
+        },
+        "available_vehicle_refs": [
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:75564"
+          }
+        ],
+        "missing_target": [
+          "T20240012385",
+          "B"
+        ],
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20240012385",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "B",
+          "ROAD_USER_TYPE": "6",
+          "INJ_LEVEL": "3",
+          "SEATING_POSITION": "D"
+        },
+        "disposition": "retain_unresolved_link; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20240013192",
+        "person_id": "01",
+        "vehicle_id": "B",
+        "scope": "2020-2024",
+        "occurrence_date": "2024-05-23",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:293286"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:9840"
+        },
+        "available_vehicle_refs": [
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:301383"
+          }
+        ],
+        "missing_target": [
+          "T20240013192",
+          "B"
+        ],
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20240013192",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "B",
+          "ROAD_USER_TYPE": "6",
+          "INJ_LEVEL": "2",
+          "SEATING_POSITION": "OR"
+        },
+        "disposition": "retain_unresolved_link; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20240013511",
+        "person_id": "01",
+        "vehicle_id": "B",
+        "scope": "2020-2024",
+        "occurrence_date": "2024-05-27",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:176517"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:157407"
+        },
+        "available_vehicle_refs": [
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:75828"
+          }
+        ],
+        "missing_target": [
+          "T20240013511",
+          "B"
+        ],
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20240013511",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "B",
+          "ROAD_USER_TYPE": "4",
+          "INJ_LEVEL": "2",
+          "SEATING_POSITION": "D"
+        },
+        "disposition": "retain_unresolved_link; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20240013800",
+        "person_id": "01",
+        "vehicle_id": "B",
+        "scope": "2020-2024",
+        "occurrence_date": "2024-05-30",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:369748"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:157408"
+        },
+        "available_vehicle_refs": [
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:248113"
+          }
+        ],
+        "missing_target": [
+          "T20240013800",
+          "B"
+        ],
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20240013800",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "B",
+          "ROAD_USER_TYPE": "6",
+          "INJ_LEVEL": "3",
+          "SEATING_POSITION": "OR"
+        },
+        "disposition": "retain_unresolved_link; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20240015401",
+        "person_id": "01",
+        "vehicle_id": "B",
+        "scope": "2020-2024",
+        "occurrence_date": "2024-06-15",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:52336"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:38474"
+        },
+        "available_vehicle_refs": [
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:248475"
+          }
+        ],
+        "missing_target": [
+          "T20240015401",
+          "B"
+        ],
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20240015401",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "B",
+          "ROAD_USER_TYPE": "6",
+          "INJ_LEVEL": "3",
+          "SEATING_POSITION": "OR"
+        },
+        "disposition": "retain_unresolved_link; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20240015702",
+        "person_id": "01",
+        "vehicle_id": "B",
+        "scope": "2020-2024",
+        "occurrence_date": "2024-06-19",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:269781"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:115808"
+        },
+        "available_vehicle_refs": [
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:162536"
+          }
+        ],
+        "missing_target": [
+          "T20240015702",
+          "B"
+        ],
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20240015702",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "B",
+          "ROAD_USER_TYPE": "6",
+          "INJ_LEVEL": "3",
+          "SEATING_POSITION": "OR"
+        },
+        "disposition": "retain_unresolved_link; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20240016457",
+        "person_id": "01",
+        "vehicle_id": "B",
+        "scope": "2020-2024",
+        "occurrence_date": "2024-06-22",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:253707"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:118726"
+        },
+        "available_vehicle_refs": [
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:162708"
+          }
+        ],
+        "missing_target": [
+          "T20240016457",
+          "B"
+        ],
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20240016457",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "B",
+          "ROAD_USER_TYPE": "9",
+          "INJ_LEVEL": "3",
+          "SEATING_POSITION": "OR"
+        },
+        "disposition": "retain_unresolved_link; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20240016732",
+        "person_id": "01",
+        "vehicle_id": "B",
+        "scope": "2020-2024",
+        "occurrence_date": "2024-07-02",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:24271"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:88274"
+        },
+        "available_vehicle_refs": [
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:162760"
+          }
+        ],
+        "missing_target": [
+          "T20240016732",
+          "B"
+        ],
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20240016732",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "B",
+          "ROAD_USER_TYPE": "6",
+          "INJ_LEVEL": "2",
+          "SEATING_POSITION": "OR"
+        },
+        "disposition": "retain_unresolved_link; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20240016998",
+        "person_id": "01",
+        "vehicle_id": "B",
+        "scope": "2020-2024",
+        "occurrence_date": "2024-07-05",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:324831"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:153174"
+        },
+        "available_vehicle_refs": [
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:248874"
+          }
+        ],
+        "missing_target": [
+          "T20240016998",
+          "B"
+        ],
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20240016998",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "B",
+          "ROAD_USER_TYPE": "2",
+          "INJ_LEVEL": "3",
+          "SEATING_POSITION": "OR"
+        },
+        "disposition": "retain_unresolved_link; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20240017951",
+        "person_id": "01",
+        "vehicle_id": "B",
+        "scope": "2020-2024",
+        "occurrence_date": "2024-07-16",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:306418"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:138472"
+        },
+        "available_vehicle_refs": [
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:301994"
+          }
+        ],
+        "missing_target": [
+          "T20240017951",
+          "B"
+        ],
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20240017951",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "B",
+          "ROAD_USER_TYPE": "6",
+          "INJ_LEVEL": "2",
+          "SEATING_POSITION": "OR"
+        },
+        "disposition": "retain_unresolved_link; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20240018235",
+        "person_id": "01",
+        "vehicle_id": "B",
+        "scope": "2020-2024",
+        "occurrence_date": "2024-07-15",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:201145"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:102476"
+        },
+        "available_vehicle_refs": [
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:249132"
+          }
+        ],
+        "missing_target": [
+          "T20240018235",
+          "B"
+        ],
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20240018235",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "B",
+          "ROAD_USER_TYPE": "4",
+          "INJ_LEVEL": "3",
+          "SEATING_POSITION": "OR"
+        },
+        "disposition": "retain_unresolved_link; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20240026951",
+        "person_id": "01",
+        "vehicle_id": "B",
+        "scope": "2020-2024",
+        "occurrence_date": "2024-10-23",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:272327"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:101644"
+        },
+        "available_vehicle_refs": [
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:165073"
+          }
+        ],
+        "missing_target": [
+          "T20240026951",
+          "B"
+        ],
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20240026951",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "B",
+          "ROAD_USER_TYPE": "6",
+          "INJ_LEVEL": "3",
+          "SEATING_POSITION": "OR"
+        },
+        "disposition": "retain_unresolved_link; excluded_from_published_link_analysis"
+      }
+    ],
+    "declared_count_differences": [
+      {
+        "entity": "person",
+        "accident_no": "T20150023069",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2015-11-07",
+        "declared": 2,
+        "observed": 1,
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:63102"
+        },
+        "person_refs": [
+          {
+            "resource_id": "official_vic_person",
+            "row_locator": "csv:294959"
+          }
+        ],
+        "vehicle_refs": [
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:200364"
+          }
+        ]
+      },
+      {
+        "entity": "person",
+        "accident_no": "T20150025312",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2015-12-04",
+        "declared": 2,
+        "observed": 1,
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:130238"
+        },
+        "person_refs": [
+          {
+            "resource_id": "official_vic_person",
+            "row_locator": "csv:54095"
+          }
+        ],
+        "vehicle_refs": [
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:114981"
+          },
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:201084"
+          }
+        ]
+      },
+      {
+        "entity": "vehicle",
+        "accident_no": "T20210022263",
+        "scope": "2020-2024",
+        "occurrence_date": "2021-11-02",
+        "declared": 1,
+        "observed": 0,
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:184156"
+        },
+        "person_refs": [
+          {
+            "resource_id": "official_vic_person",
+            "row_locator": "csv:423317"
+          }
+        ],
+        "vehicle_refs": []
+      },
+      {
+        "entity": "vehicle",
+        "accident_no": "T20210022607",
+        "scope": "2020-2024",
+        "occurrence_date": "2021-10-31",
+        "declared": 1,
+        "observed": 0,
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:183745"
+        },
+        "person_refs": [
+          {
+            "resource_id": "official_vic_person",
+            "row_locator": "csv:81696"
+          }
+        ],
+        "vehicle_refs": []
+      },
+      {
+        "entity": "vehicle",
+        "accident_no": "T20230009098",
+        "scope": "2020-2024",
+        "occurrence_date": "2023-04-18",
+        "declared": 1,
+        "observed": 0,
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:148970"
+        },
+        "person_refs": [
+          {
+            "resource_id": "official_vic_person",
+            "row_locator": "csv:357666"
+          }
+        ],
+        "vehicle_refs": []
+      },
+      {
+        "entity": "vehicle",
+        "accident_no": "T20250030921",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2025-11-26",
+        "declared": 2,
+        "observed": 3,
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:195478"
+        },
+        "person_refs": [
+          {
+            "resource_id": "official_vic_person",
+            "row_locator": "csv:218876"
+          },
+          {
+            "resource_id": "official_vic_person",
+            "row_locator": "csv:342295"
+          },
+          {
+            "resource_id": "official_vic_person",
+            "row_locator": "csv:462644"
+          },
+          {
+            "resource_id": "official_vic_person",
+            "row_locator": "csv:465777"
+          }
+        ],
+        "vehicle_refs": [
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:309500"
+          },
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:311183"
+          },
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:311204"
+          }
+        ]
+      },
+      {
+        "entity": "vehicle",
+        "accident_no": "T20250032463",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2025-12-11",
+        "declared": 1,
+        "observed": 2,
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:145593"
+        },
+        "person_refs": [
+          {
+            "resource_id": "official_vic_person",
+            "row_locator": "csv:334122"
+          },
+          {
+            "resource_id": "official_vic_person",
+            "row_locator": "csv:464200"
+          }
+        ],
+        "vehicle_refs": [
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:355100"
+          },
+          {
+            "resource_id": "official_vic_vehicle",
+            "row_locator": "csv:365218"
+          }
+        ]
+      }
+    ],
+    "missing_node_matches": [
+      {
+        "accident_no": "T20120001369",
+        "node_id": "-3",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2012-01-12",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:7456"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20120002126",
+        "node_id": "-10",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2012-01-28",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:115428"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20120005932",
+        "node_id": "-10",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2012-03-10",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:69403"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20120006036",
+        "node_id": "-10",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2012-03-08",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:131796"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20120008664",
+        "node_id": "-10",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2012-04-06",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:65580"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20120008772",
+        "node_id": "-10",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2012-04-14",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:153263"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20120009365",
+        "node_id": "-10",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2012-04-20",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:15796"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20120012969",
+        "node_id": "-10",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2012-06-03",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:107560"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20120013217",
+        "node_id": "-10",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2012-06-06",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:84587"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20120013446",
+        "node_id": "-10",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2012-06-09",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:174647"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20120013485",
+        "node_id": "-10",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2012-06-09",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:9923"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20120013498",
+        "node_id": "-10",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2012-06-09",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:77058"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20120014619",
+        "node_id": "-10",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2012-06-24",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:175858"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20120015209",
+        "node_id": "-10",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2012-07-01",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:80786"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20120015834",
+        "node_id": "-10",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2012-07-09",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:55837"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20120017610",
+        "node_id": "-10",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2012-07-18",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:87509"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20120020447",
+        "node_id": "-10",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2012-08-12",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:148651"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20120022939",
+        "node_id": "-10",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2012-10-07",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:29118"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20120023231",
+        "node_id": "-10",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2012-10-14",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:68606"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20120023489",
+        "node_id": "-10",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2012-10-17",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:89582"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20120024642",
+        "node_id": "-10",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2012-08-04",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:157514"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20120025845",
+        "node_id": "-10",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2012-11-17",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:162854"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20120026078",
+        "node_id": "-10",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2012-11-18",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:11554"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20120028352",
+        "node_id": "-10",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2012-12-19",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:114610"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20120028739",
+        "node_id": "-10",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2012-12-23",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:123506"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20120029106",
+        "node_id": "-10",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2012-12-30",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:169248"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20130000123",
+        "node_id": "-10",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2013-01-01",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:28331"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20130000229",
+        "node_id": "-10",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2013-01-01",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:79537"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20130000413",
+        "node_id": "-10",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2012-12-02",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:22969"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20130000490",
+        "node_id": "-10",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2012-12-30",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:26281"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20130001439",
+        "node_id": "-10",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2012-08-17",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:164152"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20130002101",
+        "node_id": "-10",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2013-01-31",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:108822"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20130002446",
+        "node_id": "-10",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2012-08-20",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:13670"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20130003022",
+        "node_id": "-10",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2013-02-09",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:5853"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20130004031",
+        "node_id": "-10",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2013-02-23",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:133473"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20130004480",
+        "node_id": "-10",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2013-02-23",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:79543"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20130006785",
+        "node_id": "-10",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2012-12-12",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:52862"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20160004785",
+        "node_id": "-1",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2016-01-10",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:29680"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20160004863",
+        "node_id": "-1",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2016-03-03",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:134483"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20160010393",
+        "node_id": "-1",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2016-05-12",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:136598"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20160020719",
+        "node_id": "-1",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2016-08-14",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:163"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20160023892",
+        "node_id": "-1",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2016-11-05",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:33533"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20170001868",
+        "node_id": "-1",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2017-01-28",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:190508"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20170008557",
+        "node_id": "-1",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2017-04-29",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:71254"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20170011059",
+        "node_id": "-1",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2017-06-05",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:154736"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20170012528",
+        "node_id": "-1",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2017-06-26",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:158549"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20170015401",
+        "node_id": "-1",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2017-08-09",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:158106"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20170018084",
+        "node_id": "-1",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2017-09-20",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:101916"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20180001074",
+        "node_id": "-1",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2018-01-18",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:161369"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20180002775",
+        "node_id": "-1",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2018-02-05",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:195024"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20180005086",
+        "node_id": "-1",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2018-03-15",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:197220"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20180006480",
+        "node_id": "-1",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2017-09-09",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:164284"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20180008786",
+        "node_id": "-1",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2018-04-28",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:145301"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20180010144",
+        "node_id": "-1",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2018-05-28",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:115657"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20180010627",
+        "node_id": "-1",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2018-06-05",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:179869"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20180011668",
+        "node_id": "-1",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2018-04-10",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:96997"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20180014906",
+        "node_id": "-1",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2018-06-26",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:25652"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20180018467",
+        "node_id": "-1",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2018-10-01",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:125306"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20180021544",
+        "node_id": "-1",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2018-11-05",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:7235"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20180021724",
+        "node_id": "-1",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2018-11-19",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:142384"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20180023958",
+        "node_id": "-1",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2018-05-14",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:88970"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20190000288",
+        "node_id": "-1",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2019-01-05",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:93228"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20190001603",
+        "node_id": "-1",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2019-01-14",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:24033"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20190002378",
+        "node_id": "-1",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2019-02-07",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:102360"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20190004398",
+        "node_id": "-1",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2019-03-07",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:131154"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20190006335",
+        "node_id": "-1",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2018-12-07",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:188837"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20190010303",
+        "node_id": "-1",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2019-06-01",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:82697"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20190010646",
+        "node_id": "-1",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2019-03-06",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:174453"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20190013545",
+        "node_id": "-1",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2019-07-19",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:78465"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20190014761",
+        "node_id": "-1",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2019-08-07",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:64549"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20190014790",
+        "node_id": "-1",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2019-07-14",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:79308"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20190016778",
+        "node_id": "-1",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2019-09-01",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:184577"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20190019204",
+        "node_id": "-1",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2019-10-02",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:45996"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20190019560",
+        "node_id": "-1",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2019-10-07",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:195372"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20190020200",
+        "node_id": "-1",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2019-10-15",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:40469"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20190020942",
+        "node_id": "-1",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2019-10-14",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:169806"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20190023155",
+        "node_id": "-1",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2019-11-16",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:62379"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20190023830",
+        "node_id": "-1",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2019-11-23",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:145980"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20200004272",
+        "node_id": "-1",
+        "scope": "2020-2024",
+        "occurrence_date": "2020-01-13",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:15608"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20210006755",
+        "node_id": "-1",
+        "scope": "2020-2024",
+        "occurrence_date": "2021-03-21",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:98897"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20210009023",
+        "node_id": "-1",
+        "scope": "2020-2024",
+        "occurrence_date": "2021-04-22",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:142932"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20210011134",
+        "node_id": "-1",
+        "scope": "2020-2024",
+        "occurrence_date": "2021-05-18",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:96754"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20210011215",
+        "node_id": "-1",
+        "scope": "2020-2024",
+        "occurrence_date": "2021-04-22",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:169462"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20220001453",
+        "node_id": "-1",
+        "scope": "2020-2024",
+        "occurrence_date": "2022-01-20",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:8160"
+        },
+        "absent_from_resource": "official_vic_node"
+      },
+      {
+        "accident_no": "T20220007387",
+        "node_id": "-1",
+        "scope": "2020-2024",
+        "occurrence_date": "2022-04-02",
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:190617"
+        },
+        "absent_from_resource": "official_vic_node"
+      }
+    ],
+    "unknown_role_blank_vehicle": [
+      {
+        "accident_no": "T20160024035",
+        "person_id": "01",
+        "vehicle_id": "",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2016-11-03",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:62042"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:183215"
+        },
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20160024035",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "",
+          "ROAD_USER_TYPE": "9",
+          "INJ_LEVEL": "3",
+          "SEATING_POSITION": "NA"
+        },
+        "disposition": "retain_unresolved_blank; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20180000098",
+        "person_id": "01",
+        "vehicle_id": "",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2018-01-02",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:417890"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:184937"
+        },
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20180000098",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "",
+          "ROAD_USER_TYPE": "9",
+          "INJ_LEVEL": "4",
+          "SEATING_POSITION": "LF"
+        },
+        "disposition": "retain_unresolved_blank; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20180006008",
+        "person_id": "02",
+        "vehicle_id": "",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2018-03-29",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:412960"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:188823"
+        },
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20180006008",
+          "PERSON_ID": "02",
+          "VEHICLE_ID": "",
+          "ROAD_USER_TYPE": "9",
+          "INJ_LEVEL": "3",
+          "SEATING_POSITION": "LF"
+        },
+        "disposition": "retain_unresolved_blank; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20180006533",
+        "person_id": "01",
+        "vehicle_id": "",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2018-03-28",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:331852"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:92701"
+        },
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20180006533",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "",
+          "ROAD_USER_TYPE": "9",
+          "INJ_LEVEL": "2",
+          "SEATING_POSITION": "NA"
+        },
+        "disposition": "retain_unresolved_blank; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20180009056",
+        "person_id": "01",
+        "vehicle_id": "",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2018-05-13",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:145711"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:81804"
+        },
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20180009056",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "",
+          "ROAD_USER_TYPE": "9",
+          "INJ_LEVEL": "4",
+          "SEATING_POSITION": "LF"
+        },
+        "disposition": "retain_unresolved_blank; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20180009056",
+        "person_id": "04",
+        "vehicle_id": "",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2018-05-13",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:355627"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:81804"
+        },
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20180009056",
+          "PERSON_ID": "04",
+          "VEHICLE_ID": "",
+          "ROAD_USER_TYPE": "9",
+          "INJ_LEVEL": "3",
+          "SEATING_POSITION": "LF"
+        },
+        "disposition": "retain_unresolved_blank; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20180010025",
+        "person_id": "02",
+        "vehicle_id": "",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2018-05-27",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:97188"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:163067"
+        },
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20180010025",
+          "PERSON_ID": "02",
+          "VEHICLE_ID": "",
+          "ROAD_USER_TYPE": "9",
+          "INJ_LEVEL": "4",
+          "SEATING_POSITION": "LR"
+        },
+        "disposition": "retain_unresolved_blank; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20180010809",
+        "person_id": "01",
+        "vehicle_id": "",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2018-06-08",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:115533"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:199527"
+        },
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20180010809",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "",
+          "ROAD_USER_TYPE": "9",
+          "INJ_LEVEL": "2",
+          "SEATING_POSITION": "LF"
+        },
+        "disposition": "retain_unresolved_blank; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20180010918",
+        "person_id": "03",
+        "vehicle_id": "",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2018-06-10",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:232905"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:123260"
+        },
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20180010918",
+          "PERSON_ID": "03",
+          "VEHICLE_ID": "",
+          "ROAD_USER_TYPE": "9",
+          "INJ_LEVEL": "3",
+          "SEATING_POSITION": "LR"
+        },
+        "disposition": "retain_unresolved_blank; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20180011318",
+        "person_id": "02",
+        "vehicle_id": "",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2018-06-16",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:458041"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:97608"
+        },
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20180011318",
+          "PERSON_ID": "02",
+          "VEHICLE_ID": "",
+          "ROAD_USER_TYPE": "9",
+          "INJ_LEVEL": "4",
+          "SEATING_POSITION": "LR"
+        },
+        "disposition": "retain_unresolved_blank; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20180011336",
+        "person_id": "01",
+        "vehicle_id": "",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2018-06-17",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:110508"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:96998"
+        },
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20180011336",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "",
+          "ROAD_USER_TYPE": "9",
+          "INJ_LEVEL": "3",
+          "SEATING_POSITION": "LF"
+        },
+        "disposition": "retain_unresolved_blank; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20180011642",
+        "person_id": "01",
+        "vehicle_id": "",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2018-06-21",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:391146"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:132408"
+        },
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20180011642",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "",
+          "ROAD_USER_TYPE": "9",
+          "INJ_LEVEL": "4",
+          "SEATING_POSITION": "LR"
+        },
+        "disposition": "retain_unresolved_blank; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20180011655",
+        "person_id": "03",
+        "vehicle_id": "",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2018-06-21",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:328133"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:44340"
+        },
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20180011655",
+          "PERSON_ID": "03",
+          "VEHICLE_ID": "",
+          "ROAD_USER_TYPE": "9",
+          "INJ_LEVEL": "3",
+          "SEATING_POSITION": "LR"
+        },
+        "disposition": "retain_unresolved_blank; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20180012395",
+        "person_id": "01",
+        "vehicle_id": "",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2018-07-02",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:28458"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:30645"
+        },
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20180012395",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "",
+          "ROAD_USER_TYPE": "9",
+          "INJ_LEVEL": "4",
+          "SEATING_POSITION": "LF"
+        },
+        "disposition": "retain_unresolved_blank; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20180012654",
+        "person_id": "01",
+        "vehicle_id": "",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2018-07-06",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:330767"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:42604"
+        },
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20180012654",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "",
+          "ROAD_USER_TYPE": "9",
+          "INJ_LEVEL": "2",
+          "SEATING_POSITION": "LF"
+        },
+        "disposition": "retain_unresolved_blank; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20180014670",
+        "person_id": "01",
+        "vehicle_id": "",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2018-08-04",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:303889"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:56049"
+        },
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20180014670",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "",
+          "ROAD_USER_TYPE": "9",
+          "INJ_LEVEL": "4",
+          "SEATING_POSITION": "LF"
+        },
+        "disposition": "retain_unresolved_blank; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20180015018",
+        "person_id": "01",
+        "vehicle_id": "",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2018-08-09",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:225224"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:95493"
+        },
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20180015018",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "",
+          "ROAD_USER_TYPE": "9",
+          "INJ_LEVEL": "4",
+          "SEATING_POSITION": "LF"
+        },
+        "disposition": "retain_unresolved_blank; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20180016213",
+        "person_id": "01",
+        "vehicle_id": "",
+        "scope": "outside_2020-2024",
+        "occurrence_date": "2018-08-28",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:115916"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:49170"
+        },
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20180016213",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "",
+          "ROAD_USER_TYPE": "9",
+          "INJ_LEVEL": "4",
+          "SEATING_POSITION": "LF"
+        },
+        "disposition": "retain_unresolved_blank; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20200016573",
+        "person_id": "01",
+        "vehicle_id": "",
+        "scope": "2020-2024",
+        "occurrence_date": "2020-09-13",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:99233"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:42988"
+        },
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20200016573",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "",
+          "ROAD_USER_TYPE": "9",
+          "INJ_LEVEL": "2",
+          "SEATING_POSITION": "NA"
+        },
+        "disposition": "retain_unresolved_blank; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20220022296",
+        "person_id": "01",
+        "vehicle_id": "",
+        "scope": "2020-2024",
+        "occurrence_date": "2022-10-03",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:341417"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:147834"
+        },
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20220022296",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "",
+          "ROAD_USER_TYPE": "9",
+          "INJ_LEVEL": "2",
+          "SEATING_POSITION": "NA"
+        },
+        "disposition": "retain_unresolved_blank; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20220023018",
+        "person_id": "01",
+        "vehicle_id": "",
+        "scope": "2020-2024",
+        "occurrence_date": "2022-10-01",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:450296"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:193548"
+        },
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20220023018",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "",
+          "ROAD_USER_TYPE": "9",
+          "INJ_LEVEL": "2",
+          "SEATING_POSITION": "NA"
+        },
+        "disposition": "retain_unresolved_blank; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20220025984",
+        "person_id": "01",
+        "vehicle_id": "",
+        "scope": "2020-2024",
+        "occurrence_date": "2022-11-17",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:118438"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:101583"
+        },
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20220025984",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "",
+          "ROAD_USER_TYPE": "9",
+          "INJ_LEVEL": "3",
+          "SEATING_POSITION": "NA"
+        },
+        "disposition": "retain_unresolved_blank; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20220026840",
+        "person_id": "02",
+        "vehicle_id": "",
+        "scope": "2020-2024",
+        "occurrence_date": "2022-11-27",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:450298"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:140507"
+        },
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20220026840",
+          "PERSON_ID": "02",
+          "VEHICLE_ID": "",
+          "ROAD_USER_TYPE": "9",
+          "INJ_LEVEL": "2",
+          "SEATING_POSITION": "NA"
+        },
+        "disposition": "retain_unresolved_blank; excluded_from_published_link_analysis"
+      },
+      {
+        "accident_no": "T20240001048",
+        "person_id": "01",
+        "vehicle_id": "",
+        "scope": "2020-2024",
+        "occurrence_date": "2023-10-31",
+        "person": {
+          "resource_id": "official_vic_person",
+          "row_locator": "csv:33594"
+        },
+        "accident": {
+          "resource_id": "official_vic_accident",
+          "row_locator": "csv:87022"
+        },
+        "native_person_fields": {
+          "ACCIDENT_NO": "T20240001048",
+          "PERSON_ID": "01",
+          "VEHICLE_ID": "",
+          "ROAD_USER_TYPE": "9",
+          "INJ_LEVEL": "3",
+          "SEATING_POSITION": "NA"
+        },
+        "disposition": "retain_unresolved_blank; excluded_from_published_link_analysis"
+      }
+    ]
+  },
+  "case_set_digest": {
+    "algorithm": "SHA256 of UTF-8 JSON of cases, sorted object keys, compact separators, ensure_ascii=false, followed by one newline. List order is retained. This is evidence identity, not FP1.",
+    "sha256": "4249394899d138213a8fa4f8a2bce683353aee736e8457593f5d807161102d4e"
+  },
+  "category_observations": {
+    "vehicle_type_full_counts": {
+      "01": 170958,
+      "02": 75584,
+      "03": 3176,
+      "04": 31555,
+      "05": 8160,
+      "06": 28,
+      "07": 75,
+      "08": 1599,
+      "09": 384,
+      "10": 26994,
+      "11": 124,
+      "12": 1753,
+      "13": 19984,
+      "14": 25,
+      "15": 767,
+      "16": 63,
+      "17": 1252,
+      "18": 20,
+      "19": 192,
+      "20": 162,
+      "21": 454,
+      "27": 327,
+      "60": 931,
+      "61": 2915,
+      "62": 829,
+      "63": 112,
+      "71": 5834,
+      "72": 4656,
+      "99": 6557
+    },
+    "person_road_user_full_counts": {
+      "1": 18783,
+      "16": 425,
+      "2": 295219,
+      "3": 94801,
+      "4": 28740,
+      "5": 1018,
+      "6": 19883,
+      "7": 1031,
+      "8": 449,
+      "9": 7381
+    },
+    "dictionary_absent": {
+      "official_vic_vehicle.VEHICLE_TYPE.21": {
+        "full": 454,
+        "analysis": 149
+      },
+      "official_vic_person.ROAD_USER_TYPE.16": {
+        "full": 425,
+        "analysis": 129
+      }
+    },
+    "undefined_category_rows": 879,
+    "analysis_undefined_category_rows": 278,
+    "new_token_or_changed_membership": "block",
+    "native_labels_are_not_semantic_mappings": true
+  },
+  "unresolved_definitions": [
+    {
+      "id": "person.blank_vehicle_rule",
+      "publisher_confirmed": false,
+      "disposition": "No publisher blank-permission rule; team allows pinned pedestrian/NA non-association and retains 24 unresolved cases."
+    },
+    {
+      "id": "person.export_inclusion_scope",
+      "publisher_confirmed": false,
+      "disposition": "NO_PERSONS is a declared total; export completeness is not guaranteed. Use Accident values for published person measures."
+    },
+    {
+      "id": "vehicle.export_count_scope",
+      "publisher_confirmed": false,
+      "disposition": "Declaration and detail inclusion differ or are incomplete. No vehicle KPI is published."
+    },
+    {
+      "id": "vehicle.type_21",
+      "publisher_confirmed": false,
+      "disposition": "Keep code and published label; no category-dependent metric."
+    },
+    {
+      "id": "vehicle.special_category_eligibility",
+      "publisher_confirmed": false,
+      "disposition": "18/99 and damaged 71/72 definitions do not establish count eligibility. No vehicle KPI is published."
+    },
+    {
+      "id": "person.road_user_type_16",
+      "publisher_confirmed": false,
+      "disposition": "Keep code and label; do not equate it to Vehicle21 or publish role-derived measures."
+    },
+    {
+      "id": "node.export_multiplicity",
+      "publisher_confirmed": false,
+      "disposition": "Preserve all observations; no direct Node join in accident totals."
+    },
+    {
+      "id": "node.negative_node_codes",
+      "publisher_confirmed": false,
+      "disposition": "Keep original -1/-10/-3; no fabricated Node or geographic interpretation."
+    },
+    {
+      "id": "node.crs",
+      "publisher_confirmed": false,
+      "disposition": "No official VIC map or geographic metric; all projected location fields are NULL."
+    },
+    {
+      "id": "bundle.compatible_release",
+      "publisher_confirmed": false,
+      "disposition": "Team accepts only this pinned set for direct Accident measures, not as a certified compatible release."
+    }
+  ],
+  "required_checks": [
+    "QA01_INPUT",
+    "QA02_RAW",
+    "QA03_PROJECTED",
+    "QA04_AUXILIARY",
+    "QA05_SEMANTICS",
+    "QA06_RECONCILIATION",
+    "QA07_LOCATION"
+  ],
+  "qa_expectations": {
+    "QA01_INPUT": {
+      "hash_match": true,
+      "header_match": true,
+      "bundle_confirmed": false,
+      "contract_confirmed": false,
+      "profile_approved": true,
+      "selected_identity_match": true,
+      "profile_scope_match": true,
+      "case_register_match": true
+    },
+    "QA04_AUXILIARY": {
+      "expected_metrics_by_resource": {
+        "official_vic_person": {
+          "orphan_count": 0,
+          "nonblank_unmatched_count": 39,
+          "declared_count_delta": null,
+          "duplicate_group_count": 0,
+          "coordinate_conflict_group_count": null,
+          "case_set_match": true,
+          "full_count_difference_count": 2,
+          "analysis_count_difference_count": 0,
+          "restriction_violation_count": 0
+        },
+        "official_vic_vehicle": {
+          "orphan_count": 0,
+          "nonblank_unmatched_count": null,
+          "declared_count_delta": null,
+          "duplicate_group_count": 0,
+          "coordinate_conflict_group_count": null,
+          "case_set_match": true,
+          "full_count_difference_count": 5,
+          "analysis_count_difference_count": 3,
+          "restriction_violation_count": 0
+        },
+        "official_vic_node": {
+          "orphan_count": 0,
+          "nonblank_unmatched_count": null,
+          "declared_count_delta": null,
+          "duplicate_group_count": null,
+          "coordinate_conflict_group_count": null,
+          "case_set_match": true,
+          "full_count_difference_count": null,
+          "analysis_count_difference_count": null,
+          "restriction_violation_count": 0
+        }
+      }
+    },
+    "QA05_SEMANTICS": {
+      "undefined_category_count": 879,
+      "unconfirmed_definition_count": 10,
+      "eligibility_error_count": 0,
+      "disposition_match": true,
+      "restriction_violation_count": 0
+    },
+    "only_limited_rule": "QA07_LOCATION",
+    "no_missing_or_unexecuted_checks_as_pass": true,
+    "old_block_rows_are_not_relabelled": true
+  },
+  "activation_requirements": [
+    "Freeze this complete profile, case sets, dispositions and revised QA text in new-version manifest rules; provenance links alone are insufficient.",
+    "Implement explicit new protocol support in B input/manifest and C QA; legacy team-v1.1 must still block.",
+    "Verify D restrictions in actual queries/results and E independent all-object publication checks.",
+    "Validate real shared-connection SQL and publication under this version before any official release."
+  ],
+  "new_inputs": "Any changed file hash/parser/locator/count, scope, case or requested output needs a new reviewed profile. No error budget.",
+  "source_evidence": {
+    "local-review.json": {
+      "path": "Reviews/VIC-source-followup-2026-09-23/evidence/local-review.json",
+      "sha256": "ea8122b9c452c3da0cc8569f7eee840627cab0829388a4e3afa8e51009a231b4",
+      "bytes": 248241
+    },
+    "api-replay.json": {
+      "path": "Reviews/VIC-source-followup-2026-09-23/evidence/api-replay.json",
+      "sha256": "981abc214aba9dd89a0c98561c21ec88f47afd05eac866db0b7c193bb9acb5e9",
+      "bytes": 291638
+    },
+    "api-comparison.json": {
+      "path": "Reviews/VIC-source-followup-2026-09-23/evidence/api-comparison.json",
+      "sha256": "a36cc8d1aea6b30e75a1764e26eaa7c93d17bd4125ef3925821a96493174a948",
+      "bytes": 29507
+    },
+    "api-extra.json": {
+      "path": "Reviews/VIC-source-followup-2026-09-23/evidence/api-extra.json",
+      "sha256": "c1fb037b64591169d0216a754398396e8b9002bf03c3057d58e1bf9e9b9c165d",
+      "bytes": 195203
+    },
+    "api-types.json": {
+      "path": "Reviews/VIC-source-followup-2026-09-23/evidence/api-types.json",
+      "sha256": "ed214482adb709645f53633d78fb777859214c5972d1459f7e6ab12eb1bf28bd",
+      "bytes": 618526
+    },
+    "source-retrieval.json": {
+      "path": "Reviews/VIC-source-followup-2026-09-23/evidence/source-retrieval.json",
+      "sha256": "dd71bcdaa6b17f17c615d4df1b0334d2f617159467ffacd9c2a0ba91784ddca1",
+      "bytes": 409192
+    },
+    "cross-check.json": {
+      "path": "Reviews/VIC-source-followup-2026-09-23/evidence/cross-check.json",
+      "sha256": "0615bfffda303363e4de7a5de527d80e6b59d137cb47de7fb3429d84cfcb51b0",
+      "bytes": 43858
+    },
+    "validation.json": {
+      "path": "Reviews/VIC-source-followup-2026-09-23/evidence/validation.json",
+      "sha256": "b6f8d26f7fdcfe9f3003d991f8671080cc8e77baa7709b13fee5993fc7d6f62b",
+      "bytes": 2596
+    },
+    "pytest.xml": {
+      "path": "Reviews/VIC-source-followup-2026-09-23/evidence/pytest.xml",
+      "sha256": "a8b8c22c171f9821fbfad755dca9e7937ef632e009127ac96edf474b33ba7c2d",
+      "bytes": 1479
+    }
+  },
+  "previous_draft": {
+    "path": "docs/role-c/vic-minimum-impact-draft.json",
+    "sha256": "4e094212032425b38e19face7be5bd663dba4ff0dc8c1050bfa7d65c29d52b68"
+  },
+  "additional_basis": [
+    {
+      "workspace_path": "Workspace_Github/docs/sources/evidence/vic/local-profile-2026-09-17-final.json",
+      "sha256": "11216d4d3f6efa90d700b55daa3c6e56b778000b66910c760375025f8059e49c"
+    },
+    {
+      "workspace_path": "Resources/source/metadata/victoria_package.json",
+      "sha256": "36f27b21b75fe06b6203493ea845a7db03a11d0df2482ffa0e425f578f9f0a95"
+    },
+    {
+      "workspace_path": "Workspace_Github/docs/sources/vic-accident-vehicle.md",
+      "sha256": "d7c5fe6d5a3b6dd20801777c9ca7933508dce9774942bfe433917bfc1665fbf0"
+    },
+    {
+      "workspace_path": "F/ARSIA-Team-Handoff/04-团队分工与验收.md",
+      "sha256": "ed00feb05504f4ef5907b473fdb8988632ed7297a980f5aa33c488596eba20c2"
+    },
+    {
+      "workspace_path": "F/ARSIA-Team-Handoff/05-来源与映射说明.md",
+      "sha256": "5b1d131d2510c1b2644fd1e86175854301e9ce822527b6e130a46cfef20ca3ff"
+    }
+  ]
+}

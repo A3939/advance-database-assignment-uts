@@ -1,0 +1,435 @@
+{
+  "scope": "PR18 D04 same-file wrong-row reproduction and fix assertions; no runtime fix or publication",
+  "date": "2026-09-25",
+  "pr": "https://github.com/A3939/advance-database-assignment-uts/pull/18",
+  "review_finding": "https://github.com/A3939/advance-database-assignment-uts/pull/18#discussion_r4100318446",
+  "b_tested_head": "ecd946ef725f3c28aa91d71c06e4663eceb1d480",
+  "d_input": "337101f68079ed666701c43f387a5df1c526ed4a",
+  "c_input": "ad8baeddd3f6d2eeccdc2e31bafd71b687ad4da8",
+  "a_schema": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
+  "d04_runtime_changed": false,
+  "d04_sha256": "81a9fa4b974913c1b7ed30f04055bcd982c100cfdf31e604c7256f77d0620760",
+  "python": "3.12.6 (v3.12.6:a4a2d2b0d85, Sep  6 2024, 16:08:03) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "packages": {
+    "arsia-native-intake": "0.1.0",
+    "openpyxl": "3.1.5",
+    "psycopg": "3.3.6",
+    "psycopg-binary": "3.3.6",
+    "pytest": "8.4.2"
+  },
+  "environment": {
+    "postgresql": [
+      "PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+      "arsia_loader",
+      "arsia_loader",
+      "UTF8",
+      "UTC",
+      "en_US.utf8",
+      "en_US.utf8",
+      false,
+      false,
+      false,
+      false
+    ],
+    "image": "postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67"
+  },
+  "case_count": {
+    "unique_checks": 31,
+    "new_database_checks": 16,
+    "existing_database_checks": 10,
+    "other_interface_inventory_preflight_checks": 5
+  },
+  "fixtures": "Real S0 prepare, FrozenManifest, ModuleBinding, RunContext, ModuleConnection and evidence; partial inventory",
+  "fault_session": "arsia_owner session; all application calls SET ROLE arsia_loader; owner only for deliberate injection",
+  "normal_chain_session": "Existing B chain tests use direct arsia_loader login",
+  "schema_verified_against_git_commit": true,
+  "original_a03_grants_preserved": true,
+  "run_roots_relative_to": "artifacts/role-b-next-20260925",
+  "tests_and_runner": [
+    {
+      "path": "tests/test_d04_lineage_postgres.py",
+      "sha256": "c69990d9b19e671d1d3023ba92822f6c19678a6c836d260bd36efd4ced56660d"
+    },
+    {
+      "path": "tools/verify_d04_lineage_postgres.py",
+      "sha256": "a5a4d4ed5ffe67791d0a82c2fc1c83fbeeb18fbb2f3739c1b2c261d517efed6b"
+    },
+    {
+      "path": "tools/verify_ac_postgres.py",
+      "sha256": "634eea703798f7e1176a8196d24aa667674ad0e8ac9a63cebac2e34645858f4e"
+    }
+  ],
+  "migrations": [
+    {
+      "path": "sql/migrations/001_meta_registry.sql",
+      "sha256": "b44608c4baee8ce1d4ac6c3912a1a7d671772a1b305a32976b10f7bf00fe1893"
+    },
+    {
+      "path": "sql/migrations/002_raw_record.sql",
+      "sha256": "550c022b204380af2c0b2ffffc48295df3b562fd217f99a62f392d8db15eb059"
+    },
+    {
+      "path": "sql/migrations/003_b08_loader_role.sql",
+      "sha256": "e84a2d122bcb8f5edd6ffeb9974ef48eac3910ae801d5a929286734978f9269d"
+    },
+    {
+      "path": "sql/migrations/004_meta_batch.sql",
+      "sha256": "5c828f4071cab7ea097ee5b001aa6aca8fb567f04889a091a02842cf14fbb801"
+    },
+    {
+      "path": "sql/migrations/005_raw_vault.sql",
+      "sha256": "36fedf6f1c6b128e8006ad2e76815c44099c5557de8140deb04e599d4c4f14f8"
+    },
+    {
+      "path": "sql/migrations/006_canonical.sql",
+      "sha256": "c6b414f581d15183d89d98bebda71f373827a945d9e3eb2d9a60e699054e37dd"
+    },
+    {
+      "path": "sql/migrations/007_warehouse.sql",
+      "sha256": "32add012cc1f2919e0aa07926fea86922999b02dd37bb070e4bb2b6247fc87ee"
+    },
+    {
+      "path": "sql/migrations/008_qa.sql",
+      "sha256": "408c3775b218808fceb40a4119f8e5f20735664e1775671f5876d838b6219e29"
+    },
+    {
+      "path": "sql/migrations/009_database_roles.sql",
+      "sha256": "cd1b8f3c4969111cab71777ea063dfe89e69dc29566dbd779c708e2f889d03d5"
+    },
+    {
+      "path": "sql/migrations/010_business_key.sql",
+      "sha256": "de7a14a6df0c0336c7f40c2178159e0f53a4f702da44cde9a20c53a95443d922"
+    },
+    {
+      "path": "sql/migrations/011_review_validation_fixes.sql",
+      "sha256": "fb4d03819dbb4a37366aa5b3cb59fe4e8bec0d76eae3fcfbc3783ebb13f51de6"
+    }
+  ],
+  "runs": {
+    "reproduction": {
+      "directory": "pr18-lineage-reproduction",
+      "summary": {
+        "tests": 31,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "pytest_exit_code": 0,
+        "exit_code": 0,
+        "permissions": "Original A03 audit passed before and after",
+        "final_tables_empty": true,
+        "publication_performed": false,
+        "boundary": "Component chain only; full B10 still requires the remaining real modules and inventory"
+      },
+      "failure_cases": [],
+      "cases": [
+        {
+          "kind": "direct",
+          "source_id": "syn_qld",
+          "crash_key": "[\"0001\"]",
+          "expected_key_or_parent": "[\"0001\"]",
+          "replacement_key_or_parent": "[\"0002\"]",
+          "same_frozen_file": true,
+          "facts_unchanged": true,
+          "expected_result": "block",
+          "actual_result": "pass",
+          "actual_lineage_error_count": 0,
+          "evidence": "pr18-lineage-reproduction/cd-evidence/lineage/runs/0b83a292-279a-49ed-92bf-6ec5550c034d/lineage-case.json",
+          "sha256": "1361b48e9f206b5d9c6de84b86fcdf2360de393717e7aaa256228e86a799a33c"
+        },
+        {
+          "kind": "node",
+          "source_id": "syn_vic",
+          "crash_key": "[\"0001\"]",
+          "expected_key_or_parent": "[\"0001\", \"NODE01\"]",
+          "replacement_key_or_parent": "[\"0002\", \"NODE02\"]",
+          "same_frozen_file": true,
+          "facts_unchanged": true,
+          "expected_result": "block",
+          "actual_result": "pass",
+          "actual_lineage_error_count": 0,
+          "evidence": "pr18-lineage-reproduction/cd-evidence/lineage/runs/144bffe6-d4bb-4cb3-b8ff-c446c75176f8/lineage-case.json",
+          "sha256": "552abc48fcc2a7bc7179a543abb76b2fb508cfa3bf682f0399aa656edef6a1a7"
+        },
+        {
+          "kind": "primary",
+          "source_id": "syn_nsw",
+          "crash_key": "[\"0001\"]",
+          "expected_key_or_parent": "[\"0001\"]",
+          "replacement_key_or_parent": "[\"0002\"]",
+          "same_frozen_file": true,
+          "facts_unchanged": true,
+          "expected_result": "block",
+          "actual_result": "pass",
+          "actual_lineage_error_count": 0,
+          "evidence": "pr18-lineage-reproduction/cd-evidence/lineage/runs/3310f99a-bcf0-4517-9f80-b7cc7ceac12d/lineage-case.json",
+          "sha256": "e31cb5e68521660ebff9a48d771e85756bd88dc42eb005e558011bf3e8fca7c3"
+        },
+        {
+          "kind": "primary",
+          "source_id": "syn_qld",
+          "crash_key": "[\"0001\"]",
+          "expected_key_or_parent": "[\"0001\"]",
+          "replacement_key_or_parent": "[\"0002\"]",
+          "same_frozen_file": true,
+          "facts_unchanged": true,
+          "expected_result": "block",
+          "actual_result": "pass",
+          "actual_lineage_error_count": 0,
+          "evidence": "pr18-lineage-reproduction/cd-evidence/lineage/runs/8909e4aa-b199-4c0d-b9cc-f366b4903447/lineage-case.json",
+          "sha256": "bd0de982c36227252e042057498bd974a62f81fab7de6ef0f6ff9e58d6260f7f"
+        },
+        {
+          "kind": "direct",
+          "source_id": "syn_nsw",
+          "crash_key": "[\"0001\"]",
+          "expected_key_or_parent": "[\"0001\"]",
+          "replacement_key_or_parent": "[\"0002\"]",
+          "same_frozen_file": true,
+          "facts_unchanged": true,
+          "expected_result": "block",
+          "actual_result": "pass",
+          "actual_lineage_error_count": 0,
+          "evidence": "pr18-lineage-reproduction/cd-evidence/lineage/runs/94118973-1916-48de-9ce8-6e7d8a4c5be1/lineage-case.json",
+          "sha256": "b761b919d2c81a143ae9896f78b5809060105cfba2122e89ee0030816d735274"
+        },
+        {
+          "kind": "primary",
+          "source_id": "syn_vic",
+          "crash_key": "[\"0001\"]",
+          "expected_key_or_parent": "[\"0001\"]",
+          "replacement_key_or_parent": "[\"0002\"]",
+          "same_frozen_file": true,
+          "facts_unchanged": true,
+          "expected_result": "block",
+          "actual_result": "pass",
+          "actual_lineage_error_count": 0,
+          "evidence": "pr18-lineage-reproduction/cd-evidence/lineage/runs/fd981c1c-72c4-4c9d-89c1-34223daccacf/lineage-case.json",
+          "sha256": "2d2db16dbee3187f69488c96cf1279eb7852fb61911677b314ff0fe6237955f8"
+        }
+      ],
+      "c09_rejected_cases": 6,
+      "cleanup": {
+        "container_removed": "arsia-b-ac-6e8fc1021ff0",
+        "persistent_volume_created": false
+      },
+      "files": [
+        {
+          "path": "pr18-lineage-reproduction/inputs.json",
+          "sha256": "b9eedd5072fb8a1554f62cb6c4289efb54032fffca99cf10dafe5bb2a07acbb0"
+        },
+        {
+          "path": "pr18-lineage-reproduction/command.json",
+          "sha256": "04032ee13db71ca916c6ca0849821d2337eff9432f505dc1d2e0a6436eb0b1e3"
+        },
+        {
+          "path": "pr18-lineage-reproduction/environment.json",
+          "sha256": "a0c3132d813f8f18e3d68d3f024c228b53d3c1be37382574e8c95b31b32fa0c4"
+        },
+        {
+          "path": "pr18-lineage-reproduction/pytest.xml",
+          "sha256": "4ed7336d4884bd1fba034b6e7a26af5466f252660c6b4f8a7c5dc6713b913c85"
+        },
+        {
+          "path": "pr18-lineage-reproduction/pytest.log",
+          "sha256": "106b0442ea9a38a2fee3b5e5aded43c435110c5c7ac2017063f997de639463b1"
+        },
+        {
+          "path": "pr18-lineage-reproduction/summary.json",
+          "sha256": "21c31cd0c118cffff295e3cd6bd5d8986151ea1087095ef701ea799ee4fe16e5"
+        },
+        {
+          "path": "pr18-lineage-reproduction/migrations.log",
+          "sha256": "a82236d6e3beed2c859d39313200a6015d460a7e09505404f5e0f9d729723ae9"
+        },
+        {
+          "path": "pr18-lineage-reproduction/a03-before.log",
+          "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+        },
+        {
+          "path": "pr18-lineage-reproduction/a03-after.log",
+          "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+        },
+        {
+          "path": "pr18-lineage-reproduction/final-state.json",
+          "sha256": "dbc4b9c36a78e26384cbe23a4d657bae8af990f1ab2bbf3300c91aedc6becd18"
+        },
+        {
+          "path": "pr18-lineage-reproduction/cleanup.json",
+          "sha256": "a4afb47d6409bf2abf1306efc8d61ee8436ebc78e93572dd97ffb15770d4056d"
+        }
+      ]
+    },
+    "require_fix": {
+      "directory": "pr18-lineage-fix-check",
+      "summary": {
+        "tests": 31,
+        "failures": 6,
+        "errors": 0,
+        "skipped": 0,
+        "pytest_exit_code": 1,
+        "exit_code": 1,
+        "permissions": "Original A03 audit passed before and after",
+        "final_tables_empty": true,
+        "publication_performed": false,
+        "boundary": "Component chain only; full B10 still requires the remaining real modules and inventory"
+      },
+      "failure_cases": [
+        "test_wrong_row_lineage[primary-syn_nsw]",
+        "test_wrong_row_lineage[primary-syn_vic]",
+        "test_wrong_row_lineage[primary-syn_qld]",
+        "test_wrong_row_lineage[direct-syn_nsw]",
+        "test_wrong_row_lineage[direct-syn_qld]",
+        "test_wrong_row_lineage[node-syn_vic]"
+      ],
+      "cases": [
+        {
+          "kind": "node",
+          "source_id": "syn_vic",
+          "crash_key": "[\"0001\"]",
+          "expected_key_or_parent": "[\"0001\", \"NODE01\"]",
+          "replacement_key_or_parent": "[\"0002\", \"NODE02\"]",
+          "same_frozen_file": true,
+          "facts_unchanged": true,
+          "expected_result": "block",
+          "actual_result": "pass",
+          "actual_lineage_error_count": 0,
+          "evidence": "pr18-lineage-fix-check/cd-evidence/lineage/runs/467b7d14-d69f-4e2b-a314-a65b859be0db/lineage-case.json",
+          "sha256": "ce567490cb46bd6a207aa325ef89f733aa9f3aaff7b82c287f048e744f6ac458"
+        },
+        {
+          "kind": "direct",
+          "source_id": "syn_nsw",
+          "crash_key": "[\"0001\"]",
+          "expected_key_or_parent": "[\"0001\"]",
+          "replacement_key_or_parent": "[\"0002\"]",
+          "same_frozen_file": true,
+          "facts_unchanged": true,
+          "expected_result": "block",
+          "actual_result": "pass",
+          "actual_lineage_error_count": 0,
+          "evidence": "pr18-lineage-fix-check/cd-evidence/lineage/runs/600de235-8d10-4697-b781-47c22bd496c3/lineage-case.json",
+          "sha256": "e997a6032d1602ddb7e3d1c7bd69cf49d3f67a84793fcabc2a045fa3df67efc9"
+        },
+        {
+          "kind": "direct",
+          "source_id": "syn_qld",
+          "crash_key": "[\"0001\"]",
+          "expected_key_or_parent": "[\"0001\"]",
+          "replacement_key_or_parent": "[\"0002\"]",
+          "same_frozen_file": true,
+          "facts_unchanged": true,
+          "expected_result": "block",
+          "actual_result": "pass",
+          "actual_lineage_error_count": 0,
+          "evidence": "pr18-lineage-fix-check/cd-evidence/lineage/runs/7d79ec8a-cce6-408a-842b-584a62b15418/lineage-case.json",
+          "sha256": "d926b7107a6605fc5de9af2d8c36bfaa76a163fba0b52930b1874af350913246"
+        },
+        {
+          "kind": "primary",
+          "source_id": "syn_qld",
+          "crash_key": "[\"0001\"]",
+          "expected_key_or_parent": "[\"0001\"]",
+          "replacement_key_or_parent": "[\"0002\"]",
+          "same_frozen_file": true,
+          "facts_unchanged": true,
+          "expected_result": "block",
+          "actual_result": "pass",
+          "actual_lineage_error_count": 0,
+          "evidence": "pr18-lineage-fix-check/cd-evidence/lineage/runs/929ae4d6-caa0-4861-9e82-9d4c41de94b8/lineage-case.json",
+          "sha256": "2230a218b9e030d7ec6d567385fbd254b726148df60906880a97f18b462ded68"
+        },
+        {
+          "kind": "primary",
+          "source_id": "syn_nsw",
+          "crash_key": "[\"0001\"]",
+          "expected_key_or_parent": "[\"0001\"]",
+          "replacement_key_or_parent": "[\"0002\"]",
+          "same_frozen_file": true,
+          "facts_unchanged": true,
+          "expected_result": "block",
+          "actual_result": "pass",
+          "actual_lineage_error_count": 0,
+          "evidence": "pr18-lineage-fix-check/cd-evidence/lineage/runs/b1bb3c0e-7d1e-4601-9be1-f4609fe6de5b/lineage-case.json",
+          "sha256": "3a821268b58e48801d46bce05249f0b6e850a12f662a573627bc14f8fe67c02e"
+        },
+        {
+          "kind": "primary",
+          "source_id": "syn_vic",
+          "crash_key": "[\"0001\"]",
+          "expected_key_or_parent": "[\"0001\"]",
+          "replacement_key_or_parent": "[\"0002\"]",
+          "same_frozen_file": true,
+          "facts_unchanged": true,
+          "expected_result": "block",
+          "actual_result": "pass",
+          "actual_lineage_error_count": 0,
+          "evidence": "pr18-lineage-fix-check/cd-evidence/lineage/runs/daf43a75-f715-4a87-bb69-26e4872bb2f7/lineage-case.json",
+          "sha256": "dfb0bf3c1633295df404c6a837ac4582afa5d70326cdf9fa20b89015e461108e"
+        }
+      ],
+      "c09_rejected_cases": 6,
+      "cleanup": {
+        "container_removed": "arsia-b-ac-7a94b5137238",
+        "persistent_volume_created": false
+      },
+      "files": [
+        {
+          "path": "pr18-lineage-fix-check/inputs.json",
+          "sha256": "093ed73ab545661229317591b052dfdb113378e52b2c88f5372e1b983776f1a6"
+        },
+        {
+          "path": "pr18-lineage-fix-check/command.json",
+          "sha256": "72bb21b7905b2b6a6e89e0ca638ec4c2a94a89fc6f1b7deb6a2e7015ec852647"
+        },
+        {
+          "path": "pr18-lineage-fix-check/environment.json",
+          "sha256": "a0c3132d813f8f18e3d68d3f024c228b53d3c1be37382574e8c95b31b32fa0c4"
+        },
+        {
+          "path": "pr18-lineage-fix-check/pytest.xml",
+          "sha256": "041e4fcfad5def8c0665694e7f591f8c0216c5343966b8d7ad438d122dd57675"
+        },
+        {
+          "path": "pr18-lineage-fix-check/pytest.log",
+          "sha256": "90530efc4572165dbaf67ac458101b85e14aa86fd69ac85c89d94eb4ba2b53e9"
+        },
+        {
+          "path": "pr18-lineage-fix-check/summary.json",
+          "sha256": "245c7defd1c35c6dc7943b57caa92f86e0f16bf6c38f7de91d13d3d92173aaea"
+        },
+        {
+          "path": "pr18-lineage-fix-check/migrations.log",
+          "sha256": "a82236d6e3beed2c859d39313200a6015d460a7e09505404f5e0f9d729723ae9"
+        },
+        {
+          "path": "pr18-lineage-fix-check/a03-before.log",
+          "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+        },
+        {
+          "path": "pr18-lineage-fix-check/a03-after.log",
+          "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+        },
+        {
+          "path": "pr18-lineage-fix-check/final-state.json",
+          "sha256": "dbc4b9c36a78e26384cbe23a4d657bae8af990f1ab2bbf3300c91aedc6becd18"
+        },
+        {
+          "path": "pr18-lineage-fix-check/cleanup.json",
+          "sha256": "5983c7900aad80ce3862ca14ea231b304e575dedb436521e6208767a48915a22"
+        }
+      ]
+    }
+  },
+  "next_owner": "D fixes original D04; B imports and validates the fix in PR18",
+  "not_proven": [
+    "Normal C09 producing bad lineage",
+    "Complete platform FrozenManifest",
+    "Full B10 or official publication"
+  ],
+  "test_changes_uncommitted_at_run": true,
+  "published_case_snapshots": {
+    "path": "docs/evidence/d04-lineage-cases-2026-09-25.json",
+    "sha256": "38eaac1ab09e41acabe47b4773ef14e9b8595ff88e3195c9938595d6a176f230",
+    "case_count": 6
+  }
+}

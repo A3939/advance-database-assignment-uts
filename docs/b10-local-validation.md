@@ -46,10 +46,12 @@ The [receipt](evidence/b10-local-validation-2026-09-25.json) records versions, h
 
 ## Remaining work
 
+The [later C/D integration](cd-integration.md) now includes C04/C05, the all-source dispatcher, D03 and D04. The table below describes the remaining full-build inputs; the test results above are unchanged.
+
 | Owner | Needed for the full build |
 |---|---|
-| C | Integrate the C04/C05 delivery and all-source projection path; provide the complete C10 QA callback and persisted results. A separate local C04/C05 package exists but was not added by this change. |
-| D | D03 facts, the combined D02/D03 DW callback and D04 reconciliation QA. |
+| C | Complete C10 QA callback and persisted results. |
+| D | D03/D04 are integrated. Query-side D05–D08 integration and reader validation are separate work. |
 | E | Real E03 FP1 SQL with its version and deployment details; E06 publication gate and current-release operation. |
 | B with C/D/E | Register the real callbacks, freeze the complete inventory, then test successful, failed and uncertain-commit builds through the full runner. |
 
