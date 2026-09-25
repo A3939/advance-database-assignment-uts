@@ -1,0 +1,179 @@
+{
+  "scope": "QA07 current-batch year coverage; no publication or full B10 claim",
+  "c_base": "9697c9f65b35477b03d5d05e0adc00bf15235e2c",
+  "original_c10_commits": [
+    "7bfb08ee4b3b0740e554ae89c6286c39db17ead2",
+    "ba659821e3c60dcd5629fcc3dacd9acf1c9239a0",
+    "b0626ea552de6c42835cc4b6497ef6662c2d7715"
+  ],
+  "prior_b_supplement": "3f6c94795ee0fc8ec0f17903f23fd4a85b5646ac",
+  "fix_commit": "975d8b6456d3e31cf711e48dd7c449610db0dc0d",
+  "b_integration_base": "8e794241a231dc53857b67e1829ac9d80111b4ab",
+  "c_verifier_b_checkpoint": "2750d8ea3f909cfacdc4cb10b35b87ffe729a468",
+  "a_schema_commit": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
+  "producer_version": "c10-role-c-v1.1",
+  "inputs": [
+    {
+      "path": "src/arsia_c/qa.py",
+      "sha256": "73b6ffd94880d3c79228a68800ef9433f53f57dbc72b338a68f12b0b28ac6405"
+    },
+    {
+      "path": "tests/test_c10_year_coverage_postgres.py",
+      "sha256": "7192b09e2ca832ab5c088392c498aaab2247dfa2cf5dc3fe07a7b2506c73020e"
+    },
+    {
+      "path": "config/c10-inventory.json",
+      "sha256": "46555074ace441cbad2fed4a27085dfae59faeb8c960cc5dfa9f3b558d04fe7e"
+    },
+    {
+      "path": "tools/verify_c10_postgres.py",
+      "sha256": "7d4bd116361b47531d667b0ea6c7ac2d55e45891767b55c8cd455de6662a6163"
+    }
+  ],
+  "before": {
+    "passed": 71,
+    "failed": 7,
+    "skipped": 0,
+    "observation": "All seven injected cases blocked in QA05 but QA07 remained limited. No full C10 bypass demonstrated."
+  },
+  "after": {
+    "c_database": {
+      "passed": 107,
+      "failed": 0,
+      "skipped": 0
+    },
+    "b_interface": {
+      "passed": 78,
+      "failed": 0,
+      "skipped": 0
+    },
+    "c_wheel_and_adapter": {
+      "passed": 21,
+      "failed": 0,
+      "skipped": 0
+    },
+    "new_year_cases": 10,
+    "counts_overlap": true
+  },
+  "environment": {
+    "postgresql": [
+      "PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+      "arsia_loader",
+      "arsia_loader",
+      "UTF8",
+      "UTC",
+      "en_US.utf8",
+      "en_US.utf8",
+      false,
+      false,
+      false,
+      false
+    ],
+    "image": "postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67"
+  },
+  "checks": {
+    "new_faults_use_original_loader_inserts": true,
+    "foreign_keys_enabled": true,
+    "a03_before_after_pass": true,
+    "tables_empty_after_cleanup": 17,
+    "containers_removed": true,
+    "raw_unchanged": true,
+    "historical_batch_preserved": true,
+    "official_archive_replay": false
+  },
+  "local_evidence_root": "artifacts/c10-year-coverage-20260925",
+  "evidence": [
+    {
+      "path": "before/inputs.json",
+      "sha256": "a50d68f54622e60ec29225cea88cf88f06d3ae1f423fcb8a73ce896b6c0acaec"
+    },
+    {
+      "path": "before/pytest.xml",
+      "sha256": "e0f7b998906fd9afa465c306f441febecc8afe9ab11d57162614cde4af46c587"
+    },
+    {
+      "path": "before/summary.json",
+      "sha256": "b29018558d2de2883a247be9c872c7f7e5e7b871f1a9c0fe5371c5493513f3d4"
+    },
+    {
+      "path": "before/a03-before.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+    },
+    {
+      "path": "before/a03-after.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+    },
+    {
+      "path": "before/final-state.json",
+      "sha256": "dbc4b9c36a78e26384cbe23a4d657bae8af990f1ab2bbf3300c91aedc6becd18"
+    },
+    {
+      "path": "before/cleanup.json",
+      "sha256": "ee39ede91bb5ea4fb620aafbc8751d6b758ab973fc9d22ccacb0f2ae86c0a0a9"
+    },
+    {
+      "path": "c-fixed/assembly.json",
+      "sha256": "abb1e91b1cdacb04424c02742e91eb6298c47e57cdbea2909b207c9a6d2ce96a"
+    },
+    {
+      "path": "c-fixed/postgres/inputs.json",
+      "sha256": "f9476ecebf20e7a3561c28e23c4c659c6f38bc95d4a29001a2f8bbe5b9482185"
+    },
+    {
+      "path": "c-fixed/postgres/pytest.xml",
+      "sha256": "f89d39e55a59ec973f2d1dee564a7362850aa1fc89e51af70f0116c7189fd77a"
+    },
+    {
+      "path": "c-fixed/postgres/summary.json",
+      "sha256": "a7f8f76ab5f84b22547ce3b20c7f0e9ba0ae66d11b5b90ede35d6b6559184743"
+    },
+    {
+      "path": "c-fixed/postgres/a03-before.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+    },
+    {
+      "path": "c-fixed/postgres/a03-after.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+    },
+    {
+      "path": "c-fixed/postgres/final-state.json",
+      "sha256": "dbc4b9c36a78e26384cbe23a4d657bae8af990f1ab2bbf3300c91aedc6becd18"
+    },
+    {
+      "path": "c-fixed/postgres/cleanup.json",
+      "sha256": "b25b7fd21c8f15e0753d14ce30cf107f183b79426ec8ff9bf49d8bf7b6ef48e8"
+    },
+    {
+      "path": "b-fixed/inputs.json",
+      "sha256": "de8ec9d4743f25bf03de52431a1be63ec767d476e81b53a8334fd5a744a1878f"
+    },
+    {
+      "path": "b-fixed/pytest.xml",
+      "sha256": "3957c8dc3aa7e9a20fb75d7e843bd73e418927adaac5268338fb251b0b766b5c"
+    },
+    {
+      "path": "b-fixed/summary.json",
+      "sha256": "8d6f130a28c18c9e6be764e6306e5d51a251b823b65ccd1332fa35457cb3cf08"
+    },
+    {
+      "path": "b-fixed/a03-before.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+    },
+    {
+      "path": "b-fixed/a03-after.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+    },
+    {
+      "path": "b-fixed/final-state.json",
+      "sha256": "dbc4b9c36a78e26384cbe23a4d657bae8af990f1ab2bbf3300c91aedc6becd18"
+    },
+    {
+      "path": "b-fixed/cleanup.json",
+      "sha256": "3dd67a3882daba0cadfc3f13841c2fbac4efe0a09783cd4d5db0c09183bfdd79"
+    },
+    {
+      "path": "c-packaging.xml",
+      "sha256": "969926716a8cd4497645da315c082f6c4ef644b433ed60ea0d608e9fdeac88e2"
+    }
+  ]
+}
