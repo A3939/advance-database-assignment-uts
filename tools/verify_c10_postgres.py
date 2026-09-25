@@ -35,6 +35,7 @@ OVERLAY = (
         )
     ),
     "tests/test_c10_postgres.py",
+    "tests/test_c10_year_coverage_postgres.py",
     "tests/test_c06_postgres.py",
     "sql/qa/c06_vic_person_checks.sql",
 )
@@ -126,7 +127,7 @@ def main():
     )
     entry = checkout / "tools/run_c10_checks.py"
     entry.write_text(
-        "from verify_ac_postgres import main\nraise SystemExit(main(inventory_path='config/cd-inventory.json', tests=('test_c10_postgres.py','test_c06_postgres.py'), scope='C10 installed B callback; no final platform freeze or publication'))\n"
+        "from verify_ac_postgres import main\nraise SystemExit(main(inventory_path='config/cd-inventory.json', tests=('test_c10_postgres.py','test_c10_year_coverage_postgres.py','test_c06_postgres.py'), scope='C10 installed B callback; no final platform freeze or publication'))\n"
     )
     env = os.environ.copy()
     env.pop("PYTHONPATH", None)

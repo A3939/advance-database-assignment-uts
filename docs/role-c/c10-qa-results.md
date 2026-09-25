@@ -5,11 +5,13 @@ and wheel resources were incomplete. Role C wrote that starting point in
 `7bfb08e`, `ba65982` and `b0626ea`. Role B / Peixian added this implementation and
 its PostgreSQL and installation checks on C base `ad8baed`.
 
+The [QA07 year-coverage patch](c10-year-coverage.md) records the current fix and its tests. The original validation below remains the PR #26 baseline.
+
 ## Run and integration
 
 `arsia_c.qa.runner_callback(connection, context)` is the `qa_c` entry point.
 Use B's real `ModuleConnection`, `RunContext`, `FrozenManifest` and `RunEvidence`.
-Bind `src/arsia_c/qa.py` with version `c10-role-c-v1`. Run it after C's temporary
+Bind `src/arsia_c/qa.py` with version `c10-role-c-v1.2`. Run it after C's temporary
 projections, C09 Canonical and D02/D03 DW loading, in the same transaction.
 
 `config/c10-inventory.json` records this component's paths and SHA-256 hashes.
