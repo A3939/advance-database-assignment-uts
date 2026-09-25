@@ -188,3 +188,56 @@ def test_other_batch_outside_year_is_ignored_and_preserved(connection, prepared,
         connection.rollback()
         cleanup(batches, frozen)
     assert not any(counts(connection).values())
+
+
+@pytest.mark.parametrize("resource,patch,year", [
+    ("syn_nsw_crash", {"Month of crash": "invalid"}, 2020),
+    ("syn_vic_accident", {"ACCIDENT_DATE": "2020-02-30"}, 2020),
+    ("syn_qld_crash", {"Crash_Month": "invalid"}, 2020),
+    ("syn_qld_crash", {"Count_Casualty_Fatality": "-1"}, 2020),
+    ("syn_qld_crash", {"Crash_Year": "unknown"}, None),
+    ("syn_qld_crash", {"Crash_Year": "2019", "Count_Casualty_Fatality": "-1"}, 2019),
+])
+def test_invalid_raw_is_reported_once_in_its_own_year(connection, prepared, frozen, resource, patch, year):
+    import psycopg
+    from psycopg.types.json import Jsonb
+
+    # Only this labelled Raw mutation uses the owner; QA keeps loader permissions.
+    with psycopg.connect(os.environ["ARSIA_TEST_ADMIN_DSN"]) as owner:
+        owner.execute("SET LOCAL ROLE arsia_loader")
+        context = chain(owner, prepared, frozen)
+        raw_id, source = owner.execute(
+            "SELECT raw_record_id,source_id FROM raw.record WHERE resource_id=%s "
+            "ORDER BY row_locator LIMIT 1", (resource,),
+        ).fetchone()
+        owner.execute("RESET ROLE")
+        assert owner.execute(
+            "UPDATE raw.record SET payload=payload||%s WHERE raw_record_id=%s",
+            (Jsonb(patch), raw_id),
+        ).rowcount == 1
+        owner.execute("SET LOCAL ROLE arsia_loader")
+        assert owner.execute("SELECT current_user").fetchone() == ("arsia_loader",)
+        error_code, rows = run_and_save(owner, context, f"invalid-raw:{resource}:{patch}")
+        assert error_code == "C10_BLOCK"
+        located = []
+        for row in rows:
+            if row[0] != "QA07_LOCATION" or row[1] == "batch":
+                continue
+            for ref in row[6]["references"]:
+                if "path" not in ref:
+                    continue
+                data = Path(ref["path"]).read_bytes()
+                assert hashlib.sha256(data).hexdigest() == ref["sha256"]
+                for detail in json.loads(data)["rows"]:
+                    if ("invalid_raw_crash" in detail.get("reason_codes", [])
+                            and detail.get("reference", {}).get("raw_record_id") == str(raw_id)):
+                        located.append(row[1])
+        expected = f"unknown_year:{source}" if year is None else f"source_year:{source}:{year}"
+        assert located == [expected], "One invalid Raw crash must not inflate unrelated QA07 years"
+        for row in rows:
+            if row[0] == "QA07_LOCATION" and row[1] in {
+                f"source_year:{source}:2022", f"source_year:{source}:2023", f"source_year:{source}:2024",
+            }:
+                assert row[2] == "pass" and row[3] == 0
+        owner.rollback()
+    assert not any(counts(connection).values())
