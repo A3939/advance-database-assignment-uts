@@ -1,6 +1,6 @@
 # B14: recover an interrupted run
 
-[`recovery.py`](../src/arsia_ingest/recovery.py) resolves one saved run without starting another build. The state handling is implemented and tested with simulated database replies. Real recovery still needs A's batch/release tables and E's publication integration.
+[`recovery.py`](../src/arsia_ingest/recovery.py) resolves one saved run without starting another build. It now has real PostgreSQL 16 tests against A's fixed schema and original loader permissions. These use seeded test states. Recovery after a complete E publication still needs the real team pipeline.
 
 ## Entry point
 
@@ -53,24 +53,41 @@ SQL errors and uncertain rollback/COMMIT responses return `unknown_commit`. Reco
 
 Each attempt writes a new `<mode>/recoveries/<recovery_id>/` directory. It records original-file hashes, the observed state, any update decision, the recovery COMMIT marker and the result. Original run evidence stays unchanged and is checked again before the update. Driver exception text is omitted from diagnostics. If final file output fails after an acknowledged commit, the returned resolution remains known and includes the evidence error.
 
-## Validation and remaining inputs
+## Validation
 
-Run the focused tests in the existing environment:
+Run the unit tests with Python 3.12:
 
 ```sh
-PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -q -p no:cacheprovider \
-  tests/test_recovery.py
+python -m pytest -q tests/test_recovery.py
 ```
 
-The tests include actual `run_build()` receipts for lost registration, publication and failure COMMIT replies, with both committed and uncommitted simulated outcomes. They also cover repeated recovery, replaced successful releases, evidence/state mismatches, guarded updates and failures during recovery itself. Database state replies are simulated throughout these B14 tests.
+For the database checks, install a wheel in a separate environment. Docker must be running. From the repository root:
 
-The [2026-09-21 receipt](evidence/b14-recovery-validation-2026-09-21.json) records the final code/document hashes and these full-suite results:
+```sh
+python3.12 -m venv ../b14-venv
+../b14-venv/bin/python -m pip install -r requirements-dev.txt -r requirements-db.txt
+../b14-venv/bin/python -m pip install .
+../b14-venv/bin/python tools/verify_b14_postgres.py --output ../b14-validation
+```
 
-| Environment | Passed | Skipped | Failed |
-|---|---:|---:|---:|
-| Original `.venv`, no test DSN | 485 | 13 | 0 |
-| Existing driver environment with PostgreSQL | 498 | 0 | 0 |
+Use a new output directory each time. The verifier first checks all 11 migration names and hashes against A commit `c0824da`, independently of the editable inventory. It keeps those checked bytes for migration execution. It then checks the installed package hashes, starts a private PostgreSQL 16 container on a random local port, applies migrations 001–011, and runs the original A03 audit before and after testing. It removes the container in `finally`. It does not connect to a shared database or add grants.
 
-All 69 new B14 tests passed in both runs, including the CLI checks. The 13 real database tests belong to B08, B11 and B12; they do not validate recovery SQL. No dependencies or migrations were added. Existing receipts are unchanged. The isolated database was left empty, with no remaining test lock, and its container was stopped.
+The [2026-09-25 receipt](evidence/b14-postgres-validation-2026-09-25.json) records the tested files and results. The selected suite passed **165 tests with no skips or failures**:
 
-For real validation, A must provide `meta.batch`, `meta.current_release` and loader schema access, SELECT privileges and the required batch UPDATE/row-lock permissions. E's real publication must commit the successful batch, layers and pointer together through B. We still need to reproduce lost COMMIT replies and recovery against that environment. The current three-table test database cannot validate those operations.
+- 23 new real PostgreSQL recovery tests.
+- 7 verifier tests, including changed SQL with a matching edited inventory and missing/extra/renamed migrations. Invalid input stops before Docker or provenance output.
+- Existing recovery, runner, session-lock and B10 lifecycle regression tests.
+
+The new tests check abandoned runs, preserved success/failure records, newer release pointers, mismatched manifests/fingerprints, missing registration, advisory and row locks, READ COMMITTED, and the loader's actual permissions and foreign key. A fresh recovery call resolves both committed and uncommitted lost-reply cases. Original evidence, other batches, the pointer, a QA row and a dimension row stay unchanged. All 17 tables were empty and no advisory locks remained after cleanup.
+
+Lost replies are injected before or after real psycopg commits; this is not a network-proxy test. A separate test terminates the real PostgreSQL backend before COMMIT and checks rollback and recovery on a new connection. No recovery runtime change was needed. The [B contribution note](contributions/b14-postgres.md) records this delivery.
+
+The manifests come from the real `FrozenManifest` constructor and S0 definitions, with a labelled fixture code inventory. The digest and successful batch/pointer states are test fixtures, not E03 fingerprints or published releases. No FP1, C/D/E callback or full B10 build runs in this suite.
+
+The [2026-09-21 receipt](evidence/b14-recovery-validation-2026-09-21.json) remains the historical unit-test record. Its database tests did not exercise recovery SQL.
+
+## Remaining integration
+
+A's required tables and grants are available in fixed commit `c0824da06b6e7b3f73c4ddeab2114d10b7156913`; no new A handoff is needed for these checks. B can now use the tested recovery entry point with a fresh loader connection to the original database.
+
+Full acceptance still needs C's remaining QA callback and E's verified FP1/publication gate, then B's final inventory and complete build wiring. After that, B should repeat lost-registration, publication and failure-COMMIT recovery around the actual build. This component result does not mark a full platform build or official publication complete.

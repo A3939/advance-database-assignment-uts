@@ -1,0 +1,228 @@
+{
+  "date": "2026-09-25",
+  "scope": "B14 recovery component validation; no E publication or full B10 build",
+  "base_commit": "60cb7fea76ece5af9a9e32a3f0a7acf11246b951",
+  "a_commit": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
+  "a_migrations_match_reference_bytes": true,
+  "python": "3.12.6 (v3.12.6:a4a2d2b0d85, Sep  6 2024, 16:08:03) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "packages": {
+    "arsia-native-intake": "0.1.0",
+    "openpyxl": "3.1.5",
+    "psycopg": "3.3.6",
+    "psycopg-binary": "3.3.6",
+    "pytest": "8.4.2"
+  },
+  "database": {
+    "postgresql": [
+      "PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+      "arsia_loader",
+      "arsia_loader",
+      "UTF8",
+      "UTC",
+      false,
+      false,
+      false,
+      false
+    ],
+    "image": "postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67"
+  },
+  "results": {
+    "tests": 165,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "test_groups": {
+      "test_recovery_postgres": 23,
+      "test_recovery": 72,
+      "test_runner": 52,
+      "test_runner_postgres": 3,
+      "test_b10_lifecycle_postgres": 8,
+      "test_b14_verifier": 7
+    },
+    "pytest_exit_code": 0,
+    "exit_code": 0,
+    "a03_audit_before_and_after": true,
+    "final_tables_empty": true,
+    "remaining_advisory_locks": 0,
+    "publication_performed": false
+  },
+  "real_postgres_cases": 34,
+  "new_b14_postgres_cases": 23,
+  "runtime_changes": false,
+  "manifest_boundary": "Real FrozenManifest and S0 definitions; labelled fixture inventory, fixture digest and seeded database states",
+  "fault_boundary": "Driver errors before/after real commits, plus real backend termination; no network proxy and no E callback",
+  "coverage": [
+    "Abandoned run is closed once; completed batches retain their timestamp and error",
+    "Current or newer successful pointers, unrelated batches, QA and dimension rows are preserved",
+    "Missing registration and conflicting later evidence are distinguished",
+    "Manifest, fingerprint and dataset mismatches refuse writes",
+    "Real advisory lock, row lock timeout, READ COMMITTED and fresh-session retry",
+    "COMMIT uncertainty on both durable outcomes and a real server-terminated session",
+    "Original A03 privileges, forbidden immutable-column changes and the release foreign key",
+    "Pinned A migration bytes reject matching edits to the schema and inventory before Docker or provenance output"
+  ],
+  "migrations": [
+    {
+      "path": "sql/migrations/001_meta_registry.sql",
+      "sha256": "b44608c4baee8ce1d4ac6c3912a1a7d671772a1b305a32976b10f7bf00fe1893"
+    },
+    {
+      "path": "sql/migrations/002_raw_record.sql",
+      "sha256": "550c022b204380af2c0b2ffffc48295df3b562fd217f99a62f392d8db15eb059"
+    },
+    {
+      "path": "sql/migrations/003_b08_loader_role.sql",
+      "sha256": "e84a2d122bcb8f5edd6ffeb9974ef48eac3910ae801d5a929286734978f9269d"
+    },
+    {
+      "path": "sql/migrations/004_meta_batch.sql",
+      "sha256": "5c828f4071cab7ea097ee5b001aa6aca8fb567f04889a091a02842cf14fbb801"
+    },
+    {
+      "path": "sql/migrations/005_raw_vault.sql",
+      "sha256": "36fedf6f1c6b128e8006ad2e76815c44099c5557de8140deb04e599d4c4f14f8"
+    },
+    {
+      "path": "sql/migrations/006_canonical.sql",
+      "sha256": "c6b414f581d15183d89d98bebda71f373827a945d9e3eb2d9a60e699054e37dd"
+    },
+    {
+      "path": "sql/migrations/007_warehouse.sql",
+      "sha256": "32add012cc1f2919e0aa07926fea86922999b02dd37bb070e4bb2b6247fc87ee"
+    },
+    {
+      "path": "sql/migrations/008_qa.sql",
+      "sha256": "408c3775b218808fceb40a4119f8e5f20735664e1775671f5876d838b6219e29"
+    },
+    {
+      "path": "sql/migrations/009_database_roles.sql",
+      "sha256": "cd1b8f3c4969111cab71777ea063dfe89e69dc29566dbd779c708e2f889d03d5"
+    },
+    {
+      "path": "sql/migrations/010_business_key.sql",
+      "sha256": "de7a14a6df0c0336c7f40c2178159e0f53a4f702da44cde9a20c53a95443d922"
+    },
+    {
+      "path": "sql/migrations/011_review_validation_fixes.sql",
+      "sha256": "fb4d03819dbb4a37366aa5b3cb59fe4e8bec0d76eae3fcfbc3783ebb13f51de6"
+    }
+  ],
+  "files": [
+    {
+      "path": "src/arsia_ingest/recovery.py",
+      "sha256": "178f7a4e5ac2f4105b1fe98a8ac066ae304e3efc6435269e0ed732c796ea2da7"
+    },
+    {
+      "path": "src/arsia_ingest/runner.py",
+      "sha256": "e8ba28605def0b8e7834fac981772ef7bfcdf8b34d79189b8aa911b2e87b9f8f"
+    },
+    {
+      "path": "tests/test_recovery_postgres.py",
+      "sha256": "5c233312382f560603e9c7368ecbeaa492818c60971736ca112c7eac88369844"
+    },
+    {
+      "path": "tests/test_recovery.py",
+      "sha256": "b5b37f810803f0bf2ca70729680ec4ebf0c36551270dc6a5a0f624aaa47ed7de"
+    },
+    {
+      "path": "tests/test_runner.py",
+      "sha256": "92a6a83855372dc9b1634648fb6861e82591c9b7dfc1e7d6bb837367059f84e8"
+    },
+    {
+      "path": "tests/test_runner_postgres.py",
+      "sha256": "b816ac957e06f040cae13b4f9dc522da261443cba60c119bd56b9bea3663789e"
+    },
+    {
+      "path": "tests/test_b10_lifecycle_postgres.py",
+      "sha256": "43e3e75a45d61a9de476d1be525efb9fc2ffe543602528ec2f7f8227293ec430"
+    },
+    {
+      "path": "tools/verify_b14_postgres.py",
+      "sha256": "d5a6f5fe1d888936c27ab085ad28d83cbbd8a766a740fb70b3788d2430af11a9"
+    },
+    {
+      "path": "tools/verify_ac_postgres.py",
+      "sha256": "2dd019934e12b7ce7bfbf0bfb5a8f9f6ca49105d22e172658b6fd029e38c03b1"
+    },
+    {
+      "path": "docs/recovery.md",
+      "sha256": "5a2cc8d027f27bc7d841f23c89b170faf425f522b5934ea22ae28bb9a23085c3"
+    },
+    {
+      "path": "sql/tests/a03_database_roles.sql",
+      "sha256": "403fbfcbaaf6b6a755121e18e50c9cae007acada97eb22cee2d7254f360bc03a"
+    },
+    {
+      "path": "docs/contributions/b14-postgres.md",
+      "sha256": "ae58f044e8911dd98cf7b92e62a5de78b87697b61af9bf575c628b82c440c1c2"
+    },
+    {
+      "path": "tests/test_b14_verifier.py",
+      "sha256": "da71cc0f0571d4afa79252409f4fdde2651132a2a887ca54de8007ce8f4d48e4"
+    }
+  ],
+  "command": "../b14-venv/bin/python tools/verify_b14_postgres.py --output ../b14-pr19-review-verified",
+  "evidence_directory": "artifacts/role-b-next-20260925/b14-pr19-review-verified",
+  "evidence": [
+    {
+      "path": "a03-after.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+    },
+    {
+      "path": "a03-before.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+    },
+    {
+      "path": "cleanup.json",
+      "sha256": "524139b627241a771f046ee6623c8f3316a435e107737e319173b1244e483272"
+    },
+    {
+      "path": "command.json",
+      "sha256": "5683e3c8ad57cf3c2922ba34709970fe262b6d2e772b8b3cbc9e1fdbe23489c7"
+    },
+    {
+      "path": "environment.json",
+      "sha256": "9440392cfb59dfc9b8ee5e629a68658d22a7a9c5378e89c4deab6c5d7f314c52"
+    },
+    {
+      "path": "final-state.json",
+      "sha256": "6e9692ea437b97ca98ed794feadcfdccdec38e8d651b881e42664486ef2e522d"
+    },
+    {
+      "path": "inputs.json",
+      "sha256": "285c58a6a05337a6a5b60f6eed2af1f3555519f94395e74f95ff88876f5f653e"
+    },
+    {
+      "path": "migrations.log",
+      "sha256": "a82236d6e3beed2c859d39313200a6015d460a7e09505404f5e0f9d729723ae9"
+    },
+    {
+      "path": "pytest.log",
+      "sha256": "46bf6b9b75a56b85cb946b02f4970e9103e4764013767dc9dc8c678f917e482a"
+    },
+    {
+      "path": "pytest.xml",
+      "sha256": "b93fec2151eeb9a4770fa7e6a3bbb257dff9fdba00bd2333fe80f4a10d524ec6"
+    },
+    {
+      "path": "summary.json",
+      "sha256": "4949dd1182a52df982968e33f0d431783d921e513a259f7be80991ea6f3a1f7c"
+    }
+  ],
+  "cleanup": {
+    "container_removed": "arsia-b14-adcb1ea5efd5",
+    "persistent_volume_created": false
+  },
+  "remaining": [
+    "C provides the remaining QA callback; E provides verified FP1 and publication",
+    "B freezes the final inventory and wires the complete build",
+    "B repeats recovery around actual registration/publication/failure commits in that build"
+  ],
+  "review_fix": {
+    "pr": 19,
+    "previous_commit": "dc253030048e32a13b439c18b6543786b84b23fa",
+    "issue": "Migration names and an editable inventory did not prove use of the pinned A schema",
+    "change": "Pin exact filenames and SHA-256 values before output or Docker; apply the checked bytes",
+    "new_verifier_tests": 7
+  }
+}
