@@ -31,6 +31,7 @@ This index links the work and its evidence. It does not estimate hours or a cont
 | [#25](https://github.com/A3939/advance-database-assignment-uts/pull/25) | Completed the C11 handoff and ran 12 PostgreSQL queries over the four full VIC originals | C |
 | [#26](https://github.com/A3939/advance-database-assignment-uts/pull/26) | Extended C's initial C10 with QA03/04/05/07, persistence, resources and database checks | C |
 | [#28](https://github.com/A3939/advance-database-assignment-uts/pull/28) | Reproduced QA07's year-coverage gap, fixed Raw year attribution, added blocking objects/evidence and sixteen database regressions; merged into C | C |
+| [#30](https://github.com/A3939/advance-database-assignment-uts/pull/30) | Repaired FP1 deployment/grants and E06 coverage, metrics, evidence identity and summary checks; 61 installed acceptance tests passed. Pending E review. | E |
 
 PR #5 has JJ's Approved review. PR #6 has D's Approved review, submitted after its merge.
 PRs #4–#26 listed above and PR #28 were merged. Peixian merged PR #28 with C's agreement, as confirmed by Peixian; no formal GitHub Approved review was submitted for it. This record does not claim other formal approvals.
@@ -47,7 +48,8 @@ PRs #4–#26 listed above and PR #28 were merged. Peixian merged PR #28 with C's
 | [PR18 D04 lineage acceptance](../d04-lineage-review.md) | Reproduced six missed checks, added controls, then imported D's PR #23 fix and updated B's inventory. All 31 focused checks and 619 broader checks passed; totals overlap. D owns the runtime fix. |
 | [C10 integration](../c10-integration.md) | Connected C's merged QA callback to B, included C06 resources, updated inventory and added clean-wheel and real PostgreSQL interface tests |
 | [S0 QA01–QA07 joint validation](../qa-joint-validation.md) | Added 23 real database cases across all seven producers, verified 56 concrete results and seven summaries, and preserved rollback/history evidence; 125 focused checks passed |
-| [PR #16 review](https://github.com/A3939/advance-database-assignment-uts/pull/16#pullrequestreview-5312480114) | Reproduced E's FP1 deployment, permission and publication-gate defects and published a request-changes review; E owns the follow-up fixes |
+| [PR #16 review](https://github.com/A3939/advance-database-assignment-uts/pull/16#pullrequestreview-5312480114) | Reproduced E's FP1 deployment, permission and publication-gate defects and published a request-changes review; E owns the original modules; B repairs are in PR #30 |
+| [D05–D08 query integration](../analysis-integration.md) | Retained D's original authorship and unchanged runtime, added package resources, actual analysis inventory, 20 new database cases and installed reader validation; 131 focused checks passed |
 
 A's migrations/A06, C's projection/Canonical modules and D's dimensions/facts/reconciliation remain their work.
 Importing those files into B is integration, not original authorship. Test totals in different receipts overlap.

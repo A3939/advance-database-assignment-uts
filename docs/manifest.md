@@ -1,6 +1,6 @@
 # B09: manifest and FP1
 
-**Manifest assembly is implemented; FP1 integration is pending.** A’s isolated PostgreSQL 16 environment is available for Raw and QA tests. E03 SQL and the complete platform inventory are still missing; no real FP1 result or complete platform manifest has been produced.
+**Manifest assembly is implemented; final platform freezing remains separate.** B has tested component inventories. E's repaired FP1/publication code is under review in [PR #30](https://github.com/A3939/advance-database-assignment-uts/pull/30) and is not yet integrated into this B branch.
 
 [`manifest.py`](../src/arsia_ingest/manifest.py) follows team v1.1: 04 §2 for L1/FP1, 04 §3 for QA, 05 §5 for source contracts, and 02 for frozen fields. The wrappers below are B's transport format; the SQL binding still needs E's confirmation.
 
@@ -47,9 +47,11 @@ Include helpers, dependencies and configuration used by these operations. Compon
 
 B hashes the supplied files; authors must identify every file their modules use. These digests freeze the code/structure versions. Missing files cannot be replaced by placeholder digests or old reference SQL.
 
-[D02 is installed in B](d02-integration.md). Its [inventory fragment](../config/d02-inventory.json) records the relocated code and hashes. It covers dimensions only; D03 and the combined DW callback must be added before freezing the final platform inventory.
+[D02 is installed in B](d02-integration.md). Its [inventory fragment](../config/d02-inventory.json) records the relocated code and hashes. That fragment covers dimensions only. The combined C/D inventory now includes D03 facts and D04 reconciliation.
 
 The [A/C integration fragment](../config/ac-inventory.json) adds real C03/A06/C09 bindings, packaged SQL, B interface dependencies and A migrations 001–011. It remains a partial inventory; see the [tested scope and remaining modules](ac-integration.md).
+
+The [D05–D08 analysis fragment](../config/analysis-inventory.json) adds the installed query APIs and SQL. It has real S0 reader tests; see [analysis integration](analysis-integration.md). It is not a final platform inventory and does not include D09.
 
 ## Using S0 and S8
 
@@ -123,7 +125,7 @@ The [initial receipt](evidence/b09-validation-2026-09-19.json) records 302 passe
 
 Still needed:
 
-- **E:** FP1 SQL/version, signature, deployment and independent test evidence. The QA specification is already shared.
+- **E/B:** review PR #30, update PR #16, then integrate the tested FP1/publication bindings and their actual dependencies into B.
 - **A:** fixed migrations 001–011 are integrated and hashed in the A/C fragment. The shared deployment must use those same bytes and grants.
 - **Module authors:** actual code inventory and versioned contracts/mappings. Official draft contracts are blocked.
 

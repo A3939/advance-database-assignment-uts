@@ -1,0 +1,409 @@
+{
+  "date": "2026-09-26",
+  "b_base": "1ae5ddbde746f3190fec5d58daaf948b0c483817",
+  "d_upstream": "d57c3f4ff2fb57eb84ebc414ef77911073c0de06",
+  "a_fixed": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
+  "original_author": "Role D / yyyZYH",
+  "integration_author": "Role B / Peixian",
+  "import_commits": [
+    "50d3bdb4e11a5cd3d6030f4b0c9189055daec787 yyyZYH <114975656+yyyZYH@users.noreply.github.com>",
+    "77c095c60a6ebba35fae32fe099b4bc1601e8c4c yyyZYH <114975656+yyyZYH@users.noreply.github.com>",
+    "efbdf0ebd3e95a90839323f2e4ac6b3ab0b219e1 yyyZYH <114975656+yyyZYH@users.noreply.github.com>",
+    "65813e53738c394537892d4757a02ad0c304447c yyyZYH <114975656+yyyZYH@users.noreply.github.com>"
+  ],
+  "runtime_matches_upstream": [
+    {
+      "path": "src/arsia_d05/__init__.py",
+      "sha256": "8232bb0655c6ebeaa252131f8ebf3b99495f63f9af2b6cb2723ed3fed75af2b3"
+    },
+    {
+      "path": "src/arsia_d05/sql/d05_trend.sql",
+      "sha256": "c249e48a5046e05c6dcb95652dcf8498143149190937354a9ece8d0f192f7112"
+    },
+    {
+      "path": "src/arsia_d05/trend.py",
+      "sha256": "4a521fc42ef2234956cc0289c071393dda34319786e71039c184c8047c4ba078"
+    },
+    {
+      "path": "src/arsia_d06/__init__.py",
+      "sha256": "fa17715743b074b7c804f0692f0b8396550121063ad8600f62c5cc17ad77f1f6"
+    },
+    {
+      "path": "src/arsia_d06/severity.py",
+      "sha256": "1285b0b7385d239ae6d6d9213a134b3f5835b0d89d77fae127e98efb8388997e"
+    },
+    {
+      "path": "src/arsia_d06/sql/d06_severity.sql",
+      "sha256": "aad4d8afddea140c6b1de40135ac8f5e3aa1520068b031ac979c593dffcdd071"
+    },
+    {
+      "path": "src/arsia_d07/__init__.py",
+      "sha256": "31fe018b422e58e3d8522fbb3f2a8eb3197330c61a2ce1c1dab840ae27b6b247"
+    },
+    {
+      "path": "src/arsia_d07/map_query.py",
+      "sha256": "67c5b56d3a1552aceb90d405ca8e2c3add4a9c606a78148a324c77c124ce715a"
+    },
+    {
+      "path": "src/arsia_d07/sql/d07_map.sql",
+      "sha256": "a0c4fb218e4d731b9c9966cbb720707871781393c457d8b23d31aa64aa9e0b41"
+    },
+    {
+      "path": "src/arsia_d08/__init__.py",
+      "sha256": "9314a637e47dc6157912818d9f78075cd13e23e91f134f27867ad45be7ee70e6"
+    },
+    {
+      "path": "src/arsia_d08/sql/d08_units.sql",
+      "sha256": "d5e784bfc5a8a1c7117eebac165652f41f9d9d1bdf23dbe9b1e7dcce545e0355"
+    },
+    {
+      "path": "src/arsia_d08/unit_query.py",
+      "sha256": "bc320d252ab940592ee3715556de6c008ec13ba71f4719cc19f25d6fa8916e01"
+    }
+  ],
+  "analysis_inventory": {
+    "scope": "D05-D08 installed analysis queries; D09 and final platform freeze remain separate",
+    "final_platform": false,
+    "complete_analysis": false,
+    "upstream": {
+      "branch": "yihua/dev",
+      "commit": "d57c3f4ff2fb57eb84ebc414ef77911073c0de06"
+    },
+    "bindings": {
+      "d05": {
+        "python": "arsia_d05:query_trend",
+        "sql": "published.d05_trend(text,uuid,text,text[],integer,integer,integer[])",
+        "version": "d05-0.1.0"
+      },
+      "d06": {
+        "python": "arsia_d06:query_severity",
+        "sql": "published.d06_severity(text,uuid,text[],integer,integer,integer[])",
+        "version": "d06-0.1.0"
+      },
+      "d07": {
+        "python": "arsia_d07:query_map",
+        "sql": [
+          "published.d07_map_points(text,uuid,text[],integer,integer,integer[])",
+          "published.d07_map_coverage(text,uuid,text[],integer,integer,integer[])"
+        ],
+        "version": "d07-0.1.0"
+      },
+      "d08": {
+        "python": "arsia_d08:query_units",
+        "sql": [
+          "published.d08_unit_counts(text,uuid,text[],integer,integer,integer[])"
+        ],
+        "version": "d08-0.1.0"
+      }
+    },
+    "components": {
+      "analysis": [
+        "pyproject.toml",
+        "requirements.txt",
+        "src/arsia_d05/__init__.py",
+        "src/arsia_d05/sql/d05_trend.sql",
+        "src/arsia_d05/trend.py",
+        "src/arsia_d06/__init__.py",
+        "src/arsia_d06/severity.py",
+        "src/arsia_d06/sql/d06_severity.sql",
+        "src/arsia_d07/__init__.py",
+        "src/arsia_d07/map_query.py",
+        "src/arsia_d07/sql/d07_map.sql",
+        "src/arsia_d08/__init__.py",
+        "src/arsia_d08/sql/d08_units.sql",
+        "src/arsia_d08/unit_query.py",
+        "src/arsia_ingest/models.py"
+      ]
+    },
+    "code_files": [
+      {
+        "path": "pyproject.toml",
+        "sha256": "e9f6cc4c12984fd24ff6131741056a0d44074c5633b0dc9220d507cedc6dfbad"
+      },
+      {
+        "path": "requirements.txt",
+        "sha256": "b6f17223b854c27346eefdaeef137f2c0f5c5f8c85004c701a61662ccbc015eb"
+      },
+      {
+        "path": "src/arsia_d05/__init__.py",
+        "sha256": "8232bb0655c6ebeaa252131f8ebf3b99495f63f9af2b6cb2723ed3fed75af2b3"
+      },
+      {
+        "path": "src/arsia_d05/sql/d05_trend.sql",
+        "sha256": "c249e48a5046e05c6dcb95652dcf8498143149190937354a9ece8d0f192f7112"
+      },
+      {
+        "path": "src/arsia_d05/trend.py",
+        "sha256": "4a521fc42ef2234956cc0289c071393dda34319786e71039c184c8047c4ba078"
+      },
+      {
+        "path": "src/arsia_d06/__init__.py",
+        "sha256": "fa17715743b074b7c804f0692f0b8396550121063ad8600f62c5cc17ad77f1f6"
+      },
+      {
+        "path": "src/arsia_d06/severity.py",
+        "sha256": "1285b0b7385d239ae6d6d9213a134b3f5835b0d89d77fae127e98efb8388997e"
+      },
+      {
+        "path": "src/arsia_d06/sql/d06_severity.sql",
+        "sha256": "aad4d8afddea140c6b1de40135ac8f5e3aa1520068b031ac979c593dffcdd071"
+      },
+      {
+        "path": "src/arsia_d07/__init__.py",
+        "sha256": "31fe018b422e58e3d8522fbb3f2a8eb3197330c61a2ce1c1dab840ae27b6b247"
+      },
+      {
+        "path": "src/arsia_d07/map_query.py",
+        "sha256": "67c5b56d3a1552aceb90d405ca8e2c3add4a9c606a78148a324c77c124ce715a"
+      },
+      {
+        "path": "src/arsia_d07/sql/d07_map.sql",
+        "sha256": "a0c4fb218e4d731b9c9966cbb720707871781393c457d8b23d31aa64aa9e0b41"
+      },
+      {
+        "path": "src/arsia_d08/__init__.py",
+        "sha256": "9314a637e47dc6157912818d9f78075cd13e23e91f134f27867ad45be7ee70e6"
+      },
+      {
+        "path": "src/arsia_d08/sql/d08_units.sql",
+        "sha256": "d5e784bfc5a8a1c7117eebac165652f41f9d9d1bdf23dbe9b1e7dcce545e0355"
+      },
+      {
+        "path": "src/arsia_d08/unit_query.py",
+        "sha256": "bc320d252ab940592ee3715556de6c008ec13ba71f4719cc19f25d6fa8916e01"
+      },
+      {
+        "path": "src/arsia_ingest/models.py",
+        "sha256": "ed9ce88b03d4cb76e9b1a27e352345d4e6789e266431f40754bc0b2dba3fa8db"
+      }
+    ],
+    "schema_files": [
+      {
+        "path": "sql/migrations/001_meta_registry.sql",
+        "sha256": "b44608c4baee8ce1d4ac6c3912a1a7d671772a1b305a32976b10f7bf00fe1893"
+      },
+      {
+        "path": "sql/migrations/002_raw_record.sql",
+        "sha256": "550c022b204380af2c0b2ffffc48295df3b562fd217f99a62f392d8db15eb059"
+      },
+      {
+        "path": "sql/migrations/003_b08_loader_role.sql",
+        "sha256": "e84a2d122bcb8f5edd6ffeb9974ef48eac3910ae801d5a929286734978f9269d"
+      },
+      {
+        "path": "sql/migrations/004_meta_batch.sql",
+        "sha256": "5c828f4071cab7ea097ee5b001aa6aca8fb567f04889a091a02842cf14fbb801"
+      },
+      {
+        "path": "sql/migrations/005_raw_vault.sql",
+        "sha256": "36fedf6f1c6b128e8006ad2e76815c44099c5557de8140deb04e599d4c4f14f8"
+      },
+      {
+        "path": "sql/migrations/006_canonical.sql",
+        "sha256": "c6b414f581d15183d89d98bebda71f373827a945d9e3eb2d9a60e699054e37dd"
+      },
+      {
+        "path": "sql/migrations/007_warehouse.sql",
+        "sha256": "32add012cc1f2919e0aa07926fea86922999b02dd37bb070e4bb2b6247fc87ee"
+      },
+      {
+        "path": "sql/migrations/008_qa.sql",
+        "sha256": "408c3775b218808fceb40a4119f8e5f20735664e1775671f5876d838b6219e29"
+      },
+      {
+        "path": "sql/migrations/009_database_roles.sql",
+        "sha256": "cd1b8f3c4969111cab71777ea063dfe89e69dc29566dbd779c708e2f889d03d5"
+      },
+      {
+        "path": "sql/migrations/010_business_key.sql",
+        "sha256": "de7a14a6df0c0336c7f40c2178159e0f53a4f702da44cde9a20c53a95443d922"
+      },
+      {
+        "path": "sql/migrations/011_review_validation_fixes.sql",
+        "sha256": "fb4d03819dbb4a37366aa5b3cb59fe4e8bec0d76eae3fcfbc3783ebb13f51de6"
+      }
+    ],
+    "deployment": {
+      "after": "A migrations 001-011",
+      "role": "arsia_migrator",
+      "sql_files": [
+        "src/arsia_d05/sql/d05_trend.sql",
+        "src/arsia_d06/sql/d06_severity.sql",
+        "src/arsia_d07/sql/d07_map.sql",
+        "src/arsia_d08/sql/d08_units.sql"
+      ]
+    },
+    "dependencies": {
+      "new_external_packages": [],
+      "inputs": [
+        "meta.batch.manifest",
+        "dw.dim_source",
+        "dw.dim_severity",
+        "dw.fact_crash",
+        "canonical.unit"
+      ],
+      "remaining": [
+        "E03/E06 integration",
+        "D09 reader application",
+        "final platform inventory and B10 acceptance"
+      ]
+    }
+  },
+  "acceptance": {
+    "tests": 131,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pytest_exit_code": 0,
+    "exit_code": 0,
+    "permissions": "Original A03 audit passed before and after",
+    "final_tables_empty": true,
+    "publication_performed": false,
+    "boundary": "Component chain only; full B10 still requires the remaining real modules and inventory"
+  },
+  "postgresql_cases": 63,
+  "new_postgresql_cases": 20,
+  "unit_and_inventory_cases": 68,
+  "default_suite": {
+    "tests": 1172,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 374
+  },
+  "python": "3.12.6 (v3.12.6:a4a2d2b0d85, Sep  6 2024, 16:08:03) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "packages": {
+    "arsia-native-intake": "0.1.0",
+    "openpyxl": "3.1.5",
+    "psycopg": "3.3.6",
+    "psycopg-binary": "3.3.6",
+    "pytest": "8.4.2"
+  },
+  "image": "postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67",
+  "wheel_sha256": "a3b4c661f4ac3e52d70ec47528b628109180fddcef3b732ac4cfc96a19763a10",
+  "tested_files": [
+    {
+      "path": "pyproject.toml",
+      "sha256": "e9f6cc4c12984fd24ff6131741056a0d44074c5633b0dc9220d507cedc6dfbad"
+    },
+    {
+      "path": "config/analysis-inventory.json",
+      "sha256": "1781b25bdd64db7ced8b99cff6512001e9d42641b6ac0acdd4d3d3662074ccab"
+    },
+    {
+      "path": "config/cd-inventory.json",
+      "sha256": "6d8bf9259141fb70d60ea0359fd011013a6f67ba87f2565976e518ed6ef9027c"
+    },
+    {
+      "path": "tests/test_analysis_inventory.py",
+      "sha256": "511289715a411cc1f38f28e9e4c9a6391f991df1ea3cfb6f299fa1ac48597929"
+    },
+    {
+      "path": "tests/test_analysis_postgres.py",
+      "sha256": "050457f16a73087f5adec46755d4c9b974f6bf0127f02b236d292dcd5c515244"
+    },
+    {
+      "path": "tools/verify_analysis_postgres.py",
+      "sha256": "fca0813a46467b6d563f2a18be717fe4ebcefc55300e8bee23ef8c1c147182d2"
+    }
+  ],
+  "migrations": [
+    {
+      "path": "sql/migrations/001_meta_registry.sql",
+      "sha256": "b44608c4baee8ce1d4ac6c3912a1a7d671772a1b305a32976b10f7bf00fe1893"
+    },
+    {
+      "path": "sql/migrations/002_raw_record.sql",
+      "sha256": "550c022b204380af2c0b2ffffc48295df3b562fd217f99a62f392d8db15eb059"
+    },
+    {
+      "path": "sql/migrations/003_b08_loader_role.sql",
+      "sha256": "e84a2d122bcb8f5edd6ffeb9974ef48eac3910ae801d5a929286734978f9269d"
+    },
+    {
+      "path": "sql/migrations/004_meta_batch.sql",
+      "sha256": "5c828f4071cab7ea097ee5b001aa6aca8fb567f04889a091a02842cf14fbb801"
+    },
+    {
+      "path": "sql/migrations/005_raw_vault.sql",
+      "sha256": "36fedf6f1c6b128e8006ad2e76815c44099c5557de8140deb04e599d4c4f14f8"
+    },
+    {
+      "path": "sql/migrations/006_canonical.sql",
+      "sha256": "c6b414f581d15183d89d98bebda71f373827a945d9e3eb2d9a60e699054e37dd"
+    },
+    {
+      "path": "sql/migrations/007_warehouse.sql",
+      "sha256": "32add012cc1f2919e0aa07926fea86922999b02dd37bb070e4bb2b6247fc87ee"
+    },
+    {
+      "path": "sql/migrations/008_qa.sql",
+      "sha256": "408c3775b218808fceb40a4119f8e5f20735664e1775671f5876d838b6219e29"
+    },
+    {
+      "path": "sql/migrations/009_database_roles.sql",
+      "sha256": "cd1b8f3c4969111cab71777ea063dfe89e69dc29566dbd779c708e2f889d03d5"
+    },
+    {
+      "path": "sql/migrations/010_business_key.sql",
+      "sha256": "de7a14a6df0c0336c7f40c2178159e0f53a4f702da44cde9a20c53a95443d922"
+    },
+    {
+      "path": "sql/migrations/011_review_validation_fixes.sql",
+      "sha256": "fb4d03819dbb4a37366aa5b3cb59fe4e8bec0d76eae3fcfbc3783ebb13f51de6"
+    }
+  ],
+  "reader": "Separate arsia_reader session; no internal table/schema access",
+  "query_fixture": "Real three-source S0 chain and QA01-07; succeeded status explicitly seeded, not E publication",
+  "expected_s0": {
+    "raw": 19,
+    "facts": 6,
+    "severity_groups": 6,
+    "map_points": 4,
+    "map_coverage_percentage": "66.67",
+    "nsw_units": 3,
+    "vic_units": 3,
+    "qld_unit_rows": 0
+  },
+  "evidence_hashes": {
+    "inputs.json": "4bc9c51e4e69159e7ff14124b432faab3fbda62aa819e80749f840b300f2b59d",
+    "environment.json": "a0c3132d813f8f18e3d68d3f024c228b53d3c1be37382574e8c95b31b32fa0c4",
+    "command.json": "c3ebb85eac2373f85182ddbe20dc778c394b4c397deb718ab881f60efd38c060",
+    "pytest.xml": "c242d532df08d416d51fdebb0f5febd96e77f530910bc78c3712b23bfa8c52fd",
+    "pytest.log": "5504619baef83cfd3170a998d27c36f1a5d8ed2bc1990f4a6b5e810aa0cc2526",
+    "a03-before.log": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4",
+    "a03-after.log": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4",
+    "final-state.json": "dbc4b9c36a78e26384cbe23a4d657bae8af990f1ab2bbf3300c91aedc6becd18",
+    "cleanup.json": "488f540fcf867ac76959280d0ac73a3c72016b7b103f2faded52abb60a218d8b"
+  },
+  "final_state": {
+    "rows": {
+      "meta.source": 0,
+      "meta.resource": 0,
+      "meta.batch": 0,
+      "meta.current_release": 0,
+      "raw.record": 0,
+      "rv.hub_crash": 0,
+      "rv.hub_unit": 0,
+      "rv.sat_crash": 0,
+      "rv.sat_unit": 0,
+      "rv.link_crash_unit": 0,
+      "canonical.crash": 0,
+      "canonical.unit": 0,
+      "dw.dim_source": 0,
+      "dw.dim_month": 0,
+      "dw.dim_severity": 0,
+      "dw.fact_crash": 0,
+      "qa.check_result": 0
+    },
+    "all_zero": true
+  },
+  "cleanup": {
+    "container_removed": "arsia-b-ac-80f15cc04efc",
+    "persistent_volume_created": false
+  },
+  "boundaries": [
+    "No shared database or official release changed.",
+    "D09, official replay and restricted report acceptance remain separate.",
+    "E integration and final inventory are still required for full B10."
+  ]
+}
