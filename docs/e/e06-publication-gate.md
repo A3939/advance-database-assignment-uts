@@ -1,22 +1,32 @@
-# E06 — Publication gate and current pointer
+# E06 — Publication gate
 
-Owner: Role E / Aditya
+Owner: Role E / Aditya. Gate repairs and validation: Role B / Peixian.
 
-The publication callback is src/arsia_ingest/publication.py. It is designed for B's caller-owned transaction and is registered as BuildModules.publish.
+Register `arsia_ingest.publication:publish` as B's `BuildModules.publish`,
+with `src/arsia_ingest/publication.py` and version `e06-publication-v1.1`.
+Include `publication_checks.py` and its existing B dependencies in the code
+inventory. The callback uses B's connection, manifest, batch and fingerprint.
 
-Gate sequence:
+The gate locks the running candidate and checks its manifest and context.
+It derives every required QA01–QA07 object, including empty source-years.
+Missing objects, extra objects/rules and any blocking result stop publication.
 
-1. Confirm the candidate exists in meta.batch and is still running.
-2. Confirm the stored manifest equals the frozen manifest supplied to the build.
-3. Derive all required QA concrete objects from the manifest.
-4. Require every concrete object plus every batch summary for QA01–QA07.
-5. Reject block results, unexpected limited results, malformed evidence and non-zero violations.
-6. Mark the candidate batch succeeded in the same transaction.
-7. Switch meta.current_release to the candidate using the existing composite foreign key.
-8. Return the seven-rule QA summary to B.
+For each object it checks the fixed metric keys, types, expected values,
+evaluation coverage and evidence. File counts come from the manifest;
+Canonical/DW counts provide an extra coverage check. C still owns the Raw
+business-rule and exclusion checks. E does not replace those producers.
+NULL expectations are limited to the agreed inapplicable/Node fields and
+need reasons. VIC exceptions use the exact pinned restricted policy.
 
-The existing migration 004_meta_batch.sql already supplies meta.batch and meta.current_release. E06 therefore does not duplicate the pointer schema; it supplies the missing gate operation.
+Evidence needs its producer, resolution, references and reason list. Detail
+files must exist and match their SHA256 and record counts. Every QA07 limited
+crash needs its stored location reason. Zero-crash coverage stays NULL.
+The evidence paths must remain available to the gate during the transaction.
 
-Important: the final database commit remains owned by B. E06 changes database state inside B's transaction but never commits, rolls back or closes the connection.
+E recalculates each summary from concrete objects and rejects stale summaries.
+Only valid QA07 results may be limited. It then marks the candidate succeeded,
+switches `meta.current_release`, and returns seven summaries. B owns the final
+commit. On error B must roll back; E never commits, rolls back or closes.
 
-Acceptance evidence should include the successful candidate batch ID, fingerprint, seven QA summaries, pointer row and commit result. Failure evidence should retain the blocked rule/object and must not advance current_release.
+See [test scope, commands and review notes](e03-e06-review.md). Component tests
+do not establish a final inventory freeze or official platform acceptance.
