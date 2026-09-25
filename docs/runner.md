@@ -4,7 +4,7 @@
 
 The runner is ready for the remaining modules. [Session contention and early cleanup](runner-locks.md) and the installed [D02 callback](d02-integration.md) have real PostgreSQL tests. The [local B10 checks](b10-local-validation.md) cover transaction isolation and failure recording. Complete build paths still use scripted replies and test callbacks; real FP1, publication and full B12–B14 acceptance remain unverified.
 
-The [three-source component chain](cd-integration.md) includes projection, Vault, Canonical, D02/D03 facts and D04 QA. [C10](c10-integration.md) now supplies `qa_c`. These use real B objects and a partial inventory; combined QA01–07 and complete build acceptance remain separate.
+The [three-source component chain](cd-integration.md) includes projection, Vault, Canonical, D02/D03 facts and D04 QA. [C10](c10-integration.md) now supplies `qa_c`. [S0 QA01–QA07 joint checks](qa-joint-validation.md) now pass using real B objects and a partial inventory. Complete build acceptance remains separate.
 
 ## Entry point
 
@@ -99,7 +99,7 @@ PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -q -p no:cacheprovider
 The initial suite recorded **380 passed, 10 skipped** on 2026-09-19, including 44 runner tests with scripted replies. The [original receipt](evidence/b10-b11-validation-2026-09-19.json) is unchanged. The [2026-09-20 run](input-qa.md#validation) passed 426 tests, including the eight B08 and two QA02 PostgreSQL tests. [B12's later checks](runner-locks.md) exercise real locks and early runner exits. Complete build transactions, concurrent builds and recovery remain unverified.
 
 - **A:** fixed migrations 001–011 and A06 are now installed in B; the original loader grants remain unchanged.
-- **C/B:** C03/C04/C05/C07/C09 and C10 are installed. The QA07 year-coverage fix is included. Combined QA01–07 validation and remaining official source confirmations are still needed.
+- **C/B:** C03/C04/C05/C07/C09 and C10 are installed. The QA07 year-coverage fix is included. S0 QA01–QA07 joint checks pass; official-scope joint validation and remaining source confirmations are still needed.
 - **D:** D02/D03 facts and D04 reconciliation are installed. D05–D08 analysis/query integration remains separate.
 - **E:** FP1 SQL/version and publication gate. Its existing QA protocol is already reused.
 
