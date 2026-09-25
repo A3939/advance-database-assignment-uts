@@ -4,7 +4,7 @@
 
 The runner is ready for the remaining modules. [Session contention and early cleanup](runner-locks.md) and the installed [D02 callback](d02-integration.md) have real PostgreSQL tests. The [local B10 checks](b10-local-validation.md) cover transaction isolation and failure recording. Complete build paths still use scripted replies and test callbacks; real FP1, publication and full B12–B14 acceptance remain unverified.
 
-The installed [NSW → Vault → Canonical chain](ac-integration.md) now uses real B objects and persists B's QA01/QA02 rows in an isolated database. It covers the available component path, with D02-only dimensions. The complete build still needs the remaining C/D/E callbacks and inventory.
+The [three-source component chain](cd-integration.md) includes projection, Vault, Canonical, D02/D03 facts and D04 QA. [C10](c10-integration.md) now supplies `qa_c`. These use real B objects and a partial inventory; combined QA01–07 and complete build acceptance remain separate.
 
 ## Entry point
 
@@ -41,7 +41,7 @@ PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m arsia_ingest.runner \
   --bindings team_bindings:build_request
 ```
 
-`team_bindings` is the team's integration module. A complete version is not included yet. A's fixed schema, A06, C03/C09 and D02 are installed; the remaining C/D/E bindings are still needed. A missing binding fails explicitly. `python -m arsia_ingest` remains the native preparation command.
+`team_bindings` is the team's integration module. A complete version is not included yet. Use `BuildModules(**arsia_ingest.components.bindings())` for the installed project, vault, canonical, dw, qa_c and qa_d stages. E's real publication binding and FP1 operation are still required. A missing binding fails explicitly. `python -m arsia_ingest` remains the native preparation command.
 
 ## Module interface
 
@@ -99,8 +99,8 @@ PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -q -p no:cacheprovider
 The initial suite recorded **380 passed, 10 skipped** on 2026-09-19, including 44 runner tests with scripted replies. The [original receipt](evidence/b10-b11-validation-2026-09-19.json) is unchanged. The [2026-09-20 run](input-qa.md#validation) passed 426 tests, including the eight B08 and two QA02 PostgreSQL tests. [B12's later checks](runner-locks.md) exercise real locks and early runner exits. Complete build transactions, concurrent builds and recovery remain unverified.
 
 - **A:** fixed migrations 001–011 and A06 are now installed in B; the original loader grants remain unchanged.
-- **C:** C03 NSW and C09 are integrated. C04/C05, the all-source dispatcher, C10 QA, accepted mappings and remaining source reviews are still needed.
-- **D:** D03 facts, the combined DW callback and reconciliation QA. The installed D02-only callback and its B interface are [verified separately](d02-integration.md).
+- **C/B:** C03/C04/C05/C07/C09 and C10 are installed. Combined QA01–07 validation, the QA07 year-coverage follow-up and remaining official source confirmations are still needed.
+- **D:** D02/D03 facts and D04 reconciliation are installed. D05–D08 analysis/query integration remains separate.
 - **E:** FP1 SQL/version and publication gate. Its existing QA protocol is already reused.
 
 The full build remains blocked by the actual missing modules, not by A's old three-table environment. The partial inventory stays marked `final_platform: false`. Full fault injection, concurrent published builds, real recovery and end-to-end acceptance still need integration.

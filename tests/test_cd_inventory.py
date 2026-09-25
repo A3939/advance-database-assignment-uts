@@ -46,10 +46,10 @@ def test_installed_resources_match_inventory():
             assert not installed.is_relative_to(ROOT)
 
 
-def test_real_bindings_do_not_supply_c10_or_publication():
+def test_real_bindings_include_c10_but_do_not_supply_publication():
     selected = bindings()
     declared = fragment()
-    assert set(selected) == {"project", "vault", "canonical", "dw", "qa_d"}
+    assert set(selected) == {"project", "vault", "canonical", "dw", "qa_c", "qa_d"}
     for stage, binding in selected.items():
         expected = declared["bindings"][stage]
         assert (expected["callback"], expected["code_path"], expected["version"]) == BINDING_SPECS[stage]
@@ -58,10 +58,10 @@ def test_real_bindings_do_not_supply_c10_or_publication():
         assert type(binding) is ModuleBinding
         assert binding.code_path == expected["code_path"]
         assert binding.version == expected["version"]
-        component = "qa" if stage == "qa_d" else stage
+        component = "qa" if stage in {"qa_c", "qa_d"} else stage
         assert binding.code_path in declared["components"][component]
     modules = BuildModules(**selected)
-    assert modules.qa_c is None and modules.publish is None
+    assert modules.qa_c is selected["qa_c"] and modules.publish is None
 
 
 def test_real_frozen_interface_preserves_missing_platform_boundary(tmp_path):

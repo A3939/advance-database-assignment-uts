@@ -1,13 +1,14 @@
 # Three-source C/D integration in B
 
-B now provides the real bindings for NSW, VIC and QLD projection, A06 Vault, C09 Canonical, D02/D03 DW and D04 QA06. The loader uses B's connection, context and evidence writer. It never supplies placeholder C10 or E callbacks.
+B now provides the real bindings for NSW, VIC and QLD projection, A06 Vault, C09 Canonical, D02/D03 DW, C10 QA03/04/05/07 and D04 QA06. The loader uses B's connection, context and evidence writer. C10 includes its C06 Person-check dependency. E publication is still missing.
 
 ## Versions and ownership
 
 | Input | Commit |
 |---|---|
-| B base, including B14 | `a1768623aef837daa082f7ed564d97c07b60b4cf` |
-| C | `ad8baeddd3f6d2eeccdc2e31bafd71b687ad4da8` |
+| B base for the C10 addition | `b51dc2860f50feb9ea52d4336f7bfaa1db5471fb` |
+| C projection/Canonical baseline | `ad8baeddd3f6d2eeccdc2e31bafd71b687ad4da8` |
+| C10 implementation (merged PR #26) | `3f6c94795ee0fc8ec0f17903f23fd4a85b5646ac` |
 | D merged branch | `d57c3f4ff2fb57eb84ebc414ef77911073c0de06` |
 | D04 fix from PR #23 | `daa9e575732b9016ffbe0b5024f67a055a2947ad` |
 | A fixed schema and A06 | `c0824da06b6e7b3f73c4ddeab2114d10b7156913` |
@@ -26,11 +27,12 @@ Use `arsia_ingest.components.bindings()` for the available `ModuleBinding` objec
 | vault | `arsia_ingest.vault_load:load_vault` |
 | canonical | `arsia_c.canonical:load_canonical` |
 | dw | `arsia_d03.facts:runner_callback` (D02 + D03) |
+| qa_c | `arsia_c.qa:runner_callback` |
 | qa_d | `arsia_d04.reconciliation:runner_callback` |
 
 The Python files are under the matching `src/` packages. C04/C05/C07 resources are in `src/arsia_c/sql/` and `src/arsia_c/config/`. C03 keeps its SQL in `src/arsia_c/projections/sql/`. No new Python dependency is needed.
 
-[`config/cd-inventory.json`](../config/cd-inventory.json) lists the exact paths, versions, dependencies and hashes. Its `qa` component contains D04 only, and `final_platform` stays false. The old AC inventory remains a supported NSW-only subset. Neither fragment is the final platform inventory.
+[`config/cd-inventory.json`](../config/cd-inventory.json) lists the exact paths, versions, dependencies and hashes. Its `qa` component contains C10, C06 dependencies and D04, and `final_platform` stays false. The old AC inventory remains a supported NSW-only subset. Neither fragment is the final platform inventory.
 
 The dispatcher selects one source per supported jurisdiction before writing. The callbacks share B's transaction. Repeated projection/DW calls use a fresh evidence directory. Canonical rejects a populated candidate, and QA rows are append-only; retries must follow those contracts.
 
@@ -60,7 +62,7 @@ Committed history fixtures stay explicitly unpublished. These tests do not valid
 
 ## Next inputs
 
-- **B:** integrate C10 `qa_c` from C's merged PR #26, verify its QA07 year-coverage finding, and include its real code/resource hashes. C11 source-model evidence is available in merged PR #25.
+- **B with C:** run combined QA01–07 acceptance and resolve the QA07 year-coverage finding. The [C10 integration](c10-integration.md) supplies its real binding, resources and hashes. C11 evidence is available in merged PR #25.
 - **E:** corrected and database-tested E03 FP1 and E06 publication, plus their real code/schema inventory and acceptance inputs.
 - **B with C/D/E:** freeze the complete inventory, then run full B10 success, no-change, failure, concurrency, publication and recovery acceptance.
 - **D/B:** integrate D05–D08 query interfaces and reader permissions separately. They are outside this loading-stage delivery.
@@ -69,7 +71,9 @@ No new S0 definitions are needed.
 
 ## Local validation
 
-The [current receipt](evidence/d04-lineage-acceptance-2026-09-25.json) records versions, file hashes and evidence locations. The [initial receipt](evidence/b-cd-integration-2026-09-25.json) remains a record of the earlier D04 version.
+The table below records the D04 integration run before C10 was added. See the [C10 record](c10-integration.md) for the new binding and installation checks.
+
+The [D04 receipt](evidence/d04-lineage-acceptance-2026-09-25.json) records versions, file hashes and evidence locations. The [initial receipt](evidence/b-cd-integration-2026-09-25.json) remains a record of the earlier D04 version.
 
 | Installed-package run | Passed | Skipped | Failed |
 |---|---:|---:|---:|

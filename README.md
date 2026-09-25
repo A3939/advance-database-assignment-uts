@@ -1,6 +1,6 @@
 # ARSIA: shared development baseline
 
-Role B's code prepares native inputs, loads Raw, freezes manifests, checks input/Raw quality and coordinates the build. A's fixed schema/A06, C03/C04/C05/C07/C09 and D02/D03/D04 are integrated. Full builds still need C10, E's FP1 and publication functions, and the final inventory.
+Role B's code prepares native inputs, loads Raw, freezes manifests, checks input/Raw quality and coordinates the build. A's fixed schema/A06, C03/C04/C05/C07/C09/C10 and D02/D03/D04 are integrated. Full builds still need E's FP1 and publication functions, the final inventory and combined acceptance.
 
 ## Current scope
 
@@ -10,10 +10,10 @@ This development version extends the shared baseline from PR #17 with the three-
 |---|---|
 | Fixed migrations 001–011, loader permissions and A06 Vault loading | A / JJ |
 | Native readers, Raw loading, manifest, QA01/QA02 and build runner | B / Peixian |
-| Packaged NSW/VIC/QLD projections, VIC location handling and Canonical loading | C / Serenity |
+| Packaged NSW/VIC/QLD projections, VIC location handling, Canonical loading and C10 QA | C / Serenity |
 | D02 dimensions, D03 crash facts and D04 reconciliation QA | D / Yihua |
 
-D05–D08 query integration and reader checks remain separate work. E's PR #16 needs FP1/publication fixes and validation. C10 is merged into C's branch through PR #26; B still needs to integrate it and verify its QA07 year-coverage finding. Final inventory and full-build acceptance remain pending.
+D05–D08 query integration and reader checks remain separate work. E's PR #16 needs FP1/publication fixes and validation. [C10 is connected to B](docs/c10-integration.md) using the merged PR #26 code. Combined QA01–07 acceptance and the QA07 year-coverage follow-up remain pending. Final inventory and full-build acceptance remain pending.
 
 The [C/D integration record](docs/cd-integration.md) reports 733 passed / 309 skipped in the installed default suite and 619 passed / 0 skipped in the PostgreSQL-enabled suite. The focused D04 lineage acceptance passed all 31 checks. These suites overlap. The [earlier B10 record](docs/b10-local-validation.md) retains the runner-fix evidence.
 
@@ -110,6 +110,6 @@ source_id, resource_id, file_sha256, parser_version, row_locator, payload
 
 CSV values remain text, including blanks and leading zeros; XLSX conversion follows the intake guide. Person rows, Node observations and QLD aggregate fields are retained. Filtering, business mappings and deduplication belong to later steps.
 
-`prepared` means native input preparation passed. The [C/D integration](docs/cd-integration.md) verifies three-source S0 loading through crash facts, with QA01/QA02 and QA06 persistence. [B12's lock checks](docs/runner-locks.md) cover session contention and early cleanup. The [B10 local validation](docs/b10-local-validation.md) covers transaction isolation, failure evidence and recovery markers. C10 has separate component evidence but is not yet connected to B's bindings. Real FP1 and complete publication remain unverified. B09/B11 enforce the adopted VIC input restrictions; full downstream integration is still required.
+`prepared` means native input preparation passed. The [C/D integration](docs/cd-integration.md) verifies three-source S0 loading through crash facts, with QA01/QA02 and QA06 persistence. [B12's lock checks](docs/runner-locks.md) cover session contention and early cleanup. The [B10 local validation](docs/b10-local-validation.md) covers transaction isolation, failure evidence and recovery markers. C10 now has an installed `qa_c` binding and focused B-interface checks; combined QA01–07 acceptance is separate. Real FP1 and complete publication remain unverified. B09/B11 enforce the adopted VIC input restrictions; full downstream integration is still required.
 
 The baseline is team v1.1: document 04 (L1 contracts and acceptance) and document 05 (sources and mappings, sections 1-2 and 7). The [online database design](https://arsia-team-design.vercel.app/) shows the shared model. Links in the guides to `F/` and `Resources/` refer to the shared course workspace outside this Git repository; they work locally but are unavailable in a standalone clone or on GitHub.

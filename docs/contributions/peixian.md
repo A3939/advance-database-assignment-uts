@@ -44,8 +44,9 @@ The other listed fixes were merged; this record does not claim formal approvals 
 | [PR #19](https://github.com/A3939/advance-database-assignment-uts/pull/19) | Added real PostgreSQL recovery tests and a verifier pinned to A's fixed migrations; see the [B14 record](b14-postgres.md) |
 | [Three-source C/D integration](../cd-integration.md) | Added the source dispatcher, real bindings, inventory and installed-package PostgreSQL validation in B |
 | [PR18 D04 lineage acceptance](../d04-lineage-review.md) | Reproduced six missed checks, added controls, then imported D's PR #23 fix and updated B's inventory. All 31 focused checks and 619 broader checks passed; totals overlap. D owns the runtime fix. |
+| [C10 integration](../c10-integration.md) | Connected C's merged QA callback to B, included C06 resources, updated inventory and added clean-wheel and real PostgreSQL interface tests |
 | [PR #16 review](https://github.com/A3939/advance-database-assignment-uts/pull/16#pullrequestreview-5312480114) | Reproduced E's FP1 deployment, permission and publication-gate defects and published a request-changes review; E owns the follow-up fixes |
 
 A's migrations/A06, C's projection/Canonical modules and D's dimensions/facts/reconciliation remain their work.
 Importing those files into B is integration, not original authorship. Test totals in different receipts overlap.
-PRs #24–#26 are merged into C's branch. C10 still needs B integration and its QA07 year-coverage follow-up. E FP1, publication and the final inventory still need full-build acceptance. The contribution records distinguish original module work, B's additions and integration; they do not claim team-wide completion.
+PRs #24–#26 are merged into C's branch. C10 is now integrated in B; combined QA01–07 acceptance and its QA07 year-coverage follow-up remain pending. E FP1, publication and the final inventory still need full-build acceptance. The contribution records distinguish original module work, B's additions and integration; they do not claim team-wide completion.
