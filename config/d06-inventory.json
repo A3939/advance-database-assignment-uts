@@ -1,0 +1,62 @@
+{
+  "scope": "D06 severity-analysis component; D07-D09 and final analysis inventory remain separate",
+  "complete_d06": true,
+  "complete_analysis": false,
+  "binding": {
+    "python": "arsia_d06:query_severity",
+    "sql": "published.d06_severity(text,uuid,text[],integer,integer,integer[])",
+    "version": "d06-0.1.0"
+  },
+  "components": {
+    "analysis": [
+      "src/arsia_d06/__init__.py",
+      "src/arsia_d06/severity.py",
+      "src/arsia_d06/sql/d06_severity.sql",
+      "src/arsia_ingest/models.py",
+      "pyproject.toml",
+      "requirements.txt"
+    ]
+  },
+  "code_files": [
+    {
+      "path": "src/arsia_d06/__init__.py",
+      "sha256": "fa17715743b074b7c804f0692f0b8396550121063ad8600f62c5cc17ad77f1f6"
+    },
+    {
+      "path": "src/arsia_d06/severity.py",
+      "sha256": "1285b0b7385d239ae6d6d9213a134b3f5835b0d89d77fae127e98efb8388997e"
+    },
+    {
+      "path": "src/arsia_d06/sql/d06_severity.sql",
+      "sha256": "aad4d8afddea140c6b1de40135ac8f5e3aa1520068b031ac979c593dffcdd071"
+    },
+    {
+      "path": "src/arsia_ingest/models.py",
+      "sha256": "ed9ce88b03d4cb76e9b1a27e352345d4e6789e266431f40754bc0b2dba3fa8db"
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "ac435613133ca0b860b97c6f336f980d75e26d514a77e55413aab1f607e49fdb"
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "b6f17223b854c27346eefdaeef137f2c0f5c5f8c85004c701a61662ccbc015eb"
+    }
+  ],
+  "dependencies": {
+    "d02_branch": "yihua/D02",
+    "d03_commit": "e2a0c6e28a4dcef27659783efbe553c959bb55fc",
+    "database": "PostgreSQL 16 with migrations 001-011 and deployed D06 SQL",
+    "roles": [
+      "arsia_migrator",
+      "arsia_reader",
+      "arsia_loader"
+    ],
+    "inputs": [
+      "meta.batch.manifest",
+      "dw.dim_source",
+      "dw.dim_severity",
+      "dw.fact_crash"
+    ]
+  }
+}
