@@ -11,7 +11,7 @@ The [QA07 year-coverage patch](c10-year-coverage.md) records the current fix and
 
 `arsia_c.qa.runner_callback(connection, context)` is the `qa_c` entry point.
 Use B's real `ModuleConnection`, `RunContext`, `FrozenManifest` and `RunEvidence`.
-Bind `src/arsia_c/qa.py` with version `c10-role-c-v1.1`. Run it after C's temporary
+Bind `src/arsia_c/qa.py` with version `c10-role-c-v1.2`. Run it after C's temporary
 projections, C09 Canonical and D02/D03 DW loading, in the same transaction.
 
 `config/c10-inventory.json` records this component's paths and SHA-256 hashes.

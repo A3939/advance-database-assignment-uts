@@ -1,6 +1,6 @@
 {
   "scope": "C10 qa_c fragment; not a complete platform inventory",
-  "version": "c10-role-c-v1.1",
+  "version": "c10-role-c-v1.2",
   "callback": "arsia_c.qa:runner_callback",
   "binding_path": "src/arsia_c/qa.py",
   "components": {
@@ -24,11 +24,11 @@
   "code_files": [
     {
       "path": "src/arsia_c/qa.py",
-      "sha256": "73b6ffd94880d3c79228a68800ef9433f53f57dbc72b338a68f12b0b28ac6405"
+      "sha256": "b20de487502274113713e45ed2584a622fd0f5d9070061890f963ff642422190"
     },
     {
       "path": "src/arsia_c/qa_expectations.py",
-      "sha256": "aff6166536aed507ffacc97b3750226fc02f61228dd114e704c0fba18d3293d8"
+      "sha256": "d78d1e82c5404055c987d2c30fce6e641beb01bd5af131046d34227f4e215564"
     },
     {
       "path": "src/arsia_c/person_checks.py",
