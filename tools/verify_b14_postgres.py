@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Run B14 against the installed wheel and a disposable PostgreSQL 16 instance."""
 import argparse
+import hashlib
 import importlib.metadata
 import json
 import os
@@ -17,8 +18,36 @@ from verify_ac_postgres import IMAGE, ROOT, TABLES, check_install, record, run, 
 
 
 TESTS = ("test_recovery_postgres.py", "test_recovery.py", "test_runner.py",
-         "test_runner_postgres.py", "test_b10_lifecycle_postgres.py")
+         "test_runner_postgres.py", "test_b10_lifecycle_postgres.py",
+         "test_b14_verifier.py")
 A_VERSION = "c0824da06b6e7b3f73c4ddeab2114d10b7156913"
+# Exact migration bytes from A_VERSION, independent of the editable inventory.
+A_MIGRATIONS = {
+    "001_meta_registry.sql": "b44608c4baee8ce1d4ac6c3912a1a7d671772a1b305a32976b10f7bf00fe1893",
+    "002_raw_record.sql": "550c022b204380af2c0b2ffffc48295df3b562fd217f99a62f392d8db15eb059",
+    "003_b08_loader_role.sql": "e84a2d122bcb8f5edd6ffeb9974ef48eac3910ae801d5a929286734978f9269d",
+    "004_meta_batch.sql": "5c828f4071cab7ea097ee5b001aa6aca8fb567f04889a091a02842cf14fbb801",
+    "005_raw_vault.sql": "36fedf6f1c6b128e8006ad2e76815c44099c5557de8140deb04e599d4c4f14f8",
+    "006_canonical.sql": "c6b414f581d15183d89d98bebda71f373827a945d9e3eb2d9a60e699054e37dd",
+    "007_warehouse.sql": "32add012cc1f2919e0aa07926fea86922999b02dd37bb070e4bb2b6247fc87ee",
+    "008_qa.sql": "408c3775b218808fceb40a4119f8e5f20735664e1775671f5876d838b6219e29",
+    "009_database_roles.sql": "cd1b8f3c4969111cab71777ea063dfe89e69dc29566dbd779c708e2f889d03d5",
+    "010_business_key.sql": "de7a14a6df0c0336c7f40c2178159e0f53a4f702da44cde9a20c53a95443d922",
+    "011_review_validation_fixes.sql": "fb4d03819dbb4a37366aa5b3cb59fe4e8bec0d76eae3fcfbc3783ebb13f51de6",
+}
+
+
+def pinned_migrations(root):
+    paths = sorted((root / "sql/migrations").glob("*.sql"))
+    if [path.name for path in paths] != sorted(A_MIGRATIONS):
+        raise ValueError("Expected the exact 11 migration filenames from A " + A_VERSION)
+    contents = {}
+    for path in paths:
+        content = path.read_bytes()
+        if hashlib.sha256(content).hexdigest() != A_MIGRATIONS[path.name]:
+            raise ValueError("Migration differs from A " + A_VERSION + ": " + path.name)
+        contents[path] = content
+    return contents
 
 
 def main():
@@ -28,11 +57,12 @@ def main():
     args = parser.parse_args()
     if sys.version_info[:2] != (3, 12):
         parser.error("Use Python 3.12")
+    try:
+        migrations = pinned_migrations(ROOT)
+    except (OSError, ValueError) as exc:
+        parser.error(str(exc))
     inventory = json.loads((ROOT / "config/ac-inventory.json").read_text(encoding="utf-8"))
     installed = check_install(inventory)
-    migrations = sorted((ROOT / "sql/migrations").glob("*.sql"))
-    if [p.name[:3] for p in migrations] != [f"{i:03}" for i in range(1, 12)]:
-        parser.error("Expected A migrations 001 through 011")
     selected = [ROOT / "tests" / name for name in TESTS]
     out = args.output.resolve()
     out.mkdir(parents=True, exist_ok=False)
@@ -46,7 +76,10 @@ def main():
     write(out, "inputs.json", {
         "head": run(["git", "-C", str(ROOT), "rev-parse", "HEAD"]).stdout.strip(),
         "working_tree": run(["git", "-C", str(ROOT), "status", "--short"]).stdout.splitlines(),
-        "a_version": A_VERSION, "migrations": [record(p) for p in migrations],
+        "a_version": A_VERSION, "migrations": [
+            {"path": str(path.relative_to(ROOT)), "sha256": hashlib.sha256(content).hexdigest()}
+            for path, content in migrations.items()
+        ],
         "installed_files": installed, "test_files": [record(p) for p in selected],
         "dependencies": [record(p) for p in dependencies], "python": sys.version,
         "packages": {name: importlib.metadata.version(name) for name in (
@@ -83,8 +116,8 @@ def main():
             return result.stdout + result.stderr
 
         with (out / "migrations.log").open("w", encoding="utf-8") as log:
-            for path in migrations:
-                log.write(path.name + "\n" + sql(path.read_text(encoding="utf-8")))
+            for path, content in migrations.items():
+                log.write(path.name + "\n" + sql(content.decode("utf-8")))
         marker = secrets.token_hex(16)
         sql(f"ALTER ROLE arsia_loader PASSWORD '{password}';")
         sql(f"ALTER DATABASE arsia SET arsia.test_run = '{marker}';")

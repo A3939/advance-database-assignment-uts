@@ -70,11 +70,12 @@ python3.12 -m venv ../b14-venv
 ../b14-venv/bin/python tools/verify_b14_postgres.py --output ../b14-validation
 ```
 
-Use a new output directory each time. The verifier checks the installed package hashes, starts a private PostgreSQL 16 container on a random local port, applies migrations 001–011, and runs the original A03 audit before and after testing. It removes the container in `finally`. It does not connect to a shared database or add grants.
+Use a new output directory each time. The verifier first checks all 11 migration names and hashes against A commit `c0824da`, independently of the editable inventory. It keeps those checked bytes for migration execution. It then checks the installed package hashes, starts a private PostgreSQL 16 container on a random local port, applies migrations 001–011, and runs the original A03 audit before and after testing. It removes the container in `finally`. It does not connect to a shared database or add grants.
 
-The [2026-09-25 receipt](evidence/b14-postgres-validation-2026-09-25.json) records the tested files and results. The selected suite passed **158 tests with no skips or failures**:
+The [2026-09-25 receipt](evidence/b14-postgres-validation-2026-09-25.json) records the tested files and results. The selected suite passed **165 tests with no skips or failures**:
 
 - 23 new real PostgreSQL recovery tests.
+- 7 verifier tests, including changed SQL with a matching edited inventory and missing/extra/renamed migrations. Invalid input stops before Docker or provenance output.
 - Existing recovery, runner, session-lock and B10 lifecycle regression tests.
 
 The new tests check abandoned runs, preserved success/failure records, newer release pointers, mismatched manifests/fingerprints, missing registration, advisory and row locks, READ COMMITTED, and the loader's actual permissions and foreign key. A fresh recovery call resolves both committed and uncommitted lost-reply cases. Original evidence, other batches, the pointer, a QA row and a dimension row stay unchanged. All 17 tables were empty and no advisory locks remained after cleanup.

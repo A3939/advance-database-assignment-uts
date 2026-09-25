@@ -1,6 +1,6 @@
 {
   "date": "2026-09-25",
-  "scope": "B14 recovery component validation; local delivery, no E publication or full B10 build",
+  "scope": "B14 recovery component validation; no E publication or full B10 build",
   "base_commit": "60cb7fea76ece5af9a9e32a3f0a7acf11246b951",
   "a_commit": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
   "a_migrations_match_reference_bytes": true,
@@ -27,7 +27,7 @@
     "image": "postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67"
   },
   "results": {
-    "tests": 158,
+    "tests": 165,
     "failures": 0,
     "errors": 0,
     "skipped": 0,
@@ -36,7 +36,8 @@
       "test_recovery": 72,
       "test_runner": 52,
       "test_runner_postgres": 3,
-      "test_b10_lifecycle_postgres": 8
+      "test_b10_lifecycle_postgres": 8,
+      "test_b14_verifier": 7
     },
     "pytest_exit_code": 0,
     "exit_code": 0,
@@ -57,7 +58,8 @@
     "Manifest, fingerprint and dataset mismatches refuse writes",
     "Real advisory lock, row lock timeout, READ COMMITTED and fresh-session retry",
     "COMMIT uncertainty on both durable outcomes and a real server-terminated session",
-    "Original A03 privileges, forbidden immutable-column changes and the release foreign key"
+    "Original A03 privileges, forbidden immutable-column changes and the release foreign key",
+    "Pinned A migration bytes reject matching edits to the schema and inventory before Docker or provenance output"
   ],
   "migrations": [
     {
@@ -136,7 +138,7 @@
     },
     {
       "path": "tools/verify_b14_postgres.py",
-      "sha256": "7cd71340d82794ffd458c930987636aabece5f234e453d0bedee0ccbe6358730"
+      "sha256": "d5a6f5fe1d888936c27ab085ad28d83cbbd8a766a740fb70b3788d2430af11a9"
     },
     {
       "path": "tools/verify_ac_postgres.py",
@@ -144,7 +146,7 @@
     },
     {
       "path": "docs/recovery.md",
-      "sha256": "4bd83492cd897da967cf63f34739b9da300a6e2aaff64cec09f547bca6766a47"
+      "sha256": "5a2cc8d027f27bc7d841f23c89b170faf425f522b5934ea22ae28bb9a23085c3"
     },
     {
       "path": "sql/tests/a03_database_roles.sql",
@@ -152,11 +154,15 @@
     },
     {
       "path": "docs/contributions/b14-postgres.md",
-      "sha256": "37b9efc3852dee95d577ef11de588cf022e95488394b1ef316a1420933833b57"
+      "sha256": "ae58f044e8911dd98cf7b92e62a5de78b87697b61af9bf575c628b82c440c1c2"
+    },
+    {
+      "path": "tests/test_b14_verifier.py",
+      "sha256": "da71cc0f0571d4afa79252409f4fdde2651132a2a887ca54de8007ce8f4d48e4"
     }
   ],
-  "command": "../b14-venv/bin/python tools/verify_b14_postgres.py --output ../b14-validation-final-verified",
-  "evidence_directory": "artifacts/role-b-next-20260925/b14-validation-final-verified",
+  "command": "../b14-venv/bin/python tools/verify_b14_postgres.py --output ../b14-pr19-review-verified",
+  "evidence_directory": "artifacts/role-b-next-20260925/b14-pr19-review-verified",
   "evidence": [
     {
       "path": "a03-after.log",
@@ -168,11 +174,11 @@
     },
     {
       "path": "cleanup.json",
-      "sha256": "f903d889d08cef191895db0b3dff800c227f615251c13fe857254d014be4ba3d"
+      "sha256": "524139b627241a771f046ee6623c8f3316a435e107737e319173b1244e483272"
     },
     {
       "path": "command.json",
-      "sha256": "177529d1437c918b3de494bf7360b5dd02d18d64d3badd7bcd5b9775fcb68827"
+      "sha256": "5683e3c8ad57cf3c2922ba34709970fe262b6d2e772b8b3cbc9e1fdbe23489c7"
     },
     {
       "path": "environment.json",
@@ -184,7 +190,7 @@
     },
     {
       "path": "inputs.json",
-      "sha256": "c99c9ac48efb5a2c98f86e2105119b1047400858d46b5fed72eee83bc3e66ae4"
+      "sha256": "285c58a6a05337a6a5b60f6eed2af1f3555519f94395e74f95ff88876f5f653e"
     },
     {
       "path": "migrations.log",
@@ -192,19 +198,19 @@
     },
     {
       "path": "pytest.log",
-      "sha256": "77f8339b64c172aebcf8201f8c8536f9919f94b4ed60a1bdc7116aebd0c1f8ed"
+      "sha256": "46bf6b9b75a56b85cb946b02f4970e9103e4764013767dc9dc8c678f917e482a"
     },
     {
       "path": "pytest.xml",
-      "sha256": "252416c4a1c85e1e2c98d4b0d2130bdfb7bf7727956bd9bc957510d530d43c24"
+      "sha256": "b93fec2151eeb9a4770fa7e6a3bbb257dff9fdba00bd2333fe80f4a10d524ec6"
     },
     {
       "path": "summary.json",
-      "sha256": "bf66c692ec5c5d07e1e4c0136776b9558c9c1e6b7735442d99f6eaa97877cc82"
+      "sha256": "4949dd1182a52df982968e33f0d431783d921e513a259f7be80991ea6f3a1f7c"
     }
   ],
   "cleanup": {
-    "container_removed": "arsia-b14-9ea4753aba77",
+    "container_removed": "arsia-b14-adcb1ea5efd5",
     "persistent_volume_created": false
   },
   "remaining": [
@@ -212,5 +218,11 @@
     "B freezes the final inventory and wires the complete build",
     "B repeats recovery around actual registration/publication/failure commits in that build"
   ],
-  "documentation_note": "The contribution link was added after validation; its document hash is current. Runtime, tests and verifier are unchanged."
+  "review_fix": {
+    "pr": 19,
+    "previous_commit": "dc253030048e32a13b439c18b6543786b84b23fa",
+    "issue": "Migration names and an editable inventory did not prove use of the pinned A schema",
+    "change": "Pin exact filenames and SHA-256 values before output or Docker; apply the checked bytes",
+    "new_verifier_tests": 7
+  }
 }
