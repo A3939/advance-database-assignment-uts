@@ -7,9 +7,9 @@ FP1 calculation or publication is performed here. See docs/role-c/c03-nsw.md.
 from __future__ import annotations
 
 import json
-from pathlib import Path
+from importlib.resources import files
 
-SQL_DIR = Path(__file__).resolve().parents[3] / "sql" / "projections"
+SQL_DIR = files("arsia_c.projections").joinpath("sql")
 COUNT_FIELDS = (
     "No. killed",
     "No. seriously injured",

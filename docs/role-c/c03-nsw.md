@@ -78,3 +78,41 @@ Copying Canonical CHECK constraints into temporary validation tables does not
 claim that A06 or C09 was executed. Full inventory freezing, C10 QA persistence,
 Satellite/Canonical loading and publication acceptance remain separate integration
 steps. No official production-data or full-project acceptance is claimed here.
+
+## Wheel installation fix — 25 September 2026
+
+At C revision `ad8baed`, a normal wheel install raises `FileNotFoundError`
+when C03 reads SQL. The loader expects the checkout's `sql/projections` folder.
+It now uses `importlib.resources` and includes the nine runtime SQL files under
+`src/arsia_c/projections/sql/`. The existing SQL files stay in place. Both copies
+are checked byte for byte; no SQL or business rule changed.
+
+Provenance:
+
+- Role C wrote the original C03 implementation: [first Python implementation](https://github.com/A3939/advance-database-assignment-uts/commit/19c81ab1f30d1d0f49825f730815062723a57724)
+  and [C's later revision](https://github.com/A3939/advance-database-assignment-uts/commit/4bef8834cee3c7f5b5b79fc635ba67da83730f15).
+- The current code includes the earlier [C03 review fixes](https://github.com/A3939/advance-database-assignment-uts/commit/ab63ca8c2ba6807531af4e6d4ca39dc9d4b591b5).
+- Peixian (Role B) backported the package fix from B's
+  [integration commit `53c4750`](https://github.com/A3939/advance-database-assignment-uts/commit/53c4750479542061ebeba059a3ef090d41443f4d)
+  and added the installation regression. This branch keeps C's commit history.
+
+Run with Python 3.12:
+
+```sh
+python -m pip install -r requirements-dev.txt
+python -m pytest -q tests/test_c03_nsw_projection.py tests/test_c03_packaging.py \
+  tests/test_c07_packaging.py tests/test_c45_packaging.py
+```
+
+The new test builds a wheel, installs it without dependencies into a fresh venv,
+removes the build sources, and loads all nine SQL files from an outside directory
+with `python -I`. It checks the import comes from that venv and compares every
+loaded file's SHA-256 with the reviewed SQL. C03 resource loading needs only the
+standard library. The test build uses the pinned setuptools/wheel from
+`requirements-dev.txt`; building and installing the wheel use no package index.
+
+On Python 3.12.6, the installation test failed on the unchanged C base with
+`FileNotFoundError`. After the fix, the command above passed **38 tests with
+0 skips**: 25 C03 unit cases, 10 C03 packaging cases and 3 existing packaging
+checks. PostgreSQL tests were not rerun for this packaging-only change.
+C10, C11 and full-project acceptance remain outside this fix.
