@@ -17,6 +17,7 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 arsia_c = ["sql/*.sql", "config/*.json"]
+"arsia_c.projections" = ["sql/*.sql"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
