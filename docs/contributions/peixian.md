@@ -30,10 +30,10 @@ This index links the work and its evidence. It does not estimate hours or a cont
 | [#24](https://github.com/A3939/advance-database-assignment-uts/pull/24) | Returned B's C03 resource-loading fix to C and added a clean-wheel installation regression | C |
 | [#25](https://github.com/A3939/advance-database-assignment-uts/pull/25) | Completed the C11 handoff and ran 12 PostgreSQL queries over the four full VIC originals | C |
 | [#26](https://github.com/A3939/advance-database-assignment-uts/pull/26) | Extended C's initial C10 with QA03/04/05/07, persistence, resources and database checks | C |
-| [#28](https://github.com/A3939/advance-database-assignment-uts/pull/28) | Reproduced QA07's year-coverage gap, fixed Raw year attribution, added blocking objects/evidence and sixteen database regressions; proposed to C, not yet merged | C |
+| [#28](https://github.com/A3939/advance-database-assignment-uts/pull/28) | Reproduced QA07's year-coverage gap, fixed Raw year attribution, added blocking objects/evidence and sixteen database regressions; merged into C | C |
 
 PR #5 has JJ's Approved review. PR #6 has D's Approved review, submitted after its merge.
-PRs #4–#26 listed above were merged; PR #28 is open for C review. This record does not claim other formal approvals.
+PRs #4–#26 listed above and PR #28 were merged. Peixian merged PR #28 with C's agreement, as confirmed by Peixian; no formal GitHub Approved review was submitted for it. This record does not claim other formal approvals.
 
 ## Integration and validation
 

@@ -43,7 +43,7 @@
     },
     "c10": {
       "branch": "yue/role-c",
-      "checked_head": "9697c9f65b35477b03d5d05e0adc00bf15235e2c",
+      "checked_head": "6987e604bb93809aa94a736085c3e8320452461d",
       "implementation_commit": "3f6c94795ee0fc8ec0f17903f23fd4a85b5646ac",
       "merge_commit": "cd576d05c09d796d111d3c37b0321e11d510dda7",
       "pr": "https://github.com/A3939/advance-database-assignment-uts/pull/26",
@@ -63,12 +63,13 @@
         "src/arsia_c/config/vic-restricted-inputs-v1.json",
         "src/arsia_c/config/vic-restricted-use-v1.json"
       ],
-      "note": "qa.py and qa_expectations.py match the recorded fix commit; the other 12 imported files match checked_head. Existing projection/Canonical versions are unchanged.",
+      "note": "All 14 imported files match checked_head after PR #28. Existing projection/Canonical versions are unchanged.",
       "fix_commit": "c3fbbd45f6d5511e89cee7083f80a42c8347b6f1",
       "fix_branch": "peixian/c10-year-coverage",
-      "fix_status": "Proposed to C; not merged into yue/role-c",
+      "fix_status": "Merged into yue/role-c via PR #28",
       "fix_pr": "https://github.com/A3939/advance-database-assignment-uts/pull/28",
-      "year_range_fix_commit": "975d8b6456d3e31cf711e48dd7c449610db0dc0d"
+      "year_range_fix_commit": "975d8b6456d3e31cf711e48dd7c449610db0dc0d",
+      "fix_merge_commit": "6987e604bb93809aa94a736085c3e8320452461d"
     }
   },
   "bindings": {
