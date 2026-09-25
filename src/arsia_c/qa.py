@@ -13,7 +13,7 @@ from .qa_expectations import Source, coordinate, different, reference, missing_r
 from .person_checks import review_manifest
 from .restricted_person import restricted_inputs
 
-PRODUCER_VERSION = "c10-role-c-v1"
+PRODUCER_VERSION = "c10-role-c-v1.1"
 RULES = ("QA03_PROJECTED", "QA04_AUXILIARY", "QA05_SEMANTICS", "QA07_LOCATION")
 
 
@@ -760,7 +760,9 @@ def qa07(source, year, crashes, facts):
                             expected=w["_location_reason"],
                         )
         for crash_key, extra in grouped.items():
-            findings.add(label + ":" + crash_key, "unexpected_crash", actual=extra)
+            reason = "unexpected_crash" if source.in_scope(year) else "outside_analysis_year"
+            findings.add(label + ":" + crash_key, reason, actual=extra,
+                         analysis=source.manifest["analysis"])
     for w in wanted:
         if not w["map_eligible"]:
             detail.append(
@@ -972,9 +974,13 @@ def evaluate(connection, manifest, batch_id):
                     qa04(source, file, persons.get(file["resource_id"]), restriction)
                 )
         rows.append(qa05(source, projected, crashes, units, restriction))
-        for year in range(
+        years = set(range(
             manifest["analysis"]["year_from"], manifest["analysis"]["year_to"] + 1
-        ):
+        ))
+        # Inspect actual years too; out-of-scope stored rows must not disappear.
+        years.update(r["occurrence_year"] for records in (crashes, facts) for r in records
+                     if r["source_id"] == source.sid)
+        for year in sorted(years):
             rows.append(qa07(source, year, crashes, facts))
     selected = {s.sid for s in sources}
     unexpected = [
