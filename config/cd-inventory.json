@@ -63,11 +63,12 @@
         "src/arsia_c/config/vic-restricted-inputs-v1.json",
         "src/arsia_c/config/vic-restricted-use-v1.json"
       ],
-      "note": "C10 QA07 uses the recorded fix commit; the other 13 imported files match checked_head. Existing projection/Canonical versions are unchanged.",
-      "fix_commit": "975d8b6456d3e31cf711e48dd7c449610db0dc0d",
+      "note": "qa.py and qa_expectations.py match the recorded fix commit; the other 12 imported files match checked_head. Existing projection/Canonical versions are unchanged.",
+      "fix_commit": "c3fbbd45f6d5511e89cee7083f80a42c8347b6f1",
       "fix_branch": "peixian/c10-year-coverage",
       "fix_status": "Proposed to C; not merged into yue/role-c",
-      "fix_pr": "https://github.com/A3939/advance-database-assignment-uts/pull/28"
+      "fix_pr": "https://github.com/A3939/advance-database-assignment-uts/pull/28",
+      "year_range_fix_commit": "975d8b6456d3e31cf711e48dd7c449610db0dc0d"
     }
   },
   "bindings": {
@@ -99,7 +100,7 @@
     "qa_c": {
       "callback": "arsia_c.qa:runner_callback",
       "code_path": "src/arsia_c/qa.py",
-      "version": "c10-role-c-v1.1"
+      "version": "c10-role-c-v1.2"
     }
   },
   "components": {
@@ -377,11 +378,11 @@
     },
     {
       "path": "src/arsia_c/qa.py",
-      "sha256": "73b6ffd94880d3c79228a68800ef9433f53f57dbc72b338a68f12b0b28ac6405"
+      "sha256": "b20de487502274113713e45ed2584a622fd0f5d9070061890f963ff642422190"
     },
     {
       "path": "src/arsia_c/qa_expectations.py",
-      "sha256": "aff6166536aed507ffacc97b3750226fc02f61228dd114e704c0fba18d3293d8"
+      "sha256": "d78d1e82c5404055c987d2c30fce6e641beb01bd5af131046d34227f4e215564"
     },
     {
       "path": "src/arsia_c/restricted_person.py",
@@ -489,7 +490,7 @@
     },
     {
       "path": "src/arsia_ingest/components.py",
-      "sha256": "fa6341e1bcd12e83987ab160ca70fb444271590242c5edef8799b934adb7933c"
+      "sha256": "cff2a922877a7b343e878e471f3390a4181a07aba89a743b99adbcec7607c27d"
     },
     {
       "path": "src/arsia_ingest/config.py",
@@ -606,7 +607,7 @@
     "test_driver": "psycopg[binary]==3.3.6 in requirements-db.txt",
     "new_external_packages": [],
     "qa_c": {
-      "version": "c10-role-c-v1.1",
+      "version": "c10-role-c-v1.2",
       "runtime_requirements": "No new external packages; C06 code, SQL and policy files are included",
       "input_stages": [
         "C03/C04/C05/C07 temporary projections",

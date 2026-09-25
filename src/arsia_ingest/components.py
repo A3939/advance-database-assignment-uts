@@ -20,7 +20,7 @@ BINDING_SPECS = {
     "dw": ("arsia_d03.facts:runner_callback",
            "src/arsia_d03/facts.py", "d03-337101f"),
     "qa_c": ("arsia_c.qa:runner_callback",
-             "src/arsia_c/qa.py", "c10-role-c-v1.1"),
+             "src/arsia_c/qa.py", "c10-role-c-v1.2"),
     "qa_d": ("arsia_d04.reconciliation:runner_callback",
              "src/arsia_d04/reconciliation.py", "d04-daa9e57"),
 }

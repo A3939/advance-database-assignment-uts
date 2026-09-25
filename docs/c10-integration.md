@@ -9,10 +9,10 @@ B now installs C10 and returns its real `qa_c` binding from `arsia_ingest.compon
 | B base | `b51dc2860f50feb9ea52d4336f7bfaa1db5471fb` |
 | Checked C branch | `9697c9f65b35477b03d5d05e0adc00bf15235e2c` |
 | C10 implementation from merged [PR #26](https://github.com/A3939/advance-database-assignment-uts/pull/26) | `3f6c94795ee0fc8ec0f17903f23fd4a85b5646ac` |
-| QA07 fix proposed in [PR #28](https://github.com/A3939/advance-database-assignment-uts/pull/28) | `975d8b6456d3e31cf711e48dd7c449610db0dc0d` |
+| QA07 fix proposed in [PR #28](https://github.com/A3939/advance-database-assignment-uts/pull/28) | `975d8b6` (range), `c3fbbd4` (Raw attribution) |
 | A schema | `c0824da06b6e7b3f73c4ddeab2114d10b7156913`, migrations 001–011 |
 
-Role C wrote the original C10 in [7bfb08e](https://github.com/A3939/advance-database-assignment-uts/commit/7bfb08ee4b3b0740e554ae89c6286c39db17ead2), [ba65982](https://github.com/A3939/advance-database-assignment-uts/commit/ba659821e3c60dcd5629fcc3dacd9acf1c9239a0) and [b0626ea](https://github.com/A3939/advance-database-assignment-uts/commit/b0626ea552de6c42835cc4b6497ef6662c2d7715), and C06 in [c816f5b](https://github.com/A3939/advance-database-assignment-uts/commit/c816f5b48ffe0afccc8d6702b9b2b208073eeeb9). Peixian added the C10 implementation and validation in PR #26. This delivery imports that merged code into B, adapts the binding and inventory, and checks the installed interfaces. The QA07 year-coverage fix is now included as cherry-pick `02ee910` from `975d8b6`, with the original commit reference. PR #28 proposes it to C; it is not yet merged into `yue/role-c`.
+Role C wrote the original C10 in [7bfb08e](https://github.com/A3939/advance-database-assignment-uts/commit/7bfb08ee4b3b0740e554ae89c6286c39db17ead2), [ba65982](https://github.com/A3939/advance-database-assignment-uts/commit/ba659821e3c60dcd5629fcc3dacd9acf1c9239a0) and [b0626ea](https://github.com/A3939/advance-database-assignment-uts/commit/b0626ea552de6c42835cc4b6497ef6662c2d7715), and C06 in [c816f5b](https://github.com/A3939/advance-database-assignment-uts/commit/c816f5b48ffe0afccc8d6702b9b2b208073eeeb9). Peixian added the C10 implementation and validation in PR #26. This delivery imports that merged code into B, adapts the binding and inventory, and checks the installed interfaces. The QA07 fixes are included as cherry-picks `02ee910` from `975d8b6` and `e13b10a` from `c3fbbd4`, preserving both original commit references. PR #28 proposes it to C; it is not yet merged into `yue/role-c`.
 
 ## Installation and binding
 
@@ -24,11 +24,11 @@ modules = BuildModules(**bindings())
 # modules.qa_c is available. modules.publish is still None.
 ```
 
-- Callback: `arsia_c.qa:runner_callback`; path: `src/arsia_c/qa.py`; version: `c10-role-c-v1.1`.
+- Callback: `arsia_c.qa:runner_callback`; path: `src/arsia_c/qa.py`; version: `c10-role-c-v1.2`.
 - Supporting code: `qa_expectations.py`, `person_checks.py` and `restricted_person.py` in `src/arsia_c/`.
 - Resources: five `c10_*.sql` files plus `c06_vic_person_checks.sql` under `src/arsia_c/sql/`; C06 and VIC policies under `src/arsia_c/config/`.
 - Existing package-data rules include these resources. No new external dependency is needed.
-- [`cd-inventory.json`](../config/cd-inventory.json) records 77 code/dependency files and 11 schema files. Both C10 and D04 belong to its `qa` component. Thirteen C10/C06 input files match the checked C branch; `qa.py` matches the recorded QA07 fix commit. Two existing VIC policy files were reused unchanged.
+- [`cd-inventory.json`](../config/cd-inventory.json) records 77 code/dependency files and 11 schema files. Both C10 and D04 belong to its `qa` component. Twelve C10/C06 input files match the checked C branch; `qa.py` and `qa_expectations.py` match the recorded QA07 fix commit. Two existing VIC policy files were reused unchanged.
 
 Pass B's `ModuleConnection` and `RunContext`, with a real `FrozenManifest` and `context.evidence.for_stage("qa_c")`. The persisted running batch must match the context. C10 refuses duplicate results. It raises `C10_BLOCK` after writing diagnostics when it finds a blocking difference; the caller rolls back database writes while keeping file evidence.
 
@@ -54,16 +54,16 @@ The [current receipt](evidence/c10-year-coverage-2026-09-25.json) records the fi
 
 | Run | Passed | Skipped | Failed |
 |---|---:|---:|---:|
-| Installed default regression, including clean-wheel test | 734 | 324 | 0 |
-| Focused PostgreSQL/interface regression | 78 | 0 | 0 |
+| Installed default regression, including clean-wheel test | 734 | 330 | 0 |
+| Focused PostgreSQL/interface regression | 84 | 0 | 0 |
 
-The second run contains 15 C10 database tests (5 interface and 10 year-coverage cases), 6 existing C/D database tests, 1 full-build preflight check, 4 inventory checks and 52 runner unit tests. These totals overlap with the default run. Default skips need a database or optional official archives.
+The second run contains 21 C10 database tests (5 interface and 16 year-coverage cases), 6 existing C/D database tests, 1 full-build preflight check, 4 inventory checks and 52 runner unit tests. These totals overlap with the default run. Default skips need a database or optional official archives.
 
 S0 uses B's real definitions: 3 sources, 60 months and 12 severity definitions, including `__MISSING__`. C10 wrote 27 object results and 4 summaries. Two location objects remained `limited`, as expected. The tests checked context rejection, repeat-call rejection, blocking evidence, append-only grants and caller rollback. They used PostgreSQL 16.15, unchanged A03 `arsia_loader` permissions and byte-matched A migrations. All 17 persistent tables were empty after cleanup; the private container was removed.
 
 The test manifest is a real `FrozenManifest` with a **partial** inventory. It is not the final platform freeze. Official VIC/QLD archives were not replayed in this delivery; earlier C10 evidence remains in PR #26.
 
-The year regression first recorded 71 passes and 7 failures: QA07 omitted extra 2019/2025 rows, although QA05 already blocked those cases. The patch adds located QA07 blocks and retains legal boundaries, complete Raw and other-batch history. This does not demonstrate a former full C10 bypass.
+The year regression first recorded 71 passes and 7 failures: QA07 omitted extra 2019/2025 rows, although QA05 already blocked those cases. The patch adds located QA07 blocks and retains legal boundaries, complete Raw and other-batch history. This does not demonstrate a former full C10 bypass. Six further cases reproduced invalid Raw being counted in every year. These now appear once in their native year or one blocking `unknown_year:<source_id>` diagnostic; unrelated empty years stay clear.
 
 Next work:
 
