@@ -1,0 +1,68 @@
+{
+  "checked_at_utc": "2026-09-18T04:12:49.782999+00:00",
+  "branch": "peixian/dev",
+  "base_commit": "ed50938017dd24ba00c90d9c681a5510b47493b9",
+  "scope": "B08 Python registration and native Raw loader; no migrations, batch lifecycle, QA results or publication",
+  "tests": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -q -p no:cacheprovider",
+    "exit_code": 0,
+    "result": "184 passed, 8 skipped in 1.35s",
+    "existing_tests_passed": 153,
+    "new_scripted_connection_tests_passed": 31,
+    "real_postgresql_tests_skipped": 8
+  },
+  "database_validation": {
+    "status": "NOT_RUN",
+    "reason": "No current A migration/loader connection or ARSIA_TEST_DSN; project environment has no PostgreSQL driver and Docker daemon is unavailable.",
+    "shared_raw_resources_loaded": [],
+    "not_verified": [
+      "SQL execution and database constraints",
+      "actual loader privileges",
+      "persistent inserts and UUID reuse across commits",
+      "concurrent loading",
+      "real transaction rollback",
+      "official full-file loading"
+    ],
+    "test_entry": "tests/test_raw_load_postgres.py",
+    "test_behavior": "No DSN skips before driver import. An explicitly configured but unusable environment fails. Tests use unique synthetic namespaces and roll back, without DDL."
+  },
+  "implemented": [
+    "Source/resource registration reuses identical rows and rejects conflicting metadata.",
+    "Raw INSERT uses the four-column native identity; conflict lookup compares source and JSONB payload before returning an existing UUID.",
+    "No UPDATE/DELETE of Raw payload, UUID or first-ingest time.",
+    "All payload fields remain text or null, with distinct native row locators and official/synthetic namespaces.",
+    "Prepared loading validates receipt/archive/JSONL integrity and streams rows without committing.",
+    "Autocommit connections are rejected; connection owner must roll back on any error and owns all commits."
+  ],
+  "a_inputs_needed": [
+    "Approved PostgreSQL 16 UTF8/UTC test environment and connection instructions.",
+    "Current numbered migrations/revision including meta.source, meta.resource and raw.record with the contracted keys and foreign keys.",
+    "Loader role connection with schema USAGE and required SELECT/INSERT privileges.",
+    "Pinned Python driver and shared connection convention; opt-in tests target Psycopg 3."
+  ],
+  "checks": {
+    "git_diff_check": true,
+    "new_file_trailing_whitespace_check": true,
+    "local_document_links": true,
+    "index_empty": true,
+    "preexisting_untracked_file_unchanged": true
+  },
+  "preserved_untracked_file": {
+    "path": "docs/sources/evidence/vic/local-profile-2026-09-17.json",
+    "sha256": "4979014576b956ddadf3f6c99ef78649db882dbabc5cd804d8c33b9029a0bd25"
+  },
+  "file_hashes": {
+    "src/arsia_ingest/raw_load.py": "7d5fbc8af504dd4916a3083797beb1aa692234b0026ffd1983e254f72c4787e0",
+    "tests/test_raw_load.py": "796c4d46c43be89097d2af316abbf7f3b9fb7d6a959fe4b06db0e6007019a51f",
+    "tests/test_raw_load_postgres.py": "4288e332e61f77055f434614bbca97997472e666a31b5b8d9888f9ae2e23188a",
+    "docs/raw-loading.md": "560ada8560af6184f1a3ba40b915cf886049c4f03fb980bd5992124997f748a2",
+    "docs/native-intake.md": "4ce0eca723cc2a4ba95d3dd7859d5051bbefa80e11af154e2137d53f19a25a64",
+    "README.md": "2af536ec305dc2f5acb76f26980c9bd8ddd3eb5fc6826f9e09f0989c493274c1"
+  },
+  "notes": [
+    "No dependencies or database were installed or started. No official full intake was regenerated.",
+    "No commit/push, website, Vercel or progress-board operation was performed.",
+    "Mock query replies are not a database implementation; passing unit tests do not establish that Raw rows exist.",
+    "This receipt is excluded from its own hash list."
+  ]
+}

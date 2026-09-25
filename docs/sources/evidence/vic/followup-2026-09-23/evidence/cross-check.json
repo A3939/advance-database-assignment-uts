@@ -1,0 +1,1644 @@
+{
+  "checked_at_utc": "2026-09-23T04:46:18.527980+00:00",
+  "scope": "Evidence consistency checks; no source approval, C02 sign-off, SQL QA or CRS transformation",
+  "checks": [
+    {
+      "check": "api-replay.json:current_package: saved body intact",
+      "passed": true
+    },
+    {
+      "check": "api-replay.json:current_package: API success",
+      "passed": true
+    },
+    {
+      "check": "api-replay.json:accident_cases: saved body intact",
+      "passed": true
+    },
+    {
+      "check": "api-replay.json:accident_cases: API success",
+      "passed": true
+    },
+    {
+      "check": "api-replay.json:accident_cases: complete selected response",
+      "passed": true
+    },
+    {
+      "check": "api-replay.json:accident_cases: rows match request",
+      "passed": true
+    },
+    {
+      "check": "api-replay.json:vehicle_cases: saved body intact",
+      "passed": true
+    },
+    {
+      "check": "api-replay.json:vehicle_cases: API success",
+      "passed": true
+    },
+    {
+      "check": "api-replay.json:vehicle_cases: complete selected response",
+      "passed": true
+    },
+    {
+      "check": "api-replay.json:vehicle_cases: rows match request",
+      "passed": true
+    },
+    {
+      "check": "api-replay.json:person_cases: saved body intact",
+      "passed": true
+    },
+    {
+      "check": "api-replay.json:person_cases: API success",
+      "passed": true
+    },
+    {
+      "check": "api-replay.json:person_cases: complete selected response",
+      "passed": true
+    },
+    {
+      "check": "api-replay.json:person_cases: rows match request",
+      "passed": true
+    },
+    {
+      "check": "api-replay.json:node_cases: saved body intact",
+      "passed": true
+    },
+    {
+      "check": "api-replay.json:node_cases: API success",
+      "passed": true
+    },
+    {
+      "check": "api-replay.json:node_cases: complete selected response",
+      "passed": true
+    },
+    {
+      "check": "api-replay.json:node_cases: rows match request",
+      "passed": true
+    },
+    {
+      "check": "api-replay.json:flat_cases: saved body intact",
+      "passed": true
+    },
+    {
+      "check": "api-replay.json:flat_cases: API success",
+      "passed": true
+    },
+    {
+      "check": "api-replay.json:flat_cases: complete selected response",
+      "passed": true
+    },
+    {
+      "check": "api-replay.json:flat_cases: rows match request",
+      "passed": true
+    },
+    {
+      "check": "api-extra.json:person_blank_and_linked_pedestrian: saved body intact",
+      "passed": true
+    },
+    {
+      "check": "api-extra.json:person_blank_and_linked_pedestrian: API success",
+      "passed": true
+    },
+    {
+      "check": "api-extra.json:person_blank_and_linked_pedestrian: complete selected response",
+      "passed": true
+    },
+    {
+      "check": "api-extra.json:person_blank_and_linked_pedestrian: rows match request",
+      "passed": true
+    },
+    {
+      "check": "api-extra.json:vehicle_blank_and_linked_pedestrian: saved body intact",
+      "passed": true
+    },
+    {
+      "check": "api-extra.json:vehicle_blank_and_linked_pedestrian: API success",
+      "passed": true
+    },
+    {
+      "check": "api-extra.json:vehicle_blank_and_linked_pedestrian: complete selected response",
+      "passed": true
+    },
+    {
+      "check": "api-extra.json:vehicle_blank_and_linked_pedestrian: rows match request",
+      "passed": true
+    },
+    {
+      "check": "api-extra.json:vehicle_type21: saved body intact",
+      "passed": true
+    },
+    {
+      "check": "api-extra.json:person_type16: saved body intact",
+      "passed": true
+    },
+    {
+      "check": "api-extra.json:accident_location_cases: saved body intact",
+      "passed": true
+    },
+    {
+      "check": "api-extra.json:accident_location_cases: API success",
+      "passed": true
+    },
+    {
+      "check": "api-extra.json:accident_location_cases: complete selected response",
+      "passed": true
+    },
+    {
+      "check": "api-extra.json:accident_location_cases: rows match request",
+      "passed": true
+    },
+    {
+      "check": "api-types.json:vehicle_type21: saved body intact",
+      "passed": true
+    },
+    {
+      "check": "api-types.json:vehicle_type21: API success",
+      "passed": true
+    },
+    {
+      "check": "api-types.json:vehicle_type21: complete selected response",
+      "passed": true
+    },
+    {
+      "check": "api-types.json:vehicle_type21: rows match request",
+      "passed": true
+    },
+    {
+      "check": "api-types.json:person_type16: saved body intact",
+      "passed": true
+    },
+    {
+      "check": "api-types.json:person_type16: API success",
+      "passed": true
+    },
+    {
+      "check": "api-types.json:person_type16: complete selected response",
+      "passed": true
+    },
+    {
+      "check": "api-types.json:person_type16: rows match request",
+      "passed": true
+    },
+    {
+      "check": "source-retrieval.json:datavic_package: saved body intact",
+      "passed": true
+    },
+    {
+      "check": "source-retrieval.json:datavic_package: API success",
+      "passed": true
+    },
+    {
+      "check": "source-retrieval.json:national_package: saved body intact",
+      "passed": true
+    },
+    {
+      "check": "source-retrieval.json:national_package: API success",
+      "passed": true
+    },
+    {
+      "check": "source-retrieval.json:statistics_support: saved body intact",
+      "passed": true
+    },
+    {
+      "check": "source-retrieval.json:legacy_guide: saved body intact",
+      "passed": true
+    },
+    {
+      "check": "source-retrieval.json:legacy_guide_http: saved body intact",
+      "passed": true
+    },
+    {
+      "check": "source-retrieval.json:legacy_uguide: saved body intact",
+      "passed": true
+    },
+    {
+      "check": "Fresh full-file review matches historical content except timestamp",
+      "passed": true
+    },
+    {
+      "check": "Original files unchanged during fresh scan",
+      "passed": true
+    },
+    {
+      "check": "All 39 selected unmatched references still present and unmatched",
+      "passed": true
+    },
+    {
+      "check": "All 85 selected missing Nodes still missing",
+      "passed": true
+    },
+    {
+      "check": "All 12 previous flat comparisons still numerically equal",
+      "passed": true
+    },
+    {
+      "check": "person: current CSV SHA256",
+      "passed": true
+    },
+    {
+      "check": "person_blank_and_linked_pedestrian: complete row multiset equals pinned CSV",
+      "passed": true
+    },
+    {
+      "check": "person_type16: complete row multiset equals pinned CSV",
+      "passed": true
+    },
+    {
+      "check": "person: CSV unchanged after comparison",
+      "passed": true
+    },
+    {
+      "check": "vehicle: current CSV SHA256",
+      "passed": true
+    },
+    {
+      "check": "vehicle_blank_and_linked_pedestrian: complete row multiset equals pinned CSV",
+      "passed": true
+    },
+    {
+      "check": "vehicle_type21: complete row multiset equals pinned CSV",
+      "passed": true
+    },
+    {
+      "check": "vehicle: CSV unchanged after comparison",
+      "passed": true
+    },
+    {
+      "check": "Accident Location: one row per requested crash",
+      "passed": true
+    },
+    {
+      "check": "T20160020719: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20130003022: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20180021544: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20120001369: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20220001453: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20120013485: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20120026078: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20130002446: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20200004272: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20120009365: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20130000413: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20190001603: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20180014906: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20130000490: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20130000123: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20120022939: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20160004785: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20160023892: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20190020200: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20190019204: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20130006785: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20120015834: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20190023155: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20190014761: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20120008664: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20120023231: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20120005932: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20170008557: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20120013498: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20190013545: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20190014790: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20130000229: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20130004480: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20120015209: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20190010303: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20120013217: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20120017610: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20180023958: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20120023489: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20190000288: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20210011134: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20180011668: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20210006755: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20170018084: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20190002378: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20120012969: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20130002101: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20120028352: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20120002126: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20180010144: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20120028739: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20180018467: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20190004398: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20120006036: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20130004031: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20160004863: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20160010393: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20180021724: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20210009023: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20180008786: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20190023830: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20120020447: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20120008772: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20170011059: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20120024642: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20170015401: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20170012528: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20180001074: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20120025845: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20130001439: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20180006480: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20120029106: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20210011215: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20190020942: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20190010646: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20120013446: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20120014619: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20180010627: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20190016778: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20190006335: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20170001868: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20220007387: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20180002775: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20190019560: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20180005086: same negative Node in Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20140014662: positive Node agrees with Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20120001597: positive Node agrees with Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20120016400: positive Node agrees with Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20120026563: positive Node agrees with Accident Location",
+      "passed": true
+    },
+    {
+      "check": "T20140015844: positive Node agrees with Accident Location",
+      "passed": true
+    }
+  ],
+  "passed": 156,
+  "retained_failed_requests": [
+    {
+      "file": "api-extra.json",
+      "label": "vehicle_type21",
+      "http_status": 409,
+      "error": ""
+    },
+    {
+      "file": "api-extra.json",
+      "label": "person_type16",
+      "http_status": 409,
+      "error": ""
+    },
+    {
+      "file": "source-retrieval.json",
+      "label": "legacy_guide",
+      "http_status": 0,
+      "error": "curl: (6) Could not resolve host: data.vicroads.vic.gov.au\n"
+    },
+    {
+      "file": "source-retrieval.json",
+      "label": "legacy_guide_http",
+      "http_status": 0,
+      "error": "curl: (6) Could not resolve host: data.vicroads.vic.gov.au\n"
+    },
+    {
+      "file": "source-retrieval.json",
+      "label": "legacy_uguide",
+      "http_status": 0,
+      "error": "curl: (28) Connection timed out after 35003 milliseconds\n"
+    }
+  ],
+  "local_review_matches_history": true,
+  "additional_selections": {
+    "person_blank_and_linked_pedestrian": {
+      "local_rows": 136,
+      "api_rows": 136
+    },
+    "person_type16": {
+      "local_rows": 425,
+      "api_rows": 425
+    },
+    "vehicle_blank_and_linked_pedestrian": {
+      "local_rows": 85,
+      "api_rows": 85
+    },
+    "vehicle_type21": {
+      "local_rows": 454,
+      "api_rows": 454
+    }
+  },
+  "negative_nodes_in_accident_location": [
+    {
+      "accident_no": "T20160020719",
+      "node_id": "-1",
+      "api_id": 102181,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20130003022",
+      "node_id": "-10",
+      "api_id": 4340,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20180021544",
+      "node_id": "-1",
+      "api_id": 110313,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20120001369",
+      "node_id": "-3",
+      "api_id": 147819,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20220001453",
+      "node_id": "-1",
+      "api_id": 156951,
+      "scope": "2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20120013485",
+      "node_id": "-10",
+      "api_id": 157424,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20120026078",
+      "node_id": "-10",
+      "api_id": 99717,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20130002446",
+      "node_id": "-10",
+      "api_id": 51785,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20200004272",
+      "node_id": "-1",
+      "api_id": 771,
+      "scope": "2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20120009365",
+      "node_id": "-10",
+      "api_id": 161142,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20130000413",
+      "node_id": "-10",
+      "api_id": 109805,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20190001603",
+      "node_id": "-1",
+      "api_id": 156701,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20180014906",
+      "node_id": "-1",
+      "api_id": 150877,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20130000490",
+      "node_id": "-10",
+      "api_id": 110811,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20130000123",
+      "node_id": "-10",
+      "api_id": 59658,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20120022939",
+      "node_id": "-10",
+      "api_id": 101932,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20160004785",
+      "node_id": "-1",
+      "api_id": 3606,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20160023892",
+      "node_id": "-1",
+      "api_id": 58110,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20190020200",
+      "node_id": "-1",
+      "api_id": 250,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20190019204",
+      "node_id": "-1",
+      "api_id": 53500,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20130006785",
+      "node_id": "-10",
+      "api_id": 58921,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20120015834",
+      "node_id": "-10",
+      "api_id": 159939,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20190023155",
+      "node_id": "-1",
+      "api_id": 60427,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20190014761",
+      "node_id": "-1",
+      "api_id": 55245,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20120008664",
+      "node_id": "-10",
+      "api_id": 153699,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20120023231",
+      "node_id": "-10",
+      "api_id": 51045,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20120005932",
+      "node_id": "-10",
+      "api_id": 152929,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20170008557",
+      "node_id": "-1",
+      "api_id": 161416,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20120013498",
+      "node_id": "-10",
+      "api_id": 104757,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20190013545",
+      "node_id": "-1",
+      "api_id": 6321,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20190014790",
+      "node_id": "-1",
+      "api_id": 12008,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20130000229",
+      "node_id": "-10",
+      "api_id": 101663,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20130004480",
+      "node_id": "-10",
+      "api_id": 109273,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20120015209",
+      "node_id": "-10",
+      "api_id": 108540,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20190010303",
+      "node_id": "-1",
+      "api_id": 102923,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20120013217",
+      "node_id": "-10",
+      "api_id": 6812,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20120017610",
+      "node_id": "-10",
+      "api_id": 54502,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20180023958",
+      "node_id": "-1",
+      "api_id": 111319,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20120023489",
+      "node_id": "-10",
+      "api_id": 150108,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20190000288",
+      "node_id": "-1",
+      "api_id": 108541,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20210011134",
+      "node_id": "-1",
+      "api_id": 156702,
+      "scope": "2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20180011668",
+      "node_id": "-1",
+      "api_id": 111320,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20210006755",
+      "node_id": "-1",
+      "api_id": 2835,
+      "scope": "2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20170018084",
+      "node_id": "-1",
+      "api_id": 103688,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20190002378",
+      "node_id": "-1",
+      "api_id": 54504,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20120012969",
+      "node_id": "-10",
+      "api_id": 57604,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20130002101",
+      "node_id": "-10",
+      "api_id": 156440,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20120028352",
+      "node_id": "-10",
+      "api_id": 7575,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20120002126",
+      "node_id": "-10",
+      "api_id": 100175,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20180010144",
+      "node_id": "-1",
+      "api_id": 160181,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20120028739",
+      "node_id": "-10",
+      "api_id": 59154,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20180018467",
+      "node_id": "-1",
+      "api_id": 12007,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20190004398",
+      "node_id": "-1",
+      "api_id": 109049,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20120006036",
+      "node_id": "-10",
+      "api_id": 6811,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20130004031",
+      "node_id": "-10",
+      "api_id": 55529,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20160004863",
+      "node_id": "-1",
+      "api_id": 156700,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20160010393",
+      "node_id": "-1",
+      "api_id": 5611,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20180021724",
+      "node_id": "-1",
+      "api_id": 60676,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20210009023",
+      "node_id": "-1",
+      "api_id": 9525,
+      "scope": "2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20180008786",
+      "node_id": "-1",
+      "api_id": 2335,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20190023830",
+      "node_id": "-1",
+      "api_id": 506,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20120020447",
+      "node_id": "-10",
+      "api_id": 10266,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20120008772",
+      "node_id": "-10",
+      "api_id": 59906,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20170011059",
+      "node_id": "-1",
+      "api_id": 58624,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20120024642",
+      "node_id": "-10",
+      "api_id": 50782,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20170015401",
+      "node_id": "-1",
+      "api_id": 1017,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20170012528",
+      "node_id": "-1",
+      "api_id": 110312,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20180001074",
+      "node_id": "-1",
+      "api_id": 62173,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20120025845",
+      "node_id": "-10",
+      "api_id": 59155,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20130001439",
+      "node_id": "-10",
+      "api_id": 159940,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20180006480",
+      "node_id": "-1",
+      "api_id": 56546,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20120029106",
+      "node_id": "-10",
+      "api_id": 108271,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20210011215",
+      "node_id": "-1",
+      "api_id": 153700,
+      "scope": "2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20190020942",
+      "node_id": "-1",
+      "api_id": 101148,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20190010646",
+      "node_id": "-1",
+      "api_id": 160180,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20120013446",
+      "node_id": "-10",
+      "api_id": 109804,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20120014619",
+      "node_id": "-10",
+      "api_id": 12006,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20180010627",
+      "node_id": "-1",
+      "api_id": 54503,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20190016778",
+      "node_id": "-1",
+      "api_id": 55530,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20190006335",
+      "node_id": "-1",
+      "api_id": 160418,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20170001868",
+      "node_id": "-1",
+      "api_id": 54246,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20220007387",
+      "node_id": "-1",
+      "api_id": 56547,
+      "scope": "2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20180002775",
+      "node_id": "-1",
+      "api_id": 100176,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20190019560",
+      "node_id": "-1",
+      "api_id": 8051,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    },
+    {
+      "accident_no": "T20180005086",
+      "node_id": "-1",
+      "api_id": 103200,
+      "scope": "outside_2020-2024",
+      "road_name": null,
+      "road_name_int": null
+    }
+  ],
+  "duplicate_node_examples": [
+    {
+      "accident_no": "T20140014662",
+      "node_id": "273173",
+      "node_rows": 4,
+      "accident_location_rows": 1,
+      "lga_names": {
+        "MELBOURNE": 4
+      },
+      "node_locators": [
+        "csv:140",
+        "csv:1430",
+        "csv:398965",
+        "csv:400622"
+      ],
+      "location_api_id": 166182
+    },
+    {
+      "accident_no": "T20120001597",
+      "node_id": "273420",
+      "node_rows": 4,
+      "accident_location_rows": 1,
+      "lga_names": {
+        "ALPINE": 4
+      },
+      "node_locators": [
+        "csv:253",
+        "csv:1543",
+        "csv:398966",
+        "csv:400623"
+      ],
+      "location_api_id": 119925
+    },
+    {
+      "accident_no": "T20120016400",
+      "node_id": "273630",
+      "node_rows": 4,
+      "accident_location_rows": 1,
+      "lga_names": {
+        "BASS COAST": 4
+      },
+      "node_locators": [
+        "csv:323",
+        "csv:1613",
+        "csv:398967",
+        "csv:400624"
+      ],
+      "location_api_id": 128410
+    },
+    {
+      "accident_no": "T20120026563",
+      "node_id": "273951",
+      "node_rows": 4,
+      "accident_location_rows": 1,
+      "lga_names": {
+        "MELBOURNE": 4
+      },
+      "node_locators": [
+        "csv:450",
+        "csv:1740",
+        "csv:398968",
+        "csv:400625"
+      ],
+      "location_api_id": 162033
+    },
+    {
+      "accident_no": "T20140015844",
+      "node_id": "274063",
+      "node_rows": 4,
+      "accident_location_rows": 1,
+      "lga_names": {
+        "YARRA RANGES": 4
+      },
+      "node_locators": [
+        "csv:488",
+        "csv:1778",
+        "csv:398969",
+        "csv:400626"
+      ],
+      "location_api_id": 165623
+    }
+  ],
+  "metadata": {
+    "current_package": [
+      {
+        "name": "Accident",
+        "id": "20772c1a-8b19-424a-a733-eb84f725f611",
+        "dataset_last_updated_date": "2026-09-14T00:00:00",
+        "reporting_period_start": "2012-01-01T00:00:00",
+        "reporting_period_end": "2026-01-31T00:00:00",
+        "geographic_coordinate_system": null,
+        "hash": "a0c3eabacfd18c62f092e63d336e1aec",
+        "datastore_contains_all_records_of_source_file": true
+      },
+      {
+        "name": "Vehicle",
+        "id": "6d0b21f7-583a-4991-a168-f15a70c13ec4",
+        "dataset_last_updated_date": "2026-08-10T00:00:00",
+        "reporting_period_start": "2012-01-01T00:00:00",
+        "reporting_period_end": "2025-12-31T00:00:00",
+        "geographic_coordinate_system": null,
+        "hash": "1b754b5ae6896a47cd8deaf726ec558e",
+        "datastore_contains_all_records_of_source_file": true
+      },
+      {
+        "name": "Person",
+        "id": "60c8fc0c-2806-40f3-bb33-5c52691120e8",
+        "dataset_last_updated_date": "2026-08-10T00:00:00",
+        "reporting_period_start": "2012-01-01T00:00:00",
+        "reporting_period_end": "2025-12-31T00:00:00",
+        "geographic_coordinate_system": null,
+        "hash": "380132c1e2611f486ba3a90f79f32ac7",
+        "datastore_contains_all_records_of_source_file": true
+      },
+      {
+        "name": "Node",
+        "id": "466fd3b5-201b-42b5-b10d-e926324fa215",
+        "dataset_last_updated_date": "2026-08-10T00:00:00",
+        "reporting_period_start": "2012-01-01T00:00:00",
+        "reporting_period_end": "2025-12-31T00:00:00",
+        "geographic_coordinate_system": null,
+        "hash": "edd000f99c2fe3143f685c45c7abf5af",
+        "datastore_contains_all_records_of_source_file": true
+      },
+      {
+        "name": "Accident Location",
+        "id": "e1beb92b-5836-448a-9769-e7aa6a9e7413",
+        "dataset_last_updated_date": "2026-09-14T00:00:00",
+        "reporting_period_start": "2012-01-01T00:00:00",
+        "reporting_period_end": "2026-01-31T00:00:00",
+        "geographic_coordinate_system": null,
+        "hash": "6ab9173be7ccaca20621c5a215e22767",
+        "datastore_contains_all_records_of_source_file": true
+      },
+      {
+        "name": "Victorian Road Crash Data",
+        "id": "5df1f373-0c90-48f5-80e1-7b2a35507134",
+        "dataset_last_updated_date": "2026-09-14T00:00:00",
+        "reporting_period_start": "2012-01-01T00:00:00",
+        "reporting_period_end": "2026-01-31T00:00:00",
+        "geographic_coordinate_system": "WGS84",
+        "hash": "9de7ceabb03896fc1c429e4715a3eedc",
+        "datastore_contains_all_records_of_source_file": true
+      }
+    ],
+    "datavic_package": [
+      {
+        "name": "Accident",
+        "id": "20772c1a-8b19-424a-a733-eb84f725f611",
+        "dataset_last_updated_date": "2026-09-14T00:00:00",
+        "reporting_period_start": null,
+        "reporting_period_end": null,
+        "geographic_coordinate_system": null,
+        "hash": "a0c3eabacfd18c62f092e63d336e1aec",
+        "datastore_contains_all_records_of_source_file": false
+      },
+      {
+        "name": "Vehicle",
+        "id": "6d0b21f7-583a-4991-a168-f15a70c13ec4",
+        "dataset_last_updated_date": "2026-08-10T00:00:00",
+        "reporting_period_start": null,
+        "reporting_period_end": null,
+        "geographic_coordinate_system": null,
+        "hash": "1b754b5ae6896a47cd8deaf726ec558e",
+        "datastore_contains_all_records_of_source_file": true
+      },
+      {
+        "name": "Person",
+        "id": "60c8fc0c-2806-40f3-bb33-5c52691120e8",
+        "dataset_last_updated_date": "2026-08-10T00:00:00",
+        "reporting_period_start": null,
+        "reporting_period_end": null,
+        "geographic_coordinate_system": null,
+        "hash": "380132c1e2611f486ba3a90f79f32ac7",
+        "datastore_contains_all_records_of_source_file": true
+      },
+      {
+        "name": "Node",
+        "id": "466fd3b5-201b-42b5-b10d-e926324fa215",
+        "dataset_last_updated_date": "2026-08-10T00:00:00",
+        "reporting_period_start": null,
+        "reporting_period_end": null,
+        "geographic_coordinate_system": null,
+        "hash": "edd000f99c2fe3143f685c45c7abf5af",
+        "datastore_contains_all_records_of_source_file": true
+      },
+      {
+        "name": "Accident Location",
+        "id": "e1beb92b-5836-448a-9769-e7aa6a9e7413",
+        "dataset_last_updated_date": "2026-09-14T00:00:00",
+        "reporting_period_start": null,
+        "reporting_period_end": null,
+        "geographic_coordinate_system": null,
+        "hash": "6ab9173be7ccaca20621c5a215e22767",
+        "datastore_contains_all_records_of_source_file": true
+      },
+      {
+        "name": "Victorian Road Crash Data",
+        "id": "5df1f373-0c90-48f5-80e1-7b2a35507134",
+        "dataset_last_updated_date": "2026-09-14T00:00:00",
+        "reporting_period_start": null,
+        "reporting_period_end": null,
+        "geographic_coordinate_system": null,
+        "hash": "9de7ceabb03896fc1c429e4715a3eedc",
+        "datastore_contains_all_records_of_source_file": true
+      }
+    ],
+    "national_package": [
+      {
+        "name": "Accident",
+        "id": "20772c1a-8b19-424a-a733-eb84f725f611",
+        "dataset_last_updated_date": "2025-07-31T00:00:00",
+        "reporting_period_start": null,
+        "reporting_period_end": null,
+        "geographic_coordinate_system": null,
+        "hash": "e573337499c83063b522dc3a5789110d",
+        "datastore_contains_all_records_of_source_file": true
+      },
+      {
+        "name": "Vehicle",
+        "id": "6d0b21f7-583a-4991-a168-f15a70c13ec4",
+        "dataset_last_updated_date": "2025-08-01T00:00:00",
+        "reporting_period_start": null,
+        "reporting_period_end": null,
+        "geographic_coordinate_system": null,
+        "hash": "c443ca7bfd6a3ca47ded2d8468fc723e",
+        "datastore_contains_all_records_of_source_file": true
+      },
+      {
+        "name": "Person",
+        "id": "60c8fc0c-2806-40f3-bb33-5c52691120e8",
+        "dataset_last_updated_date": "2025-07-31T00:00:00",
+        "reporting_period_start": null,
+        "reporting_period_end": null,
+        "geographic_coordinate_system": null,
+        "hash": "d4a7dd56a083dbc33e08234fda8b5d48",
+        "datastore_contains_all_records_of_source_file": true
+      },
+      {
+        "name": "Node",
+        "id": "466fd3b5-201b-42b5-b10d-e926324fa215",
+        "dataset_last_updated_date": "2025-07-31T00:00:00",
+        "reporting_period_start": null,
+        "reporting_period_end": null,
+        "geographic_coordinate_system": null,
+        "hash": "43d04f7a979a13feb15dc53e03a468ec",
+        "datastore_contains_all_records_of_source_file": true
+      },
+      {
+        "name": "Accident Location",
+        "id": "e1beb92b-5836-448a-9769-e7aa6a9e7413",
+        "dataset_last_updated_date": "2025-07-31T00:00:00",
+        "reporting_period_start": null,
+        "reporting_period_end": null,
+        "geographic_coordinate_system": null,
+        "hash": "d0b70f8e04ccffaced8f6cb1c3510129",
+        "datastore_contains_all_records_of_source_file": true
+      },
+      {
+        "name": "Victorian Road Crash Data",
+        "id": "5df1f373-0c90-48f5-80e1-7b2a35507134",
+        "dataset_last_updated_date": "2025-07-31T00:00:00",
+        "reporting_period_start": null,
+        "reporting_period_end": null,
+        "geographic_coordinate_system": null,
+        "hash": "dff9d58df0abcc023057544e46ab75ce",
+        "datastore_contains_all_records_of_source_file": true
+      }
+    ]
+  },
+  "reviewed_c_commit": "87d1c5803a6ec61475823ea877a995ba589f22f7",
+  "reviewed_c02_sha256": "e85bc4200b0e925cc4c84851d2caa72bca2b19758d9fa82ba6e32fc1c899f2c2",
+  "repository_evidence_sha256": {
+    "docs/sources/evidence/vic/person-node-local-review-2026-09-17.json": "02d898c6b04ac1b4afe99b56b5be02368a6489356de40f7493886670e81a9e27",
+    "config/native-inputs.json": "ad676ed8293883a531e3685112fde921f2e060e2f4554d0282716c345338b270",
+    "docs/sources/vic-accident-vehicle.md": "d7c5fe6d5a3b6dd20801777c9ca7933508dce9774942bfe433917bfc1665fbf0",
+    "tools/review_vic_links.py": "deed380330412a777f681de92afbd7b1deb35a5d6983f268a5ad90b61b09e3ec",
+    "tools/compare_vic_evidence.py": "92b5f5da60fade0ef0f0e7af99d70dc5bfc91281bbf8b2a3feed4fc89ef1bfbb",
+    "tools/profile_vic_inputs.py": "96eb7c7609e139c8942e54cc963e92f667301bbce3e045151d994d75c9035ead"
+  }
+}

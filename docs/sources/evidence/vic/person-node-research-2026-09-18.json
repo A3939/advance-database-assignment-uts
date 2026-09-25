@@ -1,0 +1,136 @@
+{
+  "recorded_at_utc": "2026-09-17T14:05:00.642259+00:00",
+  "document_date_timezone": "Australia/Sydney",
+  "status": "Research for B06/C02 review; no source approval, sign-off or contact with others",
+  "metadata_evidence": {
+    "file": "person-node-api-check-2026-09-17.json",
+    "sha256": "50318cd0d6a6296e54d9eae94788b3ac643ff2fa183e566a3e59d3268388f27b",
+    "request_label": "current_package",
+    "response_sha256": "b49db512d35f455a0172f45db29006e9cfc5cec44c0f986995f08fe57e0f2580"
+  },
+  "official_sources": [
+    {
+      "resource": "Accident",
+      "url": "https://opendata.transport.vic.gov.au/dataset/victoria-road-crash-data/resource/20772c1a-8b19-424a-a733-eb84f725f611",
+      "metadata_path": "result.resources[0]",
+      "dictionary_refs": [
+        "AT-14416",
+        "AT-14428"
+      ],
+      "dataset_last_updated_date": "2026-09-14T00:00:00",
+      "geographic_coordinate_system": null
+    },
+    {
+      "resource": "Vehicle",
+      "url": "https://opendata.transport.vic.gov.au/dataset/victoria-road-crash-data/resource/6d0b21f7-583a-4991-a168-f15a70c13ec4",
+      "metadata_path": "result.resources[1]",
+      "dictionary_refs": [
+        "AT-7372",
+        "AT-7385",
+        "AT-7386"
+      ],
+      "dataset_last_updated_date": "2026-08-10T00:00:00",
+      "geographic_coordinate_system": null
+    },
+    {
+      "resource": "Person",
+      "url": "https://opendata.transport.vic.gov.au/dataset/victoria-road-crash-data/resource/60c8fc0c-2806-40f3-bb33-5c52691120e8",
+      "metadata_path": "result.resources[2]",
+      "dictionary_refs": [
+        "AT-7290",
+        "AT-7299",
+        "AT-7298",
+        "AT-7293",
+        "AT-7295",
+        "AT-7297",
+        "AT-7291"
+      ],
+      "dataset_last_updated_date": "2026-08-10T00:00:00",
+      "geographic_coordinate_system": null
+    },
+    {
+      "resource": "Node",
+      "url": "https://opendata.transport.vic.gov.au/dataset/victoria-road-crash-data/resource/466fd3b5-201b-42b5-b10d-e926324fa215",
+      "metadata_path": "result.resources[4]",
+      "dictionary_refs": [
+        "AT-7281",
+        "AT-7280",
+        "AT-7277",
+        "AT-7283",
+        "AT-7282"
+      ],
+      "dataset_last_updated_date": "2026-08-10T00:00:00",
+      "geographic_coordinate_system": null
+    },
+    {
+      "resource": "Victorian Road Crash Data",
+      "url": "https://opendata.transport.vic.gov.au/dataset/victoria-road-crash-data/resource/5df1f373-0c90-48f5-80e1-7b2a35507134",
+      "metadata_path": "result.resources[8]",
+      "dictionary_refs": [
+        "AT-14375",
+        "AT-14374",
+        "AT-14381",
+        "AT-14389"
+      ],
+      "dataset_last_updated_date": "2026-09-14T00:00:00",
+      "geographic_coordinate_system": "WGS84"
+    }
+  ],
+  "official_support": [
+    "Person is keyed by accident/person and has an Accident parent; vehicle identifiers belong to an accident.",
+    "Person injury groups include uninjured people; Accident NO_PERSONS describes all people involved.",
+    "The Node description names a location key that multiple accidents can share.",
+    "The current flat resource declares WGS84 and names its projected fields VicGrid94. Node does not declare a CRS.",
+    "Current resource dates differ: Accident and the flat file are dated September, Vehicle/Person/Node August."
+  ],
+  "file_and_api_observations": {
+    "local_report": "person-node-local-review-2026-09-17.json",
+    "comparison": "person-node-comparison-2026-09-17.json",
+    "notes": [
+      "39 nonempty unmatched Person vehicle references persist in the complete selected live responses.",
+      "All five Vehicle count and two Person count differences persist in selected live responses.",
+      "The two local Person differences are one uninjured participant each, both in 2015.",
+      "85 missing Node cases persist in selected live responses; their Accident Node IDs are -1, -10 or -3.",
+      "All five repeated Node example groups also repeat in the live API, with identical native payload multiplicities.",
+      "All 12 selected Node/flat coordinate comparisons are numerically equal; this is not a CRS transformation.",
+      "One selected Accident has revised injury/severity fields in September while the selected Person rows remain unchanged.",
+      "Vehicle 21 is labelled Electric Device and Person 16 E-scooter Rider in the files; these codes are absent from their current dictionaries."
+    ]
+  },
+  "inferences_not_rules": [
+    "Pedestrian/NA empty vehicle references plausibly represent valid non-association; explicit source nullability is missing.",
+    "The two Person count cases plausibly lack uninjured occupant detail; no rule establishing an intentional exclusion was found.",
+    "Node urban-classification variation may reflect a one-to-many export join; exact duplicate generation is unexplained.",
+    "Negative Node IDs may be unresolved-location markers; individual code meanings are not documented in the reviewed sources.",
+    "The extra trailer/electric-device records may reflect count scope or update timing; their actual cause is unknown.",
+    "Equal Node/flat numbers support investigating common coordinate lineage but do not prove the August Node datum."
+  ],
+  "search_followup": {
+    "method": "Official resource pages, saved/live metadata and focused web searches. Search results from unrelated datasets were not used as crash-code or CRS evidence.",
+    "final_queries": [
+      "site:opendata.transport.vic.gov.au \"Electric Device\" \"21\"",
+      "site:vic.gov.au \"ROAD_USER_TYPE\" \"16\"",
+      "site:vic.gov.au \"NODE\" \"GDA94\" crash",
+      "site:vic.gov.au \"crashstats_user_guide_and_appendices\""
+    ],
+    "outcome": "No additional crash-specific code/nullability/export/Node datum definition obtained. This does not assert that no such documentation exists.",
+    "unavailable_legacy_sources": [
+      {
+        "url": "https://data.vicroads.vic.gov.au/metadata/crashstats_user_guide_and_appendices.pdf",
+        "outcome": "Hostname resolution failed; PDF contents not read or adopted."
+      },
+      {
+        "url": "https://discover.data.vic.gov.au/dataset/crash-stats-data-extract",
+        "outcome": "Redirect loop; legacy page contents not used."
+      }
+    ]
+  },
+  "open_questions": [
+    "Which Person role/seating combinations allow empty VEHICLE_ID, including the 24 unknown-role cases?",
+    "What explains the 39 absent vehicle targets and the two missing uninjured details, or which corrected compatible release resolves them?",
+    "What are the current definitions and count rules for Vehicle 21 and Person 16, and inclusion rules for trailers/electric devices?",
+    "Which export joins generate Node observations, and what do Accident Node IDs -1/-10/-3 mean?",
+    "Which CRS/datum applies specifically to the pinned Node LATITUDE/LONGITUDE, and what lineage or coordinate operation connects it to the flat WGS84 resource?"
+  ],
+  "decision": "Keep the official source contract draft and bundle_confirmed false; retain all input rows and unresolved references."
+}

@@ -1,0 +1,674 @@
+{
+  "checked_at_utc": "2026-09-20T11:53:50.545881+00:00",
+  "status": "B08 real PostgreSQL reproduction passed",
+  "local_branch": "peixian/dev",
+  "local_commit": "cbb548ead68a6502870362b742f444ff180e07e8",
+  "jj_source": {
+    "branch": "jj/a01-environment",
+    "commit": "1b257c831c665e1c8d38ca7b6b0d2f8ed02afed1",
+    "handoff_verified_code": "2c86229",
+    "handoff_url": "https://github.com/A3939/advance-database-assignment-uts/blob/1b257c831c665e1c8d38ca7b6b0d2f8ed02afed1/docs/b08-db-handoff.md",
+    "exported_file_hashes": {
+      "compose.yaml": "0136dc86eef28161fa64fded4fd0ad73e8d8e5f53c9cdf170e60954cdb4481a6",
+      "requirements-db.txt": "28936395acc85dae2c3bac9c374edde94f2e0a1a2be51a2cafa6c51ebd68ef3f",
+      "requirements-dev.txt": "5613d0a59f1b435489e2343dd51c9d12b26311417cc93a85ee7607e53ec48671",
+      "requirements.txt": "b6f17223b854c27346eefdaeef137f2c0f5c5f8c85004c701a61662ccbc015eb",
+      "docs/b08-db-handoff.md": "1a2208c81e5cbdfc78252062d0045e9001612b76cc3a1ab5beebe2c4fe7711e3",
+      "sql/migrations/001_meta_registry.sql": "b44608c4baee8ce1d4ac6c3912a1a7d671772a1b305a32976b10f7bf00fe1893",
+      "sql/migrations/002_raw_record.sql": "550c022b204380af2c0b2ffffc48295df3b562fd217f99a62f392d8db15eb059",
+      "sql/migrations/003_b08_loader_role.sql": "e84a2d122bcb8f5edd6ffeb9974ef48eac3910ae801d5a929286734978f9269d"
+    }
+  },
+  "environment": {
+    "python": "3.12.6",
+    "packages": {
+      "psycopg": "3.3.6",
+      "psycopg-binary": "3.3.6",
+      "pytest": "8.4.2",
+      "openpyxl": "3.1.5",
+      "typing-extensions": "4.16.0"
+    },
+    "postgres": {
+      "database": "arsia",
+      "current_user": "arsia_loader",
+      "session_user": "arsia_loader",
+      "version": "PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+      "server_version_num": "160015",
+      "server_encoding": "UTF8",
+      "timezone": "UTC",
+      "isolation": "read committed",
+      "collation": "C.UTF-8",
+      "character_type": "C.UTF-8"
+    },
+    "image": "postgres:16-bookworm@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67",
+    "image_architecture": "arm64",
+    "container": "arsia-b08-20260920-e4d6b07f-db",
+    "project": "arsia-b08-20260920-e4d6b07f",
+    "host": "127.0.0.1",
+    "port": 56697,
+    "volume": "arsia-b08-20260920-e4d6b07f_pgdata",
+    "final_container_state": "exited",
+    "isolation": "Unique project/container/data volume; loopback dynamic port instead of 55432. Database, image, settings and migrations are unchanged."
+  },
+  "migration_application": {
+    "order": [
+      "001_meta_registry.sql",
+      "002_raw_record.sql",
+      "003_b08_loader_role.sql"
+    ],
+    "exit_codes": [
+      0,
+      0,
+      0
+    ],
+    "fresh_database_confirmed_before_migrations": true,
+    "sql_bytes_unchanged": true,
+    "source_hashes_match_handoff": true
+  },
+  "tests": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 <isolated-venv>/bin/python -m pytest -q -p no:cacheprovider tests/test_raw_load_postgres.py --junitxml <run>/pytest.xml",
+    "authentication": "ARSIA_TEST_DSN specifies arsia_loader; a protected local PGPASSFILE supplies credentials. No password is recorded here.",
+    "started_at_utc": "2026-09-20T11:52:05.329401+00:00",
+    "finished_at_utc": "2026-09-20T11:52:06.182764+00:00",
+    "result": "8 passed in 0.41s",
+    "exit_code": 0,
+    "tests": 8,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 8,
+    "test_names": [
+      "test_postgres_s0_load_is_lossless_and_reuses_ids",
+      "test_postgres_existing_raw_timestamp_is_not_rewritten",
+      "test_postgres_payload_conflict_preserves_original",
+      "test_postgres_resource_identity_cannot_be_reassigned",
+      "test_postgres_synthetic_ids_cannot_enter_official_mode",
+      "test_postgres_caller_can_roll_back_the_entire_load",
+      "test_postgres_autocommit_connection_is_rejected",
+      "test_postgres_file_and_parser_changes_create_distinct_raw_ids"
+    ],
+    "post_test_user": "arsia_loader",
+    "post_test_table_counts": {
+      "meta.source": 0,
+      "meta.resource": 0,
+      "raw.record": 0
+    },
+    "test_code_unchanged": true
+  },
+  "database_audit": {
+    "environment": [
+      {
+        "database": "arsia",
+        "current_user": "arsia_loader",
+        "session_user": "arsia_loader",
+        "version": "PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+        "server_version_num": "160015",
+        "server_encoding": "UTF8",
+        "timezone": "UTC",
+        "isolation": "read committed",
+        "collation": "C.UTF-8",
+        "character_type": "C.UTF-8"
+      }
+    ],
+    "roles": [
+      {
+        "rolname": "arsia_loader",
+        "rolsuper": false,
+        "rolcreatedb": false,
+        "rolcreaterole": false,
+        "rolinherit": true,
+        "rolcanlogin": true,
+        "rolreplication": false,
+        "rolbypassrls": false
+      },
+      {
+        "rolname": "arsia_owner",
+        "rolsuper": true,
+        "rolcreatedb": true,
+        "rolcreaterole": true,
+        "rolinherit": true,
+        "rolcanlogin": true,
+        "rolreplication": true,
+        "rolbypassrls": true
+      }
+    ],
+    "memberships": [],
+    "tables": [
+      {
+        "table_name": "meta.resource",
+        "owner": "arsia_owner",
+        "relrowsecurity": false,
+        "relforcerowsecurity": false
+      },
+      {
+        "table_name": "meta.source",
+        "owner": "arsia_owner",
+        "relrowsecurity": false,
+        "relforcerowsecurity": false
+      },
+      {
+        "table_name": "raw.record",
+        "owner": "arsia_owner",
+        "relrowsecurity": false,
+        "relforcerowsecurity": false
+      }
+    ],
+    "columns": [
+      {
+        "table_schema": "meta",
+        "table_name": "resource",
+        "column_name": "resource_id",
+        "udt_name": "text",
+        "is_nullable": "NO",
+        "column_default": null
+      },
+      {
+        "table_schema": "meta",
+        "table_name": "resource",
+        "column_name": "source_id",
+        "udt_name": "text",
+        "is_nullable": "NO",
+        "column_default": null
+      },
+      {
+        "table_schema": "meta",
+        "table_name": "resource",
+        "column_name": "resource_role",
+        "udt_name": "text",
+        "is_nullable": "NO",
+        "column_default": null
+      },
+      {
+        "table_schema": "meta",
+        "table_name": "resource",
+        "column_name": "entity_kind",
+        "udt_name": "text",
+        "is_nullable": "NO",
+        "column_default": null
+      },
+      {
+        "table_schema": "meta",
+        "table_name": "source",
+        "column_name": "source_id",
+        "udt_name": "text",
+        "is_nullable": "NO",
+        "column_default": null
+      },
+      {
+        "table_schema": "meta",
+        "table_name": "source",
+        "column_name": "jurisdiction_code",
+        "udt_name": "text",
+        "is_nullable": "NO",
+        "column_default": null
+      },
+      {
+        "table_schema": "meta",
+        "table_name": "source",
+        "column_name": "source_name",
+        "udt_name": "text",
+        "is_nullable": "NO",
+        "column_default": null
+      },
+      {
+        "table_schema": "meta",
+        "table_name": "source",
+        "column_name": "publisher",
+        "udt_name": "text",
+        "is_nullable": "NO",
+        "column_default": null
+      },
+      {
+        "table_schema": "raw",
+        "table_name": "record",
+        "column_name": "raw_record_id",
+        "udt_name": "uuid",
+        "is_nullable": "NO",
+        "column_default": null
+      },
+      {
+        "table_schema": "raw",
+        "table_name": "record",
+        "column_name": "resource_id",
+        "udt_name": "text",
+        "is_nullable": "NO",
+        "column_default": null
+      },
+      {
+        "table_schema": "raw",
+        "table_name": "record",
+        "column_name": "source_id",
+        "udt_name": "text",
+        "is_nullable": "NO",
+        "column_default": null
+      },
+      {
+        "table_schema": "raw",
+        "table_name": "record",
+        "column_name": "file_sha256",
+        "udt_name": "text",
+        "is_nullable": "NO",
+        "column_default": null
+      },
+      {
+        "table_schema": "raw",
+        "table_name": "record",
+        "column_name": "parser_version",
+        "udt_name": "text",
+        "is_nullable": "NO",
+        "column_default": null
+      },
+      {
+        "table_schema": "raw",
+        "table_name": "record",
+        "column_name": "row_locator",
+        "udt_name": "text",
+        "is_nullable": "NO",
+        "column_default": null
+      },
+      {
+        "table_schema": "raw",
+        "table_name": "record",
+        "column_name": "payload",
+        "udt_name": "jsonb",
+        "is_nullable": "NO",
+        "column_default": null
+      },
+      {
+        "table_schema": "raw",
+        "table_name": "record",
+        "column_name": "ingested_at",
+        "udt_name": "timestamptz",
+        "is_nullable": "NO",
+        "column_default": "now()"
+      }
+    ],
+    "constraints": [
+      {
+        "table_name": "meta.resource",
+        "conname": "resource_entity_kind_valid",
+        "contype": "c",
+        "condeferrable": false,
+        "condeferred": false,
+        "convalidated": true,
+        "definition": "CHECK ((entity_kind = ANY (ARRAY['crash'::text, 'unit'::text, 'person_raw'::text, 'node_raw'::text])))"
+      },
+      {
+        "table_name": "meta.resource",
+        "conname": "resource_pkey",
+        "contype": "p",
+        "condeferrable": false,
+        "condeferred": false,
+        "convalidated": true,
+        "definition": "PRIMARY KEY (resource_id)"
+      },
+      {
+        "table_name": "meta.resource",
+        "conname": "resource_source_fk",
+        "contype": "f",
+        "condeferrable": false,
+        "condeferred": false,
+        "convalidated": true,
+        "definition": "FOREIGN KEY (source_id) REFERENCES meta.source(source_id)"
+      },
+      {
+        "table_name": "meta.resource",
+        "conname": "resource_source_pair_unique",
+        "contype": "u",
+        "condeferrable": false,
+        "condeferred": false,
+        "convalidated": true,
+        "definition": "UNIQUE (resource_id, source_id)"
+      },
+      {
+        "table_name": "meta.source",
+        "conname": "source_id_nonblank",
+        "contype": "c",
+        "condeferrable": false,
+        "condeferred": false,
+        "convalidated": true,
+        "definition": "CHECK ((btrim(source_id) <> ''::text))"
+      },
+      {
+        "table_name": "meta.source",
+        "conname": "source_pkey",
+        "contype": "p",
+        "condeferrable": false,
+        "condeferred": false,
+        "convalidated": true,
+        "definition": "PRIMARY KEY (source_id)"
+      },
+      {
+        "table_name": "raw.record",
+        "conname": "raw_file_sha256_valid",
+        "contype": "c",
+        "condeferrable": false,
+        "condeferred": false,
+        "convalidated": true,
+        "definition": "CHECK ((file_sha256 ~ '^[0-9a-f]{64}$'::text))"
+      },
+      {
+        "table_name": "raw.record",
+        "conname": "raw_identity_unique",
+        "contype": "u",
+        "condeferrable": false,
+        "condeferred": false,
+        "convalidated": true,
+        "definition": "UNIQUE (resource_id, file_sha256, parser_version, row_locator)"
+      },
+      {
+        "table_name": "raw.record",
+        "conname": "raw_parser_locator_nonblank",
+        "contype": "c",
+        "condeferrable": false,
+        "condeferred": false,
+        "convalidated": true,
+        "definition": "CHECK (((btrim(parser_version) <> ''::text) AND (btrim(row_locator) <> ''::text)))"
+      },
+      {
+        "table_name": "raw.record",
+        "conname": "raw_payload_object",
+        "contype": "c",
+        "condeferrable": false,
+        "condeferred": false,
+        "convalidated": true,
+        "definition": "CHECK ((jsonb_typeof(payload) = 'object'::text))"
+      },
+      {
+        "table_name": "raw.record",
+        "conname": "raw_record_source_unique",
+        "contype": "u",
+        "condeferrable": false,
+        "condeferred": false,
+        "convalidated": true,
+        "definition": "UNIQUE (raw_record_id, source_id)"
+      },
+      {
+        "table_name": "raw.record",
+        "conname": "raw_resource_source_fk",
+        "contype": "f",
+        "condeferrable": false,
+        "condeferred": false,
+        "convalidated": true,
+        "definition": "FOREIGN KEY (resource_id, source_id) REFERENCES meta.resource(resource_id, source_id)"
+      },
+      {
+        "table_name": "raw.record",
+        "conname": "record_pkey",
+        "contype": "p",
+        "condeferrable": false,
+        "condeferred": false,
+        "convalidated": true,
+        "definition": "PRIMARY KEY (raw_record_id)"
+      }
+    ],
+    "indexes": [
+      {
+        "schemaname": "meta",
+        "tablename": "resource",
+        "indexname": "resource_pkey",
+        "indexdef": "CREATE UNIQUE INDEX resource_pkey ON meta.resource USING btree (resource_id)"
+      },
+      {
+        "schemaname": "meta",
+        "tablename": "resource",
+        "indexname": "resource_source_pair_unique",
+        "indexdef": "CREATE UNIQUE INDEX resource_source_pair_unique ON meta.resource USING btree (resource_id, source_id)"
+      },
+      {
+        "schemaname": "meta",
+        "tablename": "source",
+        "indexname": "source_pkey",
+        "indexdef": "CREATE UNIQUE INDEX source_pkey ON meta.source USING btree (source_id)"
+      },
+      {
+        "schemaname": "raw",
+        "tablename": "record",
+        "indexname": "raw_file_idx",
+        "indexdef": "CREATE INDEX raw_file_idx ON raw.record USING btree (source_id, resource_id, file_sha256, parser_version)"
+      },
+      {
+        "schemaname": "raw",
+        "tablename": "record",
+        "indexname": "raw_identity_unique",
+        "indexdef": "CREATE UNIQUE INDEX raw_identity_unique ON raw.record USING btree (resource_id, file_sha256, parser_version, row_locator)"
+      },
+      {
+        "schemaname": "raw",
+        "tablename": "record",
+        "indexname": "raw_record_source_unique",
+        "indexdef": "CREATE UNIQUE INDEX raw_record_source_unique ON raw.record USING btree (raw_record_id, source_id)"
+      },
+      {
+        "schemaname": "raw",
+        "tablename": "record",
+        "indexname": "record_pkey",
+        "indexdef": "CREATE UNIQUE INDEX record_pkey ON raw.record USING btree (raw_record_id)"
+      }
+    ],
+    "schema_privileges": [
+      {
+        "nspname": "meta",
+        "usage": true,
+        "create": false
+      },
+      {
+        "nspname": "raw",
+        "usage": true,
+        "create": false
+      }
+    ],
+    "table_privileges": [
+      {
+        "name": "meta.resource",
+        "privilege": "DELETE",
+        "allowed": false
+      },
+      {
+        "name": "meta.resource",
+        "privilege": "INSERT",
+        "allowed": true
+      },
+      {
+        "name": "meta.resource",
+        "privilege": "REFERENCES",
+        "allowed": false
+      },
+      {
+        "name": "meta.resource",
+        "privilege": "SELECT",
+        "allowed": true
+      },
+      {
+        "name": "meta.resource",
+        "privilege": "TRIGGER",
+        "allowed": false
+      },
+      {
+        "name": "meta.resource",
+        "privilege": "TRUNCATE",
+        "allowed": false
+      },
+      {
+        "name": "meta.resource",
+        "privilege": "UPDATE",
+        "allowed": false
+      },
+      {
+        "name": "meta.source",
+        "privilege": "DELETE",
+        "allowed": false
+      },
+      {
+        "name": "meta.source",
+        "privilege": "INSERT",
+        "allowed": true
+      },
+      {
+        "name": "meta.source",
+        "privilege": "REFERENCES",
+        "allowed": false
+      },
+      {
+        "name": "meta.source",
+        "privilege": "SELECT",
+        "allowed": true
+      },
+      {
+        "name": "meta.source",
+        "privilege": "TRIGGER",
+        "allowed": false
+      },
+      {
+        "name": "meta.source",
+        "privilege": "TRUNCATE",
+        "allowed": false
+      },
+      {
+        "name": "meta.source",
+        "privilege": "UPDATE",
+        "allowed": false
+      },
+      {
+        "name": "raw.record",
+        "privilege": "DELETE",
+        "allowed": false
+      },
+      {
+        "name": "raw.record",
+        "privilege": "INSERT",
+        "allowed": true
+      },
+      {
+        "name": "raw.record",
+        "privilege": "REFERENCES",
+        "allowed": false
+      },
+      {
+        "name": "raw.record",
+        "privilege": "SELECT",
+        "allowed": true
+      },
+      {
+        "name": "raw.record",
+        "privilege": "TRIGGER",
+        "allowed": false
+      },
+      {
+        "name": "raw.record",
+        "privilege": "TRUNCATE",
+        "allowed": false
+      },
+      {
+        "name": "raw.record",
+        "privilege": "UPDATE",
+        "allowed": false
+      }
+    ],
+    "before_counts": {
+      "meta.source": 0,
+      "meta.resource": 0,
+      "raw.record": 0
+    },
+    "write_denials": [
+      {
+        "table": "meta.source",
+        "action": "UPDATE",
+        "sqlstate": "42501"
+      },
+      {
+        "table": "meta.source",
+        "action": "DELETE",
+        "sqlstate": "42501"
+      },
+      {
+        "table": "meta.resource",
+        "action": "UPDATE",
+        "sqlstate": "42501"
+      },
+      {
+        "table": "meta.resource",
+        "action": "DELETE",
+        "sqlstate": "42501"
+      },
+      {
+        "table": "raw.record",
+        "action": "UPDATE",
+        "sqlstate": "42501"
+      },
+      {
+        "table": "raw.record",
+        "action": "DELETE",
+        "sqlstate": "42501"
+      }
+    ],
+    "insert_and_rollback_probe": "passed"
+  },
+  "acceptance": {
+    "B08_current_task_criteria": "met in the independently reproduced synthetic PostgreSQL integration scope",
+    "basis": "Current task list B08: register source/resource, return or reuse raw_record_id, and block changed payload for the same identity. Live tests and catalog/permission checks meet these criteria.",
+    "not_verified": [
+      "Durable commits or ID reuse across separately committed sessions",
+      "Concurrent writes and full runner locking/recovery",
+      "Official input approval or official full-scale loading",
+      "The full AT02/build/publication path",
+      "Reader permissions and the remaining 14 shared tables"
+    ],
+    "downstream_availability": "Tests rolled back all writes. No persistent shared Raw dataset for C was created."
+  },
+  "code_hashes": {
+    "src/arsia_ingest/raw_load.py": {
+      "sha256": "7d5fbc8af504dd4916a3083797beb1aa692234b0026ffd1983e254f72c4787e0",
+      "identical_to_jj": true
+    },
+    "tests/test_raw_load_postgres.py": {
+      "sha256": "4288e332e61f77055f434614bbca97997472e666a31b5b8d9888f9ae2e23188a",
+      "identical_to_jj": true
+    }
+  },
+  "fixture_hashes": {
+    "config/synthetic-s0.json": "e1c8f35faac4ace8ba73febb8dd933e36de9ee13650f65c7aeb8d452fe0e89b8",
+    "tests/fixtures/s0/config.json": "e9f786ec29dc03726ada8e606b893e5a16a3e8d780306bffea86f67f96ac9de3",
+    "tests/fixtures/s0/contract.json": "a73bdac78cb3b3ec4aff66658c37108ca84c34572ef3f42460a73e169b9411b6",
+    "tests/fixtures/s0/syn_nsw_crash.xlsx": "18c4953966224ee7f217afeebbb884dd6ccc01016ece2c077bb9717deb8c4541",
+    "tests/fixtures/s0/syn_nsw_traffic_unit.xlsx": "c114dece4b1c4a6698c4d0e4b05b912b9aa342598fd7f0def43df2b0428bd92c",
+    "tests/fixtures/s0/syn_qld_crash.csv": "7dbbd7bb3f9e5c6e07caf8c9e01be26abad6d1d383de482dcde9393071d61370",
+    "tests/fixtures/s0/syn_vic_accident.csv": "369798a8aa662d644df2e98091ad8a577a9741ce018dba47892889162aa8a144",
+    "tests/fixtures/s0/syn_vic_node.csv": "7bc159e10ec6d3e94a4d4673370ecd602e31bc0d2ed3971895f4126b045300a7",
+    "tests/fixtures/s0/syn_vic_person.csv": "af1104f14b46c7048b96d8a61546cbe1ed5e597f986673bfcc2d73c4855f14f4",
+    "tests/fixtures/s0/syn_vic_vehicle.csv": "5b7df97bde23fece0d19465ba8e4006544f6d907f963f7f352b8218b1fafec92"
+  },
+  "review_hashes": {
+    "docs/b08-postgres-review.md": "15bf028f6bc1b5fc5dd4c181c997460cfd2d6ee5a6b6e803c07f153b2f2fa5a3"
+  },
+  "local_evidence": {
+    "artifacts/b08-db-reproduction-2026-09-20/source-snapshot.json": "28e865e008126a23144c835a9a6d2d008d3db217cc0f15e83801783d443c6d68",
+    "artifacts/b08-db-reproduction-2026-09-20/database-audit.json": "b8af97ce6ded540a9a2b4aaf89e1e7c8bf426699e0b23ad93799ee224ba8e50b",
+    "artifacts/b08-db-reproduction-2026-09-20/pytest-result.json": "6ed581f9a21b12e858769e999047691cdeeb47e84d3c8b04ee7bddf86c067242",
+    "artifacts/b08-db-reproduction-2026-09-20/pytest.txt": "750d006b7fa0408f078c8d0099f143177bc3c9dd39f2453e71214c6abc798ccf",
+    "artifacts/b08-db-reproduction-2026-09-20/pytest.xml": "4a34693b2c9e643b9aaa7c5afabe8c7bf9e4c5ea43c7c6b5db6c2dc289c8f731",
+    "artifacts/b08-db-reproduction-2026-09-20/start_test_db.py": "05eee801cbd60ead76e52296711c9c0ba2a226ac7eea96ff83764aeea3d34ebe",
+    "artifacts/b08-db-reproduction-2026-09-20/check_database.py": "81a01b082e53eaec5707f0e98545e48d4d0f092ec790519ec2b9e811092fc381"
+  },
+  "preservation": {
+    "original_venv_psycopg_still_absent": true,
+    "existing_containers_unchanged_and_stopped": [
+      "student-python",
+      "student-cloudbeaver",
+      "student-postgres",
+      "student-clickhouse",
+      "student-neo4j",
+      "gracious_jones"
+    ],
+    "early_vic_profile_sha256": "4979014576b956ddadf3f6c99ef78649db882dbabc5cd804d8c33b9029a0bd25",
+    "tracked_files_unchanged": true,
+    "staging_empty": true,
+    "jj_branch_not_merged": true
+  },
+  "notes": [
+    "PostgreSQL and pinned Python test dependencies were added only for this isolated reproduction; no existing database was overwritten.",
+    "The dedicated test container was stopped after verification. Its volume, local environment and protected passfile remain under this run for reuse; they are not part of the shared evidence.",
+    "The supplied versions worked without a B08 code or migration change. Historical receipts were not rewritten.",
+    "No commit, push, website update or other module development was performed."
+  ]
+}

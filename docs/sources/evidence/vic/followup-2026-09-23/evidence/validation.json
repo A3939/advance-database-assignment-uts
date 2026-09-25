@@ -1,0 +1,70 @@
+{
+  "recorded_at_utc": "2026-09-23T04:49:42.976183+00:00",
+  "scope": "Independent B06/C02 source review; no source approval or C02 sign-off",
+  "test_command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -q -p no:cacheprovider tests/test_vic_links.py tests/test_vic_profile.py",
+  "test_result": {
+    "passed": 10,
+    "skipped": 0,
+    "failed": 0,
+    "errors": 0
+  },
+  "evidence_consistency_checks": 156,
+  "repository_branch": "peixian/dev",
+  "repository_head": "3185b841a86a4b8f9c998636766efbf6332efa8c",
+  "repository_status_before_and_after": "?? docs/sources/evidence/vic/local-profile-2026-09-17.json",
+  "repository_tracked_and_staged_changes": [],
+  "validation_limits": [
+    "No PostgreSQL or SQL QA run",
+    "No full repository test run",
+    "Targeted API selections are not full current-release validation",
+    "No replacement official CSVs downloaded",
+    "No source definitions approved",
+    "No publisher or teammate contacted"
+  ],
+  "files_sha256_after_document_editing": {
+    "README.md": {
+      "sha256": "b3b2a2a62eee7102c6aa4aa880518a065c4d5a860cdc0329c0bf70839a79480f",
+      "bytes": 10672
+    },
+    "check_evidence.py": {
+      "sha256": "e98cdffb053aacb63e0bd609554d73b1bf6e76d172ebf8f871f56658f48825b6",
+      "bytes": 9486
+    },
+    "collect.py": {
+      "sha256": "4ffb22c4b5fd6682d6967022bbae31443f9040df2774aad637bed558e1fb3f0d",
+      "bytes": 4850
+    },
+    "evidence/api-comparison.json": {
+      "sha256": "a36cc8d1aea6b30e75a1764e26eaa7c93d17bd4125ef3925821a96493174a948",
+      "bytes": 29507
+    },
+    "evidence/api-extra.json": {
+      "sha256": "c1fb037b64591169d0216a754398396e8b9002bf03c3057d58e1bf9e9b9c165d",
+      "bytes": 195203
+    },
+    "evidence/api-replay.json": {
+      "sha256": "981abc214aba9dd89a0c98561c21ec88f47afd05eac866db0b7c193bb9acb5e9",
+      "bytes": 291638
+    },
+    "evidence/api-types.json": {
+      "sha256": "ed214482adb709645f53633d78fb777859214c5972d1459f7e6ab12eb1bf28bd",
+      "bytes": 618526
+    },
+    "evidence/cross-check.json": {
+      "sha256": "0615bfffda303363e4de7a5de527d80e6b59d137cb47de7fb3429d84cfcb51b0",
+      "bytes": 43858
+    },
+    "evidence/local-review.json": {
+      "sha256": "ea8122b9c452c3da0cc8569f7eee840627cab0829388a4e3afa8e51009a231b4",
+      "bytes": 248241
+    },
+    "evidence/pytest.xml": {
+      "sha256": "a8b8c22c171f9821fbfad755dca9e7937ef632e009127ac96edf474b33ba7c2d",
+      "bytes": 1479
+    },
+    "evidence/source-retrieval.json": {
+      "sha256": "dd71bcdaa6b17f17c615d4df1b0334d2f617159467ffacd9c2a0ba91784ddca1",
+      "bytes": 409192
+    }
+  }
+}

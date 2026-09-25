@@ -1,0 +1,1537 @@
+{
+  "profile_version": "vic-profile-v1",
+  "checked_at": "2026-09-17T11:27:34.506492+00:00",
+  "python_version": "3.12.6",
+  "scope": "local_file_observations",
+  "config_sha256": "ad676ed8293883a531e3685112fde921f2e060e2f4554d0282716c345338b270",
+  "script_sha256": "96eb7c7609e139c8942e54cc963e92f667301bbce3e045151d994d75c9035ead",
+  "files": {
+    "accident": {
+      "resource_id": "official_vic_accident",
+      "filename": "vic_accident.csv",
+      "file_sha256": "a148c00601fab10d44368df80492c594123700a7f9e334ff896fd215295e91d9",
+      "bytes": 34375919,
+      "header": [
+        "ACCIDENT_NO",
+        "ACCIDENT_DATE",
+        "ACCIDENT_TIME",
+        "ACCIDENT_TYPE",
+        "ACCIDENT_TYPE_DESC",
+        "DAY_OF_WEEK",
+        "DAY_WEEK_DESC",
+        "DCA_CODE",
+        "DCA_DESC",
+        "LIGHT_CONDITION",
+        "NODE_ID",
+        "NO_OF_VEHICLES",
+        "NO_PERSONS_KILLED",
+        "NO_PERSONS_INJ_2",
+        "NO_PERSONS_INJ_3",
+        "NO_PERSONS_NOT_INJ",
+        "NO_PERSONS",
+        "POLICE_ATTEND",
+        "ROAD_GEOMETRY",
+        "ROAD_GEOMETRY_DESC",
+        "SEVERITY",
+        "SPEED_ZONE",
+        "RMA"
+      ],
+      "row_count": 200352,
+      "blank_key_rows": 0,
+      "distinct_key_count": 200352,
+      "duplicate_key_groups": 0,
+      "duplicate_extra_rows": 0,
+      "duplicate_key_examples": []
+    },
+    "vehicle": {
+      "resource_id": "official_vic_vehicle",
+      "filename": "vic_vehicle.csv",
+      "file_sha256": "05a7a1b9171abaeb5c188df549dee38edde6e76d5a03553988305a8280dccd12",
+      "bytes": 46632440,
+      "header": [
+        "ACCIDENT_NO",
+        "VEHICLE_ID",
+        "VEHICLE_YEAR_MANUF",
+        "VEHICLE_DCA_CODE",
+        "INITIAL_DIRECTION",
+        "ROAD_SURFACE_TYPE",
+        "ROAD_SURFACE_TYPE_DESC",
+        "REG_STATE",
+        "VEHICLE_BODY_STYLE",
+        "VEHICLE_MAKE",
+        "VEHICLE_MODEL",
+        "VEHICLE_POWER",
+        "VEHICLE_TYPE",
+        "VEHICLE_TYPE_DESC",
+        "VEHICLE_WEIGHT",
+        "CONSTRUCTION_TYPE",
+        "FUEL_TYPE",
+        "NO_OF_WHEELS",
+        "NO_OF_CYLINDERS",
+        "SEATING_CAPACITY",
+        "TARE_WEIGHT",
+        "TOTAL_NO_OCCUPANTS",
+        "CARRY_CAPACITY",
+        "CUBIC_CAPACITY",
+        "FINAL_DIRECTION",
+        "DRIVER_INTENT",
+        "VEHICLE_MOVEMENT",
+        "TRAILER_TYPE",
+        "VEHICLE_COLOUR_1",
+        "VEHICLE_COLOUR_2",
+        "CAUGHT_FIRE",
+        "INITIAL_IMPACT",
+        "LAMPS",
+        "LEVEL_OF_DAMAGE",
+        "TOWED_AWAY_FLAG",
+        "TRAFFIC_CONTROL",
+        "TRAFFIC_CONTROL_DESC"
+      ],
+      "row_count": 365470,
+      "blank_key_rows": 0,
+      "distinct_key_count": 365470,
+      "duplicate_key_groups": 0,
+      "duplicate_extra_rows": 0,
+      "duplicate_key_examples": []
+    },
+    "person": {
+      "resource_id": "official_vic_person",
+      "filename": "vic_person.csv",
+      "file_sha256": "71ca8fec01370e301f282fc83e8f11e4cde16a535ee421cbbb72512ceb7194f9",
+      "bytes": 28803789,
+      "header": [
+        "ACCIDENT_NO",
+        "PERSON_ID",
+        "VEHICLE_ID",
+        "SEX",
+        "AGE_GROUP",
+        "INJ_LEVEL",
+        "INJ_LEVEL_DESC",
+        "SEATING_POSITION",
+        "HELMET_BELT_WORN",
+        "ROAD_USER_TYPE",
+        "ROAD_USER_TYPE_DESC",
+        "LICENCE_STATE",
+        "TAKEN_HOSPITAL",
+        "EJECTED_CODE"
+      ],
+      "row_count": 467730,
+      "blank_key_rows": 0,
+      "distinct_key_count": 467730,
+      "duplicate_key_groups": 0,
+      "duplicate_extra_rows": 0,
+      "duplicate_key_examples": []
+    },
+    "node": {
+      "resource_id": "official_vic_node",
+      "filename": "vic_node.csv",
+      "file_sha256": "b0bdbec22ac33df66e15cff9b531ba3203320ec5fbe20076a2820b8fec966ed4",
+      "bytes": 51319968,
+      "header": [
+        "ACCIDENT_NO",
+        "NODE_ID",
+        "NODE_TYPE",
+        "AMG_X",
+        "AMG_Y",
+        "LGA_NAME",
+        "LGA NAME ALL",
+        "DEG_URBAN_NAME",
+        "LATITUDE",
+        "LONGITUDE",
+        "POSTCODE_CRASH"
+      ],
+      "row_count": 405918,
+      "blank_key_rows": 0,
+      "distinct_key_count": 200267,
+      "duplicate_key_groups": 199359,
+      "duplicate_extra_rows": 205651,
+      "duplicate_key_examples": [
+        {
+          "key": [
+            "T20140013159",
+            "272777"
+          ],
+          "rows": 2
+        },
+        {
+          "key": [
+            "T20140007111",
+            "272781"
+          ],
+          "rows": 2
+        },
+        {
+          "key": [
+            "T20140013443",
+            "272793"
+          ],
+          "rows": 2
+        },
+        {
+          "key": [
+            "T20140011483",
+            "272784"
+          ],
+          "rows": 2
+        },
+        {
+          "key": [
+            "T20140013127",
+            "272788"
+          ],
+          "rows": 2
+        }
+      ]
+    }
+  },
+  "findings": {
+    "invalid_accident_date": {
+      "count": 0,
+      "examples": [],
+      "examples_complete": true
+    },
+    "person_components_vs_declared_total": {
+      "count": 0,
+      "examples": [],
+      "examples_complete": true
+    },
+    "vehicle_missing_accident": {
+      "count": 0,
+      "examples": [],
+      "examples_complete": true
+    },
+    "person_missing_accident": {
+      "count": 0,
+      "examples": [],
+      "examples_complete": true
+    },
+    "node_missing_accident": {
+      "count": 0,
+      "examples": [],
+      "examples_complete": true
+    },
+    "person_blank_vehicle_reference": {
+      "count": 18776,
+      "examples": [
+        {
+          "row_locator": "csv:36",
+          "accident_no": "T20130004171",
+          "person_id": "01",
+          "accident_date": "2013-02-26"
+        },
+        {
+          "row_locator": "csv:82",
+          "accident_no": "T20140004585",
+          "person_id": "01",
+          "accident_date": "2014-03-05"
+        },
+        {
+          "row_locator": "csv:104",
+          "accident_no": "T20140014306",
+          "person_id": "02",
+          "accident_date": "2014-07-11"
+        },
+        {
+          "row_locator": "csv:113",
+          "accident_no": "T20140022067",
+          "person_id": "02",
+          "accident_date": "2014-10-25"
+        },
+        {
+          "row_locator": "csv:117",
+          "accident_no": "T20140023730",
+          "person_id": "01",
+          "accident_date": "2014-11-16"
+        }
+      ],
+      "accident_years": {
+        "2013": 1427,
+        "2014": 1340,
+        "2015": 1415,
+        "2016": 1459,
+        "2020": 926,
+        "2023": 1370,
+        "2024": 1383,
+        "2025": 1354,
+        "2012": 1490,
+        "2017": 1358,
+        "2018": 1354,
+        "2021": 1119,
+        "2019": 1387,
+        "2022": 1394
+      },
+      "examples_complete": false
+    },
+    "person_nonblank_vehicle_not_found": {
+      "count": 39,
+      "examples": [
+        {
+          "row_locator": "csv:24271",
+          "accident_no": "T20240016732",
+          "person_id": "01",
+          "vehicle_id": "B",
+          "accident_date": "2024-07-02"
+        },
+        {
+          "row_locator": "csv:30047",
+          "accident_no": "T20210020918",
+          "person_id": "01",
+          "vehicle_id": "B",
+          "accident_date": "2021-10-09"
+        },
+        {
+          "row_locator": "csv:34147",
+          "accident_no": "T20240011771",
+          "person_id": "01",
+          "vehicle_id": "B",
+          "accident_date": "2024-05-09"
+        },
+        {
+          "row_locator": "csv:52336",
+          "accident_no": "T20240015401",
+          "person_id": "01",
+          "vehicle_id": "B",
+          "accident_date": "2024-06-15"
+        },
+        {
+          "row_locator": "csv:81696",
+          "accident_no": "T20210022607",
+          "person_id": "01",
+          "vehicle_id": "A",
+          "accident_date": "2021-10-31"
+        },
+        {
+          "row_locator": "csv:82687",
+          "accident_no": "T20210021340",
+          "person_id": "01",
+          "vehicle_id": "B",
+          "accident_date": "2021-10-22"
+        },
+        {
+          "row_locator": "csv:142993",
+          "accident_no": "T20240009606",
+          "person_id": "01",
+          "vehicle_id": "B",
+          "accident_date": "2024-04-17"
+        },
+        {
+          "row_locator": "csv:156632",
+          "accident_no": "T20240004372",
+          "person_id": "01",
+          "vehicle_id": "B",
+          "accident_date": "2024-02-21"
+        },
+        {
+          "row_locator": "csv:176517",
+          "accident_no": "T20240013511",
+          "person_id": "01",
+          "vehicle_id": "B",
+          "accident_date": "2024-05-27"
+        },
+        {
+          "row_locator": "csv:201145",
+          "accident_no": "T20240018235",
+          "person_id": "01",
+          "vehicle_id": "B",
+          "accident_date": "2024-07-15"
+        },
+        {
+          "row_locator": "csv:210521",
+          "accident_no": "T20230008808",
+          "person_id": "01",
+          "vehicle_id": "B",
+          "accident_date": "2023-04-15"
+        },
+        {
+          "row_locator": "csv:224272",
+          "accident_no": "T20210023956",
+          "person_id": "01",
+          "vehicle_id": "B",
+          "accident_date": "2021-11-24"
+        },
+        {
+          "row_locator": "csv:228136",
+          "accident_no": "T20240005963",
+          "person_id": "01",
+          "vehicle_id": "B",
+          "accident_date": "2024-03-09"
+        },
+        {
+          "row_locator": "csv:245849",
+          "accident_no": "T20240012385",
+          "person_id": "01",
+          "vehicle_id": "B",
+          "accident_date": "2024-05-15"
+        },
+        {
+          "row_locator": "csv:249824",
+          "accident_no": "T20240005356",
+          "person_id": "01",
+          "vehicle_id": "B",
+          "accident_date": "2024-02-29"
+        },
+        {
+          "row_locator": "csv:253707",
+          "accident_no": "T20240016457",
+          "person_id": "01",
+          "vehicle_id": "B",
+          "accident_date": "2024-06-22"
+        },
+        {
+          "row_locator": "csv:269781",
+          "accident_no": "T20240015702",
+          "person_id": "01",
+          "vehicle_id": "B",
+          "accident_date": "2024-06-19"
+        },
+        {
+          "row_locator": "csv:272327",
+          "accident_no": "T20240026951",
+          "person_id": "01",
+          "vehicle_id": "B",
+          "accident_date": "2024-10-23"
+        },
+        {
+          "row_locator": "csv:281006",
+          "accident_no": "T20210002973",
+          "person_id": "01",
+          "vehicle_id": "B",
+          "accident_date": "2021-02-09"
+        },
+        {
+          "row_locator": "csv:281518",
+          "accident_no": "T20220019925",
+          "person_id": "01",
+          "vehicle_id": "B",
+          "accident_date": "2022-09-03"
+        },
+        {
+          "row_locator": "csv:293286",
+          "accident_no": "T20240013192",
+          "person_id": "01",
+          "vehicle_id": "B",
+          "accident_date": "2024-05-23"
+        },
+        {
+          "row_locator": "csv:306418",
+          "accident_no": "T20240017951",
+          "person_id": "01",
+          "vehicle_id": "B",
+          "accident_date": "2024-07-16"
+        },
+        {
+          "row_locator": "csv:308320",
+          "accident_no": "T20240009746",
+          "person_id": "01",
+          "vehicle_id": "B",
+          "accident_date": "2024-04-18"
+        },
+        {
+          "row_locator": "csv:315002",
+          "accident_no": "T20210014050",
+          "person_id": "01",
+          "vehicle_id": "B",
+          "accident_date": "2021-06-26"
+        },
+        {
+          "row_locator": "csv:315473",
+          "accident_no": "T20210012594",
+          "person_id": "01",
+          "vehicle_id": "B",
+          "accident_date": "2021-06-06"
+        },
+        {
+          "row_locator": "csv:321373",
+          "accident_no": "T20230013618",
+          "person_id": "01",
+          "vehicle_id": "A",
+          "accident_date": "2023-04-16"
+        },
+        {
+          "row_locator": "csv:324831",
+          "accident_no": "T20240016998",
+          "person_id": "01",
+          "vehicle_id": "B",
+          "accident_date": "2024-07-05"
+        },
+        {
+          "row_locator": "csv:326212",
+          "accident_no": "T20240011214",
+          "person_id": "01",
+          "vehicle_id": "B",
+          "accident_date": "2024-05-03"
+        },
+        {
+          "row_locator": "csv:328735",
+          "accident_no": "T20220018761",
+          "person_id": "02",
+          "vehicle_id": "B",
+          "accident_date": "2022-08-20"
+        },
+        {
+          "row_locator": "csv:357666",
+          "accident_no": "T20230009098",
+          "person_id": "01",
+          "vehicle_id": "A",
+          "accident_date": "2023-04-18"
+        },
+        {
+          "row_locator": "csv:369748",
+          "accident_no": "T20240013800",
+          "person_id": "01",
+          "vehicle_id": "B",
+          "accident_date": "2024-05-30"
+        },
+        {
+          "row_locator": "csv:423317",
+          "accident_no": "T20210022263",
+          "person_id": "01",
+          "vehicle_id": "A",
+          "accident_date": "2021-11-02"
+        },
+        {
+          "row_locator": "csv:432197",
+          "accident_no": "T20240010944",
+          "person_id": "02",
+          "vehicle_id": "B",
+          "accident_date": "2024-04-22"
+        },
+        {
+          "row_locator": "csv:438986",
+          "accident_no": "T20230028873",
+          "person_id": "01",
+          "vehicle_id": "B",
+          "accident_date": "2023-12-01"
+        },
+        {
+          "row_locator": "csv:439490",
+          "accident_no": "T20240002735",
+          "person_id": "02",
+          "vehicle_id": "C",
+          "accident_date": "2024-02-03"
+        },
+        {
+          "row_locator": "csv:439499",
+          "accident_no": "T20240009631",
+          "person_id": "03",
+          "vehicle_id": "B",
+          "accident_date": "2024-04-17"
+        },
+        {
+          "row_locator": "csv:440964",
+          "accident_no": "T20240010811",
+          "person_id": "01",
+          "vehicle_id": "B",
+          "accident_date": "2023-03-06"
+        },
+        {
+          "row_locator": "csv:463738",
+          "accident_no": "T20220019497",
+          "person_id": "01",
+          "vehicle_id": "B",
+          "accident_date": "2022-08-29"
+        },
+        {
+          "row_locator": "csv:465286",
+          "accident_no": "T20230028026",
+          "person_id": "01",
+          "vehicle_id": "B",
+          "accident_date": "2023-11-16"
+        }
+      ],
+      "accident_years": {
+        "2024": 22,
+        "2021": 8,
+        "2023": 6,
+        "2022": 3
+      },
+      "examples_complete": true
+    },
+    "node_invalid_or_missing_coordinates": {
+      "count": 0,
+      "examples": [],
+      "examples_complete": true
+    },
+    "vehicle_rows_vs_declared": {
+      "count": 5,
+      "examples": [
+        {
+          "row_locator": "csv:145593",
+          "accident_no": "T20250032463",
+          "declared": 1,
+          "observed": 2,
+          "accident_date": "2025-12-11"
+        },
+        {
+          "row_locator": "csv:148970",
+          "accident_no": "T20230009098",
+          "declared": 1,
+          "observed": 0,
+          "accident_date": "2023-04-18"
+        },
+        {
+          "row_locator": "csv:183745",
+          "accident_no": "T20210022607",
+          "declared": 1,
+          "observed": 0,
+          "accident_date": "2021-10-31"
+        },
+        {
+          "row_locator": "csv:184156",
+          "accident_no": "T20210022263",
+          "declared": 1,
+          "observed": 0,
+          "accident_date": "2021-11-02"
+        },
+        {
+          "row_locator": "csv:195478",
+          "accident_no": "T20250030921",
+          "declared": 2,
+          "observed": 3,
+          "accident_date": "2025-11-26"
+        }
+      ],
+      "accident_years": {
+        "2025": 2,
+        "2023": 1,
+        "2021": 2
+      },
+      "examples_complete": true
+    },
+    "person_rows_vs_declared": {
+      "count": 2,
+      "examples": [
+        {
+          "row_locator": "csv:63102",
+          "accident_no": "T20150023069",
+          "declared": 2,
+          "observed": 1,
+          "accident_date": "2015-11-07"
+        },
+        {
+          "row_locator": "csv:130238",
+          "accident_no": "T20150025312",
+          "declared": 2,
+          "observed": 1,
+          "accident_date": "2015-12-04"
+        }
+      ],
+      "accident_years": {
+        "2015": 2
+      },
+      "examples_complete": true
+    },
+    "accident_node_match_not_found": {
+      "count": 85,
+      "examples": [
+        {
+          "row_locator": "csv:163",
+          "accident_no": "T20160020719",
+          "node_id": "-1",
+          "accident_date": "2016-08-14"
+        },
+        {
+          "row_locator": "csv:5853",
+          "accident_no": "T20130003022",
+          "node_id": "-10",
+          "accident_date": "2013-02-09"
+        },
+        {
+          "row_locator": "csv:7235",
+          "accident_no": "T20180021544",
+          "node_id": "-1",
+          "accident_date": "2018-11-05"
+        },
+        {
+          "row_locator": "csv:7456",
+          "accident_no": "T20120001369",
+          "node_id": "-3",
+          "accident_date": "2012-01-12"
+        },
+        {
+          "row_locator": "csv:8160",
+          "accident_no": "T20220001453",
+          "node_id": "-1",
+          "accident_date": "2022-01-20"
+        },
+        {
+          "row_locator": "csv:9923",
+          "accident_no": "T20120013485",
+          "node_id": "-10",
+          "accident_date": "2012-06-09"
+        },
+        {
+          "row_locator": "csv:11554",
+          "accident_no": "T20120026078",
+          "node_id": "-10",
+          "accident_date": "2012-11-18"
+        },
+        {
+          "row_locator": "csv:13670",
+          "accident_no": "T20130002446",
+          "node_id": "-10",
+          "accident_date": "2012-08-20"
+        },
+        {
+          "row_locator": "csv:15608",
+          "accident_no": "T20200004272",
+          "node_id": "-1",
+          "accident_date": "2020-01-13"
+        },
+        {
+          "row_locator": "csv:15796",
+          "accident_no": "T20120009365",
+          "node_id": "-10",
+          "accident_date": "2012-04-20"
+        },
+        {
+          "row_locator": "csv:22969",
+          "accident_no": "T20130000413",
+          "node_id": "-10",
+          "accident_date": "2012-12-02"
+        },
+        {
+          "row_locator": "csv:24033",
+          "accident_no": "T20190001603",
+          "node_id": "-1",
+          "accident_date": "2019-01-14"
+        },
+        {
+          "row_locator": "csv:25652",
+          "accident_no": "T20180014906",
+          "node_id": "-1",
+          "accident_date": "2018-06-26"
+        },
+        {
+          "row_locator": "csv:26281",
+          "accident_no": "T20130000490",
+          "node_id": "-10",
+          "accident_date": "2012-12-30"
+        },
+        {
+          "row_locator": "csv:28331",
+          "accident_no": "T20130000123",
+          "node_id": "-10",
+          "accident_date": "2013-01-01"
+        },
+        {
+          "row_locator": "csv:29118",
+          "accident_no": "T20120022939",
+          "node_id": "-10",
+          "accident_date": "2012-10-07"
+        },
+        {
+          "row_locator": "csv:29680",
+          "accident_no": "T20160004785",
+          "node_id": "-1",
+          "accident_date": "2016-01-10"
+        },
+        {
+          "row_locator": "csv:33533",
+          "accident_no": "T20160023892",
+          "node_id": "-1",
+          "accident_date": "2016-11-05"
+        },
+        {
+          "row_locator": "csv:40469",
+          "accident_no": "T20190020200",
+          "node_id": "-1",
+          "accident_date": "2019-10-15"
+        },
+        {
+          "row_locator": "csv:45996",
+          "accident_no": "T20190019204",
+          "node_id": "-1",
+          "accident_date": "2019-10-02"
+        },
+        {
+          "row_locator": "csv:52862",
+          "accident_no": "T20130006785",
+          "node_id": "-10",
+          "accident_date": "2012-12-12"
+        },
+        {
+          "row_locator": "csv:55837",
+          "accident_no": "T20120015834",
+          "node_id": "-10",
+          "accident_date": "2012-07-09"
+        },
+        {
+          "row_locator": "csv:62379",
+          "accident_no": "T20190023155",
+          "node_id": "-1",
+          "accident_date": "2019-11-16"
+        },
+        {
+          "row_locator": "csv:64549",
+          "accident_no": "T20190014761",
+          "node_id": "-1",
+          "accident_date": "2019-08-07"
+        },
+        {
+          "row_locator": "csv:65580",
+          "accident_no": "T20120008664",
+          "node_id": "-10",
+          "accident_date": "2012-04-06"
+        },
+        {
+          "row_locator": "csv:68606",
+          "accident_no": "T20120023231",
+          "node_id": "-10",
+          "accident_date": "2012-10-14"
+        },
+        {
+          "row_locator": "csv:69403",
+          "accident_no": "T20120005932",
+          "node_id": "-10",
+          "accident_date": "2012-03-10"
+        },
+        {
+          "row_locator": "csv:71254",
+          "accident_no": "T20170008557",
+          "node_id": "-1",
+          "accident_date": "2017-04-29"
+        },
+        {
+          "row_locator": "csv:77058",
+          "accident_no": "T20120013498",
+          "node_id": "-10",
+          "accident_date": "2012-06-09"
+        },
+        {
+          "row_locator": "csv:78465",
+          "accident_no": "T20190013545",
+          "node_id": "-1",
+          "accident_date": "2019-07-19"
+        },
+        {
+          "row_locator": "csv:79308",
+          "accident_no": "T20190014790",
+          "node_id": "-1",
+          "accident_date": "2019-07-14"
+        },
+        {
+          "row_locator": "csv:79537",
+          "accident_no": "T20130000229",
+          "node_id": "-10",
+          "accident_date": "2013-01-01"
+        },
+        {
+          "row_locator": "csv:79543",
+          "accident_no": "T20130004480",
+          "node_id": "-10",
+          "accident_date": "2013-02-23"
+        },
+        {
+          "row_locator": "csv:80786",
+          "accident_no": "T20120015209",
+          "node_id": "-10",
+          "accident_date": "2012-07-01"
+        },
+        {
+          "row_locator": "csv:82697",
+          "accident_no": "T20190010303",
+          "node_id": "-1",
+          "accident_date": "2019-06-01"
+        },
+        {
+          "row_locator": "csv:84587",
+          "accident_no": "T20120013217",
+          "node_id": "-10",
+          "accident_date": "2012-06-06"
+        },
+        {
+          "row_locator": "csv:87509",
+          "accident_no": "T20120017610",
+          "node_id": "-10",
+          "accident_date": "2012-07-18"
+        },
+        {
+          "row_locator": "csv:88970",
+          "accident_no": "T20180023958",
+          "node_id": "-1",
+          "accident_date": "2018-05-14"
+        },
+        {
+          "row_locator": "csv:89582",
+          "accident_no": "T20120023489",
+          "node_id": "-10",
+          "accident_date": "2012-10-17"
+        },
+        {
+          "row_locator": "csv:93228",
+          "accident_no": "T20190000288",
+          "node_id": "-1",
+          "accident_date": "2019-01-05"
+        },
+        {
+          "row_locator": "csv:96754",
+          "accident_no": "T20210011134",
+          "node_id": "-1",
+          "accident_date": "2021-05-18"
+        },
+        {
+          "row_locator": "csv:96997",
+          "accident_no": "T20180011668",
+          "node_id": "-1",
+          "accident_date": "2018-04-10"
+        },
+        {
+          "row_locator": "csv:98897",
+          "accident_no": "T20210006755",
+          "node_id": "-1",
+          "accident_date": "2021-03-21"
+        },
+        {
+          "row_locator": "csv:101916",
+          "accident_no": "T20170018084",
+          "node_id": "-1",
+          "accident_date": "2017-09-20"
+        },
+        {
+          "row_locator": "csv:102360",
+          "accident_no": "T20190002378",
+          "node_id": "-1",
+          "accident_date": "2019-02-07"
+        },
+        {
+          "row_locator": "csv:107560",
+          "accident_no": "T20120012969",
+          "node_id": "-10",
+          "accident_date": "2012-06-03"
+        },
+        {
+          "row_locator": "csv:108822",
+          "accident_no": "T20130002101",
+          "node_id": "-10",
+          "accident_date": "2013-01-31"
+        },
+        {
+          "row_locator": "csv:114610",
+          "accident_no": "T20120028352",
+          "node_id": "-10",
+          "accident_date": "2012-12-19"
+        },
+        {
+          "row_locator": "csv:115428",
+          "accident_no": "T20120002126",
+          "node_id": "-10",
+          "accident_date": "2012-01-28"
+        },
+        {
+          "row_locator": "csv:115657",
+          "accident_no": "T20180010144",
+          "node_id": "-1",
+          "accident_date": "2018-05-28"
+        },
+        {
+          "row_locator": "csv:123506",
+          "accident_no": "T20120028739",
+          "node_id": "-10",
+          "accident_date": "2012-12-23"
+        },
+        {
+          "row_locator": "csv:125306",
+          "accident_no": "T20180018467",
+          "node_id": "-1",
+          "accident_date": "2018-10-01"
+        },
+        {
+          "row_locator": "csv:131154",
+          "accident_no": "T20190004398",
+          "node_id": "-1",
+          "accident_date": "2019-03-07"
+        },
+        {
+          "row_locator": "csv:131796",
+          "accident_no": "T20120006036",
+          "node_id": "-10",
+          "accident_date": "2012-03-08"
+        },
+        {
+          "row_locator": "csv:133473",
+          "accident_no": "T20130004031",
+          "node_id": "-10",
+          "accident_date": "2013-02-23"
+        },
+        {
+          "row_locator": "csv:134483",
+          "accident_no": "T20160004863",
+          "node_id": "-1",
+          "accident_date": "2016-03-03"
+        },
+        {
+          "row_locator": "csv:136598",
+          "accident_no": "T20160010393",
+          "node_id": "-1",
+          "accident_date": "2016-05-12"
+        },
+        {
+          "row_locator": "csv:142384",
+          "accident_no": "T20180021724",
+          "node_id": "-1",
+          "accident_date": "2018-11-19"
+        },
+        {
+          "row_locator": "csv:142932",
+          "accident_no": "T20210009023",
+          "node_id": "-1",
+          "accident_date": "2021-04-22"
+        },
+        {
+          "row_locator": "csv:145301",
+          "accident_no": "T20180008786",
+          "node_id": "-1",
+          "accident_date": "2018-04-28"
+        },
+        {
+          "row_locator": "csv:145980",
+          "accident_no": "T20190023830",
+          "node_id": "-1",
+          "accident_date": "2019-11-23"
+        },
+        {
+          "row_locator": "csv:148651",
+          "accident_no": "T20120020447",
+          "node_id": "-10",
+          "accident_date": "2012-08-12"
+        },
+        {
+          "row_locator": "csv:153263",
+          "accident_no": "T20120008772",
+          "node_id": "-10",
+          "accident_date": "2012-04-14"
+        },
+        {
+          "row_locator": "csv:154736",
+          "accident_no": "T20170011059",
+          "node_id": "-1",
+          "accident_date": "2017-06-05"
+        },
+        {
+          "row_locator": "csv:157514",
+          "accident_no": "T20120024642",
+          "node_id": "-10",
+          "accident_date": "2012-08-04"
+        },
+        {
+          "row_locator": "csv:158106",
+          "accident_no": "T20170015401",
+          "node_id": "-1",
+          "accident_date": "2017-08-09"
+        },
+        {
+          "row_locator": "csv:158549",
+          "accident_no": "T20170012528",
+          "node_id": "-1",
+          "accident_date": "2017-06-26"
+        },
+        {
+          "row_locator": "csv:161369",
+          "accident_no": "T20180001074",
+          "node_id": "-1",
+          "accident_date": "2018-01-18"
+        },
+        {
+          "row_locator": "csv:162854",
+          "accident_no": "T20120025845",
+          "node_id": "-10",
+          "accident_date": "2012-11-17"
+        },
+        {
+          "row_locator": "csv:164152",
+          "accident_no": "T20130001439",
+          "node_id": "-10",
+          "accident_date": "2012-08-17"
+        },
+        {
+          "row_locator": "csv:164284",
+          "accident_no": "T20180006480",
+          "node_id": "-1",
+          "accident_date": "2017-09-09"
+        },
+        {
+          "row_locator": "csv:169248",
+          "accident_no": "T20120029106",
+          "node_id": "-10",
+          "accident_date": "2012-12-30"
+        },
+        {
+          "row_locator": "csv:169462",
+          "accident_no": "T20210011215",
+          "node_id": "-1",
+          "accident_date": "2021-04-22"
+        },
+        {
+          "row_locator": "csv:169806",
+          "accident_no": "T20190020942",
+          "node_id": "-1",
+          "accident_date": "2019-10-14"
+        },
+        {
+          "row_locator": "csv:174453",
+          "accident_no": "T20190010646",
+          "node_id": "-1",
+          "accident_date": "2019-03-06"
+        },
+        {
+          "row_locator": "csv:174647",
+          "accident_no": "T20120013446",
+          "node_id": "-10",
+          "accident_date": "2012-06-09"
+        },
+        {
+          "row_locator": "csv:175858",
+          "accident_no": "T20120014619",
+          "node_id": "-10",
+          "accident_date": "2012-06-24"
+        },
+        {
+          "row_locator": "csv:179869",
+          "accident_no": "T20180010627",
+          "node_id": "-1",
+          "accident_date": "2018-06-05"
+        },
+        {
+          "row_locator": "csv:184577",
+          "accident_no": "T20190016778",
+          "node_id": "-1",
+          "accident_date": "2019-09-01"
+        },
+        {
+          "row_locator": "csv:188837",
+          "accident_no": "T20190006335",
+          "node_id": "-1",
+          "accident_date": "2018-12-07"
+        },
+        {
+          "row_locator": "csv:190508",
+          "accident_no": "T20170001868",
+          "node_id": "-1",
+          "accident_date": "2017-01-28"
+        },
+        {
+          "row_locator": "csv:190617",
+          "accident_no": "T20220007387",
+          "node_id": "-1",
+          "accident_date": "2022-04-02"
+        },
+        {
+          "row_locator": "csv:195024",
+          "accident_no": "T20180002775",
+          "node_id": "-1",
+          "accident_date": "2018-02-05"
+        },
+        {
+          "row_locator": "csv:195372",
+          "accident_no": "T20190019560",
+          "node_id": "-1",
+          "accident_date": "2019-10-07"
+        },
+        {
+          "row_locator": "csv:197220",
+          "accident_no": "T20180005086",
+          "node_id": "-1",
+          "accident_date": "2018-03-15"
+        }
+      ],
+      "accident_years": {
+        "2016": 5,
+        "2013": 6,
+        "2018": 13,
+        "2012": 31,
+        "2022": 2,
+        "2020": 1,
+        "2019": 16,
+        "2017": 7,
+        "2021": 4
+      },
+      "examples_complete": true
+    },
+    "vehicle_type_21": {
+      "count": 454,
+      "examples": [
+        {
+          "row_locator": "csv:74862",
+          "accident_no": "T20240008494",
+          "vehicle_id": "C",
+          "description": "Electric Device",
+          "accident_date": "2024-04-04"
+        },
+        {
+          "row_locator": "csv:75343",
+          "accident_no": "T20240011305",
+          "vehicle_id": "C",
+          "description": "Electric Device",
+          "accident_date": "2024-05-04"
+        },
+        {
+          "row_locator": "csv:77060",
+          "accident_no": "T20240019166",
+          "vehicle_id": "A",
+          "description": "Electric Device",
+          "accident_date": "2024-07-29"
+        },
+        {
+          "row_locator": "csv:77328",
+          "accident_no": "T20240020359",
+          "vehicle_id": "B",
+          "description": "Electric Device",
+          "accident_date": "2024-08-11"
+        },
+        {
+          "row_locator": "csv:77330",
+          "accident_no": "T20240020367",
+          "vehicle_id": "C",
+          "description": "Electric Device",
+          "accident_date": "2024-08-07"
+        }
+      ],
+      "accident_years": {
+        "2024": 147,
+        "2025": 305,
+        "2022": 1,
+        "2023": 1
+      },
+      "examples_complete": false
+    }
+  },
+  "limits": [
+    "Counts describe these file bytes, not an approved release or database QA.",
+    "Person and Node observations support C's review; they do not replace it.",
+    "Raw vehicle/person totals may differ from a declared statistical scope."
+  ],
+  "accident": {
+    "date_min": "2012-01-01",
+    "date_max": "2025-12-31",
+    "rows_by_year": {
+      "2012": 13912,
+      "2013": 14023,
+      "2014": 14503,
+      "2015": 15684,
+      "2016": 15779,
+      "2017": 13351,
+      "2018": 12765,
+      "2019": 14399,
+      "2020": 12170,
+      "2021": 14013,
+      "2022": 15043,
+      "2023": 15558,
+      "2024": 15386,
+      "2025": 13766
+    },
+    "rows_by_month": {
+      "2012-01": 1079,
+      "2012-02": 1238,
+      "2012-03": 1246,
+      "2012-04": 1217,
+      "2012-05": 1275,
+      "2012-06": 1108,
+      "2012-07": 1107,
+      "2012-08": 1169,
+      "2012-09": 1047,
+      "2012-10": 1173,
+      "2012-11": 1143,
+      "2012-12": 1110,
+      "2013-01": 1026,
+      "2013-02": 1195,
+      "2013-03": 1247,
+      "2013-04": 1172,
+      "2013-05": 1258,
+      "2013-06": 1174,
+      "2013-07": 1110,
+      "2013-08": 1124,
+      "2013-09": 1121,
+      "2013-10": 1220,
+      "2013-11": 1196,
+      "2013-12": 1180,
+      "2014-01": 1109,
+      "2014-02": 1159,
+      "2014-03": 1355,
+      "2014-04": 1199,
+      "2014-05": 1309,
+      "2014-06": 1175,
+      "2014-07": 1132,
+      "2014-08": 1186,
+      "2014-09": 1103,
+      "2014-10": 1302,
+      "2014-11": 1263,
+      "2014-12": 1211,
+      "2015-01": 1259,
+      "2015-02": 1247,
+      "2015-03": 1469,
+      "2015-04": 1338,
+      "2015-05": 1417,
+      "2015-06": 1169,
+      "2015-07": 1301,
+      "2015-08": 1177,
+      "2015-09": 1153,
+      "2015-10": 1414,
+      "2015-11": 1296,
+      "2015-12": 1444,
+      "2016-01": 1239,
+      "2016-02": 1402,
+      "2016-03": 1413,
+      "2016-04": 1408,
+      "2016-05": 1431,
+      "2016-06": 1279,
+      "2016-07": 1319,
+      "2016-08": 1314,
+      "2016-09": 1155,
+      "2016-10": 1283,
+      "2016-11": 1301,
+      "2016-12": 1235,
+      "2017-01": 1037,
+      "2017-02": 1194,
+      "2017-03": 1340,
+      "2017-04": 1130,
+      "2017-05": 1150,
+      "2017-06": 1075,
+      "2017-07": 1037,
+      "2017-08": 1056,
+      "2017-09": 923,
+      "2017-10": 1134,
+      "2017-11": 1178,
+      "2017-12": 1097,
+      "2018-01": 1007,
+      "2018-02": 1065,
+      "2018-03": 1220,
+      "2018-04": 1040,
+      "2018-05": 1112,
+      "2018-06": 1020,
+      "2018-07": 1058,
+      "2018-08": 1078,
+      "2018-09": 946,
+      "2018-10": 1115,
+      "2018-11": 1067,
+      "2018-12": 1037,
+      "2019-01": 1017,
+      "2019-02": 1078,
+      "2019-03": 1148,
+      "2019-04": 1072,
+      "2019-05": 1173,
+      "2019-06": 1041,
+      "2019-07": 1246,
+      "2019-08": 1272,
+      "2019-09": 1249,
+      "2019-10": 1435,
+      "2019-11": 1395,
+      "2019-12": 1273,
+      "2020-01": 1216,
+      "2020-02": 1440,
+      "2020-03": 1208,
+      "2020-04": 606,
+      "2020-05": 956,
+      "2020-06": 1054,
+      "2020-07": 934,
+      "2020-08": 633,
+      "2020-09": 719,
+      "2020-10": 894,
+      "2020-11": 1252,
+      "2020-12": 1258,
+      "2021-01": 1227,
+      "2021-02": 1165,
+      "2021-03": 1546,
+      "2021-04": 1360,
+      "2021-05": 1313,
+      "2021-06": 1138,
+      "2021-07": 1131,
+      "2021-08": 882,
+      "2021-09": 814,
+      "2021-10": 973,
+      "2021-11": 1202,
+      "2021-12": 1262,
+      "2022-01": 1039,
+      "2022-02": 1265,
+      "2022-03": 1465,
+      "2022-04": 1247,
+      "2022-05": 1336,
+      "2022-06": 1167,
+      "2022-07": 1227,
+      "2022-08": 1250,
+      "2022-09": 1185,
+      "2022-10": 1273,
+      "2022-11": 1252,
+      "2022-12": 1337,
+      "2023-01": 1270,
+      "2023-02": 1289,
+      "2023-03": 1454,
+      "2023-04": 1243,
+      "2023-05": 1350,
+      "2023-06": 1194,
+      "2023-07": 1368,
+      "2023-08": 1275,
+      "2023-09": 1281,
+      "2023-10": 1294,
+      "2023-11": 1330,
+      "2023-12": 1210,
+      "2024-01": 1111,
+      "2024-02": 1321,
+      "2024-03": 1402,
+      "2024-04": 1302,
+      "2024-05": 1402,
+      "2024-06": 1148,
+      "2024-07": 1210,
+      "2024-08": 1307,
+      "2024-09": 1114,
+      "2024-10": 1397,
+      "2024-11": 1392,
+      "2024-12": 1280,
+      "2025-01": 1252,
+      "2025-02": 1299,
+      "2025-03": 1549,
+      "2025-04": 1288,
+      "2025-05": 1480,
+      "2025-06": 1271,
+      "2025-07": 1231,
+      "2025-08": 1271,
+      "2025-09": 952,
+      "2025-10": 1024,
+      "2025-11": 540,
+      "2025-12": 609
+    },
+    "severity_tokens": {
+      "1": 3352,
+      "2": 72054,
+      "3": 124942,
+      "4": 4
+    },
+    "count_tokens_not_nonnegative_integers": {
+      "NO_OF_VEHICLES": {},
+      "NO_PERSONS_KILLED": {},
+      "NO_PERSONS_INJ_2": {},
+      "NO_PERSONS_INJ_3": {},
+      "NO_PERSONS_NOT_INJ": {},
+      "NO_PERSONS": {}
+    }
+  },
+  "vehicle_type_tokens": {
+    "01": 170958,
+    "02": 75584,
+    "03": 3176,
+    "04": 31555,
+    "05": 8160,
+    "06": 28,
+    "07": 75,
+    "08": 1599,
+    "09": 384,
+    "10": 26994,
+    "11": 124,
+    "12": 1753,
+    "13": 19984,
+    "14": 25,
+    "15": 767,
+    "16": 63,
+    "17": 1252,
+    "18": 20,
+    "19": 192,
+    "20": 162,
+    "21": 454,
+    "27": 327,
+    "60": 931,
+    "61": 2915,
+    "62": 829,
+    "63": 112,
+    "71": 5834,
+    "72": 4656,
+    "99": 6557
+  },
+  "vehicle_type_descriptions": {
+    "01": {
+      "Car": 170958
+    },
+    "02": {
+      "Station Wagon": 75584
+    },
+    "03": {
+      "Taxi": 3176
+    },
+    "04": {
+      "Utility": 31555
+    },
+    "05": {
+      "Panel Van": 8160
+    },
+    "06": {
+      "Prime Mover (No of Trailers Unknown)": 28
+    },
+    "07": {
+      "Rigid Truck(Weight Unknown)": 75
+    },
+    "08": {
+      "Bus/Coach": 1599
+    },
+    "09": {
+      "Mini Bus(9-13 seats)": 384
+    },
+    "10": {
+      "Motor Cycle": 26994
+    },
+    "11": {
+      "Moped": 124
+    },
+    "12": {
+      "Motor Scooter": 1753
+    },
+    "13": {
+      "Bicycle": 19984
+    },
+    "14": {
+      "Horse (ridden or drawn)": 25
+    },
+    "15": {
+      "Tram": 767
+    },
+    "16": {
+      "Train": 63
+    },
+    "17": {
+      "Other Vehicle": 1252
+    },
+    "18": {
+      "Not Applicable": 20
+    },
+    "19": {
+      "Parked trailers": 192
+    },
+    "20": {
+      "Quad Bike": 162
+    },
+    "21": {
+      "Electric Device": 454
+    },
+    "27": {
+      "Plant machinery and Agricultural equipment": 327
+    },
+    "60": {
+      "Prime Mover Only": 931
+    },
+    "61": {
+      "Prime Mover - Single Trailer": 2915
+    },
+    "62": {
+      "Prime Mover B-Double": 829
+    },
+    "63": {
+      "Prime Mover B-Triple": 112
+    },
+    "71": {
+      "Light Commercial Vehicle (Rigid) <= 4.5 Tonnes GVM": 5834
+    },
+    "72": {
+      "Heavy Vehicle (Rigid) > 4.5 Tonnes": 4656
+    },
+    "99": {
+      "Not Known": 6557
+    }
+  },
+  "node_observations": {
+    "matching_key_groups": 200267,
+    "duplicate_groups": 199359,
+    "multiple_exact_coordinate_groups": 0,
+    "groups_with_invalid_coordinates": 0,
+    "conflict_examples": [],
+    "note": "Coordinates are compared before rounding. No CRS or map eligibility is assigned."
+  },
+  "inputs_unchanged": true
+}

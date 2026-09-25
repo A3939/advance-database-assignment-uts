@@ -1,0 +1,98 @@
+{
+  "checked_at_utc": "2026-09-19T06:47:24.609519+00:00",
+  "branch": "peixian/dev",
+  "base_commit": "035188e1b37bffaa2c75715897197320e32887ba",
+  "status": "qa01_coverage_explanation_fixed_local_tests_passed",
+  "finding": {
+    "contract": "Team v1.1, document 04 section 3 (QA01) and document 05 section 5 require an explanation of actual snapshot coverage reductions.",
+    "cause": "The coverage explanation accepted any truthy value and did not compare it with the actual previous/current ranges.",
+    "reproduction": {
+      "inputs": "Existing seven-file, 19-row S0; only the test manifest coverage was changed from 2020-2024 to 2020-2023.",
+      "before_fix": [
+        {
+          "coverage_statement": "true",
+          "file_result": "pass",
+          "batch_result": "pass"
+        },
+        {
+          "coverage_statement": "old range",
+          "file_result": "pass",
+          "batch_result": "pass"
+        },
+        {
+          "coverage_statement": "before and after both set to old range",
+          "file_result": "pass",
+          "batch_result": "pass"
+        }
+      ],
+      "initial_regression_run": "13 failed, 6 passed, 30 deselected in 0.85s before the fix. A further boolean-in-pair case was added before the final full run."
+    }
+  },
+  "changes": [
+    "Require coverage={before: ..., after: ...} with exactly those members, matching the complete previous/current coverage with JSON types preserved.",
+    "Validate the supported year/month shape before set comparisons. Booleans, malformed or duplicate months and unsupported changed dimensions cannot pass as an expansion.",
+    "Keep valid year/month expansions when the basis is unchanged; retain existing source, release, resource, change-kind and description checks.",
+    "Record the declared explanation with actual and expected coverage in the hashed file evidence."
+  ],
+  "tests": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -q -p no:cacheprovider",
+    "result": "400 passed, 10 skipped in 6.52s",
+    "passed": 400,
+    "skipped": 10,
+    "failed": 0,
+    "added_regression_cases": 20,
+    "regression_tests": [
+      "tests/test_qa_input.py::test_coverage_change_statement_matches_both_snapshots",
+      "tests/test_qa_input.py::test_coverage_expansion_only_accepts_valid_unchanged_dimensions"
+    ],
+    "coverage": [
+      "Boolean, stale, incomplete, extra-member and incorrect before/after statements block.",
+      "Valid coverage_reduction and replacement statements pass.",
+      "Type-sensitive comparisons reject a boolean month inside an otherwise matching statement.",
+      "Month shrinkage, invalid/boolean/duplicate/nested months, changed basis and regional subsets do not auto-pass.",
+      "Valid year expansion, month expansion and month-list reordering still pass.",
+      "Blocked results retain actual, expected and declared ranges in SHA256-verified detail evidence."
+    ],
+    "skipped_cases": {
+      "tests/test_raw_load_postgres.py": 8,
+      "tests/test_input_qa_postgres.py": 2
+    },
+    "skip_reason": "ARSIA_TEST_DSN is absent; real PostgreSQL tests need A's migrated environment."
+  },
+  "file_hashes": {
+    "README.md": "4a80c77e3bb075e52d41df24f226699da52741b83647252088352bdf3a820ad0",
+    "docs/native-intake.md": "099d5b67790fea9e17a701fa4bf772286376419dafe849015df7b03e2b41622a",
+    "docs/raw-loading.md": "789a23fe5448b5c396178c5370802e066638b04630b37d128e2902da2fe986b5",
+    "docs/input-qa.md": "762de8c84e466b64a030db89a7e1124fba0668be0ee86dab83a47ed3c3c62065",
+    "docs/runner.md": "ef31ec9108bcd4ef5766688ff268d1328f03e4b0d4dd6c2e464cce13bb4a9918",
+    "src/arsia_ingest/qa_input.py": "80307dd0379d26623bd5e4556c860fb900693b570fce98350f988e04addcd14b",
+    "src/arsia_ingest/runner.py": "e485e0a49cc11bc2b10f5e3c9cb43e76f5d2e927f6f542628850bbff361d43cb",
+    "tests/test_qa_input.py": "750ad3c58941cc223fb8fd13c4aea39da42cce9af4cc88c21e3fd92f9d8c92c1",
+    "tests/test_input_qa_postgres.py": "44f50657b9705e693b36741136b725345cd0852cdf8e48b3ec364a12752f6555",
+    "tests/test_runner.py": "ab919849df2cb3de862ab48098d0890a2cc34b633c5499ea5113773589e29550"
+  },
+  "changed_existing_files": [
+    "src/arsia_ingest/qa_input.py",
+    "tests/test_qa_input.py",
+    "docs/input-qa.md"
+  ],
+  "previous_receipt": {
+    "path": "docs/evidence/b10-b11-validation-2026-09-19.json",
+    "sha256": "ddadd3626f81a11f31617afcf60532ce379267a3ff1dbf584a3b662af947a7dd",
+    "unchanged": true
+  },
+  "preserved_untracked_file": {
+    "path": "docs/sources/evidence/vic/local-profile-2026-09-17.json",
+    "sha256": "4979014576b956ddadf3f6c99ef78649db882dbabc5cd804d8c33b9029a0bd25"
+  },
+  "limits": [
+    "This is a local QA01 fix. Database execution, official source approval, FP1 and full-chain integration remain unverified.",
+    "The before/after wrapper is B11's adapter convention; team documents do not prescribe this JSON subshape.",
+    "Only changed temporal coverage with integer years, distinct integer months and optional basis is supported here. Other changed shapes need an agreed comparison."
+  ],
+  "notes": [
+    "Final hashes were recorded after polishing the updated guide. Earlier receipts and their earlier hashes were not rewritten.",
+    "The runner, other B10/B11 work and raw input files were unchanged. No dependencies or database were installed, and no official full output was generated.",
+    "No commit, push, website or progress-board operation was performed; the staging area remains empty."
+  ]
+}

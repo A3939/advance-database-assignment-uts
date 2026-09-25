@@ -1,0 +1,100 @@
+{
+  "checked_at_utc": "2026-09-17T14:06:38.876410+00:00",
+  "scope": "Source research and investigation tools only; no official-source approval or database QA execution",
+  "branch": "peixian/dev",
+  "head": "2aa251891589ac56aeb9125fd441d6ecf9746c66",
+  "tests": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -q -p no:cacheprovider",
+    "exit_code": 0,
+    "result": "153 passed in 1.28s",
+    "new_cases": 7
+  },
+  "completed_commands": [
+    "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/review_vic_links.py --output docs/sources/evidence/vic/person-node-local-review-2026-09-17.json",
+    "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/compare_vic_evidence.py --review docs/sources/evidence/vic/person-node-local-review-2026-09-17.json --api-evidence docs/sources/evidence/vic/person-node-api-check-2026-09-17.json --output docs/sources/evidence/vic/person-node-comparison-2026-09-17.json",
+    "git diff --check"
+  ],
+  "local_source_hashes": {
+    "accident": "a148c00601fab10d44368df80492c594123700a7f9e334ff896fd215295e91d9",
+    "vehicle": "05a7a1b9171abaeb5c188df549dee38edde6e76d5a03553988305a8280dccd12",
+    "person": "71ca8fec01370e301f282fc83e8f11e4cde16a535ee421cbbb72512ceb7194f9",
+    "node": "b0bdbec22ac33df66e15cff9b531ba3203320ec5fbe20076a2820b8fec966ed4"
+  },
+  "checks": {
+    "both_scans_confirm_input_hashes_unchanged": true,
+    "receipt_code_hashes_match_current_scripts": true,
+    "all_39_references_persist_in_selected_api_data": true,
+    "all_85_missing_node_cases_persist_in_selected_api_data": true,
+    "selected_vehicle_person_node_payload_multisets_match": true,
+    "all_12_selected_node_flat_coordinate_comparisons_match": true,
+    "json_parse_and_trailing_whitespace_checks": true,
+    "git_diff_check": true,
+    "index_empty": true,
+    "no_other_tracked_file_changed": true
+  },
+  "local_links_checked": [
+    "../../../F/ARSIA-Team-Handoff/05-\u6765\u6e90\u4e0e\u6620\u5c04\u8bf4\u660e.md",
+    "../../../F/ARSIA-Team-Handoff/04-\u56e2\u961f\u5206\u5de5\u4e0e\u9a8c\u6536.md",
+    "../../../Resources/source/metadata/victoria_package.json",
+    "../../../Resources/source/resources.json",
+    "../../raw_datasource/vic_accident.csv",
+    "../../raw_datasource/vic_vehicle.csv",
+    "../../raw_datasource/vic_person.csv",
+    "../../raw_datasource/vic_node.csv",
+    "../../config/native-inputs.json",
+    "evidence/vic/official-package-2026-09-17.json",
+    "evidence/vic/official-package-retrieval-2026-09-17.json",
+    "evidence/vic/local-profile-2026-09-17-final.json",
+    "../../tools/profile_vic_inputs.py",
+    "evidence/vic/person-node-local-review-2026-09-17.json",
+    "evidence/vic/person-node-api-check-2026-09-17.json",
+    "evidence/vic/person-node-comparison-2026-09-17.json",
+    "evidence/vic/person-node-research-2026-09-18.json",
+    "evidence/vic/person-node-validation-2026-09-18.json"
+  ],
+  "historical_receipts_unchanged_from_head": {
+    "local-profile-2026-09-17-final.json": "11216d4d3f6efa90d700b55daa3c6e56b778000b66910c760375025f8059e49c",
+    "official-package-2026-09-17.json": "b49db512d35f455a0172f45db29006e9cfc5cec44c0f986995f08fe57e0f2580",
+    "official-package-retrieval-2026-09-17.json": "46a0509709892cb17f4a3756ff68a5b16a5078f74d99016130bf67718f52ed67"
+  },
+  "preexisting_untracked_file_retained": "docs/sources/evidence/vic/local-profile-2026-09-17.json",
+  "changed_and_new_file_hashes": {
+    "docs/sources/vic-accident-vehicle.md": {
+      "sha256": "8f2e4ee17e4c80ca05548128106fe12fee06dde5a6b1f328c673da829c86ee15",
+      "bytes": 32862
+    },
+    "tools/review_vic_links.py": {
+      "sha256": "deed380330412a777f681de92afbd7b1deb35a5d6983f268a5ad90b61b09e3ec",
+      "bytes": 11077
+    },
+    "tools/compare_vic_evidence.py": {
+      "sha256": "92b5f5da60fade0ef0f0e7af99d70dc5bfc91281bbf8b2a3feed4fc89ef1bfbb",
+      "bytes": 8485
+    },
+    "tests/test_vic_links.py": {
+      "sha256": "a35084324aa49e78140eb180acf294433caabb985e6e71c74b5e2877f226d00f",
+      "bytes": 8797
+    },
+    "docs/sources/evidence/vic/person-node-local-review-2026-09-17.json": {
+      "sha256": "02d898c6b04ac1b4afe99b56b5be02368a6489356de40f7493886670e81a9e27",
+      "bytes": 248241
+    },
+    "docs/sources/evidence/vic/person-node-api-check-2026-09-17.json": {
+      "sha256": "50318cd0d6a6296e54d9eae94788b3ac643ff2fa183e566a3e59d3268388f27b",
+      "bytes": 285564
+    },
+    "docs/sources/evidence/vic/person-node-comparison-2026-09-17.json": {
+      "sha256": "3524610630c8d56092a46e4e1cd8554ee84199787386e2fce06bcb287f33df6c",
+      "bytes": 29529
+    },
+    "docs/sources/evidence/vic/person-node-research-2026-09-18.json": {
+      "sha256": "7831b15c7a51f2c20950ba6e32ae326a34132a91dbb1b618a7c701581377d0fe",
+      "bytes": 7039
+    }
+  },
+  "notes": [
+    "API retrieval used public read-only endpoints and saved exact responses; no official full CSV was downloaded.",
+    "Raw source files and previous receipts were retained. No commit, push, website or progress-board update was made.",
+    "The validation record itself is excluded from its file-hash list."
+  ]
+}

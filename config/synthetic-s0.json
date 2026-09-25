@@ -1,0 +1,206 @@
+{
+  "fixture_version": "s0-native-v1",
+  "team_contract_version": "team-v1.1",
+  "dataset_kind": "synthetic",
+  "definition_status": "synthetic_defined",
+  "release_scope": "s0",
+  "definition_version": "syn-1",
+  "analysis": {"year_from": 2020, "year_to": 2024},
+  "coverage": {
+    "year_from": 2020,
+    "year_to": 2024,
+    "months": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    "basis": "The team defines every month in this interval as covered for all three fictional sources. This does not describe official coverage."
+  },
+  "sources": [
+    {
+      "source_id": "syn_nsw", "jurisdiction_code": "NSW", "source_name": "Synthetic NSW (S0)",
+      "publisher": "ARSIA team", "release_label": "Synthetic S0 v1", "release_scope": "s0",
+      "resource_ids": ["syn_nsw_crash", "syn_nsw_traffic_unit"]
+    },
+    {
+      "source_id": "syn_vic", "jurisdiction_code": "VIC", "source_name": "Synthetic VIC (S0)",
+      "publisher": "ARSIA team", "release_label": "Synthetic S0 v1", "release_scope": "s0",
+      "resource_ids": ["syn_vic_accident", "syn_vic_vehicle", "syn_vic_person", "syn_vic_node"]
+    },
+    {
+      "source_id": "syn_qld", "jurisdiction_code": "QLD", "source_name": "Synthetic QLD (S0)",
+      "publisher": "ARSIA team", "release_label": "Synthetic S0 v1", "release_scope": "s0",
+      "resource_ids": ["syn_qld_crash"]
+    }
+  ],
+  "severity": {
+    "definition_version": "syn-1",
+    "applies_to": ["syn_nsw", "syn_vic", "syn_qld"],
+    "categories": [
+      {"severity_code": "F", "severity_label": "Fatal", "is_fatal_crash": true},
+      {"severity_code": "I", "severity_label": "Injury", "is_fatal_crash": false},
+      {"severity_code": "N", "severity_label": "Non-injury", "is_fatal_crash": false},
+      {"severity_code": "__MISSING__", "severity_label": "Unknown", "is_fatal_crash": null}
+    ],
+    "rule": "F/I/N map directly. Native missing values map to __MISSING__; every other nonempty value is undefined and must block. These are fictional codes, not official classifications."
+  },
+  "common_rules": {
+    "blank_values": {"csv": "", "xlsx": null},
+    "missing_rule": "Only native empty string and NULL mean missing in used fields. No NA, Unknown or numeric sentinel is declared. Unused columns remain native blanks and have no business mapping.",
+    "keys": "Keep exact text and component order, including leading zeros. Empty or all-whitespace keys block. C calls A's SQL key encoder; this generator creates no business keys.",
+    "counts": "Counts use nonnegative whole people or units as stated per field. Invalid integers and negative counts block. Any missing component makes its casualty sum NULL; never substitute zero.",
+    "indicator_eligibility": "A known severity gives fatal_crash_eligible=true. A known nonnegative fatality value gives fatality_eligible=true. All required casualty components must be known for casualty_eligible=true. Missing values retain NULL and a missing reason. Undefined definitions or values block.",
+    "comparability": "Deaths and casualties have the same fictional person definitions across these three sources; casualties include deaths. This permits S0 combined person totals only. NSW traffic units and VIC vehicles retain separate statistical scopes.",
+    "dates": "NSW and QLD have year/month precision; never add a day. Missing month with a known year gives year precision. VIC dates must be real YYYY-MM-DD dates. English month names use the fixed January–December table in 05 section 3.",
+    "scope_filter": "Resolve parent crash keys against the full native crash snapshot before applying the inclusive analysis years. A missing parent is an orphan, not an out-of-range record.",
+    "location": "Use each resource's CRS declaration and basis. Baseline S0 declares invented WGS84 longitude/latitude in EPSG:4326, with no datum transformation; a variant with a NULL declaration has unconfirmed CRS. Validate exact decimal coordinates before rounding; latitude must be -90..90 and longitude -180..180. Invalid, missing, conflicting or unconfirmed locations keep the crash but clear its projected coordinates, CRS and location reference, with the corresponding 05 reason.",
+    "position_lineage": "NSW/QLD use their crash raw row. VIC uses an eligible matching Node raw row. For equivalent duplicates choose by file hash, parser version and numeric original row position; keep every observation in Raw.",
+    "bundle_basis": "All seven files are generated together from this checked-in fictional definition. Each source's resource set is one complete compatible S0 snapshot; this is not evidence for any official bundle.",
+    "snapshot_policy": "First S0 is the baseline complete snapshot. Later corrections, removals or coverage reductions need an explicit source change statement; a smaller unexplained snapshot must block."
+  },
+  "resources": [
+    {
+      "resource_id": "syn_nsw_crash", "alias": "S1",
+      "key": {"fields": ["Crash ID"], "unique": true},
+      "parent": null,
+      "used_fields": ["Crash ID", "Degree of crash - detailed", "Year of crash", "Month of crash", "Latitude", "Longitude", "No. of traffic units involved", "No. killed", "No. seriously injured", "No. moderately injured", "No. minor-other injured"],
+      "mapping": {
+        "occurrence_year": "Year of crash", "occurrence_month": "Month of crash",
+        "occurrence_date": null, "date_precision": "month if month is known; otherwise year",
+        "severity_raw": "Degree of crash - detailed", "severity_definition": "syn-1",
+        "severity_code": {"mapping": "syn-1", "native_missing": "__MISSING__"},
+        "fatality_count": "No. killed",
+        "casualty_components": ["No. killed", "No. seriously injured", "No. moderately injured", "No. minor-other injured"],
+        "declared_unit_count": {"field": "No. of traffic units involved", "resource_id": "syn_nsw_traffic_unit"},
+        "location": {"latitude": "Latitude", "longitude": "Longitude", "crs": "EPSG:4326", "basis": "Invented coordinates in S0, 04 section 4."}
+      },
+      "rows": [
+        {"Crash ID": "0001", "Degree of crash - detailed": "F", "Year of crash": 2020, "Month of crash": "January", "Latitude": "-33.8600000", "Longitude": "151.2000000", "No. of traffic units involved": 2, "No. killed": 2, "No. seriously injured": 1, "No. moderately injured": 0, "No. minor-other injured": 0},
+        {"Crash ID": "0002", "Degree of crash - detailed": null, "Year of crash": 2020, "Month of crash": null, "Latitude": null, "Longitude": null, "No. of traffic units involved": 1, "No. killed": null, "No. seriously injured": null, "No. moderately injured": null, "No. minor-other injured": null}
+      ]
+    },
+    {
+      "resource_id": "syn_nsw_traffic_unit", "alias": "S2",
+      "key": {"fields": ["Crash ID", "Traffic unit ID"], "unique": true},
+      "parent": {"resource_id": "syn_nsw_crash", "fields": ["Crash ID"], "parent_fields": ["Crash ID"]},
+      "used_fields": ["Crash ID", "Traffic unit ID", "TU type group"],
+      "mapping": {
+        "unit_type_raw": "TU type group", "unit_types": {"CAR": "CAR"},
+        "statistical_scope": "synthetic_traffic_unit",
+        "count_eligible": "true for CAR with a valid parent; missing type gives false with a missing reason; an undeclared nonempty type or missing parent blocks"
+      },
+      "rows": [
+        {"Crash ID": "0001", "Traffic unit ID": "01", "TU type group": "CAR"},
+        {"Crash ID": "0001", "Traffic unit ID": "02", "TU type group": "CAR"},
+        {"Crash ID": "0002", "Traffic unit ID": "01", "TU type group": "CAR"}
+      ]
+    },
+    {
+      "resource_id": "syn_vic_accident", "alias": "S3",
+      "key": {"fields": ["ACCIDENT_NO"], "unique": true},
+      "parent": null,
+      "used_fields": ["ACCIDENT_NO", "ACCIDENT_DATE", "NODE_ID", "NO_OF_VEHICLES", "NO_PERSONS_KILLED", "NO_PERSONS_INJ_2", "NO_PERSONS_INJ_3", "NO_PERSONS_NOT_INJ", "NO_PERSONS", "SEVERITY"],
+      "mapping": {
+        "occurrence_date": "ACCIDENT_DATE", "occurrence_year": "year from ACCIDENT_DATE", "occurrence_month": "month from ACCIDENT_DATE", "date_precision": "day",
+        "severity_raw": "SEVERITY", "severity_definition": "syn-1",
+        "severity_code": {"mapping": "syn-1", "native_missing": "__MISSING__"},
+        "fatality_count": "NO_PERSONS_KILLED", "casualty_components": ["NO_PERSONS_KILLED", "NO_PERSONS_INJ_2", "NO_PERSONS_INJ_3"],
+        "declared_unit_count": {"field": "NO_OF_VEHICLES", "resource_id": "syn_vic_vehicle"},
+        "declared_person_count": {"field": "NO_PERSONS", "resource_id": "syn_vic_person", "scope": "All Person rows for the same accident, including legal empty vehicle references."},
+        "person_components": ["NO_PERSONS_KILLED", "NO_PERSONS_INJ_2", "NO_PERSONS_INJ_3", "NO_PERSONS_NOT_INJ"],
+        "location": {"resource_id": "syn_vic_node", "fields": ["ACCIDENT_NO", "NODE_ID"], "crs": "EPSG:4326", "basis": "Invented matching Node observations in S0, 04 section 4; both exact coordinates and the Node CRS declaration must agree."}
+      },
+      "rows": [
+        {"ACCIDENT_NO": "0001", "ACCIDENT_DATE": "2020-01-15", "NODE_ID": "NODE01", "NO_OF_VEHICLES": "1", "NO_PERSONS_KILLED": "1", "NO_PERSONS_INJ_2": "1", "NO_PERSONS_INJ_3": "0", "NO_PERSONS_NOT_INJ": "0", "NO_PERSONS": "2", "SEVERITY": "F"},
+        {"ACCIDENT_NO": "0002", "ACCIDENT_DATE": "2021-02-15", "NODE_ID": "NODE02", "NO_OF_VEHICLES": "2", "NO_PERSONS_KILLED": "0", "NO_PERSONS_INJ_2": "1", "NO_PERSONS_INJ_3": "0", "NO_PERSONS_NOT_INJ": "0", "NO_PERSONS": "1", "SEVERITY": "I"}
+      ]
+    },
+    {
+      "resource_id": "syn_vic_vehicle", "alias": "S4",
+      "key": {"fields": ["ACCIDENT_NO", "VEHICLE_ID"], "unique": true},
+      "parent": {"resource_id": "syn_vic_accident", "fields": ["ACCIDENT_NO"], "parent_fields": ["ACCIDENT_NO"]},
+      "used_fields": ["ACCIDENT_NO", "VEHICLE_ID", "VEHICLE_TYPE"],
+      "mapping": {
+        "unit_type_raw": "VEHICLE_TYPE", "unit_types": {"CAR": "CAR"},
+        "statistical_scope": "synthetic_vehicle",
+        "count_eligible": "true for CAR with a valid parent; missing type gives false with a missing reason; an undeclared nonempty type or missing parent blocks"
+      },
+      "rows": [
+        {"ACCIDENT_NO": "0001", "VEHICLE_ID": "01", "VEHICLE_TYPE": "CAR"},
+        {"ACCIDENT_NO": "0002", "VEHICLE_ID": "01", "VEHICLE_TYPE": "CAR"},
+        {"ACCIDENT_NO": "0002", "VEHICLE_ID": "02", "VEHICLE_TYPE": "CAR"}
+      ]
+    },
+    {
+      "resource_id": "syn_vic_person", "alias": "S5",
+      "key": {"fields": ["ACCIDENT_NO", "PERSON_ID"], "unique": true},
+      "parent": {"resource_id": "syn_vic_accident", "fields": ["ACCIDENT_NO"], "parent_fields": ["ACCIDENT_NO"]},
+      "used_fields": ["ACCIDENT_NO", "PERSON_ID", "VEHICLE_ID"],
+      "mapping": {
+        "destination": "Raw only; no Person entity is created in Canonical or DW.",
+        "vehicle_reference": {"resource_id": "syn_vic_vehicle", "fields": ["ACCIDENT_NO", "VEHICLE_ID"], "empty_vehicle_id": "Allowed: a Person need not be linked to a vehicle in this fictional definition.", "nonempty_unmatched": "block"},
+        "count_scope": "One person per row; compare per-accident count to NO_PERSONS. Injury categories are not populated or mapped for this fixture."
+      },
+      "rows": [
+        {"ACCIDENT_NO": "0001", "PERSON_ID": "P1", "VEHICLE_ID": "01"},
+        {"ACCIDENT_NO": "0001", "PERSON_ID": "P2", "VEHICLE_ID": "01"},
+        {"ACCIDENT_NO": "0002", "PERSON_ID": "P1", "VEHICLE_ID": ""}
+      ]
+    },
+    {
+      "resource_id": "syn_vic_node", "alias": "S6",
+      "key": {"fields": ["ACCIDENT_NO", "NODE_ID"], "unique": false, "purpose": "Accident matching only. Raw identity includes file hash, parser and original locator."},
+      "parent": {"resource_id": "syn_vic_accident", "fields": ["ACCIDENT_NO", "NODE_ID"], "parent_fields": ["ACCIDENT_NO", "NODE_ID"]},
+      "used_fields": ["ACCIDENT_NO", "NODE_ID", "LATITUDE", "LONGITUDE"],
+      "mapping": {
+        "destination": "Keep every observation in Raw; eligible coordinates attach to the crash projection.",
+        "location": {"latitude": "LATITUDE", "longitude": "LONGITUDE", "crs": "EPSG:4326", "basis": "Invented Node coordinates in S0, 04 section 4."},
+        "duplicates": "Compare exact decimal values before rounding. Equivalent complete observations are allowed; select the lowest numeric original row after hash/parser ordering. Conflicting or partially invalid observations make that crash unmapped, not deleted."
+      },
+      "rows": [
+        {"ACCIDENT_NO": "0001", "NODE_ID": "NODE01", "LATITUDE": "-37.8", "LONGITUDE": "144.9"},
+        {"ACCIDENT_NO": "0001", "NODE_ID": "NODE01", "LATITUDE": "-37.8000", "LONGITUDE": "144.9000"},
+        {"ACCIDENT_NO": "0002", "NODE_ID": "NODE02", "LATITUDE": "-37.9", "LONGITUDE": "145.0"},
+        {"ACCIDENT_NO": "0002", "NODE_ID": "NODE02", "LATITUDE": "-38.0", "LONGITUDE": "145.1"}
+      ]
+    },
+    {
+      "resource_id": "syn_qld_crash", "alias": "S7",
+      "key": {"fields": ["Crash_Ref_Number"], "unique": true},
+      "parent": null,
+      "used_fields": ["Crash_Ref_Number", "Crash_Severity", "Crash_Year", "Crash_Month", "Crash_Longitude", "Crash_Latitude", "Count_Casualty_Fatality", "Count_Casualty_Hospitalised", "Count_Casualty_MedicallyTreated", "Count_Casualty_MinorInjury", "Count_Casualty_Total", "Count_Unit_Car", "Count_Unit_Motorcycle_Moped", "Count_Unit_Truck", "Count_Unit_Bus", "Count_Unit_Bicycle", "Count_Unit_Pedestrian", "Count_Unit_Other"],
+      "mapping": {
+        "occurrence_year": "Crash_Year", "occurrence_month": "Crash_Month", "occurrence_date": null, "date_precision": "month if month is known; otherwise year",
+        "severity_raw": "Crash_Severity", "severity_definition": "syn-1",
+        "severity_code": {"mapping": "syn-1", "native_missing": "__MISSING__"},
+        "fatality_count": "Count_Casualty_Fatality", "casualty_count": "Count_Casualty_Total",
+        "casualty_components": ["Count_Casualty_Fatality", "Count_Casualty_Hospitalised", "Count_Casualty_MedicallyTreated", "Count_Casualty_MinorInjury"],
+        "casualty_reconciliation": "All four components must be known and sum to Count_Casualty_Total for this synthetic definition.",
+        "unit_counts": "Count_Unit_* are nonnegative row attributes only. Keep them in Raw; do not expand them into vehicles, people or unit facts.",
+        "location": {"latitude": "Crash_Latitude", "longitude": "Crash_Longitude", "crs": "EPSG:4326", "basis": "Invented coordinates in S0, 04 section 4; unrelated to the datum of official QLD files."}
+      },
+      "rows": [
+        {"Crash_Ref_Number": "0001", "Crash_Severity": "I", "Crash_Year": "2020", "Crash_Month": "January", "Crash_Longitude": "153.0200000", "Crash_Latitude": "-27.4700000", "Count_Casualty_Fatality": "0", "Count_Casualty_Hospitalised": "1", "Count_Casualty_MedicallyTreated": "0", "Count_Casualty_MinorInjury": "0", "Count_Casualty_Total": "1", "Count_Unit_Car": "2", "Count_Unit_Motorcycle_Moped": "0", "Count_Unit_Truck": "0", "Count_Unit_Bus": "0", "Count_Unit_Bicycle": "0", "Count_Unit_Pedestrian": "0", "Count_Unit_Other": "0"},
+        {"Crash_Ref_Number": "0002", "Crash_Severity": "N", "Crash_Year": "2021", "Crash_Month": "February", "Crash_Longitude": "153.0500000", "Crash_Latitude": "-27.5000000", "Count_Casualty_Fatality": "0", "Count_Casualty_Hospitalised": "0", "Count_Casualty_MedicallyTreated": "0", "Count_Casualty_MinorInjury": "0", "Count_Casualty_Total": "0", "Count_Unit_Car": "1", "Count_Unit_Motorcycle_Moped": "0", "Count_Unit_Truck": "0", "Count_Unit_Bus": "0", "Count_Unit_Bicycle": "1", "Count_Unit_Pedestrian": "0", "Count_Unit_Other": "0"}
+      ]
+    }
+  ],
+  "variants": {
+    "s0": {"acceptance_case": "AT02–07, AT16", "change": "Unchanged S0.", "expected_prepare": "prepared", "expected_later_check": "S0 expected results in 04 section 4; no database execution is implied."},
+    "missing_file": {"acceptance_case": "AT02", "change": "Omit syn_vic_node.csv but retain its required config entry and expected hash.", "expected_prepare": "failed", "expected_later_check": "No batch should be published."},
+    "bad_header": {"acceptance_case": "AT02", "change": "Rename ACCIDENT_NO to ACCIDENT_NUMBER in VIC Accident, while the expected header stays unchanged. The hash matches the modified bytes.", "expected_prepare": "failed", "expected_later_check": "No batch should be published."},
+    "bad_hash": {"acceptance_case": "AT02", "change": "Replace the expected VIC Accident file SHA256 with 64 zeroes; native bytes stay unchanged.", "expected_prepare": "failed", "expected_later_check": "No batch should be published."},
+    "duplicate_crash": {"acceptance_case": "AT03", "change": "Append a second N1 row at a new native locator.", "expected_prepare": "prepared", "expected_later_check": "QA03 duplicate business key blocks; different Raw locators must not hide the duplicate."},
+    "orphan_unit": {"acceptance_case": "AT03", "change": "Change V2 vehicle 02 parent ACCIDENT_NO to 9999.", "expected_prepare": "prepared", "expected_later_check": "QA03/QA04 orphan blocks; do not manufacture a parent or exclude it as out of range."},
+    "person_vehicle_99": {"acceptance_case": "AT04", "change": "Change V2 Person P1 empty VEHICLE_ID to 99.", "expected_prepare": "prepared", "expected_later_check": "QA04 nonempty unmatched vehicle reference blocks."},
+    "invalid_date": {"acceptance_case": "AT05", "change": "Change V2 ACCIDENT_DATE to 2021-02-30.", "expected_prepare": "prepared", "expected_later_check": "QA03 invalid date blocks."},
+    "negative_count": {"acceptance_case": "AT05", "change": "Change V1 NO_PERSONS_KILLED to -1.", "expected_prepare": "prepared", "expected_later_check": "QA03 negative person count blocks."},
+    "undefined_category": {"acceptance_case": "AT05", "change": "Change V2 SEVERITY to X; keep syn-1 definitions unchanged.", "expected_prepare": "prepared", "expected_later_check": "QA05 undefined category blocks."},
+    "invalid_coordinate": {"acceptance_case": "AT07", "change": "Change Q1 latitude to -91.", "expected_prepare": "prepared", "expected_later_check": "QA07 limited with all 6 crashes retained; Q1 loses map eligibility. Incorrectly forcing it eligible must block."},
+    "unknown_crs": {"acceptance_case": "AT07", "change": "Remove the QLD resource CRS declaration in contract.json. Native bytes stay unchanged.", "expected_prepare": "prepared", "expected_later_check": "Both QLD crashes lose map eligibility. QA07 limited; claiming a confirmed CRS must block."},
+    "revised_n1": {"acceptance_case": "AT09", "change": "Set N1 killed to 3, retaining other components 1/0/0; update NSW release label and correction statement.", "expected_prepare": "prepared", "expected_later_check": "New batch expected deaths 4, casualties 8, fatal crashes 2; baseline success must remain unchanged."},
+    "delete_q2": {"acceptance_case": "AT09", "change": "Remove Q2 with an explicit complete-snapshot deletion statement and new QLD release label.", "expected_prepare": "prepared", "expected_later_check": "New batch expected 5 crashes; old successful batch retains Q2."},
+    "delete_q2_unexplained": {"acceptance_case": "AT09", "change": "Remove Q2 and change QLD release label without a deletion statement.", "expected_prepare": "prepared", "expected_later_check": "QA01 unexplained snapshot reduction blocks."}
+  },
+  "limitations": [
+    "Fixture definition and input preparation only. This file is not a complete L1 manifest, installed SQL mapping or FP1 result.",
+    "No official classification, release compatibility, coverage or CRS is confirmed by these fixtures.",
+    "Database loading, business QA, publication and E's independent end-to-end acceptance remain to be run. Expected outcomes are not test results."
+  ]
+}

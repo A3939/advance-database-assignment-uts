@@ -1,0 +1,318 @@
+{
+  "checked_on": "2026-09-25",
+  "delivery": {
+    "branch": "peixian/dev",
+    "base_commit": "3af00089c94d309d5ceecb0b2e961eaef24b15e8",
+    "website_updated": false,
+    "state_at_validation": "Local uncommitted changes",
+    "committed_at_validation": false,
+    "pushed_at_validation": false
+  },
+  "scope": "B10 transaction, failure-evidence and recovery-marker fixes; dependency inventory; installed-package regression",
+  "b10_complete": false,
+  "full_build_executed": false,
+  "publication_performed": false,
+  "official_acceptance_claimed": false,
+  "fixes": [
+    "READ COMMITTED at the start of each runner-owned transaction",
+    "JSON-safe failure diagnostics for typed, cyclic and unsupported values",
+    "Actual input fingerprint retained in candidate commit markers and outcomes",
+    "Existing database and test requirements included in partial code inventory"
+  ],
+  "environment": {
+    "python": "3.12.6 (v3.12.6:a4a2d2b0d85, Sep  6 2024, 16:08:03) [Clang 13.0.0 (clang-1300.0.29.30)]",
+    "packages": {
+      "arsia-native-intake": "0.1.0",
+      "openpyxl": "3.1.5",
+      "psycopg": "3.3.6",
+      "psycopg-binary": "3.3.6",
+      "pytest": "8.4.2"
+    },
+    "database": {
+      "postgresql": [
+        "PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+        "arsia_loader",
+        "arsia_loader",
+        "UTF8",
+        "UTC",
+        "en_US.utf8",
+        "en_US.utf8",
+        false,
+        false,
+        false,
+        false
+      ],
+      "image": "postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67"
+    },
+    "a_fix_commit": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
+    "migrations": [
+      {
+        "path": "sql/migrations/001_meta_registry.sql",
+        "sha256": "b44608c4baee8ce1d4ac6c3912a1a7d671772a1b305a32976b10f7bf00fe1893"
+      },
+      {
+        "path": "sql/migrations/002_raw_record.sql",
+        "sha256": "550c022b204380af2c0b2ffffc48295df3b562fd217f99a62f392d8db15eb059"
+      },
+      {
+        "path": "sql/migrations/003_b08_loader_role.sql",
+        "sha256": "e84a2d122bcb8f5edd6ffeb9974ef48eac3910ae801d5a929286734978f9269d"
+      },
+      {
+        "path": "sql/migrations/004_meta_batch.sql",
+        "sha256": "5c828f4071cab7ea097ee5b001aa6aca8fb567f04889a091a02842cf14fbb801"
+      },
+      {
+        "path": "sql/migrations/005_raw_vault.sql",
+        "sha256": "36fedf6f1c6b128e8006ad2e76815c44099c5557de8140deb04e599d4c4f14f8"
+      },
+      {
+        "path": "sql/migrations/006_canonical.sql",
+        "sha256": "c6b414f581d15183d89d98bebda71f373827a945d9e3eb2d9a60e699054e37dd"
+      },
+      {
+        "path": "sql/migrations/007_warehouse.sql",
+        "sha256": "32add012cc1f2919e0aa07926fea86922999b02dd37bb070e4bb2b6247fc87ee"
+      },
+      {
+        "path": "sql/migrations/008_qa.sql",
+        "sha256": "408c3775b218808fceb40a4119f8e5f20735664e1775671f5876d838b6219e29"
+      },
+      {
+        "path": "sql/migrations/009_database_roles.sql",
+        "sha256": "cd1b8f3c4969111cab71777ea063dfe89e69dc29566dbd779c708e2f889d03d5"
+      },
+      {
+        "path": "sql/migrations/010_business_key.sql",
+        "sha256": "de7a14a6df0c0336c7f40c2178159e0f53a4f702da44cde9a20c53a95443d922"
+      },
+      {
+        "path": "sql/migrations/011_review_validation_fixes.sql",
+        "sha256": "fb4d03819dbb4a37366aa5b3cb59fe4e8bec0d76eae3fcfbc3783ebb13f51de6"
+      }
+    ]
+  },
+  "tests": {
+    "original_runner_against_strengthened_tests": {
+      "passed": 93,
+      "failed": 31,
+      "errors": 0,
+      "skipped": 0
+    },
+    "targeted_regression": {
+      "passed": 208,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "installed_default": {
+      "passed": 615,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 155
+    },
+    "installed_postgres_suite": {
+      "passed": 377,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "new_b10_postgres_cases": 8,
+    "boundaries": [
+      "The suites overlap; counts must not be added.",
+      "The PostgreSQL suite includes unit and packaging tests.",
+      "Default skips require optional database or archive inputs.",
+      "Original-runner failures cover three defect classes, not 31 separate defects.",
+      "New runner database cases stop before FP1; lifecycle helper cases use labelled fixture batches.",
+      "No substitute FP1 SQL or successful full build was used."
+    ]
+  },
+  "database_checks": {
+    "permissions": "Original A03 audit passed before and after; no grant changes",
+    "final_state": {
+      "rows": {
+        "meta.source": 0,
+        "meta.resource": 0,
+        "meta.batch": 0,
+        "meta.current_release": 0,
+        "raw.record": 0,
+        "rv.hub_crash": 0,
+        "rv.hub_unit": 0,
+        "rv.sat_crash": 0,
+        "rv.sat_unit": 0,
+        "rv.link_crash_unit": 0,
+        "canonical.crash": 0,
+        "canonical.unit": 0,
+        "dw.dim_source": 0,
+        "dw.dim_month": 0,
+        "dw.dim_severity": 0,
+        "dw.fact_crash": 0,
+        "qa.check_result": 0
+      },
+      "all_zero": true
+    },
+    "cleanup": {
+      "container_removed": "arsia-b-ac-9b886aef310d",
+      "persistent_volume_created": false
+    }
+  },
+  "inventory": {
+    "path": "config/ac-inventory.json",
+    "sha256": "a8b34364025d913b1eefa344843894a3554b228759d020b1ef8c12a070dcd57b",
+    "code_file_count": 41,
+    "schema_file_count": 11,
+    "all_hashes_match": true,
+    "final_platform": false
+  },
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "e5b550ee7d0c440e4225baa4dfeb10a3d0e7d6bcbdb43022898bc6041bc65680"
+    },
+    {
+      "path": "config/ac-inventory.json",
+      "sha256": "a8b34364025d913b1eefa344843894a3554b228759d020b1ef8c12a070dcd57b"
+    },
+    {
+      "path": "docs/b10-local-validation.md",
+      "sha256": "3b3a38d7b6f7c0e00eee785bea37358cc2824133f2a0e22d3b6428f1315aaefd"
+    },
+    {
+      "path": "docs/runner.md",
+      "sha256": "075e170966b7b609818b619c5eb4a6470644a2200fd2461cac4ea620e1c5f6ed"
+    },
+    {
+      "path": "src/arsia_ingest/manifest.py",
+      "sha256": "29ba1a81e52bb0d16efa98cbd5c9fa3970747f0ed0ca4769e6fe7074d27e6e11"
+    },
+    {
+      "path": "src/arsia_ingest/runner.py",
+      "sha256": "e8ba28605def0b8e7834fac981772ef7bfcdf8b34d79189b8aa911b2e87b9f8f"
+    },
+    {
+      "path": "tests/test_b10_lifecycle_postgres.py",
+      "sha256": "43e3e75a45d61a9de476d1be525efb9fc2ffe543602528ec2f7f8227293ec430"
+    },
+    {
+      "path": "tests/test_manifest.py",
+      "sha256": "22ceebfc2c949b1561fb6bdff1d664751f2d2908f60322e2397a05efdecf7c9b"
+    },
+    {
+      "path": "tests/test_recovery.py",
+      "sha256": "b5b37f810803f0bf2ca70729680ec4ebf0c36551270dc6a5a0f624aaa47ed7de"
+    },
+    {
+      "path": "tests/test_runner.py",
+      "sha256": "92a6a83855372dc9b1634648fb6861e82591c9b7dfc1e7d6bb837367059f84e8"
+    },
+    {
+      "path": "tests/test_runner_postgres.py",
+      "sha256": "b816ac957e06f040cae13b4f9dc522da261443cba60c119bd56b9bea3663789e"
+    },
+    {
+      "path": "tools/verify_ac_postgres.py",
+      "sha256": "2dd019934e12b7ce7bfbf0bfb5a8f9f6ca49105d22e172658b6fd029e38c03b1"
+    }
+  ],
+  "original_untracked_files": {
+    "preserved": true,
+    "sha256": {
+      "docs/official-source-decisions.md": "1990ba5897500019c6b35ac44b3018f5a0e5d51eba87ebfae908faf297cb8a03",
+      "docs/sources/evidence/official-decisions-2026-09-23/nsw-review.json": "34bfaf62d920499324810698267fe9c2460d5eb7779ceb55c17306b246678ded",
+      "docs/sources/evidence/official-decisions-2026-09-23/qld-review.json": "3055484353e405a4c0ff60f4208731652378f91149f9f577b7ed4ace3cf5b43d",
+      "docs/sources/evidence/official-decisions-2026-09-23/review-index.json": "cfb751703d824ddd8096aa82828cc2ac2851a8a408fdd6dc4ac86260a6d38848",
+      "docs/sources/evidence/vic/local-profile-2026-09-17.json": "4979014576b956ddadf3f6c99ef78649db882dbabc5cd804d8c33b9029a0bd25"
+    }
+  },
+  "local_artifacts": {
+    "directory_relative_to_repository": "../artifacts/role-b10-local-20260924",
+    "files": [
+      {
+        "path": "before.json",
+        "sha256": "90a07314a2f1eb572850eee06e7df991ecf44d166d4a14b364b36af656c59738"
+      },
+      {
+        "path": "baseline-runner.xml",
+        "sha256": "062ae93d693db7973994f2accd26fe4d0db3bc6066b1398f24355f0706390ca7"
+      },
+      {
+        "path": "runner-before.py",
+        "sha256": "2deed1841ada2d1e9ebdb8bdfccbb1e931f1c9ee10a0e67319548cd446b8d96c"
+      },
+      {
+        "path": "targeted.xml",
+        "sha256": "cf3117cad3e35a839d99ca7b9212b76fa527e0c9020d795dd5905e4870dafbe9"
+      },
+      {
+        "path": "default.xml",
+        "sha256": "07a6f6c14b97ac58ed6039c01d8c7873678cf46d41c2ebf5910948229141bc85"
+      },
+      {
+        "path": "postgres/inputs.json",
+        "sha256": "c000efd0a79dc66c2fcf34d7be791c37a3df0d700a6a6c8d6fd531bc080c740f"
+      },
+      {
+        "path": "postgres/environment.json",
+        "sha256": "a0c3132d813f8f18e3d68d3f024c228b53d3c1be37382574e8c95b31b32fa0c4"
+      },
+      {
+        "path": "postgres/command.json",
+        "sha256": "5e1ac61182f752ac009e3c8ab9261b16a4822f14f7a5b5527a1aae3f6fe25e3e"
+      },
+      {
+        "path": "postgres/migrations.log",
+        "sha256": "a82236d6e3beed2c859d39313200a6015d460a7e09505404f5e0f9d729723ae9"
+      },
+      {
+        "path": "postgres/a03-before.log",
+        "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+      },
+      {
+        "path": "postgres/a03-after.log",
+        "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+      },
+      {
+        "path": "postgres/pytest.xml",
+        "sha256": "f45b66d5359afb72c536c0d0567d0c4265c21545ea80aa54a860b33121dbe6bd"
+      },
+      {
+        "path": "postgres/pytest.log",
+        "sha256": "afe1d0fb42f3de5a96e8bdba8e7e36456fc50e9eefb1967777cef51f7a2bfe57"
+      },
+      {
+        "path": "postgres/summary.json",
+        "sha256": "255266e57883564b9e242eff0af13f4c417df9adb1ce4dd580fe5b68d4d7ef9a"
+      },
+      {
+        "path": "postgres/final-state.json",
+        "sha256": "dbc4b9c36a78e26384cbe23a4d657bae8af990f1ab2bbf3300c91aedc6becd18"
+      },
+      {
+        "path": "postgres/cleanup.json",
+        "sha256": "f46c97443e3b65bdddb3bf90426358d2a2c3dcd2e475d639ceddfdc0e88fe92d"
+      },
+      {
+        "path": "wheels/arsia_native_intake-0.1.0-py3-none-any.whl",
+        "sha256": "93bd8151b465d222ef8ff5d751af0d6c4b77bab829f6a432750e584e5bce6708"
+      }
+    ]
+  },
+  "remaining_dependencies": {
+    "C": [
+      "C04/C05 and all-source projection integration; a separate local delivery exists",
+      "Complete C10 QA callback and persisted results"
+    ],
+    "D": [
+      "D03 facts and combined DW callback",
+      "D04 reconciliation QA"
+    ],
+    "E": [
+      "E03 FP1 SQL, version and deployment details",
+      "E06 publication gate and current-release operation"
+    ],
+    "B_with_team": [
+      "Real callback registration and final inventory freeze",
+      "Complete successful, failed and uncertain-commit build validation"
+    ]
+  }
+}

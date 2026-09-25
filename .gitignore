@@ -21,3 +21,11 @@ node_modules/
 /tmp/
 /postgres_data/
 /pgdata/
+
+# Native intake: generated archives, exports, logs and test reports
+/artifacts/
+*.egg-info/
+/build/
+/dist/
+.coverage
+/htmlcov/

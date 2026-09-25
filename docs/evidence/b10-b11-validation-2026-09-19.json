@@ -1,0 +1,121 @@
+{
+  "checked_at_utc": "2026-09-19T06:26:36.832514+00:00",
+  "branch": "peixian/dev",
+  "base_commit": "035188e1b37bffaa2c75715897197320e32887ba",
+  "status": "b11_and_base_runner_implemented_live_integration_pending",
+  "tests": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -q -p no:cacheprovider",
+    "result": "380 passed, 10 skipped in 5.80s",
+    "passed": 380,
+    "skipped": 10,
+    "failed": 0,
+    "new_passed_cases": {
+      "tests/test_qa_input.py": 30,
+      "tests/test_runner.py": 44
+    },
+    "skipped_cases": {
+      "tests/test_raw_load_postgres.py": 8,
+      "tests/test_input_qa_postgres.py": 2
+    },
+    "skip_reason": "ARSIA_TEST_DSN is absent. The opt-in tests need A's migrated PostgreSQL environment.",
+    "s0_assertions": {
+      "native_files": 7,
+      "native_fields": 197,
+      "native_rows": 19,
+      "retained_node_observations": 4,
+      "qa01_file_results": 7,
+      "qa01_batch_results": 1,
+      "qa02_file_results": 7,
+      "qa02_batch_results": 1,
+      "evidence": [
+        "tests/test_qa_input.py::test_s0_files_and_all_native_fields_pass_with_explicit_mapping_support",
+        "tests/test_qa_input.py::test_raw_s0_keeps_node_observations_empty_values_and_all_197_columns",
+        "tests/test_runner.py::test_success_uses_one_connection_actual_native_load_and_qa"
+      ]
+    },
+    "coverage": [
+      "QA01 replays archived CSV/XLSX: byte hashes, headers, format/parser/locator versions, counts, mapping support and explicit source confirmation.",
+      "Current official drafts and renamed synthetic definitions do not pass official source checks.",
+      "Snapshot variants revised_n1, delete_q2 and delete_q2_unexplained; equal-count key replacement, missing historical archive and coverage shrinkage.",
+      "QA02 compares native archives with scripted Raw replies by full identity and payload: missing/extra/duplicate locators, wrong source, fields, strings, value types and NULL/empty differences.",
+      "Empty native files, 1,001-row UUID pagination, unavailable checks with null metrics, and create-only hashed evidence.",
+      "Actual B08 loading, B09 adapter and B11 checks run within the runner tests; all SQL replies and external team callbacks are simulated.",
+      "Shared connection, stage order, global session-lock request, registration/build/failure transaction calls, current-only no_change and mode isolation.",
+      "Missing modules, stale running batches, invalid QA summaries, no-op publication, rollback, uncertain COMMIT responses and post-COMMIT cleanup failures."
+    ]
+  },
+  "other_checks": [
+    "CLI --help exits 0; a missing bindings module exits 1 without connecting.",
+    "The opt-in PostgreSQL test manifest was assembled with all seven namespaced S0 resources and 19 rows without contacting a database.",
+    "No credential patterns, unexpected large files or trailing whitespace found in the changed source, tests and guides.",
+    "git diff --check passed; the staging area remains empty."
+  ],
+  "environment": {
+    "python": "3.12.6",
+    "psycopg_available": false,
+    "ARSIA_TEST_DSN_present": false,
+    "dependencies_installed": false,
+    "database_installed_or_started": false,
+    "official_full_outputs_generated": false
+  },
+  "shared_interface_review": {
+    "method": "Read local files and existing remote refs, checked against git ls-remote --heads origin.",
+    "remote_heads": {
+      "main": "c84f512ecd15d0e3ee59e0bc975c4001f9d392d2",
+      "peixian/dev": "035188e1b37bffaa2c75715897197320e32887ba",
+      "setup": "011698d9ee297deb09ff508311e490b81ca1a2f2",
+      "yihua-zhang": "4ba04d850b9ea5e83acc4df60e0886dddd524dca"
+    },
+    "finding": "No callable A/C/D/E build, FP1 or publication modules found. setup still specifies PostgreSQL 15 and Python 3.11. Historical reference SQL was not adopted."
+  },
+  "not_verified": [
+    "Real PostgreSQL syntax, constraints, privileges, Raw/QA writes and transaction isolation.",
+    "E's SQL FP1 implementation and its installed code/version.",
+    "Real session-lock contention, durable publication and uncertain-commit recovery.",
+    "C projection/Canonical/QA, A Vault, D dimensions/facts/QA, E full object gate, or the complete S0 chain.",
+    "Official source approval, compatibility, full-scale loading, or B12-B14 acceptance."
+  ],
+  "remaining_inputs": {
+    "A": "PostgreSQL 16 migrations, pinned driver, dedicated loader connection/grants and Vault callback.",
+    "C": "Projection, Canonical and QA callbacks; accepted mappings and confirmed source reviews with the source owners.",
+    "D": "Dimension/fact loading and reconciliation QA callbacks.",
+    "E": "FP1 SQL/version/binding and the publication gate; the shared QA protocol is already reused."
+  },
+  "file_hashes": {
+    "README.md": "4a80c77e3bb075e52d41df24f226699da52741b83647252088352bdf3a820ad0",
+    "docs/native-intake.md": "099d5b67790fea9e17a701fa4bf772286376419dafe849015df7b03e2b41622a",
+    "docs/raw-loading.md": "789a23fe5448b5c396178c5370802e066638b04630b37d128e2902da2fe986b5",
+    "docs/input-qa.md": "e0d528e290d350128db9ea986310e12f6a519693ab9ba0e08b281faacfe41f51",
+    "docs/runner.md": "ef31ec9108bcd4ef5766688ff268d1328f03e4b0d4dd6c2e464cce13bb4a9918",
+    "src/arsia_ingest/qa_input.py": "b3bda869176cbf134e5e3bccb5495e44d81092bb87ad6a5b5937f8205bdbcdd7",
+    "src/arsia_ingest/runner.py": "e485e0a49cc11bc2b10f5e3c9cb43e76f5d2e927f6f542628850bbff361d43cb",
+    "tests/test_qa_input.py": "73b5c6f68663ff221809774da86a141a3b20ddc8bd516a04a4b3a30880849935",
+    "tests/test_input_qa_postgres.py": "44f50657b9705e693b36741136b725345cd0852cdf8e48b3ec364a12752f6555",
+    "tests/test_runner.py": "ab919849df2cb3de862ab48098d0890a2cc34b633c5499ea5113773589e29550"
+  },
+  "previous_receipts": [
+    {
+      "path": "docs/evidence/b08-validation-2026-09-18.json",
+      "sha256": "44455c7bec905cc186748fea17e56cfd353e320b6b887738a2fbd01a7914d72e",
+      "unchanged": true
+    },
+    {
+      "path": "docs/evidence/b09-validation-2026-09-19.json",
+      "sha256": "e69b8040af02baf491a930a241529d2d38796b68e70bd6675aa26fedea6442fc",
+      "unchanged": true
+    },
+    {
+      "path": "docs/evidence/b09-validation-2026-09-19-supplement.json",
+      "sha256": "6fc2d908431db849d83ea1e5b805863c82e34eada1fa690a6b9069ee33b2d46b",
+      "unchanged": true
+    }
+  ],
+  "preserved_untracked_file": {
+    "path": "docs/sources/evidence/vic/local-profile-2026-09-17.json",
+    "sha256": "4979014576b956ddadf3f6c99ef78649db882dbabc5cd804d8c33b9029a0bd25"
+  },
+  "notes": [
+    "Hashes were recorded after the final documentation polish. Earlier receipt hashes describe their earlier README/guide versions.",
+    "This receipt records local tests, not PostgreSQL or team acceptance. No commit, push, website or progress-board change was made."
+  ]
+}

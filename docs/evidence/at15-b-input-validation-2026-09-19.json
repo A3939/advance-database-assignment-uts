@@ -1,0 +1,248 @@
+{
+  "checked_at_utc": "2026-09-19T07:32:13.037029+00:00",
+  "branch": "peixian/dev",
+  "base_commit": "035188e1b37bffaa2c75715897197320e32887ba",
+  "status": "AT15 Role B input preparation complete; downstream acceptance NOT_RUN",
+  "contract_references": [
+    "Team v1.1 document 04 section 5, AT15: syn_sa S8 and the normal/bad-key acceptance expectations.",
+    "Current task list section 7: B provides S8 inputs and manifest; C/D/E/A retain their module and acceptance responsibilities."
+  ],
+  "changes": [
+    "Add a separate synthetic S8 definition and two generated fixture directories. Each references the original seven S0 files and adds one SA CSV.",
+    "Extend the existing generator with s8/s8_bad_key and optional verified reuse of S0 native files.",
+    "Allow per-resource fixture version, rules, coverage and confirmation basis in s0_definitions; keep the original seven frozen definitions unchanged.",
+    "Add 16 tests and update the input/manifest guides."
+  ],
+  "tests": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -q -p no:cacheprovider",
+    "result": "416 passed, 10 skipped in 6.83s",
+    "passed": 416,
+    "skipped": 10,
+    "failed": 0,
+    "targeted_command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -q -p no:cacheprovider tests/test_s8.py",
+    "targeted_result": "16 passed in 0.55s",
+    "python_version": "3.12.6",
+    "skipped_cases": {
+      "tests/test_raw_load_postgres.py": 8,
+      "tests/test_input_qa_postgres.py": 2
+    },
+    "skip_reason": "Real PostgreSQL tests require A's migrated database and ARSIA_TEST_DSN.",
+    "coverage": [
+      "Normal and bad-key variants prepare four sources, eight resources and 20 L1 records with 205 header columns.",
+      "Every prepared payload matches the native input; S8 keeps csv:1, leading zeros, decimal strings and the three-space bad key.",
+      "Only the S8 native file differs between variants. All original S0 bytes, sources, frozen file/contract/mapping/severity entries and analysis settings remain unchanged.",
+      "Both frozen test manifests contain 16 severity entries and all seven required checks. Provenance is excluded from fingerprint input.",
+      "An incomplete FP1 component inventory blocks manifest assembly.",
+      "QA01 produces eight file rows and one batch row when tests explicitly supply the fixture mappings. Without S8 mapping support it blocks MAPPING_UNSUPPORTED.",
+      "Shared fixtures regenerate exactly; reuse verifies baseline bytes and refuses mismatches or existing output."
+    ],
+    "manifest_and_qa_scope": "Manifest tests use actual native files and temporary test-only code inventories. Supplying mappings in these tests does not establish that C's SQL supports them. No database, FP1 SQL or downstream business modules are executed."
+  },
+  "native_preparation": {
+    "s8": {
+      "config": "tests/fixtures/s8/config.json",
+      "status": "prepared",
+      "run_receipt": "artifacts/at15-b-input-validation-2026-09-19/synthetic/runs/ae41f2f4-824c-49c9-8157-fdb9fd491bd5/run.json",
+      "run_receipt_sha256": "c7ba4b640a9218f2e46e746a69ada94cc24f327fdd2e506ff1145f05e35e46b7",
+      "source_count": 4,
+      "resource_count": 8,
+      "l1_count": 20,
+      "header_column_count": 205,
+      "files": {
+        "syn_nsw_crash": {
+          "sha256": "18c4953966224ee7f217afeebbb884dd6ccc01016ece2c077bb9717deb8c4541",
+          "l1_count": 2
+        },
+        "syn_nsw_traffic_unit": {
+          "sha256": "c114dece4b1c4a6698c4d0e4b05b912b9aa342598fd7f0def43df2b0428bd92c",
+          "l1_count": 3
+        },
+        "syn_vic_accident": {
+          "sha256": "369798a8aa662d644df2e98091ad8a577a9741ce018dba47892889162aa8a144",
+          "l1_count": 2
+        },
+        "syn_vic_vehicle": {
+          "sha256": "5b7df97bde23fece0d19465ba8e4006544f6d907f963f7f352b8218b1fafec92",
+          "l1_count": 3
+        },
+        "syn_vic_person": {
+          "sha256": "af1104f14b46c7048b96d8a61546cbe1ed5e597f986673bfcc2d73c4855f14f4",
+          "l1_count": 3
+        },
+        "syn_vic_node": {
+          "sha256": "7bc159e10ec6d3e94a4d4673370ecd602e31bc0d2ed3971895f4126b045300a7",
+          "l1_count": 4
+        },
+        "syn_qld_crash": {
+          "sha256": "7dbbd7bb3f9e5c6e07caf8c9e01be26abad6d1d383de482dcde9393071d61370",
+          "l1_count": 2
+        },
+        "syn_sa_crash": {
+          "sha256": "b3918e3f8095b6325da5809fd6c9de224b7b85d817e06bd81bc90bee1d823f88",
+          "l1_count": 1
+        }
+      },
+      "s8_l1_record": {
+        "source_id": "syn_sa",
+        "resource_id": "syn_sa_crash",
+        "file_sha256": "b3918e3f8095b6325da5809fd6c9de224b7b85d817e06bd81bc90bee1d823f88",
+        "parser_version": "csv-native-v1",
+        "row_locator": "csv:1",
+        "payload": {
+          "CRASH_ID": "0001",
+          "YEAR": "2020",
+          "MONTH": "01",
+          "SEVERITY": "F",
+          "FATALITIES": "1",
+          "CASUALTIES": "1",
+          "LATITUDE": "-34.92",
+          "LONGITUDE": "138.60"
+        }
+      }
+    },
+    "s8_bad_key": {
+      "config": "tests/fixtures/s8-bad-key/config.json",
+      "status": "prepared",
+      "run_receipt": "artifacts/at15-b-input-validation-2026-09-19/synthetic/runs/c9851da6-5f65-4fa1-bbfa-d987e95235a4/run.json",
+      "run_receipt_sha256": "678a9e47ee6117c0ef23c2ea53c67e68d98641e205c002466b64a9318e6dbc74",
+      "source_count": 4,
+      "resource_count": 8,
+      "l1_count": 20,
+      "header_column_count": 205,
+      "files": {
+        "syn_nsw_crash": {
+          "sha256": "18c4953966224ee7f217afeebbb884dd6ccc01016ece2c077bb9717deb8c4541",
+          "l1_count": 2
+        },
+        "syn_nsw_traffic_unit": {
+          "sha256": "c114dece4b1c4a6698c4d0e4b05b912b9aa342598fd7f0def43df2b0428bd92c",
+          "l1_count": 3
+        },
+        "syn_vic_accident": {
+          "sha256": "369798a8aa662d644df2e98091ad8a577a9741ce018dba47892889162aa8a144",
+          "l1_count": 2
+        },
+        "syn_vic_vehicle": {
+          "sha256": "5b7df97bde23fece0d19465ba8e4006544f6d907f963f7f352b8218b1fafec92",
+          "l1_count": 3
+        },
+        "syn_vic_person": {
+          "sha256": "af1104f14b46c7048b96d8a61546cbe1ed5e597f986673bfcc2d73c4855f14f4",
+          "l1_count": 3
+        },
+        "syn_vic_node": {
+          "sha256": "7bc159e10ec6d3e94a4d4673370ecd602e31bc0d2ed3971895f4126b045300a7",
+          "l1_count": 4
+        },
+        "syn_qld_crash": {
+          "sha256": "7dbbd7bb3f9e5c6e07caf8c9e01be26abad6d1d383de482dcde9393071d61370",
+          "l1_count": 2
+        },
+        "syn_sa_crash": {
+          "sha256": "3144ee842017a58ce70c61304915bd1b1038ad5c7ad328d9840bfc637e6c1ffd",
+          "l1_count": 1
+        }
+      },
+      "s8_l1_record": {
+        "source_id": "syn_sa",
+        "resource_id": "syn_sa_crash",
+        "file_sha256": "3144ee842017a58ce70c61304915bd1b1038ad5c7ad328d9840bfc637e6c1ffd",
+        "parser_version": "csv-native-v1",
+        "row_locator": "csv:1",
+        "payload": {
+          "CRASH_ID": "   ",
+          "YEAR": "2020",
+          "MONTH": "01",
+          "SEVERITY": "F",
+          "FATALITIES": "1",
+          "CASUALTIES": "1",
+          "LATITUDE": "-34.92",
+          "LONGITUDE": "138.60"
+        }
+      }
+    }
+  },
+  "reproduction": {
+    "checked_in_configs": [
+      "tests/fixtures/s8/config.json",
+      "tests/fixtures/s8-bad-key/config.json"
+    ],
+    "commands": [
+      ".venv/bin/python -m arsia_ingest --config tests/fixtures/s8/config.json --output artifacts/s8-intake",
+      ".venv/bin/python -m arsia_ingest --config tests/fixtures/s8-bad-key/config.json --output artifacts/s8-bad-key-intake",
+      ".venv/bin/python tools/create_s0_inputs.py --output artifacts/s8-inputs --variant s8",
+      ".venv/bin/python tools/create_s0_inputs.py --output artifacts/s8-bad-key-inputs --variant s8_bad_key"
+    ],
+    "notes": "The two recorded native runs used prepare(config, Path('artifacts/at15-b-input-validation-2026-09-19')). Run directories and hashes above are local evidence, not committed products. New runs use new receipts."
+  },
+  "not_run_expectations": {
+    "normal": {
+      "raw_records": 20,
+      "crashes": 7,
+      "units": 6,
+      "fatal_crashes": 3,
+      "fatalities": 4,
+      "casualties": 8,
+      "map_points": 5,
+      "map_denominator": 7,
+      "original_three_states": "unchanged"
+    },
+    "bad_key": "C's business-key validation blocks S8; B0 and its published results remain unchanged.",
+    "scope": "These values come from AT15. L1 preparation is observed above; database counts, facts, maps and publication protection have not been verified."
+  },
+  "file_hashes": {
+    "README.md": "c6f8a09ea3380c77ab7bc3b30e7e8f2049a53b0565d1d8efb4c67ed5db88ae9e",
+    "docs/manifest.md": "a8d50cdcd1aededf7bdee08db73ac40e1033d276ebade63f9fbcab9716a2ba8e",
+    "docs/s0-inputs.md": "d6d0676445effcbddb187921fcab2338da8ada922f4a3769642420427bf1654b",
+    "docs/s8-inputs.md": "3534db2e8dc4137515018c5426fec0f8a8a1cb3431d7899e61749de79f19203c",
+    "config/synthetic-s8.json": "43ddce80850ce020bc6bf93a16830af5a8e979232e5cf50428b0ccfc4faebc1c",
+    "tools/create_s0_inputs.py": "4378bf2c3a57ac65ac1e321ae08ebb45b6a2b45e85680b4f4fb10870bd05f8a1",
+    "src/arsia_ingest/manifest.py": "734021f5af6ce14f8447dc743fd0efb458971ba171dd412899a1c7c4c57648c1",
+    "tests/test_s8.py": "4f568209a7e3fb8c29ef055269715610f10d74fa30fbf4fd3c60f4b9182332a0",
+    "tests/fixtures/s8/syn_sa_crash.csv": "b3918e3f8095b6325da5809fd6c9de224b7b85d817e06bd81bc90bee1d823f88",
+    "tests/fixtures/s8/config.json": "4ce730ee8a9b7c83f61139d36ea8b9137933a72801f0a08f6b6ba09dac320ec1",
+    "tests/fixtures/s8/contract.json": "38b9638e00dc4eff3daa5e6849e0cebc626ab8b650c1dbad789ad695c13e7638",
+    "tests/fixtures/s8-bad-key/syn_sa_crash.csv": "3144ee842017a58ce70c61304915bd1b1038ad5c7ad328d9840bfc637e6c1ffd",
+    "tests/fixtures/s8-bad-key/config.json": "732d8408fbf45711dd07109f1e941b986ec1f95d73a05d23d3aa1e0934f0dd57",
+    "tests/fixtures/s8-bad-key/contract.json": "927d010a51a88f0e3c23cbadb5dee3e261f27b653242ac72d7be91b5d63e54d5"
+  },
+  "preserved_file_hashes": {
+    "tests/fixtures/s0/syn_nsw_traffic_unit.xlsx": "c114dece4b1c4a6698c4d0e4b05b912b9aa342598fd7f0def43df2b0428bd92c",
+    "tests/fixtures/s0/config.json": "e9f786ec29dc03726ada8e606b893e5a16a3e8d780306bffea86f67f96ac9de3",
+    "tests/fixtures/s0/syn_vic_node.csv": "7bc159e10ec6d3e94a4d4673370ecd602e31bc0d2ed3971895f4126b045300a7",
+    "tests/fixtures/s0/syn_qld_crash.csv": "7dbbd7bb3f9e5c6e07caf8c9e01be26abad6d1d383de482dcde9393071d61370",
+    "tests/fixtures/s0/syn_nsw_crash.xlsx": "18c4953966224ee7f217afeebbb884dd6ccc01016ece2c077bb9717deb8c4541",
+    "tests/fixtures/s0/syn_vic_person.csv": "af1104f14b46c7048b96d8a61546cbe1ed5e597f986673bfcc2d73c4855f14f4",
+    "tests/fixtures/s0/syn_vic_vehicle.csv": "5b7df97bde23fece0d19465ba8e4006544f6d907f963f7f352b8218b1fafec92",
+    "tests/fixtures/s0/contract.json": "a73bdac78cb3b3ec4aff66658c37108ca84c34572ef3f42460a73e169b9411b6",
+    "tests/fixtures/s0/syn_vic_accident.csv": "369798a8aa662d644df2e98091ad8a577a9741ce018dba47892889162aa8a144",
+    "docs/evidence/b08-validation-2026-09-18.json": "44455c7bec905cc186748fea17e56cfd353e320b6b887738a2fbd01a7914d72e",
+    "docs/evidence/b09-validation-2026-09-19.json": "e69b8040af02baf491a930a241529d2d38796b68e70bd6675aa26fedea6442fc",
+    "docs/evidence/b11-coverage-validation-2026-09-19.json": "794cfcdbef913a7d308a54e2f90e02c38e3d598fdee0d7743f005b1cb840923f",
+    "docs/evidence/b09-validation-2026-09-19-supplement.json": "6fc2d908431db849d83ea1e5b805863c82e34eada1fa690a6b9069ee33b2d46b",
+    "docs/evidence/b06-b07-validation-2026-09-17.json": "8604b269a9dfe89cbecfcdae9273836a06a6dde66ee6d6e3c833f4b86f681587",
+    "docs/evidence/b10-b11-validation-2026-09-19.json": "ddadd3626f81a11f31617afcf60532ce379267a3ff1dbf584a3b662af947a7dd",
+    "docs/sources/evidence/vic/local-profile-2026-09-17.json": "4979014576b956ddadf3f6c99ef78649db882dbabc5cd804d8c33b9029a0bd25",
+    "src/arsia_ingest/qa_input.py": "80307dd0379d26623bd5e4556c860fb900693b570fce98350f988e04addcd14b",
+    "src/arsia_ingest/runner.py": "e485e0a49cc11bc2b10f5e3c9cb43e76f5d2e927f6f542628850bbff361d43cb",
+    "tests/test_qa_input.py": "750ad3c58941cc223fb8fd13c4aea39da42cce9af4cc88c21e3fd92f9d8c92c1",
+    "tests/test_runner.py": "ab919849df2cb3de862ab48098d0890a2cc34b633c5499ea5113773589e29550",
+    "tests/test_input_qa_postgres.py": "44f50657b9705e693b36741136b725345cd0852cdf8e48b3ec364a12752f6555",
+    "docs/input-qa.md": "762de8c84e466b64a030db89a7e1124fba0668be0ee86dab83a47ed3c3c62065",
+    "docs/runner.md": "ef31ec9108bcd4ef5766688ff268d1328f03e4b0d4dd6c2e464cce13bb4a9918",
+    "docs/raw-loading.md": "789a23fe5448b5c396178c5370802e066638b04630b37d128e2902da2fe986b5",
+    "docs/native-intake.md": "099d5b67790fea9e17a701fa4bf772286376419dafe849015df7b03e2b41622a"
+  },
+  "remaining_inputs": [
+    "C: review the S8 definition, implement its business mapping/key checks and supply the exact supported mapping.",
+    "D: check facts, queries and reconciliation for the fourth source.",
+    "E: real FP1 and independent AT15 acceptance/publication checks.",
+    "A and module authors: shared database/schema, grants and actual module inventory for a production manifest and full run."
+  ],
+  "notes": [
+    "Hashes were recorded after polishing the four touched guides. Earlier validation receipts were preserved even where this turn changed README.md or manifest documentation.",
+    "Original S0 files and prior B10/B11 code/tests/guides are unchanged; README.md only received the AT15 guide and fixture links on top of its existing changes.",
+    "No production frozen manifest was fabricated. Official sources, database installation and full-scale output were outside this run.",
+    "Staging remains empty. No commit, push, website or board update was performed."
+  ]
+}

@@ -1,0 +1,235 @@
+{
+  "date": "2026-09-24",
+  "branch": "peixian/b-ac-integration",
+  "base_commit": "aff27d3f9bcaa5fcc0d84e9dcda4276b0fe7a636",
+  "scope": "Installed NSW S0 -> Raw -> C03 -> A06 -> C09, with B QA01/QA02 persistence and D02 dimensions.",
+  "validation_snapshot": "Uncommitted implementation identified by the inventory, test and artifact hashes; final commit contains the same tested bytes.",
+  "inventory": {
+    "path": "config/ac-inventory.json",
+    "sha256": "ac1a8d0d77ea13e09dfa394bed15a2695663c55b7d93af99c86aeedd2993d389",
+    "final_platform": false
+  },
+  "upstream": {
+    "b": {
+      "commit": "aff27d3f9bcaa5fcc0d84e9dcda4276b0fe7a636",
+      "branch": "peixian/dev"
+    },
+    "a": {
+      "merge_commit": "a94314d5a53934cfae1e77f6aa9f6ca4a3f9b893",
+      "fix_commit": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
+      "pr": "https://github.com/A3939/advance-database-assignment-uts/pull/5"
+    },
+    "c": {
+      "commit": "f5e26e2e81c56a8ec8fa0fc0f26341eeecb8e32c",
+      "branch": "yue/role-c",
+      "c03_merge_commit": "cc39c6ffda18ea02ce1b393beaded1e5d6379176",
+      "c03_pr": "https://github.com/A3939/advance-database-assignment-uts/pull/7",
+      "c09_merge_commit": "bec3b1a213938404571d656a187681684977a905",
+      "c09_pr": "https://github.com/A3939/advance-database-assignment-uts/pull/9"
+    },
+    "d02": {
+      "merge_commit": "e4fbefa29fc275a39ac299af70bbf8e829cdee6d",
+      "implementation_commit": "dd98354319c654f7e44f87bf9d0df8af85a9451f",
+      "pr": "https://github.com/A3939/advance-database-assignment-uts/pull/6",
+      "package_version": "0.1.0"
+    }
+  },
+  "latest_c_check": {
+    "commit": "e2a897ae41c11ec1a0c4051becfe71f9c475e66c",
+    "adopted_c03_c09_bytes_unchanged": true,
+    "remaining": "C04 relationship SQL and C11 notes were added. The VIC Python module, insertion SQL and test file are still empty; no ready C04 callback is available."
+  },
+  "environment": {
+    "python": "3.12.6 (v3.12.6:a4a2d2b0d85, Sep  6 2024, 16:08:03) [Clang 13.0.0 (clang-1300.0.29.30)]",
+    "packages": {
+      "arsia-native-intake": "0.1.0",
+      "openpyxl": "3.1.5",
+      "psycopg": "3.3.6",
+      "psycopg-binary": "3.3.6",
+      "pytest": "8.4.2"
+    },
+    "postgresql": [
+      "PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+      "arsia_loader",
+      "arsia_loader",
+      "UTF8",
+      "UTC",
+      "en_US.utf8",
+      "en_US.utf8",
+      false,
+      false,
+      false,
+      false
+    ],
+    "image": "postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67"
+  },
+  "wheel": {
+    "file": "arsia_native_intake-0.1.0-py3-none-any.whl",
+    "sha256": "53ea541d8bcf3cae4f3a4b83737ca25dbe5e3feca82dd8fad94be1dc390d3f19",
+    "installation": "Non-editable wheel in a separate Python 3.12 venv; PYTHONPATH unset."
+  },
+  "default_regression": {
+    "tests": 746,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 147,
+    "passed": 599,
+    "skip_details": {
+      "database_cases_without_dsn": 143,
+      "d02_module_collection_without_dsn": 1,
+      "optional_vic_archive_or_c06_cases": 3
+    },
+    "command": "AC_REQUIRE_INSTALLED=1 D02_REQUIRE_INSTALLED=1 venv/bin/python -m pytest -q -o pythonpath= integration/tests --junitxml=default-final.xml",
+    "cwd": "Artifact root, outside the checkout"
+  },
+  "postgresql_regression": {
+    "tests": 245,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pytest_exit_code": 0,
+    "exit_code": 0,
+    "permissions": "Original A03 audit passed before and after",
+    "final_tables_empty": true,
+    "publication_performed": false,
+    "boundary": "Component chain only; full B10 still requires the remaining real modules and inventory",
+    "passed": 245,
+    "test_modules": {
+      "test_raw_load_postgres": 8,
+      "test_input_qa_postgres": 2,
+      "test_runner_postgres": 3,
+      "test_vault_load_postgres": 7,
+      "test_business_key_postgres": 43,
+      "test_canonical_constraints_postgres": 4,
+      "test_c03_nsw_projection": 25,
+      "test_c03_nsw_postgres": 42,
+      "test_c03_packaging": 1,
+      "test_c09_canonical": 38,
+      "test_c09_postgres": 3,
+      "test_c09_acceptance_postgres": 24,
+      "test_d02": 6,
+      "test_d02_postgres": 28,
+      "test_ac_inventory": 4,
+      "test_ac_integration_postgres": 7
+    },
+    "suite_note": "171 cases are in PostgreSQL suites, including two preflight-only guards. Another 74 cover unit, package and interface checks. Counts overlap the default regression; do not add them as unique tests.",
+    "command": "../venv/bin/python tools/verify_ac_postgres.py --output ../postgres-final --docker /usr/local/bin/docker"
+  },
+  "new_chain_checks": {
+    "cases": 7,
+    "raw_rows": 19,
+    "nsw_crashes": 2,
+    "nsw_units": 3,
+    "eligible_map_points": 1,
+    "projection_fields_compared": {
+      "crash": 24,
+      "unit": 11
+    },
+    "dimensions": {
+      "sources": 3,
+      "months": 60,
+      "severity": 12
+    },
+    "persisted_qa01_qa02_rows": 16,
+    "checks": [
+      "Real FrozenManifest, ModuleBinding, ModuleConnection, RunContext and stage evidence",
+      "Caller rollback across Raw, Vault, Canonical, dimensions and QA",
+      "Earlier committed test snapshot preserved on next-batch success or failure",
+      "Changed analysis years, repeat rules and full-build preflight rejection"
+    ]
+  },
+  "isolation": {
+    "migrations": "001-011, byte-identical to A fix commit",
+    "permissions": "Original A03 audit before and after; loader has no elevated role flags",
+    "database": "Private PostgreSQL 16 container, temporary storage, random loopback port, database marker",
+    "final_tables_empty": true,
+    "container_removed": "arsia-b-ac-ec50edd2fc7b",
+    "persistent_volume_created": false
+  },
+  "fixes": [
+    "Package nine unchanged C03 SQL files and load them through importlib.resources.",
+    "Package the three unchanged, hash-pinned B VIC policies; keep external evidence checks and pass project_root from B10."
+  ],
+  "boundaries": {
+    "real_frozen_manifest": "Genuine constructor and actual partial code/schema inventory; not the final platform freeze.",
+    "full_b10": "Blocked in preflight by incomplete versions/inventory and missing real callbacks. No placeholder FP1 or callbacks added.",
+    "publication_performed": false,
+    "official_data_acceptance_performed": false
+  },
+  "remaining": {
+    "C": "C04, C05, all-source dispatcher, C10 persisted QA and source-rule alignment. C06/C07 remain separate.",
+    "D": "D03, combined DW callback and reconciliation QA.",
+    "E": "Real E03 FP1 SQL/signature/version/deployment evidence, E06 and analysis inventory.",
+    "B_with_owners": "Complete actual inventory, freeze, then full B10 and publication/recovery acceptance.",
+    "user_materials": "No new S0 definitions required."
+  },
+  "local_artifacts": "artifacts/role-b-ac-integration-20260924/",
+  "artifact_hashes": [
+    {
+      "path": "default-final.xml",
+      "sha256": "eb1a80cf0c525ae0f76af41263b9a499886e2825ec5ffef8a5ae175dc1c0462a"
+    },
+    {
+      "path": "default-final.log",
+      "sha256": "cacfca9fceeeb61d4198c6d855ff35b02be7a6ead05a8f4d1b63e511e0a65dfd"
+    },
+    {
+      "path": "postgres-final/pytest.xml",
+      "sha256": "db6947ce16e419d83a8016ae75864f3c59768de58d3c09bcb9181cc39d786db0"
+    },
+    {
+      "path": "postgres-final/pytest.log",
+      "sha256": "1e0fa188b41fd42d43e8f2516b252905533e221911dc9122fb63b927601544f4"
+    },
+    {
+      "path": "postgres-final/inputs.json",
+      "sha256": "992165b2a93b4761d60a7e2cedf8d446a736d0bd7465b08793129370ac561253"
+    },
+    {
+      "path": "postgres-final/a03-before.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+    },
+    {
+      "path": "postgres-final/a03-after.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+    },
+    {
+      "path": "postgres-final/environment.json",
+      "sha256": "a0c3132d813f8f18e3d68d3f024c228b53d3c1be37382574e8c95b31b32fa0c4"
+    },
+    {
+      "path": "postgres-final/final-state.json",
+      "sha256": "dbc4b9c36a78e26384cbe23a4d657bae8af990f1ab2bbf3300c91aedc6becd18"
+    },
+    {
+      "path": "postgres-final/cleanup.json",
+      "sha256": "63628baff6981576822611a5ba82d618f3d0f6c215fd9e23e7e58ba19e112bd3"
+    }
+  ],
+  "test_delivery_hashes": [
+    {
+      "path": "tools/verify_ac_postgres.py",
+      "sha256": "9269be1e0c0bb94919bbaa2b1ed81871a1459c4350720d55ef745c55f871f04e"
+    },
+    {
+      "path": "tests/ac_support.py",
+      "sha256": "1443e1d8e51cc2a82cb78f33ad11901a14a541824a3be6fca2d3f30b0cd9f18e"
+    },
+    {
+      "path": "tests/test_ac_integration_postgres.py",
+      "sha256": "8137c57a0d17677ba2903eeb196d7bf08d407b0ee41b85986f0fd1891424789a"
+    },
+    {
+      "path": "tests/test_ac_inventory.py",
+      "sha256": "ff3cb516525a3ec98ed47a49d8332c99a0571ffd211f0b3c50b687f1106c6565"
+    },
+    {
+      "path": "tests/test_c03_packaging.py",
+      "sha256": "c1ec0af32c9ccb97814ea4e14b39c8100725d2d34dd7ada245988db2e7cc834c"
+    },
+    {
+      "path": "tests/test_vic_restricted.py",
+      "sha256": "144c0aca01c4a990a3ff110ee0a5cd71ddadb3462ff0732f96b8829f52d5d497"
+    }
+  ]
+}
