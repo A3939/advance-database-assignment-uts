@@ -1,0 +1,843 @@
+{
+  "c_base": "ad8baeddd3f6d2eeccdc2e31bafd71b687ad4da8",
+  "b_components": "2750d8ea3f909cfacdc4cb10b35b87ffe729a468",
+  "b_branch": "peixian/b-cd-integration",
+  "a_migrations": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
+  "component_inventory": "config/c10-inventory.json",
+  "component_inventory_sha256": "2131097e40ca6cbe777bdb4ebae669cc592a0a83eb229626b7ac71d879bbd2be",
+  "verification_files": [
+    {
+      "path": "tools/verify_c10_postgres.py",
+      "sha256": "4ea5223a1d30590261f0a9ce3adc9751a06aaf6ace0b40b7bbe906f9c33b8c65"
+    },
+    {
+      "path": "tests/test_c10_postgres.py",
+      "sha256": "6e98d6995d01c44c135ec95a9359e4898e345efbeefeb8deb2d9225be88343bd"
+    },
+    {
+      "path": "tests/test_c10_packaging.py",
+      "sha256": "568d6c8b808c77a778fa5aa37b560c93fe49f9abd61c274e0a29b6cc4f61ca84"
+    }
+  ],
+  "assembly_sha256": "5bdb14e3450dd058e0b038b264f65a2423ddff44ba4c05bcb414ec02024d4c46",
+  "installed_wheels": [
+    {
+      "name": "arsia_native_intake-0.1.0-py3-none-any.whl",
+      "sha256": "a719e2bb99556f4649ee47b29b9ddc14db43c8a2f60bfde6894d73e2df4ed328"
+    }
+  ],
+  "scope": "Real B FrozenManifest and installed component callbacks; partial inventory; no E03 FP1, B10 build or publication",
+  "commands": {
+    "postgres": ".venv/bin/python tools/verify_c10_postgres.py --raw-root /path/to/raw_datasource --output /path/to/new-results",
+    "package_adapter": ".venv/bin/python -m pytest -q tests/test_c10_packaging.py tests/test_person_checks.py"
+  },
+  "python": "3.12.6 (v3.12.6:a4a2d2b0d85, Sep  6 2024, 16:08:03) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "packages": {
+    "packaging": "26.3",
+    "iniconfig": "2.3.0",
+    "Pygments": "2.21.0",
+    "openpyxl": "3.1.5",
+    "psycopg-binary": "3.3.6",
+    "et_xmlfile": "2.0.0",
+    "psycopg": "3.3.6",
+    "arsia-native-intake": "0.1.0",
+    "setuptools": "80.9.0",
+    "pytest": "8.4.2",
+    "pip": "24.2",
+    "wheel": "0.45.1",
+    "pluggy": "1.6.0",
+    "typing_extensions": "4.16.0"
+  },
+  "postgres": {
+    "postgresql": [
+      "PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+      "arsia_loader",
+      "arsia_loader",
+      "UTF8",
+      "UTC",
+      "en_US.utf8",
+      "en_US.utf8",
+      false,
+      false,
+      false,
+      false
+    ],
+    "image": "postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67"
+  },
+  "migrations": [
+    {
+      "path": "sql/migrations/001_meta_registry.sql",
+      "sha256": "b44608c4baee8ce1d4ac6c3912a1a7d671772a1b305a32976b10f7bf00fe1893"
+    },
+    {
+      "path": "sql/migrations/002_raw_record.sql",
+      "sha256": "550c022b204380af2c0b2ffffc48295df3b562fd217f99a62f392d8db15eb059"
+    },
+    {
+      "path": "sql/migrations/003_b08_loader_role.sql",
+      "sha256": "e84a2d122bcb8f5edd6ffeb9974ef48eac3910ae801d5a929286734978f9269d"
+    },
+    {
+      "path": "sql/migrations/004_meta_batch.sql",
+      "sha256": "5c828f4071cab7ea097ee5b001aa6aca8fb567f04889a091a02842cf14fbb801"
+    },
+    {
+      "path": "sql/migrations/005_raw_vault.sql",
+      "sha256": "36fedf6f1c6b128e8006ad2e76815c44099c5557de8140deb04e599d4c4f14f8"
+    },
+    {
+      "path": "sql/migrations/006_canonical.sql",
+      "sha256": "c6b414f581d15183d89d98bebda71f373827a945d9e3eb2d9a60e699054e37dd"
+    },
+    {
+      "path": "sql/migrations/007_warehouse.sql",
+      "sha256": "32add012cc1f2919e0aa07926fea86922999b02dd37bb070e4bb2b6247fc87ee"
+    },
+    {
+      "path": "sql/migrations/008_qa.sql",
+      "sha256": "408c3775b218808fceb40a4119f8e5f20735664e1775671f5876d838b6219e29"
+    },
+    {
+      "path": "sql/migrations/009_database_roles.sql",
+      "sha256": "cd1b8f3c4969111cab71777ea063dfe89e69dc29566dbd779c708e2f889d03d5"
+    },
+    {
+      "path": "sql/migrations/010_business_key.sql",
+      "sha256": "de7a14a6df0c0336c7f40c2178159e0f53a4f702da44cde9a20c53a95443d922"
+    },
+    {
+      "path": "sql/migrations/011_review_validation_fixes.sql",
+      "sha256": "fb4d03819dbb4a37366aa5b3cb59fe4e8bec0d76eae3fcfbc3783ebb13f51de6"
+    }
+  ],
+  "tests": {
+    "postgres": {
+      "tests": 99,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "pytest_exit_code": 0,
+      "exit_code": 0,
+      "permissions": "Original A03 audit passed before and after",
+      "final_tables_empty": true,
+      "publication_performed": false,
+      "boundary": "Component chain only; full B10 still requires the remaining real modules and inventory"
+    },
+    "package_adapter": {
+      "passed": 21,
+      "skipped": 0,
+      "failed": 0
+    }
+  },
+  "s0": {
+    "raw": 19,
+    "sources": 3,
+    "months": 60,
+    "severity_definitions": 12,
+    "crashes": 6,
+    "units": 6,
+    "facts": 6,
+    "concrete_qa_results": 27,
+    "batch_summaries": 4,
+    "limited_location_objects": 2
+  },
+  "official_setup": "Raw committed as input fixtures and analyzed by the owner. All component callbacks use arsia_loader; candidate rollback preserves Raw; fixture cleanup removes it.",
+  "originals": {
+    "QLD": {
+      "files": [
+        {
+          "resource_id": "official_qld_crash",
+          "file_sha256": "975be4b02a235d06589de9b486f73bafe22d0f2007f0c07abb84f54cb926c704",
+          "parser_version": "csv-native-v1",
+          "locator_version": "csv-logical-v1",
+          "raw_count": 415407
+        }
+      ],
+      "projection": [
+        {
+          "object": "resource:official_qld_crash",
+          "duplicate_key_count": 0,
+          "excluded_count": 348783,
+          "input_count": 415407,
+          "invalid_value_count": 0,
+          "orphan_count": 0,
+          "projected_count": 66624
+        }
+      ],
+      "results": [
+        {
+          "rule_id": "QA03_PROJECTED",
+          "object_key": "resource:official_qld_crash",
+          "result": "pass",
+          "affected_count": 0,
+          "actual": {
+            "evaluated_count": 66624,
+            "metrics": {
+              "duplicate_key_count": 0,
+              "excluded_count": 348783,
+              "input_count": 415407,
+              "invalid_value_count": 0,
+              "orphan_count": 0,
+              "projected_count": 66624
+            },
+            "violation_count": 0
+          },
+          "expected": {
+            "evaluated_count": 66624,
+            "metrics": {
+              "duplicate_key_count": 0,
+              "excluded_count": 348783,
+              "input_count": 415407,
+              "invalid_value_count": 0,
+              "orphan_count": 0,
+              "projected_count": 66624
+            },
+            "violation_count": 0
+          }
+        },
+        {
+          "rule_id": "QA05_SEMANTICS",
+          "object_key": "source:official_qld",
+          "result": "pass",
+          "affected_count": 0,
+          "actual": {
+            "evaluated_count": 415407,
+            "metrics": {
+              "eligibility_error_count": 0,
+              "unconfirmed_definition_count": 0,
+              "undefined_category_count": 0
+            },
+            "violation_count": 0
+          },
+          "expected": {
+            "evaluated_count": 415407,
+            "metrics": {
+              "eligibility_error_count": 0,
+              "unconfirmed_definition_count": 0,
+              "undefined_category_count": 0
+            },
+            "violation_count": 0
+          }
+        },
+        {
+          "rule_id": "QA07_LOCATION",
+          "object_key": "source_year:official_qld:2020",
+          "result": "limited",
+          "affected_count": 12147,
+          "actual": {
+            "evaluated_count": 12147,
+            "metrics": {
+              "crash_count": 12147,
+              "invalid_eligible_count": 0,
+              "map_count": 0,
+              "unmapped_count": 12147
+            },
+            "violation_count": 0
+          },
+          "expected": {
+            "evaluated_count": 12147,
+            "metrics": {
+              "crash_count": 12147,
+              "invalid_eligible_count": 0,
+              "map_count": 0,
+              "unmapped_count": 12147
+            },
+            "violation_count": 0
+          }
+        },
+        {
+          "rule_id": "QA07_LOCATION",
+          "object_key": "source_year:official_qld:2021",
+          "result": "limited",
+          "affected_count": 13476,
+          "actual": {
+            "evaluated_count": 13476,
+            "metrics": {
+              "crash_count": 13476,
+              "invalid_eligible_count": 0,
+              "map_count": 0,
+              "unmapped_count": 13476
+            },
+            "violation_count": 0
+          },
+          "expected": {
+            "evaluated_count": 13476,
+            "metrics": {
+              "crash_count": 13476,
+              "invalid_eligible_count": 0,
+              "map_count": 0,
+              "unmapped_count": 13476
+            },
+            "violation_count": 0
+          }
+        },
+        {
+          "rule_id": "QA07_LOCATION",
+          "object_key": "source_year:official_qld:2022",
+          "result": "limited",
+          "affected_count": 13021,
+          "actual": {
+            "evaluated_count": 13021,
+            "metrics": {
+              "crash_count": 13021,
+              "invalid_eligible_count": 0,
+              "map_count": 0,
+              "unmapped_count": 13021
+            },
+            "violation_count": 0
+          },
+          "expected": {
+            "evaluated_count": 13021,
+            "metrics": {
+              "crash_count": 13021,
+              "invalid_eligible_count": 0,
+              "map_count": 0,
+              "unmapped_count": 13021
+            },
+            "violation_count": 0
+          }
+        },
+        {
+          "rule_id": "QA07_LOCATION",
+          "object_key": "source_year:official_qld:2023",
+          "result": "limited",
+          "affected_count": 13622,
+          "actual": {
+            "evaluated_count": 13622,
+            "metrics": {
+              "crash_count": 13622,
+              "invalid_eligible_count": 0,
+              "map_count": 0,
+              "unmapped_count": 13622
+            },
+            "violation_count": 0
+          },
+          "expected": {
+            "evaluated_count": 13622,
+            "metrics": {
+              "crash_count": 13622,
+              "invalid_eligible_count": 0,
+              "map_count": 0,
+              "unmapped_count": 13622
+            },
+            "violation_count": 0
+          }
+        },
+        {
+          "rule_id": "QA07_LOCATION",
+          "object_key": "source_year:official_qld:2024",
+          "result": "limited",
+          "affected_count": 14358,
+          "actual": {
+            "evaluated_count": 14358,
+            "metrics": {
+              "crash_count": 14358,
+              "invalid_eligible_count": 0,
+              "map_count": 0,
+              "unmapped_count": 14358
+            },
+            "violation_count": 0
+          },
+          "expected": {
+            "evaluated_count": 14358,
+            "metrics": {
+              "crash_count": 14358,
+              "invalid_eligible_count": 0,
+              "map_count": 0,
+              "unmapped_count": 14358
+            },
+            "violation_count": 0
+          }
+        }
+      ],
+      "candidate_empty_after_rollback": true,
+      "raw_baseline_unchanged_after_rollback": true,
+      "evidence": [
+        {
+          "path": "cd-evidence/official-QLD/callback/qa_c/c10-detail-002.json",
+          "sha256": "d2c9ac4fe65b51b93720f781a556314509838e447e6fc1e7efcdf72c63b1b8ef"
+        },
+        {
+          "path": "cd-evidence/official-QLD/callback/qa_c/c10-detail-003.json",
+          "sha256": "9eb1478ea2101d6ba706aaac304acbd61867f3f5cb0f069c6be1c304727e115a"
+        },
+        {
+          "path": "cd-evidence/official-QLD/callback/qa_c/c10-detail-004.json",
+          "sha256": "571f44251a3850060bc24e1ed9ee54083276f08d4bed4fd5d2ea8e76f5e05acf"
+        },
+        {
+          "path": "cd-evidence/official-QLD/callback/qa_c/c10-detail-005.json",
+          "sha256": "741781895918f17b011a339c30dcf7deb5c89dcad4ef9113306d3798f313a808"
+        },
+        {
+          "path": "cd-evidence/official-QLD/callback/qa_c/c10-detail-006.json",
+          "sha256": "b93e1e8f025a79a055c341dc76dd229fa86fe2bd88679629f56ce7d5d8998f6c"
+        },
+        {
+          "path": "cd-evidence/official-QLD/callback/qa_c/c10-results.json",
+          "sha256": "7b2bdc4528ee91d2ceb88c5944ad5157b2285b3fda5bc952b2cd5da84411cc6f"
+        }
+      ]
+    },
+    "VIC": {
+      "files": [
+        {
+          "resource_id": "official_vic_accident",
+          "file_sha256": "a148c00601fab10d44368df80492c594123700a7f9e334ff896fd215295e91d9",
+          "parser_version": "csv-native-v1",
+          "locator_version": "csv-logical-v1",
+          "raw_count": 200352
+        },
+        {
+          "resource_id": "official_vic_node",
+          "file_sha256": "b0bdbec22ac33df66e15cff9b531ba3203320ec5fbe20076a2820b8fec966ed4",
+          "parser_version": "csv-native-v1",
+          "locator_version": "csv-logical-v1",
+          "raw_count": 405918
+        },
+        {
+          "resource_id": "official_vic_person",
+          "file_sha256": "71ca8fec01370e301f282fc83e8f11e4cde16a535ee421cbbb72512ceb7194f9",
+          "parser_version": "csv-native-v1",
+          "locator_version": "csv-logical-v1",
+          "raw_count": 467730
+        },
+        {
+          "resource_id": "official_vic_vehicle",
+          "file_sha256": "05a7a1b9171abaeb5c188df549dee38edde6e76d5a03553988305a8280dccd12",
+          "parser_version": "csv-native-v1",
+          "locator_version": "csv-logical-v1",
+          "raw_count": 365470
+        }
+      ],
+      "projection": [
+        {
+          "object": "resource:official_vic_accident",
+          "duplicate_key_count": 0,
+          "excluded_count": 128182,
+          "input_count": 200352,
+          "invalid_value_count": 0,
+          "orphan_count": 0,
+          "projected_count": 72170
+        },
+        {
+          "object": "resource:official_vic_vehicle",
+          "duplicate_key_count": 0,
+          "excluded_count": 233098,
+          "input_count": 365470,
+          "invalid_value_count": 0,
+          "orphan_count": 0,
+          "projected_count": 132372
+        }
+      ],
+      "results": [
+        {
+          "rule_id": "QA03_PROJECTED",
+          "object_key": "resource:official_vic_accident",
+          "result": "pass",
+          "affected_count": 0,
+          "actual": {
+            "evaluated_count": 72170,
+            "metrics": {
+              "duplicate_key_count": 0,
+              "excluded_count": 128182,
+              "input_count": 200352,
+              "invalid_value_count": 0,
+              "orphan_count": 0,
+              "projected_count": 72170
+            },
+            "violation_count": 0
+          },
+          "expected": {
+            "evaluated_count": 72170,
+            "metrics": {
+              "duplicate_key_count": 0,
+              "excluded_count": 128182,
+              "input_count": 200352,
+              "invalid_value_count": 0,
+              "orphan_count": 0,
+              "projected_count": 72170
+            },
+            "violation_count": 0
+          }
+        },
+        {
+          "rule_id": "QA04_AUXILIARY",
+          "object_key": "resource:official_vic_node",
+          "result": "pass",
+          "affected_count": 0,
+          "actual": {
+            "evaluated_count": 405918,
+            "metrics": {
+              "analysis_count_difference_count": null,
+              "case_set_match": true,
+              "coordinate_conflict_group_count": 0,
+              "declared_count_delta": null,
+              "duplicate_group_count": 199359,
+              "full_count_difference_count": null,
+              "nonblank_unmatched_count": null,
+              "orphan_count": 0,
+              "restriction_violation_count": 0
+            },
+            "violation_count": 0
+          },
+          "expected": {
+            "evaluated_count": 405918,
+            "metrics": {
+              "analysis_count_difference_count": null,
+              "case_set_match": true,
+              "coordinate_conflict_group_count": null,
+              "declared_count_delta": null,
+              "duplicate_group_count": null,
+              "full_count_difference_count": null,
+              "nonblank_unmatched_count": null,
+              "orphan_count": 0,
+              "restriction_violation_count": 0
+            },
+            "violation_count": 0
+          }
+        },
+        {
+          "rule_id": "QA04_AUXILIARY",
+          "object_key": "resource:official_vic_person",
+          "result": "pass",
+          "affected_count": 0,
+          "actual": {
+            "evaluated_count": 467730,
+            "metrics": {
+              "analysis_count_difference_count": 0,
+              "case_set_match": true,
+              "coordinate_conflict_group_count": null,
+              "declared_count_delta": null,
+              "duplicate_group_count": 0,
+              "full_count_difference_count": 2,
+              "nonblank_unmatched_count": 39,
+              "orphan_count": 0,
+              "restriction_violation_count": 0
+            },
+            "violation_count": 0
+          },
+          "expected": {
+            "evaluated_count": 467730,
+            "metrics": {
+              "analysis_count_difference_count": 0,
+              "case_set_match": true,
+              "coordinate_conflict_group_count": null,
+              "declared_count_delta": null,
+              "duplicate_group_count": 0,
+              "full_count_difference_count": 2,
+              "nonblank_unmatched_count": 39,
+              "orphan_count": 0,
+              "restriction_violation_count": 0
+            },
+            "violation_count": 0
+          }
+        },
+        {
+          "rule_id": "QA03_PROJECTED",
+          "object_key": "resource:official_vic_vehicle",
+          "result": "pass",
+          "affected_count": 0,
+          "actual": {
+            "evaluated_count": 132372,
+            "metrics": {
+              "duplicate_key_count": 0,
+              "excluded_count": 233098,
+              "input_count": 365470,
+              "invalid_value_count": 0,
+              "orphan_count": 0,
+              "projected_count": 132372
+            },
+            "violation_count": 0
+          },
+          "expected": {
+            "evaluated_count": 132372,
+            "metrics": {
+              "duplicate_key_count": 0,
+              "excluded_count": 233098,
+              "input_count": 365470,
+              "invalid_value_count": 0,
+              "orphan_count": 0,
+              "projected_count": 132372
+            },
+            "violation_count": 0
+          }
+        },
+        {
+          "rule_id": "QA04_AUXILIARY",
+          "object_key": "resource:official_vic_vehicle",
+          "result": "pass",
+          "affected_count": 0,
+          "actual": {
+            "evaluated_count": 365470,
+            "metrics": {
+              "analysis_count_difference_count": 3,
+              "case_set_match": true,
+              "coordinate_conflict_group_count": null,
+              "declared_count_delta": null,
+              "duplicate_group_count": 0,
+              "full_count_difference_count": 5,
+              "nonblank_unmatched_count": null,
+              "orphan_count": 0,
+              "restriction_violation_count": 0
+            },
+            "violation_count": 0
+          },
+          "expected": {
+            "evaluated_count": 365470,
+            "metrics": {
+              "analysis_count_difference_count": 3,
+              "case_set_match": true,
+              "coordinate_conflict_group_count": null,
+              "declared_count_delta": null,
+              "duplicate_group_count": 0,
+              "full_count_difference_count": 5,
+              "nonblank_unmatched_count": null,
+              "orphan_count": 0,
+              "restriction_violation_count": 0
+            },
+            "violation_count": 0
+          }
+        },
+        {
+          "rule_id": "QA05_SEMANTICS",
+          "object_key": "source:official_vic",
+          "result": "pass",
+          "affected_count": 0,
+          "actual": {
+            "evaluated_count": 1439470,
+            "metrics": {
+              "disposition_match": true,
+              "eligibility_error_count": 0,
+              "restriction_violation_count": 0,
+              "unconfirmed_definition_count": 10,
+              "undefined_category_count": 879
+            },
+            "violation_count": 0
+          },
+          "expected": {
+            "evaluated_count": 1439470,
+            "metrics": {
+              "disposition_match": true,
+              "eligibility_error_count": 0,
+              "restriction_violation_count": 0,
+              "unconfirmed_definition_count": 10,
+              "undefined_category_count": 879
+            },
+            "violation_count": 0
+          }
+        },
+        {
+          "rule_id": "QA07_LOCATION",
+          "object_key": "source_year:official_vic:2020",
+          "result": "limited",
+          "affected_count": 12170,
+          "actual": {
+            "evaluated_count": 12170,
+            "metrics": {
+              "crash_count": 12170,
+              "invalid_eligible_count": 0,
+              "map_count": 0,
+              "unmapped_count": 12170
+            },
+            "violation_count": 0
+          },
+          "expected": {
+            "evaluated_count": 12170,
+            "metrics": {
+              "crash_count": 12170,
+              "invalid_eligible_count": 0,
+              "map_count": 0,
+              "unmapped_count": 12170
+            },
+            "violation_count": 0
+          }
+        },
+        {
+          "rule_id": "QA07_LOCATION",
+          "object_key": "source_year:official_vic:2021",
+          "result": "limited",
+          "affected_count": 14013,
+          "actual": {
+            "evaluated_count": 14013,
+            "metrics": {
+              "crash_count": 14013,
+              "invalid_eligible_count": 0,
+              "map_count": 0,
+              "unmapped_count": 14013
+            },
+            "violation_count": 0
+          },
+          "expected": {
+            "evaluated_count": 14013,
+            "metrics": {
+              "crash_count": 14013,
+              "invalid_eligible_count": 0,
+              "map_count": 0,
+              "unmapped_count": 14013
+            },
+            "violation_count": 0
+          }
+        },
+        {
+          "rule_id": "QA07_LOCATION",
+          "object_key": "source_year:official_vic:2022",
+          "result": "limited",
+          "affected_count": 15043,
+          "actual": {
+            "evaluated_count": 15043,
+            "metrics": {
+              "crash_count": 15043,
+              "invalid_eligible_count": 0,
+              "map_count": 0,
+              "unmapped_count": 15043
+            },
+            "violation_count": 0
+          },
+          "expected": {
+            "evaluated_count": 15043,
+            "metrics": {
+              "crash_count": 15043,
+              "invalid_eligible_count": 0,
+              "map_count": 0,
+              "unmapped_count": 15043
+            },
+            "violation_count": 0
+          }
+        },
+        {
+          "rule_id": "QA07_LOCATION",
+          "object_key": "source_year:official_vic:2023",
+          "result": "limited",
+          "affected_count": 15558,
+          "actual": {
+            "evaluated_count": 15558,
+            "metrics": {
+              "crash_count": 15558,
+              "invalid_eligible_count": 0,
+              "map_count": 0,
+              "unmapped_count": 15558
+            },
+            "violation_count": 0
+          },
+          "expected": {
+            "evaluated_count": 15558,
+            "metrics": {
+              "crash_count": 15558,
+              "invalid_eligible_count": 0,
+              "map_count": 0,
+              "unmapped_count": 15558
+            },
+            "violation_count": 0
+          }
+        },
+        {
+          "rule_id": "QA07_LOCATION",
+          "object_key": "source_year:official_vic:2024",
+          "result": "limited",
+          "affected_count": 15386,
+          "actual": {
+            "evaluated_count": 15386,
+            "metrics": {
+              "crash_count": 15386,
+              "invalid_eligible_count": 0,
+              "map_count": 0,
+              "unmapped_count": 15386
+            },
+            "violation_count": 0
+          },
+          "expected": {
+            "evaluated_count": 15386,
+            "metrics": {
+              "crash_count": 15386,
+              "invalid_eligible_count": 0,
+              "map_count": 0,
+              "unmapped_count": 15386
+            },
+            "violation_count": 0
+          }
+        }
+      ],
+      "candidate_empty_after_rollback": true,
+      "raw_baseline_unchanged_after_rollback": true,
+      "evidence": [
+        {
+          "path": "cd-evidence/official-VIC/callback/qa_c/c10-detail-002.json",
+          "sha256": "d82a5c972832679f2296182f409ad1dfcdac63db6d0844d0dcd3076f392979cb"
+        },
+        {
+          "path": "cd-evidence/official-VIC/callback/qa_c/c10-detail-005.json",
+          "sha256": "c7ef52ff22f0ff732286349ce45c60da9d4af400984549e264189f3c6d683109"
+        },
+        {
+          "path": "cd-evidence/official-VIC/callback/qa_c/c10-detail-006.json",
+          "sha256": "1d1108a52952ef97aac4a7f90d88e31e78833023d681515c556f17c0a50e69d5"
+        },
+        {
+          "path": "cd-evidence/official-VIC/callback/qa_c/c10-detail-007.json",
+          "sha256": "c9b5e3af7b8a450f0bf3480ac2e1c0876aa0492446236abbfaa8c76f5d3a1588"
+        },
+        {
+          "path": "cd-evidence/official-VIC/callback/qa_c/c10-detail-008.json",
+          "sha256": "f15f7093c9a5301d9e2d80f0f3591f9b33e43f914100710269609c10404d9d25"
+        },
+        {
+          "path": "cd-evidence/official-VIC/callback/qa_c/c10-detail-009.json",
+          "sha256": "e4d7b48eabb8a520bc9b8dd93221b1b7c4419dcf3e8d129b3e331246b11a02b3"
+        },
+        {
+          "path": "cd-evidence/official-VIC/callback/qa_c/c10-detail-010.json",
+          "sha256": "e972efd516009a3a84a65f2f99bf09e112ca567d3de2e98bfbd589ff14b19d9a"
+        },
+        {
+          "path": "cd-evidence/official-VIC/callback/qa_c/c10-results.json",
+          "sha256": "d1bca84011740d886b9dba3922e5e0846e32d9f4f1f5a96ede0d89ca30c576b9"
+        }
+      ]
+    }
+  },
+  "cleanup": {
+    "container_removed": "arsia-b-ac-7610dc3c1aa0",
+    "anonymous_volume_removed": true
+  },
+  "evidence": [
+    {
+      "path": "pytest.log",
+      "sha256": "ab17ec48f7f28c67b7a47339eb58aafe2a31bacee417e6fc6ba396e194a7201f"
+    },
+    {
+      "path": "pytest.xml",
+      "sha256": "47681cb459cc33e263fc78aa1df8b635411a5c496010196cc6d690474a046be6"
+    },
+    {
+      "path": "a03-before.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+    },
+    {
+      "path": "a03-after.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+    },
+    {
+      "path": "final-state.json",
+      "sha256": "dbc4b9c36a78e26384cbe23a4d657bae8af990f1ab2bbf3300c91aedc6becd18"
+    },
+    {
+      "path": "c10-package-adapter-final3.log",
+      "sha256": "65b4be8efc83078f4782414fb13a23911c30d558f3fb0217b49da547621acf8a"
+    },
+    {
+      "path": "cleanup-maintenance.log",
+      "sha256": "023c117c3618bc5a0ea620c5426449249542dd14d5cc0c31a346a8317f9eca42"
+    },
+    {
+      "path": "cleanup-maintenance-serial.log",
+      "sha256": "e3e347b92fd3bb36981f52285aae3a273b57daabb857dcfa3ba18214113cda68"
+    }
+  ],
+  "cleanup_note": "An optional owner VACUUM during fixture cleanup hit Docker shared-memory capacity. Normal teardown and all tests completed. A serial retry found the container already removed. No constraint or grant was changed.",
+  "remaining": {
+    "C": "Review C10, PR24 packaging and A04 NSW draft; no official NSW admission is claimed.",
+    "B": "Review and merge the component integration, then assemble the final inventory.",
+    "D/E": "Use the accepted D and E modules for final reconciliation, FP1 and publication acceptance."
+  }
+}

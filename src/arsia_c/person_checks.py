@@ -4,7 +4,7 @@ from __future__ import annotations
 from collections import Counter
 from copy import deepcopy
 import json
-from pathlib import Path
+from importlib.resources import files
 import re
 from uuid import uuid4
 
@@ -12,8 +12,8 @@ from arsia_ingest.manifest import FrozenManifest
 from arsia_ingest.models import IntakeError
 
 
-ROOT = Path(__file__).resolve().parents[2]
-SQL_PATH = ROOT / "sql/qa/c06_vic_person_checks.sql"
+ROOT = files("arsia_c")
+SQL_PATH = ROOT / "sql/c06_vic_person_checks.sql"
 POLICY_PATH = ROOT / "config/c06-syn-1.json"
 VERSION = "c06-person-v0.3"
 ROLES = {"accident": "crash", "vehicle": "unit", "person": "person_raw"}

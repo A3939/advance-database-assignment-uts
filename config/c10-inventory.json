@@ -1,0 +1,96 @@
+{
+  "scope": "C10 qa_c fragment; not a complete platform inventory",
+  "version": "c10-role-c-v1",
+  "callback": "arsia_c.qa:runner_callback",
+  "binding_path": "src/arsia_c/qa.py",
+  "components": {
+    "qa_c": [
+      "src/arsia_c/qa.py",
+      "src/arsia_c/qa_expectations.py",
+      "src/arsia_c/person_checks.py",
+      "src/arsia_c/restricted_person.py",
+      "src/arsia_c/sql/c10_qa03_expectation.sql",
+      "src/arsia_c/sql/c10_qa03_projected.sql",
+      "src/arsia_c/sql/c10_qa04_auxiliary.sql",
+      "src/arsia_c/sql/c10_qa05_semantics.sql",
+      "src/arsia_c/sql/c10_qa07_location.sql",
+      "src/arsia_c/sql/c06_vic_person_checks.sql",
+      "src/arsia_c/config/c06-syn-1.json",
+      "src/arsia_c/config/c06-vic-r1.json",
+      "src/arsia_c/config/vic-restricted-inputs-v1.json",
+      "src/arsia_c/config/vic-restricted-use-v1.json"
+    ]
+  },
+  "code_files": [
+    {
+      "path": "src/arsia_c/qa.py",
+      "sha256": "4b0842ae0728cb1e14a2925daff472545c2e82af543703a33a518c17ece12b45"
+    },
+    {
+      "path": "src/arsia_c/qa_expectations.py",
+      "sha256": "aff6166536aed507ffacc97b3750226fc02f61228dd114e704c0fba18d3293d8"
+    },
+    {
+      "path": "src/arsia_c/person_checks.py",
+      "sha256": "bae217a18bc7adb6473a415222c13e365e3e26ae714c7b928fa1f6d3dfbe32f5"
+    },
+    {
+      "path": "src/arsia_c/restricted_person.py",
+      "sha256": "a03a81bcff6ed858aee8aa7c8af0cd92f7e0a2016fe4fa1b0122a2a1684fcc3b"
+    },
+    {
+      "path": "src/arsia_c/sql/c10_qa03_expectation.sql",
+      "sha256": "8a38f99fbe501580bcdaf278dc41fd27c71b2b1f28fe5346e6947a4ccc6eeec5"
+    },
+    {
+      "path": "src/arsia_c/sql/c10_qa03_projected.sql",
+      "sha256": "5446f8255d164408280840c60d95fdbbf1b0b502dccfd80028718af5b09cdd8d"
+    },
+    {
+      "path": "src/arsia_c/sql/c10_qa04_auxiliary.sql",
+      "sha256": "2d9a1ded01115d4d34056a1155906d340104dc0446704a2a1615ef38f4589390"
+    },
+    {
+      "path": "src/arsia_c/sql/c10_qa05_semantics.sql",
+      "sha256": "db8af3424b7d12e2fd8ada9511846be6dabce983a68f42bd78ea13ab8c643014"
+    },
+    {
+      "path": "src/arsia_c/sql/c10_qa07_location.sql",
+      "sha256": "ab4e392ee199512284fe9971ed6281f1fab0ccbe84dd86e1ddea112a615023d6"
+    },
+    {
+      "path": "src/arsia_c/sql/c06_vic_person_checks.sql",
+      "sha256": "045a4dfff6dab47251abcefa969bd75f5dee85f8df65d3b7acb63fdbf9d426bc"
+    },
+    {
+      "path": "src/arsia_c/config/c06-syn-1.json",
+      "sha256": "9de8aa68d9607415137a8b0c9bac598dbb1de9aea681241006391c61136a472a"
+    },
+    {
+      "path": "src/arsia_c/config/c06-vic-r1.json",
+      "sha256": "e3e52e87ac2200025dffe32e011ebeed2e9eeccc51973285f75540a1f6830f29"
+    },
+    {
+      "path": "src/arsia_c/config/vic-restricted-inputs-v1.json",
+      "sha256": "7eaf1e4834c6dcdb8c74e933aaff602dcaad0094e72f5508fe64ab3a34b583a3"
+    },
+    {
+      "path": "src/arsia_c/config/vic-restricted-use-v1.json",
+      "sha256": "bc892d07f81f51fc2859cccd9c1302e4b1ade22240bd36f8fe118d95e861ec40"
+    }
+  ],
+  "dependencies": {
+    "projection_contracts": [
+      "arsia_c.projections.nsw:_parameters",
+      "arsia_c.projections.source_contracts:parameters"
+    ],
+    "input_stages": [
+      "C03/C04/C05/C07 temporary projections",
+      "C09 canonical tables",
+      "D02/D03 dimensions and facts"
+    ],
+    "schema": "A c0824da06b6e7b3f73c4ddeab2114d10b7156913 migrations 001-011",
+    "integration_test_base": "B 2750d8ea3f909cfacdc4cb10b35b87ffe729a468"
+  },
+  "freeze_note": "Add the selected B/projection/dependency versions and recompute their hashes when assembling the final platform inventory."
+}
