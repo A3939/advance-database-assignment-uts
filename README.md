@@ -72,6 +72,7 @@ Each run gets a new directory under the chosen output root, followed by `<datase
 | [Input QA guide](docs/input-qa.md) | B11: per-file native and Raw comparisons, source reviews and evidence. |
 | [Build runner](docs/runner.md) | B10: module bindings, shared connection, transactions and run results. |
 | [B10 local validation](docs/b10-local-validation.md) | Transaction and failure-evidence fixes, installed-package tests and remaining build dependencies. |
+| [A09 cold-start and schema maintenance](docs/cold-start-and-schema-maintenance.md) | Empty PostgreSQL 16 rebuild, migration order, schema/dictionary verification, failure diagnostics and acceptance boundary. |
 | [Runner lock checks](docs/runner-locks.md) | B12: real session locks, busy exit and early-failure cleanup; remaining build checks. |
 | [Run recovery](docs/recovery.md) | B14: resolve uncertain commits and abandoned runs; real state recovery awaits integration. |
 | [B06/B07 validation](docs/b06-b07-validation.md) | Tests and S0 preparation recorded on 2026-09-17. |
