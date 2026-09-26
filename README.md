@@ -1,10 +1,10 @@
 # ARSIA: shared development baseline
 
-Role B's code prepares native inputs, loads Raw, freezes manifests, checks input/Raw quality and coordinates the build. A's fixed schema/A06, C03/C04/C05/C07/C09/C10 and D02/D03/D04 are integrated. Full builds still need E's FP1 and publication functions, the final inventory and combined acceptance.
+Role B's code prepares native inputs, loads Raw, freezes manifests, checks input/Raw quality and coordinates the build. A's fixed schema/A06, C03/C04/C05/C07/C09/C10 and D02–D08 are integrated. Full builds still need E's FP1 and publication integration, the final inventory and combined acceptance.
 
 ## Current scope
 
-This development version extends the shared baseline from PR #17 with the three-source C/D component chain. Full platform acceptance is still pending.
+This development version extends the shared baseline from PR #17 with the three-source C/D component chain and D05–D08 query APIs. Full platform acceptance is still pending.
 
 | Included | Owner |
 |---|---|
@@ -12,8 +12,11 @@ This development version extends the shared baseline from PR #17 with the three-
 | Native readers, Raw loading, manifest, QA01/QA02 and build runner | B / Peixian |
 | Packaged NSW/VIC/QLD projections, VIC location handling, Canonical loading and C10 QA | C / Serenity |
 | D02 dimensions, D03 crash facts and D04 reconciliation QA | D / Yihua |
+| D05 trend, D06 severity, D07 map and D08 unit queries, with packaged SQL | D / Yihua; B / Peixian for integration and installed-reader validation |
 
-D05–D08 query integration and reader checks remain separate work. E's PR #16 needs FP1/publication fixes and validation. [C10 is connected to B](docs/c10-integration.md) using the merged PR #26 code. The QA07 year-coverage fix from [PR #28](https://github.com/A3939/advance-database-assignment-uts/pull/28) is included with real database regressions. [S0 QA01–QA07 joint validation](docs/qa-joint-validation.md) passed 125 focused checks; the normal batch has 56 concrete results and seven summaries. Official-scope joint validation remains separate. Final inventory and full-build acceptance remain pending.
+[D05–D08 query integration](docs/analysis-integration.md) is included through [PR #31](https://github.com/A3939/advance-database-assignment-uts/pull/31). Installed-package, inventory and reader checks passed 131 tests, including 63 PostgreSQL cases, with no skips or failures. Queries use a fixed successful batch; the tests seed that state without E publication. D09's dashboard and its real publication flow remain separate.
+
+[C10 is connected to B](docs/c10-integration.md) using the merged PR #26 code. The QA07 year-coverage fix from [PR #28](https://github.com/A3939/advance-database-assignment-uts/pull/28) is included with real database regressions. [S0 QA01–QA07 joint validation](docs/qa-joint-validation.md) passed 125 focused checks; the normal batch has 56 concrete results and seven summaries. Official-scope joint validation remains separate. E's FP1/publication repairs are in [PR #30](https://github.com/A3939/advance-database-assignment-uts/pull/30), pending review and integration through PR #16. Final inventory and full-build acceptance remain pending.
 
 The [C/D integration record](docs/cd-integration.md) reports 733 passed / 309 skipped in the installed default suite and 619 passed / 0 skipped in the PostgreSQL-enabled suite. The focused D04 lineage acceptance passed all 31 checks. These suites overlap. The [earlier B10 record](docs/b10-local-validation.md) retains the runner-fix evidence.
 
@@ -71,6 +74,8 @@ Each run gets a new directory under the chosen output root, followed by `<datase
 | [VIC restricted input support](docs/vic-restricted-inputs.md) | B09/B11: adopted policy, exact case/evidence bindings and restricted QA01. |
 | [Input QA guide](docs/input-qa.md) | B11: per-file native and Raw comparisons, source reviews and evidence. |
 | [Three-source C/D integration](docs/cd-integration.md) | Actual bindings, partial inventory, installed-package and PostgreSQL validation. |
+| [S0 QA01–QA07 joint validation](docs/qa-joint-validation.md) | Seven QA groups, stored results, fault cases and component-validation limits. |
+| [D05–D08 query integration](docs/analysis-integration.md) | Query packages, SQL deployment, inventory and installed-reader checks. |
 | [Peixian's contribution record](docs/contributions/peixian.md) | B implementation, cross-role fixes and integration evidence. |
 | [Build runner](docs/runner.md) | B10: module bindings, shared connection, transactions and run results. |
 | [B10 local validation](docs/b10-local-validation.md) | Transaction and failure-evidence fixes, installed-package tests and remaining build dependencies. |
@@ -89,6 +94,8 @@ The earlier [2026-09-15 validation](docs/native-intake.md#recorded-validation-20
 | `src/arsia_ingest/manifest.py`, `fingerprint.py` | Manifest validation/freezing and E's explicit SQL call boundary. |
 | `src/arsia_ingest/qa_input.py`, `runner.py` | QA01/QA02, evidence and the shared build lifecycle. |
 | `src/arsia_ingest/recovery.py` | Resolve a saved run using a new connection, without retrying the build. |
+| `src/arsia_d05/` through `src/arsia_d08/` | Fixed-batch query APIs and packaged SQL; these are read APIs, not B10 load callbacks. |
+| `config/analysis-inventory.json` | Query paths, hashes, versions and deployment dependencies; a partial inventory. |
 | `config/qa-team-v1.1.json` | Unchanged English QA text from team contract 04 §3. |
 | `config/native-inputs.json` | Seven resources, 197 ordered field names, workbook settings and file hashes. |
 | `raw_datasource/` | Original source files managed by Git LFS. |
@@ -110,6 +117,8 @@ source_id, resource_id, file_sha256, parser_version, row_locator, payload
 
 CSV values remain text, including blanks and leading zeros; XLSX conversion follows the intake guide. Person rows, Node observations and QLD aggregate fields are retained. Filtering, business mappings and deduplication belong to later steps.
 
-`prepared` means native input preparation passed. The [C/D integration](docs/cd-integration.md) verifies three-source S0 loading through crash facts, with QA01/QA02 and QA06 persistence. [B12's lock checks](docs/runner-locks.md) cover session contention and early cleanup. The [B10 local validation](docs/b10-local-validation.md) covers transaction isolation, failure evidence and recovery markers. C10 now has an installed `qa_c` binding and focused B-interface checks; combined QA01–07 acceptance is separate. Real FP1 and complete publication remain unverified. B09/B11 enforce the adopted VIC input restrictions; full downstream integration is still required.
+`prepared` means native input preparation passed. The [C/D integration](docs/cd-integration.md) verifies three-source S0 loading through crash facts. C10 has an installed `qa_c` binding, and [all seven QA groups](docs/qa-joint-validation.md) have passed joint S0 component checks with persisted results. [D05–D08 reader checks](docs/analysis-integration.md) cover installed queries, permissions and fixed batches using seeded successful test states.
+
+[B12's lock checks](docs/runner-locks.md) cover session contention and early cleanup. The [B10 local validation](docs/b10-local-validation.md) covers transaction isolation, failure evidence and recovery markers. These checks do not complete B10 acceptance: E's FP1/publication integration and the final inventory are still required. D09 and official-data replay remain separate. B09/B11 retain the agreed VIC restrictions.
 
 The baseline is team v1.1: document 04 (L1 contracts and acceptance) and document 05 (sources and mappings, sections 1-2 and 7). The [online database design](https://arsia-team-design.vercel.app/) shows the shared model. Links in the guides to `F/` and `Resources/` refer to the shared course workspace outside this Git repository; they work locally but are unavailable in a standalone clone or on GitHub.
