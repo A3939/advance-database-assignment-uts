@@ -267,9 +267,40 @@ def test_vault_rejects_duplicate_projection_keys(connection, projection):
     assert error.value.code == "VAULT_DUPLICATE_KEY"
 
 
-def test_existing_hub_keeps_first_seen_batch(connection, projection):
+def test_new_batch_appends_history_without_moving_current_release(
+    connection, projection
+):
     first = load_vault(connection, projection)
     first_batch = projection.batch_id
+    source_id = connection.execute(
+        "SELECT source_id FROM arsia_i_crash"
+    ).fetchone()[0]
+
+    first_crash_snapshot = connection.execute(
+        "SELECT raw_record_id, attributes "
+        "FROM rv.sat_crash "
+        "WHERE batch_id = %s AND source_id = %s",
+        (first_batch, source_id),
+    ).fetchone()
+    first_unit_snapshot = connection.execute(
+        "SELECT raw_record_id, attributes "
+        "FROM rv.sat_unit "
+        "WHERE batch_id = %s AND source_id = %s",
+        (first_batch, source_id),
+    ).fetchone()
+
+    connection.execute(
+        "UPDATE meta.batch "
+        "SET status = 'succeeded', finished_at = now() "
+        "WHERE batch_id = %s",
+        (first_batch,),
+    )
+    connection.execute(
+        "INSERT INTO meta.current_release(dataset_kind, batch_id) "
+        "VALUES ('synthetic', %s)",
+        (first_batch,),
+    )
+
     second_batch = str(uuid4())
     connection.execute(
         """INSERT INTO meta.batch(
@@ -298,3 +329,42 @@ def test_existing_hub_keeps_first_seen_batch(connection, projection):
         (first_batch,),
     ).fetchone()[0]
     assert first_seen == first_batch
+
+    counts = connection.execute(
+        """SELECT
+             (SELECT count(*) FROM rv.hub_crash WHERE source_id = %s),
+             (SELECT count(*) FROM rv.hub_unit WHERE source_id = %s),
+             (SELECT count(*) FROM rv.sat_crash WHERE source_id = %s),
+             (SELECT count(*) FROM rv.sat_unit WHERE source_id = %s),
+             (SELECT count(*) FROM rv.link_crash_unit WHERE source_id = %s)""",
+        (source_id,) * 5,
+    ).fetchone()
+    assert counts == (1, 1, 2, 2, 2)
+
+    assert connection.execute(
+        "SELECT raw_record_id, attributes "
+        "FROM rv.sat_crash "
+        "WHERE batch_id = %s AND source_id = %s",
+        (first_batch, source_id),
+    ).fetchone() == first_crash_snapshot
+    assert connection.execute(
+        "SELECT raw_record_id, attributes "
+        "FROM rv.sat_unit "
+        "WHERE batch_id = %s AND source_id = %s",
+        (first_batch, source_id),
+    ).fetchone() == first_unit_snapshot
+
+    crash_batches = connection.execute(
+        "SELECT batch_id::text FROM rv.sat_crash WHERE source_id = %s",
+        (source_id,),
+    ).fetchall()
+    assert {row[0] for row in crash_batches} == {
+        first_batch,
+        second_batch,
+    }
+
+    current_release = connection.execute(
+        "SELECT batch_id::text "
+        "FROM meta.current_release WHERE dataset_kind = 'synthetic'"
+    ).fetchone()[0]
+    assert current_release == first_batch
