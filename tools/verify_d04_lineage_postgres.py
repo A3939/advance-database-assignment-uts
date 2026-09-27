@@ -34,7 +34,9 @@ if __name__ == "__main__":
     check_schema()
     raise SystemExit(main(
         inventory_path="config/cd-inventory.json",
-        tests=("test_d04_lineage_postgres.py", "test_cd_integration_postgres.py",
+        tests=("test_d04_lineage_postgres.py", "test_d04_official_contract.py",
+               "test_d04_parent_short_form_postgres.py", "test_cd_integration_postgres.py",
                "test_d04_postgres.py", "test_cd_inventory.py"),
-        scope=f"D04 lineage fix acceptance; A {A_COMMIT}; partial inventory; no publication",
+        scope=f"D04 lineage and official contract compatibility; A {A_COMMIT}; "
+              "synthetic PostgreSQL cases and real official manifest interface; no publication",
     ))

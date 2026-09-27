@@ -102,6 +102,16 @@ without permanent Raw statistics, and retain the existing C10 and seven-QA
 regressions. C owns the original Person implementation; B adds this query-plan
 repair and validation. No permanent table, grant or planner setting changes.
 
+## D04 parent contract compatibility
+
+The pinned VIC Node contract names its Accident parent and child fields, but
+omits `parent_fields`. D04 originally required that property before checking
+lineage. D04 now resolves an omitted list only when the selected
+same-source parent has the exact same ordered key fields. Explicit null,
+empty or ambiguous declarations still fail. The frozen VIC contract and
+policy files stay unchanged. D owns reconciliation; B adds this compatibility
+fix and regression checks.
+
 ## Run
 
 Use Python 3.12 and Docker. Build the wheel and install it outside the checkout:
@@ -178,4 +188,5 @@ E still runs an independent acceptance comparison. D owns the deferred D09
 review. A/E and the team confirm the four course decisions in
 [E01](e/e01-course-decisions.md). B then updates the expanded inventory and
 repeats the affected acceptance cases. The C03, C06 and C09 performance changes are recorded
-in B for C to review and adopt separately. `final_platform` remains false.
+in B for C to review and adopt separately. D can review the parent-contract
+compatibility fix separately. `final_platform` remains false.

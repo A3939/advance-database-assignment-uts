@@ -720,7 +720,7 @@
     },
     {
       "path": "src/arsia_d04/reconciliation.py",
-      "sha256": "793101b7ae2d03cf87b84b68fd7bf21392b292b86ea8e3eb4c5a07187a8c12c9"
+      "sha256": "bc9c064598b13d5d4b9f3cc71e4139d1c1425ce5faf2a3c45e04cadc0276d365"
     },
     {
       "path": "src/arsia_d05/__init__.py",

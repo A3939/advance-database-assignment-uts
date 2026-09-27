@@ -57,6 +57,7 @@ PRs #4–#26 listed above and PR #28 were merged. Peixian merged PR #28 with C's
 | [NSW cold-start query fix](../official-build.md#nsw-query-fix) | Reproduced full-volume C03 query-plan slowdown, added loader-owned temporary staging/indexes/statistics and PostgreSQL regressions. C owns the original projection and business rules. |
 | [C09 parent lookup](../official-build.md#c09-parent-lookup) | Reproduced a source-wide parent scan on full data, kept all four parent keys inside the indexed lookup and added database plan, wrong-parent and rollback checks. C owns the original Canonical module. |
 | [C06 full-file lookup](../official-build.md#c06-full-file-lookup) | Reproduced underestimated full-file selection and repeated parent-group scans; added complete loader-owned temporary inputs, statistics and output-equivalence/scale regressions. C owns the original Person rules. |
+| [D04 parent contract compatibility](../official-build.md#d04-parent-contract-compatibility) | Connected the unchanged VIC Node parent declaration to D04, accepting omitted target fields only when the same-source frozen parent key matches exactly. D owns reconciliation; B adds the compatibility fix and regressions. |
 | [D05–D08 query integration](../analysis-integration.md) | Retained D's original authorship and unchanged runtime, added package resources, actual analysis inventory, 20 new database cases and installed reader validation; 131 focused checks passed |
 
 A's migrations/A06, C's projection/Canonical modules and D's dimensions/facts/reconciliation remain their work.
