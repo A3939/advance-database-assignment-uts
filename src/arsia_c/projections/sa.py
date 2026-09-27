@@ -9,6 +9,11 @@ HEADER = ["CRASH_ID", "YEAR", "MONTH", "SEVERITY", "FATALITIES", "CASUALTIES",
           "LATITUDE", "LONGITUDE"]
 # The generated s8-native-v1 semantics in tests/fixtures/s8/contract.json.
 SEMANTICS_SHA256 = "6ed45e751fa1bab67af873bef572badfc7ca6612f48b12f409d9c4018fbfd461"
+COVERAGE = {
+    "year_from": 2020, "year_to": 2024, "months": list(range(1, 13)),
+    "basis": "S8 defines all months in 2020-2024 as covered, matching the fictional "
+             "S0 analysis window. This is not official SA coverage.",
+}
 MAPPING = {
     "occurrence_year": "YEAR", "occurrence_month": "MONTH", "occurrence_date": None,
     "date_precision": "month", "severity_raw": "SEVERITY", "severity_definition": "syn-1",
@@ -48,6 +53,11 @@ def parameters(manifest, batch_id):
             or identity["key"] != {"fields": ["CRASH_ID"], "unique": True}
             or identity["parent"] is not None):
         raise ValueError("Unsupported S8 contract identity/input")
+    coverage = identity.get("coverage")
+    # JSON comparison also rejects booleans/floats that Python treats as equal integers.
+    if (not isinstance(coverage, dict)
+            or json.dumps(coverage, sort_keys=True) != json.dumps(COVERAGE, sort_keys=True)):
+        raise ValueError("S8 coverage differs from s8-native-v1")
     semantics = json.dumps(content["semantics"], sort_keys=True, separators=(",", ":")).encode("utf-8")
     if hashlib.sha256(semantics).hexdigest() != SEMANTICS_SHA256:
         raise ValueError("S8 semantics differ from s8-native-v1")

@@ -84,3 +84,27 @@ def test_autocommit_is_rejected_without_reading_context_or_sql():
 
     with pytest.raises(ValueError, match="caller-owned transaction"):
         project(Connection(), None)
+
+
+@pytest.mark.parametrize('field,value', [
+    ('year_from', 2021), ('year_to', 2025), ('year_from', True),
+    ('year_from', 2020.0), ('year_from', '2020'),
+    ('months', [1]), ('months', []), ('months', 'bad'), ('months', None),
+    ('months', [True, *range(2, 13)]), ('months', [1.0, *range(2, 13)]),
+    ('basis', ''), ('basis', 'Different source coverage'), ('extra', 'unreviewed'),
+])
+def test_changed_s8_coverage_is_rejected_before_sql(field, value):
+    manifest = manifest_input()
+    contract = next(c for c in manifest['rules']['contracts'] if c['id'] == 'syn_sa_crash')
+    contract['content']['identity']['coverage'][field] = value
+    with pytest.raises(ValueError, match='S8 coverage differs'):
+        parameters(manifest, 'batch')
+
+
+@pytest.mark.parametrize('coverage', [None, '2020-2024', [2020, 2024], {}])
+def test_non_object_or_empty_s8_coverage_is_rejected(coverage):
+    manifest = manifest_input()
+    contract = next(c for c in manifest['rules']['contracts'] if c['id'] == 'syn_sa_crash')
+    contract['content']['identity']['coverage'] = coverage
+    with pytest.raises(ValueError, match='S8 coverage differs'):
+        parameters(manifest, 'batch')

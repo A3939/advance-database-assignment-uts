@@ -496,7 +496,7 @@
     },
     {
       "path": "src/arsia_c/projections/sa.py",
-      "sha256": "faac9313ce5a0d59786ac21332ead18be799add3aec46e0a56bef0b60e9360cb"
+      "sha256": "72d46fac76bde724ec888720557b1c86f5969edc844a251a45636a8859aeeff7"
     },
     {
       "path": "src/arsia_c/projections/source_contracts.py",

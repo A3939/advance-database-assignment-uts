@@ -36,9 +36,9 @@ def rows(connection, batch):
 @pytest.fixture
 def requests(request, tmp_path):
     root = Path(os.environ.get('AC_EVIDENCE_DIR', tmp_path)) / 's8' / request.node.name
-    def factory(kind='s8', *, changes=None, unconfirmed_crs=False):
+    def factory(kind='s8', *, changes=None, unconfirmed_crs=False, coverage_patch=None):
         config = ROOT / 'tests/fixtures' / kind / 'config.json'
-        if changes or unconfirmed_crs:
+        if changes or unconfirmed_crs or coverage_patch is not None:
             import importlib.util
             spec = importlib.util.spec_from_file_location('s8_generator', ROOT / 'tools/create_s0_inputs.py')
             module = importlib.util.module_from_spec(spec)
@@ -58,6 +58,8 @@ def requests(request, tmp_path):
                 value = json.loads(path.read_text(encoding='utf-8'))
                 resource = next(r for r in value['resources'] if r['resource_id'] == 'syn_sa_crash')
                 resource.get('native', resource)['expected_sha256'] = digest
+                if coverage_patch is not None and 'coverage' in resource:
+                    resource['coverage'].update(coverage_patch)
                 if unconfirmed_crs and 'mapping' in resource:
                     resource['mapping']['location']['crs'] = None
                     resource['mapping']['location']['basis'] = 'Synthetic test: CRS declaration is unconfirmed.'
@@ -254,3 +256,14 @@ def test_s8_unknown_values_and_limited_location_pass_real_qa(requests, changes, 
             assert all(row[key] is None for key in ('latitude', 'longitude', 'location_crs', 'location_record_id'))
         assert connection.execute("SELECT count(*) FROM qa.check_result WHERE batch_id=%s", (result['batch_id'],)).fetchone() == (77,)
         assert current(connection) == result['batch_id']
+
+
+@pytest.mark.parametrize('coverage_patch', [
+    {'year_from': 2021}, {'months': [1]}, {'months': 'bad'}, {'year_from': 'bad'},
+])
+def test_changed_s8_coverage_cannot_publish_or_replace_b0(requests, coverage_patch):
+    candidate = requests(coverage_patch=coverage_patch)
+    manifest = candidate['manifest'].as_dict()
+    coverage = next(c for c in manifest['rules']['contracts'] if c['id'] == 'syn_sa_crash')['content']['identity']['coverage']
+    assert all(coverage[key] == value for key, value in coverage_patch.items())
+    assert_failed_preserves_baseline(requests, candidate, 'project')
