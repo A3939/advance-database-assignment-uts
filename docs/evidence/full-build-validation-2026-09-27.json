@@ -1,0 +1,157 @@
+{
+  "date": "2026-09-27",
+  "scope": "Installed three-source S0 B10 build; not final platform acceptance",
+  "b_base": "6ec0f892519e83ee028cc987ed7c9479d1b24648",
+  "e_head": "aec3b4692382e48ea4f778f04a31a4ca5ba5fa57",
+  "e_original_fp1": "ac06a93",
+  "e_original_gate": "2334444",
+  "b_e_repairs": [
+    "0929eed",
+    "8092765"
+  ],
+  "tested_worktree_base": "a6f75d9864421d50487d0a4d4dede9fd7c3479d2",
+  "verification": "Tested code, migrations, selected tests and dependencies match the committed delivery by SHA256; receipt/docs were added after execution.",
+  "inventory": {
+    "path": "config/build-inventory.json",
+    "sha256": "b0bf32b765b9f74357c0f9c8695aa060ebe4dbaa34cb2e54c6e848c494c35dc7"
+  },
+  "fixture_generator": {
+    "path": "tools/create_s0_inputs.py",
+    "sha256": "4378bf2c3a57ac65ac1e321ae08ebb45b6a2b45e85680b4f4fb10870bd05f8a1"
+  },
+  "environment": {
+    "postgresql": [
+      "PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+      "arsia_loader",
+      "arsia_loader",
+      "UTF8",
+      "UTC",
+      "en_US.utf8",
+      "en_US.utf8",
+      false,
+      false,
+      false,
+      false
+    ],
+    "image": "postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67"
+  },
+  "wheel_sha256": "9e22d6f6d0942094f939b5c3677434b266279faf9aaacde5a568cfe6b095d4bb",
+  "python": "3.12.6 (v3.12.6:a4a2d2b0d85, Sep  6 2024, 16:08:03) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "packages": {
+    "arsia-native-intake": "0.1.0",
+    "openpyxl": "3.1.5",
+    "psycopg": "3.3.6",
+    "psycopg-binary": "3.3.6",
+    "pytest": "8.4.2"
+  },
+  "focused": {
+    "tests": 334,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pytest_exit_code": 0,
+    "exit_code": 0,
+    "permissions": "Original A03 audit passed before and after",
+    "final_tables_empty": true,
+    "publication_performed": true,
+    "boundary": "D09, official replay, S8 and independent E/platform acceptance remain separate",
+    "publication_scope": "Private synthetic test database; no official release",
+    "full_s0_build_verified": true,
+    "final_platform_accepted": false,
+    "real_postgresql_tests": 112,
+    "new_runner_postgresql_tests": 61,
+    "existing_e_postgresql_regressions": 51,
+    "other_checks": 222
+  },
+  "default": {
+    "passed": 812,
+    "skipped": 377,
+    "failed": 0,
+    "note": "Optional database/archive suites are skipped. Totals overlap with focused tests."
+  },
+  "baseline": {
+    "raw": 19,
+    "crash": 6,
+    "unit": 6,
+    "fact": 6,
+    "source": 3,
+    "month": 60,
+    "severity": 12,
+    "qa_objects": 56,
+    "qa_summaries": 7,
+    "qa07_limited_affected": 2
+  },
+  "changed_snapshots": {
+    "revised_n1": {
+      "crashes": 6,
+      "fatalities": 4,
+      "casualties": 8
+    },
+    "delete_q2": {
+      "crashes": 5,
+      "fatalities": 3,
+      "casualties": 7
+    },
+    "delete_q2_unexplained": "QA01 blocks before registration"
+  },
+  "privileges": "Normal builds use loader logins. Owner access only deploys SQL, cleans the private database and injects bad test QA rows; gate execution restores arsia_loader. No A03 grant changes.",
+  "local_evidence_root": "artifacts/role-b-e-integration-20260927",
+  "reports": [
+    {
+      "path": "postgres-5/inputs.json",
+      "sha256": "a5e386ca486d5ec4c13f4402a9e13cf45b4ce640d6a7fa79495be9c7b395fbec"
+    },
+    {
+      "path": "postgres-5/environment.json",
+      "sha256": "a0c3132d813f8f18e3d68d3f024c228b53d3c1be37382574e8c95b31b32fa0c4"
+    },
+    {
+      "path": "postgres-5/command.json",
+      "sha256": "3fbd7497812aa9fd8f13b53ce57309a22a9127fbec25eea5ba62e12f2f12d3fc"
+    },
+    {
+      "path": "postgres-5/migrations.log",
+      "sha256": "a82236d6e3beed2c859d39313200a6015d460a7e09505404f5e0f9d729723ae9"
+    },
+    {
+      "path": "postgres-5/pytest.xml",
+      "sha256": "dfa7834427dba824caac69ec1f0c9b942af5fd823929b7da63448e2a4034335e"
+    },
+    {
+      "path": "postgres-5/pytest.log",
+      "sha256": "f9de8df415b3ec341380e2d3695d1c0638f4cc91bd740fd6c3fdf4b64e3053b0"
+    },
+    {
+      "path": "postgres-5/a03-before.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+    },
+    {
+      "path": "postgres-5/a03-after.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+    },
+    {
+      "path": "postgres-5/final-state.json",
+      "sha256": "dbc4b9c36a78e26384cbe23a4d657bae8af990f1ab2bbf3300c91aedc6becd18"
+    },
+    {
+      "path": "postgres-5/summary.json",
+      "sha256": "b3c6da0480af4508e6845ae26ee7949b5236b631e2864c3bba7d170b78fa73ae"
+    },
+    {
+      "path": "postgres-5/cleanup.json",
+      "sha256": "74edb64268fb516173068930fa960c13f26a1c3f32413b5d024998df53cf408a"
+    },
+    {
+      "path": "default.xml",
+      "sha256": "fbb3d86cf5eb53d1dc0ebc668b7178b7482d25f8e31bc03be126e4cf1b3baef3"
+    }
+  ],
+  "remaining": {
+    "D": "D09 reader/UI review and integration",
+    "C/D/B": "S8 extension and admitted official-source replay",
+    "E": "Independent result comparison and platform acceptance",
+    "A/E": "Four documented course decisions"
+  },
+  "official_release": false,
+  "final_platform_accepted": false
+}
