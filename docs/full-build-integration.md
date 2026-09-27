@@ -11,7 +11,7 @@ the tests do not seed its status or pointer.
 - A schema/A06: `c0824da06b6e7b3f73c4ddeab2114d10b7156913`, migrations 001–011.
 - C: integrated C03–C10 code, including QA07 fix `6987e604bb93809aa94a736085c3e8320452461d`.
 - D: `d57c3f4ff2fb57eb84ebc414ef77911073c0de06`, D02–D08.
-- E: PR #16 head `aec3b4692382e48ea4f778f04a31a4ca5ba5fa57`, including PR #30.
+- E: PR #16 head `aec3b4692382e48ea4f778f04a31a4ca5ba5fa57`, including PR #30. PR #16 merged into B as `8046795` after Peixian's re-review.
 
 Aditya wrote the original E delivery, including FP1 (`ac06a93`) and the gate
 (`2334444`). Peixian repaired these in `0929eed` and `8092765`, then added this

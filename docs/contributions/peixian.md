@@ -33,6 +33,8 @@ This index links the work and its evidence. It does not estimate hours or a cont
 | [#28](https://github.com/A3939/advance-database-assignment-uts/pull/28) | Reproduced QA07's year-coverage gap, fixed Raw year attribution, added blocking objects/evidence and sixteen database regressions; merged into C | C |
 | [#30](https://github.com/A3939/advance-database-assignment-uts/pull/30) | Repaired FP1 deployment/grants and E06 coverage, metrics, evidence identity and summary checks; 61 installed acceptance tests passed. Peixian merged #30 into E; this does not claim an E Approved review. | E |
 
+PR #16 was re-reviewed by Peixian after #30 and merged into B on 2026-09-27. Its six original findings are resolved. This is not an independent E approval.
+
 PR #5 has JJ's Approved review. PR #6 has D's Approved review, submitted after its merge.
 PRs #4–#26 listed above and PR #28 were merged. Peixian merged PR #28 with C's agreement, as confirmed by Peixian; no formal GitHub Approved review was submitted for it. This record does not claim other formal approvals.
 
