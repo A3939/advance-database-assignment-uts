@@ -182,7 +182,7 @@
     },
     {
       "path": "src/arsia_c/canonical_validation.py",
-      "sha256": "172c4ea138d4ce43010b52db863fe046a4db35c99e4f90ff7722672920799011"
+      "sha256": "174f3b9a3f0d1e54a42c49f79aedbc16b1a52985f6a31a2ea3629d5ccb10a61a"
     },
     {
       "path": "src/arsia_c/config/c05-qld-official-v1.json",
@@ -206,7 +206,7 @@
     },
     {
       "path": "src/arsia_c/projections/nsw.py",
-      "sha256": "3b297b29d53946bca917300ae683d9de7e482c9a422cf4412ea27e0d9f52e8ab"
+      "sha256": "c8c317cc043abd6618c6c941a2ebe84ed82b0082d742029c95d9364edd869bd6"
     },
     {
       "path": "src/arsia_c/projections/qld.py",
@@ -218,11 +218,11 @@
     },
     {
       "path": "src/arsia_c/projections/sql/c03_nsw_crash_insert.sql",
-      "sha256": "d1e78ff96178a6c43305cb0b249b935c4e71e9f24594ab4ca23540aecc0ee5bc"
+      "sha256": "63de5c9104937984102f91ae4606fbee2883fcae0ee839dedcd6fa72bce07dee"
     },
     {
       "path": "src/arsia_c/projections/sql/c03_nsw_month_check.sql",
-      "sha256": "52a63e6be5132b8064b9f88541af57acca5f7907016bc7baa2a74f42ee4aa438"
+      "sha256": "bc54fbcce548e56fbfe30f6291bf8daeea965b4caf46ecb50cd69add449fd363"
     },
     {
       "path": "src/arsia_c/projections/sql/c03_nsw_projection_check.sql",
@@ -230,23 +230,23 @@
     },
     {
       "path": "src/arsia_c/projections/sql/c03_nsw_relationship_check.sql",
-      "sha256": "996335de7b30d15dcde86535793aba66ca48e41d4807b372964d87e57025cebc"
+      "sha256": "d4c9c471592f266139a7877bf0f1083e6244298f525377d26549e0a41cadde96"
     },
     {
       "path": "src/arsia_c/projections/sql/c03_nsw_semantic_check.sql",
-      "sha256": "fb71f3ec1454b8a5ee212aa28ee8c956cdfd8987b8eaa97ecdf0406feb0bf547"
+      "sha256": "6a743ada222efca729bc2b6e5ff2180a0db4a6eb848ba6dd9aba2b26c7c9020b"
     },
     {
       "path": "src/arsia_c/projections/sql/c03_nsw_unit_check.sql",
-      "sha256": "8b9fe0f1769a6660c6433913a5e56657e01cff6237a51f6d77542317daa41401"
+      "sha256": "b3a77c7ff2a36afd14b8e99e3c61dfa01aede904511204a7b7a68d76dd806388"
     },
     {
       "path": "src/arsia_c/projections/sql/c03_nsw_unit_insert.sql",
-      "sha256": "851336d277c0e0fb25c74193ee5e263aba9f01a5b62006bb68c68c8865185093"
+      "sha256": "84f4dfb2602434694c282352c9becab4c07f76707850186919702443d5a059c7"
     },
     {
       "path": "src/arsia_c/projections/sql/c03_nsw_year_check.sql",
-      "sha256": "77b142636574e5559351bd651c5317faea6594c588ce96422b314c479c1419a6"
+      "sha256": "cd5de52b909c83b8b7ac005baf73135fe4b4c882bf73146359c9a26517deed5b"
     },
     {
       "path": "src/arsia_c/projections/sql/c03_projection_tables.sql",
@@ -427,12 +427,16 @@
     {
       "upstream_path": "sql/projections/c03_nsw_crash_insert.sql",
       "path": "src/arsia_c/projections/sql/c03_nsw_crash_insert.sql",
-      "sha256": "d1e78ff96178a6c43305cb0b249b935c4e71e9f24594ab4ca23540aecc0ee5bc"
+      "sha256": "63de5c9104937984102f91ae4606fbee2883fcae0ee839dedcd6fa72bce07dee",
+      "upstream_sha256": "d1e78ff96178a6c43305cb0b249b935c4e71e9f24594ab4ca23540aecc0ee5bc",
+      "note": "Runtime changed after import; upstream_sha256 retains the original file hash."
     },
     {
       "upstream_path": "sql/projections/c03_nsw_month_check.sql",
       "path": "src/arsia_c/projections/sql/c03_nsw_month_check.sql",
-      "sha256": "52a63e6be5132b8064b9f88541af57acca5f7907016bc7baa2a74f42ee4aa438"
+      "sha256": "bc54fbcce548e56fbfe30f6291bf8daeea965b4caf46ecb50cd69add449fd363",
+      "upstream_sha256": "52a63e6be5132b8064b9f88541af57acca5f7907016bc7baa2a74f42ee4aa438",
+      "note": "Runtime changed after import; upstream_sha256 retains the original file hash."
     },
     {
       "upstream_path": "sql/projections/c03_nsw_projection_check.sql",
@@ -442,27 +446,37 @@
     {
       "upstream_path": "sql/projections/c03_nsw_relationship_check.sql",
       "path": "src/arsia_c/projections/sql/c03_nsw_relationship_check.sql",
-      "sha256": "996335de7b30d15dcde86535793aba66ca48e41d4807b372964d87e57025cebc"
+      "sha256": "d4c9c471592f266139a7877bf0f1083e6244298f525377d26549e0a41cadde96",
+      "upstream_sha256": "996335de7b30d15dcde86535793aba66ca48e41d4807b372964d87e57025cebc",
+      "note": "Runtime changed after import; upstream_sha256 retains the original file hash."
     },
     {
       "upstream_path": "sql/projections/c03_nsw_semantic_check.sql",
       "path": "src/arsia_c/projections/sql/c03_nsw_semantic_check.sql",
-      "sha256": "fb71f3ec1454b8a5ee212aa28ee8c956cdfd8987b8eaa97ecdf0406feb0bf547"
+      "sha256": "6a743ada222efca729bc2b6e5ff2180a0db4a6eb848ba6dd9aba2b26c7c9020b",
+      "upstream_sha256": "fb71f3ec1454b8a5ee212aa28ee8c956cdfd8987b8eaa97ecdf0406feb0bf547",
+      "note": "Runtime changed after import; upstream_sha256 retains the original file hash."
     },
     {
       "upstream_path": "sql/projections/c03_nsw_unit_check.sql",
       "path": "src/arsia_c/projections/sql/c03_nsw_unit_check.sql",
-      "sha256": "8b9fe0f1769a6660c6433913a5e56657e01cff6237a51f6d77542317daa41401"
+      "sha256": "b3a77c7ff2a36afd14b8e99e3c61dfa01aede904511204a7b7a68d76dd806388",
+      "upstream_sha256": "8b9fe0f1769a6660c6433913a5e56657e01cff6237a51f6d77542317daa41401",
+      "note": "Runtime changed after import; upstream_sha256 retains the original file hash."
     },
     {
       "upstream_path": "sql/projections/c03_nsw_unit_insert.sql",
       "path": "src/arsia_c/projections/sql/c03_nsw_unit_insert.sql",
-      "sha256": "851336d277c0e0fb25c74193ee5e263aba9f01a5b62006bb68c68c8865185093"
+      "sha256": "84f4dfb2602434694c282352c9becab4c07f76707850186919702443d5a059c7",
+      "upstream_sha256": "851336d277c0e0fb25c74193ee5e263aba9f01a5b62006bb68c68c8865185093",
+      "note": "Runtime changed after import; upstream_sha256 retains the original file hash."
     },
     {
       "upstream_path": "sql/projections/c03_nsw_year_check.sql",
       "path": "src/arsia_c/projections/sql/c03_nsw_year_check.sql",
-      "sha256": "77b142636574e5559351bd651c5317faea6594c588ce96422b314c479c1419a6"
+      "sha256": "cd5de52b909c83b8b7ac005baf73135fe4b4c882bf73146359c9a26517deed5b",
+      "upstream_sha256": "77b142636574e5559351bd651c5317faea6594c588ce96422b314c479c1419a6",
+      "note": "Runtime changed after import; upstream_sha256 retains the original file hash."
     },
     {
       "upstream_path": "sql/projections/c03_projection_tables.sql",

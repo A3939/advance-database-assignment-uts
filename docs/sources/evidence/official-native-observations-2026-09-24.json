@@ -1,0 +1,153 @@
+{
+  "scope": "Full native component verification; not project acceptance",
+  "results": [
+    {
+      "state": "VIC",
+      "files": [
+        {
+          "resource_id": "official_vic_accident",
+          "sha256": "a148c00601fab10d44368df80492c594123700a7f9e334ff896fd215295e91d9",
+          "rows": 200352
+        },
+        {
+          "resource_id": "official_vic_vehicle",
+          "sha256": "05a7a1b9171abaeb5c188df549dee38edde6e76d5a03553988305a8280dccd12",
+          "rows": 365470
+        },
+        {
+          "resource_id": "official_vic_person",
+          "sha256": "71ca8fec01370e301f282fc83e8f11e4cde16a535ee421cbbb72512ceb7194f9",
+          "rows": 467730
+        },
+        {
+          "resource_id": "official_vic_node",
+          "sha256": "b0bdbec22ac33df66e15cff9b531ba3203320ec5fbe20076a2820b8fec966ed4",
+          "rows": 405918
+        }
+      ],
+      "independent_native_totals": {
+        "crashes": 72170,
+        "fatal_crashes": 1182,
+        "fatalities": 1265,
+        "casualties": 91798,
+        "units": 132372
+      },
+      "projection_aggregates": [
+        72170,
+        1182,
+        1265,
+        91798,
+        0
+      ],
+      "elapsed_seconds": 92.28,
+      "real_fp1_executed": false,
+      "persisted_qa_executed": false,
+      "publication_executed": false,
+      "raw_setup": "Verified native CSVs copied directly into Raw for this test; not a full B08/B10 build.",
+      "checks": {
+        "c04-vic-projection-counts.json": {
+          "source_id": "official_vic",
+          "raw_crash_count": 200352,
+          "crash_count": 72170,
+          "unit_count": 132372,
+          "excluded_crash_count": 128182,
+          "excluded_unit_count": 233098,
+          "mapped": 0,
+          "unmapped": 72170,
+          "c07_assembled": true,
+          "scope": "projection component; C06/C10 exact-case QA and E publication remain separate"
+        },
+        "counts.json": {
+          "crash_count": 72170,
+          "unit_count": 132372,
+          "crash_hubs_inserted": 72170,
+          "unit_hubs_inserted": 132372,
+          "crash_satellites_inserted": 72170,
+          "unit_satellites_inserted": 132372,
+          "links_inserted": 132372
+        },
+        "c09-canonical-counts.json": {
+          "batch_id": "73e230a6-b0e7-4701-9a6c-ed76e1460fe7",
+          "crash_count": 72170,
+          "unit_count": 132372,
+          "sources": {
+            "official_vic": {
+              "crash_count": 72170,
+              "unit_count": 132372
+            }
+          },
+          "source": "selected_raw_vault_satellites",
+          "raw_recomputed": false,
+          "satellite_reconciled": true,
+          "lineage_validated": true
+        }
+      },
+      "result": "pass"
+    },
+    {
+      "state": "QLD",
+      "files": [
+        {
+          "resource_id": "official_qld_crash",
+          "sha256": "975be4b02a235d06589de9b486f73bafe22d0f2007f0c07abb84f54cb926c704",
+          "rows": 415407
+        }
+      ],
+      "independent_native_totals": {
+        "crashes": 66624,
+        "fatal_crashes": 1304,
+        "fatalities": 1424,
+        "casualties": 88609,
+        "units": 0
+      },
+      "projection_aggregates": [
+        66624,
+        1304,
+        1424,
+        88609,
+        0
+      ],
+      "elapsed_seconds": 87.86,
+      "real_fp1_executed": false,
+      "persisted_qa_executed": false,
+      "publication_executed": false,
+      "raw_setup": "Verified native CSVs copied directly into Raw for this test; not a full B08/B10 build.",
+      "checks": {
+        "c05-qld-projection-counts.json": {
+          "source_id": "official_qld",
+          "raw_crash_count": 415407,
+          "crash_count": 66624,
+          "excluded_crash_count": 348783,
+          "unit_count": 0,
+          "official_map_enabled": false,
+          "scope": "projection component; no publication or persisted QA claim"
+        },
+        "counts.json": {
+          "crash_count": 66624,
+          "unit_count": 0,
+          "crash_hubs_inserted": 66624,
+          "unit_hubs_inserted": 0,
+          "crash_satellites_inserted": 66624,
+          "unit_satellites_inserted": 0,
+          "links_inserted": 0
+        },
+        "c09-canonical-counts.json": {
+          "batch_id": "156dad6f-4c1c-4f2a-8f78-107e5349e2f9",
+          "crash_count": 66624,
+          "unit_count": 0,
+          "sources": {
+            "official_qld": {
+              "crash_count": 66624,
+              "unit_count": 0
+            }
+          },
+          "source": "selected_raw_vault_satellites",
+          "raw_recomputed": false,
+          "satellite_reconciled": true,
+          "lineage_validated": true
+        }
+      },
+      "result": "pass"
+    }
+  ]
+}

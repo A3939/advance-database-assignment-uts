@@ -1,6 +1,6 @@
 # B09: manifest and FP1
 
-**The installed S0/S8 build inventory is available; final platform freezing remains separate.** [B's installed build](full-build-integration.md) uses E's real FP1/publication and hashes all current build components in `config/build-inventory.json`. The [S8 guide](s8-integration.md) records the four-source extension and its validation.
+`config/build-inventory.json` covers the installed S0/S8 and pinned official build recipes, using E's real FP1/publication. Final platform freezing remains separate. The [S0](full-build-integration.md), [S8](s8-integration.md) and [official build](official-build.md) guides record their own commands, results and limits.
 
 [`manifest.py`](../src/arsia_ingest/manifest.py) follows team v1.1: 04 §2 for L1/FP1, 04 §3 for QA, 05 §5 for source contracts, and 02 for frozen fields. The wrappers below are B's transport format; the tested SQL binding is documented in the [build guide](full-build-integration.md).
 
@@ -22,7 +22,7 @@ Use `read_json(path)` for supplied JSON. Duplicate keys/list identities, invalid
 |---|---|
 | `contracts` | Entries `{id, version, status, mapping_ids, content}`. ID equals the resource ID; status is `confirmed` for official or `synthetic_defined` for synthetic. The adopted VIC profile alone uses `restricted`, with full-source confirmation still false. |
 | Contract `content` | `input`: exact 13-field file object. `identity`: key, explicit parent (possibly null), release label/scope/resource IDs, coverage, bundle basis, scope filter. `semantics`: full rules, `severity_codes`, `severity_definition_version`. `snapshot`: policy and change statement (null for baseline). `confirmation`: status and evidence. |
-| Official confirmation | Also requires `owner`, `reviewed_by` (C), `licence`, ISO `checked_at`, nonempty `references`, and `unresolved` issues with dispositions. These are supplied review records. |
+| Official confirmation | Also requires `owner`, `reviewed_by` (the actual reviewer), `licence`, ISO `checked_at`, nonempty `references`, and `unresolved` issues with dispositions. These are supplied review records. |
 | `mappings` | Entries `{id, version, content}` with full mapping objects; IDs must exactly match contract references. |
 | `severity` | Entries with `source_id`, `severity_code`, `severity_label`, `definition_version`, `definition_text`, `is_fatal_crash` (boolean/null). Include unused categories and `__MISSING__`; codes/version must match each source's declaration. |
 | `qa_contract` | `{id: "team_qa", version, content: {text: ...}}`: full 04 §3 for `team-v1.1`; full section plus the adopted VIC addendum for `team-v1.1-vic-r1`. |
@@ -30,7 +30,7 @@ Use `read_json(path)` for supplied JSON. Duplicate keys/list identities, invalid
 
 [`qa-team-v1.1.json`](../config/qa-team-v1.1.json) includes the unchanged English QA section for standalone clones. `team_qa_contract(path)` also extracts either language from the handoff. Known section hashes reject excerpts or edits; they check protocol content, not FP1. Changes need an agreed version update.
 
-For the adopted VIC policy, use `vic_restricted_definitions()` from `arsia_ingest.vic_restricted`. It freezes the full case register, restrictions, unresolved definitions, native severity and QA amendment. The exact four file identities and 2020–2024 scope are enforced. See [VIC input support](vic-restricted-inputs.md) for the API and remaining integration.
+For the adopted VIC policy, use `vic_restricted_definitions()` from `arsia_ingest.vic_restricted`. It freezes the full case register, restrictions, unresolved definitions, native severity and QA amendment. The exact four file identities and 2020–2024 scope are enforced. See [VIC input support](vic-restricted-inputs.md) for the policy API and [official integration](official-build.md) for the current build entry and results.
 
 All seven `required_checks` remain ordered, from `QA01_INPUT` to `QA07_LOCATION`. B09 writes no QA results. Source semantics, compatibility and snapshot reductions remain checks for the responsible modules.
 
@@ -92,11 +92,17 @@ frozen = build_manifest(
 frozen.write("artifacts/synthetic/manifests/s0-build-001.json")
 ```
 
-The S0/S8 build inventory is shipped; it excludes the remaining D09 and official/platform acceptance scope. Missing inputs stop assembly. Choose a new filename for each snapshot; writes are atomic and never replace history. A provides database history protection.
+The build inventory includes both synthetic and pinned official recipes. It remains `final_platform: false`; D09 is deferred and independent platform acceptance is still open. Missing inputs stop assembly. Choose a new filename for each snapshot; writes are atomic and never replace history. A provides database history protection.
 
 `FrozenManifest.as_dict()` returns a fresh copy for each consumer. D reads frozen sources, severity and years; all modules share the contracts/mappings. `freeze_manifest(value, project_root=..., inventory=...)` checks an assembled object against actual files.
 
 FP1 input excludes provenance. Identity lists, mapping references, resource IDs and declared severity-code sets are sorted. Headers, key components and transformation arrays keep their order. Object-key order, archive relocation and preparer changes leave the SQL input unchanged. Changed code or rules require a new snapshot.
+
+## Pinned official inputs
+
+`arsia_ingest.official_definitions.official_definitions(project_root)` combines A's NSW contract, C's QLD definitions and the unchanged VIC restricted policy. It supplies seven file contracts, three sources and eighteen severity definitions for 2020–2024. Source evidence and input identities are pinned; new bytes need a reviewed version.
+
+Use `arsia_ingest.build.official_request()` with a matching prepared seven-file run. It freezes the complete definitions, checks the current inventory and supplies source reviews to QA01. NSW/QLD confirmation does not extend VIC's permissions. The [official guide](official-build.md) records preparation, installed-wheel verification and current results.
 
 ## FP1 boundary
 
@@ -113,9 +119,9 @@ operation = FP1Operation(
 input_fingerprint = fingerprint(connection, frozen, operation, project_root=Path.cwd())
 ```
 
-The proposed signature accepts one `jsonb` and returns one `text`. There is no default function; omitting it raises `FP1_UNAVAILABLE`. The adapter checks the SQL file digest, exact PostgreSQL 16 patch, UTF8, UTC, installed signature and EXECUTE permission. It binds normalized JSON as a parameter and accepts only 64 lowercase hexadecimal characters.
+The installed `e.fp1` accepts one `jsonb` and returns one `text`. The generic adapter still requires an explicit operation; omitting it raises `FP1_UNAVAILABLE`. The adapter checks the SQL file digest, exact PostgreSQL 16 patch, UTF8, UTC, installed signature and EXECUTE permission. It binds normalized JSON as a parameter and accepts only 64 lowercase hexadecimal characters.
 
-Python does not hash manifest JSON. Only cursors are opened on the caller's `autocommit=False` connection; commit, rollback and close belong to the caller. Local SQL bytes and a declared version cannot verify the installed implementation. A/E must provide deployment evidence and real FP1 tests. A different E signature requires an explicit adapter change.
+Python does not hash manifest JSON. Only cursors are opened on the caller's `autocommit=False` connection; commit, rollback and close belong to the caller. Local SQL bytes and a declared version cannot verify the installed implementation. The S0/S8 build receipts record that deployment and real SQL execution. New deployments need the same checks. A different E signature requires an explicit adapter change.
 
 ## Validation and remaining inputs
 
@@ -125,10 +131,10 @@ PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -q -p no:cacheprovider
 
 The [initial receipt](evidence/b09-validation-2026-09-19.json) records 302 passed and 8 skipped. The [test supplement](evidence/b09-validation-2026-09-19-supplement.json) records 306 passed and 8 skipped after adding snapshot variants and assembled-manifest adapter tests. The old receipt is unchanged. Tests use small S0 files, temporary code inventories and scripted SQL replies; they do not verify PostgreSQL, real FP1, durable writes or `no_change`.
 
-Still needed:
+Current boundaries:
 
-- **E/B:** FP1/publication are integrated and exercised in the S0 runner. E still owns the independent acceptance comparison.
-- **A:** fixed migrations 001–011 are integrated and hashed in the A/C fragment. The shared deployment must use those same bytes and grants.
-- **Module authors:** actual code inventory and versioned contracts/mappings. Official draft contracts are blocked.
+- **E/B:** FP1/publication are integrated and tested with S0/S8 and the pinned official snapshots. E still owns the independent acceptance comparison; commands and limits are in the [official guide](official-build.md).
+- **A:** fixed migrations 001–011 are integrated and hashed. Shared deployments must use the same bytes and grants.
+- **B/module authors:** new source or module versions need updated contracts, real inventory hashes and relevant tests. Draft official contracts stay blocked; D09 and final platform freezing remain open.
 
 On 2026-09-19, inspected remote branches had no E03 SQL. `setup` specified PostgreSQL 15; `yihua-zhang` contained a draft QLD review. The old `docs/phase1-design-lite` fingerprint is `reference_unexecuted` and includes provenance in its input. These were neither adopted nor changed.

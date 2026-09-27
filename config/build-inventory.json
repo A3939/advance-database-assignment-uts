@@ -1,11 +1,14 @@
 {
-  "version": "b-s0-s8-build-v1",
+  "version": "b-official-build-v1",
   "complete_build": true,
   "final_platform": false,
-  "scope": "Complete synthetic S0 and S8 builds with D05-D08 queries. D09, official admission and independent E acceptance are separate.",
+  "scope": "Installed S0, S8 and pinned official build recipes with source-specific read interfaces. Execution evidence is recorded separately; D09 and independent E acceptance remain open.",
   "components": {
     "project": [
       "config/c05-qld-official-v1.json",
+      "config/native-inputs.json",
+      "config/official-inputs-v1.json",
+      "config/official-nsw-v1.json",
       "config/qa-team-v1.1-vic-r1.json",
       "config/vic-restricted-inputs-v1.json",
       "config/vic-restricted-use-v1.json",
@@ -55,6 +58,9 @@
       "src/arsia_ingest/fingerprint.py",
       "src/arsia_ingest/manifest.py",
       "src/arsia_ingest/models.py",
+      "src/arsia_ingest/official.py",
+      "src/arsia_ingest/official_definitions.py",
+      "src/arsia_ingest/official_reader.py",
       "src/arsia_ingest/pipeline.py",
       "src/arsia_ingest/policies/qa-team-v1.1-vic-r1.json",
       "src/arsia_ingest/policies/vic-restricted-inputs-v1.json",
@@ -68,6 +74,9 @@
       "src/arsia_ingest/vic_restricted.py"
     ],
     "vault": [
+      "config/native-inputs.json",
+      "config/official-inputs-v1.json",
+      "config/official-nsw-v1.json",
       "config/qa-team-v1.1-vic-r1.json",
       "config/vic-restricted-inputs-v1.json",
       "config/vic-restricted-use-v1.json",
@@ -84,6 +93,9 @@
       "src/arsia_ingest/fingerprint.py",
       "src/arsia_ingest/manifest.py",
       "src/arsia_ingest/models.py",
+      "src/arsia_ingest/official.py",
+      "src/arsia_ingest/official_definitions.py",
+      "src/arsia_ingest/official_reader.py",
       "src/arsia_ingest/pipeline.py",
       "src/arsia_ingest/policies/qa-team-v1.1-vic-r1.json",
       "src/arsia_ingest/policies/vic-restricted-inputs-v1.json",
@@ -97,6 +109,9 @@
       "src/arsia_ingest/vic_restricted.py"
     ],
     "canonical": [
+      "config/native-inputs.json",
+      "config/official-inputs-v1.json",
+      "config/official-nsw-v1.json",
       "config/qa-team-v1.1-vic-r1.json",
       "config/vic-restricted-inputs-v1.json",
       "config/vic-restricted-use-v1.json",
@@ -133,6 +148,9 @@
       "src/arsia_ingest/fingerprint.py",
       "src/arsia_ingest/manifest.py",
       "src/arsia_ingest/models.py",
+      "src/arsia_ingest/official.py",
+      "src/arsia_ingest/official_definitions.py",
+      "src/arsia_ingest/official_reader.py",
       "src/arsia_ingest/pipeline.py",
       "src/arsia_ingest/policies/qa-team-v1.1-vic-r1.json",
       "src/arsia_ingest/policies/vic-restricted-inputs-v1.json",
@@ -146,6 +164,9 @@
       "src/arsia_ingest/vic_restricted.py"
     ],
     "dw": [
+      "config/native-inputs.json",
+      "config/official-inputs-v1.json",
+      "config/official-nsw-v1.json",
       "config/qa-team-v1.1-vic-r1.json",
       "config/vic-restricted-inputs-v1.json",
       "config/vic-restricted-use-v1.json",
@@ -166,6 +187,9 @@
       "src/arsia_ingest/fingerprint.py",
       "src/arsia_ingest/manifest.py",
       "src/arsia_ingest/models.py",
+      "src/arsia_ingest/official.py",
+      "src/arsia_ingest/official_definitions.py",
+      "src/arsia_ingest/official_reader.py",
       "src/arsia_ingest/pipeline.py",
       "src/arsia_ingest/policies/qa-team-v1.1-vic-r1.json",
       "src/arsia_ingest/policies/vic-restricted-inputs-v1.json",
@@ -179,6 +203,9 @@
       "src/arsia_ingest/vic_restricted.py"
     ],
     "qa": [
+      "config/native-inputs.json",
+      "config/official-inputs-v1.json",
+      "config/official-nsw-v1.json",
       "config/qa-team-v1.1-vic-r1.json",
       "config/qa-team-v1.1.json",
       "config/vic-restricted-inputs-v1.json",
@@ -217,6 +244,9 @@
       "src/arsia_ingest/fingerprint.py",
       "src/arsia_ingest/manifest.py",
       "src/arsia_ingest/models.py",
+      "src/arsia_ingest/official.py",
+      "src/arsia_ingest/official_definitions.py",
+      "src/arsia_ingest/official_reader.py",
       "src/arsia_ingest/pipeline.py",
       "src/arsia_ingest/policies/qa-team-v1.1-vic-r1.json",
       "src/arsia_ingest/policies/vic-restricted-inputs-v1.json",
@@ -230,6 +260,9 @@
       "src/arsia_ingest/vic_restricted.py"
     ],
     "intake": [
+      "config/native-inputs.json",
+      "config/official-inputs-v1.json",
+      "config/official-nsw-v1.json",
       "config/qa-team-v1.1-vic-r1.json",
       "config/vic-restricted-inputs-v1.json",
       "config/vic-restricted-use-v1.json",
@@ -246,6 +279,9 @@
       "src/arsia_ingest/fingerprint.py",
       "src/arsia_ingest/manifest.py",
       "src/arsia_ingest/models.py",
+      "src/arsia_ingest/official.py",
+      "src/arsia_ingest/official_definitions.py",
+      "src/arsia_ingest/official_reader.py",
       "src/arsia_ingest/pipeline.py",
       "src/arsia_ingest/policies/qa-team-v1.1-vic-r1.json",
       "src/arsia_ingest/policies/vic-restricted-inputs-v1.json",
@@ -259,6 +295,9 @@
       "src/arsia_ingest/vic_restricted.py"
     ],
     "raw": [
+      "config/native-inputs.json",
+      "config/official-inputs-v1.json",
+      "config/official-nsw-v1.json",
       "config/qa-team-v1.1-vic-r1.json",
       "config/vic-restricted-inputs-v1.json",
       "config/vic-restricted-use-v1.json",
@@ -275,6 +314,9 @@
       "src/arsia_ingest/fingerprint.py",
       "src/arsia_ingest/manifest.py",
       "src/arsia_ingest/models.py",
+      "src/arsia_ingest/official.py",
+      "src/arsia_ingest/official_definitions.py",
+      "src/arsia_ingest/official_reader.py",
       "src/arsia_ingest/pipeline.py",
       "src/arsia_ingest/policies/qa-team-v1.1-vic-r1.json",
       "src/arsia_ingest/policies/vic-restricted-inputs-v1.json",
@@ -288,6 +330,9 @@
       "src/arsia_ingest/vic_restricted.py"
     ],
     "runner": [
+      "config/native-inputs.json",
+      "config/official-inputs-v1.json",
+      "config/official-nsw-v1.json",
       "config/qa-team-v1.1-vic-r1.json",
       "config/vic-restricted-inputs-v1.json",
       "config/vic-restricted-use-v1.json",
@@ -304,6 +349,9 @@
       "src/arsia_ingest/fingerprint.py",
       "src/arsia_ingest/manifest.py",
       "src/arsia_ingest/models.py",
+      "src/arsia_ingest/official.py",
+      "src/arsia_ingest/official_definitions.py",
+      "src/arsia_ingest/official_reader.py",
       "src/arsia_ingest/pipeline.py",
       "src/arsia_ingest/policies/qa-team-v1.1-vic-r1.json",
       "src/arsia_ingest/policies/vic-restricted-inputs-v1.json",
@@ -317,6 +365,9 @@
       "src/arsia_ingest/vic_restricted.py"
     ],
     "analysis": [
+      "config/native-inputs.json",
+      "config/official-inputs-v1.json",
+      "config/official-nsw-v1.json",
       "config/qa-team-v1.1-vic-r1.json",
       "config/vic-restricted-inputs-v1.json",
       "config/vic-restricted-use-v1.json",
@@ -345,6 +396,9 @@
       "src/arsia_ingest/fingerprint.py",
       "src/arsia_ingest/manifest.py",
       "src/arsia_ingest/models.py",
+      "src/arsia_ingest/official.py",
+      "src/arsia_ingest/official_definitions.py",
+      "src/arsia_ingest/official_reader.py",
       "src/arsia_ingest/pipeline.py",
       "src/arsia_ingest/policies/qa-team-v1.1-vic-r1.json",
       "src/arsia_ingest/policies/vic-restricted-inputs-v1.json",
@@ -358,6 +412,9 @@
       "src/arsia_ingest/vic_restricted.py"
     ],
     "publish": [
+      "config/native-inputs.json",
+      "config/official-inputs-v1.json",
+      "config/official-nsw-v1.json",
       "config/qa-team-v1.1-vic-r1.json",
       "config/vic-restricted-inputs-v1.json",
       "config/vic-restricted-use-v1.json",
@@ -374,6 +431,9 @@
       "src/arsia_ingest/fingerprint.py",
       "src/arsia_ingest/manifest.py",
       "src/arsia_ingest/models.py",
+      "src/arsia_ingest/official.py",
+      "src/arsia_ingest/official_definitions.py",
+      "src/arsia_ingest/official_reader.py",
       "src/arsia_ingest/pipeline.py",
       "src/arsia_ingest/policies/qa-team-v1.1-vic-r1.json",
       "src/arsia_ingest/policies/vic-restricted-inputs-v1.json",
@@ -401,6 +461,18 @@
     {
       "path": "config/c05-qld-official-v1.json",
       "sha256": "40c0535ae002e57bd3a072ce90415c9ca619a801d3063db1ab524d8684fddeb4"
+    },
+    {
+      "path": "config/native-inputs.json",
+      "sha256": "ad676ed8293883a531e3685112fde921f2e060e2f4554d0282716c345338b270"
+    },
+    {
+      "path": "config/official-inputs-v1.json",
+      "sha256": "d8fefafcc4c0de2abd3817b25003688e769587337d0e88ed1f5808a759172336"
+    },
+    {
+      "path": "config/official-nsw-v1.json",
+      "sha256": "46d6fd0966338b51fd232c77f343b0f5237353f149decd2377da83de909597cf"
     },
     {
       "path": "config/qa-team-v1.1-vic-r1.json",
@@ -448,7 +520,7 @@
     },
     {
       "path": "src/arsia_c/canonical_validation.py",
-      "sha256": "172c4ea138d4ce43010b52db863fe046a4db35c99e4f90ff7722672920799011"
+      "sha256": "174f3b9a3f0d1e54a42c49f79aedbc16b1a52985f6a31a2ea3629d5ccb10a61a"
     },
     {
       "path": "src/arsia_c/config/c05-qld-official-v1.json",
@@ -476,7 +548,7 @@
     },
     {
       "path": "src/arsia_c/person_checks.py",
-      "sha256": "bae217a18bc7adb6473a415222c13e365e3e26ae714c7b928fa1f6d3dfbe32f5"
+      "sha256": "01642a6c1ab6f78eab3c6e3876be995c887281e188eeb5292d6778a295edb36f"
     },
     {
       "path": "src/arsia_c/projections/__init__.py",
@@ -488,7 +560,7 @@
     },
     {
       "path": "src/arsia_c/projections/nsw.py",
-      "sha256": "3b297b29d53946bca917300ae683d9de7e482c9a422cf4412ea27e0d9f52e8ab"
+      "sha256": "c8c317cc043abd6618c6c941a2ebe84ed82b0082d742029c95d9364edd869bd6"
     },
     {
       "path": "src/arsia_c/projections/qld.py",
@@ -504,11 +576,11 @@
     },
     {
       "path": "src/arsia_c/projections/sql/c03_nsw_crash_insert.sql",
-      "sha256": "d1e78ff96178a6c43305cb0b249b935c4e71e9f24594ab4ca23540aecc0ee5bc"
+      "sha256": "63de5c9104937984102f91ae4606fbee2883fcae0ee839dedcd6fa72bce07dee"
     },
     {
       "path": "src/arsia_c/projections/sql/c03_nsw_month_check.sql",
-      "sha256": "52a63e6be5132b8064b9f88541af57acca5f7907016bc7baa2a74f42ee4aa438"
+      "sha256": "bc54fbcce548e56fbfe30f6291bf8daeea965b4caf46ecb50cd69add449fd363"
     },
     {
       "path": "src/arsia_c/projections/sql/c03_nsw_projection_check.sql",
@@ -516,23 +588,23 @@
     },
     {
       "path": "src/arsia_c/projections/sql/c03_nsw_relationship_check.sql",
-      "sha256": "996335de7b30d15dcde86535793aba66ca48e41d4807b372964d87e57025cebc"
+      "sha256": "d4c9c471592f266139a7877bf0f1083e6244298f525377d26549e0a41cadde96"
     },
     {
       "path": "src/arsia_c/projections/sql/c03_nsw_semantic_check.sql",
-      "sha256": "fb71f3ec1454b8a5ee212aa28ee8c956cdfd8987b8eaa97ecdf0406feb0bf547"
+      "sha256": "6a743ada222efca729bc2b6e5ff2180a0db4a6eb848ba6dd9aba2b26c7c9020b"
     },
     {
       "path": "src/arsia_c/projections/sql/c03_nsw_unit_check.sql",
-      "sha256": "8b9fe0f1769a6660c6433913a5e56657e01cff6237a51f6d77542317daa41401"
+      "sha256": "b3a77c7ff2a36afd14b8e99e3c61dfa01aede904511204a7b7a68d76dd806388"
     },
     {
       "path": "src/arsia_c/projections/sql/c03_nsw_unit_insert.sql",
-      "sha256": "851336d277c0e0fb25c74193ee5e263aba9f01a5b62006bb68c68c8865185093"
+      "sha256": "84f4dfb2602434694c282352c9becab4c07f76707850186919702443d5a059c7"
     },
     {
       "path": "src/arsia_c/projections/sql/c03_nsw_year_check.sql",
-      "sha256": "77b142636574e5559351bd651c5317faea6594c588ce96422b314c479c1419a6"
+      "sha256": "cd5de52b909c83b8b7ac005baf73135fe4b4c882bf73146359c9a26517deed5b"
     },
     {
       "path": "src/arsia_c/projections/sql/c03_projection_tables.sql",
@@ -584,7 +656,7 @@
     },
     {
       "path": "src/arsia_c/sql/c06_vic_person_checks.sql",
-      "sha256": "045a4dfff6dab47251abcefa969bd75f5dee85f8df65d3b7acb63fdbf9d426bc"
+      "sha256": "20e1417b5485a0c144badc791b58d4b6ff04a76aac01e4e1d092461b528b1eec"
     },
     {
       "path": "src/arsia_c/sql/c07_vic_node_observations.sql",
@@ -648,7 +720,7 @@
     },
     {
       "path": "src/arsia_d04/reconciliation.py",
-      "sha256": "793101b7ae2d03cf87b84b68fd7bf21392b292b86ea8e3eb4c5a07187a8c12c9"
+      "sha256": "bc9c064598b13d5d4b9f3cc71e4139d1c1425ce5faf2a3c45e04cadc0276d365"
     },
     {
       "path": "src/arsia_d05/__init__.py",
@@ -692,7 +764,7 @@
     },
     {
       "path": "src/arsia_d08/sql/d08_units.sql",
-      "sha256": "d5e784bfc5a8a1c7117eebac165652f41f9d9d1bdf23dbe9b1e7dcce545e0355"
+      "sha256": "29d3cc8200dc86f43e0cc2777df620b203d00deea7ed1e9f54ff89f036883c85"
     },
     {
       "path": "src/arsia_d08/unit_query.py",
@@ -708,7 +780,7 @@
     },
     {
       "path": "src/arsia_ingest/build.py",
-      "sha256": "dded2e12fa22083691330ba58e6fe99320ef6bbc374beaff8cebc7a1e5a1ea48"
+      "sha256": "949bd004e36c4ae569e22ab2a86788e514ecbd8a45235cfee829e792566e1443"
     },
     {
       "path": "src/arsia_ingest/cli.py",
@@ -733,6 +805,18 @@
     {
       "path": "src/arsia_ingest/models.py",
       "sha256": "ed9ce88b03d4cb76e9b1a27e352345d4e6789e266431f40754bc0b2dba3fa8db"
+    },
+    {
+      "path": "src/arsia_ingest/official.py",
+      "sha256": "7f5aaa3d81f5d13f639c0b5b5b1248ec96cd421d315c3cdd5c0f6de8f50a5492"
+    },
+    {
+      "path": "src/arsia_ingest/official_definitions.py",
+      "sha256": "30ca421d203db0d266e43feb6eec262264f72a360d985a0fae3bb9cd8145c568"
+    },
+    {
+      "path": "src/arsia_ingest/official_reader.py",
+      "sha256": "68d92383168a46431bbe00692dd9db19e104b2e1e83c0112b10dbe996f969b9a"
     },
     {
       "path": "src/arsia_ingest/pipeline.py",
@@ -844,8 +928,8 @@
     "e": "aec3b4692382e48ea4f778f04a31a4ca5ba5fa57"
   },
   "remaining": [
-    "D09 reader/UI integration",
-    "Official source admission and replay",
+    "D09 reader/UI integration (deferred)",
+    "Independent replay of official build evidence",
     "E's independent expectations and platform acceptance"
   ]
 }

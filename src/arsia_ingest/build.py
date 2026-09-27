@@ -1,4 +1,4 @@
-"""Installed team bindings and reproducible synthetic build requests."""
+"""Installed team bindings and reproducible build requests."""
 from importlib.resources import files
 from pathlib import Path
 
@@ -68,3 +68,25 @@ def s8_request(*, project_root, contract_path=None, **kwargs):
     return synthetic_request(project_root=project_root,
         contract_path=contract_path or Path(project_root) / "tests/fixtures/s8/contract.json",
         **kwargs)
+
+
+def official_request(*, connect, project_root, prepared_run, evidence_root,
+                     prepared_by="ARSIA official build"):
+    """Freeze the pinned NSW, restricted VIC and QLD snapshot together."""
+    from .official_definitions import (
+        official_definitions, official_origins, official_source_reviews,
+    )
+
+    root = Path(project_root).resolve()
+    inventory = build_inventory(root)
+    definitions = official_definitions(root)
+    manifest = build_manifest(
+        prepared_run, **definitions, inventory=inventory, project_root=root,
+        prepared_by=prepared_by, origins=official_origins(root))
+    if manifest.as_dict()["dataset_kind"] != "official":
+        raise IntakeError("MANIFEST_INPUT", "Official inputs need an official prepared run")
+    return dict(connect=connect, prepared_run=prepared_run, manifest=manifest,
+                project_root=root, inventory=inventory, modules=build_modules(),
+                fp1=FP1, evidence_root=evidence_root,
+                supported_mappings=definitions["mappings"],
+                official_reviews=official_source_reviews(root))

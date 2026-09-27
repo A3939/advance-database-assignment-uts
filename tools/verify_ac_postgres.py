@@ -78,7 +78,8 @@ def check_install(inventory):
 
 
 def main(*, inventory_path="config/ac-inventory.json", additional_tests=(), tests=TESTS,
-         scope="Installed NSW component chain and D02; no full inventory freeze or publication"):
+         scope="Installed NSW component chain and D02; no full inventory freeze or publication",
+         pg_tmpfs=True):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--docker", default=shutil.which("docker") or "docker")
@@ -117,7 +118,7 @@ def main(*, inventory_path="config/ac-inventory.json", additional_tests=(), test
         "packages": {name: importlib.metadata.version(name) for name in (
             "arsia-native-intake", "openpyxl", "psycopg", "psycopg-binary", "pytest",
         )},
-        "scope": scope,
+        "scope": scope, "postgres_storage": "tmpfs" if pg_tmpfs else "disposable container layer",
     })
     name = "arsia-b-ac-" + secrets.token_hex(6)
     password = secrets.token_urlsafe(30)
@@ -130,9 +131,11 @@ def main(*, inventory_path="config/ac-inventory.json", additional_tests=(), test
                 encoding="utf-8",
             )
             envfile.chmod(0o600)
+            storage = ["--tmpfs", "/var/lib/postgresql/data"] if pg_tmpfs else [
+                "-e", "PGDATA=/var/lib/postgresql/official-review"]
             run([args.docker, "run", "-d", "--name", name, "--label", "arsia.scope=b-ac-integration",
-                 "--env-file", str(envfile), "-p", "127.0.0.1::5432", "--tmpfs",
-                 "/var/lib/postgresql/data", IMAGE, "postgres", "-c", "timezone=UTC", "-c", "log_timezone=UTC"])
+                 "--env-file", str(envfile), "-p", "127.0.0.1::5432", *storage,
+                 IMAGE, "postgres", "-c", "timezone=UTC", "-c", "log_timezone=UTC"])
             started = True
         for _ in range(150):
             ready = subprocess.run([args.docker, "exec", name, "pg_isready", "-h", "127.0.0.1",
@@ -200,13 +203,14 @@ def main(*, inventory_path="config/ac-inventory.json", additional_tests=(), test
             **totals, "pytest_exit_code": result.returncode, "exit_code": exit_code,
             "permissions": "Original A03 audit passed before and after",
             "final_tables_empty": not any(counts.values()), "publication_performed": False,
-            "boundary": "Component chain only; full B10 still requires the remaining real modules and inventory",
+            "boundary": scope,
         })
         return exit_code
     finally:
         if started:
-            run([args.docker, "rm", "-f", name])
-            write(out, "cleanup.json", {"container_removed": name, "persistent_volume_created": False})
+            run([args.docker, "rm", "-f", "-v", name])
+            write(out, "cleanup.json", {"container_removed": name, "persistent_volume_created": False,
+                                       "anonymous_image_volumes_removed": True})
 
 
 if __name__ == "__main__":
