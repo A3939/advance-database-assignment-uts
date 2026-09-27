@@ -84,6 +84,24 @@ The new database cases use 1,001 Crashes and 2,001 Units, inspect the actual pla
 reject a valid but incorrect native parent, and verify caller rollback. C owns
 the original Canonical implementation; this performance repair is B's addition.
 
+## C06 full-file lookup
+
+The next full run reached C06 but estimated its selected input as two rows.
+It repeatedly scanned materialized parent groups for over a million native
+rows. B stages the complete selected files in a loader-owned temporary table
+and collects its statistics before the same checks. Person rules, registered
+cases, count checks and output fields are unchanged.
+
+```sh
+../official-venv/bin/python tools/verify_c06_cold_plan_postgres.py \
+  --output /absolute/path/to/new-c06-validation-directory
+```
+
+The focused checks compare old and new outputs, exercise scaled parent groups
+without permanent Raw statistics, and retain the existing C10 and seven-QA
+regressions. C owns the original Person implementation; B adds this query-plan
+repair and validation. No permanent table, grant or planner setting changes.
+
 ## Run
 
 Use Python 3.12 and Docker. Build the wheel and install it outside the checkout:
@@ -159,5 +177,5 @@ retry the same official snapshot, preserve the successful S0 batch and confirm
 E still runs an independent acceptance comparison. D owns the deferred D09
 review. A/E and the team confirm the four course decisions in
 [E01](e/e01-course-decisions.md). B then updates the expanded inventory and
-repeats the affected acceptance cases. The C03 and C09 performance changes are recorded
+repeats the affected acceptance cases. The C03, C06 and C09 performance changes are recorded
 in B for C to review and adopt separately. `final_platform` remains false.
