@@ -1,0 +1,202 @@
+{
+  "date": "2026-09-27",
+  "pr": "https://github.com/A3939/advance-database-assignment-uts/pull/34",
+  "review_comment": "https://github.com/A3939/advance-database-assignment-uts/pull/34#discussion_r4114400930",
+  "code_commit": "57ef4909ec3fe2cb4807128edb7f97b0d60f2eb9",
+  "reviewed_head_before_fix": "bb00ac5836753d6a8c1a2350e7ac467317fa16c1",
+  "verification": "All 253 recorded runtime/schema/test/dependency hashes match code_commit. Tests ran before commit on the same file bytes. Documentation and this receipt were added afterward.",
+  "before_fix": {
+    "tests": 27,
+    "passed": 23,
+    "failures": 4,
+    "finding": "All four changed coverage candidates published instead of failing. Real PostgreSQL reproduction used the original installed wheel.",
+    "coverage_changes": [
+      {
+        "year_from": 2021
+      },
+      {
+        "months": [
+          1
+        ]
+      },
+      {
+        "months": "bad"
+      },
+      {
+        "year_from": "bad"
+      }
+    ]
+  },
+  "fix": "Pin s8-native-v1 coverage to 2020-2024, all twelve integer months and the original basis. Exact JSON comparison rejects boolean/float/string substitutions. No input, schema or permission changes.",
+  "new_regressions": {
+    "contract_admission": 18,
+    "real_build_b0_protection": 4
+  },
+  "focused": {
+    "tests": 506,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pytest_exit_code": 0,
+    "exit_code": 0,
+    "permissions": "Original A03 audit passed before and after",
+    "final_tables_empty": true,
+    "publication_performed": true,
+    "boundary": "Independent E sign-off, D09 and official replay remain separate",
+    "at15_verified": true,
+    "full_s0_regression_verified": true,
+    "publication_scope": "Private synthetic database; no official release",
+    "final_platform_accepted": false,
+    "real_postgresql_tests": 185,
+    "by_suite": {
+      "tests.test_build_integration": 5,
+      "tests.test_project_dispatcher": 5,
+      "tests.test_s8": 16,
+      "tests.test_s8_projection": 44,
+      "tests.test_s8_projection_postgres": 46,
+      "tests.test_s8_qa_expectations": 33,
+      "tests.test_s8_build_postgres": 27,
+      "tests.test_full_build_postgres": 61,
+      "tests.test_e_gate_contract": 6,
+      "tests.test_e_publication": 4,
+      "tests.test_e_integrated_postgres": 51,
+      "tests.test_runner": 52,
+      "tests.test_recovery": 72,
+      "tests.test_manifest": 80,
+      "tests.test_cd_inventory": 4
+    }
+  },
+  "default": {
+    "tests": 1269,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 379,
+    "passed": 890
+  },
+  "totals_overlap": true,
+  "inventory": {
+    "path": "config/build-inventory.json",
+    "sha256": "7668dc110ce8498ac08cf66e6e05a3e551d362c39e4eec217b06795d702aadb7"
+  },
+  "upstream": {
+    "a": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
+    "c": "6987e604bb93809aa94a736085c3e8320452461d",
+    "d": "d57c3f4ff2fb57eb84ebc414ef77911073c0de06",
+    "e": "aec3b4692382e48ea4f778f04a31a4ca5ba5fa57"
+  },
+  "environment": {
+    "postgresql": [
+      "PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+      "arsia_loader",
+      "arsia_loader",
+      "UTF8",
+      "UTC",
+      "en_US.utf8",
+      "en_US.utf8",
+      false,
+      false,
+      false,
+      false
+    ],
+    "image": "postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67"
+  },
+  "python": "3.12.6 (v3.12.6:a4a2d2b0d85, Sep  6 2024, 16:08:03) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "packages": {
+    "arsia-native-intake": "0.1.0",
+    "openpyxl": "3.1.5",
+    "psycopg": "3.3.6",
+    "psycopg-binary": "3.3.6",
+    "pytest": "8.4.2"
+  },
+  "wheel_sha256": "0d43218ed6c2bb8d80a7fdeea3273224f80b5c202facde8918587e4f35844914",
+  "at15_result": {
+    "baseline_batch_id": "e54d1b14-dc79-4269-bd86-5f6fc135dab5",
+    "expanded_batch_id": "fe40a766-d60e-4cec-a262-e9335cfd92fa",
+    "actual": {
+      "raw": 20,
+      "crashes": 7,
+      "units": 6,
+      "fatal_crashes": 3,
+      "fatalities": 4,
+      "casualties": 8,
+      "map_points": 5,
+      "map_denominator": 7,
+      "qa_rows": 77
+    },
+    "old_sources_unchanged": true,
+    "old_batch_unchanged": true,
+    "repeat_result": "no_change",
+    "scope": "Private synthetic acceptance; independent E sign-off remains separate"
+  },
+  "local_evidence_root": "artifacts/role-b-at15-20260927",
+  "reports": [
+    {
+      "path": "pr34-coverage-final/inputs.json",
+      "sha256": "4f69ea769b59534d06ac13dcb8995e0c7ff51af5eb74b98ece62dd1b65354f67"
+    },
+    {
+      "path": "pr34-coverage-final/environment.json",
+      "sha256": "a0c3132d813f8f18e3d68d3f024c228b53d3c1be37382574e8c95b31b32fa0c4"
+    },
+    {
+      "path": "pr34-coverage-final/command.json",
+      "sha256": "28af3cd567605f7eecd5bfb6bbaf2fe4fabd8454f2ace5dbec97fbcbab696e6c"
+    },
+    {
+      "path": "pr34-coverage-final/pytest.xml",
+      "sha256": "df5bda59a408afc8dd96eb90fd31981ef83231f8384b11d682a144fdcb8af4e0"
+    },
+    {
+      "path": "pr34-coverage-final/pytest.log",
+      "sha256": "be15153caa28d9540ee9d8feb6dd532890bc31385c56508dbb6f1cc9708fa710"
+    },
+    {
+      "path": "pr34-coverage-final/migrations.log",
+      "sha256": "a82236d6e3beed2c859d39313200a6015d460a7e09505404f5e0f9d729723ae9"
+    },
+    {
+      "path": "pr34-coverage-final/a03-before.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+    },
+    {
+      "path": "pr34-coverage-final/a03-after.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+    },
+    {
+      "path": "pr34-coverage-final/final-state.json",
+      "sha256": "dbc4b9c36a78e26384cbe23a4d657bae8af990f1ab2bbf3300c91aedc6becd18"
+    },
+    {
+      "path": "pr34-coverage-final/summary.json",
+      "sha256": "050f7cef04319b80f06354e85b0078d8954b67c3b43f87c20e508ad597e72f8b"
+    },
+    {
+      "path": "pr34-coverage-final/cleanup.json",
+      "sha256": "e1ecf22530f901c1c74306aebf79a44b21cfeb16ff3f3563736387a8e1e8147a"
+    },
+    {
+      "path": "pr34-coverage-final/ac-evidence/s8/test_at15_s0_to_s8_exact_results_history_and_no_change/builds/synthetic/runs/3207ba91-79a2-4b01-8fe6-c7cbb00d3430/at15-assertions.json",
+      "sha256": "cf53e42b6e2aef78baeafc4c8f7a4b9f6b96a0a8ae2e230959a1bdbdbbd0b15c"
+    },
+    {
+      "path": "pr34-default.xml",
+      "sha256": "b560068d8a4a3105d3c6f0de5a9419c66e9ca3183fed1145bcbe9b16cc71edf5"
+    },
+    {
+      "path": "pr34-default.log",
+      "sha256": "baad5ae83ed4ec45b66412b1db9bbb4ba2ead380874536c76eda49474766ce10"
+    },
+    {
+      "path": "pr34-coverage-before/pytest.xml",
+      "sha256": "0412344193276568637bb6961aae226348fe85e5f9989b281b77144042ee95dd"
+    },
+    {
+      "path": "pr34-coverage-before/pytest.log",
+      "sha256": "38152818206d830b7bb2083f7b3b8abb3f7a44bf60cb10c49cee144f264c4150"
+    }
+  ],
+  "original_receipt": "docs/evidence/s8-validation-2026-09-27.json",
+  "remaining": "Independent E acceptance, D09, official replay and final platform approval remain separate.",
+  "official_release": false,
+  "final_platform_accepted": false
+}

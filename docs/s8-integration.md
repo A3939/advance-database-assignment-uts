@@ -57,14 +57,14 @@ the negative case. The existing runner guide explains deployment and connections
 
 ## Results
 
-The final installed run passed **484 checks**, including **181 real PostgreSQL
-tests**, with no failures or skips. These include 69 new S8 database cases and
-112 existing S0/E database regressions. The default suite passed **872 tests**
+The final installed run passed **506 checks**, including **185 real PostgreSQL
+tests**, with no failures or skips. These include 73 new S8 database cases and
+112 existing S0/E database regressions. The default suite passed **890 tests**
 with 379 optional database/archive checks skipped. The totals overlap.
 
-The [validation receipt](evidence/s8-validation-2026-09-27.json) records input/code
+The [validation receipt](evidence/s8-review-validation-2026-09-27.json) records input/code
 hashes, environment, commands and report hashes. Full local logs are under
-`artifacts/role-b-at15-20260927/validation-final/` in the workspace.
+`artifacts/role-b-at15-20260927/pr34-coverage-final/` in the workspace.
 
 | Check | Actual result |
 |---|---|
@@ -88,6 +88,15 @@ no candidate business rows or published pointer survive rollback.
 D05–D08 run as `arsia_reader`: all four sources appear in trend results, SA has
 one severity group and no unit rows, and old batches remain readable. Test fault
 injection uses the owner only to damage QA rows, then restores `arsia_loader`.
+
+## PR review fix
+
+PR #34 review found that custom S8 coverage could bypass admission. Four real
+builds reproduced this before the fix. Commit `57ef490` pins the existing
+2020–2024 coverage, all twelve integer months and its original basis. Eighteen
+parameter checks and four full-build tests now reject altered definitions and
+keep B0 unchanged. The [initial receipt](evidence/s8-validation-2026-09-27.json)
+is retained as historical evidence.
 
 ## Review and remaining work
 
