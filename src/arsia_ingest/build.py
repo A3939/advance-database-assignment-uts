@@ -1,4 +1,4 @@
-"""Installed team bindings and a reproducible three-source S0 build request."""
+"""Installed team bindings and reproducible synthetic build requests."""
 from importlib.resources import files
 from pathlib import Path
 
@@ -36,16 +36,13 @@ def build_inventory(project_root):
     return inventory
 
 
-def s0_request(*, connect, project_root, prepared_run, evidence_root,
-               prepared_by="ARSIA S0 build", analysis=None, contract_path=None):
+def synthetic_request(*, connect, project_root, prepared_run, evidence_root,
+                      contract_path, prepared_by="ARSIA synthetic build", analysis=None):
     """Freeze generated synthetic definitions with all real build components."""
     root = Path(project_root).resolve()
-    contract = Path(contract_path) if contract_path else root / "tests/fixtures/s0/contract.json"
-    definitions = s0_definitions(contract)
+    definitions = s0_definitions(contract_path)
     if analysis is not None:
         definitions["analysis"] = analysis
-    if {s["jurisdiction_code"] for s in definitions["sources"]} != {"NSW", "VIC", "QLD"}:
-        raise IntakeError("BUILD_SCOPE", "This recipe supports the three-source S0 contract")
     inventory = build_inventory(root)
     origins = {entry["id"]: {"download_url": None, "evidence_ref": "B07 synthetic contract"}
                for entry in definitions["contracts"]}
@@ -57,3 +54,17 @@ def s0_request(*, connect, project_root, prepared_run, evidence_root,
                 project_root=root, inventory=inventory, modules=build_modules(),
                 fp1=FP1, evidence_root=evidence_root,
                 supported_mappings=definitions["mappings"])
+
+
+def s0_request(*, project_root, contract_path=None, **kwargs):
+    """Build the existing S0 snapshot or a declared S0 variant."""
+    return synthetic_request(project_root=project_root,
+        contract_path=contract_path or Path(project_root) / "tests/fixtures/s0/contract.json",
+        **kwargs)
+
+
+def s8_request(*, project_root, contract_path=None, **kwargs):
+    """Add the declared S8 source through the same build runner."""
+    return synthetic_request(project_root=project_root,
+        contract_path=contract_path or Path(project_root) / "tests/fixtures/s8/contract.json",
+        **kwargs)

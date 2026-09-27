@@ -2,7 +2,7 @@
 
 [`runner.py`](../src/arsia_ingest/runner.py) owns the connection, session lock and transactions. It reuses B08 loading, B09 manifest/FP1 and [B11 input checks](input-qa.md). Team modules must be registered explicitly; there are no default business functions.
 
-The [real S0 build](full-build-integration.md) connects A/B/C/D/E, including E's repaired FP1 and publication gate. Installed-package PostgreSQL checks cover publication, repeated input, snapshot changes, rollback, concurrency and B14 recovery. D09, S8, official replay and independent platform acceptance remain separate.
+The [real S0 build](full-build-integration.md) connects A/B/C/D/E, including E's repaired FP1 and publication gate. Installed-package PostgreSQL checks cover publication, repeated input, snapshot changes, rollback, concurrency and B14 recovery. B's [S8 extension](s8-integration.md) uses the same runner for four synthetic sources. D09, official replay and independent platform acceptance remain separate.
 
 ## Entry point
 
@@ -39,7 +39,7 @@ PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m arsia_ingest.runner \
   --bindings team_bindings:build_request
 ```
 
-For the installed S0 recipe, use `arsia_ingest.build.s0_request()` and `build_modules()` as shown in the [build guide](full-build-integration.md). `components.bindings()` still exposes the six C/D component stages. A missing binding fails explicitly. `python -m arsia_ingest` remains the native preparation command.
+For installed synthetic builds, use `arsia_ingest.build.s0_request()` or `s8_request()` with the matching prepared inputs. `synthetic_request()` accepts an explicit `contract_path` for generated variants. These helpers use `build_modules()` and the checked build inventory; see the [build guide](full-build-integration.md) and [S8 guide](s8-integration.md). `components.bindings()` still exposes the six C/D component stages. A missing binding fails explicitly. `python -m arsia_ingest` remains the native preparation command.
 
 ## Module interface
 
@@ -97,8 +97,8 @@ PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -q -p no:cacheprovider
 The initial suite recorded **380 passed, 10 skipped** on 2026-09-19, including 44 runner tests with scripted replies. The [original receipt](evidence/b10-b11-validation-2026-09-19.json) is unchanged. The [2026-09-20 run](input-qa.md#validation) passed 426 tests, including the eight B08 and two QA02 PostgreSQL tests. [B12's later checks](runner-locks.md) exercise real locks and early runner exits. The later [full-build receipt](evidence/full-build-validation-2026-09-27.json) records real S0 transactions, concurrent builds and recovery.
 
 - **A:** fixed migrations 001–011 and A06 are now installed in B; the original loader grants remain unchanged.
-- **C/B:** C03/C04/C05/C07/C09 and C10 are installed. The QA07 year-coverage fix is included. S0 QA01–QA07 joint checks pass; official-scope joint validation and remaining source confirmations are still needed.
+- **C/B:** C03/C04/C05/C07/C09 and C10 are installed. The QA07 year-coverage fix is included. B adds the synthetic SA projection and QA support in [S8 integration](s8-integration.md). Official-scope joint validation and remaining source confirmations are still needed.
 - **D/B:** D02/D03 facts, D04 reconciliation and [D05–D08 installed queries](analysis-integration.md) are integrated. D09 and official reader/report acceptance remain separate.
 - **E/B:** PR #30 fixes are integrated from PR #16. Real FP1 and publication are installed bindings; E's independent acceptance remains separate.
 
-`config/build-inventory.json` covers the complete three-source S0 build. It remains `final_platform: false` until the separate platform inputs and acceptance above are complete.
+`config/build-inventory.json` covers the installed S0/S8 synthetic build. It remains `final_platform: false` until the separate platform inputs and acceptance above are complete.

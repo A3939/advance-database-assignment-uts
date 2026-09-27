@@ -13,7 +13,7 @@ from .qa_expectations import Source, coordinate, different, reference, missing_r
 from .person_checks import review_manifest
 from .restricted_person import restricted_inputs
 
-PRODUCER_VERSION = "c10-role-c-v1.2"
+PRODUCER_VERSION = "c10-b-s8-v1"
 RULES = ("QA03_PROJECTED", "QA04_AUXILIARY", "QA05_SEMANTICS", "QA07_LOCATION")
 
 
@@ -932,6 +932,11 @@ def evaluate(connection, manifest, batch_id):
         "Count_Casualty_MedicallyTreated",
         "Count_Casualty_MinorInjury",
         "Count_Casualty_Total",
+        "CRASH_ID",
+        "YEAR",
+        "MONTH",
+        "FATALITIES",
+        "CASUALTIES",
     }
     with connection.cursor(name="c10_raw_" + uuid4().hex) as cur:
         cur.execute(_sql("c10_qa03_expectation.sql"), (json.dumps(manifest["files"]),))

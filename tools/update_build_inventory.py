@@ -46,8 +46,8 @@ def main():
     if missing:
         raise ValueError("Unlisted runtime files: " + ", ".join(sorted(missing)))
     write(ROOT / "config/build-inventory.json", {
-        "version": "b-s0-build-v1", "complete_build": True, "final_platform": False,
-        "scope": "Complete three-source S0 build and D05-D08 query dependencies. D09, official admission and independent E acceptance are separate.",
+        "version": "b-s0-s8-build-v1", "complete_build": True, "final_platform": False,
+        "scope": "Complete synthetic S0 and S8 builds with D05-D08 queries. D09, official admission and independent E acceptance are separate.",
         "components": components, "code_files": records(paths),
         "schema_files": cd["schema_files"],
         "upstream": {"a": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",

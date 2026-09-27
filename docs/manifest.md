@@ -1,6 +1,6 @@
 # B09: manifest and FP1
 
-**The complete S0 build inventory is available; final platform freezing remains separate.** [B's installed build](full-build-integration.md) uses E's real FP1/publication and hashes all current build components in `config/build-inventory.json`.
+**The installed S0/S8 build inventory is available; final platform freezing remains separate.** [B's installed build](full-build-integration.md) uses E's real FP1/publication and hashes all current build components in `config/build-inventory.json`. The [S8 guide](s8-integration.md) records the four-source extension and its validation.
 
 [`manifest.py`](../src/arsia_ingest/manifest.py) follows team v1.1: 04 §2 for L1/FP1, 04 §3 for QA, 05 §5 for source contracts, and 02 for frozen fields. The wrappers below are B's transport format; the tested SQL binding is documented in the [build guide](full-build-integration.md).
 
@@ -69,7 +69,9 @@ The helper reuses B07's labels, keys, mappings, coverage, counts, snapshot rules
 
 For [AT15's S8 extension](s8-inputs.md), set `contract_path` to `tests/fixtures/s8/contract.json` or `tests/fixtures/s8-bad-key/contract.json`. A resource may supply its own `fixture_version`, `coverage`, complete `common_rules` and `confirmation_basis`; otherwise the S0 defaults apply. This adds S8 without changing the original seven frozen definitions. The helper still needs the team's actual inventory to produce a build manifest.
 
-Once the team supplies `inventory`, use the `run_dir` returned by native preparation:
+For a complete synthetic build request, use `arsia_ingest.build.s0_request()` or `s8_request()` with the matching prepared inputs. `synthetic_request()` accepts an explicit contract path for generated variants. These helpers check the installed build inventory and call the real `FrozenManifest` constructor; see [S8 integration](s8-integration.md).
+
+For direct manifest assembly, pass the checked `inventory` and the `run_dir` returned by native preparation:
 
 ```python
 from pathlib import Path
@@ -90,7 +92,7 @@ frozen = build_manifest(
 frozen.write("artifacts/synthetic/manifests/s0-build-001.json")
 ```
 
-The S0 build inventory is shipped; it excludes the remaining D09/S8/official acceptance scope. Missing inputs stop assembly. Choose a new filename for each snapshot; writes are atomic and never replace history. A provides database history protection.
+The S0/S8 build inventory is shipped; it excludes the remaining D09 and official/platform acceptance scope. Missing inputs stop assembly. Choose a new filename for each snapshot; writes are atomic and never replace history. A provides database history protection.
 
 `FrozenManifest.as_dict()` returns a fresh copy for each consumer. D reads frozen sources, severity and years; all modules share the contracts/mappings. `freeze_manifest(value, project_root=..., inventory=...)` checks an assembled object against actual files.
 

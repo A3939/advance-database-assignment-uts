@@ -75,3 +75,26 @@ def test_real_s0_factory_freezes_sources_rules_and_all_components(tmp_path):
     assert value['dataset_kind'] == 'synthetic'
     declared = json.loads((ROOT / 'config/build-inventory.json').read_text(encoding='utf-8'))
     assert declared['complete_build'] is True and declared['final_platform'] is False
+
+
+def test_real_s8_factory_adds_only_the_fourth_source(tmp_path):
+    from arsia_ingest.build import s8_request
+    prepared = prepare(ROOT / 'tests/fixtures/s8/config.json', tmp_path / 'intake')
+    request = s8_request(connect=lambda: None, project_root=ROOT,
+                         prepared_run=prepared['run_dir'], evidence_root=tmp_path / 'build')
+    assert type(request['manifest']) is FrozenManifest
+    value = request['manifest'].as_dict()
+    assert len(value['sources']) == 4 and len(value['files']) == 8
+    assert len(value['rules']['severity']) == 16
+    assert sum(row['raw_count'] for row in value['files']) == 20
+    _bindings(request['modules'], request['fp1'], request['inventory'])
+    baseline = prepare(ROOT / 'tests/fixtures/s0/config.json', tmp_path / 'intake')
+    old = s0_request(connect=lambda: None, project_root=ROOT,
+                     prepared_run=baseline['run_dir'], evidence_root=tmp_path / 'baseline')['manifest'].as_dict()
+    for name in ('contracts', 'mappings', 'severity'):
+        actual = [r for r in value['rules'][name]
+                  if r.get('source_id') != 'syn_sa' and not r.get('id', '').startswith('syn_sa')]
+        assert actual == old['rules'][name]
+    paths = {row['path'] for row in value['rules']['code_files']}
+    assert {'src/arsia_c/projections/sa.py', 'src/arsia_c/sql/s8_sa_check.sql',
+            'src/arsia_c/sql/s8_sa_insert.sql'} <= paths

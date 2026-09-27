@@ -1,6 +1,6 @@
 """Run each selected source projection in B's transaction."""
 
-from . import nsw, qld, vic
+from . import nsw, qld, sa, vic
 from arsia_ingest.models import IntakeError
 
 
@@ -11,7 +11,7 @@ def project(connection, context):
     manifest = context.manifest.as_dict()
     if context.dataset_kind != manifest["dataset_kind"]:
         raise IntakeError("PROJECT_KIND", "Context and manifest dataset kinds differ")
-    callbacks = {"NSW": nsw.project, "VIC": vic.project, "QLD": qld.project}
+    callbacks = {"NSW": nsw.project, "VIC": vic.project, "QLD": qld.project, "SA": sa.project}
     selected = {}
     source_ids = set()
     for source in manifest["sources"]:
