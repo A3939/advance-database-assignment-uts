@@ -291,6 +291,7 @@ def test_vic_restrictions_are_retained_in_storage(official):
 def test_reader_returns_source_scoped_results_and_explicit_limits(official):
     batch = official['succeeded']['batch_id']
     outputs = {}
+    timings = {}
     with connect() as loader:
         expected = dict(loader.execute('SELECT source_id,count(*) FROM dw.fact_crash WHERE batch_id=%s GROUP BY 1', (batch,)).fetchall())
         expected_units = loader.execute("SELECT count(*) FROM canonical.unit WHERE batch_id=%s AND source_id='official_nsw' AND count_eligible", (batch,)).fetchone()[0]
@@ -299,7 +300,9 @@ def test_reader_returns_source_scoped_results_and_explicit_limits(official):
         shared = ModuleConnection(reader)
         for source in SOURCES:
             for report in ('trend', 'severity', 'map', 'units'):
+                started = time.perf_counter()
                 result = query_official(shared, batch_id=batch, source_id=source, report=report)
+                timings[source + ':' + report] = round(time.perf_counter() - started, 3)
                 outputs[source + ':' + report] = result
                 assert result['source_label'] and result['quality_limits'] and result['coverage_basis']
                 if source == 'official_vic':
@@ -312,7 +315,9 @@ def test_reader_returns_source_scoped_results_and_explicit_limits(official):
                     assert all(row['source_id'] == source for row in result['rows'])
                     field = 'unit_count' if report == 'units' else 'crash_count'
                     assert sum(row[field] or 0 for row in result['rows']) == (expected_units if report == 'units' else expected[source])
+            started = time.perf_counter()
             monthly = query_official(shared, batch_id=batch, source_id=source, report='trend', grain='month')
+            timings[source + ':monthly'] = round(time.perf_counter() - started, 3)
             assert monthly['status'] == 'available' and len(monthly['rows']) == 60
             outputs[source + ':monthly'] = monthly
         with pytest.raises(psycopg.errors.InsufficientPrivilege):
@@ -324,6 +329,7 @@ def test_reader_returns_source_scoped_results_and_explicit_limits(official):
                     query_official(shared, batch_id=other_batch, source_id='official_vic', report=report)
                 reader.rollback()
     write(official['root'], 'reader-results.json', outputs)
+    write(official['root'], 'reader-timings.json', {'elapsed_seconds': timings})
 
 
 def test_same_official_input_is_no_change_without_duplicate_rows(official):

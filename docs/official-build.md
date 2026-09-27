@@ -1,192 +1,136 @@
 # B: pinned official build
 
-B connects the existing NSW, restricted VIC and QLD files to the same runner
-used by S0 and S8. The entry uses actual A/C/D/E callbacks, a `FrozenManifest`,
-E03 SQL FP1 and E06 publication. D09 is deferred.
+This B version connects the seven pinned NSW, restricted VIC and QLD files to
+A/C/D/E's installed callbacks, B's `FrozenManifest`, E03 SQL FP1 and E06 publication.
+Analysis covers 2020–2024; all 2,118,028 original rows remain in Raw. D09 is deferred.
 
 ## Inputs and ownership
 
-- B base: `c8772ba6205be7830e191ba101997fa56aff2532` (PR #34).
-- A migrations/A06: `c0824da06b6e7b3f73c4ddeab2114d10b7156913`, migrations 001–011.
-- A04 NSW contract: `46aa1e149738c64502632c65bd38fd33b96d4625`.
-- C: `6987e604bb93809aa94a736085c3e8320452461d`.
-- D02–D08: `d57c3f4ff2fb57eb84ebc414ef77911073c0de06`.
-- E03/E06: `aec3b4692382e48ea4f778f04a31a4ca5ba5fa57`, with the reviewed B fixes.
+| Component | Pinned version |
+| --- | --- |
+| B baseline, PR #34 | `c8772ba6205be7830e191ba101997fa56aff2532` |
+| A migrations/A06 | `c0824da06b6e7b3f73c4ddeab2114d10b7156913` |
+| A04 NSW contract | `46aa1e149738c64502632c65bd38fd33b96d4625` |
+| C baseline | `6987e604bb93809aa94a736085c3e8320452461d` |
+| D02–D08 baseline | `d57c3f4ff2fb57eb84ebc414ef77911073c0de06` |
+| E03/E06 baseline | `aec3b4692382e48ea4f778f04a31a4ca5ba5fa57` |
 
-A/C/D/E retain authorship of their modules. Peixian added the official entry,
-admission adapter, read boundary and integration checks. A's original NSW
-contract and evidence are copied unchanged. B adapts its mapping IDs to the
-shared manifest syntax and retains the original IDs. The NSW declared-unit field
-is adapted to the existing C10/E06 object format using A's explicit resource and
-parent rules; its original string is retained. The original C-review
-field remains null; B's assisted integration check is recorded separately.
+A/C/D/E keep authorship of their modules. Peixian added admission, integration,
+reader limits and the fixes below. The receipt identifies the exact tested B
+commit and file hashes.
 
-The seven files contain 2,118,028 native rows. Analysis covers occurrence years
-2020–2024. Out-of-range rows stay in Raw. File hashes, origins, source definitions
-and evidence pins are in `config/native-inputs.json`,
-`config/official-inputs-v1.json` and the frozen manifest. VIC keeps its exact
-four-file policy, known cases and unresolved definitions. Its full-source
-confirmation flags remain false, and no unrestricted VIC review is supplied.
+`config/native-inputs.json` and `config/official-inputs-v1.json` pin input bytes,
+origins and evidence. `config/build-inventory.json` records installed code and
+migrations. VIC retains its four-file policy, registered cases and unresolved
+definitions; full-source confirmation remains false.
 
-`config/official-expected-results-v1.json` records earlier independent native
-observations for comparison. Their receipts are retained with hashes. These
-expectations are B's regression inputs, not E's independent acceptance.
-The September 23 source-decision guide and review index are retained unchanged
-for their recorded hashes. Their implementation status is historical; use this
-page and its validation receipt for the current build.
+B adapts A's NSW mapping IDs and declared-unit field to the shared manifest and
+C10/E06 formats, retaining their original values. A's contract and evidence stay
+unchanged. The original C-review field remains null; B's review is recorded
+separately. `config/official-expected-results-v1.json` contains earlier native
+observations with evidence hashes. E's independent acceptance remains separate.
 
 ## NSW query fix
 
-The first full run exposed slow NSW joins just after initial Raw loading. A
-relationship query replanned against updated statistics finished in 0.57 seconds,
-while the initial projection spent over eight minutes in relationship and unit
-checks before we cancelled it. This attempt is retained as diagnostic evidence.
-
-B added full, file-scoped temporary NSW inputs in C03. They keep original Raw
-IDs and values, including excluded years and invalid keys. Non-unique native-key
-indexes and temporary-table statistics let PostgreSQL choose bounded joins.
-The original key, relationship and projection rules are unchanged. The loader
-owns these temporary tables; no permanent table, migration or grant was changed.
-New database cases check cold plans, NULLs, duplicates, repeated calls and rollback.
-
-Run those regression fixtures separately from the full snapshot:
-
-```sh
-../official-venv/bin/python tools/verify_nsw_cold_plan_postgres.py \
-  --output /absolute/path/to/new-nsw-validation-directory
-```
-
-An earlier combined run exposed a database statistics issue. After thousands of
-rolled-back fixture rows, autovacuum updated relation statistics while the large Raw import was still
-uncommitted. The resulting stale statistics made a foreign-key lookup scan all rows
-for a source through `raw_file_idx`, then filter by UUID. A separate PostgreSQL
-reproduction and the actual nested plan are retained. No planner setting or foreign
-key was changed to pass the build.
-
-The full verifier therefore starts in its own database. For a reused database left
-by large failed imports or fixtures, A/the database owner should check statistics
-and run `ANALYZE raw.record` before retrying if they are stale. This is database
-maintenance; `arsia_loader` does not receive owner or maintenance permissions.
+C03 now stages complete selected NSW files in loader-owned temporary tables.
+Non-unique native-key indexes and local statistics prevent slow relationship
+joins. Raw IDs, values, excluded years and invalid keys remain available to the
+same checks. No permanent schema, grant or business rule changed.
 
 ## C09 parent lookup
 
-The full run also exposed a slow Unit-to-Crash check. Its plan looked up all
-Crash keys for a batch/source/scope, then compared the parent key. B made this
-a bounded lateral lookup using all four existing key predicates. Missing and
-wrong parents still fail; no business rule, schema or grant changed.
-
-```sh
-../official-venv/bin/python tools/verify_c09_cold_plan_postgres.py \
-  --output /absolute/path/to/new-c09-validation-directory
-```
-
-The new database cases use 1,001 Crashes and 2,001 Units, inspect the actual plan,
-reject a valid but incorrect native parent, and verify caller rollback. C owns
-the original Canonical implementation; this performance repair is B's addition.
+C09 now keeps all four Unit-to-Crash parent keys inside one bounded lateral
+lookup. Missing and wrong parents still fail. A fresh 1,001-crash/2,001-unit
+regression checks the executed plan and caller rollback. C owns the original
+Canonical implementation; B added the performance repair.
 
 ## C06 full-file lookup
 
-The next full run reached C06 but estimated its selected input as two rows.
-It repeatedly scanned materialized parent groups for over a million native
-rows. B stages the complete selected files in a loader-owned temporary table
-and collects its statistics before the same checks. Person rules, registered
-cases, count checks and output fields are unchanged.
-
-```sh
-../official-venv/bin/python tools/verify_c06_cold_plan_postgres.py \
-  --output /absolute/path/to/new-c06-validation-directory
-```
-
-The focused checks compare old and new outputs, exercise scaled parent groups
-without permanent Raw statistics, and retain the existing C10 and seven-QA
-regressions. C owns the original Person implementation; B adds this query-plan
-repair and validation. No permanent table, grant or planner setting changes.
+C06 stages all selected Accident, Vehicle and Person rows in a loader-owned
+temporary table, with a non-unique native-key index and local statistics. The
+checks retain Person rules, registered cases, count checks and output fields.
+Tests compare original and revised outputs in normal and restricted modes.
+Use the existing Python review entry points; the packaged SQL now expects their
+temporary-table preparation. C owns the original Person implementation.
 
 ## D04 parent contract compatibility
 
-The pinned VIC Node contract names its Accident parent and child fields, but
-omits `parent_fields`. D04 originally required that property before checking
-lineage. D04 now resolves an omitted list only when the selected
-same-source parent has the exact same ordered key fields. Explicit null,
-empty or ambiguous declarations still fail. The frozen VIC contract and
-policy files stay unchanged. D owns reconciliation; B adds this compatibility
-fix and regression checks.
+The frozen VIC Node contract omits `parent_fields`. D04 now resolves that short
+form only from one selected same-source Crash resource with the exact ordered
+key. Explicit null, empty, mismatched or ambiguous declarations still fail.
+B added compatibility tests; D owns reconciliation. VIC policy bytes stay unchanged.
+
+## D08 first-read query fix
+
+The first full NSW unit report spent over eight minutes in its parent lookup.
+That reader query was cancelled after the build had published successfully, so
+that suite is retained as diagnostic evidence. D08 now reads eligible parents
+and units once, combines them with `UNION ALL`,
+and checks parent presence with a window over the four-part key. It counts units
+before joining source labels. Date filters, unit rules and reader grants remain
+unchanged. Focused validation passed 46 checks, including 28 PostgreSQL cases.
+The final full-snapshot run is pending. D owns the original report; B adds the
+repair and installed-reader checks.
 
 ## Run
 
-Use Python 3.12 and Docker. Build the wheel and install it outside the checkout:
+From the checkout, use Python 3.12 and Docker:
 
 ```sh
 python3.12 -m venv ../official-venv
 ../official-venv/bin/python -m pip install -r requirements-db.txt
 ../official-venv/bin/python -m pip wheel --no-deps --no-build-isolation . -w ../official-wheel
-../official-venv/bin/python -m pip install --no-deps ../official-wheel/arsia_native_intake-0.1.0-py3-none-any.whl
+../official-venv/bin/python -m pip install --force-reinstall --no-deps ../official-wheel/arsia_native_intake-0.1.0-py3-none-any.whl
 ../official-venv/bin/python tools/verify_official_build_postgres.py \
   --native-root /absolute/path/to/raw_datasource \
   --archive-root /absolute/path/to/intake \
   --output /absolute/path/to/new-validation-directory
 ```
 
-Use a fresh output directory. Add `--prepared-run /absolute/path/to/intake/official/runs/RUN_ID`
-to reuse a complete native preparation. Its archived bytes and records are still
-checked. The verifier also checks the original seven files against their hashes.
-No download replaces a pinned file.
+Use a new output directory. Optional `--prepared-run /absolute/path/to/intake/official/runs/RUN_ID`
+reuses a complete preparation while checking its archived records and all seven
+original hashes. New bytes need reviewed definitions and evidence.
 
-The verifier creates a private PostgreSQL 16.15 database, applies A's unchanged
-migrations and checks the original A03 permissions before and after testing.
-The database uses the disposable container's writable layer, so the full data
-does not compete with PostgreSQL for tmpfs memory. The container and its image
-volume are removed at the end. No shared database or release is changed.
+The verifier applies unchanged A migrations 001–011 to private PostgreSQL 16.15.
+It checks original A03 permissions before and after, uses real `arsia_loader`
+logins, then removes the container and its image volume. Storage uses the
+container's writable layer. Shared databases and public releases are untouched.
 
-For application use:
+Run focused regressions in separate fresh databases with the same installed
+Python and a new `--output` directory for each helper:
 
-```python
-from arsia_ingest.official import prepare_official_inputs
-from arsia_ingest.build import official_request
-from arsia_ingest.runner import run_build
+- `tools/verify_nsw_cold_plan_postgres.py`
+- `tools/verify_c09_cold_plan_postgres.py`
+- `tools/verify_c06_cold_plan_postgres.py`
+- `tools/verify_d04_lineage_postgres.py`
+- `tools/verify_d08_cold_plan_postgres.py`
 
-prepared = prepare_official_inputs(native_root, archive_root, project_root)
-request = official_request(
-    connect=connect_loader, project_root=project_root,
-    prepared_run=prepared["run_dir"], evidence_root=evidence_root,
-)
-result = run_build(**request)
-```
+For application code, prepare with `arsia_ingest.official.prepare_official_inputs()`;
+pass its `run_dir` to `arsia_ingest.build.official_request()`, then call
+`arsia_ingest.runner.run_build(**request)`. Supply a fresh loader connection.
+The runner owns commits, rollbacks and the shared lock.
 
-`connect_loader` must return a fresh `arsia_loader` connection. Keep credentials
-outside the repository. The runner owns commits, rollbacks and the shared lock.
-Before changing inputs or rules, review their versions and evidence; refreshing
-inventory hashes does not approve new data or a wider source scope.
+Rolled-back fixtures and autovacuum previously left misleading Raw statistics,
+causing a source-wide foreign-key scan. Keep full and focused suites separate.
+For a reused database, A/the owner should check statistics after import commits
+and run `ANALYZE raw.record` when needed. B adds no loader maintenance grants,
+session planner overrides or runtime waits.
 
-## Reader boundary and deferred dashboard
+## Reader and acceptance boundary
 
-`arsia_ingest.official_reader.query_official()` takes a reader connection,
-`batch_id`, one `source_id`, and `report` (`trend`, `severity`, `units`, `map`).
-It delegates permitted reports to D's installed SQL and validates the successful
-official batch even when returning an unavailable report. It never reads the
-current pointer again or manages the caller's transaction. Responses include
-a source label, quality limits and the coverage basis returned by D05.
+`arsia_ingest.official_reader.query_official()` takes a reader connection, a
+successful `batch_id`, one `source_id`, and a report: `trend`, `severity`, `units`
+or `map`. It validates the pinned batch through D's installed queries and returns
+source labels, quality limits and coverage. Results remain source-specific.
+NSW unit reports are available; VIC/QLD units and all official maps return
+`status="unavailable"`, a reason and `rows=None`.
 
-- Trend and severity results remain source-specific. Interstate totals are unsupported.
-- NSW units retain their traffic-unit scope.
-- VIC and QLD unit reports return `status="unavailable"`, a reason and `rows=None`.
-- All official map reports are unavailable. No invented zero or coverage claim is returned.
+**Results pending:** insert the completed full-run outcome and exact test totals
+from [the validation receipt](evidence/official-build-validation-2026-09-27.json).
+The tests cover actual publication, injected rollback, preserved S0 history,
+official retry, `no_change`, seven QA groups and native-count comparisons.
 
-D09 can later consume this interface. Its page must show the pinned source,
-snapshot, years, definition and restrictions, including VIC's restricted use.
-This change does not implement or accept the dashboard.
-
-## Evidence and next owners
-
-See [the validation receipt](evidence/official-build-validation-2026-09-27.json)
-for actual test results, input hashes, environment, timings and limitations.
-The full tests use real publication, verify caller rollback after publication,
-retry the same official snapshot, preserve the successful S0 batch and confirm
-`no_change`. Source totals are compared separately with native observations.
-
-E still runs an independent acceptance comparison. D owns the deferred D09
-review. A/E and the team confirm the four course decisions in
-[E01](e/e01-course-decisions.md). B then updates the expanded inventory and
-repeats the affected acceptance cases. The C03, C06 and C09 performance changes are recorded
-in B for C to review and adopt separately. D can review the parent-contract
-compatibility fix separately. `final_platform` remains false.
+C reviews B's C03/C06/C09 repairs; D reviews the D04 compatibility fix, D08 reader repair and later
+D09 interface use. E owns independent acceptance. A/E and the team confirm the
+four [E01 course decisions](e/e01-course-decisions.md). B then freezes the expanded
+inventory and repeats affected checks. `final_platform` remains false.

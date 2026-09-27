@@ -1,9 +1,10 @@
 # D05–D08 integration in B
 
-B now packages D's four query modules and their SQL. Runtime files match
-`yihua/dev` commit `d57c3f4ff2fb57eb84ebc414ef77911073c0de06` byte for byte.
-The imports retain `yyyZYH` as author. Peixian added B's package settings,
-inventory updates, installed-reader tests and this handoff.
+B packages D's four query modules and their SQL. The original import matched
+`yihua/dev` commit `d57c3f4ff2fb57eb84ebc414ef77911073c0de06` byte for byte
+and retains `yyyZYH` as author. Peixian added packaging, inventory and reader
+tests. The later [official build](official-build.md#d08-first-read-query-fix)
+adds B's D08 parent-matching repair; the other three query modules are unchanged.
 
 | Module | Python entry | Original D commit | Version |
 |---|---|---|---|
@@ -13,8 +14,8 @@ inventory updates, installed-reader tests and this handoff.
 | D08 units | `arsia_d08.query_units` | `8df3b0c` | `d08-0.1.0` |
 
 These are read APIs with an explicit successful batch. They are not B10 load
-callbacks. The caller owns the connection and transaction. D09's dashboard
-and reader flow remain separate.
+callbacks. The caller owns the connection and transaction. D09's dashboard is
+deferred; the [official reader adapter](official-build.md) is available in B.
 
 ## Install and deploy
 
@@ -71,7 +72,7 @@ The verifier checks installed resource hashes, starts private PostgreSQL
 uses `arsia_migrator`. New query tests use a separate `arsia_reader` login.
 The database/container are disposable; no shared release is changed.
 
-## Results and limits
+## Original integration results
 
 The focused run passed **131 tests, 0 skipped, 0 failed**: 63 database cases
 and 68 unit/inventory cases. Twenty new database cases cover the three-source
@@ -93,8 +94,7 @@ Both A03 audits passed; all 17 data tables were empty after cleanup.
 wheel, query and report hashes. The normal default suite is recorded there
 separately; its environment-dependent skips are not database acceptance.
 
-E reviews [PR #30](https://github.com/A3939/advance-database-assignment-uts/pull/30)
-and updates PR #16. B then integrates the reviewed FP1/publication bindings,
-checks the final inventory and runs B10 end to end. D owns D09 and its reader
-handoff. Official-data replay and VIC-restricted reporting checks remain
-separate; these S0 tests do not approve unrestricted official use.
+PRs #30 and #16 are merged, and E's FP1/publication are connected in B.
+The [official guide](official-build.md) records the full-snapshot runs,
+D08 repair and restricted reader interface. D09 is deferred. E's independent
+acceptance remains open; the original S0 checks do not approve unrestricted use.

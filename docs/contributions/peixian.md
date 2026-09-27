@@ -58,7 +58,8 @@ PRs #4–#26 listed above and PR #28 were merged. Peixian merged PR #28 with C's
 | [C09 parent lookup](../official-build.md#c09-parent-lookup) | Reproduced a source-wide parent scan on full data, kept all four parent keys inside the indexed lookup and added database plan, wrong-parent and rollback checks. C owns the original Canonical module. |
 | [C06 full-file lookup](../official-build.md#c06-full-file-lookup) | Reproduced underestimated full-file selection and repeated parent-group scans; added complete loader-owned temporary inputs, statistics and output-equivalence/scale regressions. C owns the original Person rules. |
 | [D04 parent contract compatibility](../official-build.md#d04-parent-contract-compatibility) | Connected the unchanged VIC Node parent declaration to D04, accepting omitted target fields only when the same-source frozen parent key matches exactly. D owns reconciliation; B adds the compatibility fix and regressions. |
-| [D05–D08 query integration](../analysis-integration.md) | Retained D's original authorship and unchanged runtime, added package resources, actual analysis inventory, 20 new database cases and installed reader validation; 131 focused checks passed |
+| [D05–D08 query integration](../analysis-integration.md) | Imported D's original runtime unchanged, retained authorship, added package resources, analysis inventory, 20 new database cases and installed reader validation; 131 focused checks passed in that integration |
+| [D08 first-read query fix](../official-build.md#d08-first-read-query-fix) | Reproduced repeated parent scans on the first full-data read; added single-pass parent matching and cold-plan regressions. D owns the original unit query and counting rules. |
 
 A's migrations/A06, C's projection/Canonical modules and D's dimensions/facts/reconciliation remain their work.
 Importing those files into B is integration, not original authorship. Test totals in different receipts overlap.

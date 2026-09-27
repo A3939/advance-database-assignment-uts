@@ -764,7 +764,7 @@
     },
     {
       "path": "src/arsia_d08/sql/d08_units.sql",
-      "sha256": "d5e784bfc5a8a1c7117eebac165652f41f9d9d1bdf23dbe9b1e7dcce545e0355"
+      "sha256": "29d3cc8200dc86f43e0cc2777df620b203d00deea7ed1e9f54ff89f036883c85"
     },
     {
       "path": "src/arsia_d08/unit_query.py",
