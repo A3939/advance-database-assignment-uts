@@ -12,7 +12,7 @@ from .vault_load import load_vault
 # Upstream implementations remain owned by A, C and D.
 BINDING_SPECS = {
     "project": ("arsia_c.projections.dispatcher:project",
-                "src/arsia_c/projections/dispatcher.py", "b-cd-project-v1"),
+                "src/arsia_c/projections/dispatcher.py", "b-s8-project-v1"),
     "vault": ("arsia_ingest.vault_load:load_vault",
               "src/arsia_ingest/vault_load.py", "a06-c0824da"),
     "canonical": ("arsia_c.canonical:load_canonical",
@@ -20,7 +20,7 @@ BINDING_SPECS = {
     "dw": ("arsia_d03.facts:runner_callback",
            "src/arsia_d03/facts.py", "d03-337101f"),
     "qa_c": ("arsia_c.qa:runner_callback",
-             "src/arsia_c/qa.py", "c10-role-c-v1.2"),
+             "src/arsia_c/qa.py", "c10-b-s8-v1"),
     "qa_d": ("arsia_d04.reconciliation:runner_callback",
              "src/arsia_d04/reconciliation.py", "d04-daa9e57"),
 }

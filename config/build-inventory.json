@@ -1,8 +1,8 @@
 {
-  "version": "b-s0-build-v1",
+  "version": "b-s0-s8-build-v1",
   "complete_build": true,
   "final_platform": false,
-  "scope": "Complete three-source S0 build and D05-D08 query dependencies. D09, official admission and independent E acceptance are separate.",
+  "scope": "Complete synthetic S0 and S8 builds with D05-D08 queries. D09, official admission and independent E acceptance are separate.",
   "components": {
     "project": [
       "config/c05-qld-official-v1.json",
@@ -22,6 +22,7 @@
       "src/arsia_c/projections/dispatcher.py",
       "src/arsia_c/projections/nsw.py",
       "src/arsia_c/projections/qld.py",
+      "src/arsia_c/projections/sa.py",
       "src/arsia_c/projections/source_contracts.py",
       "src/arsia_c/projections/sql/c03_nsw_crash_insert.sql",
       "src/arsia_c/projections/sql/c03_nsw_month_check.sql",
@@ -43,6 +44,8 @@
       "src/arsia_c/sql/c07_vic_node_observations.sql",
       "src/arsia_c/sql/c45_crash_check.sql",
       "src/arsia_c/sql/c45_crash_insert.sql",
+      "src/arsia_c/sql/s8_sa_check.sql",
+      "src/arsia_c/sql/s8_sa_insert.sql",
       "src/arsia_ingest/__init__.py",
       "src/arsia_ingest/__main__.py",
       "src/arsia_ingest/build.py",
@@ -192,6 +195,7 @@
       "src/arsia_c/person_checks.py",
       "src/arsia_c/projections/__init__.py",
       "src/arsia_c/projections/nsw.py",
+      "src/arsia_c/projections/sa.py",
       "src/arsia_c/projections/source_contracts.py",
       "src/arsia_c/qa.py",
       "src/arsia_c/qa_expectations.py",
@@ -480,7 +484,7 @@
     },
     {
       "path": "src/arsia_c/projections/dispatcher.py",
-      "sha256": "c8d1882ec43bcc019077068a41121625d13038aa11afa9a184c7388de7a1c380"
+      "sha256": "3321bf81cf0e8518b33204c4ec3481aba0dfa36dcd6e0d8b99304eda4f90eb57"
     },
     {
       "path": "src/arsia_c/projections/nsw.py",
@@ -489,6 +493,10 @@
     {
       "path": "src/arsia_c/projections/qld.py",
       "sha256": "36a053a2244d9f7f1bf80db77c90288f94fbd67dfec8fadcb058b490d49f802e"
+    },
+    {
+      "path": "src/arsia_c/projections/sa.py",
+      "sha256": "faac9313ce5a0d59786ac21332ead18be799add3aec46e0a56bef0b60e9360cb"
     },
     {
       "path": "src/arsia_c/projections/source_contracts.py",
@@ -536,11 +544,11 @@
     },
     {
       "path": "src/arsia_c/qa.py",
-      "sha256": "b20de487502274113713e45ed2584a622fd0f5d9070061890f963ff642422190"
+      "sha256": "5ca51f3912447e3a3b706a9b6ea891d9804f7b1f47d9a386f05d302c2b39ba6d"
     },
     {
       "path": "src/arsia_c/qa_expectations.py",
-      "sha256": "d78d1e82c5404055c987d2c30fce6e641beb01bd5af131046d34227f4e215564"
+      "sha256": "55b927a974803e4d93f072c044e24369a5993d96f668e8288dec5a7e38b745d8"
     },
     {
       "path": "src/arsia_c/restricted_person.py",
@@ -609,6 +617,14 @@
     {
       "path": "src/arsia_c/sql/c45_crash_insert.sql",
       "sha256": "45445d498e9a3846f3844abf628bf709ac9ee7047eab3f8d9720a61f0bb1a58b"
+    },
+    {
+      "path": "src/arsia_c/sql/s8_sa_check.sql",
+      "sha256": "6cbf23dc6807c2749e7b6804899e81e66fd69c5853f9489b55814563cffc53af"
+    },
+    {
+      "path": "src/arsia_c/sql/s8_sa_insert.sql",
+      "sha256": "6322c0b86dbd80a886c0ce6881e4e9498230fe7f4d89114c2d1de07369306fa0"
     },
     {
       "path": "src/arsia_d02/__init__.py",
@@ -692,7 +708,7 @@
     },
     {
       "path": "src/arsia_ingest/build.py",
-      "sha256": "37507a73ca8fbad6c72bdea88e9968859b6a869743b72f8f382e1588d1f262ee"
+      "sha256": "dded2e12fa22083691330ba58e6fe99320ef6bbc374beaff8cebc7a1e5a1ea48"
     },
     {
       "path": "src/arsia_ingest/cli.py",
@@ -700,7 +716,7 @@
     },
     {
       "path": "src/arsia_ingest/components.py",
-      "sha256": "cff2a922877a7b343e878e471f3390a4181a07aba89a743b99adbcec7607c27d"
+      "sha256": "333b555f278745d2cbd151113d21b1646d86409cc17cdc98aaa8023242eaffe1"
     },
     {
       "path": "src/arsia_ingest/config.py",

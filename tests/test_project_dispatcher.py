@@ -49,7 +49,7 @@ def test_all_sources_receive_the_original_b_context(monkeypatch, context):
     assert not hasattr(connection, "commit") and not hasattr(connection, "rollback")
 
 
-@pytest.mark.parametrize("state", ["SA", "VIC"])
+@pytest.mark.parametrize("state", ["WA", "VIC"])
 def test_unknown_or_duplicate_jurisdiction_rejected_before_sql(context, state):
     value = context.manifest.as_dict()
     value["sources"][0]["jurisdiction_code"] = state

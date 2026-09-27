@@ -7,6 +7,7 @@ import json
 import re
 
 from .projections.nsw import _parameters as nsw_parameters
+from .projections.sa import parameters as sa_parameters
 from .projections.source_contracts import parameters, MONTHS, VIC_COUNTS, QLD_COUNTS
 
 NSW_COUNTS = [
@@ -61,11 +62,13 @@ class Source:
         self.state = source["jurisdiction_code"]
         self.files = [f for f in manifest["files"] if f["source_id"] == self.sid]
         self.by_role = {f["resource_role"]: f for f in self.files}
-        if self.state not in ("NSW", "VIC", "QLD"):
+        if self.state not in ("NSW", "VIC", "QLD", "SA"):
             raise ValueError("unsupported_source")
         self.p = (
             nsw_parameters(manifest, batch)
             if self.state == "NSW"
+            else sa_parameters(manifest, batch)
+            if self.state == "SA"
             else parameters(manifest, batch, self.state)
         )
         roles = (
@@ -106,9 +109,10 @@ class Source:
         )
 
     def field_key(self):
-        return {"NSW": "Crash ID", "VIC": "ACCIDENT_NO", "QLD": "Crash_Ref_Number"}[
-            self.state
-        ]
+        return {
+            "NSW": "Crash ID", "VIC": "ACCIDENT_NO",
+            "QLD": "Crash_Ref_Number", "SA": "CRASH_ID",
+        }[self.state]
 
     def in_scope(self, year):
         a = self.manifest["analysis"]
@@ -122,13 +126,22 @@ class Source:
                 return None
             token = token[:4]
         else:
-            token = payload.get("Year of crash" if self.state == "NSW" else "Crash_Year")
+            token = payload.get({"NSW": "Year of crash", "QLD": "Crash_Year", "SA": "YEAR"}[self.state])
         if (isinstance(token, str) and re.fullmatch(r"[0-9]{4}", token)
                 and 1900 <= int(token) <= 2100):
             return int(token)
         return None
 
     def time(self, payload):
+        if self.state == "SA":
+            year = self.raw_year(payload)
+            if year is None:
+                raise ValueError("invalid_year")
+            month = payload.get("MONTH")
+            if (not isinstance(month, str) or not re.fullmatch(r"[0-9]{1,2}", month)
+                    or not 1 <= int(month) <= 12):
+                raise ValueError("invalid_month")
+            return year, int(month), None, "month"
         if self.state == "VIC":
             token = payload.get("ACCIDENT_DATE")
             if not isinstance(token, str) or not re.fullmatch(
@@ -193,6 +206,8 @@ class Source:
             fields = (
                 ("Latitude", "Longitude")
                 if self.state == "NSW"
+                else ("LATITUDE", "LONGITUDE")
+                if self.state == "SA"
                 else ("Crash_Latitude", "Crash_Longitude")
             )
             values = [payload.get(f) for f in fields]
@@ -201,7 +216,7 @@ class Source:
                 return (
                     empty,
                     "crs_unconfirmed"
-                    if self.state == "NSW"
+                    if self.state in ("NSW", "SA")
                     else "definition_unconfirmed",
                     [row],
                 )
@@ -250,6 +265,7 @@ class Source:
             "NSW": "Degree of crash - detailed",
             "VIC": "SEVERITY",
             "QLD": "Crash_Severity",
+            "SA": "SEVERITY",
         }[self.state]
         severity = payload.get(severity_field)
         empty = self.state != "NSW" or self.manifest["dataset_kind"] == "synthetic"
@@ -264,12 +280,20 @@ class Source:
             if self.state == "NSW"
             else VIC_COUNTS
             if self.state == "VIC"
+            else ["FATALITIES", "CASUALTIES"]
+            if self.state == "SA"
             else QLD_COUNTS
         )
         counts = [number(payload.get(f), empty=empty) for f in fields]
-        total = None if any(v is None for v in counts) else sum(counts)
-        if sum(v for v in counts if v is not None) > 2147483647:
-            raise ValueError("count_overflow")
+        if self.state == "SA":
+            # SA supplies a total that already includes deaths.
+            total = counts[1]
+            if all(v is not None for v in counts) and total < counts[0]:
+                raise ValueError("casualty_total_mismatch")
+        else:
+            total = None if any(v is None for v in counts) else sum(counts)
+            if sum(v for v in counts if v is not None) > 2147483647:
+                raise ValueError("count_overflow")
         if self.state == "QLD":
             declared = number(payload.get("Count_Casualty_Total"))
             if total is not None and declared != total:
