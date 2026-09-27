@@ -145,15 +145,19 @@ def official():
         with connect() as connection:
             before = snapshot(connection, baseline['batch_id'])
         publisher = request['modules'].publish
+        publication_returned = False
         def fail_after_publish(connection, context):
+            nonlocal publication_returned
             publisher.callback(connection, context)
+            publication_returned = True
             raise RuntimeError('Official test: caller failure after real E06 publication')
         fault = {**request, 'modules': replace(request['modules'],
             publish=replace(publisher, callback=fail_after_publish))}
         failed = timed_build(fault, root, 'official-publication-rollback')
         assert failed['result'] == 'failed' and failed['stage'] == 'publish', failed
         assert failed['error_code'] == 'RUN_ERROR', failed
-        assert failed['message'] == 'Official test: caller failure after real E06 publication', failed
+        assert publication_returned, failed
+        assert failed['message'] == 'publish raised RuntimeError', failed
         with connect() as connection:
             assert current(connection, 'official') is None
             assert current(connection, 'synthetic') == baseline['batch_id']
