@@ -10,7 +10,8 @@ def test_e03_sql_declares_fp1_contract():
     sql = (ROOT / "sql/e/fp1.sql").read_text(encoding="utf-8")
     assert "CREATE OR REPLACE FUNCTION e.fp1(jsonb)" in sql
     assert "RETURNS text" in sql
-    assert "digest($1::text, 'sha256')" in sql
+    assert "pg_catalog.sha256(pg_catalog.convert_to($1::text, 'UTF8'))" in sql
+    assert "GRANT USAGE ON SCHEMA e TO arsia_loader" in sql
     assert "GRANT EXECUTE ON FUNCTION e.fp1(jsonb) TO arsia_loader" in sql
 
 def test_e04_expectations_match_s0_resource_counts():

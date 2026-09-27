@@ -2,7 +2,8 @@
 from __future__ import annotations
 
 from typing import Any
-from .manifest import REQUIRED_CHECKS
+from .manifest import REQUIRED_CHECKS, validate_manifest
+from .publication_checks import Requirements
 from .models import IntakeError
 
 QA07 = "QA07_LOCATION"
@@ -32,24 +33,15 @@ def _required_objects(manifest: dict[str, Any]) -> dict[str, set[str]]:
         "QA07_LOCATION": source_years,
     }
 
-def _json_shape(name, value):
-    if not isinstance(value, dict) or set(value) != {"evaluated_count", "violation_count", "metrics"}:
-        raise IntakeError("PUBLICATION_QA", f"{name} has an invalid shape")
-    if type(value["evaluated_count"]) is not int or value["evaluated_count"] < 0:
-        raise IntakeError("PUBLICATION_QA", f"{name}.evaluated_count is invalid")
-    if type(value["violation_count"]) is not int or value["violation_count"] < 0:
-        raise IntakeError("PUBLICATION_QA", f"{name}.violation_count is invalid")
-    if not isinstance(value["metrics"], dict):
-        raise IntakeError("PUBLICATION_QA", f"{name}.metrics is invalid")
-
 def validate_publication_gate(connection, batch_id: str, manifest: dict[str, Any]):
     if getattr(connection, "autocommit", None) is not False:
         raise IntakeError("PUBLICATION_AUTOCOMMIT", "Publication must run inside the caller transaction")
+    validate_manifest(manifest)
     batch = _fetch(connection, """SELECT dataset_kind,status,input_fingerprint,manifest
-        FROM meta.batch WHERE batch_id=%s::uuid""", (batch_id,))
+        FROM meta.batch WHERE batch_id=%s::uuid FOR UPDATE""", (batch_id,))
     if len(batch) != 1 or batch[0][1] != "running":
         raise IntakeError("PUBLICATION_BATCH", "Candidate batch must be running")
-    if batch[0][3] != manifest:
+    if batch[0][3] != manifest or batch[0][0] != manifest["dataset_kind"]:
         raise IntakeError("PUBLICATION_MANIFEST", "Database candidate does not match frozen manifest")
 
     required = _required_objects(manifest)
@@ -57,52 +49,38 @@ def validate_publication_gate(connection, batch_id: str, manifest: dict[str, Any
         FROM qa.check_result WHERE batch_id=%s::uuid ORDER BY rule_id,object_key""", (batch_id,))
     grouped: dict[str, dict[str, tuple]] = {}
     for row in rows:
+        # Extra checks can block too, including diagnostics outside the normal object set.
+        if row[2] == "block":
+            raise IntakeError("PUBLICATION_QA_BLOCK", "A QA object blocks publication", rule_id=row[0], object_key=row[1])
+        if row[0] not in required:
+            raise IntakeError("PUBLICATION_QA_EXTRA", "Unreviewed QA rule", rule_id=row[0])
         grouped.setdefault(row[0], {})
         if row[1] in grouped[row[0]]:
             raise IntakeError("PUBLICATION_QA", "Duplicate QA object", rule_id=row[0], object_key=row[1])
         grouped[row[0]][row[1]] = row
 
+    checks = Requirements(connection, batch_id, manifest)
     summaries = {}
     for rule in REQUIRED_CHECKS:
         objects = grouped.get(rule, {})
-        missing = required[rule] - (set(objects) - {"batch"})
-        extra = (set(objects) - {"batch"}) - required[rule]
+        missing = (required[rule] | {"batch"}) - set(objects)
+        extra = set(objects) - (required[rule] | {"batch"})
         if missing:
             raise IntakeError("PUBLICATION_QA_MISSING", "Required QA objects are missing", rule_id=rule, missing=sorted(missing))
         if extra:
             raise IntakeError("PUBLICATION_QA_EXTRA", "Unexpected QA objects are present", rule_id=rule, extra=sorted(extra))
-        summary = objects.get("batch")
-        if summary is None:
-            raise IntakeError("PUBLICATION_QA_MISSING", "Every required rule needs a batch summary", rule_id=rule)
-        for key, row in objects.items():
-            _json_shape(f"{rule}:{key}.actual", row[4])
-            _json_shape(f"{rule}:{key}.expected", row[5])
-            if row[5]["violation_count"] != 0:
-                raise IntakeError("PUBLICATION_QA_EXPECTED", "Expected violation count must be zero")
-            if row[2] == "block":
-                raise IntakeError("PUBLICATION_QA_BLOCK", "A required QA object blocks publication", rule_id=rule, object_key=key)
-            if row[2] == "limited" and rule != QA07:
-                raise IntakeError("PUBLICATION_QA_LIMITED", "Only QA07 may be limited", rule_id=rule, object_key=key)
-            if row[2] not in {"pass", "limited"}:
-                raise IntakeError("PUBLICATION_QA_RESULT", "Invalid QA publication result")
-            if row[2] == "pass" and row[3] != 0:
-                raise IntakeError("PUBLICATION_QA_AFFECTED", "A pass result must have zero affected objects")
-            if row[4]["violation_count"] != 0:
-                raise IntakeError("PUBLICATION_QA_VIOLATION", "A QA object has a violation", rule_id=rule, object_key=key)
-
-        actual = summary[4]
-        if actual["metrics"].get("object_count") != len(required[rule]):
-            raise IntakeError("PUBLICATION_QA_SUMMARY", "Summary object_count does not match required coverage", rule_id=rule)
-        if actual["metrics"].get("block_count") != 0 or actual["metrics"].get("missing_count") != 0:
-            raise IntakeError("PUBLICATION_QA_SUMMARY", "Summary contains block or missing objects", rule_id=rule)
-        if summary[2] == "limited" and rule != QA07:
-            raise IntakeError("PUBLICATION_QA_SUMMARY", "Only QA07 summary may be limited", rule_id=rule)
-        summaries[rule] = {"rule_id": rule, "result": summary[2], "affected_count": summary[3]}
-
+        concrete = [objects[key] for key in sorted(required[rule])]
+        for row in concrete:
+            checks.check(row)
+        summaries[rule] = checks.summary(objects["batch"], concrete)
     return summaries
 
 def publish(connection, context):
     manifest = context.manifest.as_dict()
+    identity = _fetch(connection, "SELECT dataset_kind,input_fingerprint FROM meta.batch WHERE batch_id=%s::uuid",
+                      (context.batch_id,))
+    if identity != [(context.dataset_kind, context.input_fingerprint)] or context.dataset_kind != manifest["dataset_kind"]:
+        raise IntakeError("PUBLICATION_CONTEXT", "Run context differs from the candidate batch")
     summaries = validate_publication_gate(connection, context.batch_id, manifest)
 
     updated = _fetch(connection, """UPDATE meta.batch
