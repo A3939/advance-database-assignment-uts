@@ -1,8 +1,8 @@
 # B09: manifest and FP1
 
-**Manifest assembly is implemented; final platform freezing remains separate.** B has tested component inventories. E's repaired FP1/publication code is under review in [PR #30](https://github.com/A3939/advance-database-assignment-uts/pull/30) and is not yet integrated into this B branch.
+**The complete S0 build inventory is available; final platform freezing remains separate.** [B's installed build](full-build-integration.md) uses E's real FP1/publication and hashes all current build components in `config/build-inventory.json`.
 
-[`manifest.py`](../src/arsia_ingest/manifest.py) follows team v1.1: 04 §2 for L1/FP1, 04 §3 for QA, 05 §5 for source contracts, and 02 for frozen fields. The wrappers below are B's transport format; the SQL binding still needs E's confirmation.
+[`manifest.py`](../src/arsia_ingest/manifest.py) follows team v1.1: 04 §2 for L1/FP1, 04 §3 for QA, 05 §5 for source contracts, and 02 for frozen fields. The wrappers below are B's transport format; the tested SQL binding is documented in the [build guide](full-build-integration.md).
 
 ## Inputs and checks
 
@@ -90,7 +90,7 @@ frozen = build_manifest(
 frozen.write("artifacts/synthetic/manifests/s0-build-001.json")
 ```
 
-No platform inventory is shipped. Missing inputs stop assembly. Choose a new filename for each snapshot; writes are atomic and never replace history. A provides database history protection.
+The S0 build inventory is shipped; it excludes the remaining D09/S8/official acceptance scope. Missing inputs stop assembly. Choose a new filename for each snapshot; writes are atomic and never replace history. A provides database history protection.
 
 `FrozenManifest.as_dict()` returns a fresh copy for each consumer. D reads frozen sources, severity and years; all modules share the contracts/mappings. `freeze_manifest(value, project_root=..., inventory=...)` checks an assembled object against actual files.
 
@@ -125,7 +125,7 @@ The [initial receipt](evidence/b09-validation-2026-09-19.json) records 302 passe
 
 Still needed:
 
-- **E/B:** review PR #30, update PR #16, then integrate the tested FP1/publication bindings and their actual dependencies into B.
+- **E/B:** FP1/publication are integrated and exercised in the S0 runner. E still owns the independent acceptance comparison.
 - **A:** fixed migrations 001–011 are integrated and hashed in the A/C fragment. The shared deployment must use those same bytes and grants.
 - **Module authors:** actual code inventory and versioned contracts/mappings. Official draft contracts are blocked.
 

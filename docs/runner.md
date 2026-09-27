@@ -2,9 +2,7 @@
 
 [`runner.py`](../src/arsia_ingest/runner.py) owns the connection, session lock and transactions. It reuses B08 loading, B09 manifest/FP1 and [B11 input checks](input-qa.md). Team modules must be registered explicitly; there are no default business functions.
 
-The runner is ready for the remaining modules. [Session contention and early cleanup](runner-locks.md) and the installed [D02 callback](d02-integration.md) have real PostgreSQL tests. The [local B10 checks](b10-local-validation.md) cover transaction isolation and failure recording. Full build acceptance still needs the reviewed E bindings and final inventory. [B14](recovery.md) already has real PostgreSQL component tests; recovery around a complete published build remains separate.
-
-The [three-source component chain](cd-integration.md) includes projection, Vault, Canonical, D02/D03 facts and D04 QA. [C10](c10-integration.md) now supplies `qa_c`. [S0 QA01–QA07 joint checks](qa-joint-validation.md) now pass using real B objects and a partial inventory. Complete build acceptance remains separate.
+The [real S0 build](full-build-integration.md) connects A/B/C/D/E, including E's repaired FP1 and publication gate. Installed-package PostgreSQL checks cover publication, repeated input, snapshot changes, rollback, concurrency and B14 recovery. D09, S8, official replay and independent platform acceptance remain separate.
 
 ## Entry point
 
@@ -41,7 +39,7 @@ PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m arsia_ingest.runner \
   --bindings team_bindings:build_request
 ```
 
-`team_bindings` is the team's integration module. A complete version is not included yet. Use `BuildModules(**arsia_ingest.components.bindings())` for the installed project, vault, canonical, dw, qa_c and qa_d stages. E's real publication binding and FP1 operation are still required. A missing binding fails explicitly. `python -m arsia_ingest` remains the native preparation command.
+For the installed S0 recipe, use `arsia_ingest.build.s0_request()` and `build_modules()` as shown in the [build guide](full-build-integration.md). `components.bindings()` still exposes the six C/D component stages. A missing binding fails explicitly. `python -m arsia_ingest` remains the native preparation command.
 
 ## Module interface
 
@@ -84,7 +82,7 @@ E still derives and checks all required QA objects. B's summary check is a trans
 
 An exception from registration, publication or failure-record COMMIT returns `unknown_commit`. Each pre-COMMIT marker and candidate outcome retains the fingerprint returned by E's adapter, so recovery can compare it with the database. The runner does not retry or mark the candidate failed after a lost response. An unconfirmed rollback also stops with this unresolved result. These outcomes are not new `meta.batch.status` values.
 
-[B14 recovery](recovery.md) reads the original run evidence and queries the same database through a new locked session. It preserves successful history and resolves only the selected batch. Its database tests use labelled batch fixtures; recovery around the complete team build remains separate.
+[B14 recovery](recovery.md) reads the original run evidence and queries the same database through a new locked session. It preserves successful history and resolves only the selected batch. The new full-build tests also recover actual E-published and failed S0 batches; the earlier component fixtures remain separately labelled.
 
 Known failures save diagnostics, roll back the build and update only this candidate's `running` row in a separate transaction. Rolled-back QA passes are not reinserted. If failure logging is unavailable, file evidence remains and the unresolved database row needs inspection. Successful history is never updated by this path. Cleanup or receipt errors after acknowledged publication do not turn success into failure.
 
@@ -96,11 +94,11 @@ Evidence lives under `<evidence_root>/<dataset_kind>/runs/<run_id>/`: frozen man
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -q -p no:cacheprovider
 ```
 
-The initial suite recorded **380 passed, 10 skipped** on 2026-09-19, including 44 runner tests with scripted replies. The [original receipt](evidence/b10-b11-validation-2026-09-19.json) is unchanged. The [2026-09-20 run](input-qa.md#validation) passed 426 tests, including the eight B08 and two QA02 PostgreSQL tests. [B12's later checks](runner-locks.md) exercise real locks and early runner exits. Complete build transactions, concurrent builds and recovery remain unverified.
+The initial suite recorded **380 passed, 10 skipped** on 2026-09-19, including 44 runner tests with scripted replies. The [original receipt](evidence/b10-b11-validation-2026-09-19.json) is unchanged. The [2026-09-20 run](input-qa.md#validation) passed 426 tests, including the eight B08 and two QA02 PostgreSQL tests. [B12's later checks](runner-locks.md) exercise real locks and early runner exits. The later [full-build receipt](evidence/full-build-validation-2026-09-27.json) records real S0 transactions, concurrent builds and recovery.
 
 - **A:** fixed migrations 001–011 and A06 are now installed in B; the original loader grants remain unchanged.
 - **C/B:** C03/C04/C05/C07/C09 and C10 are installed. The QA07 year-coverage fix is included. S0 QA01–QA07 joint checks pass; official-scope joint validation and remaining source confirmations are still needed.
 - **D/B:** D02/D03 facts, D04 reconciliation and [D05–D08 installed queries](analysis-integration.md) are integrated. D09 and official reader/report acceptance remain separate.
-- **E/B:** corrected FP1 and publication are tested in PR #30, pending E review and integration through PR #16. They are not yet bindings in this B branch.
+- **E/B:** PR #30 fixes are integrated from PR #16. Real FP1 and publication are installed bindings; E's independent acceptance remains separate.
 
-The full build remains blocked by the actual missing modules, not by A's old three-table environment. The partial inventory stays marked `final_platform: false`. Full fault injection, concurrent published builds, real recovery and end-to-end acceptance still need integration.
+`config/build-inventory.json` covers the complete three-source S0 build. It remains `final_platform: false` until the separate platform inputs and acceptance above are complete.
