@@ -1,0 +1,483 @@
+{
+  "receipt_version": "nsw-official-review-1",
+  "review_date": "2026-09-23",
+  "purpose": "Read-only source research and local-file observations for the shared official-data decisions. This receipt is not FP1, source approval or database QA.",
+  "tasks": [
+    "A04",
+    "A08",
+    "B09",
+    "B11",
+    "C03",
+    "C08",
+    "C10",
+    "D02",
+    "D03",
+    "D04",
+    "D05",
+    "D06",
+    "D07",
+    "D08",
+    "D09",
+    "E05",
+    "E06",
+    "E09",
+    "E10"
+  ],
+  "retrievals": [
+    {
+      "id": "nsw_manual",
+      "url": "https://opendata.transport.nsw.gov.au/data/dataset/06f9cf3d-0a9d-4098-b0f0-fa9efbdd3921/resource/ceafc11f-49a9-441d-b0b4-f53019ee00e1/download/data-manual-static-for-open-data-20211020.pdf",
+      "retrieved_date": "2026-09-23",
+      "method": "HTTPS GET using /usr/bin/curl; response held in memory and text extracted with pdftotext -layout. No local source file was replaced.",
+      "http_status": 200,
+      "bytes": 1555716,
+      "sha256": "3cc3385ca9793795d949fee824b0134fe266535bc8c0a6d4c1efb568ce63361f",
+      "portal_label": "Data Manual - 2022-23",
+      "document_date": "September 2021",
+      "pages": {
+        "scope": 2,
+        "crash_key_and_severity": 4,
+        "detailed_severity_and_reporting_year": 5,
+        "occurrence_year_and_month": 6,
+        "latitude": 9,
+        "longitude": 10,
+        "counts": 23,
+        "traffic_unit_key_and_relationship": 24,
+        "traffic_unit_groups": 25
+      },
+      "access_note": "The browser research fetch returned 403; the system curl request returned the PDF successfully."
+    },
+    {
+      "id": "nsw_live_package",
+      "url": "https://opendata.transport.nsw.gov.au/data/api/3/action/package_show?id=nsw-crash-data",
+      "retrieved_date": "2026-09-23",
+      "method": "HTTPS GET using /usr/bin/curl; JSON inspected in memory.",
+      "http_status": 200,
+      "sha256": "b08bde53f8a01e4028736d06ffb05921135cf1c0a2c18f540b285e3485a705d7",
+      "package_id": "06f9cf3d-0a9d-4098-b0f0-fa9efbdd3921",
+      "metadata_modified": "2025-10-09T00:35:15.918604",
+      "publisher_release_version": null,
+      "matching_saved_reference": "Resources/source/metadata/nsw_package.json",
+      "comparison_scope": "Target resource IDs, titles, descriptions, sizes, URLs, modification dates and licence fields agree with the saved metadata; no byte-equivalence claim for the whole JSON response."
+    },
+    {
+      "id": "nsw_government_catalogue",
+      "url": "https://www.data.nsw.gov.au/data/dataset/2-nsw-crash-data",
+      "retrieved_date": "2026-09-23",
+      "method": "Read using the browser research tool.",
+      "observed_fields": {
+        "publisher": "Transport for NSW",
+        "last_updated": "09/10/2025",
+        "licence": "Creative Commons Attribution",
+        "licence_url": "http://www.opendefinition.org/licenses/cc-by"
+      },
+      "hash_recorded": false
+    }
+  ],
+  "files": [
+    {
+      "resource_id": "official_nsw_crash",
+      "path": "raw_datasource/nsw_crash_2020_2024.xlsx",
+      "official_resource_id": "c6351d27-b1b0-48e9-93a6-a612cba88f99",
+      "url": "https://opendata.transport.nsw.gov.au/data/dataset/06f9cf3d-0a9d-4098-b0f0-fa9efbdd3921/resource/c6351d27-b1b0-48e9-93a6-a612cba88f99/download/nsw_road_crash_data_2020-2024_crash.xlsx",
+      "official_last_modified": "2025-10-09T00:32:47.256859",
+      "sha256": "7345189f017d9c842429674ecf2196cee728de46c0572ce2a85220f9bef49aa9",
+      "bytes": 24466182,
+      "sheet": "Sheet1",
+      "header_row": 1,
+      "columns": 50,
+      "rows": 92189,
+      "empty_rows": 0
+    },
+    {
+      "resource_id": "official_nsw_traffic_unit",
+      "path": "raw_datasource/nsw_traffic_unit_2020_2024.xlsx",
+      "official_resource_id": "fbd0a0da-aa1f-4233-a974-d674713ad4a5",
+      "url": "https://opendata.transport.nsw.gov.au/data/dataset/06f9cf3d-0a9d-4098-b0f0-fa9efbdd3921/resource/fbd0a0da-aa1f-4233-a974-d674713ad4a5/download/nsw_road_crash_data_2020-2024_traffic_unit.xlsx",
+      "official_last_modified": "2025-10-09T00:34:54.535564",
+      "sha256": "95349666f63952c580edb08973a8ac80be39db98ba289ec8533d61feb6d55f1b",
+      "bytes": 7133819,
+      "sheet": "Export",
+      "header_row": 1,
+      "columns": 10,
+      "rows": 170962,
+      "empty_rows": 0
+    }
+  ],
+  "publisher_supported_facts": {
+    "population": {
+      "reference": "nsw_manual p2",
+      "definition": "Police-reported crashes on public roads involving at least one moving road vehicle and a death, injury or motor vehicle towed away."
+    },
+    "crash_identity": {
+      "reference": "nsw_manual p4",
+      "key": [
+        "Crash ID"
+      ],
+      "grain": "One record per crash."
+    },
+    "traffic_unit_identity": {
+      "reference": "nsw_manual p24",
+      "key": [
+        "Crash ID",
+        "Traffic unit ID"
+      ],
+      "parent_key": [
+        "Crash ID"
+      ],
+      "grain": "One record per traffic unit directly involved in a crash; pedestrians are traffic units."
+    },
+    "time": {
+      "reference": "nsw_manual p5-6",
+      "occurrence_year_field": "Year of crash",
+      "occurrence_month_field": "Month of crash",
+      "reporting_year_field": "Reporting year",
+      "reporting_year_note": "Late-reported non-fatal crashes can have a later reporting year. The manual directs calendar-year analysis to Year of crash."
+    },
+    "severity": {
+      "reference": "nsw_manual p4-5",
+      "field": "Degree of crash - detailed",
+      "categories": [
+        "Fatal",
+        "Serious Injury",
+        "Moderate Injury",
+        "Minor/Other Injury",
+        "Uncategorised Injury",
+        "Non-casualty (towaway)"
+      ],
+      "fatal_definition": "At least one person dies within 30 days from injuries received in the crash.",
+      "injury_definitions": "Serious injury uses hospital admission linkage; moderate injury uses emergency attendance without subsequent admission; minor/other injury has no matched hospital admission or emergency attendance. Uncategorised Injury covers injury reports where health-record linkage is unavailable."
+    },
+    "counts": {
+      "reference": "nsw_manual p23",
+      "native_count_columns": [
+        "No. killed",
+        "No. seriously injured",
+        "No. moderately injured",
+        "No. minor-other injured"
+      ],
+      "declared_traffic_unit_column": "No. of traffic units involved",
+      "traffic_unit_count_scope": "Road vehicles and pedestrians."
+    },
+    "traffic_unit_groups": {
+      "reference": "nsw_manual p25",
+      "field": "TU type group",
+      "categories": [
+        "Car/car derivative",
+        "Light truck",
+        "Heavy rigid truck",
+        "Articulated truck",
+        "Bus",
+        "Other motor vehicle",
+        "Motorcycle",
+        "Pedal cycle",
+        "Non-motorised vehicle",
+        "Pedestrian",
+        "Other or unknown"
+      ],
+      "notes": "Pedal cycles are traffic units when ridden. Other or unknown is a listed category, not an undefined code."
+    },
+    "licence": {
+      "reference": "nsw_live_package and nsw_government_catalogue",
+      "id": "cc-by",
+      "title": "Creative Commons Attribution",
+      "version": null,
+      "publisher": "Transport for NSW"
+    },
+    "pairing_basis": {
+      "reference": "nsw_live_package target resource descriptions; nsw_manual p23-24",
+      "same_dataset_id": "06f9cf3d-0a9d-4098-b0f0-fa9efbdd3921",
+      "crash_title": "NSW Road Crash Data - 2020-2024 - CRASH.xlsx",
+      "unit_title": "NSW Road Crash Data - 2020-2024 - TRAFFIC UNIT.xlsx",
+      "resource_descriptions": "Both resources describe 2020-2024 data. The Crash description specifies one record per crash. The Traffic Unit description specifies one record per directly involved unit and explicitly joins this table to CRASH by Crash ID, including pedestrians.",
+      "interpretation": "The documented paired resources and relationship, together with the local key and count checks, support using this pinned pair together. Matching timestamps alone would not establish compatibility. No separate publisher bundle identifier was found."
+    },
+    "coordinates": {
+      "reference": "nsw_manual p9-10",
+      "fields": [
+        "Latitude",
+        "Longitude"
+      ],
+      "documented_datum": null,
+      "note": "The manual describes latitude and longitude but does not identify their CRS or datum."
+    }
+  },
+  "local_scan": {
+    "method": "Python in the existing .venv; openpyxl load_workbook(read_only=True, data_only=False), streaming all native rows in the specified worksheets. Counters and key lookups were held in memory. A second targeted Crash scan checked the severity hierarchy and annual counts. No JSONL, database or derived platform data was generated.",
+    "initial_scan_elapsed_seconds": 10.66,
+    "crash_duplicate_key_groups": 0,
+    "unit_duplicate_key_groups": 0,
+    "unit_orphan_rows": 0,
+    "declared_unit_count_mismatch_crashes": 0,
+    "invalid_or_missing_core_count_values": 0,
+    "core_count_fields_checked": [
+      "No. killed",
+      "No. seriously injured",
+      "No. moderately injured",
+      "No. minor-other injured",
+      "No. of traffic units involved"
+    ],
+    "fatal_severity_killed_mismatch_crashes": 0,
+    "severity_hierarchy_mismatch_crashes": 0,
+    "severity_hierarchy_rule": "First positive count in killed, seriously injured, moderately injured, minor-other injured order; all zero implies Non-casualty (towaway).",
+    "observed_severity_counts": {
+      "Fatal": 1388,
+      "Serious Injury": 19595,
+      "Moderate Injury": 26125,
+      "Minor/Other Injury": 15534,
+      "Non-casualty (towaway)": 29547
+    },
+    "manual_category_not_observed": [
+      "Uncategorised Injury"
+    ],
+    "observed_traffic_unit_group_counts": {
+      "Car/car derivative": 114477,
+      "Light truck": 25345,
+      "Heavy rigid truck": 3508,
+      "Other motor vehicle": 2930,
+      "Articulated truck": 2883,
+      "Pedestrian": 5173,
+      "Motorcycle": 11017,
+      "Pedal cycle": 3843,
+      "Bus": 997,
+      "Other or unknown": 377,
+      "Non-motorised vehicle": 412
+    },
+    "reporting_occurrence_year_difference_crashes": 488,
+    "reporting_cross_tab": [
+      {
+        "occurrence_year": 2019,
+        "reporting_year": 2020,
+        "crashes": 107
+      },
+      {
+        "occurrence_year": 2020,
+        "reporting_year": 2020,
+        "crashes": 18597
+      },
+      {
+        "occurrence_year": 2020,
+        "reporting_year": 2021,
+        "crashes": 167
+      },
+      {
+        "occurrence_year": 2021,
+        "reporting_year": 2021,
+        "crashes": 17350
+      },
+      {
+        "occurrence_year": 2021,
+        "reporting_year": 2022,
+        "crashes": 63
+      },
+      {
+        "occurrence_year": 2022,
+        "reporting_year": 2022,
+        "crashes": 18182
+      },
+      {
+        "occurrence_year": 2022,
+        "reporting_year": 2023,
+        "crashes": 73
+      },
+      {
+        "occurrence_year": 2023,
+        "reporting_year": 2023,
+        "crashes": 18633
+      },
+      {
+        "occurrence_year": 2023,
+        "reporting_year": 2024,
+        "crashes": 78
+      },
+      {
+        "occurrence_year": 2024,
+        "reporting_year": 2024,
+        "crashes": 18939
+      }
+    ],
+    "out_of_analysis": {
+      "occurrence_year": 2019,
+      "crashes": 107,
+      "traffic_units": 215,
+      "fatal_crashes": 0,
+      "fatalities": 0,
+      "casualties": 82,
+      "example": {
+        "row_locator": [
+          "Sheet1",
+          1390
+        ],
+        "Crash ID": "1216180",
+        "Year of crash": 2019,
+        "Reporting year": 2020
+      }
+    },
+    "analysis_totals": {
+      "year_from": 2020,
+      "year_to": 2024,
+      "crashes": 92082,
+      "traffic_units": 170747,
+      "fatal_crashes": 1388,
+      "fatalities": 1507,
+      "casualties": 78154,
+      "observed_year_months": 60
+    },
+    "by_occurrence_year": {
+      "2020": {
+        "crashes": 18764,
+        "fatal_crashes": 264,
+        "fatalities": 284,
+        "casualties": 16169,
+        "traffic_units": 34377
+      },
+      "2021": {
+        "crashes": 17413,
+        "fatal_crashes": 260,
+        "fatalities": 275,
+        "casualties": 14448,
+        "traffic_units": 32233
+      },
+      "2022": {
+        "crashes": 18255,
+        "fatal_crashes": 263,
+        "fatalities": 281,
+        "casualties": 14840,
+        "traffic_units": 33800
+      },
+      "2023": {
+        "crashes": 18711,
+        "fatal_crashes": 303,
+        "fatalities": 340,
+        "casualties": 16379,
+        "traffic_units": 34852
+      },
+      "2024": {
+        "crashes": 18939,
+        "fatal_crashes": 298,
+        "fatalities": 327,
+        "casualties": 16318,
+        "traffic_units": 35485
+      }
+    },
+    "coordinates": {
+      "missing_or_out_of_global_range_rows": 0,
+      "latitude_range": [
+        -37.38299,
+        -28.161773
+      ],
+      "longitude_range": [
+        141.109382,
+        159.081742
+      ],
+      "limitation": "Numeric range checks do not establish CRS, exact accuracy or map eligibility. Do not reject island locations using a mainland-only bounding box."
+    }
+  },
+  "recommended_project_rules": [
+    {
+      "id": "nsw_fixed_pair",
+      "tasks": [
+        "A04",
+        "A08",
+        "B09",
+        "B11",
+        "E05",
+        "E06"
+      ],
+      "rule": "Use the two pinned files as one team-labelled snapshot; keep the publisher version unset rather than inventing a release ID."
+    },
+    {
+      "id": "nsw_occurrence_scope",
+      "tasks": [
+        "C03",
+        "C08",
+        "C10",
+        "D02",
+        "D05",
+        "B09"
+      ],
+      "rule": "Keep complete Raw files and validate parent relationships before selecting Year of crash 2020-2024. Use month precision with no invented day. Label results as occurrence-year statistics from the fixed export."
+    },
+    {
+      "id": "nsw_counts",
+      "tasks": [
+        "C03",
+        "C08",
+        "D03",
+        "D04",
+        "D05"
+      ],
+      "rule": "Count Crash identities; use No. killed for fatalities and the four native counts for casualties. An unknown component makes the sum unknown. Never replace crash or person totals with joined unit row counts."
+    },
+    {
+      "id": "nsw_classifications",
+      "tasks": [
+        "C08",
+        "D02",
+        "D06",
+        "B09"
+      ],
+      "rule": "Register all six documented severity categories plus __MISSING__, even though Uncategorised Injury is absent from these files. Keep source-native definitions and reject new unregistered non-missing categories."
+    },
+    {
+      "id": "nsw_unit_scope",
+      "tasks": [
+        "A04",
+        "C03",
+        "C08",
+        "D08"
+      ],
+      "rule": "Count documented directly involved NSW traffic units, including pedestrians and the valid Other or unknown group. Do not call this a motor-vehicle total or merge it with VIC vehicle counts."
+    },
+    {
+      "id": "nsw_missing_values",
+      "tasks": [
+        "C03",
+        "C08",
+        "C10",
+        "D04"
+      ],
+      "rule": "No missing or suppressed token was observed in the core count fields. Keep future missing values null; do not infer zero or a general NA rule. Block non-missing invalid core values."
+    },
+    {
+      "id": "nsw_location",
+      "tasks": [
+        "A04",
+        "C03",
+        "C08",
+        "C10",
+        "D07",
+        "E05",
+        "E06"
+      ],
+      "rule": "Until a CRS is evidenced for these files, keep candidate coordinates in Raw but trusted coordinates, CRS and location record null; set map_eligible=false with crs_unconfirmed. Use QA07 limited after actual checks, without deleting accidents."
+    },
+    {
+      "id": "nsw_attribution",
+      "tasks": [
+        "A04",
+        "B09",
+        "D09",
+        "E10"
+      ],
+      "rule": "Attribute Transport for NSW and retain the published cc-by licence label/link, resource URLs, file hashes and processing notes. Do not assert an unreported licence version."
+    }
+  ],
+  "remaining_evidence_gaps": [
+    "The CRS/datum and any required transformation for the exact latitude/longitude export are not documented in the inspected sources.",
+    "A single snapshot cannot prove that later releases will add no late-reported 2024 crashes or revisions.",
+    "The official licence metadata gives cc-by but no exact version.",
+    "There is no separate publisher bundle/release ID; the project must label its own pinned selection clearly."
+  ],
+  "not_executed": [
+    "PostgreSQL loading",
+    "QA01-QA07 database acceptance",
+    "Source contract activation",
+    "FP1 SQL",
+    "Canonical/Vault/DW construction",
+    "Official publication",
+    "Cross-state semantic equivalence"
+  ],
+  "implementation_note": "The existing VIC-only restricted protocol does not automatically approve NSW. These decisions still need versioned NSW contracts and the relevant projection, QA and publication implementation.",
+  "preserved": "Original files, existing evidence, active contracts and source code were not changed by this research."
+}

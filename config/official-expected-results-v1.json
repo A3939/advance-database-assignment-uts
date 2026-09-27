@@ -1,0 +1,132 @@
+{
+  "version": "official-expected-results-v1",
+  "analysis": {
+    "year_from": 2020,
+    "year_to": 2024
+  },
+  "scope": "Independent observations from the exact pinned native files. These are regression expectations, not E independent acceptance or current government totals.",
+  "input_raw_count": 2118028,
+  "sources": {
+    "official_nsw": {
+      "input_files": [
+        {
+          "resource_id": "official_nsw_crash",
+          "file_sha256": "7345189f017d9c842429674ecf2196cee728de46c0572ce2a85220f9bef49aa9",
+          "raw_count": 92189
+        },
+        {
+          "resource_id": "official_nsw_traffic_unit",
+          "file_sha256": "95349666f63952c580edb08973a8ac80be39db98ba289ec8533d61feb6d55f1b",
+          "raw_count": 170962
+        }
+      ],
+      "input_raw_counts": {
+        "official_nsw_crash": 92189,
+        "official_nsw_traffic_unit": 170962
+      },
+      "crash_count": 92082,
+      "fatal_crash_count": 1388,
+      "fatality_count": 1507,
+      "casualty_count": 78154,
+      "canonical_unit_count": 170747,
+      "report_eligible_unit_count": 170747,
+      "map_count": 0,
+      "unmapped_count": 92082,
+      "evidence_refs": [
+        {
+          "path": "docs/sources/evidence/official-decisions-2026-09-23/nsw-review.json",
+          "path_base": "project_root",
+          "sha256": "34bfaf62d920499324810698267fe9c2460d5eb7779ceb55c17306b246678ded",
+          "basis": "Independent native Excel scan; local_scan.analysis_totals. 107 late-reported 2019 crashes and 215 units remain outside 2020-2024."
+        }
+      ]
+    },
+    "official_vic": {
+      "input_files": [
+        {
+          "resource_id": "official_vic_accident",
+          "file_sha256": "a148c00601fab10d44368df80492c594123700a7f9e334ff896fd215295e91d9",
+          "raw_count": 200352
+        },
+        {
+          "resource_id": "official_vic_vehicle",
+          "file_sha256": "05a7a1b9171abaeb5c188df549dee38edde6e76d5a03553988305a8280dccd12",
+          "raw_count": 365470
+        },
+        {
+          "resource_id": "official_vic_person",
+          "file_sha256": "71ca8fec01370e301f282fc83e8f11e4cde16a535ee421cbbb72512ceb7194f9",
+          "raw_count": 467730
+        },
+        {
+          "resource_id": "official_vic_node",
+          "file_sha256": "b0bdbec22ac33df66e15cff9b531ba3203320ec5fbe20076a2820b8fec966ed4",
+          "raw_count": 405918
+        }
+      ],
+      "input_raw_counts": {
+        "official_vic_accident": 200352,
+        "official_vic_vehicle": 365470,
+        "official_vic_person": 467730,
+        "official_vic_node": 405918
+      },
+      "crash_count": 72170,
+      "fatal_crash_count": 1182,
+      "fatality_count": 1265,
+      "casualty_count": 91798,
+      "canonical_unit_count": 132372,
+      "report_eligible_unit_count": 0,
+      "map_count": 0,
+      "unmapped_count": 72170,
+      "evidence_refs": [
+        {
+          "path": "docs/sources/evidence/official-native-observations-2026-09-24.json",
+          "path_base": "project_root",
+          "sha256": "9560015957705406d27dbe4225a67f02c345482b8d73e0f764d3fc36deff436b",
+          "basis": "VIC independent_native_totals from the native CSV scan. Previous projection component checks did not run FP1 or publication."
+        },
+        {
+          "path": "config/vic-restricted-use-v1.json",
+          "path_base": "project_root",
+          "sha256": "bc892d07f81f51fc2859cccd9c1302e4b1ade22240bd36f8fe118d95e861ec40",
+          "basis": "Permitted Accident metrics; all projected units remain audit-only and official map outputs are unavailable."
+        }
+      ]
+    },
+    "official_qld": {
+      "input_files": [
+        {
+          "resource_id": "official_qld_crash",
+          "file_sha256": "975be4b02a235d06589de9b486f73bafe22d0f2007f0c07abb84f54cb926c704",
+          "raw_count": 415407
+        }
+      ],
+      "input_raw_counts": {
+        "official_qld_crash": 415407
+      },
+      "crash_count": 66624,
+      "fatal_crash_count": 1304,
+      "fatality_count": 1424,
+      "casualty_count": 88609,
+      "canonical_unit_count": 0,
+      "report_eligible_unit_count": 0,
+      "map_count": 0,
+      "unmapped_count": 66624,
+      "evidence_refs": [
+        {
+          "path": "docs/sources/evidence/official-decisions-2026-09-23/qld-review.json",
+          "path_base": "project_root",
+          "sha256": "3055484353e405a4c0ff60f4208731652378f91149f9f577b7ed4ace3cf5b43d",
+          "basis": "Independent native CSV scan; local_scan.analysis. No individual unit records exist in this resource."
+        }
+      ]
+    }
+  },
+  "restrictions": [
+    "Compare each source separately. No pooled official crash, severity, death or casualty KPI is approved.",
+    "VIC canonical units are retained for audit; report_eligible_unit_count=0 is an internal check, not an available vehicle total.",
+    "All three official maps are unavailable. map_count=0 and unmapped_count describe QA coverage, not a valid empty map.",
+    "QLD unit outputs are unavailable, not a measured zero-unit population."
+  ],
+  "provenance_note": "Evidence paths are relative to the project root. The original receipts are copied byte for byte and retain their earlier scope. No platform output was used to create these expected counts."
+}

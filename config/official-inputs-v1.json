@@ -1,0 +1,93 @@
+{
+  "version": "official-inputs-v1",
+  "scope": "Pinned NSW, restricted VIC and no-map QLD, occurrence years 2020-2024. No source replacements or interstate pooling.",
+  "origins": {
+    "official_nsw_crash": {
+      "download_url": "https://opendata.transport.nsw.gov.au/data/dataset/06f9cf3d-0a9d-4098-b0f0-fa9efbdd3921/resource/c6351d27-b1b0-48e9-93a6-a612cba88f99/download/nsw_road_crash_data_2020-2024_crash.xlsx",
+      "evidence_ref": "docs/sources/evidence/official-decisions-2026-09-23/nsw-review.json"
+    },
+    "official_nsw_traffic_unit": {
+      "download_url": "https://opendata.transport.nsw.gov.au/data/dataset/06f9cf3d-0a9d-4098-b0f0-fa9efbdd3921/resource/fbd0a0da-aa1f-4233-a974-d674713ad4a5/download/nsw_road_crash_data_2020-2024_traffic_unit.xlsx",
+      "evidence_ref": "docs/sources/evidence/official-decisions-2026-09-23/nsw-review.json"
+    },
+    "official_vic_accident": {
+      "download_url": "https://opendata.transport.vic.gov.au/dataset/bb77800e-1857-4edc-bf9e-e188437a1c8e/resource/20772c1a-8b19-424a-a733-eb84f725f611/download/accident.csv",
+      "evidence_ref": "docs/sources/evidence/vic/official-package-2026-09-17.json"
+    },
+    "official_vic_vehicle": {
+      "download_url": "https://opendata.transport.vic.gov.au/dataset/bb77800e-1857-4edc-bf9e-e188437a1c8e/resource/6d0b21f7-583a-4991-a168-f15a70c13ec4/download/vehicle.csv",
+      "evidence_ref": "docs/sources/evidence/vic/official-package-2026-09-17.json"
+    },
+    "official_vic_person": {
+      "download_url": "https://opendata.transport.vic.gov.au/dataset/bb77800e-1857-4edc-bf9e-e188437a1c8e/resource/60c8fc0c-2806-40f3-bb33-5c52691120e8/download/person.csv",
+      "evidence_ref": "docs/sources/evidence/vic/official-package-2026-09-17.json"
+    },
+    "official_vic_node": {
+      "download_url": "https://opendata.transport.vic.gov.au/dataset/bb77800e-1857-4edc-bf9e-e188437a1c8e/resource/466fd3b5-201b-42b5-b10d-e926324fa215/download/node.csv",
+      "evidence_ref": "docs/sources/evidence/vic/official-package-2026-09-17.json"
+    },
+    "official_qld_crash": {
+      "download_url": "https://www.data.qld.gov.au/dataset/f3e0ca94-2d7b-44ee-abef-d6b06e9b0729/resource/e88943c0-5968-4972-a15f-38e120d72ec0/download/_1_crash_locations.csv",
+      "evidence_ref": "docs/sources/evidence/official-decisions-2026-09-23/qld-review.json"
+    }
+  },
+  "pinned_files": [
+    {
+      "path": "config/official-nsw-v1.json",
+      "sha256": "46d6fd0966338b51fd232c77f343b0f5237353f149decd2377da83de909597cf"
+    },
+    {
+      "path": "config/c05-qld-official-v1.json",
+      "sha256": "40c0535ae002e57bd3a072ce90415c9ca619a801d3063db1ab524d8684fddeb4"
+    },
+    {
+      "path": "docs/sources/evidence/nsw/nsw-source-confirmation-2026-09-23.json",
+      "sha256": "22addce4d04d3112dba733253d7c3b09840465923bee8135609d32c1c5615d1b"
+    },
+    {
+      "path": "docs/sources/evidence/nsw/nsw-source-validation-2026-09-23.json",
+      "sha256": "b7b052c87aa8770969134bd7b20e4cb954f43b3ad7244e3294d7a31ef66d43e9"
+    },
+    {
+      "path": "docs/sources/evidence/vic/official-package-2026-09-17.json",
+      "sha256": "b49db512d35f455a0172f45db29006e9cfc5cec44c0f986995f08fe57e0f2580"
+    },
+    {
+      "path": "docs/sources/evidence/official-decisions-2026-09-23/nsw-review.json",
+      "sha256": "34bfaf62d920499324810698267fe9c2460d5eb7779ceb55c17306b246678ded"
+    },
+    {
+      "path": "docs/sources/evidence/official-decisions-2026-09-23/qld-review.json",
+      "sha256": "3055484353e405a4c0ff60f4208731652378f91149f9f577b7ed4ace3cf5b43d"
+    }
+  ],
+  "upstream": {
+    "nsw": {
+      "commit": "46aa1e149738c64502632c65bd38fd33b96d4625",
+      "author": "Role A / JJ",
+      "path": "config/official-nsw-v1.json",
+      "note": "Original bytes retained, including reviewed_by: null. B only adapts this contract to B09."
+    },
+    "qld": {
+      "commit": "6987e604bb93809aa94a736085c3e8320452461d",
+      "author": "Role C, using Role D source review and adopted team decisions",
+      "path": "config/c05-qld-official-v1.json",
+      "note": "Definitions copied unchanged from the installed C05 implementation."
+    },
+    "vic": {
+      "profile": "vic-accident-only-2020-2024-v1",
+      "note": "Use the existing exact four-file restricted policy and evidence."
+    }
+  },
+  "nsw_integration_review": {
+    "reviewed_by": "Role B / Peixian, assisted contract integration check; no Role C review or publisher approval claimed.",
+    "checked_at": "2026-09-27",
+    "scope": "Compared the A04 contract with the archived source review and C03 supported mappings. Preserve source rules, missing categories, full input identities and disabled maps.",
+    "references": [
+      "config/official-nsw-v1.json",
+      "docs/sources/evidence/nsw/nsw-source-confirmation-2026-09-23.json",
+      "docs/sources/evidence/nsw/nsw-source-validation-2026-09-23.json",
+      "docs/sources/evidence/official-decisions-2026-09-23/nsw-review.json"
+    ]
+  }
+}

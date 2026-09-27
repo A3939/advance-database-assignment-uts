@@ -25,13 +25,21 @@ def main():
             if group in value:
                 for item in value[group]:
                     item["sha256"] = hashlib.sha256((ROOT / item["path"]).read_bytes()).hexdigest()
+        for moved in value.get("path_moves", []):
+            actual = hashlib.sha256((ROOT / moved["path"]).read_bytes()).hexdigest()
+            if actual != moved["sha256"]:
+                moved.setdefault("upstream_sha256", moved["sha256"])
+                moved["sha256"] = actual
+                moved["note"] = "Runtime changed after import; upstream_sha256 retains the original file hash."
         write(path, value)
     cd = json.loads((ROOT / "config/cd-inventory.json").read_text(encoding="utf-8"))
     analysis = json.loads((ROOT / "config/analysis-inventory.json").read_text(encoding="utf-8"))
     dependencies = ["pyproject.toml", "requirements.txt", "requirements-db.txt", "requirements-dev.txt"]
     b_core = [str(p.relative_to(ROOT)) for p in (ROOT / "src/arsia_ingest").glob("*.py")
               if p.name not in {"publication.py", "publication_checks.py"}]
-    shared = sorted(set(dependencies + b_core + cd["interface_code_paths"]))
+    official = ["config/native-inputs.json", "config/official-inputs-v1.json",
+                "config/official-nsw-v1.json"]
+    shared = sorted(set(dependencies + b_core + cd["interface_code_paths"] + official))
     components = {name: sorted(set(paths + shared)) for name, paths in cd["components"].items()}
     components.update(intake=shared, raw=shared, runner=shared,
                       analysis=sorted(set(analysis["components"]["analysis"] + shared)),
@@ -46,15 +54,15 @@ def main():
     if missing:
         raise ValueError("Unlisted runtime files: " + ", ".join(sorted(missing)))
     write(ROOT / "config/build-inventory.json", {
-        "version": "b-s0-s8-build-v1", "complete_build": True, "final_platform": False,
-        "scope": "Complete synthetic S0 and S8 builds with D05-D08 queries. D09, official admission and independent E acceptance are separate.",
+        "version": "b-official-build-v1", "complete_build": True, "final_platform": False,
+        "scope": "Installed S0, S8 and pinned official build recipes with source-specific read interfaces. Execution evidence is recorded separately; D09 and independent E acceptance remain open.",
         "components": components, "code_files": records(paths),
         "schema_files": cd["schema_files"],
         "upstream": {"a": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
                      "c": "6987e604bb93809aa94a736085c3e8320452461d",
                      "d": "d57c3f4ff2fb57eb84ebc414ef77911073c0de06",
                      "e": "aec3b4692382e48ea4f778f04a31a4ca5ba5fa57"},
-        "remaining": ["D09 reader/UI integration", "Official source admission and replay",
+        "remaining": ["D09 reader/UI integration (deferred)", "Independent replay of official build evidence",
                       "E's independent expectations and platform acceptance"]})
 
 

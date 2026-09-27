@@ -11,7 +11,7 @@ WITH native AS (
              THEN (r.payload ->> 'Latitude')::numeric END AS lat,
         CASE WHEN pg_input_is_valid(r.payload ->> 'Longitude', 'numeric')
              THEN (r.payload ->> 'Longitude')::numeric END AS lon
- FROM raw.record r WHERE r.source_id = %(source_id)s AND r.resource_id = %(crash_resource_id)s AND r.file_sha256 = %(crash_file_sha256)s AND r.parser_version = %(crash_parser_version)s AND (r.payload ->> 'Year of crash')::integer BETWEEN %(year_from)s AND %(year_to)s
+ FROM pg_temp.c03_nsw_crash r WHERE r.source_id = %(source_id)s AND r.resource_id = %(crash_resource_id)s AND r.file_sha256 = %(crash_file_sha256)s AND r.parser_version = %(crash_parser_version)s AND (r.payload ->> 'Year of crash')::integer BETWEEN %(year_from)s AND %(year_to)s
 ), mapped AS (
  SELECT *, %(severity_map)s::jsonb -> severity AS classification,
         COALESCE(%(map_enabled)s AND lat BETWEEN -90 AND 90 AND lon BETWEEN -180 AND 180, false) AS usable_location,

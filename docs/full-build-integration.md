@@ -7,7 +7,7 @@ the tests do not seed its status or pointer.
 
 This page records the original three-source S0 integration. B's later
 [S8 extension](s8-integration.md) uses the same runner and adds the declared
-synthetic SA source; its commands and results are recorded separately.
+synthetic SA source. The [official recipe](official-build.md) now connects the pinned NSW/VIC/QLD inputs. Each guide records its own commands, results and limits.
 
 ## Versions and ownership
 
@@ -26,18 +26,19 @@ independent approval by E.
 ## Entry and inventory
 
 `src/arsia_ingest/build.py` contains `build_modules()`, `FP1`, `fp1_sql()` and
-`synthetic_request()`, `s0_request()` and `s8_request()`. The two named recipes
-select the checked-in S0 or S8 contract; `synthetic_request()` takes an explicit
-contract path. They reuse `components.bindings()` and add E's real `publish`.
+`synthetic_request()`, `s0_request()`, `s8_request()` and `official_request()`.
+S0/S8 select their checked-in synthetic contracts; `synthetic_request()` accepts
+an explicit contract path. The official entry freezes the seven pinned source
+contracts. All reuse `components.bindings()` and E's real `publish`.
 The SQL resource `src/arsia_ingest/sql/fp1.sql` is byte-identical to E's
 `sql/e/fp1.sql`; both are hashed and the installed resource is checked.
 
 `config/build-inventory.json` includes all 11 component groups, every runtime
 Python/SQL/JSON file, requirements, package metadata and A's 11 migrations.
-`complete_build: true` describes the installed synthetic build, including S0 and
-S8. `final_platform: false` keeps D09 and official/platform acceptance outside
-that claim. Existing
-component inventories remain partial. Their package hashes were refreshed.
+`complete_build: true` describes the installed build recipes, including S0/S8
+and pinned official inputs. Execution results are recorded in each guide.
+`final_platform: false` keeps the deferred D09 and independent platform acceptance
+outside that claim. Existing component inventories remain partial.
 
 The runtime checks the declared hashes before freezing. After reviewing a code
 change, run `python tools/update_build_inventory.py`, inspect its diff, rebuild
@@ -118,8 +119,9 @@ to damage test QA rows, then restore `arsia_loader` before the real E gate.
 A03 grants are unchanged. Failure wrappers call the real module before raising;
 they are test probes, not alternate production bindings.
 
-Remaining work: D supplies/reviews D09; the team verifies admitted official
-inputs; E runs an independent acceptance comparison; A/E confirm the
-four open course decisions in `docs/e/e01-course-decisions.md`. B then freezes
-that expanded platform inventory and reruns the relevant acceptance cases.
-No official release, dashboard acceptance or team-wide completion is claimed.
+The official recipe and its current validation are recorded in the
+[official guide](official-build.md); this historical S0 receipt proves no official
+release. D09 is deferred. E still runs the independent acceptance comparison,
+and A/E confirm the four course decisions in `docs/e/e01-course-decisions.md`.
+B can then freeze the final platform inventory and repeat the relevant checks.
+Dashboard acceptance and team-wide completion remain open.

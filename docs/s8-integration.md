@@ -100,11 +100,12 @@ is retained as historical evidence.
 
 ## Review and remaining work
 
-B can review and merge this branch into `peixian/dev`. C does not need to write
-S8 or approve it before B's technical validation can finish. If C later imports
-the shared QA changes, keep the commits and repeat her branch's tests.
+PR #34 is merged into `peixian/dev` as `c8772ba`. B's S8 implementation and
+validation are retained in the commit history. If C later imports the shared
+QA changes, keep the commits and repeat her branch's tests.
 
 E still needs an independent acceptance review against the team AT15 expectations.
-D09 integration, admitted official-source replay, final platform freezing and the
-four course decisions in `docs/e/e01-course-decisions.md` remain separate.
+The pinned NSW/VIC/QLD recipe is now implemented; the [official guide](official-build.md)
+records its separate validation. D09 is deferred. Final platform freezing and the
+four course decisions in `docs/e/e01-course-decisions.md` remain open.
 No new S0/S8 input material is needed from Peixian.

@@ -1,0 +1,296 @@
+{
+  "receipt_version": "1",
+  "checked_on": "2026-09-23",
+  "scope": "Read-only QLD source review and local CSV checks for team decisions. No database, FP1 or publication validation.",
+  "local_file": {
+    "path": "raw_datasource/qld_crash_locations.csv",
+    "sha256": "975be4b02a235d06589de9b486f73bafe22d0f2007f0c07abb84f54cb926c704",
+    "md5": "19a17cdddde8f70e7121e677fcd0cba9",
+    "source_id": "official_qld",
+    "resource_id": "official_qld_crash",
+    "format": "csv",
+    "read_encoding": "utf-8-sig",
+    "column_count": 52,
+    "parser": "Python csv.DictReader; CSV logical records; no source changes",
+    "raw_count": 415407
+  },
+  "official_checks": [
+    {
+      "kind": "package_metadata",
+      "url": "https://www.data.qld.gov.au/api/3/action/package_show?id=f3e0ca94-2d7b-44ee-abef-d6b06e9b0729",
+      "checked_at_utc": "2026-09-23T08:41:51.416430+00:00",
+      "response_sha256": "c2bc6a6ac5359f20285e07b64a57d7fa698083f6375a686818e0f97e18219f2e",
+      "existing_identical_response": "Resources/source/metadata/queensland_package.json (relative to Workspace)",
+      "package_version": "rqC45037- June 2025",
+      "resource_last_modified": "2026-04-24T02:56:42.272452",
+      "resource_metadata_modified": "2026-04-24T03:14:10.905537",
+      "package_metadata_modified": "2026-04-24T03:16:39.760744",
+      "licence": "CC-BY-4.0",
+      "publisher": "Queensland Department of Transport and Main Roads",
+      "resource_metadata_hash": "19a17cdddde8f70e7121e677fcd0cba9",
+      "local_md5_matches_resource_metadata_hash": true,
+      "datastore_contains_all_records_of_source_file": false,
+      "current_download_compared_byte_for_byte": false
+    },
+    {
+      "kind": "datastore_dictionary",
+      "url": "https://www.data.qld.gov.au/api/3/action/datastore_search?resource_id=e88943c0-5968-4972-a15f-38e120d72ec0&limit=0",
+      "checked_at_utc": "2026-09-23T08:41:54.172705+00:00",
+      "response_sha256": "eed3c37803309b29ea7c39b0e8384c6d58ae8b1c1dbd2d6a5bd0911a192251c1",
+      "response_body_archived": false,
+      "reported_total": 415407,
+      "note": "Dictionary and reported count only. The metadata contains-all flag is false, so this API was not used as a complete-file substitute."
+    }
+  ],
+  "references": [
+    {
+      "url": "https://www.data.qld.gov.au/dataset/f3e0ca94-2d7b-44ee-abef-d6b06e9b0729/resource/e88943c0-5968-4972-a15f-38e120d72ec0",
+      "supports": "Native key, date fields, severity, casualty and unit-category definitions, and GDA2020 coordinate datum."
+    },
+    {
+      "url": "https://www.data.qld.gov.au/dataset/crash-data-from-queensland-roads",
+      "supports": "Publisher, licence, version, published coverage, property-damage reporting cutoff and preliminary-data warning."
+    },
+    {
+      "url": "https://www.tmr.qld.gov.au/_/media/safety/transport-and-road-statistics/data-request-form-explanatory-notes.pdf?extension=pdf&hash=6AA5335F3AA5D7E6771472FBBC76F719&rev=9abfb681ff3348d487ef6d4f978a486b&sc_lang=en&size=93063",
+      "document_version": "August 2018",
+      "pages": [
+        1,
+        2
+      ],
+      "supports": "Thirty-day fatality definition, hospital transport, medical treatment and minor-injury definitions."
+    },
+    {
+      "url": "https://www.ga.gov.au/scientific-topics/positioning-navigation/positioning-australia/geodesy/transform-convert",
+      "supports": "Transformation methods and independent software-validation references; not a validated GDA2020-to-WGS84 implementation."
+    },
+    {
+      "url": "https://www.nsw.gov.au/environment-land-and-water/surveying/geodesy-and-geocentric-datum-of-australia/gda2020",
+      "supports": "WGS84 web-mapping accuracy limitations and datum-mixing risks."
+    }
+  ],
+  "local_scan": {
+    "method": "Streamed the existing CSV and hashed the original bytes. Held only keys, counters and a few example rows in memory; generated no intake JSONL.",
+    "full": {
+      "rows": 415407,
+      "blank_keys": 0,
+      "duplicate_keys": 0,
+      "negative_casualty_counts": 0,
+      "invalid_casualty_counts": 0,
+      "casualty_component_total_mismatches": 0,
+      "fatal_category_vs_positive_fatality_count_mismatches": 0,
+      "coordinates_both_blank": 598,
+      "coordinates_one_side_blank": 0,
+      "invalid_nonblank_coordinates": 0,
+      "observed_year_month_pairs": 294,
+      "severity_counts": {
+        "Fatal": 6391,
+        "Hospitalisation": 133287,
+        "Medical treatment": 130109,
+        "Minor injury": 58188,
+        "Property damage only": 87432
+      },
+      "rows_by_year": {
+        "2001": 22023,
+        "2002": 22316,
+        "2003": 22393,
+        "2004": 23441,
+        "2005": 23077,
+        "2006": 22454,
+        "2007": 22847,
+        "2008": 23525,
+        "2009": 22942,
+        "2010": 22537,
+        "2011": 12689,
+        "2012": 12749,
+        "2013": 12737,
+        "2014": 12654,
+        "2015": 12159,
+        "2016": 12553,
+        "2017": 12735,
+        "2018": 12958,
+        "2019": 12965,
+        "2020": 12147,
+        "2021": 13476,
+        "2022": 13021,
+        "2023": 13622,
+        "2024": 14358,
+        "2025": 7029
+      }
+    },
+    "analysis": {
+      "year_from": 2020,
+      "year_to": 2024,
+      "rows": 66624,
+      "observed_year_month_pairs": 60,
+      "minimum_rows_in_observed_month": 645,
+      "severity_counts": {
+        "Fatal": 1304,
+        "Hospitalisation": 31922,
+        "Medical treatment": 22730,
+        "Minor injury": 10668,
+        "Property damage only": 0
+      },
+      "fatality_sum": 1424,
+      "casualty_total_sum": 88609,
+      "missing_months": 0,
+      "missing_severity": 0,
+      "missing_values_in_five_casualty_fields": 0,
+      "missing_or_invalid_coordinates": 0,
+      "outside_rough_qld_box": 0,
+      "rough_qld_box": {
+        "latitude": [
+          -30,
+          -9
+        ],
+        "longitude": [
+          137,
+          155
+        ]
+      },
+      "box_note": "A basic diagnostic only, not a geographic eligibility rule or CRS proof.",
+      "example": {
+        "row_locator": "csv:80888",
+        "Crash_Ref_Number": "80888",
+        "Crash_Year": "2021",
+        "Crash_Month": "October",
+        "Crash_Severity": "Medical treatment",
+        "Crash_Latitude": "-27.6931614585547",
+        "Crash_Longitude": "153.142678993232"
+      }
+    },
+    "native_casualty_fields": [
+      "Count_Casualty_Fatality",
+      "Count_Casualty_Hospitalised",
+      "Count_Casualty_MedicallyTreated",
+      "Count_Casualty_MinorInjury",
+      "Count_Casualty_Total"
+    ],
+    "native_unit_count_fields": [
+      "Count_Unit_Car",
+      "Count_Unit_Motorcycle_Moped",
+      "Count_Unit_Truck",
+      "Count_Unit_Bus",
+      "Count_Unit_Bicycle",
+      "Count_Unit_Pedestrian",
+      "Count_Unit_Other"
+    ],
+    "non_hospitalised_casualty_crash_observed": false
+  },
+  "published_coverage": {
+    "resource_start": "2001-01-01",
+    "resource_end": "2025-06-30",
+    "property_damage_only_reporting_end": "2010-12-31",
+    "other_page_reporting_cutoffs": {
+      "fatal": "2025-10-31",
+      "nonfatal_casualty": "2025-07-31"
+    },
+    "note": "The general reporting cutoffs are not the selected resource coverage. The dataset warns that recent events may be preliminary; no finality guarantee is inferred from the update timestamp."
+  },
+  "dictionary_discrepancy": {
+    "field": "Crash_Ref_Number",
+    "description": "The dictionary says the first four digits currently identify the crash year, but the local file uses IDs such as 1 and 2.",
+    "examples": [
+      {
+        "row_locator": "csv:1",
+        "Crash_Ref_Number": "1",
+        "Crash_Year": "2006"
+      },
+      {
+        "row_locator": "csv:2",
+        "Crash_Ref_Number": "2",
+        "Crash_Year": "2007"
+      }
+    ],
+    "proposed_handling": "Preserve the unique native key as text, scoped by source and release. Read the year from Crash_Year, never from the identifier."
+  },
+  "crs": {
+    "source_datum": "GDA2020",
+    "source_datum_supported_by_resource_dictionary_and_metadata": true,
+    "canonical_target": "EPSG:4326",
+    "conversion_implemented_or_validated_in_this_review": false,
+    "proposed_current_handling": "Keep official QLD map output disabled and preserve source coordinates in Raw. Other confirmed accident metrics can proceed.",
+    "proposed_future_boundary": "C supplies a versioned SQL location operation with explicit source/target CRS, axes, operation and parameters, accuracy and independent reference-point tests. B freezes its actual code/rule digest; E verifies QA07 before enabling map output. No new core table or mandatory PostGIS dependency.",
+    "reference_access_limits": "The EPSG operation 8450 page returned 403 and an old ICSM web-mapping PDF redirected to maintenance. No numerical conversion is claimed."
+  },
+  "proposed_team_decisions": [
+    {
+      "tasks": [
+        "D01",
+        "B09",
+        "B11",
+        "E05",
+        "E09"
+      ],
+      "decision": "Approve use of this exact pinned snapshot for QLD-only accident counts, native severity, fatal crashes, deaths and casualties for 2020-2024, subject to actual pipeline QA. Record a team release scope; do not imply publisher certification."
+    },
+    {
+      "tasks": [
+        "C05",
+        "C08",
+        "D02",
+        "D05",
+        "D06"
+      ],
+      "decision": "Use the five exact native severity values plus an explicit missing category. Fatal is true only for Fatal. Reject unregistered nonempty categories, including any new Non hospitalised casualty crash variant."
+    },
+    {
+      "tasks": [
+        "C05",
+        "C08",
+        "D03",
+        "D04",
+        "C10"
+      ],
+      "decision": "Keep occurrence_date NULL and month precision. Use native fatality and total casualty fields, validate their components, and never replace unknown counts with zero."
+    },
+    {
+      "tasks": [
+        "C05",
+        "D08",
+        "D10"
+      ],
+      "decision": "Keep Count_Unit_* as aggregate crash attributes. Do not create QLD unit/person records, relationships or a category fact table."
+    },
+    {
+      "tasks": [
+        "D01",
+        "D05",
+        "D06",
+        "D09",
+        "E10"
+      ],
+      "decision": "Describe 2020-2024 results as reported casualty crashes in the selected snapshot. No post-2010 PDO completeness claim and no harmonised cross-state total without a separate comparability rule."
+    },
+    {
+      "tasks": [
+        "D01",
+        "C05",
+        "D07",
+        "B09",
+        "C10",
+        "E05",
+        "E06"
+      ],
+      "decision": "Freeze GDA2020 as the known source datum; leave official map output unavailable until an explicit EPSG:4326 operation has been implemented and validated. Continue synthetic map development."
+    },
+    {
+      "tasks": [
+        "B09",
+        "B11",
+        "B12",
+        "E08",
+        "E09"
+      ],
+      "decision": "A new file hash or coverage change requires a new reviewed snapshot and explicit change explanation. Never treat matching counts, a recent URL or the API as proof that a future input is approved."
+    }
+  ],
+  "remaining_limits": [
+    "This receipt records research and file checks; the proposed decisions are not runtime source approval.",
+    "No official projection, database load, full QA chain, FP1 or publication test was run.",
+    "Coordinate conversion remains unvalidated; native coordinate validity is not map eligibility.",
+    "No publisher explanation was obtained for the identifier-description discrepancy.",
+    "The live CSV download was not fetched or independently compared; current metadata MD5 matches the pinned local file.",
+    "Cross-state measure comparability and snapshot finality were not certified."
+  ]
+}
