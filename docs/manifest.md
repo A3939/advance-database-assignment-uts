@@ -133,7 +133,7 @@ The [initial receipt](evidence/b09-validation-2026-09-19.json) records 302 passe
 
 Current boundaries:
 
-- **E/B:** FP1/publication are integrated and tested with S0/S8. E still owns the independent acceptance comparison; official results are recorded separately in the [official guide](official-build.md).
+- **E/B:** FP1/publication are integrated and tested with S0/S8 and the pinned official snapshots. E still owns the independent acceptance comparison; commands and limits are in the [official guide](official-build.md).
 - **A:** fixed migrations 001–011 are integrated and hashed. Shared deployments must use the same bytes and grants.
 - **B/module authors:** new source or module versions need updated contracts, real inventory hashes and relevant tests. Draft official contracts stay blocked; D09 and final platform freezing remain open.
 

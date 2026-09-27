@@ -1,10 +1,10 @@
 # ARSIA: shared development baseline
 
-Role B prepares native inputs, loads Raw, freezes manifests, checks input/Raw quality and coordinates the build. A's fixed schema/A06, C's projections and QA, D02–D08 and E's FP1/publication are integrated. S0 and S8 full builds are verified. The [official build guide](docs/official-build.md) records the pinned NSW/VIC/QLD entry, validation and remaining boundaries.
+Role B prepares native inputs, loads Raw, freezes manifests, checks input/Raw quality and coordinates the build. A's fixed schema/A06, C's projections and QA, D02–D08 and E's FP1/publication are integrated. S0, S8 and the pinned NSW/VIC/QLD full builds are verified in isolated PostgreSQL. The [official guide](docs/official-build.md) records commands, results and remaining boundaries.
 
 ## Current scope
 
-This development version extends the shared baseline from PR #17 with real S0/S8 publication and a pinned official build recipe. D09 is deferred; independent E acceptance and final platform freezing remain open.
+This development version extends the shared baseline from PR #17 with real S0/S8 publication and verified official snapshots. D09 is deferred; independent E acceptance and final platform freezing remain open.
 
 | Included | Owner |
 |---|---|
@@ -15,7 +15,7 @@ This development version extends the shared baseline from PR #17 with real S0/S8
 | D05 trend, D06 severity, D07 map and D08 unit queries, with packaged SQL | D / Yihua; B / Peixian for integration and installed-reader validation |
 | SQL FP1 and publication gate | E / Aditya; B / Peixian for reviewed fixes and integration |
 
-[D05–D08 query integration](docs/analysis-integration.md) is included through [PR #31](https://github.com/A3939/advance-database-assignment-uts/pull/31). Installed-package, inventory and reader checks passed 131 tests, including 63 PostgreSQL cases, with no skips or failures. Queries use a fixed successful batch; the tests seed that state without E publication. D09's dashboard and its real publication flow remain separate.
+[D05–D08 query integration](docs/analysis-integration.md) is included through [PR #31](https://github.com/A3939/advance-database-assignment-uts/pull/31). Its initial 131 checks used seeded successful batches. The later [official build](docs/official-build.md) verifies real E publication and restricted readers, including B's D08 performance repair. D09's dashboard is deferred.
 
 [C10 is connected to B](docs/c10-integration.md), including the [PR #28](https://github.com/A3939/advance-database-assignment-uts/pull/28) QA07 fix. The [real S0 build](docs/full-build-integration.md) and [S8 extension](docs/s8-integration.md) use all seven QA groups and E's actual FP1/publication. Earlier component receipts remain as historical evidence. Current official-scope results are recorded in the [official guide](docs/official-build.md).
 
@@ -125,6 +125,6 @@ CSV values remain text, including blanks and leading zeros; XLSX conversion foll
 
 `prepared` means native input preparation passed. The [C/D integration](docs/cd-integration.md) verifies three-source S0 loading through crash facts. C10 has an installed `qa_c` binding, and [all seven QA groups](docs/qa-joint-validation.md) have passed joint S0 component checks with persisted results. [D05–D08 reader checks](docs/analysis-integration.md) cover installed queries, permissions and fixed batches using seeded successful test states.
 
-[B12's lock checks](docs/runner-locks.md) cover session contention and early cleanup. The [B10 local validation](docs/b10-local-validation.md) covers transaction isolation, failure evidence and recovery markers. The [complete S0 runner checks](docs/full-build-integration.md) add real E publication, repeated builds, snapshot changes, concurrency and recovery. The [S8 extension](docs/s8-integration.md) is also verified. The pinned official recipe is implemented; its current run results are recorded in the [official guide](docs/official-build.md). D09 is deferred, and E's independent acceptance and final platform freezing remain open. B09/B11 retain the agreed VIC restrictions.
+[B12's lock checks](docs/runner-locks.md) cover session contention and early cleanup. The [B10 local validation](docs/b10-local-validation.md) covers transaction isolation, failure evidence and recovery markers. The [complete S0 runner checks](docs/full-build-integration.md) add real E publication, repeated builds, snapshot changes, concurrency and recovery. The [S8 extension](docs/s8-integration.md) is also verified. The [official run](docs/official-build.md) passed full-snapshot publication, rollback, retry and reader checks. D09 is deferred, and E's independent acceptance and final platform freezing remain open. B09/B11 retain the agreed VIC restrictions.
 
 The baseline is team v1.1: document 04 (L1 contracts and acceptance) and document 05 (sources and mappings, sections 1-2 and 7). The [online database design](https://arsia-team-design.vercel.app/) shows the shared model. Links in the guides to `F/` and `Resources/` refer to the shared course workspace outside this Git repository; they work locally but are unavailable in a standalone clone or on GitHub.

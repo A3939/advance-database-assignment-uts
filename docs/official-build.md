@@ -65,12 +65,12 @@ B added compatibility tests; D owns reconciliation. VIC policy bytes stay unchan
 The first full NSW unit report spent over eight minutes in its parent lookup.
 That reader query was cancelled after the build had published successfully, so
 that suite is retained as diagnostic evidence. D08 now reads eligible parents
-and units once, combines them with `UNION ALL`,
-and checks parent presence with a window over the four-part key. It counts units
+and units once, combines them with `UNION ALL`, and checks parent presence with
+a window over the four-part key. It counts units
 before joining source labels. Date filters, unit rules and reader grants remain
 unchanged. Focused validation passed 46 checks, including 28 PostgreSQL cases.
-The final full-snapshot run is pending. D owns the original report; B adds the
-repair and installed-reader checks.
+The full NSW report then returned 170,747 eligible units in 0.554 seconds on its
+first read. D owns the original report; B adds the repair and reader checks.
 
 ## Run
 
@@ -125,12 +125,26 @@ source labels, quality limits and coverage. Results remain source-specific.
 NSW unit reports are available; VIC/QLD units and all official maps return
 `status="unavailable"`, a reason and `rows=None`.
 
-**Results pending:** insert the completed full-run outcome and exact test totals
-from [the validation receipt](evidence/official-build-validation-2026-09-27.json).
-The tests cover actual publication, injected rollback, preserved S0 history,
-official retry, `no_change`, seven QA groups and native-count comparisons.
+The full verifier passed **8 tests, 0 skipped, 0 failed** on clean commit
+`d5239db471e33ce30c137e9087f712c14cc6cea0`. It took 45.0 minutes, including two
+official builds for publication rollback and retry. Actual E06 publication,
+preserved S0 history, successful retry, `no_change`, reader permissions and
+native-count comparisons all passed. The private database was then removed.
 
-C reviews B's C03/C06/C09 repairs; D reviews the D04 compatibility fix, D08 reader repair and later
+QA01–QA06 passed. QA07 was `limited` for all 230,876 analysis crashes, matching
+the unavailable maps. The database held 63 QA results: 56 concrete results and
+seven summaries. Dimensions matched all three sources, 60 months and 18 severity
+definitions, including missing and unused categories. VIC restrictions stayed
+in force.
+
+The default suite passed 970 tests with 394 optional database/archive skips.
+Accepted runs contain **1,157 distinct passing tests**, including **187 real
+PostgreSQL cases**; their totals overlap. Focused runs retain their own revisions.
+The final full run matches the current inventory and installed wheel. The
+[receipt](evidence/official-build-validation-2026-09-27.json) records exact
+commands, versions, hashes, metrics and reader timings.
+
+C reviews B's C03/C06/C09 repairs. D reviews the D04 and D08 repairs and later
 D09 interface use. E owns independent acceptance. A/E and the team confirm the
 four [E01 course decisions](e/e01-course-decisions.md). B then freezes the expanded
 inventory and repeats affected checks. `final_platform` remains false.
