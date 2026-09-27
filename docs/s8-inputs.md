@@ -1,10 +1,10 @@
 # AT15: S8 input preparation
 
-S8 adds one fictional SA crash to S0, as specified in team v1.1 document 04 §5. The expanded input has **four sources, eight resources and 20 L1 records**. The original seven S0 files and their manifest definitions stay unchanged.
+S8 adds one fictional SA crash to S0, as specified in team v1.1 document 04 §5. The expanded input has **four sources, eight resources and 20 L1 records**. The original seven S0 files and their manifest definitions stay unchanged. See [B's S8 integration](s8-integration.md) for the installed projection, full-build commands and database results.
 
 ## Definition and files
 
-[`synthetic-s8.json`](../config/synthetic-s8.json) defines the CSV fields, values, coverage and mapping for C to implement. It uses `source_id=syn_sa`, `resource_id=syn_sa_crash`, `release_scope=s0`, release label `Synthetic S8 v1` and the existing fictional `syn-1` severity categories.
+[`synthetic-s8.json`](../config/synthetic-s8.json) defines the CSV fields, values, coverage and mapping. It uses `source_id=syn_sa`, `resource_id=syn_sa_crash`, `release_scope=s0`, release label `Synthetic S8 v1` and the existing fictional `syn-1` severity categories. Peixian adds the SA projection and QA support in B's integration; C retains authorship of the original projection and QA modules.
 
 | Field | Native text |
 |---|---|
@@ -51,9 +51,9 @@ from arsia_ingest.manifest import s0_definitions
 definitions = s0_definitions("tests/fixtures/s8/contract.json")
 ```
 
-This returns four sources, eight contracts/mappings and 16 severity entries. S8 has its own version, coverage and confirmation basis; the seven S0 definitions are unchanged. Pass these definitions, the matching prepared run and the team's actual code/schema inventory to `build_manifest`, as shown in the [manifest guide](manifest.md#using-s0-and-s8). Missing module files still stop assembly. No production frozen manifest or FP1 result is included here.
+This returns four sources, eight contracts/mappings and 16 severity entries. S8 has its own version, coverage and confirmation basis; the seven S0 definitions are unchanged. `arsia_ingest.build.s8_request()` combines the matching prepared run with the actual build inventory and all seven callbacks. `synthetic_request()` takes an explicit `contract_path` for a generated variant. Both return arguments for `run_build`; they do not publish until the runner succeeds. See the [manifest guide](manifest.md#using-s0-and-s8).
 
-QA01 requires the exact mappings supported by C's installed projection. Tests explicitly supply fixture mapping support to exercise file and snapshot checks; omitting S8 support blocks with `MAPPING_UNSUPPORTED`. The bad key is deliberately outside QA01's input checks. C must reject it during business validation.
+QA01 requires the declared mappings to match the supplied supported mappings. The installed SA projection also validates its supported synthetic contract. The input-only tests explicitly supply fixture mapping support; omitting it blocks with `MAPPING_UNSUPPORTED`. QA01 preserves the bad key, which the SA business projection must reject.
 
 ## Checks and handoff
 
@@ -63,6 +63,6 @@ PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -q -p no:cacheprovider
 
 [`test_s8.py`](../tests/test_s8.py) checks native values, file hashes, counts, reproducible generation, S0 preservation, manifest assembly and QA01's mapping boundary. Manifest tests use temporary test-only code inventories. The [validation receipt](evidence/at15-b-input-validation-2026-09-19.json) records the actual results and final file hashes; earlier receipts are unchanged.
 
-C can use both fixture configurations and contracts to implement the SA business mapping and key validation. E can use the same files for independent expectations. AT15 expects 20 Raw rows, 7 crashes, 6 units, 3 fatal crashes, 4 deaths, 8 casualties and 5/7 map coverage, with the original three states unchanged. The bad-key run must fail while preserving B0. **These database and publication checks have not run.**
+AT15 expects 20 Raw rows, 7 crashes, 6 units, 3 fatal crashes, 4 deaths, 8 casualties and 5/7 map coverage, with the original three states unchanged. The bad-key run must fail while preserving B0. These constants come from the team contract; actual database results and reproduction commands are recorded separately in [S8 integration](s8-integration.md).
 
-Remaining work needs C's projection/rules, D's fact/query checks, E's FP1 and acceptance checks, and A's shared database/schema. This completes B's input preparation, not AT15 acceptance.
+B's extension reuses A's schema/A06, C's existing modules, D's dimensions/facts/queries and E's real FP1/publication gate. E can use these unchanged fixtures for an independent acceptance comparison. The older receipt remains an input-preparation record; no official SA data or whole-project acceptance is claimed.

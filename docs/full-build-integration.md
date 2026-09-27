@@ -5,6 +5,10 @@ B now connects E's FP1 and publication gate to the installed A/C/D modules.
 callbacks and the reviewed inventory. The runner commits a successful release;
 the tests do not seed its status or pointer.
 
+This page records the original three-source S0 integration. B's later
+[S8 extension](s8-integration.md) uses the same runner and adds the declared
+synthetic SA source; its commands and results are recorded separately.
+
 ## Versions and ownership
 
 - B base: `6ec0f892519e83ee028cc987ed7c9479d1b24648`.
@@ -22,14 +26,17 @@ independent approval by E.
 ## Entry and inventory
 
 `src/arsia_ingest/build.py` contains `build_modules()`, `FP1`, `fp1_sql()` and
-`s0_request()`. It reuses `components.bindings()` and adds E's real `publish`.
+`synthetic_request()`, `s0_request()` and `s8_request()`. The two named recipes
+select the checked-in S0 or S8 contract; `synthetic_request()` takes an explicit
+contract path. They reuse `components.bindings()` and add E's real `publish`.
 The SQL resource `src/arsia_ingest/sql/fp1.sql` is byte-identical to E's
 `sql/e/fp1.sql`; both are hashed and the installed resource is checked.
 
 `config/build-inventory.json` includes all 11 component groups, every runtime
 Python/SQL/JSON file, requirements, package metadata and A's 11 migrations.
-`complete_build: true` describes this three-source S0 build. `final_platform:
-false` keeps D09, S8 and official acceptance outside that claim. Existing
+`complete_build: true` describes the installed synthetic build, including S0 and
+S8. `final_platform: false` keeps D09 and official/platform acceptance outside
+that claim. Existing
 component inventories remain partial. Their package hashes were refreshed.
 
 The runtime checks the declared hashes before freezing. After reviewing a code
@@ -58,8 +65,9 @@ print(result.as_dict())
 `connect_loader` is A's connection factory; keep credentials outside the repo.
 Use the same native archive root for successive snapshots. QA01 reads previous
 file versions from that store. For a generated S0 variant, pass its
-`contract.json` as `contract_path`. This recipe rejects a fourth source rather
-than claiming an unimplemented S8 projection.
+`contract.json` as `contract_path`. For S0 plus SA, prepare the S8 inputs and use
+`s8_request()` as shown in the [S8 guide](s8-integration.md). Source support is
+checked by the installed projections; the runner has no fixed source count.
 
 ## Reproduce
 
@@ -82,7 +90,7 @@ It creates no persistent volume and never uses a shared database.
 
 ## Checks and limits
 
-The selected suite passed **334 tests**, including **112 PostgreSQL cases**
+The original S0 integration suite passed **334 tests**, including **112 PostgreSQL cases**
 (61 new runner cases and 51 E regressions), with no skips or failures. The
 installed default suite passed **812 tests**, with 377 optional checks skipped.
 These totals overlap. The [receipt](evidence/full-build-validation-2026-09-27.json)
@@ -110,8 +118,8 @@ to damage test QA rows, then restore `arsia_loader` before the real E gate.
 A03 grants are unchanged. Failure wrappers call the real module before raising;
 they are test probes, not alternate production bindings.
 
-Remaining work: D supplies/reviews D09; C/D/B extend S8 and verify admitted
-official inputs; E runs an independent acceptance comparison; A/E confirm the
+Remaining work: D supplies/reviews D09; the team verifies admitted official
+inputs; E runs an independent acceptance comparison; A/E confirm the
 four open course decisions in `docs/e/e01-course-decisions.md`. B then freezes
 that expanded platform inventory and reruns the relevant acceptance cases.
 No official release, dashboard acceptance or team-wide completion is claimed.

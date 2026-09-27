@@ -51,6 +51,7 @@ PRs #4–#26 listed above and PR #28 were merged. Peixian merged PR #28 with C's
 | [C10 integration](../c10-integration.md) | Connected C's merged QA callback to B, included C06 resources, updated inventory and added clean-wheel and real PostgreSQL interface tests |
 | [S0 QA01–QA07 joint validation](../qa-joint-validation.md) | Added 23 real database cases across all seven producers, verified 56 concrete results and seven summaries, and preserved rollback/history evidence; 125 focused checks passed |
 | [PR #16 review](https://github.com/A3939/advance-database-assignment-uts/pull/16#pullrequestreview-5312480114) | Reproduced E's FP1 deployment, permission and publication-gate defects and published a request-changes review; E owns the original modules; B repairs are in PR #30 |
+| [AT15 / S8 extension](../s8-integration.md) | Implemented the synthetic SA projection, independent Raw QA support, four-source build recipe and inventory; added installed PostgreSQL publication, history, reader and failure checks. Original A/C/D/E modules remain credited. |
 | [Real S0 build integration](../full-build-integration.md) | Connected E to B with real FP1/publication, packaged SQL, full S0 inventory, installed PostgreSQL lifecycle checks and snapshot/history tests; re-ran E regressions |
 | [D05–D08 query integration](../analysis-integration.md) | Retained D's original authorship and unchanged runtime, added package resources, actual analysis inventory, 20 new database cases and installed reader validation; 131 focused checks passed |
 
