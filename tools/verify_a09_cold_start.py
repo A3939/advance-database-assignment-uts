@@ -22,7 +22,8 @@ ROOT = Path(__file__).resolve().parents[1]
 IMAGE = "postgres:16-bookworm@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67"
 CONTRACT_PATH = ROOT / "config/schema-v1.1.json"
 AUDIT_PATH = ROOT / "sql/tests/a03_database_roles.sql"
-DEFAULT_DICTIONARY = ROOT.parent / "ARSIA-Team-Handoff-EN 2/02-Database-Field-Dictionary.md"
+DEFAULT_DICTIONARY = ROOT / "docs/contracts/database-field-dictionary-v1.1.md"
+SMOKE_PATH = ROOT / "sql/tests/a09_review_fixes.sql"
 
 
 def utc_now() -> str:
@@ -321,6 +322,8 @@ def main() -> int:
                 "path": str(AUDIT_PATH.relative_to(ROOT)),
                 "sha256": digest(AUDIT_PATH),
             },
+            "verifier": {"path": "tools/verify_a09_cold_start.py", "sha256": digest(Path(__file__))},
+            "smoke_test": {"path": str(SMOKE_PATH.relative_to(ROOT)), "sha256": digest(SMOKE_PATH)},
             "git_head": run(["git", "-C", ROOT, "rev-parse", "HEAD"]).stdout.strip(),
             "working_tree": run(["git", "-C", ROOT, "status", "--short"]).stdout.splitlines(),
         },
@@ -339,12 +342,13 @@ def main() -> int:
             env_file.write_text(
                 "POSTGRES_USER=arsia_owner\n"
                 "POSTGRES_DB=arsia\n"
+                "POSTGRES_INITDB_ARGS=--encoding=UTF8 --locale=C.UTF-8\n"
                 f"POSTGRES_PASSWORD={password}\n",
                 encoding="utf-8",
             )
             env_file.chmod(0o600)
-            run([args.docker, *container_arguments(name, str(env_file))])
             started = True
+            run([args.docker, *container_arguments(name, str(env_file))])
 
         for _ in range(150):
             ready = subprocess.run(
@@ -373,6 +377,10 @@ def main() -> int:
             name,
             "SELECT version(); SELECT current_setting('server_encoding'); SELECT current_setting('TimeZone');",
         ).splitlines()
+        if evidence["environment"]["postgresql"][1:] != ["UTF8", "UTC"]:
+            raise AssertionError("Expected UTF8 encoding and UTC timezone")
+        if not evidence["environment"]["postgresql"][0].startswith("PostgreSQL 16."):
+            raise AssertionError("Expected PostgreSQL 16")
 
         for migration in migrations:
             output_text = psql(args.docker, name, migration.read_text(encoding="utf-8"))
@@ -437,33 +445,32 @@ def main() -> int:
         )
         if smoke["crash_key"] != '["0001"]' or smoke["unit_key"] != '["0001", "01"]':
             raise AssertionError("Business-key smoke values changed")
-        if "location_record_id IS NOT NULL" not in smoke["map_constraint"]:
+        if "location_crs IS NOT NULL" not in smoke["map_constraint"]:
             raise AssertionError("Migration 011 map constraint is not active")
+        psql(args.docker, name, SMOKE_PATH.read_text(encoding="utf-8"))
         evidence["checks"]["migration_011_smoke"] = {"status": "passed", **smoke}
 
+        counts_sql = " UNION ALL ".join(
+            f"SELECT '{table}' AS table_name, count(*) AS row_count FROM {table}"
+            for table in sorted(actual["tables"])
+        )
         row_counts = json_query(
             args.docker,
             name,
-            """
-            SELECT jsonb_object_agg(table_name, row_count ORDER BY table_name)
-            FROM (
-                SELECT format('%I.%I', schemaname, relname) AS table_name,
-                       n_live_tup::bigint AS row_count
-                FROM pg_catalog.pg_stat_user_tables
-                WHERE schemaname IN ('meta', 'raw', 'rv', 'canonical', 'dw', 'qa')
-            ) AS counts;
-            """,
+            "SELECT jsonb_object_agg(table_name, row_count ORDER BY table_name) "
+            f"FROM ({counts_sql}) AS counts;",
         )
         if any(row_counts.values()):
             raise AssertionError("A fresh schema unexpectedly contains application rows")
         evidence["checks"]["empty_schema"] = {"status": "passed", "row_counts": row_counts}
         evidence["status"] = "passed"
     except Exception as error:  # Evidence must survive a failed diagnostic run.
-        evidence["error"] = {"type": type(error).__name__, "message": str(error)}
+        evidence["error"] = {"type": type(error).__name__, "message": str(error),
+                             "stderr": getattr(error, "stderr", None)}
     finally:
         if started:
             removal = subprocess.run(
-                [args.docker, "rm", "-f", name],
+                [args.docker, "rm", "-fv", name],
                 capture_output=True,
                 text=True,
             )

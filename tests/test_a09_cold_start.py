@@ -1,6 +1,10 @@
 import importlib.util
 import json
 from pathlib import Path
+import subprocess
+import sys
+
+import pytest
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -48,3 +52,37 @@ def test_verifier_uses_pinned_temporary_postgres():
     assert "--tmpfs" in tool.container_arguments("example", "/tmp/example.env")
     assert "127.0.0.1::5432" in tool.container_arguments("example", "/tmp/example.env")
     assert "/var/lib/postgresql/data" in tool.container_arguments("example", "/tmp/example.env")
+
+
+def test_dictionary_is_in_checkout_and_matches_frozen_contract():
+    tool = load_tool()
+    contract = json.loads(CONTRACT_PATH.read_text(encoding='utf-8'))
+    assert tool.DEFAULT_DICTIONARY.is_relative_to(ROOT)
+    assert tool.digest(tool.DEFAULT_DICTIONARY) == contract['dictionary']['sha256']
+
+
+@pytest.mark.parametrize('kind', ['missing', 'changed'])
+def test_bad_dictionary_stops_before_docker_from_another_directory(tmp_path, kind):
+    dictionary = tmp_path / 'dictionary.md'
+    if kind == 'changed':
+        dictionary.write_text('Different dictionary', encoding='utf-8')
+    result = subprocess.run([
+        sys.executable, str(TOOL_PATH), '--output', str(tmp_path / 'receipt.json'),
+        '--dictionary', str(dictionary), '--docker', str(tmp_path / 'no-docker'),
+    ], cwd=tmp_path, text=True, capture_output=True)
+    assert result.returncode == 2
+    assert ('required' if kind == 'missing' else 'SHA256 does not match') in result.stderr
+    assert not (tmp_path / 'receipt.json').exists()
+
+
+@pytest.mark.parametrize('script', ['verify_a09_cold_start.py', 'verify_a01_lifecycle.py',
+                                   'verify_a09_synthetic.py'])
+def test_existing_evidence_is_never_overwritten(tmp_path, script):
+    output = tmp_path / 'evidence'
+    output.write_text('retain this failed run', encoding='utf-8')
+    result = subprocess.run([
+        sys.executable, str(ROOT / 'tools' / script), '--output', str(output),
+    ], cwd=tmp_path, text=True, capture_output=True)
+    assert result.returncode == 2
+    assert output.read_text(encoding='utf-8') == 'retain this failed run'
+    assert 'Traceback' not in result.stderr

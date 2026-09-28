@@ -1,0 +1,15 @@
+{
+  "tests": 335,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "pytest_exit_code": 0,
+  "exit_code": 0,
+  "permissions": "Original A03 audit passed before and after",
+  "final_tables_empty": true,
+  "publication_performed": true,
+  "boundary": "D09, official replay, S8 and independent E/platform acceptance remain separate",
+  "publication_scope": "Private synthetic test database; no official release",
+  "full_s0_build_verified": true,
+  "final_platform_accepted": false
+}

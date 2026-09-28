@@ -1,0 +1,63 @@
+{
+  "contract": "a01-a09-handoff-evidence-v1",
+  "implementation_commit": "0a6b7b12c9506bc319ecac0b286c4a3fff1c043c",
+  "original_a09_commit": "43d0fd040f743132b90f0808f2c51e770bdf2972",
+  "b_runtime_commit": "562de2910bfd7be276b3036983e5680d436fde1e",
+  "executor": "Role B / Peixian",
+  "scope": "A component setup and installed synthetic S0 replay; no E09 independent or final platform acceptance",
+  "files": [
+    {
+      "path": "default-summary.json",
+      "sha256": "c89a3073daed0a9d657a73c5b729f6035463df5674bdc18be7294d39f2f5ace4",
+      "bytes": 572
+    },
+    {
+      "path": "lifecycle.json",
+      "sha256": "b2724a4df7e02d483cd5ead65c4fc070ccc138ace9e64c73c8246689c6a89afa",
+      "bytes": 3691
+    },
+    {
+      "path": "s0-cleanup.json",
+      "sha256": "dd6c342ffc50b3dffa4f4589ce62db4717028710f86e01df8d33b66f0775733e",
+      "bytes": 134
+    },
+    {
+      "path": "s0-environment.json",
+      "sha256": "a0c3132d813f8f18e3d68d3f024c228b53d3c1be37382574e8c95b31b32fa0c4",
+      "bytes": 401
+    },
+    {
+      "path": "s0-final-state.json",
+      "sha256": "dbc4b9c36a78e26384cbe23a4d657bae8af990f1ab2bbf3300c91aedc6becd18",
+      "bytes": 451
+    },
+    {
+      "path": "s0-inputs.json",
+      "sha256": "52a5b843260c727db1ef77f0897ddfdf2f9bbdcea85326f68799784c51a428a7",
+      "bytes": 96093
+    },
+    {
+      "path": "s0-pytest.xml",
+      "sha256": "086a69985b76aa00080e62f2de0390a8f7212319d26484b055946c4d9e3f2f67",
+      "bytes": 45007
+    },
+    {
+      "path": "s0-receipt.json",
+      "sha256": "7acff8e89f1704a202a46c0268a78f497d612020acd7e91778e55cf8cc404582",
+      "bytes": 8666
+    },
+    {
+      "path": "s0-summary.json",
+      "sha256": "b4e1e6c6e3d6f19768ab1332336a32d6d386ebf22376f989bfa37bd972a4504d",
+      "bytes": 481
+    },
+    {
+      "path": "schema.json",
+      "sha256": "2619b03945d9db4d1e94fd386b6fe2a14924af0362a1bcb25c678d708f2aa6a0",
+      "bytes": 21373
+    }
+  ],
+  "local_full_outputs": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/artifacts/role-a-completion-20260928/verified-commit",
+  "default_test_report": "default-tests.xml",
+  "initial_diagnostic_outputs": "A checkout artifacts/a-first and artifacts/a-second; failed initial Compose start --wait and pre-refresh inventory checks retained locally."
+}

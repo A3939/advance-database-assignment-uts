@@ -144,7 +144,7 @@
     },
     {
       "path": "requirements-db.txt",
-      "sha256": "28936395acc85dae2c3bac9c374edde94f2e0a1a2be51a2cafa6c51ebd68ef3f"
+      "sha256": "09f73f187f5349047e190a3b91eca2ad85e718660108613991c003cabe09f9e1"
     },
     {
       "path": "requirements-dev.txt",

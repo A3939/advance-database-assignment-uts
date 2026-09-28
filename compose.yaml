@@ -9,7 +9,7 @@ services:
       TZ: UTC
     command: ["postgres", "-c", "timezone=UTC", "-c", "log_timezone=UTC"]
     ports:
-      - "127.0.0.1:55432:5432"
+      - "127.0.0.1:${ARSIA_DB_PORT:-55432}:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:

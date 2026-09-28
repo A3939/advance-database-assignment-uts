@@ -1,183 +1,190 @@
-# A09 cold-start and schema-maintenance guide
+# A01/A09 environment and cold start
 
-This guide rebuilds the Role A database component from an empty PostgreSQL 16
-instance and checks the resulting schema against the team v1.1 field
-dictionary. It is intentionally narrower than the complete platform cold
-start: AT17, official/full-scale data, publication, and unfinished C/D/E
-modules remain outside this run.
+Use this guide for three separate checks: A's empty database, Compose data
+retention, and the installed S0 build. Each check creates its own PostgreSQL
+instance. None uses a shared database or proves independent E09 acceptance.
 
-## What this verifies
+## Versions and inputs
 
-- PostgreSQL starts from temporary empty storage with UTF-8 and UTC settings.
-- Migrations `001` through `011` are present and run once in filename order.
-- The resulting six application schemas contain exactly 17 tables and 129
-  fields with the expected order, PostgreSQL type and NULL rule.
-- The catalog contains 17 primary keys, 30 foreign keys, 6 UNIQUE constraints
-  and 46 CHECK constraints.
-- Schema ownership, the three application roles and the A03 permission audit
-  still match the least-privilege design.
-- `rv.encode_business_key()` preserves ordered text and leading zeroes, and
-  migration `011`'s corrected map constraint is active.
-- No application rows or persistent database volume remain after the run.
+- Tested Python: **3.12.6**, recorded in `.python-version`.
+- PostgreSQL: **16.15**, from the digest pinned in `compose.yaml` and the tools.
+- Tested Docker Engine: **28.5.2**; Compose: **2.40.3**.
+- Python packages: `requirements-db.txt` includes the pinned runtime, test,
+  build and database dependencies, including `typing_extensions`.
+- Schema: A's fixed commit `c0824da06b6e7b3f73c4ddeab2114d10b7156913`,
+  migrations `001–011`. Their contents and A03 grants are unchanged.
+- Dictionary: [the committed v1.1 copy](contracts/database-field-dictionary-v1.1.md),
+  SHA-256 `99a4835bf2c63d5b0eb5f7e642b19e54613c02fb676c88aef07d60dec2933298`.
+  Its bytes match the original team handoff. No separate handoff folder is needed.
+- Runnable B integration: `562de2910bfd7be276b3036983e5680d436fde1e`
+  on `peixian/dev`. This A branch retains the older shared application baseline;
+  the S0 tool fetches the fixed B revision into a separate directory.
 
-The executable contract is [`config/schema-v1.1.json`](../config/schema-v1.1.json).
-It is derived from *Complete Database Field Dictionary*, whose SHA-256 is
-`99a4835bf2c63d5b0eb5f7e642b19e54613c02fb676c88aef07d60dec2933298`.
-Keeping the expected inventory in Git lets a reviewer see exactly which
-dictionary version is tested instead of comparing the database with itself.
+Install Python 3.12.6, Git and Docker with Compose, then start Docker. These
+commands work on macOS/Linux. Repository access and package/image downloads
+need network access. The synthetic checks need no official data or Git LFS
+objects. Use new output paths for each run; keep failed receipts too.
 
-## Prerequisites
+## 1. Install A's test dependencies
 
-Use macOS or Linux with:
+From this checkout:
 
-- Python 3.12;
-- Docker with the daemon running;
-- a checkout containing the team field dictionary beside this repository at
-  `../ARSIA-Team-Handoff-EN 2/02-Database-Field-Dictionary.md`.
-
-The verifier does not use the shared Compose database, ask for a password, or
-create a Docker volume. It generates a short-lived random password in a
-mode-0600 temporary file, starts the pinned PostgreSQL image on a random
-loopback port, and removes the container in `finally` even when a check fails.
-
-## Reproduce the database cold start
-
-Run from the repository root:
-
-```bash
-./.venv/bin/python -m pytest -q -p no:cacheprovider tests/test_a09_cold_start.py
+```sh
+python3.12 -m venv .venv
+.venv/bin/python -m pip install -r requirements-db.txt
+.venv/bin/python -m pip check
+.venv/bin/python -m pytest -q tests/test_a09_cold_start.py
 ```
 
-The small test first checks the committed contract, exact migration sequence
-and temporary-container safety flags. It does not start Docker.
+The tests check the dictionary, migration sequence, private-container flags,
+invalid dictionary handling and protection of existing receipts.
 
-Then run the actual empty-environment reproduction:
+## 2. Rebuild A's database
 
-```bash
-PYTHONDONTWRITEBYTECODE=1 ./.venv/bin/python tools/verify_a09_cold_start.py \
-  --output docs/evidence/a09-cold-start-2026-09-26.json
+```sh
+.venv/bin/python tools/verify_a09_cold_start.py \
+  --output artifacts/a-handoff/schema.json
 ```
 
-Success prints `"status": "passed"`, `"migrations_applied": 11`, catalog
-counts and `"container_removed": true`. The JSON evidence records:
+This starts an empty database with temporary storage, applies `001–011`, and
+compares the live catalog with `config/schema-v1.1.json`: 17 tables, 129 fields,
+17 primary keys, 30 foreign keys, 6 UNIQUE and 46 CHECK constraints. It checks
+column order, types, NULL rules, ownership, roles, UTF8 and UTC.
 
-- Git revision and dirty working-tree paths;
-- Python, operating system and pinned container image;
-- the dictionary, contract, audit and migration SHA-256 values;
-- all migration results;
-- the complete observed table/column inventory;
-- constraint, ownership, role, permission and migration-011 checks;
-- empty final table counts and cleanup result;
-- explicit executed and unexecuted scope.
+The unchanged A03 audit tests the permission boundary. The additional 011
+smoke check rejects blank/Unicode-whitespace keys and map eligibility without
+confirmed WGS84 CRS. Its temporary `LIKE` table copies CHECK constraints, not
+foreign keys; it is not a foreign-key behaviour test. Exact `COUNT(*)` queries
+confirm all 17 application tables are empty after rollback. The tool removes
+its container and prints `status: passed` only if validation and cleanup pass.
 
-Do not edit a failed receipt into a pass. Diagnose the failure, remove the
-failed receipt, correct the source problem, and create a new recorded run.
+## 3. Check Compose lifecycle and real role logins
 
-## Recorded validation on 2026-09-26
-
-The committed evidence is
-[`docs/evidence/a09-cold-start-2026-09-26.json`](evidence/a09-cold-start-2026-09-26.json).
-The run started a fresh pinned PostgreSQL 16 container, applied all 11
-migrations, passed the A03 permission audit and removed the container without
-creating a persistent volume.
-
-| Check | Result |
-|---|---:|
-| Migrations applied | 11 |
-| Physical tables | 17 |
-| Fields | 129 |
-| Primary / foreign keys | 17 / 30 |
-| UNIQUE / CHECK constraints | 6 / 46 |
-| A09 targeted tests | 3 passed |
-| Default regression suite | 618 passed, 155 skipped |
-
-The default-suite skips require optional PostgreSQL DSNs, source archives or
-isolated integration verifiers. They are not counted as passes. The A09
-database checks were executed separately by the disposable verifier and are
-recorded in the JSON evidence; no failure was hidden as a skip.
-
-## Manual Compose development setup
-
-The disposable verifier is the acceptance path. For ordinary local
-development, set your own owner password only in the current shell:
-
-```bash
-read -r -s -p 'arsia_owner database password: ' ARSIA_DB_PASSWORD
-export ARSIA_DB_PASSWORD
-docker compose config --quiet
-docker compose up -d db
-docker compose ps db
+```sh
+.venv/bin/python tools/verify_a01_lifecycle.py \
+  --output artifacts/a-handoff/lifecycle.json
 ```
 
-Apply migrations only to a new database and in ascending order:
+This creates a random Compose project, loopback port, password and named
+volume. It applies the same schema, checks real TCP logins as `arsia_loader`
+and `arsia_reader`, and commits one synthetic source record. It then verifies:
 
-```bash
+- `stop` followed by `start` retains that record;
+- `restart` retains it;
+- `down` followed by `up` creates a new container and retains the named-volume data;
+- the A03 permission audit still passes after recreation.
+
+Only this private project's container, network and volume are removed at the
+end. The receipt confirms cleanup. No global Docker cleanup is used.
+
+## 4. Install and run the complete synthetic S0 build
+
+```sh
+.venv/bin/python tools/verify_a09_synthetic.py \
+  --output artifacts/a-handoff/synthetic
+```
+
+The tool clones the fixed B revision over SSH, creates another fresh venv,
+installs both sets of pinned requirements, builds and installs a wheel, then
+runs B's real PostgreSQL verifier outside the runtime source directory.
+For HTTPS authentication, add:
+
+```text
+--repository https://github.com/A3939/advance-database-assignment-uts.git
+```
+
+The verifier checks installed package bytes and inventory hashes before
+loading. It compares A's migrations and permission audit byte for byte. S0
+then runs the actual A/B/C/D/E callbacks, FP1, QA01–QA07, private synthetic
+publication, retry/failure handling and recovery. Success must include
+`full_s0_build_verified: true` and `final_platform_accepted: false`.
+
+Outputs include `receipt.json`, numbered command logs, and `full-build/`
+with test XML, input hashes, permission audits, final table counts and cleanup.
+The cloned runtime, wheel and venv remain local for inspection; the database
+is disposable. Do not commit venvs, source archives or credentials.
+
+## Local development with Compose
+
+Choose a project name and free port. Generate an ignored password file once:
+
+```sh
+python3.12 - <<'PY'
+import os
+from pathlib import Path
+import secrets
+with Path('.env').open('x', encoding='utf-8') as stream:
+    os.chmod('.env', 0o600)
+    stream.write('ARSIA_DB_PASSWORD=' + secrets.token_urlsafe(30) + '\n')
+    stream.write('ARSIA_DB_PORT=55432\n')
+PY
+docker compose -p arsia-local config --quiet
+docker compose -p arsia-local up -d --wait db
+```
+
+An existing `.env` is not overwritten. Port 55432 is the default; change
+`ARSIA_DB_PORT` if it is in use. Shell values override `.env` values. Apply
+migrations **once**, only to a new empty database:
+
+```sh
 for migration in sql/migrations/*.sql; do
-  psql -h 127.0.0.1 -p 55432 -U arsia_owner -d arsia -W \
-    -v ON_ERROR_STOP=1 -f "$migration" || break
+  docker compose -p arsia-local exec -T db \
+    psql -X -v ON_ERROR_STOP=1 -U arsia_owner -d arsia < "$migration" || break
 done
 ```
 
-This loop stops on the first error. The migrations are not a repeatable reset
-script: `CREATE TABLE` and `CREATE ROLE` correctly fail if replayed against an
-already provisioned database. Use a new disposable database for proof instead
-of manually dropping constraints or editing tables until the script passes.
+Stop on any error and use a fresh test database to diagnose it. Do not rerun
+the whole migration sequence on an existing database. Set local role passwords
+interactively; no extra grants are needed:
 
-After migration `009`, set local login passwords interactively if human or
-application connections are needed:
-
-```bash
-psql -h 127.0.0.1 -p 55432 -U arsia_owner -d arsia -W \
-  -c '\password arsia_loader'
-psql -h 127.0.0.1 -p 55432 -U arsia_owner -d arsia -W \
-  -c '\password arsia_reader'
+```sh
+docker compose -p arsia-local exec db psql -X -U arsia_owner -d arsia -c '\password arsia_loader'
+docker compose -p arsia-local exec db psql -X -U arsia_owner -d arsia -c '\password arsia_reader'
 ```
 
-Passwords do not belong in migrations, Git, evidence files or terminal
-arguments. A protected PostgreSQL passfile or credential manager is preferable
-for longer-lived environments.
+B connects to `host=127.0.0.1 port=55432 dbname=arsia user=arsia_loader`.
+Supply its password through a protected PostgreSQL passfile or your local
+credential setup. Never commit a password or put it in a receipt.
 
-## Migration order and maintenance rules
+```sh
+docker compose -p arsia-local stop db
+docker compose -p arsia-local start db
+docker compose -p arsia-local restart db
+docker compose -p arsia-local down
+```
 
-| Range | Responsibility |
+These commands retain the named volume. A later `up -d --wait db` reuses it.
+`down --volumes` deletes that project's database: use it only when intentionally
+removing a disposable project. `restart` does not apply changed Compose config;
+use `up -d` for configuration changes. See Docker's
+[down](https://docs.docker.com/reference/cli/docker/compose/down/) and
+[restart](https://docs.docker.com/reference/cli/docker/compose/restart/) references.
+
+## Schema maintenance and failures
+
+| Migrations | Content |
 |---|---|
-| `001–002` | Source/resource registry and append-only Raw records. |
-| `003` | Initial restricted loader role required by early Raw integration. |
-| `004` | Build batches and successful current-release pointer. |
-| `005` | Two Hubs, two Satellites and the crash–unit Link. |
-| `006` | Typed Canonical crash and unit tables. |
-| `007` | Source/month/severity dimensions and crash fact. |
-| `008` | Persisted QA results. |
-| `009` | Final migrator/loader/reader ownership and privileges. |
-| `010` | Shared ordered JSON business-key encoder. |
-| `011` | Review fixes for map eligibility and Unicode whitespace keys. |
+| 001–004 | Source/resource registry, Raw, initial loader role, batches and release pointer |
+| 005–008 | Vault, Canonical, dimensions/facts and QA |
+| 009 | Final migrator/loader/reader ownership and privileges |
+| 010–011 | Ordered business keys, map eligibility and whitespace fixes |
 
-Never modify an already shared migration silently. Add the next numbered
-migration for a schema change, state the dependency, update
-`config/schema-v1.1.json` only after the governing dictionary/contract changes,
-and rerun A09 in a fresh container. A changed migration SHA is evidence of a
-different build input even when its filename is unchanged.
+Add a new numbered migration for a schema change. Do not edit an applied
+migration. Update the dictionary and schema contract only after team agreement,
+then rerun in an empty database. A changed hash is a different build input.
 
-## Failure diagnostics
+If Docker or Git access fails, fix access and rerun with a new output path.
+For dictionary/hash errors, restore the pinned input. For schema or permission
+errors, inspect the receipt and migrations; do not grant wider privileges or
+patch live tables to get a pass. Retain failed receipts. If cleanup fails,
+inspect the exact container/project named in that receipt and remove only
+those private test resources.
 
-| Symptom | Meaning and action |
-|---|---|
-| Docker cannot connect | Start Docker Desktop/daemon, then retry. No database work has begun. |
-| Image cannot be pulled | Check network/registry access. Do not substitute an unpinned image in recorded evidence. |
-| Missing dictionary or SHA mismatch | Use the exact v1.1 handoff file; do not update the pinned hash without a reviewed contract revision. |
-| Missing migration number | Restore the required migration or intentionally version a new schema contract. Gaps are rejected before Docker starts. |
-| Migration fails | Inspect the named migration and its dependency. Never patch the live database manually. |
-| Table/field mismatch | Compare the recorded actual inventory with `config/schema-v1.1.json`; fix migration or reviewed contract, not the evidence. |
-| Constraint-count mismatch | Inspect `pg_constraint`; a table can have correct columns while losing referential or validation rules. |
-| A03 audit fails | Ownership or grants changed. Review migration `009` and avoid granting broad PUBLIC access. |
-| Cleanup is false | Run `docker ps -a --filter label=arsia.scope=a09-cold-start`, inspect the named container, then remove that exact disposable container. |
+## Evidence and remaining acceptance
 
-## Acceptance boundary
-
-This run proves that an independent member can reproduce the **database
-component** without private secrets, a pre-existing volume or manual schema
-repairs. It does not prove that every application module is installed, that
-the complete B10 runner succeeds, that official data loads at full scale, or
-that E's publication/AT17 acceptance is complete. E09 must still run the
-independent full-platform replay after all required modules and publication
-functions are integrated.
+JJ's [26 September record](evidence/a09-cold-start-2026-09-26.json) is retained.
+The [A handoff](a01-a09-handoff.md) links the new replay and its actual results.
+Peixian ran it as the assisting B integrator, outside JJ's original environment.
+This completes the recorded A component and runnable S0 setup checks. E09 still
+owns independent acceptance. Dashboard work, official publication and final
+course/team sign-off are separate; no permission or acceptance is inferred.

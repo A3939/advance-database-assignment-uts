@@ -1,0 +1,942 @@
+{
+  "contract": "a09-cold-start-evidence-v1",
+  "status": "passed",
+  "started_at": "2026-09-28T10:13:22+00:00",
+  "finished_at": "2026-09-28T10:13:25+00:00",
+  "scope": {
+    "executed": "Fresh PostgreSQL 16 database component through migrations 001-011",
+    "not_executed": "Complete platform AT17, official/full-scale data, publication and remaining C/D/E modules"
+  },
+  "environment": {
+    "python": "3.12.6 (v3.12.6:a4a2d2b0d85, Sep  6 2024, 16:08:03) [Clang 13.0.0 (clang-1300.0.29.30)]",
+    "platform": "macOS-27.0-arm64-arm-64bit",
+    "image": "postgres:16-bookworm@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67",
+    "temporary_storage": true,
+    "persistent_volume_created": false,
+    "postgresql": [
+      "PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+      "UTF8",
+      "UTC"
+    ]
+  },
+  "inputs": {
+    "schema_contract": {
+      "path": "config/schema-v1.1.json",
+      "sha256": "acd9162cee66157f47f573460794697dc99ba658db385f00979db7f90d12f72a"
+    },
+    "dictionary": {
+      "path": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/artifacts/c03-package-backport-20260925/checkout/docs/contracts/database-field-dictionary-v1.1.md",
+      "sha256": "99a4835bf2c63d5b0eb5f7e642b19e54613c02fb676c88aef07d60dec2933298"
+    },
+    "migrations": [
+      {
+        "path": "sql/migrations/001_meta_registry.sql",
+        "sha256": "b44608c4baee8ce1d4ac6c3912a1a7d671772a1b305a32976b10f7bf00fe1893"
+      },
+      {
+        "path": "sql/migrations/002_raw_record.sql",
+        "sha256": "550c022b204380af2c0b2ffffc48295df3b562fd217f99a62f392d8db15eb059"
+      },
+      {
+        "path": "sql/migrations/003_b08_loader_role.sql",
+        "sha256": "e84a2d122bcb8f5edd6ffeb9974ef48eac3910ae801d5a929286734978f9269d"
+      },
+      {
+        "path": "sql/migrations/004_meta_batch.sql",
+        "sha256": "5c828f4071cab7ea097ee5b001aa6aca8fb567f04889a091a02842cf14fbb801"
+      },
+      {
+        "path": "sql/migrations/005_raw_vault.sql",
+        "sha256": "36fedf6f1c6b128e8006ad2e76815c44099c5557de8140deb04e599d4c4f14f8"
+      },
+      {
+        "path": "sql/migrations/006_canonical.sql",
+        "sha256": "c6b414f581d15183d89d98bebda71f373827a945d9e3eb2d9a60e699054e37dd"
+      },
+      {
+        "path": "sql/migrations/007_warehouse.sql",
+        "sha256": "32add012cc1f2919e0aa07926fea86922999b02dd37bb070e4bb2b6247fc87ee"
+      },
+      {
+        "path": "sql/migrations/008_qa.sql",
+        "sha256": "408c3775b218808fceb40a4119f8e5f20735664e1775671f5876d838b6219e29"
+      },
+      {
+        "path": "sql/migrations/009_database_roles.sql",
+        "sha256": "cd1b8f3c4969111cab71777ea063dfe89e69dc29566dbd779c708e2f889d03d5"
+      },
+      {
+        "path": "sql/migrations/010_business_key.sql",
+        "sha256": "de7a14a6df0c0336c7f40c2178159e0f53a4f702da44cde9a20c53a95443d922"
+      },
+      {
+        "path": "sql/migrations/011_review_validation_fixes.sql",
+        "sha256": "fb4d03819dbb4a37366aa5b3cb59fe4e8bec0d76eae3fcfbc3783ebb13f51de6"
+      }
+    ],
+    "permission_audit": {
+      "path": "sql/tests/a03_database_roles.sql",
+      "sha256": "403fbfcbaaf6b6a755121e18e50c9cae007acada97eb22cee2d7254f360bc03a"
+    },
+    "verifier": {
+      "path": "tools/verify_a09_cold_start.py",
+      "sha256": "9d310153460b0db775dceceda3d7b22063a96cee2def41d9dfb8b322a5d6eba2"
+    },
+    "smoke_test": {
+      "path": "sql/tests/a09_review_fixes.sql",
+      "sha256": "32ec0bf335f8e8a80cb977036dcbae25f732a9db2370bb9a2c375ab8e515fcf3"
+    },
+    "git_head": "0a6b7b12c9506bc319ecac0b286c4a3fff1c043c",
+    "working_tree": []
+  },
+  "migration_results": [
+    {
+      "path": "sql/migrations/001_meta_registry.sql",
+      "sha256": "b44608c4baee8ce1d4ac6c3912a1a7d671772a1b305a32976b10f7bf00fe1893",
+      "status": "applied",
+      "last_message": "COMMIT"
+    },
+    {
+      "path": "sql/migrations/002_raw_record.sql",
+      "sha256": "550c022b204380af2c0b2ffffc48295df3b562fd217f99a62f392d8db15eb059",
+      "status": "applied",
+      "last_message": "COMMIT"
+    },
+    {
+      "path": "sql/migrations/003_b08_loader_role.sql",
+      "sha256": "e84a2d122bcb8f5edd6ffeb9974ef48eac3910ae801d5a929286734978f9269d",
+      "status": "applied",
+      "last_message": "COMMIT"
+    },
+    {
+      "path": "sql/migrations/004_meta_batch.sql",
+      "sha256": "5c828f4071cab7ea097ee5b001aa6aca8fb567f04889a091a02842cf14fbb801",
+      "status": "applied",
+      "last_message": "COMMIT"
+    },
+    {
+      "path": "sql/migrations/005_raw_vault.sql",
+      "sha256": "36fedf6f1c6b128e8006ad2e76815c44099c5557de8140deb04e599d4c4f14f8",
+      "status": "applied",
+      "last_message": "COMMIT"
+    },
+    {
+      "path": "sql/migrations/006_canonical.sql",
+      "sha256": "c6b414f581d15183d89d98bebda71f373827a945d9e3eb2d9a60e699054e37dd",
+      "status": "applied",
+      "last_message": "COMMIT"
+    },
+    {
+      "path": "sql/migrations/007_warehouse.sql",
+      "sha256": "32add012cc1f2919e0aa07926fea86922999b02dd37bb070e4bb2b6247fc87ee",
+      "status": "applied",
+      "last_message": "COMMIT"
+    },
+    {
+      "path": "sql/migrations/008_qa.sql",
+      "sha256": "408c3775b218808fceb40a4119f8e5f20735664e1775671f5876d838b6219e29",
+      "status": "applied",
+      "last_message": "COMMIT"
+    },
+    {
+      "path": "sql/migrations/009_database_roles.sql",
+      "sha256": "cd1b8f3c4969111cab71777ea063dfe89e69dc29566dbd779c708e2f889d03d5",
+      "status": "applied",
+      "last_message": "COMMIT"
+    },
+    {
+      "path": "sql/migrations/010_business_key.sql",
+      "sha256": "de7a14a6df0c0336c7f40c2178159e0f53a4f702da44cde9a20c53a95443d922",
+      "status": "applied",
+      "last_message": "COMMIT"
+    },
+    {
+      "path": "sql/migrations/011_review_validation_fixes.sql",
+      "sha256": "fb4d03819dbb4a37366aa5b3cb59fe4e8bec0d76eae3fcfbc3783ebb13f51de6",
+      "status": "applied",
+      "last_message": "COMMIT"
+    }
+  ],
+  "checks": {
+    "catalog": {
+      "status": "passed",
+      "table_count": 17,
+      "field_count": 129,
+      "constraint_counts": {
+        "check": 46,
+        "unique": 6,
+        "foreign_key": 30,
+        "primary_key": 17
+      },
+      "schemas": [
+        "canonical",
+        "dw",
+        "meta",
+        "qa",
+        "raw",
+        "rv"
+      ],
+      "schema_owners": {
+        "dw": "arsia_migrator",
+        "qa": "arsia_migrator",
+        "rv": "arsia_migrator",
+        "raw": "arsia_migrator",
+        "meta": "arsia_migrator",
+        "canonical": "arsia_migrator",
+        "published": "arsia_migrator"
+      },
+      "roles": {
+        "arsia_loader": {
+          "can_login": true,
+          "superuser": false,
+          "bypass_rls": false,
+          "create_role": false,
+          "replication": false,
+          "create_database": false
+        },
+        "arsia_reader": {
+          "can_login": true,
+          "superuser": false,
+          "bypass_rls": false,
+          "create_role": false,
+          "replication": false,
+          "create_database": false
+        },
+        "arsia_migrator": {
+          "can_login": false,
+          "superuser": false,
+          "bypass_rls": false,
+          "create_role": false,
+          "replication": false,
+          "create_database": false
+        }
+      },
+      "business_key_function": {
+        "owner": "arsia_migrator",
+        "identity": "rv.encode_business_key(text[])",
+        "parallel": "s",
+        "volatility": "i",
+        "loader_can_execute": true,
+        "reader_can_execute": false
+      },
+      "tables": {
+        "meta.batch": [
+          [
+            "batch_id",
+            "uuid",
+            false
+          ],
+          [
+            "dataset_kind",
+            "text",
+            false
+          ],
+          [
+            "input_fingerprint",
+            "text",
+            false
+          ],
+          [
+            "manifest",
+            "jsonb",
+            false
+          ],
+          [
+            "status",
+            "text",
+            false
+          ],
+          [
+            "started_at",
+            "timestamp with time zone",
+            false
+          ],
+          [
+            "finished_at",
+            "timestamp with time zone",
+            true
+          ],
+          [
+            "error_details",
+            "jsonb",
+            true
+          ]
+        ],
+        "raw.record": [
+          [
+            "raw_record_id",
+            "uuid",
+            false
+          ],
+          [
+            "resource_id",
+            "text",
+            false
+          ],
+          [
+            "source_id",
+            "text",
+            false
+          ],
+          [
+            "file_sha256",
+            "text",
+            false
+          ],
+          [
+            "parser_version",
+            "text",
+            false
+          ],
+          [
+            "row_locator",
+            "text",
+            false
+          ],
+          [
+            "payload",
+            "jsonb",
+            false
+          ],
+          [
+            "ingested_at",
+            "timestamp with time zone",
+            false
+          ]
+        ],
+        "meta.source": [
+          [
+            "source_id",
+            "text",
+            false
+          ],
+          [
+            "jurisdiction_code",
+            "text",
+            false
+          ],
+          [
+            "source_name",
+            "text",
+            false
+          ],
+          [
+            "publisher",
+            "text",
+            false
+          ]
+        ],
+        "rv.hub_unit": [
+          [
+            "source_id",
+            "text",
+            false
+          ],
+          [
+            "release_scope",
+            "text",
+            false
+          ],
+          [
+            "unit_key",
+            "text",
+            false
+          ],
+          [
+            "first_seen_batch_id",
+            "uuid",
+            false
+          ]
+        ],
+        "rv.sat_unit": [
+          [
+            "batch_id",
+            "uuid",
+            false
+          ],
+          [
+            "source_id",
+            "text",
+            false
+          ],
+          [
+            "release_scope",
+            "text",
+            false
+          ],
+          [
+            "unit_key",
+            "text",
+            false
+          ],
+          [
+            "raw_record_id",
+            "uuid",
+            false
+          ],
+          [
+            "attributes",
+            "jsonb",
+            false
+          ]
+        ],
+        "dw.dim_month": [
+          [
+            "month_id",
+            "integer",
+            false
+          ],
+          [
+            "calendar_year",
+            "integer",
+            false
+          ],
+          [
+            "calendar_month",
+            "integer",
+            false
+          ]
+        ],
+        "rv.hub_crash": [
+          [
+            "source_id",
+            "text",
+            false
+          ],
+          [
+            "release_scope",
+            "text",
+            false
+          ],
+          [
+            "crash_key",
+            "text",
+            false
+          ],
+          [
+            "first_seen_batch_id",
+            "uuid",
+            false
+          ]
+        ],
+        "rv.sat_crash": [
+          [
+            "batch_id",
+            "uuid",
+            false
+          ],
+          [
+            "source_id",
+            "text",
+            false
+          ],
+          [
+            "release_scope",
+            "text",
+            false
+          ],
+          [
+            "crash_key",
+            "text",
+            false
+          ],
+          [
+            "raw_record_id",
+            "uuid",
+            false
+          ],
+          [
+            "attributes",
+            "jsonb",
+            false
+          ]
+        ],
+        "dw.dim_source": [
+          [
+            "batch_id",
+            "uuid",
+            false
+          ],
+          [
+            "source_id",
+            "text",
+            false
+          ],
+          [
+            "source_name",
+            "text",
+            false
+          ],
+          [
+            "jurisdiction_code",
+            "text",
+            false
+          ],
+          [
+            "release_label",
+            "text",
+            false
+          ],
+          [
+            "release_scope",
+            "text",
+            false
+          ]
+        ],
+        "dw.fact_crash": [
+          [
+            "batch_id",
+            "uuid",
+            false
+          ],
+          [
+            "source_id",
+            "text",
+            false
+          ],
+          [
+            "release_scope",
+            "text",
+            false
+          ],
+          [
+            "crash_key",
+            "text",
+            false
+          ],
+          [
+            "occurrence_year",
+            "integer",
+            false
+          ],
+          [
+            "month_id",
+            "integer",
+            true
+          ],
+          [
+            "severity_code",
+            "text",
+            false
+          ],
+          [
+            "is_fatal_crash",
+            "boolean",
+            true
+          ],
+          [
+            "fatality_count",
+            "integer",
+            true
+          ],
+          [
+            "casualty_count",
+            "integer",
+            true
+          ],
+          [
+            "fatal_crash_eligible",
+            "boolean",
+            false
+          ],
+          [
+            "fatality_eligible",
+            "boolean",
+            false
+          ],
+          [
+            "casualty_eligible",
+            "boolean",
+            false
+          ],
+          [
+            "latitude",
+            "numeric(10,7)",
+            true
+          ],
+          [
+            "longitude",
+            "numeric(10,7)",
+            true
+          ],
+          [
+            "map_eligible",
+            "boolean",
+            false
+          ]
+        ],
+        "meta.resource": [
+          [
+            "resource_id",
+            "text",
+            false
+          ],
+          [
+            "source_id",
+            "text",
+            false
+          ],
+          [
+            "resource_role",
+            "text",
+            false
+          ],
+          [
+            "entity_kind",
+            "text",
+            false
+          ]
+        ],
+        "canonical.unit": [
+          [
+            "batch_id",
+            "uuid",
+            false
+          ],
+          [
+            "source_id",
+            "text",
+            false
+          ],
+          [
+            "release_scope",
+            "text",
+            false
+          ],
+          [
+            "unit_key",
+            "text",
+            false
+          ],
+          [
+            "crash_key",
+            "text",
+            false
+          ],
+          [
+            "raw_record_id",
+            "uuid",
+            false
+          ],
+          [
+            "unit_type_raw",
+            "text",
+            true
+          ],
+          [
+            "unit_type_code",
+            "text",
+            true
+          ],
+          [
+            "statistical_scope",
+            "text",
+            false
+          ],
+          [
+            "count_eligible",
+            "boolean",
+            false
+          ],
+          [
+            "quality_notes",
+            "jsonb",
+            false
+          ]
+        ],
+        "canonical.crash": [
+          [
+            "batch_id",
+            "uuid",
+            false
+          ],
+          [
+            "source_id",
+            "text",
+            false
+          ],
+          [
+            "release_scope",
+            "text",
+            false
+          ],
+          [
+            "crash_key",
+            "text",
+            false
+          ],
+          [
+            "raw_record_id",
+            "uuid",
+            false
+          ],
+          [
+            "occurrence_year",
+            "integer",
+            false
+          ],
+          [
+            "occurrence_month",
+            "integer",
+            true
+          ],
+          [
+            "occurrence_date",
+            "date",
+            true
+          ],
+          [
+            "date_precision",
+            "text",
+            false
+          ],
+          [
+            "severity_raw",
+            "text",
+            true
+          ],
+          [
+            "severity_code",
+            "text",
+            false
+          ],
+          [
+            "severity_definition_version",
+            "text",
+            false
+          ],
+          [
+            "is_fatal_crash",
+            "boolean",
+            true
+          ],
+          [
+            "fatality_count",
+            "integer",
+            true
+          ],
+          [
+            "casualty_count",
+            "integer",
+            true
+          ],
+          [
+            "fatal_crash_eligible",
+            "boolean",
+            false
+          ],
+          [
+            "fatality_eligible",
+            "boolean",
+            false
+          ],
+          [
+            "casualty_eligible",
+            "boolean",
+            false
+          ],
+          [
+            "latitude",
+            "numeric(10,7)",
+            true
+          ],
+          [
+            "longitude",
+            "numeric(10,7)",
+            true
+          ],
+          [
+            "location_crs",
+            "text",
+            true
+          ],
+          [
+            "map_eligible",
+            "boolean",
+            false
+          ],
+          [
+            "location_record_id",
+            "uuid",
+            true
+          ],
+          [
+            "quality_notes",
+            "jsonb",
+            false
+          ]
+        ],
+        "dw.dim_severity": [
+          [
+            "batch_id",
+            "uuid",
+            false
+          ],
+          [
+            "source_id",
+            "text",
+            false
+          ],
+          [
+            "severity_code",
+            "text",
+            false
+          ],
+          [
+            "severity_label",
+            "text",
+            false
+          ],
+          [
+            "definition_version",
+            "text",
+            false
+          ],
+          [
+            "definition_text",
+            "text",
+            false
+          ]
+        ],
+        "qa.check_result": [
+          [
+            "batch_id",
+            "uuid",
+            false
+          ],
+          [
+            "rule_id",
+            "text",
+            false
+          ],
+          [
+            "object_key",
+            "text",
+            false
+          ],
+          [
+            "result",
+            "text",
+            false
+          ],
+          [
+            "affected_count",
+            "bigint",
+            false
+          ],
+          [
+            "actual",
+            "jsonb",
+            false
+          ],
+          [
+            "expected",
+            "jsonb",
+            false
+          ],
+          [
+            "evidence",
+            "jsonb",
+            false
+          ],
+          [
+            "raw_record_id",
+            "uuid",
+            true
+          ],
+          [
+            "checked_at",
+            "timestamp with time zone",
+            false
+          ]
+        ],
+        "rv.link_crash_unit": [
+          [
+            "batch_id",
+            "uuid",
+            false
+          ],
+          [
+            "source_id",
+            "text",
+            false
+          ],
+          [
+            "release_scope",
+            "text",
+            false
+          ],
+          [
+            "unit_key",
+            "text",
+            false
+          ],
+          [
+            "crash_key",
+            "text",
+            false
+          ]
+        ],
+        "meta.current_release": [
+          [
+            "dataset_kind",
+            "text",
+            false
+          ],
+          [
+            "batch_id",
+            "uuid",
+            false
+          ],
+          [
+            "batch_status",
+            "text",
+            false
+          ],
+          [
+            "switched_at",
+            "timestamp with time zone",
+            false
+          ]
+        ]
+      }
+    },
+    "permission_audit": {
+      "status": "passed",
+      "last_message": "NOTICE:  loader checks passed: INSERT and batch-state UPDATE allowed; DELETE and DDL rejected"
+    },
+    "migration_011_smoke": {
+      "status": "passed",
+      "unit_key": "[\"0001\", \"01\"]",
+      "crash_key": "[\"0001\"]",
+      "map_constraint": "CHECK (((NOT map_eligible) OR ((latitude IS NOT NULL) AND (longitude IS NOT NULL) AND (location_crs IS NOT NULL) AND (location_crs = 'EPSG:4326'::text) AND (location_record_id IS NOT NULL))))"
+    },
+    "empty_schema": {
+      "status": "passed",
+      "row_counts": {
+        "meta.batch": 0,
+        "raw.record": 0,
+        "meta.source": 0,
+        "rv.hub_unit": 0,
+        "rv.sat_unit": 0,
+        "dw.dim_month": 0,
+        "rv.hub_crash": 0,
+        "rv.sat_crash": 0,
+        "dw.dim_source": 0,
+        "dw.fact_crash": 0,
+        "meta.resource": 0,
+        "canonical.unit": 0,
+        "canonical.crash": 0,
+        "dw.dim_severity": 0,
+        "qa.check_result": 0,
+        "rv.link_crash_unit": 0,
+        "meta.current_release": 0
+      }
+    }
+  },
+  "cleanup": {
+    "container_removed": true,
+    "persistent_volume_created": false
+  },
+  "error": null
+}
