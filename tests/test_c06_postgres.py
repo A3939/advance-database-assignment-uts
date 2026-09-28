@@ -9,11 +9,12 @@ from uuid import uuid4
 
 import pytest
 
+from arsia_c.person_checks import SQL_PATH, _stage_selected
+
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_REPO = ROOT if (ROOT / "src/arsia_ingest").is_dir() else ROOT.parent / "Workspace/Workspace_Github"
 REPOSITORY = Path(os.environ.get("ARSIA_REPOSITORY", DEFAULT_REPO))
-SQL_PATH = ROOT / "sql/qa/c06_vic_person_checks.sql"
 pytestmark = pytest.mark.skipif(
     "ARSIA_TEST_DSN" not in os.environ,
     reason="Set ARSIA_TEST_DSN to A's migrated PostgreSQL 16 test database",
@@ -103,6 +104,7 @@ class RawCase:
             "blank_vehicle_allowed": True, "count_scope_confirmed": True,
         }
         params.update(rules)
+        _stage_selected(self.connection, params["files"])
         return [row[0] for row in self.connection.execute(
             SQL_PATH.read_text(encoding="utf-8"), (json.dumps(params),)).fetchall()]
 
@@ -430,6 +432,7 @@ def test_existing_synthetic_inputs_reach_c06_through_raw_loader(connection, load
         "SELECT raw_record_id, payload FROM raw.record WHERE resource_id = ANY(%s) "
         "ORDER BY raw_record_id", (selected_ids,),
     ).fetchall()
+    _stage_selected(connection, params["files"])
     result = [row[0] for row in connection.execute(
         SQL_PATH.read_text(encoding="utf-8"), (json.dumps(params),)).fetchall()]
     assert not issue_set(result)

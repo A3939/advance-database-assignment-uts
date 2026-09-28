@@ -1,7 +1,7 @@
 """C03: project the selected NSW snapshot in B's transaction.
 
 The caller supplies B09 manifest data; no commit, rollback, connection ownership,
-FP1 calculation or publication is performed here. See docs/role-c/c03-nsw.md.
+FP1 calculation or publication is performed here.
 """
 
 from __future__ import annotations
@@ -256,6 +256,30 @@ def _check(cursor, filename, params, label):
         raise ValueError(f"NSW {label} validation failed: {result}")
 
 
+def _stage_native(cursor, p):
+    """Keep full frozen files and collect stats on loader-owned temporary rows."""
+    for name in ("crash", "unit"):
+        table = "c03_nsw_" + name
+        cursor.execute(f"DROP TABLE IF EXISTS pg_temp.{table}")
+        cursor.execute(
+            f"CREATE TEMP TABLE {table} ON COMMIT DROP AS SELECT * FROM raw.record "
+            "WHERE source_id=%s AND resource_id=%s AND file_sha256=%s AND parser_version=%s",
+            (p["source_id"], p[name + "_resource_id"], p[name + "_file_sha256"],
+             p[name + "_parser_version"]),
+        )
+        actual = cursor.rowcount
+        if actual != p[name + "_raw_count"]:
+            raise ValueError(
+                f"NSW incomplete Raw {name}: expected {p[name + '_raw_count']}, found {actual}"
+            )
+        keys = "(payload->>'Crash ID')"
+        if name == "unit":
+            keys += ", (payload->>'Traffic unit ID')"
+        # Non-unique indexes preserve invalid keys for the checks below.
+        cursor.execute(f"CREATE INDEX ON pg_temp.{table} ({keys})")
+        cursor.execute(f"ANALYZE pg_temp.{table}")
+
+
 def project(connection, context) -> None:
     manifest = context.manifest.as_dict()
     p = _parameters(manifest, context.batch_id)
@@ -263,22 +287,7 @@ def project(connection, context) -> None:
         raise ValueError("NSW context and manifest dataset_kind differ")
     with connection.cursor() as cursor:
         # Full-snapshot completeness and relationships precede all year filtering.
-        for name in ("crash", "unit"):
-            cursor.execute(
-                "SELECT count(*) FROM raw.record WHERE source_id=%s AND resource_id=%s "
-                "AND file_sha256=%s AND parser_version=%s",
-                (
-                    p["source_id"],
-                    p[name + "_resource_id"],
-                    p[name + "_file_sha256"],
-                    p[name + "_parser_version"],
-                ),
-            )
-            actual = cursor.fetchone()[0]
-            if actual != p[name + "_raw_count"]:
-                raise ValueError(
-                    f"NSW incomplete Raw {name}: expected {p[name + '_raw_count']}, found {actual}"
-                )
+        _stage_native(cursor, p)
         cursor.execute(_load_sql("c03_nsw_relationship_check.sql"), p)
         _validate_relationship_counts(cursor.fetchone())
         for filename, label in (
@@ -300,6 +309,8 @@ def project(connection, context) -> None:
         crash_count = cursor.rowcount
         cursor.execute(_load_sql("c03_nsw_unit_insert.sql"), p)
         unit_count = cursor.rowcount
+        for table in ("arsia_i_crash", "arsia_i_unit"):
+            cursor.execute(f"ANALYZE pg_temp.{table}")
         cursor.execute(_load_sql("c03_nsw_projection_check.sql"), p)
         row = cursor.fetchone()
         names = (

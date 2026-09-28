@@ -32,7 +32,7 @@
     },
     {
       "path": "src/arsia_c/person_checks.py",
-      "sha256": "bae217a18bc7adb6473a415222c13e365e3e26ae714c7b928fa1f6d3dfbe32f5"
+      "sha256": "01642a6c1ab6f78eab3c6e3876be995c887281e188eeb5292d6778a295edb36f"
     },
     {
       "path": "src/arsia_c/restricted_person.py",
@@ -60,7 +60,7 @@
     },
     {
       "path": "src/arsia_c/sql/c06_vic_person_checks.sql",
-      "sha256": "045a4dfff6dab47251abcefa969bd75f5dee85f8df65d3b7acb63fdbf9d426bc"
+      "sha256": "20e1417b5485a0c144badc791b58d4b6ff04a76aac01e4e1d092461b528b1eec"
     },
     {
       "path": "src/arsia_c/config/c06-syn-1.json",

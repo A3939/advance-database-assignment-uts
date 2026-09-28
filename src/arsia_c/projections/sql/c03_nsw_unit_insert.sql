@@ -2,7 +2,7 @@
 WITH native AS (
  SELECT u.*, CASE WHEN %(empty_is_missing)s THEN NULLIF(u.payload ->> 'TU type group', '')
                  ELSE u.payload ->> 'TU type group' END AS native_type
- FROM raw.record u JOIN raw.record c ON c.payload ->> 'Crash ID' = u.payload ->> 'Crash ID'
+ FROM pg_temp.c03_nsw_unit u JOIN pg_temp.c03_nsw_crash c ON c.payload ->> 'Crash ID' = u.payload ->> 'Crash ID'
  WHERE c.source_id = %(source_id)s AND c.resource_id = %(crash_resource_id)s
    AND c.file_sha256 = %(crash_file_sha256)s AND c.parser_version = %(crash_parser_version)s
    AND u.source_id = %(source_id)s AND u.resource_id = %(unit_resource_id)s
