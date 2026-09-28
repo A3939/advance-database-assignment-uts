@@ -17,6 +17,7 @@ if __name__ == "__main__":
         tests=(
             "test_d09.py",
             "test_d09_full_build_postgres.py",
+            "test_build_integration.py",
         ),
         scope=(
             "D09 real B10/E06 fixed-release dashboard acceptance: two successful "

@@ -109,7 +109,13 @@ def _text(value: object) -> str:
     return escape(str(value))
 
 
-def _table(title: str, rows: tuple[dict[str, object], ...], columns: tuple[str, ...]) -> str:
+def _table(
+    title: str,
+    rows: tuple[dict[str, object], ...],
+    columns: tuple[str, ...],
+    *,
+    note: str = "",
+) -> str:
     if not rows:
         return (
             f'<section class="panel"><h2>{escape(title)}</h2>'
@@ -121,7 +127,9 @@ def _table(title: str, rows: tuple[dict[str, object], ...], columns: tuple[str, 
         for row in rows
     )
     return (
-        f'<section class="panel"><h2>{escape(title)}</h2><div class="table-wrap">'
+        f'<section class="panel"><h2>{escape(title)}</h2>'
+        + (f"<p>{escape(note)}</p>" if note else "")
+        + '<div class="table-wrap">'
         f'<table><thead><tr>{head}</tr></thead><tbody>{body}</tbody></table>'
         "</div></section>"
     )
@@ -203,7 +211,18 @@ def render_page(
             _table(
                 "Trend",
                 snapshot.trend,
-                ("source_id", "grain", "period_year", "period_month", "coverage_status", "crash_count", "fatality_count", "casualty_count"),
+                (
+                    "source_id", "grain", "period_year", "period_month",
+                    "coverage_status", "crash_count", "month_known_count",
+                    "excluded_unknown_month_count", "fatal_crash_count",
+                    "fatal_crash_known_count", "fatality_count",
+                    "fatality_known_count", "casualty_count", "casualty_known_count",
+                ),
+                note=(
+                    "Known counts show crashes with a recorded month or an eligible, "
+                    "recorded outcome. Unknown-month exclusions follow the selected "
+                    "grain and filters. Values come directly from SQL; NULL is not zero."
+                ),
             ),
             _table(
                 "Severity",
@@ -242,7 +261,14 @@ def demo_snapshot(filters: DashboardFilters) -> DashboardSnapshot:
         "release_label": "demo-only",
         "release_scope": "demo-v1",
     }
-    trend = ({"batch_id": batch, "source_id": "demo_nsw", "grain": "year", "period_year": 2020, "period_month": None, "coverage_status": "complete", "crash_count": 2, "fatality_count": 1, "casualty_count": 3},)
+    trend = ({
+        "batch_id": batch, "source_id": "demo_nsw", "grain": "year",
+        "period_year": 2020, "period_month": None, "coverage_status": "covered",
+        "crash_count": 2, "month_known_count": 2, "excluded_unknown_month_count": 0,
+        "fatal_crash_count": 1, "fatal_crash_known_count": 2,
+        "fatality_count": 1, "fatality_known_count": 2,
+        "casualty_count": 3, "casualty_known_count": 2,
+    },)
     severity = ({"batch_id": batch, "source_id": "demo_nsw", "severity_code": "F", "severity_label": "Fatal", "definition_version": "demo-v1", "crash_count": 1},)
     point = {"batch_id": batch, "source_id": "demo_nsw", "crash_key": "demo-crash-1", "occurrence_year": 2020, "occurrence_month": 1, "severity_code": "F", "latitude": Decimal("-33.1"), "longitude": Decimal("151.2")}
     coverage = {"batch_id": batch, "crash_count": 2, "point_count": 1, "coverage_percentage": Decimal("50.00")}
@@ -267,14 +293,27 @@ def make_handler(dsn: str | None, demo: bool):
                             "D09_CONFIGURATION", "ARSIA_READER_DSN is required"
                         )
                     import psycopg
-                    with psycopg.connect(dsn, autocommit=True) as connection:
-                        snapshot = load_dashboard(connection, filters)
+                    try:
+                        with psycopg.connect(dsn, autocommit=True) as connection:
+                            snapshot = load_dashboard(connection, filters)
+                    except psycopg.errors.InvalidParameterValue as exc:
+                        raise IntakeError(
+                            "D09_ARGUMENT", exc.diag.message_primary or "Invalid query"
+                        ) from exc
+                    except psycopg.Error as exc:
+                        raise IntakeError(
+                            "D09_DATABASE", "Dashboard data is temporarily unavailable"
+                        ) from exc
                 page = render_page(filters, snapshot, demo=demo)
                 status = 200
             except IntakeError as exc:
                 filters = locals().get("filters", DashboardFilters("synthetic"))
                 page = render_page(filters, error=exc, demo=demo)
-                status = 200 if exc.code == "D09_NO_PUBLICATION" else 400
+                status = (
+                    200 if exc.code == "D09_NO_PUBLICATION"
+                    else 500 if exc.code == "D09_DATABASE"
+                    else 400
+                )
             data = page.encode("utf-8")
             self.send_response(status)
             self.send_header("Content-Type", "text/html; charset=utf-8")

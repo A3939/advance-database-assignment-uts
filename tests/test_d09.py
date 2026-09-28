@@ -5,6 +5,7 @@ from decimal import Decimal
 import hashlib
 from http.server import ThreadingHTTPServer
 import importlib
+from importlib.resources import files
 import json
 from pathlib import Path
 import threading
@@ -75,7 +76,7 @@ def _component_rows(batch_id=BATCH):
 
 
 def test_page_resolves_release_once_and_passes_one_batch(monkeypatch):
-    connection = Connection(((("synthetic", BATCH, NOW),), (source(),)))
+    connection = Connection(((("synthetic", BATCH, NOW),), ((2020, 2024),), (source(),)))
     seen = []
     trend, severity, map_result, units = _component_rows()
 
@@ -102,6 +103,19 @@ def test_page_resolves_release_once_and_passes_one_batch(monkeypatch):
     assert {request.batch_id for request in seen} == {BATCH}
     assert all(request.source_ids == ("syn_nsw",) for request in seen)
     assert seen[0].grain == "month"
+    assert all((request.year_from, request.year_to) == (2020, 2024) for request in seen)
+
+
+@pytest.mark.parametrize("year_from,year_to", [(2019, None), (None, 2025), (2025, None), (None, 2019)])
+def test_page_rejects_years_outside_pinned_manifest_before_component_queries(year_from, year_to):
+    connection = Connection((((2020, 2024),),))
+    with pytest.raises(IntakeError, match="2020-2024") as error:
+        query_dashboard(
+            connection, DashboardFilters("synthetic", year_from=year_from, year_to=year_to),
+            Release("synthetic", BATCH, NOW),
+        )
+    assert error.value.code == "D09_YEAR_RANGE"
+    assert len(connection.calls) == 1
 
 
 def test_no_publication_and_release_mode_mismatch():
@@ -184,13 +198,11 @@ def test_demo_http_page_and_bad_request():
 
 def test_d09_sql_contract_and_packaged_assets():
     root = Path(__file__).resolve().parents[1]
-    sql = " ".join(
-        (root / "src/arsia_d09/sql/d09_context.sql")
-        .read_text(encoding="utf-8")
-        .lower()
-        .split()
-    )
-    assert "d09-0.1.0" in sql
+    package = files("arsia_d09")
+    for path in ("sql/d09_context.sql", "templates/dashboard.html", "static/dashboard.css"):
+        assert package.joinpath(path).read_bytes() == (root / "src/arsia_d09" / path).read_bytes()
+    sql = " ".join(package.joinpath("sql/d09_context.sql").read_text(encoding="utf-8").lower().split())
+    assert "d09-0.1.1" in sql
     assert "security definer" in sql
     assert "set search_path = pg_catalog" in sql
     assert "candidate.status" in sql and "succeeded" in sql
@@ -200,6 +212,36 @@ def test_d09_sql_contract_and_packaged_assets():
     assert "commit" not in sql and "rollback" not in sql
     assert (root / "src/arsia_d09/templates/dashboard.html").is_file()
     assert (root / "src/arsia_d09/static/dashboard.css").is_file()
+
+
+def test_renderer_keeps_outcome_known_counts_and_unknown_month_context():
+    snapshot = demo_snapshot(DashboardFilters("synthetic"))
+    row = snapshot.trend[0]
+    row.update(
+        month_known_count=41, excluded_unknown_month_count=43,
+        fatal_crash_count=0, fatal_crash_known_count=47,
+        fatality_count=None, fatality_known_count=0,
+        casualty_count=53, casualty_known_count=59,
+    )
+    page = render_page(snapshot.filters, snapshot)
+    for label in (
+        "Month Known Count", "Excluded Unknown Month Count", "Fatal Crash Count",
+        "Fatal Crash Known Count", "Fatality Known Count", "Casualty Known Count",
+    ):
+        assert f"<th>{label}</th>" in page
+    assert (
+        '<td>41</td><td>43</td><td>0</td><td>47</td>'
+        '<td><span class="null">NULL</span></td><td>0</td><td>53</td><td>59</td>'
+    ) in page
+
+
+def test_rendered_error_escapes_sql_message():
+    page = render_page(
+        DashboardFilters("synthetic"),
+        error=IntakeError("D09_ARGUMENT", "Invalid source <script>alert(1)</script>"),
+    )
+    assert "&lt;script&gt;alert(1)&lt;/script&gt;" in page
+    assert "<script>" not in page
 
 
 def test_d09_inventory_hashes_and_status_boundary():
