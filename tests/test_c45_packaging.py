@@ -89,10 +89,13 @@ print(json.dumps(out))
 
     actual = json.loads(result.stdout)
     for name in names:
+        reviewed = [ROOT / "sql" / folder / name for folder in ("projections", "qa")]
+        reviewed = [path for path in reviewed if path.is_file()]
+        assert len(reviewed) == 1, name
         assert (
             actual[name]
             == hashlib.sha256(
-                (ROOT / "sql/projections" / name).read_bytes()
+                reviewed[0].read_bytes()
             ).hexdigest()
         )
     assert actual["vic"] == vic_definitions()

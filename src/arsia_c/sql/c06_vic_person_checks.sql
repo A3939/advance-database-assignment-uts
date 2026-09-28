@@ -1,3 +1,4 @@
+-- person_checks._run prepares the complete selected temporary inputs first.
 -- One JSON parameter supplies selected files, years and confirmed source rules.
 -- Read the complete selected parents before assigning an analysis year.
 WITH
@@ -23,16 +24,10 @@ files AS (
         parser_version text, raw_count bigint
     )
 ),
-selected_raw AS MATERIALIZED (
-    SELECT f.role, r.*
-    FROM files f
-    JOIN raw.record r
-      ON r.source_id = f.source_id
-     AND r.resource_id = f.resource_id
-     AND r.file_sha256 = f.file_sha256
-     AND r.parser_version = f.parser_version
+selected_raw AS NOT MATERIALIZED (
+    SELECT * FROM pg_temp.c06_selected_raw
 ),
-native AS (
+native AS NOT MATERIALIZED (
     SELECT
         r.*,
         r.payload ->> 'ACCIDENT_NO' AS accident_no,

@@ -366,11 +366,16 @@ def validate_snapshot(connection, context):
         if existing:
             reject("Candidate already contains Canonical rows; retry in a new batch")
         # SQL identifiers are fixed module constants, never manifest strings.
+        # Keep the full parent key in the lookup before this batch has statistics.
         parent_join = (
             """LEFT JOIN rv.link_crash_unit l ON l.batch_id=s.batch_id AND l.source_id=s.source_id
           AND l.release_scope=s.release_scope AND l.unit_key=s.unit_key
-        LEFT JOIN rv.sat_crash p ON p.batch_id=s.batch_id AND p.source_id=s.source_id
-          AND p.release_scope=s.release_scope AND p.crash_key=l.crash_key"""
+        LEFT JOIN LATERAL (
+          SELECT p.* FROM rv.sat_crash p
+          WHERE p.batch_id=s.batch_id AND p.source_id=s.source_id
+            AND p.release_scope=s.release_scope AND p.crash_key=l.crash_key
+          OFFSET 0
+        ) p ON true"""
             if kind == "unit"
             else ""
         )

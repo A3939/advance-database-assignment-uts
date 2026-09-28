@@ -25,6 +25,11 @@ one `traffic_unit` input by their declared roles. Resource IDs are not fixed.
 Add the Python entry point and every SQL file it reads to the real build
 inventory; `code_path` alone does not freeze the SQL dependencies.
 
+The callback stages the complete selected files in loader-owned temporary
+tables and collects statistics there. The runtime SQL files expect these
+tables; call `project` rather than running those files on their own.
+See [the performance backport](c-performance-backport.md) for the current checks.
+
 | Input/rule | Behaviour |
 |---|---|
 | Files and identity | Exact source/resource/hash/parser selection; require the declared full Raw row count and matching release/parent identities. |

@@ -51,8 +51,10 @@ class Connection:
     def __exit__(self, *_):
         pass
 
-    def execute(self, statement, parameters):
+    def execute(self, statement, parameters=None):
         self.calls.append((statement, parameters))
+        if statement != c06.SQL_PATH.read_text(encoding="utf-8"):
+            return
         request = json.loads(parameters[0])
         self.rows = []
         for file in request["files"]:
@@ -80,7 +82,7 @@ def test_real_frozen_manifest_selects_exact_inputs_without_provenance(manifest):
     before = manifest.as_dict()
     report, = c06.review_manifest(ModuleConnection(connection), manifest)
     assert report["status"] == "pass" and report["evaluated_count"] == 8
-    request = json.loads(connection.calls[0][1][0])
+    request = json.loads(connection.calls[-1][1][0])
     assert "provenance" not in request
     assert request["analysis"] == before["analysis"]
     for file in request["files"]:
@@ -167,7 +169,7 @@ def test_draft_official_output_always_preserves_definition_block(manifest):
             file[key] = file[key].replace("syn_", "official_", 1)
     connection = Connection()
     report = c06.review_official_draft(connection, files, value["analysis"])
-    request = json.loads(connection.calls[0][1][0])
+    request = json.loads(connection.calls[-1][1][0])
     assert request["blank_vehicle_allowed"] is None and request["count_scope_confirmed"] is False
     assert report["status"] == "block" and report["declared_count_absolute_delta"] is None
     assert report["reason_counts"]["source_definitions_unconfirmed"] == 1

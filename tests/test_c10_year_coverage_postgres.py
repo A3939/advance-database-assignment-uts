@@ -9,6 +9,9 @@ from uuid import uuid4
 
 import pytest
 
+if "ARSIA_TEST_DSN" not in os.environ:
+    pytest.skip("Use the private C10 PostgreSQL verifier", allow_module_level=True)
+
 from arsia_c import qa
 from arsia_ingest.manifest import FrozenManifest
 from arsia_ingest.models import IntakeError
@@ -17,12 +20,6 @@ from cd_support import ROOT, bindings, interface_manifest
 from test_raw_load_postgres import connection
 from test_cd_integration_postgres import prepared, canonical, call, cleanup, full_snapshot
 from test_ac_integration_postgres import begin, counts, TABLES, raw_rows
-
-pytestmark = pytest.mark.skipif(
-    "ARSIA_TEST_DSN" not in os.environ,
-    reason="Use the private C10 PostgreSQL verifier",
-)
-
 
 @pytest.fixture
 def frozen(prepared):

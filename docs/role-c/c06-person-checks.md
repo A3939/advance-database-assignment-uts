@@ -44,6 +44,13 @@ For S0/S8, use `review_manifest(connection, frozen_manifest)` or
 The callback writes `c06-person.json` through B's immutable evidence writer
 before raising `C06_BLOCK`. Neither entry owns the connection or transaction.
 
+The Python entries prepare `pg_temp.c06_selected_raw` with the complete three
+selected files, then index and analyze that temporary table. The SQL resource
+expects this preparation; it is no longer a standalone Raw query. Direct SQL
+tests call `_stage_selected(connection, files)` in the same transaction first.
+Use the public Python entries in integrations. See the
+[performance backport](c-performance-backport.md) for current verification.
+
 The standalone official entry is ready for C10 and source review:
 
 ```python

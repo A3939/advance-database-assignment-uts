@@ -105,6 +105,24 @@ def _synthetic_selection(value, person_file):
     return selected
 
 
+def _stage_selected(connection, selected):
+    """Copy complete selected files; only the caller's temporary table gets stats."""
+    with connection.cursor() as cursor:
+        cursor.execute("DROP TABLE IF EXISTS pg_temp.c06_selected_raw")
+        cursor.execute("""CREATE TEMP TABLE c06_selected_raw ON COMMIT DROP AS
+            SELECT NULL::text AS role, r.* FROM raw.record r WITH NO DATA""")
+        for file in selected:
+            cursor.execute("""INSERT INTO pg_temp.c06_selected_raw
+                SELECT %s, r.* FROM raw.record r
+                WHERE source_id=%s AND resource_id=%s
+                  AND file_sha256=%s AND parser_version=%s""",
+                (file["role"], file["source_id"], file["resource_id"],
+                 file["file_sha256"], file["parser_version"]))
+        cursor.execute("""CREATE INDEX ON pg_temp.c06_selected_raw
+            (role, source_id, (payload->>'ACCIDENT_NO'))""")
+        cursor.execute("ANALYZE pg_temp.c06_selected_raw")
+
+
 def _run(connection, files, analysis, *, synthetic, restricted=None):
     if connection.autocommit is not False:
         _fail("C06 must use B's active transaction")
@@ -114,6 +132,7 @@ def _run(connection, files, analysis, *, synthetic, restricted=None):
                "count_scope_confirmed": synthetic}
     if restricted is not None:
         request["restricted_diagnostics"] = True
+    _stage_selected(connection, files)
     counts, row_counts, reasons = {}, Counter(), Counter()
     diagnostics, affected = [], set()
     seen_raw, seen_locators = set(), set()

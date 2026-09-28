@@ -4,6 +4,9 @@
 11 real-unit fields from A06's current-batch Satellites. It uses B's supplied
 connection without committing, rolling back, closing it, or publishing.
 
+The [performance backport](c-performance-backport.md) adds a full-key parent
+lookup for fresh batches without statistics. All identity checks still apply.
+
 ## Dependencies
 
 This delivery starts at Role C `cc39c6ffda18ea02ce1b393beaded1e5d6379176`,
