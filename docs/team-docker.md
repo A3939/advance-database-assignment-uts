@@ -24,8 +24,10 @@ git switch --detach FULL_PACKAGE_COMMIT
 git rev-parse HEAD
 ```
 
-Replace `FULL_PACKAGE_COMMIT` with its full Git SHA. The older B baseline listed
-below does not contain this package. For development, switch to your own branch
+The tested implementation is
+`f9d22c698e2a47559923179da3c76fd7d53b13a6`; use that for `FULL_PACKAGE_COMMIT`.
+The later handoff commit only adds these notes and the compact receipt, outside
+the Docker build context. The older B baseline listed below does not contain this package. For development, switch to your own branch
 instead. Do not overwrite another member's branch.
 
 Create `.env` once. On macOS:
@@ -83,7 +85,8 @@ docker compose --profile web up -d dashboard
 
 Open `http://localhost:8765/` (or your configured web port). This page reads the
 real published S0 batch. Expected values are 6 crashes, 6 units, measures 2/3/7,
-4 mapped crashes and 63 QA rows. A repeat `s0` should return `no_change`.
+4 mapped crashes and 63 QA rows. QA07 retains its expected `limited` result for
+two crashes without usable coordinates. A repeat `s0` should return `no_change`.
 
 `init` applies A's unchanged migrations 001–011 only to a fresh database, then
 installs FP1 and D05–D09 SQL. It checks the installed wheel, source hashes,
@@ -203,16 +206,27 @@ E's earlier full acceptance tested runtime `1765269`. That historical result
 does not certify this Docker package. Original A/C/D/E authorship remains in
 Git; Peixian adds this packaging and its checks.
 
-Native ARM64 Docker validation passed 501 acceptance checks with no skips:
-290 E synthetic, 165 recovery, 8 UI/build and 38 wrapper checks. The container's
-default suite passed 1,072 checks; 402 optional database/data checks skipped.
+The tested host was Apple Silicon macOS with Docker 28.5.2 and Compose 2.40.3.
+Native ARM64 and emulated AMD64 each passed **501 checks, 0 failed, 0 skipped**:
+290 E synthetic, 165 recovery, 8 UI/build and 38 wrapper checks. Both app and
+PostgreSQL architecture were checked. This does not verify native AMD64 hardware.
+The ARM64 default suite passed 1,072 checks; 402 optional database/data checks
+skipped. Its optional pytest cache was unavailable in the read-only image tree.
 The dedicated suite supplies its own database and allows no skips.
-S0, repeat `no_change`, real HTTP/error handling, three data-retention paths,
-seven official-file hashes, read-only input mounting and separate test cleanup
-were also checked. Exact package/image receipts are recorded separately.
-AMD64 and Windows are **NOT_RUN** until actual results are recorded.
-An AMD64 run under emulation must be labelled as emulated, not a native Windows
-or Linux replay. Do not copy earlier test totals into a new receipt.
+
+Both architectures passed S0, repeat `no_change`, HTTP/error handling, unchanged
+rows after stop/start, restart and DB container recreation, rejection of daily
+DB acceptance, and separate acceptance cleanup. All task-owned test containers
+and volumes were removed afterward; host evidence was retained. ARM64 also
+checked the seven official-file hashes and read-only mounting. The official
+full-data build was **NOT_RUN** for this package: application code and inventory
+were unchanged, and this run covers packaging and the synthetic database path.
+
+[The compact receipt](evidence/team-docker-2026-09-29.json) records commits,
+image IDs, wheel hashes, commands, results and hashes of local evidence under
+`artifacts/team/final-arm64/` and `artifacts/team/final-amd64/`. Native Windows,
+AMD64 hardware and Linux host filesystem permissions remain **NOT_RUN**.
+Do not copy these results into a new member's receipt.
 
 A member who did not write the environment must perform the independent replay.
 They should record their own name, machine/OS, selected commit, commands,
