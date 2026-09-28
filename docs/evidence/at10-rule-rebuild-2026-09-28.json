@@ -1,0 +1,265 @@
+{
+  "scope": "AT10 synthetic rule change and installed PostgreSQL regressions; no official release or full platform acceptance",
+  "base_commit": "85f830ef1a909050af35d9036840dd4c6bfcd751",
+  "tested_form": "Working-tree wheel with the exact code and test hashes below; documentation was added afterwards",
+  "schema_commit": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
+  "environment": {
+    "python": "3.12.6 (v3.12.6:a4a2d2b0d85, Sep  6 2024, 16:08:03) [Clang 13.0.0 (clang-1300.0.29.30)]",
+    "image": "postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67",
+    "packages": {
+      "arsia-native-intake": "0.1.0",
+      "openpyxl": "3.1.5",
+      "psycopg": "3.3.6",
+      "psycopg-binary": "3.3.6",
+      "pytest": "8.4.2"
+    },
+    "database": {
+      "postgresql": [
+        "PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+        "arsia_loader",
+        "arsia_loader",
+        "UTF8",
+        "UTC",
+        "en_US.utf8",
+        "en_US.utf8",
+        false,
+        false,
+        false,
+        false
+      ],
+      "image": "postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67"
+    }
+  },
+  "migrations": [
+    {
+      "path": "sql/migrations/001_meta_registry.sql",
+      "sha256": "b44608c4baee8ce1d4ac6c3912a1a7d671772a1b305a32976b10f7bf00fe1893"
+    },
+    {
+      "path": "sql/migrations/002_raw_record.sql",
+      "sha256": "550c022b204380af2c0b2ffffc48295df3b562fd217f99a62f392d8db15eb059"
+    },
+    {
+      "path": "sql/migrations/003_b08_loader_role.sql",
+      "sha256": "e84a2d122bcb8f5edd6ffeb9974ef48eac3910ae801d5a929286734978f9269d"
+    },
+    {
+      "path": "sql/migrations/004_meta_batch.sql",
+      "sha256": "5c828f4071cab7ea097ee5b001aa6aca8fb567f04889a091a02842cf14fbb801"
+    },
+    {
+      "path": "sql/migrations/005_raw_vault.sql",
+      "sha256": "36fedf6f1c6b128e8006ad2e76815c44099c5557de8140deb04e599d4c4f14f8"
+    },
+    {
+      "path": "sql/migrations/006_canonical.sql",
+      "sha256": "c6b414f581d15183d89d98bebda71f373827a945d9e3eb2d9a60e699054e37dd"
+    },
+    {
+      "path": "sql/migrations/007_warehouse.sql",
+      "sha256": "32add012cc1f2919e0aa07926fea86922999b02dd37bb070e4bb2b6247fc87ee"
+    },
+    {
+      "path": "sql/migrations/008_qa.sql",
+      "sha256": "408c3775b218808fceb40a4119f8e5f20735664e1775671f5876d838b6219e29"
+    },
+    {
+      "path": "sql/migrations/009_database_roles.sql",
+      "sha256": "cd1b8f3c4969111cab71777ea063dfe89e69dc29566dbd779c708e2f889d03d5"
+    },
+    {
+      "path": "sql/migrations/010_business_key.sql",
+      "sha256": "de7a14a6df0c0336c7f40c2178159e0f53a4f702da44cde9a20c53a95443d922"
+    },
+    {
+      "path": "sql/migrations/011_review_validation_fixes.sql",
+      "sha256": "fb4d03819dbb4a37366aa5b3cb59fe4e8bec0d76eae3fcfbc3783ebb13f51de6"
+    }
+  ],
+  "files": [
+    {
+      "path": "src/arsia_c/projections/nsw.py",
+      "sha256": "a1c7e59af639616bcb5257603186f03e7463e85c8d630e7cf7416f378e90c9ad"
+    },
+    {
+      "path": "src/arsia_c/projections/sql/c03_nsw_crash_insert.sql",
+      "sha256": "9f23ffb2c254ef82bc890d9d36f632ec946cc4cf93e997e970dd6d6d3a85269a"
+    },
+    {
+      "path": "src/arsia_c/qa_expectations.py",
+      "sha256": "6c372920da2659e9bba883a9681f37d753ef1438e60d485e3ee3ffb76b45d652"
+    },
+    {
+      "path": "tests/test_at10_rule.py",
+      "sha256": "22da3d1898d6ce7d253c6ce354d2c0f282084ed11cbcdd68911e6a4c883be859"
+    },
+    {
+      "path": "tests/test_at10_rule_postgres.py",
+      "sha256": "df0888facfaf82a9457d3673db399c30ba82ddd9964210ea85cb4c753029d5ab"
+    },
+    {
+      "path": "tools/verify_at10_postgres.py",
+      "sha256": "3aff1602e910e8ba65b774a2cc5d32c8256b5b6af2dd115d0dff3be060d1af75"
+    }
+  ],
+  "before": {
+    "commit": "85f830ef1a909050af35d9036840dd4c6bfcd751",
+    "method": "Separate git archive and installed original wheel; same three database regressions",
+    "tests": 3,
+    "passed": 1,
+    "failed": 2,
+    "skipped": 0,
+    "failures": [
+      "Declared rule left N2 missing and fatal_crash_eligible=false",
+      "Omitted rule evidence did not block publication"
+    ],
+    "summary": {
+      "tests": 3,
+      "failures": 2,
+      "errors": 0,
+      "skipped": 0,
+      "pytest_exit_code": 1,
+      "exit_code": 1,
+      "permissions": "Original A03 audit passed before and after",
+      "final_tables_empty": true,
+      "publication_performed": false,
+      "boundary": "Failure-before: original85f830e under new AT10 declared-rule regression"
+    },
+    "command": {
+      "argv": [
+        "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/artifacts/at10-rule-rebuild-20260928/baseline-venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "-o",
+        "pythonpath=",
+        "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/artifacts/at10-rule-rebuild-20260928/baseline/tests/test_at10_rule_postgres.py",
+        "--junitxml=/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/artifacts/at10-rule-rebuild-20260928/baseline-postgres/pytest.xml"
+      ],
+      "cwd": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/artifacts/at10-rule-rebuild-20260928/baseline-postgres",
+      "pythonpath_removed": true
+    }
+  },
+  "after": {
+    "tests": 71,
+    "passed": 71,
+    "failed": 0,
+    "skipped": 0,
+    "postgresql_tests": 50,
+    "unit_and_config_tests": 21,
+    "breakdown": {
+      "AT10_unit": 9,
+      "AT10_postgresql": 3,
+      "C03_postgresql": 42,
+      "C10_postgresql": 5,
+      "official_definition_checks": 12
+    },
+    "summary": {
+      "tests": 71,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "pytest_exit_code": 0,
+      "exit_code": 0,
+      "permissions": "Original A03 audit passed before and after",
+      "final_tables_empty": true,
+      "publication_performed": true,
+      "boundary": "AT10 synthetic rule rebuild, independent C10 rejection, and unchanged NSW defaults",
+      "publication_scope": "Private synthetic test publications; no official release",
+      "final_platform_accepted": false
+    },
+    "command": {
+      "argv": [
+        "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/artifacts/at10-rule-rebuild-20260928/venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "-o",
+        "pythonpath=",
+        "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/artifacts/role-b-e-integration-20260927/integration/tests/test_at10_rule.py",
+        "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/artifacts/role-b-e-integration-20260927/integration/tests/test_at10_rule_postgres.py",
+        "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/artifacts/role-b-e-integration-20260927/integration/tests/test_c03_nsw_postgres.py",
+        "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/artifacts/role-b-e-integration-20260927/integration/tests/test_c10_integration_postgres.py",
+        "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/artifacts/role-b-e-integration-20260927/integration/tests/test_official_definitions.py",
+        "--junitxml=/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/artifacts/at10-rule-rebuild-20260928/verified-postgres/pytest.xml"
+      ],
+      "cwd": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/artifacts/at10-rule-rebuild-20260928/verified-postgres",
+      "pythonpath_removed": true
+    }
+  },
+  "asserted_results": {
+    "raw": 19,
+    "crashes": 6,
+    "fatal_crashes": 2,
+    "fatalities": 3,
+    "casualties": 7,
+    "fatal_crash_known_count_before": 5,
+    "fatal_crash_known_count_after": 6,
+    "fatality_known_count": 5,
+    "casualty_known_count": 5,
+    "qa_rows": 63,
+    "repeat": "no_change",
+    "old_successful_history": "unchanged"
+  },
+  "ownership": {
+    "original_modules": "Role C; original commits remain in history",
+    "change": "Role B / Peixian: rule adapter, SQL, independent QA expectation, tests and execution"
+  },
+  "limits": [
+    "Synthetic-only explicit rule; default missing semantics and official inputs remain unchanged.",
+    "Standalone C backport, wider E acceptance and course-facing materials are separate."
+  ],
+  "local_evidence": {
+    "root": "artifacts/at10-rule-rebuild-20260928",
+    "hashes": [
+      {
+        "path": "baseline-postgres/inputs.json",
+        "sha256": "79cac691b9572ca7614af37f607dc754c8b8e573cb8867751b2e8b26f5900a6c"
+      },
+      {
+        "path": "baseline-postgres/pytest.xml",
+        "sha256": "ed3f78a6f8bdbf88004158942d422166270bd6cab49adb8c82cc0033333f996f"
+      },
+      {
+        "path": "baseline-postgres/pytest.log",
+        "sha256": "0833bb947b2d5b79e9b9b4b2de7da4df9e6040b86fafe9183f9a49d5528a24b5"
+      },
+      {
+        "path": "baseline-postgres/a03-before.log",
+        "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+      },
+      {
+        "path": "baseline-postgres/a03-after.log",
+        "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+      },
+      {
+        "path": "baseline-postgres/summary.json",
+        "sha256": "7b542406bade9ca57eb82a261547385f29b98dae374b20420092b566bc7ee889"
+      },
+      {
+        "path": "verified-postgres/inputs.json",
+        "sha256": "eecc3da2cdb5e8b075fa5b5d2341f5370d80961494723694696c2d3231615947"
+      },
+      {
+        "path": "verified-postgres/pytest.xml",
+        "sha256": "68df4ac676e01951c1c7b43d3fcf2d4a7de0f1176eab5e242eaa5567efb8ad01"
+      },
+      {
+        "path": "verified-postgres/pytest.log",
+        "sha256": "7be77c4ddda9b35286daef50aebde87f43dc56cb04294b7ac5158862276e6f5d"
+      },
+      {
+        "path": "verified-postgres/a03-before.log",
+        "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+      },
+      {
+        "path": "verified-postgres/a03-after.log",
+        "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+      },
+      {
+        "path": "verified-postgres/summary.json",
+        "sha256": "10d2329806825b05998ee17c927c1cb721c7586cac448138eed68cd1d2b8388d"
+      }
+    ]
+  }
+}

@@ -272,6 +272,20 @@ class Source:
         mapping = json.loads(self.p["severity_map"])
         missing = severity is None or (empty and severity == "")
         classification = None if missing else mapping.get(severity)
+        if missing and self.state == "NSW":
+            contract = next(c for c in self.manifest["rules"]["contracts"]
+                            if c["id"] == self.by_role["crash"]["resource_id"])
+            declaration = next(m for m in self.manifest["rules"]["mappings"]
+                               if m["id"] == contract["mapping_ids"][0])
+            code = declaration["content"].get("missing_severity_code")
+            if code is not None:
+                definition = next(s for s in self.manifest["rules"]["severity"]
+                                  if s["source_id"] == self.sid and s["severity_code"] == code)
+                classification = {"code": code, "fatal": definition["is_fatal_crash"]}
+                result["_severity_rule"] = {
+                    "code": code, "reason": declaration["content"]["missing_severity_reason"],
+                    "mapping_version": declaration["version"],
+                }
         if not missing and classification is None:
             self.semantic_errors[row["raw_record_id"]].add("undefined_category")
             raise ValueError("undefined_category")
@@ -435,7 +449,7 @@ def missing_reasons(row, expected):
     ]:
         if expected.get(flag) is False:
             required.append(field)
-    return [
+    missing = [
         f
         for f in required
         if not any(
@@ -447,3 +461,6 @@ def missing_reasons(row, expected):
             for n in fields
         )
     ]
+    if expected.get("_severity_rule") is not None and notes.get("severity_rule") != expected["_severity_rule"]:
+        missing.append("severity_rule")
+    return missing
