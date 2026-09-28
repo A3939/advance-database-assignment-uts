@@ -62,10 +62,26 @@ database. Reproduction logs and exact inputs are in
 page and visual-check screenshot are in
 `docs/evidence/d09-ui-preview-2026-09-25/`.
 
-## Remaining team acceptance
+## Real B10/E06 acceptance
 
-The independent test creates controlled successful batches because the shared
-B/E publication path is not complete. Final D09 acceptance still needs a real
-B10 build published by E06, followed by the same mid-read pointer-switch check
-against that build. Until that happens, D09 remains in progress even when its
-implementation and isolated PostgreSQL tests pass.
+Final D09 acceptance was completed on 2026-09-28 from the current integrated
+backend at `peixian/dev` commit
+`562de2910bfd7be276b3036983e5680d436fde1e`. The installed Python 3.12 package
+ran in a disposable PostgreSQL 16.15 database and passed 17 tests with zero
+failures, errors or skips.
+
+The acceptance used the real B10 runner and E06 publisher twice. The first S0
+publication produced six crashes and six eligible units. D09 pinned that batch,
+then a second B10/E06 build published a 2021-2024 release. Every query on the
+already-started page continued to return only the first batch; a refreshed page
+resolved the second batch and returned its two in-scope crashes. The rendered
+HTML displayed each pinned batch ID. Tests ran as `arsia_reader`, the A03 audit
+passed before and after, all database tables were empty after cleanup and the
+container was removed.
+
+The exact command, inputs, hashes, JUnit output, compact B10/E06 publication
+result receipts and cleanup receipt are in
+`docs/evidence/d09-full-build-validation-2026-09-28/`. These were private
+synthetic publications inside the disposable test database; no public or shared
+release was created. E07's independent platform acceptance remains a separate
+team task and does not change D09's completed implementation acceptance.

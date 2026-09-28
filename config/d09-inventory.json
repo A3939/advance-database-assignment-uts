@@ -1,8 +1,8 @@
 {
-  "scope": "D09 local UI and fixed-release reading; real B/E publication acceptance remains external",
+  "scope": "D09 local UI and fixed-release reading through real B10/E06 synthetic publications",
   "implementation_complete": true,
-  "real_publication_acceptance_complete": false,
-  "complete_d09": false,
+  "real_publication_acceptance_complete": true,
+  "complete_d09": true,
   "binding": {
     "python": "arsia_d09:load_dashboard",
     "command": "arsia-dashboard",
@@ -60,7 +60,7 @@
     },
     {
       "path": "pyproject.toml",
-      "sha256": "f106bbc9d8d1d83a5e0fd2f90343bc218d369dc1840c31038585047aa49a40ca"
+      "sha256": "108a16070206e775a5cd421a9c2f0d53bcf0f5f500c001045412d1c6ea2963a4"
     },
     {
       "path": "requirements-db.txt",
@@ -68,17 +68,36 @@
     }
   ],
   "dependencies": {
-    "base_branch": "yihua/dev",
+    "base_branch": "peixian/dev",
+    "base_commit": "562de2910bfd7be276b3036983e5680d436fde1e",
     "d05_commit": "7f8d99c740b98a85c68c180c205b7456dbe35362",
     "d06_commit": "38e32e901abb41d06b6b1ea93a57429dae6e93a1",
     "d07_commit": "6c32a65b74214a3d7c2a3c841340301f1bb0ce6d",
     "d08_commit": "8df3b0c66bcd2eceb1fac394a2a795f8a3879f03",
     "database": "PostgreSQL 16 with migrations 001-011 and D05-D09 SQL",
     "reader_role": "arsia_reader",
-    "pending": [
-      "B10 shared build integration",
-      "E06 real publication gate and current_release update",
-      "real published-build mid-read switch acceptance"
-    ]
-  }
+    "pending": []
+  },
+  "acceptance": {
+    "date": "2026-09-28",
+    "postgresql": "16.15 in a disposable Docker container",
+    "python": "3.12",
+    "tests": 17,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "real_b10_builds": 2,
+    "real_e06_publications": 2,
+    "fixed_batch_during_pointer_switch": true,
+    "refresh_switches_to_new_release": true,
+    "reader_role": "arsia_reader",
+    "final_tables_empty": true,
+    "container_removed": true,
+    "evidence": "docs/evidence/d09-full-build-validation-2026-09-28"
+  },
+  "validation_files": [
+    "tests/test_d09.py",
+    "tests/test_d09_full_build_postgres.py",
+    "tools/verify_d09_full_build_postgres.py"
+  ]
 }

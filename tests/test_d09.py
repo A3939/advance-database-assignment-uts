@@ -208,8 +208,15 @@ def test_d09_inventory_hashes_and_status_boundary():
         (root / "config/d09-inventory.json").read_text(encoding="utf-8")
     )
     assert inventory["implementation_complete"] is True
-    assert inventory["real_publication_acceptance_complete"] is False
-    assert inventory["complete_d09"] is False
+    assert inventory["real_publication_acceptance_complete"] is True
+    assert inventory["complete_d09"] is True
+    evidence = root / inventory["acceptance"]["evidence"] / "summary.json"
+    summary = json.loads(evidence.read_text(encoding="utf-8"))
+    assert summary["exit_code"] == 0
+    assert summary["tests"] == 17
+    assert summary["skipped"] == 0
+    assert summary["d09_real_publication_acceptance"] is True
+    assert summary["pointer_switch_verified"] is True
     declared = {item["path"]: item["sha256"] for item in inventory["code_files"]}
     assert set(declared) == set(inventory["components"]["dashboard"])
     for path, expected in declared.items():

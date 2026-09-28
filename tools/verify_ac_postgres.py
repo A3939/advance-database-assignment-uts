@@ -91,7 +91,7 @@ def main(*, inventory_path="config/ac-inventory.json", additional_tests=(), test
     migrations = sorted((ROOT / "sql/migrations").glob("*.sql"))
     if [p.name[:3] for p in migrations] != [f"{i:03}" for i in range(1, 12)]:
         parser.error("Expected A migrations 001 through 011")
-    if not {str(p.relative_to(ROOT)) for p in migrations} <= {
+    if not {p.relative_to(ROOT).as_posix() for p in migrations} <= {
         item["path"] for item in inventory["schema_files"]
     }:
         parser.error("The inventory must include all eleven migrations")
@@ -108,9 +108,21 @@ def main(*, inventory_path="config/ac-inventory.json", additional_tests=(), test
     } | set((ROOT / "tools").glob("verify_*postgres.py")))
     out = args.output.resolve()
     out.mkdir(parents=True, exist_ok=False)
+    try:
+        integration_head = run(
+            ["git", "-C", str(ROOT), "rev-parse", "HEAD"]
+        ).stdout.strip()
+        working_tree = run(
+            ["git", "-C", str(ROOT), "status", "--short"]
+        ).stdout.splitlines()
+    except subprocess.CalledProcessError:
+        integration_head = os.environ.get("ARSIA_VALIDATION_HEAD", "working-tree")
+        working_tree = [
+            "Git metadata unavailable in the validation process; exact file hashes follow"
+        ]
     write(out, "inputs.json", {
-        "integration_head": run(["git", "-C", str(ROOT), "rev-parse", "HEAD"]).stdout.strip(),
-        "working_tree": run(["git", "-C", str(ROOT), "status", "--short"]).stdout.splitlines(),
+        "integration_head": integration_head,
+        "working_tree": working_tree,
         "inventory": inventory, "migrations": [record(p) for p in migrations],
         "installed_files": installed, "tests": [record(p) for p in selected],
         "test_dependencies": [record(p) for p in dependencies],
