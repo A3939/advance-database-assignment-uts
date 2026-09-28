@@ -129,15 +129,13 @@ def test_sql_uses_complete_parent_identity_and_only_eligible_units():
     assert "candidate.status" in sql and "succeeded" in sql
     assert "from canonical.unit as unit" in sql
     assert "unit.count_eligible" in sql
-    assert "join dw.fact_crash as parent" in sql
-    for equality in (
-        "parent.batch_id = unit.batch_id",
-        "parent.source_id = unit.source_id",
-        "parent.release_scope = unit.release_scope",
-        "parent.crash_key = unit.crash_key",
-    ):
-        assert equality in sql
-    assert "group by unit.source_id" in sql
+    assert "from dw.fact_crash as parent" in sql
+    assert "union all" in sql
+    assert "bool_or(members.parent_row) over (" in sql
+    assert ("partition by members.batch_id, members.source_id, "
+            "members.release_scope, members.crash_key") in sql
+    assert "where not member.parent_row and member.has_parent" in sql
+    assert "group by member.batch_id, member.source_id" in sql
     assert "unit.statistical_scope" in sql
     assert "unit.unit_type_code" in sql
     assert "count(*)::bigint" in sql

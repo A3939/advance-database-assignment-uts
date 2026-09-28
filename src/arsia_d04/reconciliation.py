@@ -24,7 +24,7 @@ from arsia_ingest.qa_input import QAReport, write_results
 
 
 RULE_ID = "QA06_RECONCILIATION"
-PRODUCER_VERSION = "d04-0.1.0"
+PRODUCER_VERSION = "d04-0.1.1"
 METRIC_NAMES = (
     "missing_fact_count",
     "extra_fact_count",
@@ -48,7 +48,12 @@ WITH allowed_lineage AS (
         lineage_kind text,
         resource_id text,
         file_sha256 text,
-        parser_version text
+        parser_version text,
+        entity_kind text,
+        key_fields text[],
+        parent_resource_id text,
+        parent_fields text[],
+        parent_crash_fields text[]
     )
 ), canonical_rows AS (
     SELECT
@@ -67,9 +72,22 @@ WITH allowed_lineage AS (
                 SELECT 1
                 FROM allowed_lineage AS allowed
                 WHERE allowed.lineage_kind = 'primary'
+                  AND allowed.entity_kind = 'crash'
                   AND allowed.resource_id = primary_raw.resource_id
                   AND allowed.file_sha256 = primary_raw.file_sha256
                   AND allowed.parser_version = primary_raw.parser_version
+                  AND NOT EXISTS (
+                      SELECT 1
+                      FROM unnest(allowed.key_fields) AS key_field
+                      WHERE primary_raw.payload->>key_field IS NULL
+                         OR btrim(primary_raw.payload->>key_field) = ''
+                  )
+                  AND rv.encode_business_key(VARIADIC ARRAY(
+                      SELECT primary_raw.payload->>key_field
+                      FROM unnest(allowed.key_fields) WITH ORDINALITY
+                           AS key_part(key_field, position)
+                      ORDER BY position
+                  )) IS NOT DISTINCT FROM crash.crash_key
             )
             OR (
                 crash.location_record_id IS NOT NULL
@@ -82,6 +100,42 @@ WITH allowed_lineage AS (
                           AND allowed.resource_id = location_raw.resource_id
                           AND allowed.file_sha256 = location_raw.file_sha256
                           AND allowed.parser_version = location_raw.parser_version
+                          AND (
+                              (
+                                  allowed.entity_kind = 'crash'
+                                  AND location_raw.raw_record_id
+                                      = primary_raw.raw_record_id
+                              )
+                              OR (
+                                  allowed.entity_kind = 'node_raw'
+                                  AND allowed.parent_resource_id
+                                      = primary_raw.resource_id
+                                  AND NOT EXISTS (
+                                      SELECT 1
+                                      FROM unnest(
+                                          allowed.parent_fields,
+                                          allowed.parent_crash_fields
+                                      ) AS parent_field(child_field, crash_field)
+                                      WHERE location_raw.payload->>child_field IS NULL
+                                         OR primary_raw.payload->>crash_field IS NULL
+                                         OR btrim(location_raw.payload->>child_field) = ''
+                                         OR btrim(primary_raw.payload->>crash_field) = ''
+                                  )
+                                  AND rv.encode_business_key(VARIADIC ARRAY(
+                                      SELECT location_raw.payload->>child_field
+                                      FROM unnest(allowed.parent_fields)
+                                           WITH ORDINALITY
+                                           AS child_key(child_field, position)
+                                      ORDER BY position
+                                  )) = rv.encode_business_key(VARIADIC ARRAY(
+                                      SELECT primary_raw.payload->>crash_field
+                                      FROM unnest(allowed.parent_crash_fields)
+                                           WITH ORDINALITY
+                                           AS crash_key(crash_field, position)
+                                      ORDER BY position
+                                  ))
+                              )
+                          )
                     )
                 )
             )
@@ -317,28 +371,52 @@ def _json_value(value: Any) -> Any:
     return str(value)
 
 
+def _field_list(value: Any, *, resource_id: str, field: str) -> list[str]:
+    if (
+        not isinstance(value, list)
+        or not value
+        or any(not isinstance(item, str) or not item for item in value)
+    ):
+        raise IntakeError(
+            "D04_MANIFEST",
+            "D04 contracts require ordered native fields",
+            resource_id=resource_id,
+            field=field,
+        )
+    return list(value)
+
+
 def _manifest_scope(manifest: Any) -> tuple[_SourceYear, ...]:
     if not isinstance(manifest, Mapping):
         raise IntakeError("D04_MANIFEST", "D04 requires a manifest object")
     sources = manifest.get("sources")
     analysis = manifest.get("analysis")
     files = manifest.get("files")
+    rules = manifest.get("rules")
     if (not isinstance(sources, list) or not sources
-            or not isinstance(analysis, Mapping) or not isinstance(files, list)):
-        raise IntakeError("D04_MANIFEST", "D04 requires sources, files and analysis")
+            or not isinstance(analysis, Mapping) or not isinstance(files, list)
+            or not isinstance(rules, Mapping)
+            or not isinstance(rules.get("contracts"), list)):
+        raise IntakeError(
+            "D04_MANIFEST",
+            "D04 requires sources, files, analysis and frozen contracts",
+        )
     first, last = analysis.get("year_from"), analysis.get("year_to")
     if type(first) is not int or type(last) is not int or first > last:
         raise IntakeError("D04_MANIFEST", "D04 analysis years are invalid")
     ids: list[str] = []
+    source_values: dict[str, Mapping[str, Any]] = {}
     for source in sources:
         source_id = source.get("source_id") if isinstance(source, Mapping) else None
         if not isinstance(source_id, str) or not source_id.strip() or source_id in ids:
             raise IntakeError("D04_MANIFEST", "D04 source IDs are invalid")
         ids.append(source_id)
+        source_values[source_id] = source
+    contracts = rules["contracts"]
     lineage: dict[str, str] = {}
     for source_id in ids:
-        allowed = []
-        primary_count = 0
+        allowed: list[dict[str, Any]] = []
+        crash_specs: dict[str, dict[str, Any]] = {}
         for file in files:
             if not isinstance(file, Mapping) or file.get("source_id") != source_id:
                 continue
@@ -349,22 +427,135 @@ def _manifest_scope(manifest: Any) -> tuple[_SourceYear, ...]:
             if any(not isinstance(file.get(name), str) or not file[name]
                    for name in required):
                 raise IntakeError("D04_MANIFEST", "D04 file identities are invalid")
+            resource_id = file["resource_id"]
+            matches = [
+                contract for contract in contracts
+                if isinstance(contract, Mapping)
+                and contract.get("id") == resource_id
+            ]
+            if len(matches) != 1:
+                raise IntakeError(
+                    "D04_MANIFEST",
+                    "D04 requires exactly one frozen contract per lineage resource",
+                    resource_id=resource_id,
+                )
+            contract = matches[0]
+            if contract.get("status") not in {
+                "confirmed", "synthetic_defined", "restricted"
+            }:
+                raise IntakeError(
+                    "D04_MANIFEST",
+                    "D04 lineage contracts must be frozen",
+                    resource_id=resource_id,
+                )
+            content = contract.get("content")
+            if not isinstance(content, Mapping):
+                raise IntakeError("D04_MANIFEST", "D04 contract content is invalid")
+            native, identity = content.get("input"), content.get("identity")
+            if not isinstance(native, Mapping) or not isinstance(identity, Mapping):
+                raise IntakeError("D04_MANIFEST", "D04 contract content is invalid")
+            identity_fields = (
+                "source_id", "resource_id", "file_sha256",
+                "parser_version", "entity_kind",
+            )
+            if any(native.get(name) != file.get(name) for name in identity_fields):
+                raise IntakeError(
+                    "D04_MANIFEST",
+                    "D04 contract does not match the selected file",
+                    resource_id=resource_id,
+                )
+            release_scope = source_values[source_id].get("release_scope")
+            if release_scope is not None and identity.get("release_scope") != release_scope:
+                raise IntakeError(
+                    "D04_MANIFEST",
+                    "D04 contract release differs from the selected source",
+                    resource_id=resource_id,
+                )
+            key = identity.get("key")
+            if not isinstance(key, Mapping):
+                raise IntakeError("D04_MANIFEST", "D04 contract key is invalid")
+            key_fields = _field_list(
+                key.get("fields"), resource_id=resource_id, field="key.fields"
+            )
+            spec = {
+                "resource_id": resource_id,
+                "file_sha256": file["file_sha256"],
+                "parser_version": file["parser_version"],
+                "entity_kind": kind,
+                "key_fields": key_fields,
+                "parent_resource_id": None,
+                "parent_fields": [],
+                "parent_crash_fields": [],
+            }
             if kind == "crash":
-                primary_count += 1
-                allowed.append({
-                    "lineage_kind": "primary",
-                    **{name: file[name] for name in required},
-                })
-            allowed.append({
-                "lineage_kind": "location",
-                **{name: file[name] for name in required},
-            })
-        if primary_count == 0:
+                crash_specs[resource_id] = spec
+                allowed.append({"lineage_kind": "primary", **spec})
+            else:
+                parent = identity.get("parent")
+                if not isinstance(parent, Mapping):
+                    raise IntakeError(
+                        "D04_MANIFEST",
+                        "D04 Node contract requires a crash parent",
+                        resource_id=resource_id,
+                    )
+                parent_resource_id = parent.get("resource_id")
+                if not isinstance(parent_resource_id, str) or not parent_resource_id:
+                    raise IntakeError(
+                        "D04_MANIFEST",
+                        "D04 Node contract requires a crash parent",
+                        resource_id=resource_id,
+                    )
+                parent_fields = _field_list(
+                    parent.get("fields"),
+                    resource_id=resource_id,
+                    field="parent.fields",
+                )
+                parent_crash_fields = (
+                    _field_list(parent["parent_fields"], resource_id=resource_id,
+                                field="parent.parent_fields")
+                    if "parent_fields" in parent else None
+                )
+                if parent_crash_fields is not None and len(parent_fields) != len(parent_crash_fields):
+                    raise IntakeError(
+                        "D04_MANIFEST",
+                        "D04 Node parent field lists must have the same length",
+                        resource_id=resource_id,
+                    )
+                spec.update(
+                    parent_resource_id=parent_resource_id,
+                    parent_fields=parent_fields,
+                    parent_crash_fields=parent_crash_fields,
+                )
+            allowed.append({"lineage_kind": "location", **spec})
+        if not crash_specs:
             raise IntakeError(
                 "D04_MANIFEST",
                 "Every D04 source requires a frozen crash resource",
                 source_id=source_id,
             )
+        for item in allowed:
+            if (
+                item["entity_kind"] == "node_raw"
+                and item["parent_resource_id"] not in crash_specs
+            ):
+                raise IntakeError(
+                    "D04_MANIFEST",
+                    "D04 Node parent must be a selected same-source crash resource",
+                    resource_id=item["resource_id"],
+                )
+            if item["entity_kind"] == "node_raw" and item["parent_crash_fields"] is None:
+                target = crash_specs[item["parent_resource_id"]]
+                selected = [f for f in files if isinstance(f, Mapping)
+                            and f.get("source_id") == source_id
+                            and f.get("resource_id") == target["resource_id"]]
+                # The short form names the same ordered key on both resources.
+                if (len(selected) != 1 or item["parent_fields"] != target["key_fields"]
+                        or len(set(target["key_fields"])) != len(target["key_fields"])):
+                    raise IntakeError(
+                        "D04_MANIFEST", "D04 omitted parent fields require the exact frozen crash key",
+                        resource_id=item["resource_id"],
+                    )
+                item["parent_crash_fields"] = list(target["key_fields"])
         lineage[source_id] = json.dumps(
             allowed, ensure_ascii=False, allow_nan=False, sort_keys=True
         )
