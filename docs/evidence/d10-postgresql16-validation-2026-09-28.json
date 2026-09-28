@@ -1,7 +1,7 @@
 {
   "evidence_version": "d10-postgresql16-validation-v1",
   "status": "passed",
-  "executed_at": "2026-09-28T07:52:57.107567+00:00",
+  "executed_at": "2026-09-28T20:54:33.651343+10:00",
   "scope": "Disposable PostgreSQL SQL-execution acceptance using every native QLD row; the Canonical Q8 boundary is reconstructed from those rows solely to execute the committed query and is not a shared or public release.",
   "environment": {
     "python": "3.12.14",
@@ -13,7 +13,7 @@
     "docker_server": "29.6.2"
   },
   "inputs": {
-    "commit": "d4335b6ab023409a9abb6105426b2ac92afe7c44",
+    "commit": "9f85643c7c83f34b93964d810d31405d3f9b6be0",
     "query": {
       "path": "sql/d10_qld_source_evidence.sql",
       "sha256": "ad0f3e8f294f1c70363d4995899dcfffeeb55cb075ed73f863accaf97045b68f"
@@ -594,6 +594,6 @@
     "permanent_objects_created_by_d10_sql": 0,
     "assertions": "all passed"
   },
-  "duration_seconds": 94.159,
+  "duration_seconds": 89.741,
   "publication_performed": false
 }
