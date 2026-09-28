@@ -179,7 +179,7 @@ def render_page(
         if demo else ""
     )
     fields["version"] = escape(DASHBOARD_VERSION)
-    if snapshot is not None and snapshot.release.dataset_kind == "official" and snapshot.official_reports is None:
+    if not demo and snapshot is not None and snapshot.release.dataset_kind == "official" and snapshot.official_reports is None:
         error = IntakeError("D09_OFFICIAL_CONTEXT", "Official report availability is missing; read the batch again.")
     if error is not None:
         message = escape(str(error))

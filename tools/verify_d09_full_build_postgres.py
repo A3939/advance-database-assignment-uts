@@ -16,6 +16,7 @@ if __name__ == "__main__":
         inventory_path="config/build-inventory.json",
         tests=(
             "test_d09.py",
+            "test_d09_official_policy.py",
             "test_d09_full_build_postgres.py",
             "test_build_integration.py",
         ),

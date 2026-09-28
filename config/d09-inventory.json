@@ -42,7 +42,7 @@
     },
     {
       "path": "src/arsia_d09/web.py",
-      "sha256": "a38fc119b4de4338b8c3c1b0b43f050b2bc7dbb85515ec07c9dff523bc196ae9"
+      "sha256": "be0c19094aed266f395e0dab3a289e4a29ed62babe8639af21485f0cdb223260"
     },
     {
       "path": "src/arsia_d09/sql/d09_context.sql",

@@ -1,13 +1,16 @@
 """D09 uses the official reader policy instead of presenting unavailable zeros."""
 from dataclasses import replace
 from decimal import Decimal
+from http.server import ThreadingHTTPServer
+import threading
+from urllib.request import urlopen
 
 import pytest
 
 import arsia_d09.dashboard as dashboard
 from arsia_d07 import MapResult
 from arsia_d09 import DashboardFilters, Release, load_dashboard, query_dashboard
-from arsia_d09.web import demo_snapshot, render_page
+from arsia_d09.web import demo_snapshot, make_handler, render_page
 from arsia_ingest import official_reader
 from arsia_ingest.models import IntakeError
 from test_d09 import BATCH, NOW, Connection
@@ -116,6 +119,28 @@ def test_official_snapshot_without_policy_does_not_render_numbers(monkeypatch):
     page = render_page(snapshot.filters, replace(snapshot, official_reports=None))
     assert "D09_OFFICIAL_CONTEXT" in page
     assert "Crashes</span>" not in page and "hidden-map-row" not in page
+
+
+def test_official_demo_http_keeps_the_labelled_example():
+    server = ThreadingHTTPServer(("127.0.0.1", 0), make_handler(None, True))
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    try:
+        url = f"http://127.0.0.1:{server.server_port}/?mode=official&sources=official_nsw"
+        with urlopen(url, timeout=5) as response:
+            page = response.read().decode("utf-8")
+            assert response.status == 200
+        assert "D09_OFFICIAL_CONTEXT" not in page
+        assert "Fixed example mode: values are illustrative." in page
+        assert "Fixed example NSW" in page and "demo-only" in page
+        assert "Mode</span><strong>official</strong>" in page
+        assert "Crashes</span><strong>2</strong>" in page
+        assert "Map coverage</span><strong>50.00%</strong>" in page
+        assert "demo-crash-1" in page
+    finally:
+        server.shutdown()
+        server.server_close()
+        thread.join(timeout=5)
 
 
 def test_synthetic_values_and_default_snapshot_interface_are_unchanged():
