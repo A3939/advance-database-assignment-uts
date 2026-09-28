@@ -510,12 +510,12 @@ def _manifest_scope(manifest: Any) -> tuple[_SourceYear, ...]:
                     resource_id=resource_id,
                     field="parent.fields",
                 )
-                parent_crash_fields = _field_list(
-                    parent.get("parent_fields"),
-                    resource_id=resource_id,
-                    field="parent.parent_fields",
+                parent_crash_fields = (
+                    _field_list(parent["parent_fields"], resource_id=resource_id,
+                                field="parent.parent_fields")
+                    if "parent_fields" in parent else None
                 )
-                if len(parent_fields) != len(parent_crash_fields):
+                if parent_crash_fields is not None and len(parent_fields) != len(parent_crash_fields):
                     raise IntakeError(
                         "D04_MANIFEST",
                         "D04 Node parent field lists must have the same length",
@@ -543,6 +543,19 @@ def _manifest_scope(manifest: Any) -> tuple[_SourceYear, ...]:
                     "D04 Node parent must be a selected same-source crash resource",
                     resource_id=item["resource_id"],
                 )
+            if item["entity_kind"] == "node_raw" and item["parent_crash_fields"] is None:
+                target = crash_specs[item["parent_resource_id"]]
+                selected = [f for f in files if isinstance(f, Mapping)
+                            and f.get("source_id") == source_id
+                            and f.get("resource_id") == target["resource_id"]]
+                # The short form names the same ordered key on both resources.
+                if (len(selected) != 1 or item["parent_fields"] != target["key_fields"]
+                        or len(set(target["key_fields"])) != len(target["key_fields"])):
+                    raise IntakeError(
+                        "D04_MANIFEST", "D04 omitted parent fields require the exact frozen crash key",
+                        resource_id=item["resource_id"],
+                    )
+                item["parent_crash_fields"] = list(target["key_fields"])
         lineage[source_id] = json.dumps(
             allowed, ensure_ascii=False, allow_nan=False, sort_keys=True
         )

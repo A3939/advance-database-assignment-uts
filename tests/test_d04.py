@@ -275,6 +275,75 @@ def test_frozen_node_parent_fields_are_bound_in_order():
     assert node["parent_crash_fields"] == ["Crash ID", "Node ID"]
 
 
+def test_frozen_node_short_form_uses_exact_crash_key_without_mutation():
+    manifest = deepcopy(MANIFEST)
+    manifest["files"].append({
+        "source_id": "syn_nsw",
+        "resource_id": "syn_nsw_node",
+        "entity_kind": "node_raw",
+        "file_sha256": "b" * 64,
+        "parser_version": "xlsx-native-v1",
+    })
+    manifest["rules"]["contracts"].append({
+        "id": "syn_nsw_node",
+        "status": "synthetic_defined",
+        "content": {
+            "input": dict(manifest["files"][-1]),
+            "identity": {
+                "release_scope": "s0",
+                "key": {"fields": ["Crash ID", "Node ID"]},
+                "parent": {
+                    "resource_id": "syn_nsw_crash",
+                    "fields": ["Crash ID"],
+                },
+            },
+        },
+    })
+    before = deepcopy(manifest)
+    connection = Connection()
+    reconcile(connection, BATCH, manifest)
+
+    allowed = json.loads(connection.executed[0][1][0])
+    node = next(
+        item for item in allowed
+        if item["lineage_kind"] == "location"
+        and item["resource_id"] == "syn_nsw_node"
+    )
+    assert node["parent_resource_id"] == "syn_nsw_crash"
+    assert node["parent_fields"] == ["Crash ID"]
+    assert node["parent_crash_fields"] == ["Crash ID"]
+    assert manifest == before
+
+
+def test_frozen_node_short_form_rejects_nonmatching_parent_key():
+    manifest = deepcopy(MANIFEST)
+    manifest["files"].append({
+        "source_id": "syn_nsw",
+        "resource_id": "syn_nsw_node",
+        "entity_kind": "node_raw",
+        "file_sha256": "b" * 64,
+        "parser_version": "xlsx-native-v1",
+    })
+    manifest["rules"]["contracts"].append({
+        "id": "syn_nsw_node",
+        "status": "synthetic_defined",
+        "content": {
+            "input": dict(manifest["files"][-1]),
+            "identity": {
+                "release_scope": "s0",
+                "key": {"fields": ["Crash ID", "Node ID"]},
+                "parent": {
+                    "resource_id": "syn_nsw_crash",
+                    "fields": ["Node ID"],
+                },
+            },
+        },
+    })
+    with pytest.raises(IntakeError) as error:
+        reconcile(Connection(), BATCH, manifest)
+    assert error.value.code == "D04_MANIFEST"
+
+
 @pytest.mark.parametrize(
     "manifest,code",
     [
