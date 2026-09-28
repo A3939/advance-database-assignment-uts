@@ -31,10 +31,10 @@ def included(name):
     """Keep this closed list in step with .dockerignore."""
     path = PurePosixPath(name)
     leaf = path.name
-    if any(part in {'.git', '__pycache__'} for part in path.parts):
+    if any(part in {'.git', '__pycache__'} or part.endswith('.egg-info') for part in path.parts):
         return False
     if any(fnmatch.fnmatchcase(leaf, pattern) for pattern in (
-            '.env', '.env.*', '*.pyc', '*.pem', '*.key', 'id_rsa*', 'id_ed25519*')):
+            '.env', '.env.*', '.DS_Store', '*.pyc', '*.pem', '*.key', 'id_rsa*', 'id_ed25519*')):
         return False
     if len(path.parts) == 1:
         return leaf in {'pyproject.toml', '.dockerignore'} or any(

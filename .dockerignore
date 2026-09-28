@@ -47,6 +47,8 @@ artifacts/**
 artifacts/team/**
 !artifacts/team/build-provenance.objects
 **/__pycache__/
+**/*.egg-info/
+**/.DS_Store
 **/*.pyc
 **/.env
 **/.env.*
