@@ -1,0 +1,12 @@
+{
+  "version": "e-acceptance-v1",
+  "runtime_commit": "1765269507d7cf0b9cb76eef7b9ccf97de7f1cc5",
+  "a_environment_commit": "8f91a6b41dc0777d5873d2151f71e9f1cbe05501",
+  "a_schema_commit": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
+  "e_original_commit": "aec3b4692382e48ea4f778f04a31a4ca5ba5fa57",
+  "contract_source": "F/ARSIA-Team-Handoff-EN/04-Team-Contracts-and-Acceptance.md",
+  "execution_owner": "Role B / Peixian assisting Role E",
+  "independent_member_signoff": false,
+  "final_platform_accepted": false,
+  "contract_sha256": "68756bb92676c7bd0f0f3d4ed81861cc6c2196178019fab0f60711b7221ab9fc"
+}
