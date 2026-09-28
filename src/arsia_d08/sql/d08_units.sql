@@ -142,6 +142,44 @@ BEGIN
            ) AS bounds;
 
     RETURN QUERY
+    -- Read each parent once, even before statistics catch up with a new build.
+    WITH members AS (
+        SELECT parent.batch_id, parent.source_id, parent.release_scope, parent.crash_key,
+               NULL::text AS statistical_scope, NULL::text AS unit_type_code,
+               true AS parent_row
+          FROM dw.fact_crash AS parent
+         WHERE parent.batch_id = p_batch_id
+           AND parent.occurrence_year BETWEEN v_year_from AND v_year_to
+           AND (p_source_ids IS NULL OR parent.source_id = ANY(p_source_ids))
+           AND (
+                p_months IS NULL
+                OR (
+                    parent.month_id IS NOT NULL
+                    AND (parent.month_id % 100) = ANY(p_months)
+                )
+           )
+        UNION ALL
+        SELECT unit.batch_id, unit.source_id, unit.release_scope, unit.crash_key,
+               unit.statistical_scope, unit.unit_type_code, false
+          FROM canonical.unit AS unit
+         WHERE unit.batch_id = p_batch_id
+           AND unit.count_eligible
+           AND (p_source_ids IS NULL OR unit.source_id = ANY(p_source_ids))
+    ), membership AS (
+        SELECT members.*,
+               bool_or(members.parent_row) OVER (
+                   PARTITION BY members.batch_id, members.source_id,
+                                members.release_scope, members.crash_key
+               ) AS has_parent
+          FROM members
+    ), unit_counts AS (
+        SELECT member.batch_id, member.source_id, member.statistical_scope,
+               member.unit_type_code, count(*)::bigint AS unit_count
+          FROM membership AS member
+         WHERE NOT member.parent_row AND member.has_parent
+         GROUP BY member.batch_id, member.source_id,
+                  member.statistical_scope, member.unit_type_code
+    )
     SELECT
         p_dataset_kind,
         p_batch_id,
@@ -150,33 +188,11 @@ BEGIN
         source.jurisdiction_code,
         unit.statistical_scope,
         unit.unit_type_code,
-        count(*)::bigint
-      FROM canonical.unit AS unit
-      JOIN dw.fact_crash AS parent
-        ON parent.batch_id = unit.batch_id
-       AND parent.source_id = unit.source_id
-       AND parent.release_scope = unit.release_scope
-       AND parent.crash_key = unit.crash_key
-       AND parent.occurrence_year BETWEEN v_year_from AND v_year_to
+        unit.unit_count
+      FROM unit_counts AS unit
       JOIN dw.dim_source AS source
         ON source.batch_id = unit.batch_id
        AND source.source_id = unit.source_id
-     WHERE unit.batch_id = p_batch_id
-       AND unit.count_eligible
-       AND (p_source_ids IS NULL OR unit.source_id = ANY(p_source_ids))
-       AND (
-            p_months IS NULL
-            OR (
-                parent.month_id IS NOT NULL
-                AND (parent.month_id % 100) = ANY(p_months)
-            )
-       )
-     GROUP BY
-        unit.source_id,
-        source.source_name,
-        source.jurisdiction_code,
-        unit.statistical_scope,
-        unit.unit_type_code
      ORDER BY
         unit.source_id,
         unit.statistical_scope,
