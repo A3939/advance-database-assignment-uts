@@ -19,6 +19,7 @@ build integrated at commit `562de2910bfd7be276b3036983e5680d436fde1e`.
 | Query SQL | [`sql/d10_qld_source_evidence.sql`](../sql/d10_qld_source_evidence.sql) |
 | Reproduction tool | [`tools/verify_d10_qld.py`](../tools/verify_d10_qld.py) |
 | Result receipt | [`docs/evidence/d10-qld-source-query-2026-09-28.json`](evidence/d10-qld-source-query-2026-09-28.json) |
+| PostgreSQL 16 receipt | [`docs/evidence/d10-postgresql16-validation-2026-09-28.json`](evidence/d10-postgresql16-validation-2026-09-28.json) |
 
 The original D01 investigation is retained at commit `b5395768d7242f4d42d5c78a7595babb6d9b1adf`.
 B and C later froze the confirmed source contract used here. D10 does not rewrite
@@ -71,6 +72,20 @@ The reproduction tool streamed the original CSV member from `raw.zip`, hashed
 the original bytes and held only keys and counters. It did not modify or extract
 the source. The SQL uses the same exact Raw identity and makes no permanent
 database changes.
+
+### PostgreSQL 16 execution
+
+The committed SQL was also executed against a disposable database built from
+migrations 001–011. The run used Python 3.12.14, Psycopg 3.3.6 and the pinned
+PostgreSQL 16.15 image. It loaded all 415,407 real QLD source rows, projected the
+66,624 in-scope crash rows under the same Raw Vault and Canonical constraints,
+and checked all eight result sets. The SQL returned the recorded key, month,
+severity, casualty, aggregate-unit and location results. `ROLLBACK` removed the
+temporary view and the verifier found zero permanent objects created by D10 SQL.
+
+The isolated Canonical projection exists only to execute the Q8 boundary in the
+disposable database. It is not a new shared publication. B's successful official
+batch remains the publication evidence identified above.
 
 ### Key and coverage
 
@@ -154,6 +169,16 @@ From the repository worktree:
 python tools/verify_d10_qld.py `
   --archive "..\raw.zip" `
   --output docs/evidence/d10-qld-source-query-2026-09-28.json
+```
+
+The PostgreSQL acceptance can be repeated with Python 3.12, Psycopg 3.3.6 and
+Docker Desktop:
+
+```powershell
+python tools/verify_d10_postgres.py `
+  --archive "..\raw.zip" `
+  --output docs/evidence/d10-postgresql16-validation-2026-09-28.json `
+  --docker "C:\path\to\docker.exe"
 ```
 
 Run `sql/d10_qld_source_evidence.sql` in `psql` against the installed official
