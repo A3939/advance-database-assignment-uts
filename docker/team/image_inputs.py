@@ -3,8 +3,9 @@ import hashlib
 import json
 import os
 from pathlib import Path
-import re
 import shutil
+
+from provenance import verify_installed
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -14,8 +15,7 @@ def digest(path):
 
 
 def main():
-    if not re.fullmatch(r"[0-9a-f]{40}", os.environ.get('ARSIA_IMAGE_REVISION', '')):
-        raise ValueError('Set ARSIA_REVISION to the full checked-out Git commit before building')
+    verify_installed(ROOT, os.environ.get('ARSIA_IMAGE_REVISION', ''))
     sources = json.loads((ROOT / 'docker/team/sources.json').read_text(encoding='utf-8'))
     for row in sources['files']:
         if digest(ROOT / row['path']) != row['sha256']:

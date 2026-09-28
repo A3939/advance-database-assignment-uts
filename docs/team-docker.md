@@ -51,7 +51,9 @@ Replace all `REPLACE_...` values. Use three different local passwords. Set
 running the commands, and `ARSIA_REVISION` to the full result of
 `git rev-parse HEAD`. Choose unused DB/web ports if 55432/8765 are busy.
 Keep the project name, passwords and `.env` for later runs. `.env` is ignored;
-do not commit it or share its contents.
+do not commit it or share its contents. `ARSIA_REVISION` is your declared
+revision; the build also checks it against the prepared Git proof and the
+actual files copied into the image.
 
 Use `ARSIA_PROJECT`, not Docker's `COMPOSE_PROJECT_NAME`. Do not export the
 latter or pass the same `-p` to both files: it overrides their separate names.
@@ -71,6 +73,28 @@ docker compose run --rm --no-deps --user 0 --entrypoint python app -c "import os
 Linux host filesystem permissions still need a native team replay.
 
 ## Build and use the daily environment
+
+Prepare the build from the clean checkout before building an image. On macOS
+or Linux:
+
+```sh
+sh docker/team/prepare-build.sh
+```
+
+On Windows PowerShell:
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\docker\team\prepare-build.ps1
+```
+
+The Windows execution-policy setting applies only to that process. The scripts
+use host Git to write ignored `artifacts/team/build-provenance.objects`,
+containing the current commit and its tree objects. They do not read `.env` or
+export Git configuration, credentials, blob objects or the `.git` directory.
+They reject staged or unstaged tracked changes and remove any previous proof
+before checking. The image build also rejects added or changed files in its
+checked build inputs. Set `ARSIA_REVISION` to the full commit printed by the
+script, and prepare again after every new commit or checkout change.
 
 ```sh
 docker compose config --quiet
@@ -176,7 +200,9 @@ It leaves `artifacts/team/` on the host.
 
 The image installs a wheel; it does not mount your source as live Python code.
 After code changes on your branch, review the change, refresh affected inventory
-hashes, commit it, update `ARSIA_REVISION`, and rebuild the image. A changed
+hashes, commit it, run the preparation script above, update `ARSIA_REVISION` to
+the printed full commit, and rebuild the image. Preparation is required for
+each selected commit; a previous proof cannot certify a new checkout. A changed
 inventory is not automatically applied to an existing daily database. Use a new
 project name for a new test baseline, retaining the previous project and volumes.
 For a recorded replay, use exactly the reviewed package commit and a clean tree.
@@ -190,8 +216,9 @@ git diff -- config
 ```
 
 Run the inventory command only after reviewing the affected code. It refreshes
-the actual hashes, not business rules. Rebuild the app and rerun acceptance
-afterward. Development tests can import edited source; the acceptance service
+the actual hashes, not business rules. Review and commit those changes, prepare
+the build again, rebuild the app and rerun acceptance afterward. Development
+tests can import edited source; the acceptance service
 still checks the rebuilt, installed wheel.
 
 [`docker/team/sources.json`](../docker/team/sources.json) records original paths,

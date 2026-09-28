@@ -24,7 +24,8 @@ TABLES = {
     "dw.dim_severity", "dw.fact_crash", "qa.check_result",
 }
 EXTRA_TESTS = ("test_d09_postgres.py", "test_build_integration.py")
-GUARD_TESTS = ("test_team_acceptance.py", "test_team_docker_common.py", "test_team_cli.py")
+GUARD_TESTS = ("test_team_acceptance.py", "test_team_docker_common.py", "test_team_cli.py",
+               "test_team_provenance.py")
 
 
 def require(value, message):

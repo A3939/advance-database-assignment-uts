@@ -69,6 +69,8 @@ def _file_record(record):
 
 def check_installation():
     """Check source inputs and installed wheel bytes before using the database."""
+    from docker.team.provenance import verify_installed
+    provenance = verify_installed(ROOT, os.environ.get('ARSIA_IMAGE_REVISION', ''))
     if sys.version_info[:2] != (3, 12):
         raise ValueError("The team runtime requires Python 3.12")
     lock = _json(SOURCES_PATH)
@@ -107,6 +109,7 @@ def check_installation():
         installed.append(relative.as_posix())
     return {"status": "passed", "locked_files": len(lock["files"]) + len(lock["overlays"]),
             "inventory_files": len(checked), "installed_files": installed,
+            "git_provenance": provenance,
             "sources_sha256": _hash(ROOT / SOURCES_PATH)}
 
 
