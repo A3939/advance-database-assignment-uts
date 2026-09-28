@@ -1,6 +1,6 @@
 # ARSIA: shared development baseline
 
-Role B's code prepares native inputs, loads Raw, freezes manifests, checks input/Raw quality and coordinates the build. A's fixed schema, A06, C03, C09 and D02 are integrated. Full builds still need the remaining C/D callbacks, E's FP1 and publication functions, and the final inventory.
+This A checkout keeps the original shared application baseline and adds the A01/A09 environment handoff. For the current runnable S0 build, use the [cold-start guide](docs/cold-start-and-schema-maintenance.md). It installs a pinned B integration in a separate checkout and venv.
 
 ## Current scope
 
@@ -13,7 +13,7 @@ This baseline brings the tested integration from `peixian/dev` at `a469dda` into
 | Packaged C03 NSW projection and C09 Canonical loading | C / Serenity |
 | D02 Source, Month and Severity dimensions | D / Yihua |
 
-Newer C04/C05/C09 work on `yue/role-c` and D03–D08 on `yihua/dev` still need integration here. E's draft PR #16 is under review. Complete C10 QA, final module bindings and inventory, and full FP1/publication tests are also required.
+The table describes this baseline, not current team progress. B commit `562de2910bfd7be276b3036983e5680d436fde1e` includes the later C/D integration, C10 QA, E FP1 and publication callbacks. The cold-start guide tests that fixed version without copying it into A's branch. Final platform acceptance remains separate.
 
 The [B10 validation record](docs/b10-local-validation.md) reports 615 passed / 155 skipped in the installed default suite and 377 passed / 0 skipped in the PostgreSQL-enabled suite. These suites overlap and cover the stated component scope.
 
