@@ -1,0 +1,9 @@
+.                                                                        [100%]
+============================== warnings summary ===============================
+..\.venv-d09-final\Lib\site-packages\_pytest\cacheprovider.py:475
+  D:\32113 Advanced database_Assignment 2\.venv-d09-final\Lib\site-packages\_pytest\cacheprovider.py:475: PytestCacheWarning: could not create cache path D:\32113 Advanced database_Assignment 2\.d11-final\.pytest_cache\v\cache\nodeids: [WinError 5] 拒绝访问。: 'D:\\32113 Advanced database_Assignment 2\\.d11-final\\.pytest_cache\\v\\cache'
+    config.cache.set("cache/nodeids", sorted(self.cached_nodeids))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated xml file: D:\32113 Advanced database_Assignment 2\D11-postgres-final-integration\pytest.xml -
+1 passed, 1 warning in 3.23s
