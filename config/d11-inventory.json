@@ -1,0 +1,78 @@
+{
+  "scope": "D11 synthetic S0 trend, severity and map report package from one successful private publication",
+  "complete_d11": true,
+  "dashboard_required": false,
+  "independent_e07_acceptance": false,
+  "batch": {
+    "dataset_kind": "synthetic",
+    "batch_id": "856bc5c6-a4f8-458d-8536-e9208de1ff84",
+    "input_fingerprint": "a0194382d567aa6df06bac97af3c2d228c1ff58e3b14d7468ffa54a19f31ee9d",
+    "integration_commit": "562de2910bfd7be276b3036983e5680d436fde1e",
+    "status": "succeeded"
+  },
+  "actual": {
+    "raw_rows": 19,
+    "crashes": 6,
+    "fatal_crashes": 2,
+    "fatalities": 3,
+    "casualties": 7,
+    "map_points": 4,
+    "map_denominator": 6,
+    "map_coverage_percentage": "66.67"
+  },
+  "components": {
+    "reports_and_evidence": [
+      "docs/d11-synthetic-report-package.md",
+      "docs/reports/d11-trend-report.md",
+      "docs/reports/d11-severity-report.md",
+      "docs/reports/d11-map-report.md",
+      "docs/evidence/d11-s0-query-results-2026-09-28.json",
+      "docs/evidence/d11-report-capture.py",
+      "tests/test_d11.py",
+      "tools/verify_d11_postgres.py"
+    ]
+  },
+  "files": [
+    {
+      "path": "docs/d11-synthetic-report-package.md",
+      "sha256": "48e1ffce1c10cc34cf56d6c5f486bea4eb98af67cb8e858f562006260eeb3fa3"
+    },
+    {
+      "path": "docs/reports/d11-trend-report.md",
+      "sha256": "3f5a61b5d582b8f72a07e829312287eff7d9c586c3fcd8f034960cd08f42a434"
+    },
+    {
+      "path": "docs/reports/d11-severity-report.md",
+      "sha256": "2cfad333a0a1a2a4665f948b331b7d0847ea503b27705e57039510420c76fda4"
+    },
+    {
+      "path": "docs/reports/d11-map-report.md",
+      "sha256": "a9f252c3b5314664e8b995b12f966fed257ff95814ea00a928967d06f4a602a5"
+    },
+    {
+      "path": "docs/evidence/d11-s0-query-results-2026-09-28.json",
+      "sha256": "f1496c5243c392eb869600cf247f43f040694443be0d779bb7bfc8f44337746f"
+    },
+    {
+      "path": "docs/evidence/d11-report-capture.py",
+      "sha256": "ff5cb378c079cbcda8e0cea11f5f6998544523190158775dc5f491ac10d7d16c"
+    },
+    {
+      "path": "tests/test_d11.py",
+      "sha256": "d369c1518629a10abeeb1daa219ca0a61b2fdac4c9b687dd65bd849e058d1da4"
+    },
+    {
+      "path": "tools/verify_d11_postgres.py",
+      "sha256": "2e22f4473836c220f4254c4a922cacd45c006b78350bd8eac87861f69f847a47"
+    }
+  ],
+  "boundaries": [
+    "S0 is synthetic and must not be described as official road-safety statistics.",
+    "All three reports use one successful batch and fixed input fingerprint.",
+    "Unknown month, NULL measures and covered zero periods remain distinct.",
+    "Severity definitions remain source-specific.",
+    "Unmapped crashes remain in the map coverage denominator.",
+    "The private publication was removed after validation; no shared/public release was changed.",
+    "Independent E07 comparison and the final team report remain separate."
+  ]
+}
