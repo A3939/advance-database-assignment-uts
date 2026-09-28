@@ -13,7 +13,9 @@ def records(paths):
 
 
 def write(path, value):
-    path.write_text(json.dumps(value, indent=2) + "\n", encoding="utf-8")
+    path.write_text(
+        json.dumps(value, indent=2) + "\n", encoding="utf-8", newline="\n"
+    )
 
 
 def main():
@@ -34,8 +36,13 @@ def main():
         write(path, value)
     cd = json.loads((ROOT / "config/cd-inventory.json").read_text(encoding="utf-8"))
     analysis = json.loads((ROOT / "config/analysis-inventory.json").read_text(encoding="utf-8"))
+    d09 = json.loads((ROOT / "config/d09-inventory.json").read_text(encoding="utf-8"))
+    d09_runtime = [
+        path for path in d09["components"]["dashboard"]
+        if Path(path).suffix in {".py", ".sql", ".json"}
+    ]
     dependencies = ["pyproject.toml", "requirements.txt", "requirements-db.txt", "requirements-dev.txt"]
-    b_core = [str(p.relative_to(ROOT)) for p in (ROOT / "src/arsia_ingest").glob("*.py")
+    b_core = [p.relative_to(ROOT).as_posix() for p in (ROOT / "src/arsia_ingest").glob("*.py")
               if p.name not in {"publication.py", "publication_checks.py"}]
     official = ["config/native-inputs.json", "config/official-inputs-v1.json",
                 "config/official-nsw-v1.json"]
@@ -43,26 +50,27 @@ def main():
     components = {name: sorted(set(paths + shared)) for name, paths in cd["components"].items()}
     components.update(intake=shared, raw=shared, runner=shared,
                       analysis=sorted(set(analysis["components"]["analysis"] + shared)),
+                      dashboard=sorted(set(d09_runtime + shared)),
                       publish=sorted(set(shared + ["src/arsia_ingest/publication.py",
                                                    "src/arsia_ingest/publication_checks.py"])),
                       fp1=dependencies + ["sql/e/fp1.sql", "src/arsia_ingest/sql/fp1.sql"])
     components["qa"] = sorted(set(components["qa"] + ["config/qa-team-v1.1.json"]))
     paths = {p for group in components.values() for p in group}
-    runtime = {str(p.relative_to(ROOT)) for p in (ROOT / "src").rglob("*")
+    runtime = {p.relative_to(ROOT).as_posix() for p in (ROOT / "src").rglob("*")
                if p.suffix in {".py", ".sql", ".json"}}
     missing = runtime - paths
     if missing:
         raise ValueError("Unlisted runtime files: " + ", ".join(sorted(missing)))
     write(ROOT / "config/build-inventory.json", {
         "version": "b-official-build-v1", "complete_build": True, "final_platform": False,
-        "scope": "Installed S0, S8 and pinned official build recipes with source-specific read interfaces. Execution evidence is recorded separately; D09 and independent E acceptance remain open.",
+        "scope": "Installed S0, S8 and pinned official build recipes with source-specific read interfaces and the D09 fixed-release dashboard. Execution evidence is recorded separately; independent E acceptance remains open.",
         "components": components, "code_files": records(paths),
         "schema_files": cd["schema_files"],
         "upstream": {"a": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
                      "c": "6987e604bb93809aa94a736085c3e8320452461d",
                      "d": "d57c3f4ff2fb57eb84ebc414ef77911073c0de06",
                      "e": "aec3b4692382e48ea4f778f04a31a4ca5ba5fa57"},
-        "remaining": ["D09 reader/UI integration (deferred)", "Independent replay of official build evidence",
+        "remaining": ["Independent replay of official build evidence",
                       "E's independent expectations and platform acceptance"]})
 
 

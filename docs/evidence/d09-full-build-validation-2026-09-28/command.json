@@ -1,0 +1,15 @@
+{
+  "argv": [
+    "D:\\32113 Advanced database_Assignment 2\\.venv-d09-final\\Scripts\\python.exe",
+    "-m",
+    "pytest",
+    "-q",
+    "-o",
+    "pythonpath=",
+    "D:\\32113 Advanced database_Assignment 2\\.d09-final\\tests\\test_d09.py",
+    "D:\\32113 Advanced database_Assignment 2\\.d09-final\\tests\\test_d09_full_build_postgres.py",
+    "--junitxml=D:\\32113 Advanced database_Assignment 2\\D09-full-build-validation-final\\pytest.xml"
+  ],
+  "cwd": "D:\\32113 Advanced database_Assignment 2\\D09-full-build-validation-final",
+  "pythonpath_removed": true
+}

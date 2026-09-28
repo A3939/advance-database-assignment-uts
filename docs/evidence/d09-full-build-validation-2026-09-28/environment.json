@@ -1,0 +1,16 @@
+{
+  "postgresql": [
+    "PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+    "arsia_loader",
+    "arsia_loader",
+    "UTF8",
+    "UTC",
+    "en_US.utf8",
+    "en_US.utf8",
+    false,
+    false,
+    false,
+    false
+  ],
+  "image": "postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67"
+}
