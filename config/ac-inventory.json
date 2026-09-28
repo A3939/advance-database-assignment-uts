@@ -206,7 +206,7 @@
     },
     {
       "path": "src/arsia_c/projections/nsw.py",
-      "sha256": "c8c317cc043abd6618c6c941a2ebe84ed82b0082d742029c95d9364edd869bd6"
+      "sha256": "a1c7e59af639616bcb5257603186f03e7463e85c8d630e7cf7416f378e90c9ad"
     },
     {
       "path": "src/arsia_c/projections/qld.py",
@@ -218,7 +218,7 @@
     },
     {
       "path": "src/arsia_c/projections/sql/c03_nsw_crash_insert.sql",
-      "sha256": "63de5c9104937984102f91ae4606fbee2883fcae0ee839dedcd6fa72bce07dee"
+      "sha256": "9f23ffb2c254ef82bc890d9d36f632ec946cc4cf93e997e970dd6d6d3a85269a"
     },
     {
       "path": "src/arsia_c/projections/sql/c03_nsw_month_check.sql",
@@ -427,7 +427,7 @@
     {
       "upstream_path": "sql/projections/c03_nsw_crash_insert.sql",
       "path": "src/arsia_c/projections/sql/c03_nsw_crash_insert.sql",
-      "sha256": "63de5c9104937984102f91ae4606fbee2883fcae0ee839dedcd6fa72bce07dee",
+      "sha256": "9f23ffb2c254ef82bc890d9d36f632ec946cc4cf93e997e970dd6d6d3a85269a",
       "upstream_sha256": "d1e78ff96178a6c43305cb0b249b935c4e71e9f24594ab4ca23540aecc0ee5bc",
       "note": "Runtime changed after import; upstream_sha256 retains the original file hash."
     },

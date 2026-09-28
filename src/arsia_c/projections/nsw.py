@@ -176,6 +176,17 @@ def _parameters(manifest, batch_id):
         k: {"code": v, "fatal": codes[v]["is_fatal_crash"]}
         for k, v in native_codes.items()
     }
+    missing_severity = None
+    missing_rule = None
+    if {"missing_severity_code", "missing_severity_reason"} & crash_map.keys():
+        code = crash_map.get("missing_severity_code")
+        reason = crash_map.get("missing_severity_reason")
+        if (kind != "synthetic" or not isinstance(code, str)
+                or code not in codes or code == "__MISSING__"
+                or not isinstance(reason, str) or not reason.strip()):
+            raise ValueError("NSW missing severity override needs a synthetic code and reason")
+        missing_severity = {"code": code, "fatal": codes[code]["is_fatal_crash"]}
+        missing_rule = {"code": code, "reason": reason, "mapping_version": cm["version"]}
     unit_types = unit_map.get("unit_types")
     if unit_types is None and kind == "official":
         # Preserve source-specific native group names as codes, without pooling.
@@ -216,6 +227,8 @@ def _parameters(manifest, batch_id):
         "dataset_kind": kind,
         "severity_version": version,
         "severity_map": json.dumps(severity),
+        "missing_severity": json.dumps(missing_severity) if missing_severity else None,
+        "missing_severity_rule": json.dumps(missing_rule) if missing_rule else None,
         "unit_types": json.dumps(unit_types),
         "statistical_scope": scope,
         "crash_contract_version": crash["version"],

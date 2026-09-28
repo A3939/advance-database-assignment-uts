@@ -12,9 +12,10 @@ from arsia_d06 import SeverityRequest, query_severity
 from arsia_d07 import MapRequest, MapResult, query_map
 from arsia_d08 import UnitRequest, query_units
 from arsia_ingest.models import IntakeError
+from arsia_ingest.official_reader import query_official
 
 
-DASHBOARD_VERSION = "d09-0.1.1"
+DASHBOARD_VERSION = "d09-0.1.2"
 _RELEASE_SQL = """
 SELECT dataset_kind, batch_id, switched_at
 FROM published.current_release
@@ -69,12 +70,24 @@ class DashboardSnapshot:
     severity: tuple[dict[str, Any], ...]
     map: MapResult
     units: tuple[dict[str, Any], ...]
+    official_reports: dict[str, dict[str, Any]] | None = None
 
 
 def _validate_mode(dataset_kind: str) -> None:
     if dataset_kind not in {"official", "synthetic"}:
         raise IntakeError(
             "D09_ARGUMENT", "dataset_kind must be official or synthetic"
+        )
+
+
+def _validate_official_filters(filters: DashboardFilters) -> None:
+    if filters.dataset_kind == "official" and (
+        not isinstance(filters.source_ids, (tuple, list))
+        or len(filters.source_ids) != 1
+    ):
+        raise IntakeError(
+            "D09_OFFICIAL_SOURCE",
+            "Select one official source. Interstate totals are not supported.",
         )
 
 
@@ -126,6 +139,7 @@ def query_dashboard(
     """Run every component against a previously captured release."""
 
     _validate_mode(filters.dataset_kind)
+    _validate_official_filters(filters)
     if release.dataset_kind != filters.dataset_kind:
         raise IntakeError(
             "D09_RELEASE_MODE", "pinned release belongs to another dataset kind"
@@ -152,6 +166,18 @@ def query_dashboard(
         "months": filters.months,
     }
     sources = _sources(connection, release)
+    official_reports = None
+    if filters.dataset_kind == "official":
+        official_reports = {
+            report: query_official(
+                connection, batch_id=release.batch_id,
+                source_id=filters.source_ids[0], report=report,
+                year_from=year_from, year_to=year_to, months=filters.months,
+                grain=filters.trend_grain,
+            )
+            for report in ("map", "units")
+        }
+        sources = tuple(row for row in sources if row["source_id"] == filters.source_ids[0])
     trend = query_trend(
         connection,
         TrendRequest(grain=filters.trend_grain, **shared),
@@ -177,6 +203,7 @@ def query_dashboard(
         severity=severity,
         map=map_result,
         units=units,
+        official_reports=official_reports,
     )
 
 
@@ -185,6 +212,7 @@ def load_dashboard(
 ) -> DashboardSnapshot:
     """Resolve once at page start, then read all components from that batch."""
 
+    _validate_official_filters(filters)
     return query_dashboard(
         connection,
         filters,

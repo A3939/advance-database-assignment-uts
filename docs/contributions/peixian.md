@@ -63,4 +63,18 @@ PRs #4–#26 listed above and PR #28 were merged. Peixian merged PR #28 with C's
 
 A's migrations/A06, C's projection/Canonical modules and D's dimensions/facts/reconciliation remain their work.
 Importing those files into B is integration, not original authorship. Test totals in different receipts overlap.
+
+## E acceptance assistance — 2026-09-28
+
+[PR #49](https://github.com/A3939/advance-database-assignment-uts/pull/49) adds the
+AT10 synthetic rule rebuild and D09 official source limits. C owns the original
+C03/C10 modules and D owns D09. Peixian supplied these repairs and regressions.
+
+[PR #50](https://github.com/A3939/advance-database-assignment-uts/pull/50) adds E's
+independent expectations, installed PostgreSQL acceptance, fault/recovery checks,
+scale measurements and technical evidence index. E owns the original FP1 and
+publication gate. Peixian wrote and executed the supplementary acceptance work.
+Its generated receipt records the actual tested versions and results. This is
+not an E Approved review, a different member's replay, or final course acceptance.
+
 PRs #24–#26 are merged into C's branch. C10 and the QA07 fix are included in B PR #27. S0 joint QA and the S0/S8 builds pass. The pinned official build now also passes real E publication, rollback, retry and reader checks; QA07 remains limited and VIC restrictions remain in force. C/D still need to review the new performance and compatibility repairs for their branches. Final platform freezing and E's independent acceptance remain separate. These records distinguish original module work, B's additions and integration.

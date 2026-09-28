@@ -600,7 +600,7 @@
     },
     {
       "path": "src/arsia_c/projections/nsw.py",
-      "sha256": "c8c317cc043abd6618c6c941a2ebe84ed82b0082d742029c95d9364edd869bd6"
+      "sha256": "a1c7e59af639616bcb5257603186f03e7463e85c8d630e7cf7416f378e90c9ad"
     },
     {
       "path": "src/arsia_c/projections/qld.py",
@@ -616,7 +616,7 @@
     },
     {
       "path": "src/arsia_c/projections/sql/c03_nsw_crash_insert.sql",
-      "sha256": "63de5c9104937984102f91ae4606fbee2883fcae0ee839dedcd6fa72bce07dee"
+      "sha256": "9f23ffb2c254ef82bc890d9d36f632ec946cc4cf93e997e970dd6d6d3a85269a"
     },
     {
       "path": "src/arsia_c/projections/sql/c03_nsw_month_check.sql",
@@ -660,7 +660,7 @@
     },
     {
       "path": "src/arsia_c/qa_expectations.py",
-      "sha256": "55b927a974803e4d93f072c044e24369a5993d96f668e8288dec5a7e38b745d8"
+      "sha256": "6c372920da2659e9bba883a9681f37d753ef1438e60d485e3ee3ffb76b45d652"
     },
     {
       "path": "src/arsia_c/restricted_person.py",
@@ -820,7 +820,7 @@
     },
     {
       "path": "src/arsia_d09/dashboard.py",
-      "sha256": "bba006ebce469006b5891964d3110ad21355a3a4556503cd8ef16c7ec950f31c"
+      "sha256": "ceabae10baad47afe3c430044ba9562bac4c38b673bd67520312e1aa1a60bee0"
     },
     {
       "path": "src/arsia_d09/sql/d09_context.sql",
@@ -828,7 +828,7 @@
     },
     {
       "path": "src/arsia_d09/web.py",
-      "sha256": "ccb5518db41ba41349f5fcca1f9116df7ab785e77589c00f654fba662672e152"
+      "sha256": "be0c19094aed266f395e0dab3a289e4a29ed62babe8639af21485f0cdb223260"
     },
     {
       "path": "src/arsia_ingest/__init__.py",

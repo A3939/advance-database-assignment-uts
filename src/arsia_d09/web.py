@@ -15,7 +15,7 @@ from uuid import UUID
 from arsia_d07 import MapResult
 from arsia_ingest.models import IntakeError
 
-from .dashboard import DashboardFilters, DashboardSnapshot, Release, load_dashboard
+from .dashboard import DASHBOARD_VERSION, DashboardFilters, DashboardSnapshot, Release, load_dashboard
 
 
 _ROOT = Path(__file__).resolve().parent
@@ -143,6 +143,13 @@ def _filter_value(value: object) -> str:
     return str(value)
 
 
+def _unavailable(title: str, report: dict[str, object]) -> str:
+    return (
+        f'<section class="panel"><h2>{escape(title)}</h2>'
+        f'<p><strong>Unavailable</strong>: {_text(report["reason"])}</p></section>'
+    )
+
+
 def render_page(
     filters: DashboardFilters,
     snapshot: DashboardSnapshot | None = None,
@@ -171,6 +178,9 @@ def render_page(
         '<div class="banner">Fixed example mode: values are illustrative.</div>'
         if demo else ""
     )
+    fields["version"] = escape(DASHBOARD_VERSION)
+    if not demo and snapshot is not None and snapshot.release.dataset_kind == "official" and snapshot.official_reports is None:
+        error = IntakeError("D09_OFFICIAL_CONTEXT", "Official report availability is missing; read the batch again.")
     if error is not None:
         message = escape(str(error))
         fields["summary"] = (
@@ -183,8 +193,13 @@ def render_page(
         fields["content"] = ""
     else:
         coverage = snapshot.map.coverage
-        unit_total = sum(row["unit_count"] for row in snapshot.units)
+        reports = snapshot.official_reports
+        map_available = reports is None or reports["map"]["status"] == "available"
+        units_available = reports is None or reports["units"]["status"] == "available"
+        unit_total = str(sum(row["unit_count"] for row in snapshot.units)) if units_available else "Unavailable"
         percentage = coverage["coverage_percentage"]
+        map_points = _text(coverage["point_count"]) if map_available else "Unavailable"
+        map_percentage = _text(percentage) + ("" if percentage is None else "%") if map_available else "Unavailable"
         fields["summary"] = f"""
         <section class="release-strip">
           <div><span>Mode</span><strong>{escape(snapshot.release.dataset_kind)}</strong></div>
@@ -193,8 +208,8 @@ def render_page(
         </section>
         <section class="metrics">
           <article><span>Crashes</span><strong>{_text(coverage['crash_count'])}</strong></article>
-          <article><span>Map points</span><strong>{_text(coverage['point_count'])}</strong></article>
-          <article><span>Map coverage</span><strong>{_text(percentage)}{'' if percentage is None else '%'}</strong></article>
+          <article><span>Map points</span><strong>{map_points}</strong></article>
+          <article><span>Map coverage</span><strong>{map_percentage}</strong></article>
           <article><span>Eligible units</span><strong>{unit_total}</strong></article>
         </section>
         """
@@ -233,13 +248,18 @@ def render_page(
                 "Map points",
                 snapshot.map.points,
                 ("source_id", "crash_key", "occurrence_year", "occurrence_month", "severity_code", "latitude", "longitude"),
-            ),
+            ) if map_available else _unavailable("Map points", reports["map"]),
             _table(
                 "Basic units",
                 snapshot.units,
                 ("source_id", "statistical_scope", "unit_type_code", "unit_count"),
-            ),
+            ) if units_available else _unavailable("Basic units", reports["units"]),
         ]
+        if reports is not None:
+            context = reports["map"]
+            notes = "".join(f"<li>{_text(note)}</li>" for note in context["quality_limits"])
+            sections.insert(0, f'<section class="panel"><h2>{_text(context["source_label"])}</h2>'
+                            f'<p>{_text(context["comparison_scope"])}</p><ul>{notes}</ul></section>')
         fields["content"] = "".join(sections)
     fields["css"] = css
     for name, value in fields.items():

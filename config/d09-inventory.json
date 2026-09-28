@@ -10,7 +10,7 @@
       "published.d09_batch_sources(text,uuid)",
       "published.d09_batch_years(text,uuid)"
     ],
-    "version": "d09-0.1.1"
+    "version": "d09-0.1.2"
   },
   "components": {
     "dashboard": [
@@ -23,7 +23,8 @@
       "src/arsia_d09/static/dashboard.css",
       "src/arsia_ingest/models.py",
       "pyproject.toml",
-      "requirements-db.txt"
+      "requirements-db.txt",
+      "src/arsia_ingest/official_reader.py"
     ]
   },
   "code_files": [
@@ -37,11 +38,11 @@
     },
     {
       "path": "src/arsia_d09/dashboard.py",
-      "sha256": "bba006ebce469006b5891964d3110ad21355a3a4556503cd8ef16c7ec950f31c"
+      "sha256": "ceabae10baad47afe3c430044ba9562bac4c38b673bd67520312e1aa1a60bee0"
     },
     {
       "path": "src/arsia_d09/web.py",
-      "sha256": "ccb5518db41ba41349f5fcca1f9116df7ab785e77589c00f654fba662672e152"
+      "sha256": "be0c19094aed266f395e0dab3a289e4a29ed62babe8639af21485f0cdb223260"
     },
     {
       "path": "src/arsia_d09/sql/d09_context.sql",
@@ -49,7 +50,7 @@
     },
     {
       "path": "src/arsia_d09/templates/dashboard.html",
-      "sha256": "e45cf10cb19efb1d8eeae52c5d391216cb0436d8349ae648df992515e3ed25ee"
+      "sha256": "9564a80af0b3448ba3354248133df0bc6ed9f9904c08eceb13ebada9682d1c47"
     },
     {
       "path": "src/arsia_d09/static/dashboard.css",
@@ -66,6 +67,10 @@
     {
       "path": "requirements-db.txt",
       "sha256": "28936395acc85dae2c3bac9c374edde94f2e0a1a2be51a2cafa6c51ebd68ef3f"
+    },
+    {
+      "path": "src/arsia_ingest/official_reader.py",
+      "sha256": "68d92383168a46431bbe00692dd9db19e104b2e1e83c0112b10dbe996f969b9a"
     }
   ],
   "dependencies": {
@@ -99,7 +104,8 @@
   "validation_files": [
     "tests/test_d09.py",
     "tests/test_d09_full_build_postgres.py",
-    "tools/verify_d09_full_build_postgres.py"
+    "tools/verify_d09_full_build_postgres.py",
+    "tests/test_d09_official_policy.py"
   ],
   "review_fix": {
     "base_commit": "c027d96",
@@ -108,5 +114,11 @@
     "author": "Role B / Peixian",
     "scope": "D09 error handling, pinned year limits, known-count display and regression setup",
     "handoff": "docs/d09-review-fixes.md"
+  },
+  "official_policy_fix": {
+    "scope": "Select one official source and show unavailable maps or unit reports with reasons",
+    "author": "Role B / Peixian",
+    "handoff": "docs/d09-official-policy.md",
+    "full_official_evidence": "E acceptance receipt; historical acceptance above covers synthetic only"
   }
 }
