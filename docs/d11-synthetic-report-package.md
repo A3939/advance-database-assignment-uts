@@ -21,6 +21,18 @@ The complete machine-readable return values are in the [execution receipt](evide
 The exact capture harness is retained beside it as
 [`d11-report-capture.py`](evidence/d11-report-capture.py).
 
+## Final integration acceptance
+
+The package was replayed after D09 and D10 entered the team integration branch.
+The 2026-09-28 PostgreSQL 16.15 run passed its real B10/E06 publication and
+D05-D07 report capture with no failures or skips. The new private batch contained
+19 Raw rows, six crashes, two fatal crashes, three fatalities, seven casualties
+and four map points, matching the fixed report package. It returned 15 annual,
+180 monthly and six populated severity rows with 4/6 (66.67%) map coverage.
+The A03 audit passed before and after, all tables were empty after cleanup and
+the disposable container was removed. Compact replay evidence is under
+`docs/evidence/d11-final-validation-2026-09-28/`.
+
 ## Reports
 
 1. [Trend report](reports/d11-trend-report.md) — annual and monthly D05 output.

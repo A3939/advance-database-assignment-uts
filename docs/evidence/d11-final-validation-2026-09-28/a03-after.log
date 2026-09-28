@@ -1,0 +1,17 @@
+BEGIN
+DO
+INSERT 0 2
+INSERT 0 1
+INSERT 0 2
+SET
+DO
+RESET
+SET
+INSERT 0 1
+UPDATE 1
+DO
+RESET
+ROLLBACK
+NOTICE:  role audit passed: 17 migrator-owned tables, 0 loader deletes, 0 reader base tables, 7 reader views
+NOTICE:  reader checks passed: one published row, zero candidate rows, base read and view write rejected
+NOTICE:  loader checks passed: INSERT and batch-state UPDATE allowed; DELETE and DDL rejected
