@@ -24,10 +24,10 @@ git switch --detach FULL_PACKAGE_COMMIT
 git rev-parse HEAD
 ```
 
-The tested implementation is
-`f9d22c698e2a47559923179da3c76fd7d53b13a6`; use that for `FULL_PACKAGE_COMMIT`.
-The later handoff commit only adds these notes and the compact receipt, outside
-the Docker build context. The older B baseline listed below does not contain this package. For development, switch to your own branch
+The revision-check fix is
+`d4530455944e5ac393440b456b77758c6658962a`; use that for `FULL_PACKAGE_COMMIT`.
+Its focused checks are recorded below. The earlier `f9d22c6` does not include
+the build-preparation scripts or the Git input check. The older B baseline listed below does not contain this package. For development, switch to your own branch
 instead. Do not overwrite another member's branch.
 
 Create `.env` once. On macOS:
@@ -233,27 +233,25 @@ E's earlier full acceptance tested runtime `1765269`. That historical result
 does not certify this Docker package. Original A/C/D/E authorship remains in
 Git; Peixian adds this packaging and its checks.
 
-The tested host was Apple Silicon macOS with Docker 28.5.2 and Compose 2.40.3.
-Native ARM64 and emulated AMD64 each passed **501 checks, 0 failed, 0 skipped**:
-290 E synthetic, 165 recovery, 8 UI/build and 38 wrapper checks. Both app and
-PostgreSQL architecture were checked. This does not verify native AMD64 hardware.
-The ARM64 default suite passed 1,072 checks; 402 optional database/data checks
-skipped. Its optional pytest cache was unavailable in the read-only image tree.
-The dedicated suite supplies its own database and allows no skips.
+The revision-check fix passed **63 focused tests**: 25 Git-proof checks and
+38 existing runner/CLI/database-setup guards. Eleven actual Docker build checks
+also passed: one clean context was accepted and ten invalid contexts were
+rejected. These cover a wrong revision, changed scripts/tests/dependencies,
+missing or extra files, and missing or corrupt proof. ARM64 and emulated AMD64
+images built successfully. This revision claims focused validation only.
 
-Both architectures passed S0, repeat `no_change`, HTTP/error handling, unchanged
-rows after stop/start, restart and DB container recreation, rejection of daily
-DB acceptance, and separate acceptance cleanup. All task-owned test containers
-and volumes were removed afterward; host evidence was retained. ARM64 also
-checked the seven official-file hashes and read-only mounting. The official
-full-data build was **NOT_RUN** for this package: application code and inventory
-were unchanged, and this run covers packaging and the synthetic database path.
+[The fix receipt](evidence/team-docker-revision-fix-2026-09-29.json) records the
+scope, commit and local evidence hashes. The shell preparation script was checked
+with clean/dirty repositories and a linked worktree. The new PowerShell script
+has not been executed on Windows.
 
-[The compact receipt](evidence/team-docker-2026-09-29.json) records commits,
-image IDs, wheel hashes, commands, results and hashes of local evidence under
-`artifacts/team/final-arm64/` and `artifacts/team/final-amd64/`. Native Windows,
-AMD64 hardware and Linux host filesystem permissions remain **NOT_RUN**.
-Do not copy these results into a new member's receipt.
+[The earlier receipt](evidence/team-docker-2026-09-29.json) belongs to `f9d22c6`:
+501 acceptance checks passed on both native ARM64 and emulated AMD64, and the
+ARM64 default suite passed 1,072 checks with 402 optional checks skipped.
+[Yihua's independent Windows x64 / WSL2 report](https://github.com/A3939/advance-database-assignment-uts/pull/52#issuecomment-5873642661)
+also covers that earlier commit. These results remain historical records and
+are not attributed to the revision-check fix. Official full-data Docker
+acceptance and final project acceptance are not claimed.
 
 A member who did not write the environment must perform the independent replay.
 They should record their own name, machine/OS, selected commit, commands,
