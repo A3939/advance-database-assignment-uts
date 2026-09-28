@@ -1,0 +1,257 @@
+{
+  "contract": "a09-installed-synthetic-cold-start-v1",
+  "status": "passed",
+  "started_at": "2026-09-28T10:13:22+00:00",
+  "python": "3.12.6 (v3.12.6:a4a2d2b0d85, Sep  6 2024, 16:08:03) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "runtime_commit": "562de2910bfd7be276b3036983e5680d436fde1e",
+  "a_checkout": "0a6b7b12c9506bc319ecac0b286c4a3fff1c043c",
+  "a_working_tree": [],
+  "verifier_sha256": "18dece3d8162d453924c6fc5c83de2f93690718fba9eedaf8624167567b427f5",
+  "commands": [
+    {
+      "argv": [
+        "git",
+        "clone",
+        "--no-checkout",
+        "git@github.com:A3939/advance-database-assignment-uts.git",
+        "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/artifacts/role-a-completion-20260928/verified-commit/synthetic/runtime"
+      ],
+      "exit_code": 0,
+      "log": "01.log"
+    },
+    {
+      "argv": [
+        "git",
+        "-C",
+        "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/artifacts/role-a-completion-20260928/verified-commit/synthetic/runtime",
+        "checkout",
+        "--detach",
+        "562de2910bfd7be276b3036983e5680d436fde1e"
+      ],
+      "exit_code": 0,
+      "log": "02.log"
+    },
+    {
+      "argv": [
+        "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/artifacts/c03-package-backport-20260925/checkout/artifacts/a-handoff-venv/bin/python",
+        "-m",
+        "venv",
+        "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/artifacts/role-a-completion-20260928/verified-commit/synthetic/venv"
+      ],
+      "exit_code": 0,
+      "log": "03.log"
+    },
+    {
+      "argv": [
+        "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/artifacts/role-a-completion-20260928/verified-commit/synthetic/venv/bin/python",
+        "-m",
+        "pip",
+        "install",
+        "-r",
+        "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/artifacts/role-a-completion-20260928/verified-commit/synthetic/runtime/requirements-db.txt",
+        "-r",
+        "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/artifacts/c03-package-backport-20260925/checkout/requirements-db.txt"
+      ],
+      "exit_code": 0,
+      "log": "04.log"
+    },
+    {
+      "argv": [
+        "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/artifacts/role-a-completion-20260928/verified-commit/synthetic/venv/bin/python",
+        "-m",
+        "pip",
+        "wheel",
+        "--no-build-isolation",
+        "--no-deps",
+        "--wheel-dir",
+        "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/artifacts/role-a-completion-20260928/verified-commit/synthetic/wheels",
+        "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/artifacts/role-a-completion-20260928/verified-commit/synthetic/runtime"
+      ],
+      "exit_code": 0,
+      "log": "05.log"
+    },
+    {
+      "argv": [
+        "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/artifacts/role-a-completion-20260928/verified-commit/synthetic/venv/bin/python",
+        "-m",
+        "pip",
+        "install",
+        "--no-deps",
+        "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/artifacts/role-a-completion-20260928/verified-commit/synthetic/wheels/arsia_native_intake-0.1.0-py3-none-any.whl"
+      ],
+      "exit_code": 0,
+      "log": "06.log"
+    },
+    {
+      "argv": [
+        "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/artifacts/role-a-completion-20260928/verified-commit/synthetic/venv/bin/python",
+        "-m",
+        "pip",
+        "check"
+      ],
+      "exit_code": 0,
+      "log": "07.log"
+    },
+    {
+      "argv": [
+        "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/artifacts/role-a-completion-20260928/verified-commit/synthetic/venv/bin/python",
+        "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/artifacts/role-a-completion-20260928/verified-commit/synthetic/runtime/tools/verify_full_build_postgres.py",
+        "--output",
+        "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/artifacts/role-a-completion-20260928/verified-commit/synthetic/full-build"
+      ],
+      "exit_code": 0,
+      "log": "08.log"
+    }
+  ],
+  "a_requirements": [
+    {
+      "path": "requirements-db.txt",
+      "sha256": "09f73f187f5349047e190a3b91eca2ad85e718660108613991c003cabe09f9e1"
+    },
+    {
+      "path": "requirements-dev.txt",
+      "sha256": "5613d0a59f1b435489e2343dd51c9d12b26311417cc93a85ee7607e53ec48671"
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "b6f17223b854c27346eefdaeef137f2c0f5c5f8c85004c701a61662ccbc015eb"
+    }
+  ],
+  "scope": "B-assisted A09 replay from a fresh clone, venv and private PostgreSQL database",
+  "final_platform_accepted": false,
+  "not_executed": "Official publication, dashboard and independent E09 acceptance",
+  "a_schema": [
+    {
+      "path": "sql/migrations/001_meta_registry.sql",
+      "sha256": "b44608c4baee8ce1d4ac6c3912a1a7d671772a1b305a32976b10f7bf00fe1893"
+    },
+    {
+      "path": "sql/migrations/002_raw_record.sql",
+      "sha256": "550c022b204380af2c0b2ffffc48295df3b562fd217f99a62f392d8db15eb059"
+    },
+    {
+      "path": "sql/migrations/003_b08_loader_role.sql",
+      "sha256": "e84a2d122bcb8f5edd6ffeb9974ef48eac3910ae801d5a929286734978f9269d"
+    },
+    {
+      "path": "sql/migrations/004_meta_batch.sql",
+      "sha256": "5c828f4071cab7ea097ee5b001aa6aca8fb567f04889a091a02842cf14fbb801"
+    },
+    {
+      "path": "sql/migrations/005_raw_vault.sql",
+      "sha256": "36fedf6f1c6b128e8006ad2e76815c44099c5557de8140deb04e599d4c4f14f8"
+    },
+    {
+      "path": "sql/migrations/006_canonical.sql",
+      "sha256": "c6b414f581d15183d89d98bebda71f373827a945d9e3eb2d9a60e699054e37dd"
+    },
+    {
+      "path": "sql/migrations/007_warehouse.sql",
+      "sha256": "32add012cc1f2919e0aa07926fea86922999b02dd37bb070e4bb2b6247fc87ee"
+    },
+    {
+      "path": "sql/migrations/008_qa.sql",
+      "sha256": "408c3775b218808fceb40a4119f8e5f20735664e1775671f5876d838b6219e29"
+    },
+    {
+      "path": "sql/migrations/009_database_roles.sql",
+      "sha256": "cd1b8f3c4969111cab71777ea063dfe89e69dc29566dbd779c708e2f889d03d5"
+    },
+    {
+      "path": "sql/migrations/010_business_key.sql",
+      "sha256": "de7a14a6df0c0336c7f40c2178159e0f53a4f702da44cde9a20c53a95443d922"
+    },
+    {
+      "path": "sql/migrations/011_review_validation_fixes.sql",
+      "sha256": "fb4d03819dbb4a37366aa5b3cb59fe4e8bec0d76eae3fcfbc3783ebb13f51de6"
+    },
+    {
+      "path": "sql/tests/a03_database_roles.sql",
+      "sha256": "403fbfcbaaf6b6a755121e18e50c9cae007acada97eb22cee2d7254f360bc03a"
+    }
+  ],
+  "wheel": {
+    "name": "arsia_native_intake-0.1.0-py3-none-any.whl",
+    "sha256": "61b95a6fea527be67022382fb0e4a91c005664211223a812fe46a20ac210ec0b"
+  },
+  "packages": [
+    {
+      "name": "arsia-native-intake",
+      "version": "0.1.0"
+    },
+    {
+      "name": "et_xmlfile",
+      "version": "2.0.0"
+    },
+    {
+      "name": "iniconfig",
+      "version": "2.1.0"
+    },
+    {
+      "name": "openpyxl",
+      "version": "3.1.5"
+    },
+    {
+      "name": "packaging",
+      "version": "25.0"
+    },
+    {
+      "name": "pip",
+      "version": "24.2"
+    },
+    {
+      "name": "pluggy",
+      "version": "1.6.0"
+    },
+    {
+      "name": "psycopg",
+      "version": "3.3.6"
+    },
+    {
+      "name": "psycopg-binary",
+      "version": "3.3.6"
+    },
+    {
+      "name": "Pygments",
+      "version": "2.19.2"
+    },
+    {
+      "name": "pytest",
+      "version": "8.4.2"
+    },
+    {
+      "name": "setuptools",
+      "version": "80.9.0"
+    },
+    {
+      "name": "typing_extensions",
+      "version": "4.16.0"
+    },
+    {
+      "name": "wheel",
+      "version": "0.45.1"
+    }
+  ],
+  "build_summary": {
+    "tests": 335,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pytest_exit_code": 0,
+    "exit_code": 0,
+    "permissions": "Original A03 audit passed before and after",
+    "final_tables_empty": true,
+    "publication_performed": true,
+    "boundary": "D09, official replay, S8 and independent E/platform acceptance remain separate",
+    "publication_scope": "Private synthetic test database; no official release",
+    "full_s0_build_verified": true,
+    "final_platform_accepted": false
+  },
+  "build_cleanup": {
+    "container_removed": "arsia-b-ac-dafe04fe8fc8",
+    "persistent_volume_created": false,
+    "anonymous_image_volumes_removed": true
+  },
+  "build_inputs_sha256": "52a5b843260c727db1ef77f0897ddfdf2f9bbdcea85326f68799784c51a428a7",
+  "finished_at": "2026-09-28T10:14:18+00:00"
+}
