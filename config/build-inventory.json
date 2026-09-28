@@ -2,7 +2,7 @@
   "version": "b-official-build-v1",
   "complete_build": true,
   "final_platform": false,
-  "scope": "Installed S0, S8 and pinned official build recipes with source-specific read interfaces. Execution evidence is recorded separately; D09 and independent E acceptance remain open.",
+  "scope": "Installed S0, S8 and pinned official build recipes with source-specific read interfaces and the D09 fixed-release dashboard. Execution evidence is recorded separately; independent E acceptance remains open.",
   "components": {
     "project": [
       "config/c05-qld-official-v1.json",
@@ -411,6 +411,46 @@
       "src/arsia_ingest/vault_load.py",
       "src/arsia_ingest/vic_restricted.py"
     ],
+    "dashboard": [
+      "config/native-inputs.json",
+      "config/official-inputs-v1.json",
+      "config/official-nsw-v1.json",
+      "config/qa-team-v1.1-vic-r1.json",
+      "config/vic-restricted-inputs-v1.json",
+      "config/vic-restricted-use-v1.json",
+      "pyproject.toml",
+      "requirements-db.txt",
+      "requirements-dev.txt",
+      "requirements.txt",
+      "src/arsia_d09/__init__.py",
+      "src/arsia_d09/__main__.py",
+      "src/arsia_d09/dashboard.py",
+      "src/arsia_d09/sql/d09_context.sql",
+      "src/arsia_d09/web.py",
+      "src/arsia_ingest/__init__.py",
+      "src/arsia_ingest/__main__.py",
+      "src/arsia_ingest/build.py",
+      "src/arsia_ingest/cli.py",
+      "src/arsia_ingest/components.py",
+      "src/arsia_ingest/config.py",
+      "src/arsia_ingest/fingerprint.py",
+      "src/arsia_ingest/manifest.py",
+      "src/arsia_ingest/models.py",
+      "src/arsia_ingest/official.py",
+      "src/arsia_ingest/official_definitions.py",
+      "src/arsia_ingest/official_reader.py",
+      "src/arsia_ingest/pipeline.py",
+      "src/arsia_ingest/policies/qa-team-v1.1-vic-r1.json",
+      "src/arsia_ingest/policies/vic-restricted-inputs-v1.json",
+      "src/arsia_ingest/policies/vic-restricted-use-v1.json",
+      "src/arsia_ingest/qa_input.py",
+      "src/arsia_ingest/raw_load.py",
+      "src/arsia_ingest/readers.py",
+      "src/arsia_ingest/recovery.py",
+      "src/arsia_ingest/runner.py",
+      "src/arsia_ingest/vault_load.py",
+      "src/arsia_ingest/vic_restricted.py"
+    ],
     "publish": [
       "config/native-inputs.json",
       "config/official-inputs-v1.json",
@@ -492,7 +532,7 @@
     },
     {
       "path": "pyproject.toml",
-      "sha256": "0cd234e44f958dfb0a6dd8a4c0ca5d47d1382ebbe96ed5c3fa6c7753e22df657"
+      "sha256": "108a16070206e775a5cd421a9c2f0d53bcf0f5f500c001045412d1c6ea2963a4"
     },
     {
       "path": "requirements-db.txt",
@@ -771,6 +811,26 @@
       "sha256": "bc320d252ab940592ee3715556de6c008ec13ba71f4719cc19f25d6fa8916e01"
     },
     {
+      "path": "src/arsia_d09/__init__.py",
+      "sha256": "dcb0f3e2c0b96a5ef1712c8ce1250561232557c9c4a90a30ce701083b00285c0"
+    },
+    {
+      "path": "src/arsia_d09/__main__.py",
+      "sha256": "df0535a129405097b3c99d82b9779d2449d96e0c3dd2a0a7a3249f85070baaec"
+    },
+    {
+      "path": "src/arsia_d09/dashboard.py",
+      "sha256": "d0b287fc2493ac72b4f96bac3176743d3d4c55219ee71653080aa7d458053d93"
+    },
+    {
+      "path": "src/arsia_d09/sql/d09_context.sql",
+      "sha256": "98bce5a9b8763a7b2ac3c7321175cf7b4bb8e4a5157bc4259da4ba8c65eaa3a3"
+    },
+    {
+      "path": "src/arsia_d09/web.py",
+      "sha256": "1e6d779a39059ad50c636b875f7d812f84683c507465bcd4722fbc188c7e9bce"
+    },
+    {
       "path": "src/arsia_ingest/__init__.py",
       "sha256": "1b968d2191475834219bcb988e7a25867afb1eff95b73acd7aaccae34568cdd3"
     },
@@ -928,7 +988,6 @@
     "e": "aec3b4692382e48ea4f778f04a31a4ca5ba5fa57"
   },
   "remaining": [
-    "D09 reader/UI integration (deferred)",
     "Independent replay of official build evidence",
     "E's independent expectations and platform acceptance"
   ]

@@ -1,0 +1,22 @@
+{
+  "rows": {
+    "meta.source": 0,
+    "meta.resource": 0,
+    "meta.batch": 0,
+    "meta.current_release": 0,
+    "raw.record": 0,
+    "rv.hub_crash": 0,
+    "rv.hub_unit": 0,
+    "rv.sat_crash": 0,
+    "rv.sat_unit": 0,
+    "rv.link_crash_unit": 0,
+    "canonical.crash": 0,
+    "canonical.unit": 0,
+    "dw.dim_source": 0,
+    "dw.dim_month": 0,
+    "dw.dim_severity": 0,
+    "dw.fact_crash": 0,
+    "qa.check_result": 0
+  },
+  "all_zero": true
+}
