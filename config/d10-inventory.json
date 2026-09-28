@@ -37,7 +37,7 @@
     },
     {
       "path": "docs/evidence/d10-postgresql16-validation-2026-09-28.json",
-      "sha256": "1f40987edddfa9255f1ab356419f1c62674ed2ee60c0faf012b828ea6658960d"
+      "sha256": "603daaf9fde096eb7f2bcc64c4bddbf755906b14669c9870e44b34192b8d6d58"
     },
     {
       "path": "sql/d10_qld_source_evidence.sql",
@@ -49,7 +49,7 @@
     },
     {
       "path": "tools/verify_d10_postgres.py",
-      "sha256": "b490a83cb7d52f1df43bb5fcec0c03268f55bf90e3c07ba5d5cb6e7d429035da"
+      "sha256": "f6317bde37eda92d68c7cb9373834e2873065e79fe1052fadd91dd69548b9bfe"
     },
     {
       "path": "tests/test_d10.py",

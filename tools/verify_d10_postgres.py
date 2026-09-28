@@ -311,7 +311,7 @@ def main() -> int:
                 ["git", "-C", str(ROOT), "rev-parse", "HEAD"]
             ).stdout.strip()
         except subprocess.CalledProcessError:
-            head = os.environ.get("ARSIA_VALIDATION_HEAD", "working-tree")
+            head = os.environ.get("ARSIA_VALIDATION_HEAD") or "working-tree"
         receipt = {
             "evidence_version": "d10-postgresql16-validation-v1",
             "status": "passed",
