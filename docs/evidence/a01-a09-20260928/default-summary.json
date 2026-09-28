@@ -1,0 +1,15 @@
+{
+  "git_head": "0a6b7b12c9506bc319ecac0b286c4a3fff1c043c",
+  "working_tree": [],
+  "command": "artifacts/a-handoff-venv/bin/python -m pytest -q --junitxml=<output>/default-tests.xml",
+  "counts": {
+    "tests": 779,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 155,
+    "passed": 624
+  },
+  "report_sha256": "cf645e8ce0f6417c545cb4f47b0ffae7769af27d6959175fcd6d16031871d0c7",
+  "log_sha256": "825cec4b38583492fdd577144bd346ee750675712bcd75e85dfcd1b80901bda6",
+  "boundary": "Default A-branch suite. Optional database/source cases skipped; not counted as passes."
+}

@@ -1,0 +1,109 @@
+{
+  "contract": "a01-compose-lifecycle-v1",
+  "status": "passed",
+  "started_at": "2026-09-28T10:13:22+00:00",
+  "project": "arsia-a01-945a1d8791e3",
+  "python": "3.12.6 (v3.12.6:a4a2d2b0d85, Sep  6 2024, 16:08:03) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "git_head": "0a6b7b12c9506bc319ecac0b286c4a3fff1c043c",
+  "working_tree": [],
+  "inputs": [
+    {
+      "path": "compose.yaml",
+      "sha256": "3fc5c07d8ca7cf3661fec737fd0c6117b0770ae602b4103c12b1b372d6aec117"
+    },
+    {
+      "path": "tools/verify_a01_lifecycle.py",
+      "sha256": "85e6d03b96c60dfa5ad4c52b27a37108ceda2f2e4f90689595c729bb08f5630b"
+    },
+    {
+      "path": "sql/tests/a03_database_roles.sql",
+      "sha256": "403fbfcbaaf6b6a755121e18e50c9cae007acada97eb22cee2d7254f360bc03a"
+    },
+    {
+      "path": "sql/migrations/001_meta_registry.sql",
+      "sha256": "b44608c4baee8ce1d4ac6c3912a1a7d671772a1b305a32976b10f7bf00fe1893"
+    },
+    {
+      "path": "sql/migrations/002_raw_record.sql",
+      "sha256": "550c022b204380af2c0b2ffffc48295df3b562fd217f99a62f392d8db15eb059"
+    },
+    {
+      "path": "sql/migrations/003_b08_loader_role.sql",
+      "sha256": "e84a2d122bcb8f5edd6ffeb9974ef48eac3910ae801d5a929286734978f9269d"
+    },
+    {
+      "path": "sql/migrations/004_meta_batch.sql",
+      "sha256": "5c828f4071cab7ea097ee5b001aa6aca8fb567f04889a091a02842cf14fbb801"
+    },
+    {
+      "path": "sql/migrations/005_raw_vault.sql",
+      "sha256": "36fedf6f1c6b128e8006ad2e76815c44099c5557de8140deb04e599d4c4f14f8"
+    },
+    {
+      "path": "sql/migrations/006_canonical.sql",
+      "sha256": "c6b414f581d15183d89d98bebda71f373827a945d9e3eb2d9a60e699054e37dd"
+    },
+    {
+      "path": "sql/migrations/007_warehouse.sql",
+      "sha256": "32add012cc1f2919e0aa07926fea86922999b02dd37bb070e4bb2b6247fc87ee"
+    },
+    {
+      "path": "sql/migrations/008_qa.sql",
+      "sha256": "408c3775b218808fceb40a4119f8e5f20735664e1775671f5876d838b6219e29"
+    },
+    {
+      "path": "sql/migrations/009_database_roles.sql",
+      "sha256": "cd1b8f3c4969111cab71777ea063dfe89e69dc29566dbd779c708e2f889d03d5"
+    },
+    {
+      "path": "sql/migrations/010_business_key.sql",
+      "sha256": "de7a14a6df0c0336c7f40c2178159e0f53a4f702da44cde9a20c53a95443d922"
+    },
+    {
+      "path": "sql/migrations/011_review_validation_fixes.sql",
+      "sha256": "fb4d03819dbb4a37366aa5b3cb59fe4e8bec0d76eae3fcfbc3783ebb13f51de6"
+    }
+  ],
+  "steps": [
+    {
+      "step": "A03 audit and real TCP role logins",
+      "status": "passed"
+    },
+    {
+      "step": "initial committed write",
+      "status": "passed",
+      "container": "f6e96a3c887103d4eb6cbb56349837c34b1732cd178c7e8590993b8ddf761233"
+    },
+    {
+      "step": "stop then start retains data",
+      "status": "passed",
+      "container": "f6e96a3c887103d4eb6cbb56349837c34b1732cd178c7e8590993b8ddf761233"
+    },
+    {
+      "step": "restart retains data",
+      "status": "passed",
+      "container": "f6e96a3c887103d4eb6cbb56349837c34b1732cd178c7e8590993b8ddf761233"
+    },
+    {
+      "step": "down then up retains named-volume data",
+      "status": "passed",
+      "container": "59afa531fbadf09849f0e7fa7502e3e409b0b30b0bca28b84796ad03acc3c734"
+    },
+    {
+      "step": "A03 audit after recreation",
+      "status": "passed"
+    }
+  ],
+  "cleanup": {
+    "private_project_removed": true
+  },
+  "scope": "Private Compose volume and A03 role logins; no platform acceptance",
+  "docker": "28.5.2",
+  "compose": "2.40.3-desktop.1",
+  "postgresql": [
+    "PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+    "UTF8",
+    "UTC"
+  ],
+  "finished_at": "2026-09-28T10:13:37+00:00"
+}
