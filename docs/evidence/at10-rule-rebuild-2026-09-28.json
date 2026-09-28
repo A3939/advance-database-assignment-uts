@@ -138,7 +138,8 @@
       ],
       "cwd": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/artifacts/at10-rule-rebuild-20260928/baseline-postgres",
       "pythonpath_removed": true
-    }
+    },
+    "publication_note": "The generic baseline harness hardcodes publication_performed=false. These tests did create private synthetic publications; this flag is not proof that no publication occurred."
   },
   "after": {
     "tests": 71,
