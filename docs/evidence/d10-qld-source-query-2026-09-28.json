@@ -1,0 +1,451 @@
+{
+  "evidence_version": "d10-qld-source-query-v1",
+  "scope": {
+    "source_id": "official_qld",
+    "resource_id": "official_qld_crash",
+    "release_scope": "qld_pinned_2020_2024_v1",
+    "file_sha256": "975be4b02a235d06589de9b486f73bafe22d0f2007f0c07abb84f54cb926c704",
+    "analysis_year_from": 2020,
+    "analysis_year_to": 2024,
+    "source_grain": "one native row per crash",
+    "native_key": [
+      "Crash_Ref_Number"
+    ]
+  },
+  "key_query": {
+    "full_source_rows": 415407,
+    "distinct_nonblank_keys": 415407,
+    "blank_keys": 0,
+    "duplicate_keys": 0,
+    "analysis_rows": 66624,
+    "examples": [
+      {
+        "row_locator": "csv:80888",
+        "Crash_Ref_Number": "80888",
+        "Crash_Year": "2021",
+        "Crash_Month": "October",
+        "Crash_Severity": "Medical treatment"
+      },
+      {
+        "row_locator": "csv:80898",
+        "Crash_Ref_Number": "80898",
+        "Crash_Year": "2021",
+        "Crash_Month": "November",
+        "Crash_Severity": "Hospitalisation"
+      },
+      {
+        "row_locator": "csv:80900",
+        "Crash_Ref_Number": "80900",
+        "Crash_Year": "2021",
+        "Crash_Month": "November",
+        "Crash_Severity": "Hospitalisation"
+      },
+      {
+        "row_locator": "csv:80901",
+        "Crash_Ref_Number": "80901",
+        "Crash_Year": "2021",
+        "Crash_Month": "November",
+        "Crash_Severity": "Medical treatment"
+      },
+      {
+        "row_locator": "csv:80905",
+        "Crash_Ref_Number": "80905",
+        "Crash_Year": "2021",
+        "Crash_Month": "February",
+        "Crash_Severity": "Medical treatment"
+      }
+    ]
+  },
+  "month_query": {
+    "rows_by_year": {
+      "2020": 12147,
+      "2021": 13476,
+      "2022": 13021,
+      "2023": 13622,
+      "2024": 14358
+    },
+    "year_month_rows": [
+      {
+        "year": 2020,
+        "month": 1,
+        "crash_count": 890
+      },
+      {
+        "year": 2020,
+        "month": 2,
+        "crash_count": 1000
+      },
+      {
+        "year": 2020,
+        "month": 3,
+        "crash_count": 947
+      },
+      {
+        "year": 2020,
+        "month": 4,
+        "crash_count": 645
+      },
+      {
+        "year": 2020,
+        "month": 5,
+        "crash_count": 902
+      },
+      {
+        "year": 2020,
+        "month": 6,
+        "crash_count": 990
+      },
+      {
+        "year": 2020,
+        "month": 7,
+        "crash_count": 1093
+      },
+      {
+        "year": 2020,
+        "month": 8,
+        "crash_count": 1152
+      },
+      {
+        "year": 2020,
+        "month": 9,
+        "crash_count": 1143
+      },
+      {
+        "year": 2020,
+        "month": 10,
+        "crash_count": 1123
+      },
+      {
+        "year": 2020,
+        "month": 11,
+        "crash_count": 1179
+      },
+      {
+        "year": 2020,
+        "month": 12,
+        "crash_count": 1083
+      },
+      {
+        "year": 2021,
+        "month": 1,
+        "crash_count": 1045
+      },
+      {
+        "year": 2021,
+        "month": 2,
+        "crash_count": 1105
+      },
+      {
+        "year": 2021,
+        "month": 3,
+        "crash_count": 1133
+      },
+      {
+        "year": 2021,
+        "month": 4,
+        "crash_count": 1161
+      },
+      {
+        "year": 2021,
+        "month": 5,
+        "crash_count": 1208
+      },
+      {
+        "year": 2021,
+        "month": 6,
+        "crash_count": 1169
+      },
+      {
+        "year": 2021,
+        "month": 7,
+        "crash_count": 1162
+      },
+      {
+        "year": 2021,
+        "month": 8,
+        "crash_count": 1038
+      },
+      {
+        "year": 2021,
+        "month": 9,
+        "crash_count": 1126
+      },
+      {
+        "year": 2021,
+        "month": 10,
+        "crash_count": 1169
+      },
+      {
+        "year": 2021,
+        "month": 11,
+        "crash_count": 1094
+      },
+      {
+        "year": 2021,
+        "month": 12,
+        "crash_count": 1066
+      },
+      {
+        "year": 2022,
+        "month": 1,
+        "crash_count": 838
+      },
+      {
+        "year": 2022,
+        "month": 2,
+        "crash_count": 1018
+      },
+      {
+        "year": 2022,
+        "month": 3,
+        "crash_count": 1120
+      },
+      {
+        "year": 2022,
+        "month": 4,
+        "crash_count": 1066
+      },
+      {
+        "year": 2022,
+        "month": 5,
+        "crash_count": 1080
+      },
+      {
+        "year": 2022,
+        "month": 6,
+        "crash_count": 1147
+      },
+      {
+        "year": 2022,
+        "month": 7,
+        "crash_count": 1175
+      },
+      {
+        "year": 2022,
+        "month": 8,
+        "crash_count": 1186
+      },
+      {
+        "year": 2022,
+        "month": 9,
+        "crash_count": 1102
+      },
+      {
+        "year": 2022,
+        "month": 10,
+        "crash_count": 1154
+      },
+      {
+        "year": 2022,
+        "month": 11,
+        "crash_count": 1110
+      },
+      {
+        "year": 2022,
+        "month": 12,
+        "crash_count": 1025
+      },
+      {
+        "year": 2023,
+        "month": 1,
+        "crash_count": 954
+      },
+      {
+        "year": 2023,
+        "month": 2,
+        "crash_count": 1057
+      },
+      {
+        "year": 2023,
+        "month": 3,
+        "crash_count": 1174
+      },
+      {
+        "year": 2023,
+        "month": 4,
+        "crash_count": 1106
+      },
+      {
+        "year": 2023,
+        "month": 5,
+        "crash_count": 1240
+      },
+      {
+        "year": 2023,
+        "month": 6,
+        "crash_count": 1131
+      },
+      {
+        "year": 2023,
+        "month": 7,
+        "crash_count": 1209
+      },
+      {
+        "year": 2023,
+        "month": 8,
+        "crash_count": 1216
+      },
+      {
+        "year": 2023,
+        "month": 9,
+        "crash_count": 1204
+      },
+      {
+        "year": 2023,
+        "month": 10,
+        "crash_count": 1155
+      },
+      {
+        "year": 2023,
+        "month": 11,
+        "crash_count": 1124
+      },
+      {
+        "year": 2023,
+        "month": 12,
+        "crash_count": 1052
+      },
+      {
+        "year": 2024,
+        "month": 1,
+        "crash_count": 1025
+      },
+      {
+        "year": 2024,
+        "month": 2,
+        "crash_count": 1149
+      },
+      {
+        "year": 2024,
+        "month": 3,
+        "crash_count": 1196
+      },
+      {
+        "year": 2024,
+        "month": 4,
+        "crash_count": 1113
+      },
+      {
+        "year": 2024,
+        "month": 5,
+        "crash_count": 1277
+      },
+      {
+        "year": 2024,
+        "month": 6,
+        "crash_count": 1270
+      },
+      {
+        "year": 2024,
+        "month": 7,
+        "crash_count": 1281
+      },
+      {
+        "year": 2024,
+        "month": 8,
+        "crash_count": 1286
+      },
+      {
+        "year": 2024,
+        "month": 9,
+        "crash_count": 1199
+      },
+      {
+        "year": 2024,
+        "month": 10,
+        "crash_count": 1262
+      },
+      {
+        "year": 2024,
+        "month": 11,
+        "crash_count": 1200
+      },
+      {
+        "year": 2024,
+        "month": 12,
+        "crash_count": 1100
+      }
+    ],
+    "observed_year_months": 60,
+    "missing_or_unknown_month_rows": 0
+  },
+  "severity_query": {
+    "counts": {
+      "Fatal": 1304,
+      "Hospitalisation": 31922,
+      "Medical treatment": 22730,
+      "Minor injury": 10668,
+      "Property damage only": 0
+    },
+    "missing_or_unknown_rows": 0,
+    "definition_version": "qld-native-severity-v1"
+  },
+  "unknown_count_query": {
+    "rows_with_missing_casualty_count": 0,
+    "rows_with_invalid_casualty_count": 0,
+    "rows_with_negative_casualty_count": 0,
+    "casualty_component_mismatch_rows": 0,
+    "fatality_sum": 1424,
+    "casualty_total_sum": 88609
+  },
+  "unit_aggregate_query": {
+    "handling": "crash-row aggregate attributes only; no Unit entity or parent relationship",
+    "rows_with_missing_unit_count": 0,
+    "rows_with_invalid_unit_count": 0,
+    "rows_with_negative_unit_count": 0,
+    "category_sums": {
+      "Count_Unit_Car": 102555,
+      "Count_Unit_Motorcycle_Moped": 8227,
+      "Count_Unit_Truck": 4764,
+      "Count_Unit_Bus": 938,
+      "Count_Unit_Bicycle": 3796,
+      "Count_Unit_Pedestrian": 3431,
+      "Count_Unit_Other": 2520
+    },
+    "crash_rows_with_nonzero_category": {
+      "Count_Unit_Car": 60895,
+      "Count_Unit_Motorcycle_Moped": 8022,
+      "Count_Unit_Truck": 4482,
+      "Count_Unit_Bus": 934,
+      "Count_Unit_Bicycle": 3692,
+      "Count_Unit_Pedestrian": 3307,
+      "Count_Unit_Other": 2456
+    }
+  },
+  "location_query": {
+    "native_coordinate_rows": 66624,
+    "blank_coordinate_rows": 0,
+    "invalid_coordinate_rows": 0,
+    "source_crs": "GDA2020",
+    "published_map_status": "unavailable",
+    "published_map_count": 0,
+    "published_unmapped_count": 66624,
+    "reason": "definition_unconfirmed: no validated GDA2020 to EPSG:4326 operation"
+  },
+  "published_build": {
+    "basis_commit": "562de2910bfd7be276b3036983e5680d436fde1e",
+    "batch_id": "d6f0e958-7c94-4f2f-ba85-9d44e597cc02",
+    "status": "succeeded",
+    "qa06": "pass",
+    "qa07": "limited",
+    "crash_count": 66624,
+    "fatal_crash_count": 1304,
+    "fatality_count": 1424,
+    "casualty_count": 88609,
+    "canonical_unit_count": 0,
+    "report_eligible_unit_count": 0,
+    "trend_rows": 5,
+    "monthly_rows": 60,
+    "severity_rows": 4,
+    "map_rows": null,
+    "unit_rows": null
+  },
+  "limits": [
+    "The exact pinned file and occurrence years 2020-2024 are the reporting scope.",
+    "Crash_Ref_Number is opaque text; the year comes only from Crash_Year.",
+    "Severity and casualty definitions remain QLD source-specific; do not pool interstate totals.",
+    "Count_Unit_* values are crash-row aggregates and cannot create Unit or Person records.",
+    "Native GDA2020 coordinates are present, but official map output remains unavailable.",
+    "Zero Property damage only rows after 2010 does not mean zero real property-only crashes."
+  ]
+}
