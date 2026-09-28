@@ -1,0 +1,42 @@
+# Separate project, network and volumes. This suite clears its own test rows.
+name: ${ARSIA_PROJECT:-arsia-local}-acceptance
+services:
+  acceptance-db:
+    image: postgres:16-bookworm@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67
+    environment:
+      POSTGRES_DB: arsia
+      POSTGRES_USER: arsia_owner
+      POSTGRES_PASSWORD: ${ARSIA_DB_PASSWORD:?Set a local database password}
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=C.UTF-8"
+      TZ: UTC
+    command: [postgres, -c, timezone=UTC, -c, log_timezone=UTC, -c, arsia.team_environment=acceptance]
+    volumes:
+      - acceptance_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U arsia_owner -d arsia"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+  acceptance:
+    image: ${ARSIA_PROJECT:-arsia-local}-app:local
+    build:
+      context: .
+      dockerfile: docker/team/Dockerfile
+      args:
+        ARSIA_REVISION: ${ARSIA_REVISION:?Set the checked-out Git commit in .env}
+    command: [acceptance]
+    environment:
+      ARSIA_DB_HOST: acceptance-db
+      ARSIA_DB_PASSWORD: ${ARSIA_DB_PASSWORD:?Set a local database password}
+      ARSIA_LOADER_PASSWORD: ${ARSIA_LOADER_PASSWORD:?Set a local loader password}
+      # Existing isolated E fixtures reset this role to the loader's test password.
+      ARSIA_READER_PASSWORD: ${ARSIA_LOADER_PASSWORD:?Set a local loader password}
+      ARSIA_EXECUTOR: ${ARSIA_EXECUTOR:?Set the person running these commands}
+    volumes:
+      - ./artifacts/team:/evidence
+    depends_on:
+      acceptance-db:
+        condition: service_healthy
+    init: true
+volumes:
+  acceptance_pgdata:

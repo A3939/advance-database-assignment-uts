@@ -1,0 +1,201 @@
+{
+  "base_runtime_commit": "ade3d4cf9ac32f1740b6e40124f72f469d6cf630",
+  "a_environment_commit": "8f91a6b41dc0777d5873d2151f71e9f1cbe05501",
+  "a_schema_commit": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
+  "e_acceptance_commit": "eba079a59ab7eb41835ee044c12e45dbdca03e9b",
+  "prior_e_tested_runtime_commit": "1765269507d7cf0b9cb76eef7b9ccf97de7f1cc5",
+  "files": [
+    {
+      "path": "docker/team/vendor/a/config/schema-v1.1.json",
+      "source_path": "config/schema-v1.1.json",
+      "commit": "8f91a6b41dc0777d5873d2151f71e9f1cbe05501",
+      "sha256": "acd9162cee66157f47f573460794697dc99ba658db385f00979db7f90d12f72a"
+    },
+    {
+      "path": "docker/team/vendor/a/compose.yaml",
+      "source_path": "compose.yaml",
+      "commit": "8f91a6b41dc0777d5873d2151f71e9f1cbe05501",
+      "sha256": "3fc5c07d8ca7cf3661fec737fd0c6117b0770ae602b4103c12b1b372d6aec117"
+    },
+    {
+      "path": "docker/team/vendor/a/requirements-db.txt",
+      "source_path": "requirements-db.txt",
+      "commit": "8f91a6b41dc0777d5873d2151f71e9f1cbe05501",
+      "sha256": "09f73f187f5349047e190a3b91eca2ad85e718660108613991c003cabe09f9e1"
+    },
+    {
+      "path": "docker/team/vendor/e/tools/verify_e_acceptance.py",
+      "source_path": "tools/verify_e_acceptance.py",
+      "commit": "eba079a59ab7eb41835ee044c12e45dbdca03e9b",
+      "sha256": "969d467ae4c5934174e136d05494d30ab7b6d16c160895bc8f0c6cf2eee133fd"
+    },
+    {
+      "path": "docker/team/vendor/e/acceptance/e/run_database.py",
+      "source_path": "acceptance/e/run_database.py",
+      "commit": "eba079a59ab7eb41835ee044c12e45dbdca03e9b",
+      "sha256": "1dab722e9c2b8df404d5b9442864578047f3a557811a100221e5d6f2dbbd3c4d"
+    },
+    {
+      "path": "docker/team/vendor/e/acceptance/e/expected.py",
+      "source_path": "acceptance/e/expected.py",
+      "commit": "eba079a59ab7eb41835ee044c12e45dbdca03e9b",
+      "sha256": "bc16599363ec28cdfa228ed58ca405b869bae745a2401c418a78f07386fa6c69"
+    },
+    {
+      "path": "docker/team/vendor/e/acceptance/e/test_expectations.py",
+      "source_path": "acceptance/e/test_expectations.py",
+      "commit": "eba079a59ab7eb41835ee044c12e45dbdca03e9b",
+      "sha256": "6d61f6bb58f7412ee2ba451a75853b5e0d321a7bfb793372faa61b3c25fcbbba"
+    },
+    {
+      "path": "docker/team/vendor/e/acceptance/e/test_e07_postgres.py",
+      "source_path": "acceptance/e/test_e07_postgres.py",
+      "commit": "eba079a59ab7eb41835ee044c12e45dbdca03e9b",
+      "sha256": "3a78cf8f86278dd646bf5e584f8c1d442f42b258fbac575443a581025ad31c69"
+    },
+    {
+      "path": "docker/team/vendor/e/acceptance/e/test_e08_postgres.py",
+      "source_path": "acceptance/e/test_e08_postgres.py",
+      "commit": "eba079a59ab7eb41835ee044c12e45dbdca03e9b",
+      "sha256": "26be742d365ee767c67460298f566a19c4159b43527f3679e1753b51930e86f4"
+    },
+    {
+      "path": "docker/team/vendor/e/acceptance/e/test_e09_official_postgres.py",
+      "source_path": "acceptance/e/test_e09_official_postgres.py",
+      "commit": "eba079a59ab7eb41835ee044c12e45dbdca03e9b",
+      "sha256": "2e933236dfd2d12ca47c9feee74a4d0fd65fdfa6ed783012c330b19d29264eb9"
+    },
+    {
+      "path": "docker/team/vendor/e/acceptance/e/official_expected.py",
+      "source_path": "acceptance/e/official_expected.py",
+      "commit": "eba079a59ab7eb41835ee044c12e45dbdca03e9b",
+      "sha256": "2834783b8d4836596a47f43d0356f7fc6fa2643552bec65484f97fab23ae96b2"
+    },
+    {
+      "path": "docker/team/vendor/e/config/e-acceptance-s0-v1.json",
+      "source_path": "config/e-acceptance-s0-v1.json",
+      "commit": "eba079a59ab7eb41835ee044c12e45dbdca03e9b",
+      "sha256": "f9a656bd6d88ec7937633782ba2a61dcd7d5d261b9e205397b02ca20db52e6f1"
+    },
+    {
+      "path": "docker/team/vendor/e/config/e-acceptance-versions.json",
+      "source_path": "config/e-acceptance-versions.json",
+      "commit": "eba079a59ab7eb41835ee044c12e45dbdca03e9b",
+      "sha256": "3535a4f2fe18c34fb4b612bb8572caceccab5e08a9dbce0d179eb2b42ad8c9c5"
+    },
+    {
+      "path": "sql/migrations/001_meta_registry.sql",
+      "source_path": "sql/migrations/001_meta_registry.sql",
+      "commit": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
+      "sha256": "b44608c4baee8ce1d4ac6c3912a1a7d671772a1b305a32976b10f7bf00fe1893"
+    },
+    {
+      "path": "sql/migrations/002_raw_record.sql",
+      "source_path": "sql/migrations/002_raw_record.sql",
+      "commit": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
+      "sha256": "550c022b204380af2c0b2ffffc48295df3b562fd217f99a62f392d8db15eb059"
+    },
+    {
+      "path": "sql/migrations/003_b08_loader_role.sql",
+      "source_path": "sql/migrations/003_b08_loader_role.sql",
+      "commit": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
+      "sha256": "e84a2d122bcb8f5edd6ffeb9974ef48eac3910ae801d5a929286734978f9269d"
+    },
+    {
+      "path": "sql/migrations/004_meta_batch.sql",
+      "source_path": "sql/migrations/004_meta_batch.sql",
+      "commit": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
+      "sha256": "5c828f4071cab7ea097ee5b001aa6aca8fb567f04889a091a02842cf14fbb801"
+    },
+    {
+      "path": "sql/migrations/005_raw_vault.sql",
+      "source_path": "sql/migrations/005_raw_vault.sql",
+      "commit": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
+      "sha256": "36fedf6f1c6b128e8006ad2e76815c44099c5557de8140deb04e599d4c4f14f8"
+    },
+    {
+      "path": "sql/migrations/006_canonical.sql",
+      "source_path": "sql/migrations/006_canonical.sql",
+      "commit": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
+      "sha256": "c6b414f581d15183d89d98bebda71f373827a945d9e3eb2d9a60e699054e37dd"
+    },
+    {
+      "path": "sql/migrations/007_warehouse.sql",
+      "source_path": "sql/migrations/007_warehouse.sql",
+      "commit": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
+      "sha256": "32add012cc1f2919e0aa07926fea86922999b02dd37bb070e4bb2b6247fc87ee"
+    },
+    {
+      "path": "sql/migrations/008_qa.sql",
+      "source_path": "sql/migrations/008_qa.sql",
+      "commit": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
+      "sha256": "408c3775b218808fceb40a4119f8e5f20735664e1775671f5876d838b6219e29"
+    },
+    {
+      "path": "sql/migrations/009_database_roles.sql",
+      "source_path": "sql/migrations/009_database_roles.sql",
+      "commit": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
+      "sha256": "cd1b8f3c4969111cab71777ea063dfe89e69dc29566dbd779c708e2f889d03d5"
+    },
+    {
+      "path": "sql/migrations/010_business_key.sql",
+      "source_path": "sql/migrations/010_business_key.sql",
+      "commit": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
+      "sha256": "de7a14a6df0c0336c7f40c2178159e0f53a4f702da44cde9a20c53a95443d922"
+    },
+    {
+      "path": "sql/migrations/011_review_validation_fixes.sql",
+      "source_path": "sql/migrations/011_review_validation_fixes.sql",
+      "commit": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
+      "sha256": "fb4d03819dbb4a37366aa5b3cb59fe4e8bec0d76eae3fcfbc3783ebb13f51de6"
+    },
+    {
+      "path": "sql/tests/a03_database_roles.sql",
+      "source_path": "sql/tests/a03_database_roles.sql",
+      "commit": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
+      "sha256": "403fbfcbaaf6b6a755121e18e50c9cae007acada97eb22cee2d7254f360bc03a"
+    }
+  ],
+  "overlays": [
+    {
+      "path": "tools/verify_e_platform_database.py",
+      "source_path": "docker/team/vendor/e/acceptance/e/run_database.py",
+      "sha256": "1dab722e9c2b8df404d5b9442864578047f3a557811a100221e5d6f2dbbd3c4d"
+    },
+    {
+      "path": "tests/e_acceptance_expected.py",
+      "source_path": "docker/team/vendor/e/acceptance/e/expected.py",
+      "sha256": "bc16599363ec28cdfa228ed58ca405b869bae745a2401c418a78f07386fa6c69"
+    },
+    {
+      "path": "tests/test_e_acceptance_expectations.py",
+      "source_path": "docker/team/vendor/e/acceptance/e/test_expectations.py",
+      "sha256": "6d61f6bb58f7412ee2ba451a75853b5e0d321a7bfb793372faa61b3c25fcbbba"
+    },
+    {
+      "path": "tests/test_e07_postgres.py",
+      "source_path": "docker/team/vendor/e/acceptance/e/test_e07_postgres.py",
+      "sha256": "3a78cf8f86278dd646bf5e584f8c1d442f42b258fbac575443a581025ad31c69"
+    },
+    {
+      "path": "tests/test_e08_postgres.py",
+      "source_path": "docker/team/vendor/e/acceptance/e/test_e08_postgres.py",
+      "sha256": "26be742d365ee767c67460298f566a19c4159b43527f3679e1753b51930e86f4"
+    },
+    {
+      "path": "tests/test_e09_official_postgres.py",
+      "source_path": "docker/team/vendor/e/acceptance/e/test_e09_official_postgres.py",
+      "sha256": "2e933236dfd2d12ca47c9feee74a4d0fd65fdfa6ed783012c330b19d29264eb9"
+    },
+    {
+      "path": "tests/e_official_expected.py",
+      "source_path": "docker/team/vendor/e/acceptance/e/official_expected.py",
+      "sha256": "2834783b8d4836596a47f43d0356f7fc6fa2643552bec65484f97fab23ae96b2"
+    },
+    {
+      "path": "config/e-acceptance-s0-v1.json",
+      "source_path": "docker/team/vendor/e/config/e-acceptance-s0-v1.json",
+      "sha256": "f9a656bd6d88ec7937633782ba2a61dcd7d5d261b9e205397b02ca20db52e6f1"
+    }
+  ]
+}

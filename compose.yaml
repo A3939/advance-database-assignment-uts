@@ -1,3 +1,5 @@
+name: ${ARSIA_PROJECT:-arsia-local}
+
 services:
   db:
     image: postgres:16-bookworm@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67
@@ -7,9 +9,9 @@ services:
       POSTGRES_PASSWORD: ${ARSIA_DB_PASSWORD:?Set a local database password}
       POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=C.UTF-8"
       TZ: UTC
-    command: ["postgres", "-c", "timezone=UTC", "-c", "log_timezone=UTC"]
+    command: ["postgres", "-c", "timezone=UTC", "-c", "log_timezone=UTC", "-c", "arsia.team_environment=development"]
     ports:
-      - "127.0.0.1:55432:5432"
+      - "127.0.0.1:${ARSIA_DB_PORT:-55432}:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
@@ -18,5 +20,53 @@ services:
       timeout: 3s
       retries: 12
 
+  app:
+    profiles: [tools]
+    image: ${ARSIA_PROJECT:-arsia-local}-app:local
+    build:
+      context: .
+      dockerfile: docker/team/Dockerfile
+      args:
+        ARSIA_REVISION: ${ARSIA_REVISION:?Set the checked-out Git commit in .env}
+    environment:
+      ARSIA_DB_HOST: db
+      ARSIA_DB_PASSWORD: ${ARSIA_DB_PASSWORD:?Set a local database password}
+      ARSIA_LOADER_PASSWORD: ${ARSIA_LOADER_PASSWORD:?Set a local loader password}
+      ARSIA_READER_PASSWORD: ${ARSIA_READER_PASSWORD:?Set a local reader password}
+      ARSIA_EXECUTOR: ${ARSIA_EXECUTOR:?Set the person running these commands}
+    volumes:
+      - appdata:/data
+      - ./artifacts/team:/evidence
+    depends_on:
+      db:
+        condition: service_healthy
+    init: true
+
+  workspace:
+    profiles: [tools]
+    image: ${ARSIA_PROJECT:-arsia-local}-app:local
+    entrypoint: [python]
+    working_dir: /workspace
+    command: [--version]
+    volumes:
+      - .:/workspace
+
+  dashboard:
+    profiles: [web]
+    image: ${ARSIA_PROJECT:-arsia-local}-app:local
+    command: [serve]
+    environment:
+      ARSIA_DB_HOST: db
+      ARSIA_READER_PASSWORD: ${ARSIA_READER_PASSWORD:?Set a local reader password}
+    ports:
+      - "127.0.0.1:${ARSIA_WEB_PORT:-8765}:8765"
+    depends_on:
+      db:
+        condition: service_healthy
+    init: true
+    read_only: true
+    tmpfs: [/tmp]
+
 volumes:
   pgdata:
+  appdata:
