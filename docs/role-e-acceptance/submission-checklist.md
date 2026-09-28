@@ -17,6 +17,9 @@ These identify the reviewed local documents; they are not teacher approvals.
 | VIC source model and queries | C's [C11 model and evidence](https://github.com/A3939/advance-database-assignment-uts/blob/93158311db8561f3b86fd92c260265aaf04ec5ff/docs/role-c/c11-vic-source-model-and-query-evidence.md). C checks the final revision and preserves restricted-use statements. |
 | QLD source model and queries | D's [D10 model and receipts][d10] in the pinned B runtime. D checks the final revision. |
 | Integrated warehouse and SQL | A migrations 001–011; B's [frozen inventory][inventory]; C/D/E callbacks and installed SQL. Record their exact submission commit and comments. Each owner explains their part. |
+| Relational model | [Typed Canonical crash/unit tables][relational], with keys, constraints and C's loading checks. E07 compares stored rows with the independent oracle. |
+| Data Vault model | [Crash/unit Hubs, Satellites and Link][vault]. A supplies the schema/loader; acceptance checks source keys, lineage and retained history. |
+| Dimensional model | [Source/month/severity dimensions and crash fact][dimensional]. D supplies loading, reconciliation and reports; the replay checks rows and queries. |
 | Three synthetic reports | D's [trend][trend], [severity][severity] and [map][map] reports. D links the accepted E07 batch/result evidence when finalising. |
 | Two required technologies and Lab/Fabric demonstration | E and the team confirm the exact course wording and demonstrations with the teacher. PostgreSQL execution alone is not a decision about Fabric. |
 | Independent cold start | E arranges a real replay by a member uninvolved in environment setup and records their name, environment and outputs. B-assisted automation remains separately labelled. |
@@ -36,6 +39,9 @@ one upstream/downstream interaction. Passing automated tests cannot replace
 the required meeting records, contributions or demonstration.
 
 [d10]: https://github.com/A3939/advance-database-assignment-uts/blob/1765269507d7cf0b9cb76eef7b9ccf97de7f1cc5/docs/d10-qld-source-model.md
+[relational]: https://github.com/A3939/advance-database-assignment-uts/blob/1765269507d7cf0b9cb76eef7b9ccf97de7f1cc5/sql/migrations/006_canonical.sql
+[vault]: https://github.com/A3939/advance-database-assignment-uts/blob/1765269507d7cf0b9cb76eef7b9ccf97de7f1cc5/sql/migrations/005_raw_vault.sql
+[dimensional]: https://github.com/A3939/advance-database-assignment-uts/blob/1765269507d7cf0b9cb76eef7b9ccf97de7f1cc5/sql/migrations/007_warehouse.sql
 [inventory]: https://github.com/A3939/advance-database-assignment-uts/blob/1765269507d7cf0b9cb76eef7b9ccf97de7f1cc5/config/build-inventory.json
 [trend]: https://github.com/A3939/advance-database-assignment-uts/blob/1765269507d7cf0b9cb76eef7b9ccf97de7f1cc5/docs/reports/d11-trend-report.md
 [severity]: https://github.com/A3939/advance-database-assignment-uts/blob/1765269507d7cf0b9cb76eef7b9ccf97de7f1cc5/docs/reports/d11-severity-report.md
