@@ -24,3 +24,17 @@ the three source pages as `arsia_reader`. Installed HTML/CSS hashes, A03 audits
 and cleanup passed. Exact versions, costs and limits are in E's
 `docs/role-e-acceptance/results.json`. These counts cover the replay suites,
 not six individual assertions or a new human acceptance decision.
+
+## PR review follow-up
+
+Review found that the production context guard also hid the official-mode demo.
+Commit `bbf0a5c` exempts only the explicitly labelled fixed example. Real official
+snapshots still need policy metadata. The new HTTP regression failed before the
+fix. The updated verifier now includes the official-policy tests.
+
+The fresh installed-wheel suite passed 57 checks, including 15 PostgreSQL cases,
+with no skips. A03 audits and cleanup passed. Run
+`python tools/verify_d09_full_build_postgres.py --output NEW_DIRECTORY` from a
+Python 3.12 environment with the current wheel installed. See the
+[follow-up receipt](evidence/d09-demo-review-2026-09-28.json).
+The earlier full official receipt keeps its original `1765269` runtime pin.
