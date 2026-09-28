@@ -25,6 +25,10 @@ Runtime code was `1765269` from PR #49. The synthetic acceptance code was
 acceptance-file hashes match the committed files in `a5ef750`. The receipt
 keeps both execution histories rather than replacing them with a later HEAD.
 
+PR #49 later added the demo-only fix `bbf0a5c`. Its separate installed-wheel
+regression passed 57 checks, including 15 PostgreSQL cases. The full acceptance
+pin stays at `1765269`; those results do not claim a replay of every later change.
+
 Aditya owns Role E. Peixian prepared these additional expectations, tests and
 replays as Role B. This does not count as Aditya's review or a new independent
 human tester. Original authors and commits remain in Git history.
@@ -88,17 +92,30 @@ installed-file hashes, A03 audits, final table counts and database cleanup.
 Detailed observations are under its evidence directory. Synthetic runs also
 write `cold-start.json` and `recovery/`.
 
-After both replays finish, create the compact checked-in result index:
+After both replays finish, create a new compact result index:
 
 ```sh
 python3.12 tools/summarize_e_acceptance.py \
   --synthetic ../e-synthetic-replay --official ../e-official-replay \
-  --output docs/role-e-acceptance/results.json
+  --output ../e-acceptance-results.json
 ```
 
 The summary checks the receipts, actual JUnit cases, hashes, permissions and
-cleanup. It refuses unfinished, failed or skipped runs and never overwrites an
-existing result. It records counts and evidence hashes without copying Raw rows.
+cleanup. It also matches every tested acceptance file, the verifier and version
+configuration against the current checkout. It refuses stale evidence, incomplete
+file lists, unfinished, failed or skipped runs. It never overwrites an existing
+result. Keep the checked-in `results.json` as the historical run record.
+
+Run the summary guard tests without starting PostgreSQL:
+
+```sh
+python3.12 -B -m unittest discover -s tests -p test_e_acceptance_summary.py
+```
+
+Review follow-up on 2026-09-28: all nine source-binding tests passed. The stricter
+summary also matched the saved 289 synthetic, 165 recovery and six official
+checks to the current acceptance files. This rechecked existing evidence; it
+did not rerun those database tests or replace the historical result file.
 
 The hand-written oracle is
 [`config/e-acceptance-s0-v1.json`](../../config/e-acceptance-s0-v1.json).

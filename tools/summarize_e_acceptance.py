@@ -1,14 +1,21 @@
 #!/usr/bin/env python3
 """Summarize completed E replays without copying raw rows or credentials."""
 import argparse
+import ast
 from collections import Counter
 from datetime import datetime, timezone
 import hashlib
 import json
 from pathlib import Path
+import re
 import xml.etree.ElementTree as ET
 
 
+ROOT = Path(__file__).resolve().parents[1]
+OFFICIAL_FILES = {
+    "acceptance/e/run_database.py", "acceptance/e/test_e09_official_postgres.py",
+    "acceptance/e/official_expected.py",
+}
 TABLES = {
     "meta.source", "meta.resource", "meta.batch", "meta.current_release", "raw.record",
     "rv.hub_crash", "rv.hub_unit", "rv.sat_crash", "rv.sat_unit", "rv.link_crash_unit",
@@ -29,6 +36,63 @@ def digest(path):
 
 def subset(value, names):
     return {name: value[name] for name in names if name in value}
+
+
+def source_path(root, relative):
+    require(isinstance(relative, str) and relative, "Missing source path")
+    path = (root / relative).resolve()
+    require(path.is_relative_to(root) and path.is_file(), "Missing current source file: " + relative)
+    return path
+
+
+def current_source(receipt, mode, source_root=ROOT):
+    """Bind a saved run to today's files before reporting it as current."""
+    root = source_root.resolve()
+    require(mode in {"synthetic", "official"}, "Unknown replay mode")
+    verifier = source_path(root, "tools/verify_e_acceptance.py")
+    verifier_hash = digest(verifier)
+    require(verifier_hash == receipt.get("verifier_sha256"), "Current replay verifier differs from the tested version")
+    versions_path = source_path(root, "config/e-acceptance-versions.json")
+    versions = json.loads(versions_path.read_text(encoding="utf-8"))
+    require(json.dumps(versions, sort_keys=True, separators=(",", ":")) ==
+            json.dumps(receipt.get("versions"), sort_keys=True, separators=(",", ":")),
+            "Current version configuration differs from the tested version")
+
+    # Read the copy map as data; do not import or execute the verifier.
+    tree = ast.parse(verifier.read_text(encoding="utf-8"))
+    maps = [node.value for node in tree.body if isinstance(node, ast.Assign)
+            and any(isinstance(target, ast.Name) and target.id == "FILES" for target in node.targets)]
+    require(len(maps) == 1, "Expected one literal FILES map in the replay verifier")
+    files = ast.literal_eval(maps[0])
+    require(isinstance(files, dict) and files and
+            all(isinstance(key, str) and isinstance(value, str) for key, value in files.items()),
+            "Invalid verifier FILES map")
+    require(len(set(files.values())) == len(files), "Verifier copy destinations are not unique")
+    require(OFFICIAL_FILES <= set(files), "Verifier official file map is incomplete")
+    expected = {key: value for key, value in files.items()
+                if (key in OFFICIAL_FILES if mode == "official" else
+                    not key.endswith(("test_e09_official_postgres.py", "official_expected.py")))}
+    acceptance = receipt.get("acceptance_files")
+    require(isinstance(acceptance, list) and len(acceptance) == len(expected),
+            "Acceptance-file list is missing or has the wrong length")
+    seen = set()
+    checked = []
+    for item in acceptance:
+        require(isinstance(item, dict), "Invalid acceptance-file record")
+        name = item.get("path")
+        require(isinstance(name, str) and name not in seen, "Duplicate or invalid acceptance-file path")
+        seen.add(name)
+        require(name in expected and item.get("runtime_path") == expected[name],
+                "Unexpected acceptance-file path or runtime mapping: " + name)
+        file_hash = item.get("sha256")
+        require(isinstance(file_hash, str) and re.fullmatch(r"[0-9a-f]{64}", file_hash),
+                "Invalid acceptance-file hash: " + name)
+        require(digest(source_path(root, name)) == file_hash, "Current acceptance file differs from the tested version: " + name)
+        checked.append({"path": name, "runtime_path": expected[name], "sha256": file_hash})
+    require(seen == set(expected), "Acceptance-file coverage differs from the verifier map")
+    return {"status": "matched", "verifier_sha256": verifier_hash,
+            "version_configuration_sha256": digest(versions_path),
+            "version_configuration_matches": True, "files": checked}
 
 
 class Evidence:
@@ -108,7 +172,7 @@ def database(evidence, prefix):
             "environment": evidence.read(prefix + "/environment.json")}
 
 
-def run_summary(root, mode):
+def run_summary(root, mode, *, source_root=ROOT):
     evidence = Evidence(root)
     receipt = evidence.read("receipt.json")
     require(receipt.get("status") == "passed" and receipt.get("mode") == mode,
@@ -119,6 +183,7 @@ def run_summary(root, mode):
     commands = receipt.get("commands", [])
     require(commands and all(command.get("exit_code") == 0 for command in commands),
             "Replay commands are incomplete or failed")
+    source_check = current_source(receipt, mode, source_root)
     db = database(evidence, "postgres")
     inputs = evidence.read("postgres/inputs.json")
     versions = receipt["versions"]
@@ -151,6 +216,7 @@ def run_summary(root, mode):
         "tested_versions": versions, "e_commit": receipt["e_commit"],
         "e_working_tree_at_execution": receipt["e_working_tree"],
         "verifier_sha256": receipt["verifier_sha256"], "command_count": len(commands),
+        "current_source_validation": source_check,
         "acceptance_files": acceptance, "wheel": {**wheel, "bytes": wheel_path.stat().st_size},
         "installed_d09_assets": assets, "installed_file_count": len(inputs["installed_files"]),
         "migrations": inputs["migrations"], "python": inputs["python"], "packages": inputs["packages"],
@@ -276,7 +342,7 @@ def main():
         with args.output.open("x", encoding="utf-8") as stream:
             json.dump(result, stream, indent=2)
             stream.write("\n")
-    except (OSError, ValueError, KeyError, TypeError, ET.ParseError) as error:
+    except (OSError, ValueError, KeyError, TypeError, SyntaxError, ET.ParseError) as error:
         parser.exit(1, "Cannot summarize incomplete or inconsistent evidence: " + str(error) + "\n")
     print(json.dumps({"status": "passed", "output": str(args.output.resolve()),
                       "tests": {key: value["database"]["tests"]["tests"] for key, value in runs.items()}}))
