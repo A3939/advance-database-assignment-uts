@@ -19,19 +19,25 @@
     "evidence": [
       "docs/d10-qld-source-model.md",
       "docs/evidence/d10-qld-source-query-2026-09-28.json",
+      "docs/evidence/d10-postgresql16-validation-2026-09-28.json",
       "sql/d10_qld_source_evidence.sql",
       "tools/verify_d10_qld.py",
+      "tools/verify_d10_postgres.py",
       "tests/test_d10.py"
     ]
   },
   "files": [
     {
       "path": "docs/d10-qld-source-model.md",
-      "sha256": "6ba9456f860ec42b5257be3adfc4486007a0fbb285e550199894c53bf988893c"
+      "sha256": "73cc736ba92415421b9fd081e7c6d0a3e4bfbfc820a8bfa4b47616122a78ebfc"
     },
     {
       "path": "docs/evidence/d10-qld-source-query-2026-09-28.json",
       "sha256": "968ffa665c792853337f405f3a3b2d8eaf52bf18a16d6498ae73250a71e84bac"
+    },
+    {
+      "path": "docs/evidence/d10-postgresql16-validation-2026-09-28.json",
+      "sha256": "1f40987edddfa9255f1ab356419f1c62674ed2ee60c0faf012b828ea6658960d"
     },
     {
       "path": "sql/d10_qld_source_evidence.sql",
@@ -42,8 +48,12 @@
       "sha256": "eb196fcf9fc5833e7506a87f9033fb317b49fce4b775c9b6261ab6117049577b"
     },
     {
+      "path": "tools/verify_d10_postgres.py",
+      "sha256": "fa98c0dad4723f2cce25d6c898939abe3343e331d209bcd900d0c604b7259df9"
+    },
+    {
       "path": "tests/test_d10.py",
-      "sha256": "fa6ef23f8dfc19669281e2c71166f9f54fa9767da5887c4195b4481105b56f62"
+      "sha256": "10f59e4fd0ce66a5807fe5f7d220cf2637cd3877d111e9a0aa38aca08a7e753e"
     }
   ],
   "boundaries": [

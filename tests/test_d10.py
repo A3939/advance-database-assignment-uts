@@ -7,6 +7,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 EVIDENCE = ROOT / "docs/evidence/d10-qld-source-query-2026-09-28.json"
+POSTGRES_EVIDENCE = ROOT / "docs/evidence/d10-postgresql16-validation-2026-09-28.json"
 SQL = ROOT / "sql/d10_qld_source_evidence.sql"
 
 
@@ -90,6 +91,29 @@ def test_d10_sql_is_non_persistent_exactly_scoped_and_keeps_unit_counts_in_raw()
     assert "creates no Unit identity or relationship" in sql
     assert "from canonical.unit" in lower
     assert "d6f0e958-7c94-4f2f-ba85-9d44e597cc02" in lower
+
+
+def test_d10_postgresql16_execution_receipt():
+    receipt = json.loads(POSTGRES_EVIDENCE.read_text(encoding="utf-8"))
+    assert receipt["status"] == "passed"
+    environment = receipt["environment"]
+    assert environment["python"].startswith("3.12.")
+    assert environment["psycopg"] == "3.3.6"
+    assert environment["postgresql"].startswith("16.15 ")
+    assert environment["postgres_image"].endswith(
+        "efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67"
+    )
+    assert receipt["inputs"]["raw_rows_loaded"] == 415407
+    assert receipt["inputs"]["file_sha256"] == (
+        "975be4b02a235d06589de9b486f73bafe22d0f2007f0c07abb84f54cb926c704"
+    )
+    assert len(receipt["inputs"]["migrations"]) == 11
+    validation = receipt["validation"]
+    assert validation["result_set_count"] == 8
+    assert validation["temporary_view_after_rollback"] is None
+    assert validation["permanent_objects_created_by_d10_sql"] == 0
+    assert validation["assertions"] == "all passed"
+    assert receipt["publication_performed"] is False
 
 
 def test_d10_inventory_hashes_every_delivery_file():
