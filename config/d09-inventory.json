@@ -1,0 +1,84 @@
+{
+  "scope": "D09 local UI and fixed-release reading; real B/E publication acceptance remains external",
+  "implementation_complete": true,
+  "real_publication_acceptance_complete": false,
+  "complete_d09": false,
+  "binding": {
+    "python": "arsia_d09:load_dashboard",
+    "command": "arsia-dashboard",
+    "sql": [
+      "published.d09_batch_sources(text,uuid)"
+    ],
+    "version": "d09-0.1.0"
+  },
+  "components": {
+    "dashboard": [
+      "src/arsia_d09/__init__.py",
+      "src/arsia_d09/__main__.py",
+      "src/arsia_d09/dashboard.py",
+      "src/arsia_d09/web.py",
+      "src/arsia_d09/sql/d09_context.sql",
+      "src/arsia_d09/templates/dashboard.html",
+      "src/arsia_d09/static/dashboard.css",
+      "src/arsia_ingest/models.py",
+      "pyproject.toml",
+      "requirements-db.txt"
+    ]
+  },
+  "code_files": [
+    {
+      "path": "src/arsia_d09/__init__.py",
+      "sha256": "dcb0f3e2c0b96a5ef1712c8ce1250561232557c9c4a90a30ce701083b00285c0"
+    },
+    {
+      "path": "src/arsia_d09/__main__.py",
+      "sha256": "df0535a129405097b3c99d82b9779d2449d96e0c3dd2a0a7a3249f85070baaec"
+    },
+    {
+      "path": "src/arsia_d09/dashboard.py",
+      "sha256": "d0b287fc2493ac72b4f96bac3176743d3d4c55219ee71653080aa7d458053d93"
+    },
+    {
+      "path": "src/arsia_d09/web.py",
+      "sha256": "1e6d779a39059ad50c636b875f7d812f84683c507465bcd4722fbc188c7e9bce"
+    },
+    {
+      "path": "src/arsia_d09/sql/d09_context.sql",
+      "sha256": "98bce5a9b8763a7b2ac3c7321175cf7b4bb8e4a5157bc4259da4ba8c65eaa3a3"
+    },
+    {
+      "path": "src/arsia_d09/templates/dashboard.html",
+      "sha256": "e45cf10cb19efb1d8eeae52c5d391216cb0436d8349ae648df992515e3ed25ee"
+    },
+    {
+      "path": "src/arsia_d09/static/dashboard.css",
+      "sha256": "f654846b36318ce567c381c2beceb5d554a3d24cd490808ca3ba3230fd9f9339"
+    },
+    {
+      "path": "src/arsia_ingest/models.py",
+      "sha256": "ed9ce88b03d4cb76e9b1a27e352345d4e6789e266431f40754bc0b2dba3fa8db"
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "f106bbc9d8d1d83a5e0fd2f90343bc218d369dc1840c31038585047aa49a40ca"
+    },
+    {
+      "path": "requirements-db.txt",
+      "sha256": "28936395acc85dae2c3bac9c374edde94f2e0a1a2be51a2cafa6c51ebd68ef3f"
+    }
+  ],
+  "dependencies": {
+    "base_branch": "yihua/dev",
+    "d05_commit": "7f8d99c740b98a85c68c180c205b7456dbe35362",
+    "d06_commit": "38e32e901abb41d06b6b1ea93a57429dae6e93a1",
+    "d07_commit": "6c32a65b74214a3d7c2a3c841340301f1bb0ce6d",
+    "d08_commit": "8df3b0c66bcd2eceb1fac394a2a795f8a3879f03",
+    "database": "PostgreSQL 16 with migrations 001-011 and D05-D09 SQL",
+    "reader_role": "arsia_reader",
+    "pending": [
+      "B10 shared build integration",
+      "E06 real publication gate and current_release update",
+      "real published-build mid-read switch acceptance"
+    ]
+  }
+}
