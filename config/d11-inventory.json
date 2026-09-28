@@ -29,13 +29,22 @@
       "docs/evidence/d11-s0-query-results-2026-09-28.json",
       "docs/evidence/d11-report-capture.py",
       "tests/test_d11.py",
-      "tools/verify_d11_postgres.py"
+      "tools/verify_d11_postgres.py",
+      "docs/evidence/d11-final-validation-2026-09-28/acceptance.json",
+      "docs/evidence/d11-final-validation-2026-09-28/query-results.json",
+      "docs/evidence/d11-final-validation-2026-09-28/environment.json",
+      "docs/evidence/d11-final-validation-2026-09-28/final-state.json",
+      "docs/evidence/d11-final-validation-2026-09-28/cleanup.json",
+      "docs/evidence/d11-final-validation-2026-09-28/pytest.log",
+      "docs/evidence/d11-final-validation-2026-09-28/pytest.xml",
+      "docs/evidence/d11-final-validation-2026-09-28/a03-before.log",
+      "docs/evidence/d11-final-validation-2026-09-28/a03-after.log"
     ]
   },
   "files": [
     {
       "path": "docs/d11-synthetic-report-package.md",
-      "sha256": "48e1ffce1c10cc34cf56d6c5f486bea4eb98af67cb8e858f562006260eeb3fa3"
+      "sha256": "616db759dd0a0481d8a234a22f32a5b12aaa7fb7fbffc8609c6bf68656523aa9"
     },
     {
       "path": "docs/reports/d11-trend-report.md",
@@ -59,11 +68,47 @@
     },
     {
       "path": "tests/test_d11.py",
-      "sha256": "d369c1518629a10abeeb1daa219ca0a61b2fdac4c9b687dd65bd849e058d1da4"
+      "sha256": "b185e29e6f69bd1f7db247f9037333db2434c4333516f75d717688fce7f67a47"
     },
     {
       "path": "tools/verify_d11_postgres.py",
-      "sha256": "2e22f4473836c220f4254c4a922cacd45c006b78350bd8eac87861f69f847a47"
+      "sha256": "9ea50651316693969ac36d1ed855dc945820facb0a01e7832556d7e4242593a9"
+    },
+    {
+      "path": "docs/evidence/d11-final-validation-2026-09-28/acceptance.json",
+      "sha256": "d26c19c4e4da9b2295abde29cdec785ce71a9f081c1aa7c1ef4e4c06e21a2346"
+    },
+    {
+      "path": "docs/evidence/d11-final-validation-2026-09-28/query-results.json",
+      "sha256": "601e0a583101b8f8b50b196006c4d9770a15db22fdcb5126ab86d2b14196c28a"
+    },
+    {
+      "path": "docs/evidence/d11-final-validation-2026-09-28/environment.json",
+      "sha256": "569c438cfca44343a8ac2a581283e6f01e7de24a5f6e78754c8f0796a6e664ff"
+    },
+    {
+      "path": "docs/evidence/d11-final-validation-2026-09-28/final-state.json",
+      "sha256": "dbc4b9c36a78e26384cbe23a4d657bae8af990f1ab2bbf3300c91aedc6becd18"
+    },
+    {
+      "path": "docs/evidence/d11-final-validation-2026-09-28/cleanup.json",
+      "sha256": "bff5a883de736306dcece2f24dbdbb02f9f248696fe86a2b7eb09316ab392a02"
+    },
+    {
+      "path": "docs/evidence/d11-final-validation-2026-09-28/pytest.log",
+      "sha256": "e44b15de88b5b3d3ded5a67edb1ed948af2eb6f04008de20bda74466a062c941"
+    },
+    {
+      "path": "docs/evidence/d11-final-validation-2026-09-28/pytest.xml",
+      "sha256": "85b704c4999508ee31bdea9c9217a303679486c115331244a2c3353364023abb"
+    },
+    {
+      "path": "docs/evidence/d11-final-validation-2026-09-28/a03-before.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+    },
+    {
+      "path": "docs/evidence/d11-final-validation-2026-09-28/a03-after.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
     }
   ],
   "boundaries": [
@@ -74,5 +119,19 @@
     "Unmapped crashes remain in the map coverage denominator.",
     "The private publication was removed after validation; no shared/public release was changed.",
     "Independent E07 comparison and the final team report remain separate."
-  ]
+  ],
+  "final_acceptance": {
+    "status": "passed",
+    "integration_commit": "dc17ef3a19e2061100aee3f63128e519513d0994",
+    "postgresql": "16.15",
+    "tests": 1,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "private_publication": true,
+    "shared_publication": false,
+    "final_tables_empty": true,
+    "container_removed": true,
+    "evidence": "docs/evidence/d11-final-validation-2026-09-28"
+  }
 }

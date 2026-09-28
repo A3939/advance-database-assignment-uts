@@ -7,6 +7,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 RECEIPT = ROOT / "docs/evidence/d11-s0-query-results-2026-09-28.json"
+FINAL_ACCEPTANCE = (
+    ROOT / "docs/evidence/d11-final-validation-2026-09-28/acceptance.json"
+)
 BATCH = "856bc5c6-a4f8-458d-8536-e9208de1ff84"
 
 
@@ -85,3 +88,33 @@ def test_d11_environment_cleanup_and_inventory():
     for path, expected in declared.items():
         data = (ROOT / path).read_bytes().replace(b"\r\n", b"\n")
         assert hashlib.sha256(data).hexdigest() == expected
+
+
+def test_d11_final_team_integration_acceptance():
+    acceptance = json.loads(FINAL_ACCEPTANCE.read_text(encoding="utf-8"))
+    assert acceptance["status"] == "passed"
+    assert (
+        acceptance["tests"],
+        acceptance["failures"],
+        acceptance["errors"],
+        acceptance["skipped"],
+    ) == (1, 0, 0, 0)
+    assert acceptance["private_publication_performed"] is True
+    assert acceptance["shared_publication_performed"] is False
+    assert (
+        acceptance["raw_rows"],
+        acceptance["crashes"],
+        acceptance["fatal_crashes"],
+        acceptance["fatalities"],
+        acceptance["casualties"],
+    ) == (19, 6, 2, 3, 7)
+    assert (
+        acceptance["annual_rows"],
+        acceptance["monthly_rows"],
+        acceptance["severity_rows"],
+    ) == (15, 180, 6)
+    assert acceptance["map_points"] == 4
+    assert acceptance["map_denominator"] == 6
+    assert acceptance["map_coverage_percentage"] == "66.67"
+    assert acceptance["final_tables_empty"] is True
+    assert acceptance["container_removed"] is True
