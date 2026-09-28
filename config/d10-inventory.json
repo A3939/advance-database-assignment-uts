@@ -1,0 +1,55 @@
+{
+  "scope": "D10 QLD source model and executed query evidence; final course presentation remains separate",
+  "complete_d10": true,
+  "final_presentation": false,
+  "source": {
+    "source_id": "official_qld",
+    "resource_id": "official_qld_crash",
+    "release_scope": "qld_pinned_2020_2024_v1",
+    "file_sha256": "975be4b02a235d06589de9b486f73bafe22d0f2007f0c07abb84f54cb926c704",
+    "analysis_year_from": 2020,
+    "analysis_year_to": 2024
+  },
+  "upstream": {
+    "d01_commit": "b5395768d7242f4d42d5c78a7595babb6d9b1adf",
+    "official_build_commit": "562de2910bfd7be276b3036983e5680d436fde1e",
+    "official_batch_id": "d6f0e958-7c94-4f2f-ba85-9d44e597cc02"
+  },
+  "components": {
+    "evidence": [
+      "docs/d10-qld-source-model.md",
+      "docs/evidence/d10-qld-source-query-2026-09-28.json",
+      "sql/d10_qld_source_evidence.sql",
+      "tools/verify_d10_qld.py",
+      "tests/test_d10.py"
+    ]
+  },
+  "files": [
+    {
+      "path": "docs/d10-qld-source-model.md",
+      "sha256": "6ba9456f860ec42b5257be3adfc4486007a0fbb285e550199894c53bf988893c"
+    },
+    {
+      "path": "docs/evidence/d10-qld-source-query-2026-09-28.json",
+      "sha256": "968ffa665c792853337f405f3a3b2d8eaf52bf18a16d6498ae73250a71e84bac"
+    },
+    {
+      "path": "sql/d10_qld_source_evidence.sql",
+      "sha256": "ad0f3e8f294f1c70363d4995899dcfffeeb55cb075ed73f863accaf97045b68f"
+    },
+    {
+      "path": "tools/verify_d10_qld.py",
+      "sha256": "eb196fcf9fc5833e7506a87f9033fb317b49fce4b775c9b6261ab6117049577b"
+    },
+    {
+      "path": "tests/test_d10.py",
+      "sha256": "fa6ef23f8dfc19669281e2c71166f9f54fa9767da5887c4195b4481105b56f62"
+    }
+  ],
+  "boundaries": [
+    "Count_Unit_* values remain crash-row aggregate attributes; no Unit or Person identity is created.",
+    "Official QLD map and unit-detail outputs remain unavailable.",
+    "QLD severity, fatality and casualty definitions remain source-specific.",
+    "E01 controls final presentation wording; this inventory covers the D10 technical evidence only."
+  ]
+}
