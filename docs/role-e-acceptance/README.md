@@ -6,6 +6,25 @@ in [the version file](../../config/e-acceptance-versions.json), then runs in
 fresh PostgreSQL 16 databases. See the [interfaces](interfaces.md),
 [AT coverage](coverage.md) and [submission checklist](submission-checklist.md).
 
+## Recorded run — 2026-09-28
+
+[Results](results.json): 289 synthetic checks (216 in PostgreSQL modules),
+165 recovery checks (34 PostgreSQL), and six full official checks passed with
+no failures or skips. A's fresh schema, original A03 permissions, installed
+resources, empty final tables and container cleanup passed.
+
+The seven official files supplied 2,118,028 Raw rows. Source crash counts were
+NSW 92,082, VIC 72,170 and QLD 66,624; these remain separate source results.
+The complete B10 run took 1,306.537 seconds, wrote 6,699,693,248 WAL bytes and
+ended at 3,809,590,295 database bytes. Recovery after the committed response was
+lost took 0.053 seconds. The repeat took 60.122 seconds and returned `no_change`.
+These are measured costs, not a performance guarantee or a live-demo threshold.
+
+Runtime code was `1765269` from PR #49. The synthetic acceptance code was
+`a5ef750`. The official run started from the E working tree; its recorded
+acceptance-file hashes match the committed files in `a5ef750`. The receipt
+keeps both execution histories rather than replacing them with a later HEAD.
+
 Aditya owns Role E. Peixian prepared these additional expectations, tests and
 replays as Role B. This does not count as Aditya's review or a new independent
 human tester. Original authors and commits remain in Git history.
@@ -29,6 +48,25 @@ The verifier also runs A's cold-schema check and B14 recovery regressions.
 Shared databases and public releases are untouched.
 
 For the seven complete, pinned official files:
+
+If no prepared run exists, create one with the installed runtime from the
+synthetic replay. Only the seven original files are needed; no private database
+or previous tester's archive is required:
+
+```sh
+../e-synthetic-replay/venv/bin/python - <<'PY'
+from arsia_ingest.official import prepare_official_inputs
+result = prepare_official_inputs(
+    native_root="/absolute/path/to/raw_datasource",
+    archive_root="/absolute/path/to/new-intake",
+    project_root="../e-synthetic-replay/runtime",
+)
+assert result["status"] == "prepared", result
+print(result["run_dir"])
+PY
+```
+
+Pass that printed directory as `--prepared-run`:
 
 ```sh
 python3.12 tools/verify_e_acceptance.py --mode official \

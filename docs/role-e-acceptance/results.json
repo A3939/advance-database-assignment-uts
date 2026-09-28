@@ -1,0 +1,1993 @@
+{
+  "version": "e-acceptance-results-v1",
+  "status": "passed",
+  "recorded_at_utc": "2026-09-28T12:43:37.691510+00:00",
+  "execution_owner": "Role B / Peixian assisting Role E",
+  "independent_member_signoff": false,
+  "final_platform_accepted": false,
+  "official_sample": {
+    "status": "NOT_RUN",
+    "reason": "The current VIC restricted contract checks a complete four-file Raw profile. An arbitrary subset is not a valid official build; the existing 308-row case covers C06 only.",
+    "next": "E defines the sample experiment, B prepares parent-complete inputs and hashes, and C/E review its profile before a separate run. No new user-supplied data is needed."
+  },
+  "runs": {
+    "synthetic": {
+      "status": "passed",
+      "output_directory": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/artifacts/role-e-completion-20260928/synthetic-v3",
+      "started_at": "2026-09-28T12:27:36.860868+00:00",
+      "finished_at": "2026-09-28T12:29:54.936031+00:00",
+      "tested_versions": {
+        "version": "e-acceptance-v1",
+        "runtime_commit": "1765269507d7cf0b9cb76eef7b9ccf97de7f1cc5",
+        "a_environment_commit": "8f91a6b41dc0777d5873d2151f71e9f1cbe05501",
+        "a_schema_commit": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
+        "e_original_commit": "aec3b4692382e48ea4f778f04a31a4ca5ba5fa57",
+        "contract_source": "F/ARSIA-Team-Handoff-EN/04-Team-Contracts-and-Acceptance.md",
+        "execution_owner": "Role B / Peixian assisting Role E",
+        "independent_member_signoff": false,
+        "final_platform_accepted": false,
+        "contract_sha256": "68756bb92676c7bd0f0f3d4ed81861cc6c2196178019fab0f60711b7221ab9fc"
+      },
+      "e_commit": "a5ef750582b95cb85a9b846163a674f17ed443bc",
+      "e_working_tree_at_execution": [
+        "?? docs/role-e-acceptance/"
+      ],
+      "verifier_sha256": "969d467ae4c5934174e136d05494d30ab7b6d16c160895bc8f0c6cf2eee133fd",
+      "command_count": 13,
+      "acceptance_files": [
+        {
+          "path": "acceptance/e/run_database.py",
+          "runtime_path": "tools/verify_e_platform_database.py",
+          "sha256": "1dab722e9c2b8df404d5b9442864578047f3a557811a100221e5d6f2dbbd3c4d"
+        },
+        {
+          "path": "acceptance/e/expected.py",
+          "runtime_path": "tests/e_acceptance_expected.py",
+          "sha256": "bc16599363ec28cdfa228ed58ca405b869bae745a2401c418a78f07386fa6c69"
+        },
+        {
+          "path": "acceptance/e/test_expectations.py",
+          "runtime_path": "tests/test_e_acceptance_expectations.py",
+          "sha256": "6d61f6bb58f7412ee2ba451a75853b5e0d321a7bfb793372faa61b3c25fcbbba"
+        },
+        {
+          "path": "acceptance/e/test_e07_postgres.py",
+          "runtime_path": "tests/test_e07_postgres.py",
+          "sha256": "3a78cf8f86278dd646bf5e584f8c1d442f42b258fbac575443a581025ad31c69"
+        },
+        {
+          "path": "acceptance/e/test_e08_postgres.py",
+          "runtime_path": "tests/test_e08_postgres.py",
+          "sha256": "26be742d365ee767c67460298f566a19c4159b43527f3679e1753b51930e86f4"
+        },
+        {
+          "path": "config/e-acceptance-s0-v1.json",
+          "runtime_path": "config/e-acceptance-s0-v1.json",
+          "sha256": "f9a656bd6d88ec7937633782ba2a61dcd7d5d261b9e205397b02ca20db52e6f1"
+        }
+      ],
+      "wheel": {
+        "filename": "arsia_native_intake-0.1.0-py3-none-any.whl",
+        "sha256": "5cb350cd3fe393fb62604d455c9c0996b6a6cbbd3bdb271d0bc6c57f540593b2",
+        "bytes": 222080
+      },
+      "installed_d09_assets": {
+        "installed_module": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/artifacts/role-e-completion-20260928/synthetic-v3/venv/lib/python3.12/site-packages/arsia_d09/__init__.py",
+        "assets": [
+          {
+            "path": "templates/dashboard.html",
+            "sha256": "9564a80af0b3448ba3354248133df0bc6ed9f9904c08eceb13ebada9682d1c47",
+            "bytes": 1601,
+            "matches_pinned_source": true
+          },
+          {
+            "path": "static/dashboard.css",
+            "sha256": "f654846b36318ce567c381c2beceb5d554a3d24cd490808ca3ba3230fd9f9339",
+            "bytes": 3596,
+            "matches_pinned_source": true
+          }
+        ]
+      },
+      "installed_file_count": 96,
+      "migrations": [
+        {
+          "path": "sql/migrations/001_meta_registry.sql",
+          "sha256": "b44608c4baee8ce1d4ac6c3912a1a7d671772a1b305a32976b10f7bf00fe1893"
+        },
+        {
+          "path": "sql/migrations/002_raw_record.sql",
+          "sha256": "550c022b204380af2c0b2ffffc48295df3b562fd217f99a62f392d8db15eb059"
+        },
+        {
+          "path": "sql/migrations/003_b08_loader_role.sql",
+          "sha256": "e84a2d122bcb8f5edd6ffeb9974ef48eac3910ae801d5a929286734978f9269d"
+        },
+        {
+          "path": "sql/migrations/004_meta_batch.sql",
+          "sha256": "5c828f4071cab7ea097ee5b001aa6aca8fb567f04889a091a02842cf14fbb801"
+        },
+        {
+          "path": "sql/migrations/005_raw_vault.sql",
+          "sha256": "36fedf6f1c6b128e8006ad2e76815c44099c5557de8140deb04e599d4c4f14f8"
+        },
+        {
+          "path": "sql/migrations/006_canonical.sql",
+          "sha256": "c6b414f581d15183d89d98bebda71f373827a945d9e3eb2d9a60e699054e37dd"
+        },
+        {
+          "path": "sql/migrations/007_warehouse.sql",
+          "sha256": "32add012cc1f2919e0aa07926fea86922999b02dd37bb070e4bb2b6247fc87ee"
+        },
+        {
+          "path": "sql/migrations/008_qa.sql",
+          "sha256": "408c3775b218808fceb40a4119f8e5f20735664e1775671f5876d838b6219e29"
+        },
+        {
+          "path": "sql/migrations/009_database_roles.sql",
+          "sha256": "cd1b8f3c4969111cab71777ea063dfe89e69dc29566dbd779c708e2f889d03d5"
+        },
+        {
+          "path": "sql/migrations/010_business_key.sql",
+          "sha256": "de7a14a6df0c0336c7f40c2178159e0f53a4f702da44cde9a20c53a95443d922"
+        },
+        {
+          "path": "sql/migrations/011_review_validation_fixes.sql",
+          "sha256": "fb4d03819dbb4a37366aa5b3cb59fe4e8bec0d76eae3fcfbc3783ebb13f51de6"
+        }
+      ],
+      "python": "3.12.6 (v3.12.6:a4a2d2b0d85, Sep  6 2024, 16:08:03) [Clang 13.0.0 (clang-1300.0.29.30)]",
+      "packages": {
+        "arsia-native-intake": "0.1.0",
+        "openpyxl": "3.1.5",
+        "psycopg": "3.3.6",
+        "psycopg-binary": "3.3.6",
+        "pytest": "8.4.2"
+      },
+      "database": {
+        "tests": {
+          "tests": 289,
+          "passed": 289,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "modules": {
+            "tests.test_at10_rule": {
+              "tests": 9,
+              "passed": 9,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0,
+              "test_names": [
+                "test_declared_synthetic_override_keeps_source_severity_definition",
+                "test_default_missing_values_remain_unknown",
+                "test_incomplete_override_is_rejected[change0]",
+                "test_incomplete_override_is_rejected[change1]",
+                "test_incomplete_override_is_rejected[change2]",
+                "test_incomplete_override_is_rejected[change3]",
+                "test_incomplete_override_is_rejected[change4]",
+                "test_incomplete_override_is_rejected[change5]",
+                "test_official_override_is_rejected"
+              ]
+            },
+            "tests.test_at10_rule_postgres": {
+              "tests": 3,
+              "passed": 3,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0,
+              "test_names": [
+                "test_at10_independent_c10_rejects_wrong_rule_result[classification]",
+                "test_at10_independent_c10_rejects_wrong_rule_result[reason]",
+                "test_at10_rule_rebuild_changes_only_n2_classification"
+              ]
+            },
+            "tests.test_d04_lineage_postgres": {
+              "tests": 16,
+              "passed": 16,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0,
+              "test_names": [
+                "test_baseline_and_rollback",
+                "test_c09_rejects_same_fault_before_canonical[direct-syn_nsw]",
+                "test_c09_rejects_same_fault_before_canonical[direct-syn_qld]",
+                "test_c09_rejects_same_fault_before_canonical[node-syn_vic]",
+                "test_c09_rejects_same_fault_before_canonical[primary-syn_nsw]",
+                "test_c09_rejects_same_fault_before_canonical[primary-syn_qld]",
+                "test_c09_rejects_same_fault_before_canonical[primary-syn_vic]",
+                "test_fact_change_is_already_blocked",
+                "test_loader_permissions_and_foreign_keys_still_hold",
+                "test_wrong_file_is_already_blocked",
+                "test_wrong_row_lineage[direct-syn_nsw]",
+                "test_wrong_row_lineage[direct-syn_qld]",
+                "test_wrong_row_lineage[node-syn_vic]",
+                "test_wrong_row_lineage[primary-syn_nsw]",
+                "test_wrong_row_lineage[primary-syn_qld]",
+                "test_wrong_row_lineage[primary-syn_vic]"
+              ]
+            },
+            "tests.test_d04_postgres": {
+              "tests": 4,
+              "passed": 4,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0,
+              "test_names": [
+                "test_definition_error_and_caller_rollback",
+                "test_real_c09_d03_qa06_writes_all_source_years",
+                "test_swapped_payload_is_found_even_when_aggregates_match",
+                "test_wrong_source_year_creates_missing_and_extra_objects"
+              ]
+            },
+            "tests.test_d09": {
+              "tests": 22,
+              "passed": 22,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0,
+              "test_names": [
+                "test_d09_inventory_hashes_and_status_boundary",
+                "test_d09_sql_contract_and_packaged_assets",
+                "test_demo_http_page_and_bad_request",
+                "test_invalid_page_arguments[grain=week]",
+                "test_invalid_page_arguments[mode=synthetic&mode=official]",
+                "test_invalid_page_arguments[mode=wrong]",
+                "test_invalid_page_arguments[months=0]",
+                "test_invalid_page_arguments[months=1,1]",
+                "test_invalid_page_arguments[months=x]",
+                "test_invalid_page_arguments[sources=a,,b]",
+                "test_invalid_page_arguments[sources=a,a]",
+                "test_invalid_page_arguments[unknown=x]",
+                "test_invalid_page_arguments[year_from=2024&year_to=2020]",
+                "test_no_publication_and_release_mode_mismatch",
+                "test_page_rejects_years_outside_pinned_manifest_before_component_queries[2019-None]",
+                "test_page_rejects_years_outside_pinned_manifest_before_component_queries[2025-None]",
+                "test_page_rejects_years_outside_pinned_manifest_before_component_queries[None-2019]",
+                "test_page_rejects_years_outside_pinned_manifest_before_component_queries[None-2025]",
+                "test_page_resolves_release_once_and_passes_one_batch",
+                "test_rendered_error_escapes_sql_message",
+                "test_renderer_keeps_outcome_known_counts_and_unknown_month_context",
+                "test_renderer_preserves_null_zero_and_escapes_source_text"
+              ]
+            },
+            "tests.test_d09_full_build_postgres": {
+              "tests": 15,
+              "passed": 15,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0,
+              "test_names": [
+                "test_manifest_defaults_and_inclusive_year_boundaries[years0]",
+                "test_manifest_defaults_and_inclusive_year_boundaries[years1]",
+                "test_manifest_defaults_and_inclusive_year_boundaries[years2]",
+                "test_manifest_defaults_and_inclusive_year_boundaries[years3]",
+                "test_manifest_defaults_and_inclusive_year_boundaries[years4]",
+                "test_real_b10_e06_publications_remain_fixed_until_page_refresh",
+                "test_real_http_filters_return_readable_400_and_next_request_works[months=13-D09_ARGUMENT]",
+                "test_real_http_filters_return_readable_400_and_next_request_works[sources=not_in_manifest-D05_SOURCE]",
+                "test_real_http_filters_return_readable_400_and_next_request_works[year_from=2019-D09_YEAR_RANGE]",
+                "test_real_http_filters_return_readable_400_and_next_request_works[year_from=2025-D09_YEAR_RANGE]",
+                "test_real_http_filters_return_readable_400_and_next_request_works[year_to=2019-D09_YEAR_RANGE]",
+                "test_real_http_filters_return_readable_400_and_next_request_works[year_to=2025-D09_YEAR_RANGE]",
+                "test_real_http_renders_sql_counts_without_replacing_nulls",
+                "test_unexpected_database_error_returns_500_without_internal_details",
+                "test_year_helper_checks_batch_identity_status_and_reader_permissions"
+              ]
+            },
+            "tests.test_d09_official_policy": {
+              "tests": 14,
+              "passed": 14,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0,
+              "test_names": [
+                "test_official_needs_one_source_before_database_access[None]",
+                "test_official_needs_one_source_before_database_access[official_nsw]",
+                "test_official_needs_one_source_before_database_access[sources1]",
+                "test_official_needs_one_source_before_database_access[sources2]",
+                "test_official_renderer_explains_unavailable_outputs[official_nsw]",
+                "test_official_renderer_explains_unavailable_outputs[official_qld]",
+                "test_official_renderer_explains_unavailable_outputs[official_vic]",
+                "test_official_snapshot_preserves_sql_values_and_attaches_real_policy[official_nsw]",
+                "test_official_snapshot_preserves_sql_values_and_attaches_real_policy[official_qld]",
+                "test_official_snapshot_preserves_sql_values_and_attaches_real_policy[official_vic]",
+                "test_official_snapshot_without_policy_does_not_render_numbers",
+                "test_policy_and_error_text_is_escaped",
+                "test_synthetic_values_and_default_snapshot_interface_are_unchanged",
+                "test_unknown_official_source_is_rejected_by_shared_policy"
+              ]
+            },
+            "tests.test_e07_postgres": {
+              "tests": 13,
+              "passed": 13,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0,
+              "test_names": [
+                "test_e07_at01_schema_and_unchanged_reader_boundary",
+                "test_e07_at02_bad_native_preparation_preserves_real_b0[bad_hash-FILE_HASH_MISMATCH]",
+                "test_e07_at02_bad_native_preparation_preserves_real_b0[bad_header-HEADER_MISMATCH]",
+                "test_e07_at02_bad_native_preparation_preserves_real_b0[missing_file-IO_ERROR]",
+                "test_e07_at06_real_reconciliation_rejects_damaged_candidate[compensating_counts]",
+                "test_e07_at06_real_reconciliation_rejects_damaged_candidate[eligibility]",
+                "test_e07_at06_real_reconciliation_rejects_damaged_candidate[missing_fact]",
+                "test_e07_at07_forced_invalid_location_rolls_back_real_candidate",
+                "test_e07_at16_n2_only_query_subsample_keeps_unknowns",
+                "test_e07_at16_real_http_no_publication_empty_year_and_invalid_month",
+                "test_e07_full_s0_layers_rows_lineage_and_independent_qa",
+                "test_e07_queries_match_every_independent_source_period[month]",
+                "test_e07_queries_match_every_independent_source_period[year]"
+              ]
+            },
+            "tests.test_e08_postgres": {
+              "tests": 16,
+              "passed": 16,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0,
+              "test_names": [
+                "test_at08_provenance_and_object_order_keep_exact_pointer[archive_directory]",
+                "test_at08_provenance_and_object_order_keep_exact_pointer[object_key_order]",
+                "test_at09_at15_variants_match_independent_rows_keys_and_queries[delete_q2]",
+                "test_at09_at15_variants_match_independent_rows_keys_and_queries[revised_n1]",
+                "test_at09_at15_variants_match_independent_rows_keys_and_queries[s8]",
+                "test_at10_real_sql_byte_change_rebuilds_without_changing_inputs",
+                "test_at10_rule_matches_independent_expected_known_counts",
+                "test_at11_missing_object_preserves_published_baseline[QA01_INPUT]",
+                "test_at11_missing_object_preserves_published_baseline[QA02_RAW]",
+                "test_at11_missing_object_preserves_published_baseline[QA03_PROJECTED]",
+                "test_at11_missing_object_preserves_published_baseline[QA04_AUXILIARY]",
+                "test_at11_missing_object_preserves_published_baseline[QA05_SEMANTICS]",
+                "test_at11_missing_object_preserves_published_baseline[QA06_RECONCILIATION]",
+                "test_at11_missing_object_preserves_published_baseline[QA07_LOCATION]",
+                "test_at12_real_disconnect_requires_recovery_then_whole_run_retry",
+                "test_at12_superseded_commit_acknowledgement_never_restores_old_pointer"
+              ]
+            },
+            "tests.test_e_acceptance_expectations": {
+              "tests": 8,
+              "passed": 8,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0,
+              "test_names": [
+                "test_hand_rows_match_separately_written_scenario_totals[delete_q2]",
+                "test_hand_rows_match_separately_written_scenario_totals[known_n2]",
+                "test_hand_rows_match_separately_written_scenario_totals[revised_n1]",
+                "test_hand_rows_match_separately_written_scenario_totals[s0]",
+                "test_hand_rows_match_separately_written_scenario_totals[s8]",
+                "test_qa_coverage_uses_expected_resources_not_producer_output[s0-63]",
+                "test_qa_coverage_uses_expected_resources_not_producer_output[s8-77]",
+                "test_unknowns_zeros_and_unobserved_periods_are_distinct"
+              ]
+            },
+            "tests.test_e_integrated_postgres": {
+              "tests": 51,
+              "passed": 51,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0,
+              "test_names": [
+                "test_context_mismatch_rejected[dataset_kind-official]",
+                "test_context_mismatch_rejected[input_fingerprint-0000000000000000000000000000000000000000000000000000000000000000]",
+                "test_fp1_only_grants_loader_usage_and_execute",
+                "test_fp1_pg16_utf8_canonical_json_and_b_normalization",
+                "test_gate_rejects_fault_and_keeps_running_batch[boolean_coverage]",
+                "test_gate_rejects_fault_and_keeps_running_batch[boolean_metric]",
+                "test_gate_rejects_fault_and_keeps_running_batch[coverage]",
+                "test_gate_rejects_fault_and_keeps_running_batch[evidence]",
+                "test_gate_rejects_fault_and_keeps_running_batch[evidence_count]",
+                "test_gate_rejects_fault_and_keeps_running_batch[evidence_file]",
+                "test_gate_rejects_fault_and_keeps_running_batch[evidence_hash]",
+                "test_gate_rejects_fault_and_keeps_running_batch[expected_violation]",
+                "test_gate_rejects_fault_and_keeps_running_batch[extra_block]",
+                "test_gate_rejects_fault_and_keeps_running_batch[extra_object]",
+                "test_gate_rejects_fault_and_keeps_running_batch[extra_pass_rule]",
+                "test_gate_rejects_fault_and_keeps_running_batch[forged_zero_expected]",
+                "test_gate_rejects_fault_and_keeps_running_batch[invented_expectation]",
+                "test_gate_rejects_fault_and_keeps_running_batch[limited_affected]",
+                "test_gate_rejects_fault_and_keeps_running_batch[limited_detail_count]",
+                "test_gate_rejects_fault_and_keeps_running_batch[limited_reasons]",
+                "test_gate_rejects_fault_and_keeps_running_batch[meaningless_evidence]",
+                "test_gate_rejects_fault_and_keeps_running_batch[metric_keys]",
+                "test_gate_rejects_fault_and_keeps_running_batch[metrics]",
+                "test_gate_rejects_fault_and_keeps_running_batch[missing_object]",
+                "test_gate_rejects_fault_and_keeps_running_batch[missing_summary]",
+                "test_gate_rejects_fault_and_keeps_running_batch[missing_summary_reference]",
+                "test_gate_rejects_fault_and_keeps_running_batch[negative_coverage]",
+                "test_gate_rejects_fault_and_keeps_running_batch[nonqa07_limited]",
+                "test_gate_rejects_fault_and_keeps_running_batch[null_skip]",
+                "test_gate_rejects_fault_and_keeps_running_batch[null_without_reason]",
+                "test_gate_rejects_fault_and_keeps_running_batch[other_detail_object]",
+                "test_gate_rejects_fault_and_keeps_running_batch[other_file_reference]",
+                "test_gate_rejects_fault_and_keeps_running_batch[other_object_reference]",
+                "test_gate_rejects_fault_and_keeps_running_batch[other_resource_reference]",
+                "test_gate_rejects_fault_and_keeps_running_batch[other_source_reference]",
+                "test_gate_rejects_fault_and_keeps_running_batch[other_summary_document]",
+                "test_gate_rejects_fault_and_keeps_running_batch[other_summary_object]",
+                "test_gate_rejects_fault_and_keeps_running_batch[other_year_reference]",
+                "test_gate_rejects_fault_and_keeps_running_batch[required_block]",
+                "test_gate_rejects_fault_and_keeps_running_batch[source_without_year]",
+                "test_gate_rejects_fault_and_keeps_running_batch[summary]",
+                "test_gate_rejects_fault_and_keeps_running_batch[summary_affected]",
+                "test_gate_rejects_fault_and_keeps_running_batch[summary_expected]",
+                "test_gate_rejects_fault_and_keeps_running_batch[violation]",
+                "test_gate_rejects_fault_and_keeps_running_batch[wrong_batch_evidence]",
+                "test_gate_rejects_fault_and_keeps_running_batch[wrong_file]",
+                "test_gate_rejects_fault_and_keeps_running_batch[zero_coverage]",
+                "test_real_producers_fp1_publish_and_caller_rollback[2020-2]",
+                "test_real_producers_fp1_publish_and_caller_rollback[2021-1]",
+                "test_real_producers_fp1_publish_and_caller_rollback[2022-0]",
+                "test_rollback_preserves_previous_release"
+              ]
+            },
+            "tests.test_full_build_postgres": {
+              "tests": 61,
+              "passed": 61,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0,
+              "test_names": [
+                "test_allowed_location_limits_publish_without_dropping_crashes[invalid_coordinate-3]",
+                "test_allowed_location_limits_publish_without_dropping_crashes[unknown_crs-4]",
+                "test_committed_real_build_exact_definitions_and_no_change",
+                "test_concurrent_real_build_is_busy_then_no_change",
+                "test_failure_after_real_callback_rolls_back_candidate_preserves_release[dw]",
+                "test_failure_after_real_callback_rolls_back_candidate_preserves_release[publish]",
+                "test_failure_after_real_callback_rolls_back_candidate_preserves_release[vault]",
+                "test_invalid_native_values_cannot_publish[duplicate_crash]",
+                "test_invalid_native_values_cannot_publish[invalid_date]",
+                "test_invalid_native_values_cannot_publish[negative_count]",
+                "test_invalid_native_values_cannot_publish[orphan_unit]",
+                "test_invalid_native_values_cannot_publish[person_vehicle_99]",
+                "test_invalid_native_values_cannot_publish[undefined_category]",
+                "test_lost_publication_reply_recovers_from_real_committed_state",
+                "test_new_rules_publish_without_changing_pinned_reader_history",
+                "test_real_e_gate_rejects_damaged_producer_results[boolean_coverage]",
+                "test_real_e_gate_rejects_damaged_producer_results[boolean_metric]",
+                "test_real_e_gate_rejects_damaged_producer_results[coverage]",
+                "test_real_e_gate_rejects_damaged_producer_results[evidence]",
+                "test_real_e_gate_rejects_damaged_producer_results[evidence_count]",
+                "test_real_e_gate_rejects_damaged_producer_results[evidence_file]",
+                "test_real_e_gate_rejects_damaged_producer_results[evidence_hash]",
+                "test_real_e_gate_rejects_damaged_producer_results[expected_violation]",
+                "test_real_e_gate_rejects_damaged_producer_results[extra_block]",
+                "test_real_e_gate_rejects_damaged_producer_results[extra_object]",
+                "test_real_e_gate_rejects_damaged_producer_results[extra_pass_rule]",
+                "test_real_e_gate_rejects_damaged_producer_results[forged_zero_expected]",
+                "test_real_e_gate_rejects_damaged_producer_results[invented_expectation]",
+                "test_real_e_gate_rejects_damaged_producer_results[limited_affected]",
+                "test_real_e_gate_rejects_damaged_producer_results[limited_detail_count]",
+                "test_real_e_gate_rejects_damaged_producer_results[limited_reasons]",
+                "test_real_e_gate_rejects_damaged_producer_results[meaningless_evidence]",
+                "test_real_e_gate_rejects_damaged_producer_results[metric_keys]",
+                "test_real_e_gate_rejects_damaged_producer_results[metrics]",
+                "test_real_e_gate_rejects_damaged_producer_results[missing_object]",
+                "test_real_e_gate_rejects_damaged_producer_results[missing_summary]",
+                "test_real_e_gate_rejects_damaged_producer_results[missing_summary_reference]",
+                "test_real_e_gate_rejects_damaged_producer_results[negative_coverage]",
+                "test_real_e_gate_rejects_damaged_producer_results[nonqa07_limited]",
+                "test_real_e_gate_rejects_damaged_producer_results[null_skip]",
+                "test_real_e_gate_rejects_damaged_producer_results[null_without_reason]",
+                "test_real_e_gate_rejects_damaged_producer_results[other_detail_object]",
+                "test_real_e_gate_rejects_damaged_producer_results[other_file_reference]",
+                "test_real_e_gate_rejects_damaged_producer_results[other_object_reference]",
+                "test_real_e_gate_rejects_damaged_producer_results[other_resource_reference]",
+                "test_real_e_gate_rejects_damaged_producer_results[other_source_reference]",
+                "test_real_e_gate_rejects_damaged_producer_results[other_summary_document]",
+                "test_real_e_gate_rejects_damaged_producer_results[other_summary_object]",
+                "test_real_e_gate_rejects_damaged_producer_results[other_year_reference]",
+                "test_real_e_gate_rejects_damaged_producer_results[required_block]",
+                "test_real_e_gate_rejects_damaged_producer_results[source_without_year]",
+                "test_real_e_gate_rejects_damaged_producer_results[summary]",
+                "test_real_e_gate_rejects_damaged_producer_results[summary_affected]",
+                "test_real_e_gate_rejects_damaged_producer_results[summary_expected]",
+                "test_real_e_gate_rejects_damaged_producer_results[violation]",
+                "test_real_e_gate_rejects_damaged_producer_results[wrong_batch_evidence]",
+                "test_real_e_gate_rejects_damaged_producer_results[wrong_file]",
+                "test_real_e_gate_rejects_damaged_producer_results[zero_coverage]",
+                "test_real_snapshot_change_keeps_successful_history[delete_q2-expected1]",
+                "test_real_snapshot_change_keeps_successful_history[revised_n1-expected0]",
+                "test_unexplained_row_reduction_blocks_before_registration"
+              ]
+            },
+            "tests.test_input_qa_postgres": {
+              "tests": 2,
+              "passed": 2,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0,
+              "test_names": [
+                "test_postgres_qa02_compares_all_s0_rows_and_retains_node_observations",
+                "test_postgres_qa02_finds_changed_payload_when_counts_match"
+              ]
+            },
+            "tests.test_raw_load_postgres": {
+              "tests": 8,
+              "passed": 8,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0,
+              "test_names": [
+                "test_postgres_autocommit_connection_is_rejected",
+                "test_postgres_caller_can_roll_back_the_entire_load",
+                "test_postgres_existing_raw_timestamp_is_not_rewritten",
+                "test_postgres_file_and_parser_changes_create_distinct_raw_ids",
+                "test_postgres_payload_conflict_preserves_original",
+                "test_postgres_resource_identity_cannot_be_reassigned",
+                "test_postgres_s0_load_is_lossless_and_reuses_ids",
+                "test_postgres_synthetic_ids_cannot_enter_official_mode"
+              ]
+            },
+            "tests.test_s0": {
+              "tests": 20,
+              "passed": 20,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0,
+              "test_names": [
+                "test_deletion_variants_have_the_same_data_but_different_change_evidence",
+                "test_s0_bad_native_inputs_fail_before_database_work[bad_hash-FILE_HASH_MISMATCH]",
+                "test_s0_bad_native_inputs_fail_before_database_work[bad_header-HEADER_MISMATCH]",
+                "test_s0_bad_native_inputs_fail_before_database_work[missing_file-IO_ERROR]",
+                "test_s0_contract_defines_the_synthetic_scope_and_unused_columns",
+                "test_s0_crash_values_follow_the_six_handwritten_examples",
+                "test_s0_generator_refuses_to_replace_existing_work",
+                "test_s0_headers_rows_and_l1_match_native_files",
+                "test_s0_keeps_equivalent_and_conflicting_node_observations",
+                "test_s0_real_units_and_person_references_are_exact",
+                "test_s0_regeneration_matches_the_shared_files_and_fixed_zip_times",
+                "test_semantic_variants_reach_sql_with_their_original_values[duplicate_crash-syn_nsw_crash-2-Crash ID-0001]",
+                "test_semantic_variants_reach_sql_with_their_original_values[invalid_coordinate-syn_qld_crash-0-Crash_Latitude--91]",
+                "test_semantic_variants_reach_sql_with_their_original_values[invalid_date-syn_vic_accident-1-ACCIDENT_DATE-2021-02-30]",
+                "test_semantic_variants_reach_sql_with_their_original_values[negative_count-syn_vic_accident-0-NO_PERSONS_KILLED--1]",
+                "test_semantic_variants_reach_sql_with_their_original_values[orphan_unit-syn_vic_vehicle-2-ACCIDENT_NO-9999]",
+                "test_semantic_variants_reach_sql_with_their_original_values[person_vehicle_99-syn_vic_person-2-VEHICLE_ID-99]",
+                "test_semantic_variants_reach_sql_with_their_original_values[revised_n1-syn_nsw_crash-0-No. killed-3]",
+                "test_semantic_variants_reach_sql_with_their_original_values[undefined_category-syn_vic_accident-1-SEVERITY-X]",
+                "test_unknown_crs_changes_only_the_declared_location_basis"
+              ]
+            },
+            "tests.test_s8_build_postgres": {
+              "tests": 27,
+              "passed": 27,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0,
+              "test_names": [
+                "test_at15_bad_sa_key_fails_and_keeps_b0",
+                "test_at15_s0_to_s8_exact_results_history_and_no_change",
+                "test_changed_s8_coverage_cannot_publish_or_replace_b0[coverage_patch0]",
+                "test_changed_s8_coverage_cannot_publish_or_replace_b0[coverage_patch1]",
+                "test_changed_s8_coverage_cannot_publish_or_replace_b0[coverage_patch2]",
+                "test_changed_s8_coverage_cannot_publish_or_replace_b0[coverage_patch3]",
+                "test_invalid_sa_values_block_without_replacing_b0[change0]",
+                "test_invalid_sa_values_block_without_replacing_b0[change1]",
+                "test_invalid_sa_values_block_without_replacing_b0[change2]",
+                "test_invalid_sa_values_block_without_replacing_b0[change3]",
+                "test_invalid_sa_values_block_without_replacing_b0[change4]",
+                "test_real_e_gate_requires_new_sa_objects[QA05_SEMANTICS]",
+                "test_real_e_gate_requires_new_sa_objects[QA06_RECONCILIATION]",
+                "test_real_e_gate_requires_new_sa_objects[QA07_LOCATION]",
+                "test_s8_caller_failure_rolls_back_candidate[dw]",
+                "test_s8_caller_failure_rolls_back_candidate[publish]",
+                "test_s8_caller_failure_rolls_back_candidate[vault]",
+                "test_s8_unknown_values_and_limited_location_pass_real_qa[changes0-False]",
+                "test_s8_unknown_values_and_limited_location_pass_real_qa[changes1-False]",
+                "test_s8_unknown_values_and_limited_location_pass_real_qa[changes2-False]",
+                "test_s8_unknown_values_and_limited_location_pass_real_qa[changes3-False]",
+                "test_s8_unknown_values_and_limited_location_pass_real_qa[changes4-False]",
+                "test_s8_unknown_values_and_limited_location_pass_real_qa[changes5-True]",
+                "test_sa_independent_qa_rejects_consistent_but_wrong_projection[casualty_count=2]",
+                "test_sa_independent_qa_rejects_consistent_but_wrong_projection[fatality_count=2]",
+                "test_sa_independent_qa_rejects_consistent_but_wrong_projection[latitude=-35]",
+                "test_sa_independent_qa_rejects_consistent_but_wrong_projection[occurrence_month=2]"
+              ]
+            }
+          },
+          "failed_test_names": [],
+          "skipped_test_names": []
+        },
+        "summary": {
+          "tests": 289,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "pytest_exit_code": 0,
+          "exit_code": 0,
+          "permissions": "Original A03 audit passed before and after",
+          "final_tables_empty": true,
+          "publication_performed": true,
+          "boundary": "E acceptance, executed by Role B: synthetic",
+          "test_module_results": {
+            "test_e_acceptance_expectations": {
+              "tests": 8,
+              "scope": "no database"
+            },
+            "test_s0": {
+              "tests": 20,
+              "scope": "no database"
+            },
+            "test_at10_rule": {
+              "tests": 9,
+              "scope": "no database"
+            },
+            "test_at10_rule_postgres": {
+              "tests": 3,
+              "scope": "PostgreSQL module"
+            },
+            "test_d09_official_policy": {
+              "tests": 14,
+              "scope": "no database"
+            },
+            "test_d09": {
+              "tests": 22,
+              "scope": "no database"
+            },
+            "test_e07_postgres": {
+              "tests": 13,
+              "scope": "PostgreSQL module"
+            },
+            "test_e08_postgres": {
+              "tests": 16,
+              "scope": "PostgreSQL module"
+            },
+            "test_full_build_postgres": {
+              "tests": 61,
+              "scope": "PostgreSQL module"
+            },
+            "test_s8_build_postgres": {
+              "tests": 27,
+              "scope": "PostgreSQL module"
+            },
+            "test_d09_full_build_postgres": {
+              "tests": 15,
+              "scope": "PostgreSQL module"
+            },
+            "test_d04_lineage_postgres": {
+              "tests": 16,
+              "scope": "PostgreSQL module"
+            },
+            "test_d04_postgres": {
+              "tests": 4,
+              "scope": "PostgreSQL module"
+            },
+            "test_e_integrated_postgres": {
+              "tests": 51,
+              "scope": "PostgreSQL module"
+            },
+            "test_raw_load_postgres": {
+              "tests": 8,
+              "scope": "PostgreSQL module"
+            },
+            "test_input_qa_postgres": {
+              "tests": 2,
+              "scope": "PostgreSQL module"
+            }
+          },
+          "test_count_scope": "Total includes checks without a database and PostgreSQL modules; see test_module_results.",
+          "publication_scope": "Disposable private test database only",
+          "execution_owner": "Role B / Peixian assisting Role E",
+          "independent_member_signoff": false,
+          "final_platform_accepted": false
+        },
+        "final_state": {
+          "rows": {
+            "meta.source": 0,
+            "meta.resource": 0,
+            "meta.batch": 0,
+            "meta.current_release": 0,
+            "raw.record": 0,
+            "rv.hub_crash": 0,
+            "rv.hub_unit": 0,
+            "rv.sat_crash": 0,
+            "rv.sat_unit": 0,
+            "rv.link_crash_unit": 0,
+            "canonical.crash": 0,
+            "canonical.unit": 0,
+            "dw.dim_source": 0,
+            "dw.dim_month": 0,
+            "dw.dim_severity": 0,
+            "dw.fact_crash": 0,
+            "qa.check_result": 0
+          },
+          "all_zero": true
+        },
+        "cleanup": {
+          "container_removed": "arsia-b-ac-6e3c570071ca",
+          "persistent_volume_created": false,
+          "anonymous_image_volumes_removed": true
+        },
+        "environment": {
+          "postgresql": [
+            "PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+            "arsia_loader",
+            "arsia_loader",
+            "UTF8",
+            "UTC",
+            "en_US.utf8",
+            "en_US.utf8",
+            false,
+            false,
+            false,
+            false
+          ],
+          "image": "postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67"
+        }
+      },
+      "cold_start": {
+        "status": "passed",
+        "environment": {
+          "python": "3.12.6 (v3.12.6:a4a2d2b0d85, Sep  6 2024, 16:08:03) [Clang 13.0.0 (clang-1300.0.29.30)]",
+          "platform": "macOS-27.0-arm64-arm-64bit",
+          "image": "postgres:16-bookworm@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67",
+          "temporary_storage": true,
+          "persistent_volume_created": false,
+          "postgresql": [
+            "PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+            "UTF8",
+            "UTC"
+          ]
+        },
+        "catalog": {
+          "status": "passed",
+          "table_count": 17,
+          "field_count": 129,
+          "constraint_counts": {
+            "check": 46,
+            "unique": 6,
+            "foreign_key": 30,
+            "primary_key": 17
+          },
+          "roles": {
+            "arsia_loader": {
+              "can_login": true,
+              "superuser": false,
+              "bypass_rls": false,
+              "create_role": false,
+              "replication": false,
+              "create_database": false
+            },
+            "arsia_reader": {
+              "can_login": true,
+              "superuser": false,
+              "bypass_rls": false,
+              "create_role": false,
+              "replication": false,
+              "create_database": false
+            },
+            "arsia_migrator": {
+              "can_login": false,
+              "superuser": false,
+              "bypass_rls": false,
+              "create_role": false,
+              "replication": false,
+              "create_database": false
+            }
+          }
+        },
+        "checks": {
+          "permission_audit": {
+            "status": "passed"
+          },
+          "migration_011_smoke": {
+            "status": "passed"
+          },
+          "empty_schema": {
+            "status": "passed"
+          }
+        },
+        "cleanup": {
+          "container_removed": true,
+          "persistent_volume_created": false
+        }
+      },
+      "recovery_regression": {
+        "tests": {
+          "tests": 165,
+          "passed": 165,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "modules": {
+            "tests.test_b10_lifecycle_postgres": {
+              "tests": 8,
+              "passed": 8,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0,
+              "test_names": [
+                "test_failure_record_needs_caller_commit_and_preserves_history",
+                "test_failure_record_rejects_finished_batches[failed]",
+                "test_failure_record_rejects_finished_batches[succeeded]",
+                "test_read_committed_is_reapplied_after_each_boundary[commit]",
+                "test_read_committed_is_reapplied_after_each_boundary[rollback]",
+                "test_runner_uses_read_committed_before_history",
+                "test_running_batch_in_either_mode_blocks_before_fp1[official]",
+                "test_running_batch_in_either_mode_blocks_before_fp1[synthetic]"
+              ]
+            },
+            "tests.test_b14_verifier": {
+              "tests": 7,
+              "passed": 7,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0,
+              "test_names": [
+                "test_changed_migration_with_updated_inventory_is_rejected[009_database_roles.sql-\\nGRANT ALL ON meta.batch TO arsia_loader;\\n]",
+                "test_changed_migration_with_updated_inventory_is_rejected[011_review_validation_fixes.sql-\\n-- changed after reference verification\\n]",
+                "test_exact_migration_filenames_are_required[extra]",
+                "test_exact_migration_filenames_are_required[missing]",
+                "test_exact_migration_filenames_are_required[renamed]",
+                "test_original_migrations_match_pinned_version",
+                "test_validated_bytes_are_kept_for_application"
+              ]
+            },
+            "tests.test_recovery": {
+              "tests": 72,
+              "passed": 72,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0,
+              "test_names": [
+                "test_absent_registration_requires_unambiguous_commit_diagnostics[diagnostics0-not_registered]",
+                "test_absent_registration_requires_unambiguous_commit_diagnostics[diagnostics1-unknown_commit]",
+                "test_absent_registration_requires_unambiguous_commit_diagnostics[diagnostics2-unknown_commit]",
+                "test_absent_registration_requires_unambiguous_commit_diagnostics[diagnostics3-unknown_commit]",
+                "test_absent_registration_requires_unambiguous_commit_diagnostics[diagnostics4-unknown_commit]",
+                "test_absent_registration_requires_unambiguous_commit_diagnostics[diagnostics5-unknown_commit]",
+                "test_absent_registration_requires_unambiguous_commit_diagnostics[diagnostics6-unknown_commit]",
+                "test_acknowledged_success_cannot_be_relabelled_failed",
+                "test_ambiguous_or_mismatched_row_never_changes_history[batch_id]",
+                "test_ambiguous_or_mismatched_row_never_changes_history[digest]",
+                "test_ambiguous_or_mismatched_row_never_changes_history[failed_no_error]",
+                "test_ambiguous_or_mismatched_row_never_changes_history[manifest]",
+                "test_ambiguous_or_mismatched_row_never_changes_history[manifest_type]",
+                "test_ambiguous_or_mismatched_row_never_changes_history[mode]",
+                "test_ambiguous_or_mismatched_row_never_changes_history[running_finished]",
+                "test_ambiguous_or_mismatched_row_never_changes_history[succeeded_unfinished]",
+                "test_ambiguous_or_mismatched_row_never_changes_history[unexpected_status]",
+                "test_busy_does_not_read_or_change_database_state",
+                "test_changed_receipt_after_connect_blocks_recovery",
+                "test_cli_connection_failure_returns_unknown_without_connection_details",
+                "test_cli_reports_a_resolved_failed_batch_as_exit_zero",
+                "test_close_failure_after_acknowledged_recovery_commit_keeps_resolution",
+                "test_database_failures_remain_unknown_and_close_connection[autocommit]",
+                "test_database_failures_remain_unknown_and_close_connection[batch]",
+                "test_database_failures_remain_unknown_and_close_connection[lock_shape]",
+                "test_database_failures_remain_unknown_and_close_connection[pointer]",
+                "test_database_failures_remain_unknown_and_close_connection[rollback]",
+                "test_database_failures_remain_unknown_and_close_connection[update]",
+                "test_database_failures_remain_unknown_and_close_connection[update_empty]",
+                "test_database_failures_remain_unknown_and_close_connection[update_other]",
+                "test_existing_failure_preserves_its_error_and_timestamp",
+                "test_inconsistent_current_pointer_blocks_recovery[duplicate]",
+                "test_inconsistent_current_pointer_blocks_recovery[missing_join]",
+                "test_inconsistent_current_pointer_blocks_recovery[running_target]",
+                "test_inconsistent_current_pointer_blocks_recovery[wrong_join]",
+                "test_inconsistent_current_pointer_blocks_recovery[wrong_mode]",
+                "test_invalid_receipts_stop_before_connect[bad_json]",
+                "test_invalid_receipts_stop_before_connect[both_later_markers]",
+                "test_invalid_receipts_stop_before_connect[missing_manifest]",
+                "test_invalid_receipts_stop_before_connect[missing_marker]",
+                "test_invalid_receipts_stop_before_connect[non_utc]",
+                "test_invalid_receipts_stop_before_connect[wrong_batch]",
+                "test_invalid_receipts_stop_before_connect[wrong_mode]",
+                "test_invalid_receipts_stop_before_connect[wrong_run]",
+                "test_invalid_receipts_stop_before_connect[wrong_stage]",
+                "test_lost_recovery_commit_does_not_retry_or_guess[False]",
+                "test_lost_recovery_commit_does_not_retry_or_guess[True]",
+                "test_missing_batch_is_not_automatically_an_uncommitted_registration[None]",
+                "test_missing_batch_is_not_automatically_an_uncommitted_registration[failure]",
+                "test_missing_batch_is_not_automatically_an_uncommitted_registration[finished_failure]",
+                "test_missing_batch_is_not_automatically_an_uncommitted_registration[finished_success]",
+                "test_missing_batch_is_not_automatically_an_uncommitted_registration[publication]",
+                "test_missing_batch_is_not_automatically_an_uncommitted_registration[registration]",
+                "test_original_fingerprint_is_checked_when_it_was_recorded",
+                "test_read_only_resolution_requires_successful_rollback[absent]",
+                "test_read_only_resolution_requires_successful_rollback[succeeded]",
+                "test_receipt_changed_during_query_blocks_read_only_resolution[absent]",
+                "test_receipt_changed_during_query_blocks_read_only_resolution[succeeded]",
+                "test_recovers_actual_runner_receipts_after_lost_commit[False-failure]",
+                "test_recovers_actual_runner_receipts_after_lost_commit[False-publication]",
+                "test_recovers_actual_runner_receipts_after_lost_commit[False-registration]",
+                "test_recovers_actual_runner_receipts_after_lost_commit[True-failure]",
+                "test_recovers_actual_runner_receipts_after_lost_commit[True-publication]",
+                "test_recovers_actual_runner_receipts_after_lost_commit[True-registration]",
+                "test_recovery_uses_saved_manifest_without_rehashing_current_code",
+                "test_runner_commit_markers_reject_a_changed_database_fingerprint_without_result[failure]",
+                "test_runner_commit_markers_reject_a_changed_database_fingerprint_without_result[publication]",
+                "test_runner_commit_markers_reject_a_changed_database_fingerprint_without_result[registration]",
+                "test_running_recovery_is_guarded_and_keeps_original_receipts",
+                "test_success_is_preserved_and_resolution_requires_a_current_pointer[none]",
+                "test_success_is_preserved_and_resolution_requires_a_current_pointer[replaced]",
+                "test_success_is_preserved_and_resolution_requires_a_current_pointer[target]"
+              ]
+            },
+            "tests.test_recovery_postgres": {
+              "tests": 23,
+              "passed": 23,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0,
+              "test_names": [
+                "test_abandoned_run_closes_once_and_preserves_other_state",
+                "test_acknowledged_success_cannot_be_reinterpreted_as_abandoned",
+                "test_busy_lock_returns_without_state_reads_and_retry_is_fresh",
+                "test_driver_repeatable_read_default_is_overridden",
+                "test_loader_cannot_delete_or_rewrite_immutable_identity[DELETE FROM meta.batch WHERE batch_id=%s]",
+                "test_loader_cannot_delete_or_rewrite_immutable_identity[UPDATE meta.batch SET input_fingerprint=repeat('b',64) WHERE batch_id=%s]",
+                "test_loader_cannot_delete_or_rewrite_immutable_identity[UPDATE meta.batch SET manifest='{}'::jsonb WHERE batch_id=%s]",
+                "test_mismatched_identity_refuses_writes[fingerprint]",
+                "test_mismatched_identity_refuses_writes[kind]",
+                "test_mismatched_identity_refuses_writes[manifest]",
+                "test_missing_registration_is_resolved_only_before_later_stages[failure]",
+                "test_missing_registration_is_resolved_only_before_later_stages[publication]",
+                "test_missing_registration_is_resolved_only_before_later_stages[registration]",
+                "test_real_foreign_key_blocks_pointing_to_running_batch",
+                "test_recorded_failure_keeps_error_and_timestamp",
+                "test_row_lock_timeout_keeps_state_and_releases_session_lock",
+                "test_server_terminated_session_rolls_back_pending_recovery_update",
+                "test_success_and_replaced_pointer_are_preserved[newer]",
+                "test_success_and_replaced_pointer_are_preserved[none]",
+                "test_success_and_replaced_pointer_are_preserved[target]",
+                "test_uncertain_readonly_rollback_is_unknown_and_retry_preserves_failure",
+                "test_uncertain_recovery_commit_needs_new_connection_and_does_not_retry[after]",
+                "test_uncertain_recovery_commit_needs_new_connection_and_does_not_retry[before]"
+              ]
+            },
+            "tests.test_runner": {
+              "tests": 52,
+              "passed": 52,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0,
+              "test_names": [
+                "test_busy_has_no_batch_writes_or_commit",
+                "test_current_match_returns_actual_summary_without_new_writes",
+                "test_current_pointer_with_wrong_mode_is_rejected",
+                "test_failure_record_cannot_overwrite_an_already_successful_batch",
+                "test_historical_match_does_not_reactivate_old_batch",
+                "test_invalid_binding_stops_before_connection[changes0-MODULE_VERSION]",
+                "test_invalid_binding_stops_before_connection[changes1-MODULE_CODE]",
+                "test_lost_commit_response_stops_without_retry_or_reclassification[False-failure]",
+                "test_lost_commit_response_stops_without_retry_or_reclassification[False-publication]",
+                "test_lost_commit_response_stops_without_retry_or_reclassification[False-registration]",
+                "test_lost_commit_response_stops_without_retry_or_reclassification[True-failure]",
+                "test_lost_commit_response_stops_without_retry_or_reclassification[True-publication]",
+                "test_lost_commit_response_stops_without_retry_or_reclassification[True-registration]",
+                "test_missing_mapping_support_blocks_before_fp1_or_registration",
+                "test_missing_modules_and_fp1_stop_before_connection[canonical]",
+                "test_missing_modules_and_fp1_stop_before_connection[dw]",
+                "test_missing_modules_and_fp1_stop_before_connection[fp1]",
+                "test_missing_modules_and_fp1_stop_before_connection[project]",
+                "test_missing_modules_and_fp1_stop_before_connection[publish]",
+                "test_missing_modules_and_fp1_stop_before_connection[qa_c]",
+                "test_missing_modules_and_fp1_stop_before_connection[qa_d]",
+                "test_missing_modules_and_fp1_stop_before_connection[vault]",
+                "test_module_facade_has_no_transaction_lifecycle_or_cursor_escape",
+                "test_no_change_does_not_invent_or_accept_invalid_qa_summary[block]",
+                "test_no_change_does_not_invent_or_accept_invalid_qa_summary[duplicate]",
+                "test_no_change_does_not_invent_or_accept_invalid_qa_summary[missing]",
+                "test_no_change_does_not_invent_or_accept_invalid_qa_summary[negative]",
+                "test_no_change_does_not_invent_or_accept_invalid_qa_summary[pass_affected]",
+                "test_no_change_does_not_invent_or_accept_invalid_qa_summary[wrong_limited]",
+                "test_noop_publication_is_rejected_before_commit",
+                "test_postcommit_cleanup_error_does_not_relabel_success[close]",
+                "test_postcommit_cleanup_error_does_not_relabel_success[evidence]",
+                "test_raw_qa_block_rolls_back_and_retains_file_evidence",
+                "test_read_committed_is_set_for_each_owned_transaction[False]",
+                "test_read_committed_is_set_for_each_owned_transaction[True]",
+                "test_rollback_failure_does_not_write_failed_status",
+                "test_running_in_either_mode_requires_recovery_without_mutation",
+                "test_stage_failure_rolls_back_build_then_persists_failed_attempt[canonical]",
+                "test_stage_failure_rolls_back_build_then_persists_failed_attempt[dw]",
+                "test_stage_failure_rolls_back_build_then_persists_failed_attempt[project]",
+                "test_stage_failure_rolls_back_build_then_persists_failed_attempt[publish]",
+                "test_stage_failure_rolls_back_build_then_persists_failed_attempt[qa_c]",
+                "test_stage_failure_rolls_back_build_then_persists_failed_attempt[qa_d]",
+                "test_stage_failure_rolls_back_build_then_persists_failed_attempt[vault]",
+                "test_success_uses_one_connection_actual_native_load_and_qa",
+                "test_synthetic_run_does_not_select_or_replace_official_pointer",
+                "test_typed_module_diagnostics_survive_evidence_and_failed_batch_record",
+                "test_unserializable_diagnostics_do_not_hide_the_original_failure[decimal_nan]",
+                "test_unserializable_diagnostics_do_not_hide_the_original_failure[dict_cycle]",
+                "test_unserializable_diagnostics_do_not_hide_the_original_failure[float_nan]",
+                "test_unserializable_diagnostics_do_not_hide_the_original_failure[list_cycle]",
+                "test_unserializable_diagnostics_do_not_hide_the_original_failure[unsupported]"
+              ]
+            },
+            "tests.test_runner_postgres": {
+              "tests": 3,
+              "passed": 3,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0,
+              "test_names": [
+                "test_postgres_busy_runner_does_not_write_or_release_owner_lock",
+                "test_postgres_runner_closes_held_lock_after_pre_history_failure",
+                "test_postgres_session_lock_survives_commit_and_rollback_until_close"
+              ]
+            }
+          },
+          "failed_test_names": [],
+          "skipped_test_names": []
+        },
+        "summary": {
+          "tests": 165,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "test_groups": {
+            "test_recovery_postgres": 23,
+            "test_recovery": 72,
+            "test_runner": 52,
+            "test_runner_postgres": 3,
+            "test_b10_lifecycle_postgres": 8,
+            "test_b14_verifier": 7
+          },
+          "pytest_exit_code": 0,
+          "exit_code": 0,
+          "a03_audit_before_and_after": true,
+          "final_tables_empty": true,
+          "remaining_advisory_locks": 0,
+          "publication_performed": false
+        },
+        "final_state": {
+          "rows": {
+            "meta.source": 0,
+            "meta.resource": 0,
+            "meta.batch": 0,
+            "meta.current_release": 0,
+            "raw.record": 0,
+            "rv.hub_crash": 0,
+            "rv.hub_unit": 0,
+            "rv.sat_crash": 0,
+            "rv.sat_unit": 0,
+            "rv.link_crash_unit": 0,
+            "canonical.crash": 0,
+            "canonical.unit": 0,
+            "dw.dim_source": 0,
+            "dw.dim_month": 0,
+            "dw.dim_severity": 0,
+            "dw.fact_crash": 0,
+            "qa.check_result": 0
+          },
+          "advisory_locks": 0
+        },
+        "cleanup": {
+          "container_removed": "arsia-b14-6d0287386d4c",
+          "persistent_volume_created": false
+        },
+        "environment": {
+          "postgresql": [
+            "PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+            "arsia_loader",
+            "arsia_loader",
+            "UTF8",
+            "UTC",
+            false,
+            false,
+            false,
+            false
+          ],
+          "image": "postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67"
+        }
+      },
+      "s0_observations": {
+        "build": {
+          "result": "succeeded",
+          "run_id": "29c5f900-6992-40b6-82d1-4f3e59b7471b",
+          "batch_id": "fd35190d-53c9-42ca-b0cd-b1483335f2c1",
+          "previous_batch_id": null,
+          "input_fingerprint": "3cb057768c0878560bd063c2d05ddd9f3708d0b6314bbb975c5dabde88b86229",
+          "evidence_ref": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/artifacts/role-e-completion-20260928/synthetic-v3/postgres/ac-evidence/full-build/test_e07_full_s0_layers_rows_lineage_and_independent_qa/runs/synthetic/runs/29c5f900-6992-40b6-82d1-4f3e59b7471b"
+        },
+        "layers": {
+          "meta.source": 3,
+          "meta.resource": 7,
+          "meta.batch": 1,
+          "meta.current_release": 1,
+          "raw.record": 19,
+          "rv.hub_crash": 6,
+          "rv.hub_unit": 6,
+          "rv.sat_crash": 6,
+          "rv.sat_unit": 6,
+          "rv.link_crash_unit": 6,
+          "canonical.crash": 6,
+          "canonical.unit": 6,
+          "dw.dim_source": 3,
+          "dw.dim_month": 60,
+          "dw.dim_severity": 12,
+          "dw.fact_crash": 6,
+          "qa.check_result": 63
+        },
+        "qa_objects_by_rule": {
+          "QA01_INPUT": 8,
+          "QA02_RAW": 8,
+          "QA03_PROJECTED": 6,
+          "QA04_AUXILIARY": 5,
+          "QA05_SEMANTICS": 4,
+          "QA06_RECONCILIATION": 16,
+          "QA07_LOCATION": 16
+        }
+      },
+      "evidence_files": [
+        {
+          "path": "receipt.json",
+          "sha256": "465269898e94bd5e7553196f21383a0c4f78e51b2634f9314e13239afc09f3e9",
+          "bytes": 13239
+        },
+        {
+          "path": "postgres/summary.json",
+          "sha256": "eece7941a10466c4d10780a66bb31fa171e49912ef2883cf8dd5dc4fe6190b6c",
+          "bytes": 2066
+        },
+        {
+          "path": "postgres/cleanup.json",
+          "sha256": "4f57bbe7820397a1f551a0d83d77f40ad021ae6e39e15689212be4ba46a90674",
+          "bytes": 134
+        },
+        {
+          "path": "postgres/final-state.json",
+          "sha256": "dbc4b9c36a78e26384cbe23a4d657bae8af990f1ab2bbf3300c91aedc6becd18",
+          "bytes": 451
+        },
+        {
+          "path": "postgres/pytest.xml",
+          "sha256": "b30d31850dc3d05ca6744337797bf8c7be0fa35887515c23063c8ffd9e7e648c",
+          "bytes": 39749
+        },
+        {
+          "path": "postgres/a03-before.log",
+          "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4",
+          "bytes": 405
+        },
+        {
+          "path": "postgres/a03-after.log",
+          "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4",
+          "bytes": 405
+        },
+        {
+          "path": "postgres/environment.json",
+          "sha256": "a0c3132d813f8f18e3d68d3f024c228b53d3c1be37382574e8c95b31b32fa0c4",
+          "bytes": 401
+        },
+        {
+          "path": "postgres/inputs.json",
+          "sha256": "8d0b33d69b6e0262892e0c446a6102caf164040b7ff97f72724ed38348b9c1ad",
+          "bytes": 103143
+        },
+        {
+          "path": "installed-d09-assets.json",
+          "sha256": "ce9a9c54ad216fea1c0e991dc22cf58e3ffccab6e02dc6d72c026b7772614579",
+          "bytes": 609
+        },
+        {
+          "path": "cold-start.json",
+          "sha256": "f226f552c9c13301de5f9bddc95eb3d0bb0834854970bc954db71676ab1aba15",
+          "bytes": 21388
+        },
+        {
+          "path": "recovery/summary.json",
+          "sha256": "4949dd1182a52df982968e33f0d431783d921e513a259f7be80991ea6f3a1f7c",
+          "bytes": 447
+        },
+        {
+          "path": "recovery/cleanup.json",
+          "sha256": "58d177df5d2f4d964bcc2d13bf702ed871e376a73a816de4593a9f952a3042a7",
+          "bytes": 90
+        },
+        {
+          "path": "recovery/final-state.json",
+          "sha256": "6e9692ea437b97ca98ed794feadcfdccdec38e8d651b881e42664486ef2e522d",
+          "bytes": 454
+        },
+        {
+          "path": "recovery/pytest.xml",
+          "sha256": "44ead588570dca1251294180550b2d823a73a5f811ff557fe3b9fcdbdc3cd0fb",
+          "bytes": 22369
+        },
+        {
+          "path": "recovery/a03-before.log",
+          "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4",
+          "bytes": 405
+        },
+        {
+          "path": "recovery/a03-after.log",
+          "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4",
+          "bytes": 405
+        },
+        {
+          "path": "recovery/environment.json",
+          "sha256": "9440392cfb59dfc9b8ee5e629a68658d22a7a9c5378e89c4deab6c5d7f314c52",
+          "bytes": 365
+        },
+        {
+          "path": "postgres/ac-evidence/e07/at02-07-s0.json",
+          "sha256": "73fd9403dd9ace65cd8af8be6aae2e397e2a1499734bb608a1908cee00906a76",
+          "bytes": 154650
+        }
+      ]
+    },
+    "official": {
+      "status": "passed",
+      "output_directory": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/artifacts/role-e-completion-20260928/official-v1",
+      "started_at": "2026-09-28T12:19:50.213620+00:00",
+      "finished_at": "2026-09-28T12:43:08.025519+00:00",
+      "tested_versions": {
+        "version": "e-acceptance-v1",
+        "runtime_commit": "1765269507d7cf0b9cb76eef7b9ccf97de7f1cc5",
+        "a_environment_commit": "8f91a6b41dc0777d5873d2151f71e9f1cbe05501",
+        "a_schema_commit": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
+        "e_original_commit": "aec3b4692382e48ea4f778f04a31a4ca5ba5fa57",
+        "contract_source": "F/ARSIA-Team-Handoff-EN/04-Team-Contracts-and-Acceptance.md",
+        "execution_owner": "Role B / Peixian assisting Role E",
+        "independent_member_signoff": false,
+        "final_platform_accepted": false,
+        "contract_sha256": "68756bb92676c7bd0f0f3d4ed81861cc6c2196178019fab0f60711b7221ab9fc"
+      },
+      "e_commit": "aec3b4692382e48ea4f778f04a31a4ca5ba5fa57",
+      "e_working_tree_at_execution": [
+        "?? acceptance/",
+        "?? config/e-acceptance-s0-v1.json",
+        "?? config/e-acceptance-versions.json",
+        "?? docs/role-e-acceptance/",
+        "?? tools/verify_e_acceptance.py"
+      ],
+      "verifier_sha256": "969d467ae4c5934174e136d05494d30ab7b6d16c160895bc8f0c6cf2eee133fd",
+      "command_count": 9,
+      "acceptance_files": [
+        {
+          "path": "acceptance/e/run_database.py",
+          "runtime_path": "tools/verify_e_platform_database.py",
+          "sha256": "1dab722e9c2b8df404d5b9442864578047f3a557811a100221e5d6f2dbbd3c4d"
+        },
+        {
+          "path": "acceptance/e/test_e09_official_postgres.py",
+          "runtime_path": "tests/test_e09_official_postgres.py",
+          "sha256": "2e933236dfd2d12ca47c9feee74a4d0fd65fdfa6ed783012c330b19d29264eb9"
+        },
+        {
+          "path": "acceptance/e/official_expected.py",
+          "runtime_path": "tests/e_official_expected.py",
+          "sha256": "2834783b8d4836596a47f43d0356f7fc6fa2643552bec65484f97fab23ae96b2"
+        }
+      ],
+      "wheel": {
+        "filename": "arsia_native_intake-0.1.0-py3-none-any.whl",
+        "sha256": "28f7df5c91d37d00244636a096610e11aff09b626c1a1b8622eb6a838b557477",
+        "bytes": 222080
+      },
+      "installed_d09_assets": {
+        "installed_module": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/artifacts/role-e-completion-20260928/official-v1/venv/lib/python3.12/site-packages/arsia_d09/__init__.py",
+        "assets": [
+          {
+            "path": "templates/dashboard.html",
+            "sha256": "9564a80af0b3448ba3354248133df0bc6ed9f9904c08eceb13ebada9682d1c47",
+            "bytes": 1601,
+            "matches_pinned_source": true
+          },
+          {
+            "path": "static/dashboard.css",
+            "sha256": "f654846b36318ce567c381c2beceb5d554a3d24cd490808ca3ba3230fd9f9339",
+            "bytes": 3596,
+            "matches_pinned_source": true
+          }
+        ]
+      },
+      "installed_file_count": 96,
+      "migrations": [
+        {
+          "path": "sql/migrations/001_meta_registry.sql",
+          "sha256": "b44608c4baee8ce1d4ac6c3912a1a7d671772a1b305a32976b10f7bf00fe1893"
+        },
+        {
+          "path": "sql/migrations/002_raw_record.sql",
+          "sha256": "550c022b204380af2c0b2ffffc48295df3b562fd217f99a62f392d8db15eb059"
+        },
+        {
+          "path": "sql/migrations/003_b08_loader_role.sql",
+          "sha256": "e84a2d122bcb8f5edd6ffeb9974ef48eac3910ae801d5a929286734978f9269d"
+        },
+        {
+          "path": "sql/migrations/004_meta_batch.sql",
+          "sha256": "5c828f4071cab7ea097ee5b001aa6aca8fb567f04889a091a02842cf14fbb801"
+        },
+        {
+          "path": "sql/migrations/005_raw_vault.sql",
+          "sha256": "36fedf6f1c6b128e8006ad2e76815c44099c5557de8140deb04e599d4c4f14f8"
+        },
+        {
+          "path": "sql/migrations/006_canonical.sql",
+          "sha256": "c6b414f581d15183d89d98bebda71f373827a945d9e3eb2d9a60e699054e37dd"
+        },
+        {
+          "path": "sql/migrations/007_warehouse.sql",
+          "sha256": "32add012cc1f2919e0aa07926fea86922999b02dd37bb070e4bb2b6247fc87ee"
+        },
+        {
+          "path": "sql/migrations/008_qa.sql",
+          "sha256": "408c3775b218808fceb40a4119f8e5f20735664e1775671f5876d838b6219e29"
+        },
+        {
+          "path": "sql/migrations/009_database_roles.sql",
+          "sha256": "cd1b8f3c4969111cab71777ea063dfe89e69dc29566dbd779c708e2f889d03d5"
+        },
+        {
+          "path": "sql/migrations/010_business_key.sql",
+          "sha256": "de7a14a6df0c0336c7f40c2178159e0f53a4f702da44cde9a20c53a95443d922"
+        },
+        {
+          "path": "sql/migrations/011_review_validation_fixes.sql",
+          "sha256": "fb4d03819dbb4a37366aa5b3cb59fe4e8bec0d76eae3fcfbc3783ebb13f51de6"
+        }
+      ],
+      "python": "3.12.6 (v3.12.6:a4a2d2b0d85, Sep  6 2024, 16:08:03) [Clang 13.0.0 (clang-1300.0.29.30)]",
+      "packages": {
+        "arsia-native-intake": "0.1.0",
+        "openpyxl": "3.1.5",
+        "psycopg": "3.3.6",
+        "psycopg-binary": "3.3.6",
+        "pytest": "8.4.2"
+      },
+      "database": {
+        "tests": {
+          "tests": 6,
+          "passed": 6,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "modules": {
+            "tests.test_e09_official_postgres": {
+              "tests": 6,
+              "passed": 6,
+              "failures": 0,
+              "errors": 0,
+              "skipped": 0,
+              "test_names": [
+                "test_d09_uses_full_official_batch_and_rejects_invalid_filters",
+                "test_dimensions_and_vic_restrictions",
+                "test_full_input_raw_and_qa_groups",
+                "test_real_reader_queries_and_permissions",
+                "test_retry_after_recovery_is_no_change",
+                "test_source_metrics_match_saved_native_observations"
+              ]
+            }
+          },
+          "failed_test_names": [],
+          "skipped_test_names": []
+        },
+        "summary": {
+          "tests": 6,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "pytest_exit_code": 0,
+          "exit_code": 0,
+          "permissions": "Original A03 audit passed before and after",
+          "final_tables_empty": true,
+          "publication_performed": true,
+          "boundary": "E acceptance, executed by Role B: official",
+          "test_module_results": {
+            "test_e09_official_postgres": {
+              "tests": 6,
+              "scope": "PostgreSQL module"
+            }
+          },
+          "test_count_scope": "Total includes checks without a database and PostgreSQL modules; see test_module_results.",
+          "publication_scope": "Disposable private test database only",
+          "execution_owner": "Role B / Peixian assisting Role E",
+          "independent_member_signoff": false,
+          "final_platform_accepted": false
+        },
+        "final_state": {
+          "rows": {
+            "meta.source": 0,
+            "meta.resource": 0,
+            "meta.batch": 0,
+            "meta.current_release": 0,
+            "raw.record": 0,
+            "rv.hub_crash": 0,
+            "rv.hub_unit": 0,
+            "rv.sat_crash": 0,
+            "rv.sat_unit": 0,
+            "rv.link_crash_unit": 0,
+            "canonical.crash": 0,
+            "canonical.unit": 0,
+            "dw.dim_source": 0,
+            "dw.dim_month": 0,
+            "dw.dim_severity": 0,
+            "dw.fact_crash": 0,
+            "qa.check_result": 0
+          },
+          "all_zero": true
+        },
+        "cleanup": {
+          "container_removed": "arsia-b-ac-61200ac01d80",
+          "persistent_volume_created": false,
+          "anonymous_image_volumes_removed": true
+        },
+        "environment": {
+          "postgresql": [
+            "PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+            "arsia_loader",
+            "arsia_loader",
+            "UTF8",
+            "UTC",
+            "en_US.utf8",
+            "en_US.utf8",
+            false,
+            false,
+            false,
+            false
+          ],
+          "image": "postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67"
+        }
+      },
+      "official_observations": {
+        "batch_id": "bcc5da57-25f2-41ec-9925-bef421b02671",
+        "input_fingerprint": "4d2c419fad4d381574605c18e2ac99b7d162cd6fcd1fb5f97bc6d7834b6396c4",
+        "native_inputs": [
+          {
+            "resource_id": "official_nsw_crash",
+            "path": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/raw_datasource/nsw_crash_2020_2024.xlsx",
+            "sha256": "7345189f017d9c842429674ecf2196cee728de46c0572ce2a85220f9bef49aa9",
+            "bytes": 24466182
+          },
+          {
+            "resource_id": "official_nsw_traffic_unit",
+            "path": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/raw_datasource/nsw_traffic_unit_2020_2024.xlsx",
+            "sha256": "95349666f63952c580edb08973a8ac80be39db98ba289ec8533d61feb6d55f1b",
+            "bytes": 7133819
+          },
+          {
+            "resource_id": "official_vic_accident",
+            "path": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/raw_datasource/vic_accident.csv",
+            "sha256": "a148c00601fab10d44368df80492c594123700a7f9e334ff896fd215295e91d9",
+            "bytes": 34375919
+          },
+          {
+            "resource_id": "official_vic_vehicle",
+            "path": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/raw_datasource/vic_vehicle.csv",
+            "sha256": "05a7a1b9171abaeb5c188df549dee38edde6e76d5a03553988305a8280dccd12",
+            "bytes": 46632440
+          },
+          {
+            "resource_id": "official_vic_person",
+            "path": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/raw_datasource/vic_person.csv",
+            "sha256": "71ca8fec01370e301f282fc83e8f11e4cde16a535ee421cbbb72512ceb7194f9",
+            "bytes": 28803789
+          },
+          {
+            "resource_id": "official_vic_node",
+            "path": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/raw_datasource/vic_node.csv",
+            "sha256": "b0bdbec22ac33df66e15cff9b531ba3203320ec5fbe20076a2820b8fec966ed4",
+            "bytes": 51319968
+          },
+          {
+            "resource_id": "official_qld_crash",
+            "path": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/Workspace_Github/raw_datasource/qld_crash_locations.csv",
+            "sha256": "975be4b02a235d06589de9b486f73bafe22d0f2007f0c07abb84f54cb926c704",
+            "bytes": 213483181
+          }
+        ],
+        "native_expectations": {
+          "expectations_sha256": "71382aecb7969a023f48e52934bcb9873726a49b67807beea9c950184a01c609",
+          "evidence_refs": [
+            {
+              "path": "docs/sources/evidence/official-decisions-2026-09-23/nsw-review.json",
+              "path_base": "project_root",
+              "sha256": "34bfaf62d920499324810698267fe9c2460d5eb7779ceb55c17306b246678ded",
+              "basis": "Independent native Excel scan; local_scan.analysis_totals. 107 late-reported 2019 crashes and 215 units remain outside 2020-2024."
+            },
+            {
+              "path": "docs/sources/evidence/official-native-observations-2026-09-24.json",
+              "path_base": "project_root",
+              "sha256": "9560015957705406d27dbe4225a67f02c345482b8d73e0f764d3fc36deff436b",
+              "basis": "VIC independent_native_totals from the native CSV scan. Previous projection component checks did not run FP1 or publication."
+            },
+            {
+              "path": "config/vic-restricted-use-v1.json",
+              "path_base": "project_root",
+              "sha256": "bc892d07f81f51fc2859cccd9c1302e4b1ade22240bd36f8fe118d95e861ec40",
+              "basis": "Permitted Accident metrics; all projected units remain audit-only and official map outputs are unavailable."
+            },
+            {
+              "path": "docs/sources/evidence/official-decisions-2026-09-23/qld-review.json",
+              "path_base": "project_root",
+              "sha256": "3055484353e405a4c0ff60f4208731652378f91149f9f577b7ed4ace3cf5b43d",
+              "basis": "Independent native CSV scan; local_scan.analysis. No individual unit records exist in this resource."
+            }
+          ],
+          "native_source_year_counts": [
+            {
+              "source_id": "official_nsw",
+              "year": 2020,
+              "crash_count": 18764
+            },
+            {
+              "source_id": "official_nsw",
+              "year": 2021,
+              "crash_count": 17413
+            },
+            {
+              "source_id": "official_nsw",
+              "year": 2022,
+              "crash_count": 18255
+            },
+            {
+              "source_id": "official_nsw",
+              "year": 2023,
+              "crash_count": 18711
+            },
+            {
+              "source_id": "official_nsw",
+              "year": 2024,
+              "crash_count": 18939
+            },
+            {
+              "source_id": "official_qld",
+              "year": 2020,
+              "crash_count": 12147
+            },
+            {
+              "source_id": "official_qld",
+              "year": 2021,
+              "crash_count": 13476
+            },
+            {
+              "source_id": "official_qld",
+              "year": 2022,
+              "crash_count": 13021
+            },
+            {
+              "source_id": "official_qld",
+              "year": 2023,
+              "crash_count": 13622
+            },
+            {
+              "source_id": "official_qld",
+              "year": 2024,
+              "crash_count": 14358
+            },
+            {
+              "source_id": "official_vic",
+              "year": 2020,
+              "crash_count": 12170
+            },
+            {
+              "source_id": "official_vic",
+              "year": 2021,
+              "crash_count": 14013
+            },
+            {
+              "source_id": "official_vic",
+              "year": 2022,
+              "crash_count": 15043
+            },
+            {
+              "source_id": "official_vic",
+              "year": 2023,
+              "crash_count": 15558
+            },
+            {
+              "source_id": "official_vic",
+              "year": 2024,
+              "crash_count": 15386
+            }
+          ],
+          "basis": "Saved native-file metrics and a fresh occurrence-year scan, checked before running the platform; no new human-independent review claimed"
+        },
+        "raw_resources": [
+          {
+            "resource_id": "official_nsw_crash",
+            "sha256": "7345189f017d9c842429674ecf2196cee728de46c0572ce2a85220f9bef49aa9",
+            "parser_version": "xlsx-native-v1",
+            "rows": 92189
+          },
+          {
+            "resource_id": "official_nsw_traffic_unit",
+            "sha256": "95349666f63952c580edb08973a8ac80be39db98ba289ec8533d61feb6d55f1b",
+            "parser_version": "xlsx-native-v1",
+            "rows": 170962
+          },
+          {
+            "resource_id": "official_qld_crash",
+            "sha256": "975be4b02a235d06589de9b486f73bafe22d0f2007f0c07abb84f54cb926c704",
+            "parser_version": "csv-native-v1",
+            "rows": 415407
+          },
+          {
+            "resource_id": "official_vic_accident",
+            "sha256": "a148c00601fab10d44368df80492c594123700a7f9e334ff896fd215295e91d9",
+            "parser_version": "csv-native-v1",
+            "rows": 200352
+          },
+          {
+            "resource_id": "official_vic_node",
+            "sha256": "b0bdbec22ac33df66e15cff9b531ba3203320ec5fbe20076a2820b8fec966ed4",
+            "parser_version": "csv-native-v1",
+            "rows": 405918
+          },
+          {
+            "resource_id": "official_vic_person",
+            "sha256": "71ca8fec01370e301f282fc83e8f11e4cde16a535ee421cbbb72512ceb7194f9",
+            "parser_version": "csv-native-v1",
+            "rows": 467730
+          },
+          {
+            "resource_id": "official_vic_vehicle",
+            "sha256": "05a7a1b9171abaeb5c188df549dee38edde6e76d5a03553988305a8280dccd12",
+            "parser_version": "csv-native-v1",
+            "rows": 365470
+          }
+        ],
+        "raw_total": 2118028,
+        "sources": {
+          "official_nsw": {
+            "crash_count": 92082,
+            "fatal_crash_count": 1388,
+            "fatality_count": 1507,
+            "casualty_count": 78154,
+            "map_count": 0,
+            "unmapped_count": 92082,
+            "canonical_unit_count": 170747,
+            "report_eligible_unit_count": 170747
+          },
+          "official_vic": {
+            "crash_count": 72170,
+            "fatal_crash_count": 1182,
+            "fatality_count": 1265,
+            "casualty_count": 91798,
+            "map_count": 0,
+            "unmapped_count": 72170,
+            "canonical_unit_count": 132372,
+            "report_eligible_unit_count": 0
+          },
+          "official_qld": {
+            "crash_count": 66624,
+            "fatal_crash_count": 1304,
+            "fatality_count": 1424,
+            "casualty_count": 88609,
+            "map_count": 0,
+            "unmapped_count": 66624,
+            "canonical_unit_count": 0,
+            "report_eligible_unit_count": 0
+          }
+        },
+        "qa_object_count": 63,
+        "qa_objects_by_rule": {
+          "QA01_INPUT": 8,
+          "QA02_RAW": 8,
+          "QA03_PROJECTED": 6,
+          "QA04_AUXILIARY": 5,
+          "QA05_SEMANTICS": 4,
+          "QA06_RECONCILIATION": 16,
+          "QA07_LOCATION": 16
+        },
+        "qa_results_by_rule": {
+          "QA01_INPUT": {
+            "pass": 8
+          },
+          "QA02_RAW": {
+            "pass": 8
+          },
+          "QA03_PROJECTED": {
+            "pass": 6
+          },
+          "QA04_AUXILIARY": {
+            "pass": 5
+          },
+          "QA05_SEMANTICS": {
+            "pass": 4
+          },
+          "QA06_RECONCILIATION": {
+            "pass": 16
+          },
+          "QA07_LOCATION": {
+            "limited": 16
+          }
+        },
+        "qa_summaries": {
+          "QA01_INPUT": "pass",
+          "QA02_RAW": "pass",
+          "QA03_PROJECTED": "pass",
+          "QA04_AUXILIARY": "pass",
+          "QA05_SEMANTICS": "pass",
+          "QA06_RECONCILIATION": "pass",
+          "QA07_LOCATION": "limited"
+        },
+        "dimensions_and_restrictions": {
+          "sources": 3,
+          "months": 60,
+          "severity_definitions": 18,
+          "missing_categories": 3,
+          "vic_map_and_unit_limits_retained": true
+        },
+        "reader_timings_seconds": {
+          "official_nsw:trend": 0.07,
+          "official_nsw:severity": 0.279,
+          "official_nsw:map": 0.039,
+          "official_nsw:units": 0.535,
+          "official_vic:trend": 0.034,
+          "official_vic:severity": 0.168,
+          "official_vic:map": 0.03,
+          "official_vic:units": 0.029,
+          "official_qld:trend": 0.053,
+          "official_qld:severity": 0.15,
+          "official_qld:map": 0.031,
+          "official_qld:units": 0.029
+        },
+        "dashboard_report_status": {
+          "official_nsw": {
+            "map": {
+              "status": "unavailable",
+              "reason": "Official maps are disabled by the pinned source policy.",
+              "source_label": "NSW pinned Crash / Traffic Unit snapshot"
+            },
+            "units": {
+              "status": "available",
+              "reason": null,
+              "source_label": "NSW pinned Crash / Traffic Unit snapshot"
+            }
+          },
+          "official_vic": {
+            "map": {
+              "status": "unavailable",
+              "reason": "Official maps are disabled by the pinned source policy.",
+              "source_label": "VIC restricted Accident snapshot"
+            },
+            "units": {
+              "status": "unavailable",
+              "reason": "The VIC restricted profile excludes vehicle and person statistics.",
+              "source_label": "VIC restricted Accident snapshot"
+            }
+          },
+          "official_qld": {
+            "map": {
+              "status": "unavailable",
+              "reason": "Official maps are disabled by the pinned source policy.",
+              "source_label": "QLD pinned crash snapshot"
+            },
+            "units": {
+              "status": "unavailable",
+              "reason": "This QLD resource has no unit-detail records.",
+              "source_label": "QLD pinned crash snapshot"
+            }
+          }
+        },
+        "dashboard_checks": {
+          "default_and_multiple_official_sources_rejected": true,
+          "invalid_year_source_month_rejected": true,
+          "reader_base_tables_denied": true
+        },
+        "costs": {
+          "full_build": {
+            "elapsed_seconds": 1306.537,
+            "wal_bytes": 6699693248,
+            "database_growth_bytes": 3800850432,
+            "before": {
+              "wal_lsn": "0/1A44CF8",
+              "database_bytes": 8739863
+            },
+            "after": {
+              "wal_lsn": "1/90F981B8",
+              "database_bytes": 3809590295
+            },
+            "python_peak_rss_bytes": 3717693440,
+            "rss_scope": "Whole pytest process, not the PostgreSQL server; includes pre-build hashing",
+            "timing_scope": "Full B10 including intake validation, Raw registration, all callbacks, QA and publication",
+            "fault": "One real full build; response lost after the real publication commit",
+            "callback_timings": [
+              {
+                "stage": "project",
+                "elapsed_seconds": 68.198
+              },
+              {
+                "stage": "vault",
+                "elapsed_seconds": 28.519
+              },
+              {
+                "stage": "canonical",
+                "elapsed_seconds": 40.591
+              },
+              {
+                "stage": "dw",
+                "elapsed_seconds": 4.69
+              },
+              {
+                "stage": "qa_c",
+                "elapsed_seconds": 228.36
+              },
+              {
+                "stage": "qa_d",
+                "elapsed_seconds": 12.273
+              },
+              {
+                "stage": "publish",
+                "elapsed_seconds": 5.538
+              }
+            ],
+            "commit_timings": [
+              {
+                "number": 1,
+                "elapsed_seconds": 0.002,
+                "seconds_since_build_start": 710.737
+              },
+              {
+                "number": 2,
+                "elapsed_seconds": 0.597,
+                "seconds_since_build_start": 1306.533
+              }
+            ],
+            "result": {
+              "result": "unknown_commit",
+              "run_id": "0b217051-547f-4267-8a3b-e6fa53670c78",
+              "batch_id": "bcc5da57-25f2-41ec-9925-bef421b02671",
+              "input_fingerprint": "4d2c419fad4d381574605c18e2ac99b7d162cd6fcd1fb5f97bc6d7834b6396c4",
+              "evidence_ref": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/artifacts/role-e-completion-20260928/official-v1/postgres/ac-evidence/e09-official/builds/official/runs/0b217051-547f-4267-8a3b-e6fa53670c78"
+            }
+          },
+          "recovery": {
+            "elapsed_seconds": 0.053,
+            "wal_bytes": 0,
+            "before": {
+              "wal_lsn": "1/90F98378",
+              "database_bytes": 3809590295
+            },
+            "after": {
+              "wal_lsn": "1/90F98378",
+              "database_bytes": 3809590295
+            },
+            "scope": "Resolve committed full-snapshot state; no rebuild and no release-pointer change",
+            "result": {
+              "resolution": "succeeded",
+              "run_id": "0b217051-547f-4267-8a3b-e6fa53670c78",
+              "batch_id": "bcc5da57-25f2-41ec-9925-bef421b02671",
+              "current_batch_id": "bcc5da57-25f2-41ec-9925-bef421b02671",
+              "input_fingerprint": "4d2c419fad4d381574605c18e2ac99b7d162cd6fcd1fb5f97bc6d7834b6396c4",
+              "observed_batch_status": "succeeded",
+              "evidence_ref": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/artifacts/role-e-completion-20260928/official-v1/postgres/ac-evidence/e09-official/recovery/official/recoveries/480e4d87-b114-4cce-8a8c-c062f75cf5a4"
+            }
+          },
+          "no_change": {
+            "elapsed_seconds": 60.122,
+            "wal_bytes": 5544752,
+            "before": {
+              "wal_lsn": "1/90F984D0",
+              "database_bytes": 3809590295
+            },
+            "after": {
+              "wal_lsn": "1/914E2000",
+              "database_bytes": 3809688599
+            },
+            "batch_rows_unchanged": true,
+            "result": {
+              "result": "no_change",
+              "run_id": "c156cd15-753b-4a15-9b2b-7c5237e8ed9f",
+              "batch_id": "bcc5da57-25f2-41ec-9925-bef421b02671",
+              "previous_batch_id": "bcc5da57-25f2-41ec-9925-bef421b02671",
+              "input_fingerprint": "4d2c419fad4d381574605c18e2ac99b7d162cd6fcd1fb5f97bc6d7834b6396c4",
+              "evidence_ref": "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/artifacts/role-e-completion-20260928/official-v1/postgres/ac-evidence/e09-official/builds/official/runs/c156cd15-753b-4a15-9b2b-7c5237e8ed9f"
+            }
+          }
+        },
+        "scope": "Full pinned files; per-source/year crash counts, source metric totals and exact QA coverage. This does not independently verify every official severity category or known-count field.",
+        "publication_scope": "Disposable private test database only; no shared/public release"
+      },
+      "evidence_files": [
+        {
+          "path": "receipt.json",
+          "sha256": "a3f9c329fd8f8b08612c95574ecbe5b9d57091f8953626a084bd1a75d07ef711",
+          "bytes": 8667
+        },
+        {
+          "path": "postgres/summary.json",
+          "sha256": "22e7281dc7108521b67f26b81ca14f61bc4fea6b4dbec7bb895ee59d78e5205c",
+          "bytes": 733
+        },
+        {
+          "path": "postgres/cleanup.json",
+          "sha256": "6f8570dabbf4154877d01076208e3fae3d57a3d7326631565bc7e34b7e436edd",
+          "bytes": 134
+        },
+        {
+          "path": "postgres/final-state.json",
+          "sha256": "dbc4b9c36a78e26384cbe23a4d657bae8af990f1ab2bbf3300c91aedc6becd18",
+          "bytes": 451
+        },
+        {
+          "path": "postgres/pytest.xml",
+          "sha256": "11fbd4ea788522f4fce53ae564dd0ce06db1175859e593248a58da6b60b9cb14",
+          "bytes": 994
+        },
+        {
+          "path": "postgres/a03-before.log",
+          "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4",
+          "bytes": 405
+        },
+        {
+          "path": "postgres/a03-after.log",
+          "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4",
+          "bytes": 405
+        },
+        {
+          "path": "postgres/environment.json",
+          "sha256": "a0c3132d813f8f18e3d68d3f024c228b53d3c1be37382574e8c95b31b32fa0c4",
+          "bytes": 401
+        },
+        {
+          "path": "postgres/inputs.json",
+          "sha256": "af5a3ad88fe1c2e13c3ef6fc4401bfb4bb154cb7bea8229d4029c12b751dceb4",
+          "bytes": 100371
+        },
+        {
+          "path": "installed-d09-assets.json",
+          "sha256": "c3fd4f6f363d70ef844ee580e1d2862dfafbf64269ee4708d3af573806950cb1",
+          "bytes": 608
+        },
+        {
+          "path": "postgres/ac-evidence/e09-official/full-build.json",
+          "sha256": "c8eef8735a876f060d6600e85b3e308a68abb0164d39ff6e8c2077d7831f7d3c",
+          "bytes": 2081
+        },
+        {
+          "path": "postgres/ac-evidence/e09-official/recovery-cost.json",
+          "sha256": "7fb3bc2e3b732d7677ee08c4e42b1d98b8bb652702a10e5c3c477540e22920b7",
+          "bytes": 994
+        },
+        {
+          "path": "postgres/ac-evidence/e09-official/no-change.json",
+          "sha256": "ec64ee51f736fd9411be0d4a345b9eb3db738f3c0678bc8f463202a674f23fe3",
+          "bytes": 1611
+        },
+        {
+          "path": "postgres/ac-evidence/e09-official/expected-provenance.json",
+          "sha256": "96791325753e06e52905ec8cc7f244df0f20c466e58f3b90df4202a26a175e88",
+          "bytes": 5251
+        },
+        {
+          "path": "postgres/ac-evidence/e09-official/source-metrics.json",
+          "sha256": "3cf92cfa9c7fdf85fb89d9e13ee4420396d9b19f05e0b10b0c2ff30988a12492",
+          "bytes": 8109
+        },
+        {
+          "path": "postgres/ac-evidence/e09-official/raw-qa.json",
+          "sha256": "0afeac71c3c01537d6c7533a4372776c2ecec073f3365f095c56d4d66cbc27d9",
+          "bytes": 75778
+        },
+        {
+          "path": "postgres/ac-evidence/e09-official/dimensions-restrictions.json",
+          "sha256": "c28abcd4b5a5af23bc30d1d158b6bf5b5e167808b73156de25ff5656f87c0f46",
+          "bytes": 136
+        },
+        {
+          "path": "postgres/ac-evidence/e09-official/dashboard.json",
+          "sha256": "f4088c513cce23e026c517dc90169d2db86eced516dfac8a906d59a421112be2",
+          "bytes": 10113
+        },
+        {
+          "path": "postgres/ac-evidence/e09-official/reader-timings.json",
+          "sha256": "9304f7541b928d57043fe2d9a8b004b0c1498232ab648b64f33bb9125ae61cf2",
+          "bytes": 375
+        },
+        {
+          "path": "postgres/ac-evidence/e09-official/intake.json",
+          "sha256": "82d534b1079aa092a309b0aec6bc9fdda11afcb707e51801a3f0f04f1ad5345a",
+          "bytes": 10392
+        },
+        {
+          "path": "postgres/ac-evidence/e09-official/reader-results.json",
+          "sha256": "fed5e2ea8736ce5db17fbdf1227cc4e6cafed2ec8fa3937956c218542e134e8d",
+          "bytes": 175283
+        },
+        {
+          "path": "postgres/ac-evidence/e09-official/manifest.json",
+          "sha256": "b882bd6f55fb9ff8d800e0810ee44ced726dda2715b49a924465ceecc33dc6df",
+          "bytes": 245611
+        }
+      ]
+    }
+  }
+}
