@@ -42,8 +42,13 @@ adds no JSON API or authentication layer and sends `Cache-Control: no-store`.
 
 Deploy D05-D08 SQL and then `src/arsia_d09/sql/d09_context.sql` as
 `arsia_migrator`. D09's helper function exposes fixed-batch source/release
-labels to `arsia_reader` without granting that role access to internal
+labels and manifest year bounds to `arsia_reader` without granting that role access to internal
 schemas.
+
+For d09-0.1.1, redeploy this SQL before restarting the page. The new
+`published.d09_batch_years(text, uuid)` function checks the pinned batch,
+not the current pointer. Page years must stay inside that batch's analysis
+range. D05 can still query uncovered years directly.
 
 ## Implemented validation
 
@@ -85,3 +90,11 @@ result receipts and cleanup receipt are in
 synthetic publications inside the disposable test database; no public or shared
 release was created. E07's independent platform acceptance remains a separate
 team task and does not change D09's completed implementation acceptance.
+
+## PR #43 review fixes
+
+The d09-0.1.1 follow-up adds readable HTTP errors, pinned year limits and
+known-count columns. It also fixes default test collection without psycopg
+and keeps the dashboard separate from required build callbacks.
+See [the follow-up tests and deployment notes](d09-review-fixes.md).
+The earlier evidence above records the original D09 version.

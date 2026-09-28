@@ -14,7 +14,7 @@ from arsia_d08 import UnitRequest, query_units
 from arsia_ingest.models import IntakeError
 
 
-DASHBOARD_VERSION = "d09-0.1.0"
+DASHBOARD_VERSION = "d09-0.1.1"
 _RELEASE_SQL = """
 SELECT dataset_kind, batch_id, switched_at
 FROM published.current_release
@@ -22,6 +22,9 @@ WHERE dataset_kind = %s::text
 """
 _SOURCE_SQL = """
 SELECT * FROM published.d09_batch_sources(%s::text, %s::uuid)
+"""
+_YEARS_SQL = """
+SELECT * FROM published.d09_batch_years(%s::text, %s::uuid)
 """
 _SOURCE_COLUMNS = (
     "dataset_kind",
@@ -127,12 +130,25 @@ def query_dashboard(
         raise IntakeError(
             "D09_RELEASE_MODE", "pinned release belongs to another dataset kind"
         )
+    with connection.cursor() as cursor:
+        cursor.execute(_YEARS_SQL, (release.dataset_kind, str(release.batch_id)))
+        rows = cursor.fetchall()
+    if len(rows) != 1 or len(rows[0]) != 2:
+        raise IntakeError("D09_YEAR_SHAPE", "D09 year context has an invalid shape")
+    lower, upper = rows[0]
+    year_from = lower if filters.year_from is None else filters.year_from
+    year_to = upper if filters.year_to is None else filters.year_to
+    if not lower <= year_from <= year_to <= upper:
+        raise IntakeError(
+            "D09_YEAR_RANGE",
+            f"years must stay within the pinned batch's range: {lower}-{upper}",
+        )
     shared = {
         "dataset_kind": filters.dataset_kind,
         "batch_id": release.batch_id,
         "source_ids": filters.source_ids,
-        "year_from": filters.year_from,
-        "year_to": filters.year_to,
+        "year_from": year_from,
+        "year_to": year_to,
         "months": filters.months,
     }
     sources = _sources(connection, release)

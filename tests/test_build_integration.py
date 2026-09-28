@@ -18,7 +18,11 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def test_inventory_covers_installed_runtime_and_real_bindings():
     inventory = build_inventory(ROOT)
-    assert set(inventory['components']) == set(COMPONENTS)
+    assert set(inventory['components']) == set(COMPONENTS) | {'dashboard'}
+    dashboard = {str(p.relative_to(ROOT)) for p in (ROOT / 'src/arsia_d09').rglob('*')
+                 if p.suffix in {'.py', '.sql', '.json'}}
+    assert dashboard <= set(inventory['components']['dashboard'])
+    assert 'dashboard' not in COMPONENTS
     paths = {p for group in inventory['components'].values() for p in group}
     runtime = {str(p.relative_to(ROOT)) for p in (ROOT / 'src').rglob('*')
                if p.suffix in {'.py', '.sql', '.json'}}
