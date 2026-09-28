@@ -1,0 +1,805 @@
+{
+  "status": "passed",
+  "recorded_at": "2026-09-28T14:14:30.212014+00:00",
+  "tested_implementation_commit": "f9d22c698e2a47559923179da3c76fd7d53b13a6",
+  "executor": "Peixian (B-assisted automated validation)",
+  "independent_member_signoff": false,
+  "final_platform_accepted": false,
+  "host": {
+    "os": "macOS-27.0-arm64-arm-64bit",
+    "architecture": "arm64",
+    "docker": "28.5.2",
+    "compose": "2.40.3-desktop.1"
+  },
+  "sources": {
+    "base_runtime_commit": "ade3d4cf9ac32f1740b6e40124f72f469d6cf630",
+    "a_environment_commit": "8f91a6b41dc0777d5873d2151f71e9f1cbe05501",
+    "a_schema_commit": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
+    "e_acceptance_commit": "eba079a59ab7eb41835ee044c12e45dbdca03e9b",
+    "prior_e_tested_runtime_commit": "1765269507d7cf0b9cb76eef7b9ccf97de7f1cc5"
+  },
+  "baseline_check": {
+    "peixian/dev": "ade3d4cf9ac32f1740b6e40124f72f469d6cf630",
+    "e/aditya-e01-e06": "eba079a59ab7eb41835ee044c12e45dbdca03e9b",
+    "jj/a09-cold-start-guide": "8f91a6b41dc0777d5873d2151f71e9f1cbe05501",
+    "similar_open_pr_found": false
+  },
+  "pins": {
+    "python": "python:3.12.6-slim-bookworm@sha256:ad48727987b259854d52241fac3bc633574364867b8e20aec305e6e7f4028b26",
+    "postgres": "postgres:16-bookworm@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67",
+    "dependencies": {
+      "path": "docker/team/requirements.lock",
+      "sha256": "a6fc17f758e851d931ad23e07845ef5e3b6a3df5d22de58b84a302bf07fe79bd",
+      "bytes": 6834
+    },
+    "upstream_sources": {
+      "path": "docker/team/sources.json",
+      "sha256": "2f6e99b5acc54950db454cd53e39207dbbd654d47e8f325aa116d4a178c4e79a",
+      "bytes": 8989
+    }
+  },
+  "platform_runs": {
+    "arm64": {
+      "mode": "native ARM64 on macOS Docker Desktop",
+      "runtime": {
+        "declared_revision": "f9d22c698e2a47559923179da3c76fd7d53b13a6",
+        "python": "3.12.6",
+        "container_architecture": "aarch64",
+        "platform": "Linux-6.12.54-linuxkit-aarch64-with-glibc2.36",
+        "image_inputs_sha256": "fb468407891e28d6cf18be802a919f06e69eb3503ac0339c1a6b80cd927e05d2",
+        "wheel_sha256": "582744c973b7976ea1c755e6f4211291ffd568f20bb8aaff094e59fd895d4e74",
+        "packages": {
+          "arsia-native-intake": "0.1.0",
+          "psycopg": "3.3.6",
+          "psycopg-binary": "3.3.6",
+          "openpyxl": "3.1.5",
+          "pytest": "8.4.2"
+        }
+      },
+      "app_image": {
+        "Id": "sha256:67cbab1d68de7982d3ddf785cd953bddb7872a313b8705866adde610f7151d7c",
+        "Architecture": "arm64",
+        "Os": "linux"
+      },
+      "database_machine": "aarch64",
+      "database_environment": {
+        "server_version_num": 160015,
+        "encoding": "UTF8",
+        "timezone": "UTC",
+        "database": "arsia",
+        "user": "arsia_owner"
+      },
+      "migration_count": 11,
+      "schema_and_a03": {
+        "status": "passed",
+        "tables": 17,
+        "columns": 129,
+        "constraint_counts": {
+          "check": 46,
+          "foreign_key": 30,
+          "primary_key": 17,
+          "unique": 6
+        },
+        "roles": {
+          "loader": {
+            "server_version_num": 160015,
+            "encoding": "UTF8",
+            "timezone": "UTC",
+            "database": "arsia",
+            "user": "arsia_loader"
+          },
+          "reader": {
+            "server_version_num": 160015,
+            "encoding": "UTF8",
+            "timezone": "UTC",
+            "database": "arsia",
+            "user": "arsia_reader"
+          }
+        },
+        "original_a03": "passed on empty database; all test changes rolled back",
+        "a03_sha256": "403fbfcbaaf6b6a755121e18e50c9cae007acada97eb22cee2d7254f360bc03a"
+      },
+      "installation": {
+        "status": "passed",
+        "locked_files": 33,
+        "inventory_files": 122,
+        "sources_sha256": "2f6e99b5acc54950db454cd53e39207dbbd654d47e8f325aa116d4a178c4e79a"
+      },
+      "installed_files_checked": 98,
+      "inventory_hashes": {
+        "build_inventory_sha256": "f526da5ca18174893ece862d9d836753301e05ac7c0d5628d2d038baaf29eb02",
+        "dashboard_inventory_sha256": "6da62ede00f39c4e803024b880dba4c0d3af38eb8e729d94246ecb339e27e321"
+      },
+      "s0": {
+        "result": "succeeded",
+        "raw_rows": 19,
+        "metrics": {
+          "crash_count": 6,
+          "fatal_crash_count": 2,
+          "fatality_count": 3,
+          "casualty_count": 7,
+          "unit_count": 6,
+          "map_points": 4,
+          "map_crashes": 6,
+          "qa_rows": 63,
+          "canonical_units": 6
+        },
+        "qa_summary": [
+          {
+            "rule_id": "QA01_INPUT",
+            "result": "pass",
+            "affected_count": 0
+          },
+          {
+            "rule_id": "QA02_RAW",
+            "result": "pass",
+            "affected_count": 0
+          },
+          {
+            "rule_id": "QA03_PROJECTED",
+            "result": "pass",
+            "affected_count": 0
+          },
+          {
+            "rule_id": "QA04_AUXILIARY",
+            "result": "pass",
+            "affected_count": 0
+          },
+          {
+            "rule_id": "QA05_SEMANTICS",
+            "result": "pass",
+            "affected_count": 0
+          },
+          {
+            "rule_id": "QA06_RECONCILIATION",
+            "result": "pass",
+            "affected_count": 0
+          },
+          {
+            "rule_id": "QA07_LOCATION",
+            "result": "limited",
+            "affected_count": 2
+          }
+        ],
+        "repeat_result": "no_change"
+      },
+      "acceptance": {
+        "totals": {
+          "tests": 501,
+          "passed": 501,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "suites": {
+          "e-synthetic": {
+            "tests": 290,
+            "passed": 290,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "b-recovery": {
+            "tests": 165,
+            "passed": 165,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "ui-build": {
+            "tests": 8,
+            "passed": 8,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "runner-guards": {
+            "tests": 38,
+            "passed": 38,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          }
+        },
+        "a03_after": "passed",
+        "tables_after": {
+          "canonical.crash": 0,
+          "canonical.unit": 0,
+          "dw.dim_month": 0,
+          "dw.dim_severity": 0,
+          "dw.dim_source": 0,
+          "dw.fact_crash": 0,
+          "meta.batch": 0,
+          "meta.current_release": 0,
+          "meta.resource": 0,
+          "meta.source": 0,
+          "qa.check_result": 0,
+          "raw.record": 0,
+          "rv.hub_crash": 0,
+          "rv.hub_unit": 0,
+          "rv.link_crash_unit": 0,
+          "rv.sat_crash": 0,
+          "rv.sat_unit": 0
+        },
+        "advisory_locks_after": 0
+      },
+      "lifecycle": {
+        "repeated_init_preserved_data": true,
+        "http": [
+          {
+            "query": "",
+            "status": 200,
+            "body_sha256": "38401384fa6e22e0cb11ce0a36c71ff756339c4c96df1310a6b6cde7216e93e7"
+          },
+          {
+            "query": "?mode=bad",
+            "status": 400,
+            "body_sha256": "c78e6905f01ea42450bc18f4168dcfba1e4364485e8289417811d8c9d804a5e4"
+          },
+          {
+            "query": "?sources=missing",
+            "status": 400,
+            "body_sha256": "634b0f7522c8aa69dac648c13627ffe5054dc6bfbf472cf2886b18848a16493b"
+          },
+          {
+            "query": "?year_from=2019",
+            "status": 400,
+            "body_sha256": "e0524ac0088b64f354a6041d18339e61226b4685544565a13a4bf97b0fa1379a"
+          },
+          {
+            "query": "?months=13",
+            "status": 400,
+            "body_sha256": "b0223f924586381addc57c436ec69f7022f6b3530e77821231591cb07a77f6e5"
+          }
+        ],
+        "stop_start": {
+          "all_17_table_rows_and_hashes_unchanged": true
+        },
+        "restart": {
+          "all_17_table_rows_and_hashes_unchanged": true
+        },
+        "recreate_db_container": {
+          "all_17_table_rows_and_hashes_unchanged": true
+        },
+        "daily_acceptance_refused_without_changes": true,
+        "acceptance_cleanup": {
+          "containers_remaining": [],
+          "volumes_remaining": [],
+          "daily_all_17_table_rows_and_hashes_unchanged": true
+        }
+      },
+      "evidence": [
+        {
+          "path": "artifacts/team/final-arm64/init/receipt.json",
+          "sha256": "cca0a3090a91f1f406f95d84b4e2f2a1c898ccd4a42b0d86b2053338c1a6738e",
+          "bytes": 21031
+        },
+        {
+          "path": "artifacts/team/final-arm64/s0/receipt.json",
+          "sha256": "5479e166b35d6280b4a58167b4b6b0a738a50294cff6a8b741c32903131c1398",
+          "bytes": 157524
+        },
+        {
+          "path": "artifacts/team/final-arm64/no-change/receipt.json",
+          "sha256": "745b190ed1cc72b74eac23e43d9936aad0fefa2416360b636c31b5d0d1318851",
+          "bytes": 157565
+        },
+        {
+          "path": "artifacts/team/final-arm64/acceptance/receipt.json",
+          "sha256": "8aa756105ce5ffd7eb97d95eab712aa05a072d7281e07d09a48a7a3219f737a8",
+          "bytes": 5344354
+        },
+        {
+          "path": "artifacts/team/final-arm64/lifecycle.json",
+          "sha256": "26347fd1fb02a9a80da476ed6e1f9ca477342d40b678f2e5c03469e5ac1c9922",
+          "bytes": 29273
+        },
+        {
+          "path": "artifacts/team/final-arm64/services.log",
+          "sha256": "ff953c32394a5f32089d9361836383b3307077af3bd7cdb81ad965c037cef473",
+          "bytes": 973
+        }
+      ]
+    },
+    "amd64": {
+      "mode": "AMD64 emulation on ARM64 macOS Docker Desktop",
+      "runtime": {
+        "declared_revision": "f9d22c698e2a47559923179da3c76fd7d53b13a6",
+        "python": "3.12.6",
+        "container_architecture": "x86_64",
+        "platform": "Linux-6.12.54-linuxkit-x86_64-with-glibc2.36",
+        "image_inputs_sha256": "fb468407891e28d6cf18be802a919f06e69eb3503ac0339c1a6b80cd927e05d2",
+        "wheel_sha256": "41cb3d74319aca56f619d1d5c04e2fe702264a87f5b3ce39e4ed33ed201f821e",
+        "packages": {
+          "arsia-native-intake": "0.1.0",
+          "psycopg": "3.3.6",
+          "psycopg-binary": "3.3.6",
+          "openpyxl": "3.1.5",
+          "pytest": "8.4.2"
+        }
+      },
+      "app_image": {
+        "Id": "sha256:edd2b085a83b7721eb37b1b1473eb9c250a9424f77eac28a30969986c56c36d8",
+        "Architecture": "amd64",
+        "Os": "linux"
+      },
+      "database_machine": "x86_64",
+      "database_environment": {
+        "server_version_num": 160015,
+        "encoding": "UTF8",
+        "timezone": "UTC",
+        "database": "arsia",
+        "user": "arsia_owner"
+      },
+      "migration_count": 11,
+      "schema_and_a03": {
+        "status": "passed",
+        "tables": 17,
+        "columns": 129,
+        "constraint_counts": {
+          "check": 46,
+          "foreign_key": 30,
+          "primary_key": 17,
+          "unique": 6
+        },
+        "roles": {
+          "loader": {
+            "server_version_num": 160015,
+            "encoding": "UTF8",
+            "timezone": "UTC",
+            "database": "arsia",
+            "user": "arsia_loader"
+          },
+          "reader": {
+            "server_version_num": 160015,
+            "encoding": "UTF8",
+            "timezone": "UTC",
+            "database": "arsia",
+            "user": "arsia_reader"
+          }
+        },
+        "original_a03": "passed on empty database; all test changes rolled back",
+        "a03_sha256": "403fbfcbaaf6b6a755121e18e50c9cae007acada97eb22cee2d7254f360bc03a"
+      },
+      "installation": {
+        "status": "passed",
+        "locked_files": 33,
+        "inventory_files": 122,
+        "sources_sha256": "2f6e99b5acc54950db454cd53e39207dbbd654d47e8f325aa116d4a178c4e79a"
+      },
+      "installed_files_checked": 98,
+      "inventory_hashes": {
+        "build_inventory_sha256": "f526da5ca18174893ece862d9d836753301e05ac7c0d5628d2d038baaf29eb02",
+        "dashboard_inventory_sha256": "6da62ede00f39c4e803024b880dba4c0d3af38eb8e729d94246ecb339e27e321"
+      },
+      "s0": {
+        "result": "succeeded",
+        "raw_rows": 19,
+        "metrics": {
+          "crash_count": 6,
+          "fatal_crash_count": 2,
+          "fatality_count": 3,
+          "casualty_count": 7,
+          "unit_count": 6,
+          "map_points": 4,
+          "map_crashes": 6,
+          "qa_rows": 63,
+          "canonical_units": 6
+        },
+        "qa_summary": [
+          {
+            "rule_id": "QA01_INPUT",
+            "result": "pass",
+            "affected_count": 0
+          },
+          {
+            "rule_id": "QA02_RAW",
+            "result": "pass",
+            "affected_count": 0
+          },
+          {
+            "rule_id": "QA03_PROJECTED",
+            "result": "pass",
+            "affected_count": 0
+          },
+          {
+            "rule_id": "QA04_AUXILIARY",
+            "result": "pass",
+            "affected_count": 0
+          },
+          {
+            "rule_id": "QA05_SEMANTICS",
+            "result": "pass",
+            "affected_count": 0
+          },
+          {
+            "rule_id": "QA06_RECONCILIATION",
+            "result": "pass",
+            "affected_count": 0
+          },
+          {
+            "rule_id": "QA07_LOCATION",
+            "result": "limited",
+            "affected_count": 2
+          }
+        ],
+        "repeat_result": "no_change"
+      },
+      "acceptance": {
+        "totals": {
+          "tests": 501,
+          "passed": 501,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "suites": {
+          "e-synthetic": {
+            "tests": 290,
+            "passed": 290,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "b-recovery": {
+            "tests": 165,
+            "passed": 165,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "ui-build": {
+            "tests": 8,
+            "passed": 8,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "runner-guards": {
+            "tests": 38,
+            "passed": 38,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          }
+        },
+        "a03_after": "passed",
+        "tables_after": {
+          "canonical.crash": 0,
+          "canonical.unit": 0,
+          "dw.dim_month": 0,
+          "dw.dim_severity": 0,
+          "dw.dim_source": 0,
+          "dw.fact_crash": 0,
+          "meta.batch": 0,
+          "meta.current_release": 0,
+          "meta.resource": 0,
+          "meta.source": 0,
+          "qa.check_result": 0,
+          "raw.record": 0,
+          "rv.hub_crash": 0,
+          "rv.hub_unit": 0,
+          "rv.link_crash_unit": 0,
+          "rv.sat_crash": 0,
+          "rv.sat_unit": 0
+        },
+        "advisory_locks_after": 0
+      },
+      "lifecycle": {
+        "repeated_init_preserved_data": true,
+        "http": [
+          {
+            "query": "",
+            "status": 200,
+            "body_sha256": "ba8ba4f8c4f3c5d60a91fed605102823b3f82af70d13fecfffdb5830a2a2903f"
+          },
+          {
+            "query": "?mode=bad",
+            "status": 400,
+            "body_sha256": "c78e6905f01ea42450bc18f4168dcfba1e4364485e8289417811d8c9d804a5e4"
+          },
+          {
+            "query": "?sources=missing",
+            "status": 400,
+            "body_sha256": "634b0f7522c8aa69dac648c13627ffe5054dc6bfbf472cf2886b18848a16493b"
+          },
+          {
+            "query": "?year_from=2019",
+            "status": 400,
+            "body_sha256": "e0524ac0088b64f354a6041d18339e61226b4685544565a13a4bf97b0fa1379a"
+          },
+          {
+            "query": "?months=13",
+            "status": 400,
+            "body_sha256": "b0223f924586381addc57c436ec69f7022f6b3530e77821231591cb07a77f6e5"
+          }
+        ],
+        "stop_start": {
+          "all_17_table_rows_and_hashes_unchanged": true
+        },
+        "restart": {
+          "all_17_table_rows_and_hashes_unchanged": true
+        },
+        "recreate_db_container": {
+          "all_17_table_rows_and_hashes_unchanged": true
+        },
+        "daily_acceptance_refused_without_changes": true,
+        "acceptance_cleanup": {
+          "containers_remaining": [],
+          "volumes_remaining": [],
+          "daily_all_17_table_rows_and_hashes_unchanged": true
+        }
+      },
+      "evidence": [
+        {
+          "path": "artifacts/team/final-amd64/init/receipt.json",
+          "sha256": "2fec8c673533fa7d81c3047d0efaa24005a0c0e5e4702ba001aadae8b132aef0",
+          "bytes": 21029
+        },
+        {
+          "path": "artifacts/team/final-amd64/s0/receipt.json",
+          "sha256": "4c2cbbc183dfea7f11b530917d10eb1f0a51882c302c763be3e0f3b8a11e4c0e",
+          "bytes": 157522
+        },
+        {
+          "path": "artifacts/team/final-amd64/no-change/receipt.json",
+          "sha256": "0f38469017e43b602a77713468fb094a607e04a9ee865b0ed32e960dc60c71a6",
+          "bytes": 157563
+        },
+        {
+          "path": "artifacts/team/final-amd64/acceptance/receipt.json",
+          "sha256": "519e8f7b5e5b71c6fa4eb51ec72eef19cdb05650796004757460c16d643dde1c",
+          "bytes": 5344352
+        },
+        {
+          "path": "artifacts/team/final-amd64/lifecycle.json",
+          "sha256": "338d530eb9dd0e7669f08546d572a972dff617b121dd1c9b5b12f3b7572d9d5a",
+          "bytes": 30859
+        },
+        {
+          "path": "artifacts/team/final-amd64/services.log",
+          "sha256": "d7bf431d35fcc8fe55e7418c0e0627cb098a7503a91388969360f3463c142eb1",
+          "bytes": 904
+        }
+      ]
+    }
+  },
+  "default_regression": {
+    "mode": "native ARM64 installed wheel; optional DSNs and official fixtures absent",
+    "totals": {
+      "tests": 1474,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 402,
+      "passed": 1072
+    },
+    "warning": "Read-only image prevented the optional pytest cache; test results were unaffected.",
+    "command": "docker compose --env-file .env.final-arm64 run --rm --no-deps --entrypoint python app -m pytest -q /opt/arsia/project/tests -o pythonpath= --junitxml=/evidence/final-arm64/default.xml",
+    "evidence": [
+      {
+        "path": "artifacts/team/final-arm64/default.xml",
+        "sha256": "0d02fc89a410c76b29c2b57d3c20d33f25915b33c9a6a3a81bc9d33d6bd2aced",
+        "bytes": 288958
+      },
+      {
+        "path": "artifacts/team/final-arm64/default.log",
+        "sha256": "3dc962a8d3d76699da2103d4aea61518712f65e263b87a93f19a9685eaff45e2",
+        "bytes": 32305
+      }
+    ]
+  },
+  "official_scope": {
+    "file_check": {
+      "status": "passed",
+      "files": [
+        {
+          "resource_id": "official_nsw_crash",
+          "filename": "nsw_crash_2020_2024.xlsx",
+          "sha256": "7345189f017d9c842429674ecf2196cee728de46c0572ce2a85220f9bef49aa9",
+          "bytes": 24466182
+        },
+        {
+          "resource_id": "official_nsw_traffic_unit",
+          "filename": "nsw_traffic_unit_2020_2024.xlsx",
+          "sha256": "95349666f63952c580edb08973a8ac80be39db98ba289ec8533d61feb6d55f1b",
+          "bytes": 7133819
+        },
+        {
+          "resource_id": "official_vic_accident",
+          "filename": "vic_accident.csv",
+          "sha256": "a148c00601fab10d44368df80492c594123700a7f9e334ff896fd215295e91d9",
+          "bytes": 34375919
+        },
+        {
+          "resource_id": "official_vic_vehicle",
+          "filename": "vic_vehicle.csv",
+          "sha256": "05a7a1b9171abaeb5c188df549dee38edde6e76d5a03553988305a8280dccd12",
+          "bytes": 46632440
+        },
+        {
+          "resource_id": "official_vic_person",
+          "filename": "vic_person.csv",
+          "sha256": "71ca8fec01370e301f282fc83e8f11e4cde16a535ee421cbbb72512ceb7194f9",
+          "bytes": 28803789
+        },
+        {
+          "resource_id": "official_vic_node",
+          "filename": "vic_node.csv",
+          "sha256": "b0bdbec22ac33df66e15cff9b531ba3203320ec5fbe20076a2820b8fec966ed4",
+          "bytes": 51319968
+        },
+        {
+          "resource_id": "official_qld_crash",
+          "filename": "qld_crash_locations.csv",
+          "sha256": "975be4b02a235d06589de9b486f73bafe22d0f2007f0c07abb84f54cb926c704",
+          "bytes": 213483181
+        }
+      ],
+      "scope": "Pinned file identities only; no build performed"
+    },
+    "full_docker_replay": "NOT_RUN",
+    "reason": "This change packages the existing integration. Business code, migrations and inventory files are unchanged. This run checks the seven input hashes and the full synthetic database path; it does not reuse the older E full-data receipt as a Docker result.",
+    "evidence": {
+      "path": "artifacts/team/final-arm64/official-check/receipt.json",
+      "sha256": "1cef59351c8f98d43dfb365008b9530e29c6b30026e0ea63f3c47159ffd10d78",
+      "bytes": 16721
+    }
+  },
+  "mount_boundaries": {
+    "official_mount_read_only": true,
+    "docker_socket_present": false,
+    "private_env_present": false,
+    "git_directory_present": false,
+    "raw_directory_present": false
+  },
+  "cleanup": [
+    {
+      "project": "arsia-team-final-arm64-20260929",
+      "command": [
+        "docker",
+        "compose",
+        "--env-file",
+        ".env.final-arm64",
+        "--profile",
+        "web",
+        "--profile",
+        "tools",
+        "down",
+        "--volumes",
+        "--remove-orphans"
+      ],
+      "remaining": {
+        "arsia-team-final-arm64-20260929": {
+          "containers": [],
+          "volumes": []
+        },
+        "arsia-team-final-arm64-20260929-acceptance": {
+          "containers": [],
+          "volumes": []
+        }
+      },
+      "host_evidence_retained": true
+    },
+    {
+      "project": "arsia-team-final-amd64-20260929",
+      "command": [
+        "docker",
+        "compose",
+        "--env-file",
+        ".env.final-amd64",
+        "-f",
+        "compose.yaml",
+        "-f",
+        "artifacts/team/amd64.yaml",
+        "--profile",
+        "web",
+        "--profile",
+        "tools",
+        "down",
+        "--volumes",
+        "--remove-orphans"
+      ],
+      "remaining": {
+        "arsia-team-final-amd64-20260929": {
+          "containers": [],
+          "volumes": []
+        },
+        "arsia-team-final-amd64-20260929-acceptance": {
+          "containers": [],
+          "volumes": []
+        }
+      },
+      "host_evidence_retained": true
+    },
+    {
+      "project": "arsia-team-review-20260928",
+      "command": [
+        "docker",
+        "compose",
+        "--env-file",
+        ".env",
+        "--profile",
+        "web",
+        "--profile",
+        "tools",
+        "down",
+        "--volumes",
+        "--remove-orphans"
+      ],
+      "remaining": {
+        "arsia-team-review-20260928": {
+          "containers": [],
+          "volumes": []
+        },
+        "arsia-team-review-20260928-acceptance": {
+          "containers": [],
+          "volumes": []
+        }
+      },
+      "host_evidence_retained": true
+    }
+  ],
+  "reproduction": {
+    "guide": "docs/team-docker.md",
+    "daily_commands": [
+      "docker compose build --no-cache app",
+      "docker compose up -d --wait db",
+      "docker compose run --rm app init",
+      "docker compose run --rm app s0",
+      "docker compose run --rm app s0",
+      "docker compose up -d dashboard"
+    ],
+    "acceptance_commands": [
+      "docker compose -f compose.acceptance.yaml up -d --wait acceptance-db",
+      "docker compose -f compose.acceptance.yaml run --rm acceptance",
+      "docker compose -f compose.acceptance.yaml down --volumes --remove-orphans"
+    ],
+    "lifecycle_commands": [
+      "docker compose stop db dashboard",
+      "docker compose start db",
+      "docker compose up -d --wait db",
+      "docker compose start dashboard",
+      "docker compose restart db dashboard",
+      "docker compose up -d --wait db",
+      "docker compose up -d --force-recreate --wait db"
+    ],
+    "row_comparison": "For each of the 17 tables, compare count(*) and md5(string_agg(to_jsonb(row)::text, chr(10) ORDER BY to_jsonb(row)::text)) before and after each lifecycle action and acceptance cleanup.",
+    "amd64_override": {
+      "daily": {
+        "services": {
+          "db": {
+            "platform": "linux/amd64"
+          },
+          "app": {
+            "platform": "linux/amd64"
+          },
+          "dashboard": {
+            "platform": "linux/amd64"
+          },
+          "workspace": {
+            "platform": "linux/amd64"
+          }
+        }
+      },
+      "acceptance": {
+        "services": {
+          "acceptance-db": {
+            "platform": "linux/amd64"
+          },
+          "acceptance": {
+            "platform": "linux/amd64"
+          }
+        }
+      }
+    },
+    "amd64_note": "The explicit Compose platform selected x86_64 for app and database. Compose rebuilt the local app for AMD64 on the first run. Native AMD64 hardware was not tested."
+  },
+  "not_run": [
+    "Native AMD64 machine",
+    "Native Windows and PowerShell",
+    "Native Linux host filesystem permissions",
+    "Official full-data build in this Docker package",
+    "Independent member A09/E09 replay",
+    "Teacher confirmation and final submission materials"
+  ]
+}

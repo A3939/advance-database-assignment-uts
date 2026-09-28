@@ -1,0 +1,267 @@
+{
+  "status": "focused_validation_passed",
+  "tested_commit": "d4530455944e5ac393440b456b77758c6658962a",
+  "executor": "Peixian (Codex-assisted execution)",
+  "scope": "Git revision and Docker build-input checks; focused guard tests only",
+  "focused_tests": {
+    "passed": 63,
+    "failed": 0,
+    "skipped": 0,
+    "new_git_proof_tests": 25,
+    "existing_guards": 38,
+    "evidence": {
+      "path": "artifacts/team/revision-fix/focused-tests.log",
+      "sha256": "c7b18235f48691c98ea5d4ad934b93bf697db58c006ad76874271becfc65b1de"
+    }
+  },
+  "docker_build_checks": {
+    "status": "passed",
+    "tested_commit": "d4530455944e5ac393440b456b77758c6658962a",
+    "cases": [
+      {
+        "case": "clean_with_ignored_private_files",
+        "expected": "pass",
+        "exit_code": 0,
+        "matched_error": "",
+        "command": [
+          "docker",
+          "build",
+          "--target",
+          "verified",
+          "--network=none",
+          "--build-arg",
+          "ARSIA_REVISION=d4530455944e5ac393440b456b77758c6658962a",
+          "-f",
+          "docker/team/Dockerfile",
+          "-t",
+          "arsia-team-revision-negative:local",
+          "."
+        ]
+      },
+      {
+        "case": "wrong_revision",
+        "expected": "reject",
+        "exit_code": 1,
+        "matched_error": "Declared revision",
+        "command": [
+          "docker",
+          "build",
+          "--target",
+          "verified",
+          "--network=none",
+          "--build-arg",
+          "ARSIA_REVISION=0000000000000000000000000000000000000000",
+          "-f",
+          "docker/team/Dockerfile",
+          "-t",
+          "arsia-team-revision-negative:local",
+          "."
+        ]
+      },
+      {
+        "case": "changed_recovery_selector",
+        "expected": "reject",
+        "exit_code": 1,
+        "matched_error": "Build input differs",
+        "command": [
+          "docker",
+          "build",
+          "--target",
+          "verified",
+          "--network=none",
+          "--build-arg",
+          "ARSIA_REVISION=d4530455944e5ac393440b456b77758c6658962a",
+          "-f",
+          "docker/team/Dockerfile",
+          "-t",
+          "arsia-team-revision-negative:local",
+          "."
+        ]
+      },
+      {
+        "case": "changed_guard_test",
+        "expected": "reject",
+        "exit_code": 1,
+        "matched_error": "Build input differs",
+        "command": [
+          "docker",
+          "build",
+          "--target",
+          "verified",
+          "--network=none",
+          "--build-arg",
+          "ARSIA_REVISION=d4530455944e5ac393440b456b77758c6658962a",
+          "-f",
+          "docker/team/Dockerfile",
+          "-t",
+          "arsia-team-revision-negative:local",
+          "."
+        ]
+      },
+      {
+        "case": "changed_wrapper",
+        "expected": "reject",
+        "exit_code": 1,
+        "matched_error": "Build input differs",
+        "command": [
+          "docker",
+          "build",
+          "--target",
+          "verified",
+          "--network=none",
+          "--build-arg",
+          "ARSIA_REVISION=d4530455944e5ac393440b456b77758c6658962a",
+          "-f",
+          "docker/team/Dockerfile",
+          "-t",
+          "arsia-team-revision-negative:local",
+          "."
+        ]
+      },
+      {
+        "case": "changed_dependency_lock",
+        "expected": "reject",
+        "exit_code": 1,
+        "matched_error": "Build input differs",
+        "command": [
+          "docker",
+          "build",
+          "--target",
+          "verified",
+          "--network=none",
+          "--build-arg",
+          "ARSIA_REVISION=d4530455944e5ac393440b456b77758c6658962a",
+          "-f",
+          "docker/team/Dockerfile",
+          "-t",
+          "arsia-team-revision-negative:local",
+          "."
+        ]
+      },
+      {
+        "case": "changed_dockerfile",
+        "expected": "reject",
+        "exit_code": 1,
+        "matched_error": "Build input differs",
+        "command": [
+          "docker",
+          "build",
+          "--target",
+          "verified",
+          "--network=none",
+          "--build-arg",
+          "ARSIA_REVISION=d4530455944e5ac393440b456b77758c6658962a",
+          "-f",
+          "docker/team/Dockerfile",
+          "-t",
+          "arsia-team-revision-negative:local",
+          "."
+        ]
+      },
+      {
+        "case": "missing_test",
+        "expected": "reject",
+        "exit_code": 1,
+        "matched_error": "input paths differ",
+        "command": [
+          "docker",
+          "build",
+          "--target",
+          "verified",
+          "--network=none",
+          "--build-arg",
+          "ARSIA_REVISION=d4530455944e5ac393440b456b77758c6658962a",
+          "-f",
+          "docker/team/Dockerfile",
+          "-t",
+          "arsia-team-revision-negative:local",
+          "."
+        ]
+      },
+      {
+        "case": "extra_test",
+        "expected": "reject",
+        "exit_code": 1,
+        "matched_error": "input paths differ",
+        "command": [
+          "docker",
+          "build",
+          "--target",
+          "verified",
+          "--network=none",
+          "--build-arg",
+          "ARSIA_REVISION=d4530455944e5ac393440b456b77758c6658962a",
+          "-f",
+          "docker/team/Dockerfile",
+          "-t",
+          "arsia-team-revision-negative:local",
+          "."
+        ]
+      },
+      {
+        "case": "corrupted_proof",
+        "expected": "reject",
+        "exit_code": 1,
+        "matched_error": "Git object hash mismatch",
+        "command": [
+          "docker",
+          "build",
+          "--target",
+          "verified",
+          "--network=none",
+          "--build-arg",
+          "ARSIA_REVISION=d4530455944e5ac393440b456b77758c6658962a",
+          "-f",
+          "docker/team/Dockerfile",
+          "-t",
+          "arsia-team-revision-negative:local",
+          "."
+        ]
+      },
+      {
+        "case": "missing_proof",
+        "expected": "reject",
+        "exit_code": 1,
+        "matched_error": "Missing Git proof",
+        "command": [
+          "docker",
+          "build",
+          "--target",
+          "verified",
+          "--network=none",
+          "--build-arg",
+          "ARSIA_REVISION=d4530455944e5ac393440b456b77758c6658962a",
+          "-f",
+          "docker/team/Dockerfile",
+          "-t",
+          "arsia-team-revision-negative:local",
+          "."
+        ]
+      }
+    ]
+  },
+  "builds": {
+    "arm64": {
+      "image_id": "sha256:2f5b0028511075b92ad7bcc0c8e654b64b43629a45264874f59d211978b2de92",
+      "architecture": "arm64",
+      "mode": "native ARM64",
+      "evidence": {
+        "path": "artifacts/team/revision-fix/build-arm64.log",
+        "sha256": "b1a4af8fab367498dfb68c6173f04bccdb6c1df161fa3d2142b693852ad2a573"
+      }
+    },
+    "amd64": {
+      "image_id": "sha256:15a2e40a63608dc672669cfa3c50473c857711c76f129c5d36de74965fe104b4",
+      "architecture": "amd64",
+      "mode": "AMD64 emulation on ARM64",
+      "evidence": {
+        "path": "artifacts/team/revision-fix/build-amd64.log",
+        "sha256": "4141b2ab65f027da1c0cc3c4e989472eced5cb1ffa1ad41b515bb13f769ebd59"
+      }
+    }
+  },
+  "full_acceptance": "INTERRUPTED_AT_USER_REQUEST; no completion claim",
+  "independent_member_signoff": false,
+  "final_platform_accepted": false,
+  "powershell_on_windows": "NOT_RUN"
+}

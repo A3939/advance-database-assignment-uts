@@ -1,0 +1,10 @@
+# Add this file only when the seven original official files are available.
+services:
+  app:
+    volumes:
+      - type: bind
+        source: ${ARSIA_OFFICIAL_DIR:?Set the local official input directory}
+        target: /official
+        read_only: true
+        bind:
+          create_host_path: false
