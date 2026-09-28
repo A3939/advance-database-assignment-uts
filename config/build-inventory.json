@@ -820,7 +820,7 @@
     },
     {
       "path": "src/arsia_d09/dashboard.py",
-      "sha256": "bba006ebce469006b5891964d3110ad21355a3a4556503cd8ef16c7ec950f31c"
+      "sha256": "ceabae10baad47afe3c430044ba9562bac4c38b673bd67520312e1aa1a60bee0"
     },
     {
       "path": "src/arsia_d09/sql/d09_context.sql",
@@ -828,7 +828,7 @@
     },
     {
       "path": "src/arsia_d09/web.py",
-      "sha256": "ccb5518db41ba41349f5fcca1f9116df7ab785e77589c00f654fba662672e152"
+      "sha256": "a38fc119b4de4338b8c3c1b0b43f050b2bc7dbb85515ec07c9dff523bc196ae9"
     },
     {
       "path": "src/arsia_ingest/__init__.py",
