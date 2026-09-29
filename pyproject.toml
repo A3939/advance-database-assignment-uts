@@ -30,3 +30,11 @@ where = ["src"]
 testpaths = ["tests"]
 pythonpath = ["src"]
 addopts = "-ra"
+markers = [
+  "unit: tests without an external PostgreSQL server or browser",
+  "postgres: PostgreSQL integration tests (environment opt-in still required)",
+  "docker: Docker tooling tests (some use command mocks)",
+  "official: official-source policy or dataset tests",
+  "browser: browser UI tests requiring Playwright Chromium",
+  "slow: PostgreSQL or browser integration suites",
+]

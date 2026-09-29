@@ -2,6 +2,7 @@ FROM python:3.12.6-slim-bookworm@sha256:ad48727987b259854d52241fac3bc63357436486
 ARG ARSIA_REVISION
 WORKDIR /verified/project
 COPY . .
+RUN python tools/check_inventory.py
 RUN python docker/team/provenance.py --root . --proof artifacts/team/build-provenance.objects \
     --revision "$ARSIA_REVISION" --output /verified/git-provenance.json \
     && rm artifacts/team/build-provenance.objects && rmdir artifacts/team artifacts

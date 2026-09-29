@@ -1,5 +1,8 @@
 # ARSIA: road safety data pipeline and dashboard
 
+**New to the team? Start with the [onboarding guide](docs/onboarding.md)** for
+the project structure, workspace setup, data flow, test cases and contribution workflow.
+
 Role B prepares native inputs, loads Raw, freezes manifests, checks input/Raw quality and coordinates the build. A's fixed schema/A06, C's projections and QA, D02–D08 and E's FP1/publication are integrated. S0, S8 and the pinned NSW/VIC/QLD full builds are verified in isolated PostgreSQL. The [official guide](docs/official-build.md) records commands, results and remaining boundaries.
 
 For the Git-and-Docker setup, use the [team Docker guide](docs/team-docker.md).
