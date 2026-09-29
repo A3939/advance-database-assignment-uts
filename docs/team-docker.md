@@ -74,6 +74,25 @@ Linux host filesystem permissions still need a native team replay.
 
 ## Build and use the daily environment
 
+### Rebuild an existing dashboard with one command (macOS/Linux)
+
+After committing your changes, run:
+
+```sh
+sh docker/team/rebuild-dashboard.sh
+```
+
+This checks Docker and Compose configuration, prepares the Git proof, sets
+`ARSIA_REVISION` to the current commit for this run, builds the image, checks
+its installation and recreates only the dashboard container. Your existing
+database must already be running and initialized. The script stops at the
+first failure and does not commit files, edit `.env`, or reset database data.
+It rejects uncommitted changes and untracked files; ignored local files such
+as `.env` and build evidence are allowed. You do not need to manually export
+the revision when using this script.
+
+### Initial setup and individual commands
+
 Prepare the build from the clean checkout before building an image. On macOS
 or Linux:
 
