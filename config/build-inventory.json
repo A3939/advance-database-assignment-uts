@@ -532,7 +532,7 @@
     },
     {
       "path": "pyproject.toml",
-      "sha256": "108a16070206e775a5cd421a9c2f0d53bcf0f5f500c001045412d1c6ea2963a4"
+      "sha256": "66b5ffd3214a8f8f7c9e8e551c1a79f62ab6174a2a336dc1e21d17cb9926125f"
     },
     {
       "path": "requirements-db.txt",
@@ -828,7 +828,7 @@
     },
     {
       "path": "src/arsia_d09/web.py",
-      "sha256": "be0c19094aed266f395e0dab3a289e4a29ed62babe8639af21485f0cdb223260"
+      "sha256": "bb86807c15d1c7f69a9fa9f91251bdf5552d68f37ba1b59686c50d1ca42f7c59"
     },
     {
       "path": "src/arsia_ingest/__init__.py",
