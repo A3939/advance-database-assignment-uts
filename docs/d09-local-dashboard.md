@@ -113,3 +113,31 @@ After editing filters, select **Read fixed release** before exporting; unapplied
 form edits do not change the report's applied-filter summary. Browser print
 (Ctrl+P or Cmd+P) also works. Disable browser-added headers and footers if desired.
 This is browser-based PDF export, not a server-side PDF download endpoint.
+
+## Test results page
+
+Select **Test results** in the dashboard or open `/tests`. This page reads a
+saved pytest JUnit XML report and displays passed, failed, error and skipped
+counts, a proportion bar, status filters, durations and expandable diagnostics.
+It never executes tests. Missing or invalid reports are shown explicitly;
+a partial or old report does not certify the running image or full acceptance.
+
+From the repository root in the Python 3.12 development environment:
+
+```sh
+mkdir -p artifacts/test-results
+python -m pytest -q --junitxml=artifacts/test-results/latest.xml
+```
+
+For a focused report, add test paths to that command. Pytest returns a nonzero
+exit code on failures but still normally writes the report. Refresh `/tests`
+after the run finishes; a report being written may briefly appear invalid.
+The suite timestamps come from JUnit; reports without timestamps say so.
+
+Local startup defaults to `artifacts/test-results/latest.xml`, relative to the
+server's working directory. Set `ARSIA_TEST_REPORT` to use another local file.
+Docker mounts `artifacts/test-results/` read-only and reads `latest.xml` from it.
+Rebuild once to install this feature; subsequent report updates only need a page
+refresh. Reports are limited to 10 MiB and must use UTF-8-compatible XML without
+DTDs. Failure details can contain test output, so use this page within the
+existing local dashboard deployment.

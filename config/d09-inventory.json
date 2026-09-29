@@ -25,7 +25,8 @@
       "pyproject.toml",
       "requirements-db.txt",
       "src/arsia_ingest/official_reader.py",
-      "src/arsia_d09/static/report.js"
+      "src/arsia_d09/static/report.js",
+      "src/arsia_d09/test_results.py"
     ]
   },
   "code_files": [
@@ -43,7 +44,7 @@
     },
     {
       "path": "src/arsia_d09/web.py",
-      "sha256": "bb86807c15d1c7f69a9fa9f91251bdf5552d68f37ba1b59686c50d1ca42f7c59"
+      "sha256": "eeda480ff97f5154aed0547996e4e0ffd554f3fb8e55aad6f4268d315ff07707"
     },
     {
       "path": "src/arsia_d09/sql/d09_context.sql",
@@ -51,11 +52,11 @@
     },
     {
       "path": "src/arsia_d09/templates/dashboard.html",
-      "sha256": "dfacbe48e19145a98d8070ed78feb3987e0a759f0607ac0800e35ac666a026c7"
+      "sha256": "862d9c61f2b5318793f607fe74c1ab61975eaf93f2387ea0ced67f7198df4f81"
     },
     {
       "path": "src/arsia_d09/static/dashboard.css",
-      "sha256": "f185aea98d2cb1b79c88ae87c97e1bd0349b54e3b6d72e75c2f7edf9db3c628d"
+      "sha256": "7beaaac7b17d94173b180d2dce4b5b3e56d245357f86ba6b83f2f7deacba14aa"
     },
     {
       "path": "src/arsia_ingest/models.py",
@@ -76,6 +77,10 @@
     {
       "path": "src/arsia_d09/static/report.js",
       "sha256": "08d687457ccd7813d6ae331e0cb62581629330b8f0acca839746bfabd5f7367c"
+    },
+    {
+      "path": "src/arsia_d09/test_results.py",
+      "sha256": "45e4099c63cd5e8466e21c1525d87249e6dfb30ef55b44f9c535d86abd0ee23c"
     }
   ],
   "dependencies": {
@@ -110,7 +115,8 @@
     "tests/test_d09.py",
     "tests/test_d09_full_build_postgres.py",
     "tools/verify_d09_full_build_postgres.py",
-    "tests/test_d09_official_policy.py"
+    "tests/test_d09_official_policy.py",
+    "tests/test_d09_test_results.py"
   ],
   "review_fix": {
     "base_commit": "c027d96",

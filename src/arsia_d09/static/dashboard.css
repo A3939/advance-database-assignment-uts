@@ -65,3 +65,17 @@ footer { padding:24px; text-align:center; color:var(--muted); }
   .source-grid article { background:white; padding:2mm; }
   footer { padding:3mm; }
 }
+.result-passed { background:#dcfce7; color:#14532d; }
+.result-failed { background:#fee2e2; color:#7f1d1d; }
+.result-error { background:#ffedd5; color:#7c2d12; }
+.result-skipped { background:#e2e8f0; color:#334155; }
+.metrics article.result-passed { background:#dcfce7; }
+.metrics article.result-failed { background:#fee2e2; }
+.metrics article.result-error { background:#ffedd5; }
+.metrics article.result-skipped { background:#e2e8f0; }
+.result-bar { display:flex; height:24px; border:1px solid var(--line); margin:16px 0; }
+.result-filters { display:flex; gap:16px; flex-wrap:wrap; margin:20px 0; }
+.result-filters [aria-current] { font-weight:bold; text-decoration-thickness:3px; }
+.test-results { white-space:normal; }
+.test-results td { overflow-wrap:anywhere; vertical-align:top; }
+.test-results pre { white-space:pre-wrap; overflow-wrap:anywhere; max-width:650px; max-height:350px; overflow:auto; }

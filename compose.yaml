@@ -56,6 +56,7 @@ services:
     image: ${ARSIA_PROJECT:-arsia-local}-app:local
     command: [serve]
     environment:
+      ARSIA_TEST_REPORT: /test-results/latest.xml
       ARSIA_DB_HOST: db
       ARSIA_READER_PASSWORD: ${ARSIA_READER_PASSWORD:?Set a local reader password}
     ports:
@@ -65,6 +66,8 @@ services:
         condition: service_healthy
     init: true
     read_only: true
+    volumes:
+      - ./artifacts/test-results:/test-results:ro
     tmpfs: [/tmp]
 
 volumes:

@@ -96,6 +96,24 @@ unapplied filter edits do not change it. Ctrl+P or Cmd+P also works. This featur
 uses browser printing and requires no PDF dependency or server-side PDF endpoint.
 Browser-added headers and footers can be disabled in the print dialog.
 
+## Visualize test results
+
+Open **Test results** in the dashboard to see passed, failed, error and skipped
+counts, an outcome bar, status filters and expandable failure details. Generate
+the saved report from your Python 3.12 development environment:
+
+```sh
+mkdir -p artifacts/test-results
+python -m pytest -q --junitxml=artifacts/test-results/latest.xml
+```
+
+Then refresh <http://localhost:8765/tests>. Add test paths to the pytest command
+for a focused run. The page shows the saved suite timestamps and does not run
+tests itself. Skipped tests and partial runs do not establish full acceptance.
+Docker reads the report through a read-only folder mount, so later test runs do
+not require another image rebuild. See the [dashboard guide](docs/d09-local-dashboard.md#test-results-page)
+for report configuration and limits.
+
 ## Docker workflow
 
 ### First-time setup

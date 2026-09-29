@@ -828,7 +828,7 @@
     },
     {
       "path": "src/arsia_d09/web.py",
-      "sha256": "bb86807c15d1c7f69a9fa9f91251bdf5552d68f37ba1b59686c50d1ca42f7c59"
+      "sha256": "eeda480ff97f5154aed0547996e4e0ffd554f3fb8e55aad6f4268d315ff07707"
     },
     {
       "path": "src/arsia_ingest/__init__.py",

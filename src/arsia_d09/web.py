@@ -16,6 +16,7 @@ from arsia_d07 import MapResult
 from arsia_ingest.models import IntakeError
 
 from .dashboard import DASHBOARD_VERSION, DashboardFilters, DashboardSnapshot, Release, load_dashboard
+from .test_results import render_test_results
 
 
 _ROOT = Path(__file__).resolve().parent
@@ -321,6 +322,10 @@ def make_handler(dsn: str | None, demo: bool):
                 self.end_headers()
                 self.wfile.write(data)
                 return
+            if target.path == "/tests":
+                page, status = render_test_results(target.query, _CSS.read_text(encoding="utf-8"))
+                self.send_page(page, status)
+                return
             if target.path != "/":
                 self.send_error(404)
                 return
@@ -355,6 +360,9 @@ def make_handler(dsn: str | None, demo: bool):
                     else 500 if exc.code == "D09_DATABASE"
                     else 400
                 )
+            self.send_page(page, status)
+
+        def send_page(self, page, status):
             data = page.encode("utf-8")
             self.send_response(status)
             self.send_header("Content-Type", "text/html; charset=utf-8")

@@ -17,6 +17,7 @@
     <div class="version">{{version}}</div>
   </header>
   <main>
+    <nav class="report-actions" aria-label="Dashboard navigation"><a href="/tests">Test results</a></nav>
     {{demo_banner}}
     <form method="get" action="/" class="filters">
       <label>Mode<select name="mode"><option value="synthetic" {{synthetic_selected}}>Synthetic</option><option value="official" {{official_selected}}>Official</option></select></label>
