@@ -185,12 +185,19 @@ def test_demo_http_page_and_bad_request():
             page = response.read().decode("utf-8")
             assert response.status == 200
             assert "Fixed example mode" in page
+            assert "Print / Save as PDF" in page
+            assert "Applied report filters" in page
+            assert "script-src 'self'" in response.headers["Content-Security-Policy"]
             assert "00000000-0000-4000-8000-000000000009" in page
+        with urlopen(f"http://127.0.0.1:{server.server_port}/static/report.js", timeout=5) as response:
+            assert response.headers.get_content_type() == "text/javascript"
+            assert "window.print()" in response.read().decode("utf-8")
         with pytest.raises(HTTPError) as error:
             urlopen(
                 f"http://127.0.0.1:{server.server_port}/?months=13", timeout=5
             )
         assert error.value.code == 400
+        assert "Print / Save as PDF" not in error.value.read().decode("utf-8")
     finally:
         server.shutdown()
         server.server_close()
@@ -199,7 +206,7 @@ def test_demo_http_page_and_bad_request():
 def test_d09_sql_contract_and_packaged_assets():
     root = Path(__file__).resolve().parents[1]
     package = files("arsia_d09")
-    for path in ("sql/d09_context.sql", "templates/dashboard.html", "static/dashboard.css"):
+    for path in ("sql/d09_context.sql", "templates/dashboard.html", "static/dashboard.css", "static/report.js"):
         assert package.joinpath(path).read_bytes() == (root / "src/arsia_d09" / path).read_bytes()
     sql = " ".join(package.joinpath("sql/d09_context.sql").read_text(encoding="utf-8").lower().split())
     assert "d09-0.1.1" in sql

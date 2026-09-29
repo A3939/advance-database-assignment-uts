@@ -24,7 +24,7 @@ where = ["src"]
 "arsia_d06" = ["sql/*.sql"]
 "arsia_d07" = ["sql/*.sql"]
 "arsia_d08" = ["sql/*.sql"]
-"arsia_d09" = ["sql/*.sql", "templates/*.html", "static/*.css"]
+"arsia_d09" = ["sql/*.sql", "templates/*.html", "static/*.css", "static/*.js"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

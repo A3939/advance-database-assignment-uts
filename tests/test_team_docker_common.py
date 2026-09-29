@@ -5,6 +5,9 @@ import json
 from pathlib import Path
 
 import pytest
+
+pytest.importorskip("psycopg", reason="install requirements-db.txt for Docker database tests")
+
 from psycopg.conninfo import conninfo_to_dict
 
 

@@ -98,3 +98,18 @@ known-count columns. It also fixes default test collection without psycopg
 and keeps the dashboard separate from required build callbacks.
 See [the follow-up tests and deployment notes](d09-review-fixes.md).
 The earlier evidence above records the original D09 version.
+
+## Export a PDF report
+
+Load the desired release and filters, then select **Print / Save as PDF**.
+Choose **Save as PDF** in your browser's print dialog. The report uses an A4
+landscape layout with wrapping tables and repeating column headers. It includes
+applied filters, batch identity, source releases, all result sections and quality
+notes. NULL, zero and unavailable reports remain distinct; illustrative demo
+reports retain their warning.
+
+Export prints the already displayed snapshot without querying the database again.
+After editing filters, select **Read fixed release** before exporting; unapplied
+form edits do not change the report's applied-filter summary. Browser print
+(Ctrl+P or Cmd+P) also works. Disable browser-added headers and footers if desired.
+This is browser-based PDF export, not a server-side PDF download endpoint.

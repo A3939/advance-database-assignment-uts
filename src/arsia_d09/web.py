@@ -179,6 +179,7 @@ def render_page(
         if demo else ""
     )
     fields["version"] = escape(DASHBOARD_VERSION)
+    fields["report_tools"] = ""
     if not demo and snapshot is not None and snapshot.release.dataset_kind == "official" and snapshot.official_reports is None:
         error = IntakeError("D09_OFFICIAL_CONTEXT", "Official report availability is missing; read the batch again.")
     if error is not None:
@@ -192,6 +193,17 @@ def render_page(
         fields["summary"] = '<section class="state"><p>No dashboard read.</p></section>'
         fields["content"] = ""
     else:
+        applied = "; ".join(
+            f"{name.replace('_', ' ').title()}: {value or 'All available'}"
+            for name, value in values.items()
+        )
+        fields["report_tools"] = (
+            '<div class="report-actions"><button type="button" id="print-report">'
+            'Print / Save as PDF</button><p>Exports the displayed release. '
+            'Choose Save as PDF in the print dialog.</p></div>'
+            '<section class="report-context"><h2>Applied report filters</h2>'
+            f'<p>{escape(applied)}</p></section>'
+        )
         coverage = snapshot.map.coverage
         reports = snapshot.official_reports
         map_available = reports is None or reports["map"]["status"] == "available"
@@ -300,6 +312,15 @@ def make_handler(dsn: str | None, demo: bool):
     class Handler(BaseHTTPRequestHandler):
         def do_GET(self):  # noqa: N802 - stdlib hook
             target = urlsplit(self.path)
+            if target.path == "/static/report.js":
+                data = (_ROOT / "static" / "report.js").read_bytes()
+                self.send_response(200)
+                self.send_header("Content-Type", "text/javascript; charset=utf-8")
+                self.send_header("Content-Length", str(len(data)))
+                self.send_header("X-Content-Type-Options", "nosniff")
+                self.end_headers()
+                self.wfile.write(data)
+                return
             if target.path != "/":
                 self.send_error(404)
                 return
@@ -339,7 +360,7 @@ def make_handler(dsn: str | None, demo: bool):
             self.send_header("Content-Type", "text/html; charset=utf-8")
             self.send_header("Content-Length", str(len(data)))
             self.send_header("Cache-Control", "no-store")
-            self.send_header("Content-Security-Policy", "default-src 'none'; style-src 'unsafe-inline'; form-action 'self'")
+            self.send_header("Content-Security-Policy", "default-src 'none'; script-src 'self'; style-src 'unsafe-inline'; form-action 'self'")
             self.end_headers()
             self.wfile.write(data)
 
