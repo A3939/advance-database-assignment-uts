@@ -1,0 +1,89 @@
+import type { ArsiaService, Filters, AgentEvent } from "./contracts";
+import { importPreview } from "./import-preview";
+
+async function get<T>(
+  report: string,
+  filters?: Filters,
+  extra: Record<string, string> = {},
+  signal?: AbortSignal,
+): Promise<T> {
+  const params = new URLSearchParams(extra);
+  if (filters) {
+    params.set("source", filters.source);
+    if (filters.regionId) params.set("regionId", filters.regionId);
+    params.set("from", filters.dateRange.from);
+    params.set("to", filters.dateRange.to);
+    params.set("datasetVersion", filters.datasetVersion);
+    params.set("batchId", filters.batchId);
+  }
+  const response = await fetch(`/api/data/${report}?${params}`, {
+    signal,
+    cache: "no-store",
+  });
+  if (!response.ok)
+    throw Error(`Project data request failed (${response.status}).`);
+  return response.json() as Promise<T>;
+}
+export const httpProvider: ArsiaService = {
+  getOverview: (f) => get("overview", f),
+  getTimeSeries: (f, granularity) => get("timeseries", f, { granularity }),
+  getSeverityDistribution: (f) => get("severity", f),
+  getMapData: (f) => get("map", f),
+  getCrashRecords: (f, pagination, sort) =>
+    get("records", f, {
+      page: String(pagination.page),
+      pageSize: String(pagination.pageSize),
+      search: pagination.search || "",
+      sort: sort.field,
+      direction: sort.direction,
+    }),
+  getDatasetMetadata: () => get("metadata"),
+  async *sendAgentMessage(context, message, signal, history = []) {
+    const response = await fetch("/api/agent", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ context, message, history }),
+      signal,
+      cache: "no-store",
+    });
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({}));
+      yield {
+        type: "error",
+        code: String(response.status),
+        message:
+          error.error || "The analysis service is unavailable. Please retry.",
+      };
+      return;
+    }
+    if (!response.body) throw Error("Missing response stream.");
+    const reader = response.body.getReader(),
+      decoder = new TextDecoder();
+    let pending = "",
+      completed = false;
+    try {
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        pending += decoder.decode(value, { stream: true });
+        let newline;
+        while ((newline = pending.indexOf("\n")) >= 0) {
+          const line = pending.slice(0, newline);
+          pending = pending.slice(newline + 1);
+          if (!line.trim()) continue;
+          const event = JSON.parse(line) as AgentEvent;
+          if (event.type === "done" || event.type === "error") completed = true;
+          yield event;
+        }
+      }
+      if (!completed && !signal?.aborted)
+        throw Error("The response stream ended early. Please retry.");
+    } finally {
+      await reader.cancel().catch(() => {});
+      reader.releaseLock();
+    }
+  },
+  // Import preview is deliberately separate: metadata only, no DB writes or uploads.
+  createImportJob: (files) => importPreview.createImportJob(files),
+  getImportJobStatus: (id) => importPreview.getImportJobStatus(id),
+};

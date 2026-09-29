@@ -1,0 +1,144 @@
+{
+  "version": "official-v1",
+  "datasetKind": "official",
+  "mode": "snapshot",
+  "batchId": "bcc5da57-25f2-41ec-9925-bef421b02671",
+  "recordedAt": "2026-09-28T12:43:08.025519+00:00",
+  "runtimeCommit": "1765269507d7cf0b9cb76eef7b9ccf97de7f1cc5",
+  "inputFingerprint": "4d2c419fad4d381574605c18e2ac99b7d162cd6fcd1fb5f97bc6d7834b6396c4",
+  "coverage": {
+    "from": "2020-01-01",
+    "to": "2024-12-31"
+  },
+  "publicationStatus": "succeeded",
+  "evidenceHashes": {
+    "reader-results.json": "fed5e2ea8736ce5db17fbdf1227cc4e6cafed2ec8fa3937956c218542e134e8d",
+    "manifest.json": "b882bd6f55fb9ff8d800e0810ee44ced726dda2715b49a924465ceecc33dc6df",
+    "raw-qa.json": "0afeac71c3c01537d6c7533a4372776c2ecec073f3365f095c56d4d66cbc27d9",
+    "source-metrics.json": "3cf92cfa9c7fdf85fb89d9e13ee4420396d9b19f05e0b10b0c2ff30988a12492",
+    "recovery-cost.json": "7fb3bc2e3b732d7677ee08c4e42b1d98b8bb652702a10e5c3c477540e22920b7"
+  },
+  "inputs": [
+    {
+      "resourceId": "official_nsw_crash",
+      "sourceId": "official_nsw",
+      "sha256": "7345189f017d9c842429674ecf2196cee728de46c0572ce2a85220f9bef49aa9",
+      "rawCount": 92189,
+      "parserVersion": "xlsx-native-v1"
+    },
+    {
+      "resourceId": "official_nsw_traffic_unit",
+      "sourceId": "official_nsw",
+      "sha256": "95349666f63952c580edb08973a8ac80be39db98ba289ec8533d61feb6d55f1b",
+      "rawCount": 170962,
+      "parserVersion": "xlsx-native-v1"
+    },
+    {
+      "resourceId": "official_qld_crash",
+      "sourceId": "official_qld",
+      "sha256": "975be4b02a235d06589de9b486f73bafe22d0f2007f0c07abb84f54cb926c704",
+      "rawCount": 415407,
+      "parserVersion": "csv-native-v1"
+    },
+    {
+      "resourceId": "official_vic_accident",
+      "sourceId": "official_vic",
+      "sha256": "a148c00601fab10d44368df80492c594123700a7f9e334ff896fd215295e91d9",
+      "rawCount": 200352,
+      "parserVersion": "csv-native-v1"
+    },
+    {
+      "resourceId": "official_vic_node",
+      "sourceId": "official_vic",
+      "sha256": "b0bdbec22ac33df66e15cff9b531ba3203320ec5fbe20076a2820b8fec966ed4",
+      "rawCount": 405918,
+      "parserVersion": "csv-native-v1"
+    },
+    {
+      "resourceId": "official_vic_person",
+      "sourceId": "official_vic",
+      "sha256": "71ca8fec01370e301f282fc83e8f11e4cde16a535ee421cbbb72512ceb7194f9",
+      "rawCount": 467730,
+      "parserVersion": "csv-native-v1"
+    },
+    {
+      "resourceId": "official_vic_vehicle",
+      "sourceId": "official_vic",
+      "sha256": "05a7a1b9171abaeb5c188df549dee38edde6e76d5a03553988305a8280dccd12",
+      "rawCount": 365470,
+      "parserVersion": "csv-native-v1"
+    }
+  ],
+  "qa": [
+    {
+      "check": "QA01_INPUT",
+      "status": "pass",
+      "violations": 0
+    },
+    {
+      "check": "QA02_RAW",
+      "status": "pass",
+      "violations": 0
+    },
+    {
+      "check": "QA03_PROJECTED",
+      "status": "pass",
+      "violations": 0
+    },
+    {
+      "check": "QA04_AUXILIARY",
+      "status": "pass",
+      "violations": 0
+    },
+    {
+      "check": "QA05_SEMANTICS",
+      "status": "pass",
+      "violations": 0
+    },
+    {
+      "check": "QA06_RECONCILIATION",
+      "status": "pass",
+      "violations": 0
+    },
+    {
+      "check": "QA07_LOCATION",
+      "status": "limited",
+      "violations": 230876
+    }
+  ],
+  "totals": {
+    "official_nsw": {
+      "crash_count": 92082,
+      "fatal_crash_count": 1388,
+      "fatality_count": 1507,
+      "casualty_count": 78154,
+      "map_count": 0,
+      "unmapped_count": 92082,
+      "canonical_unit_count": 170747,
+      "report_eligible_unit_count": 170747
+    },
+    "official_vic": {
+      "crash_count": 72170,
+      "fatal_crash_count": 1182,
+      "fatality_count": 1265,
+      "casualty_count": 91798,
+      "map_count": 0,
+      "unmapped_count": 72170,
+      "canonical_unit_count": 132372,
+      "report_eligible_unit_count": 0
+    },
+    "official_qld": {
+      "crash_count": 66624,
+      "fatal_crash_count": 1304,
+      "fatality_count": 1424,
+      "casualty_count": 88609,
+      "map_count": 0,
+      "unmapped_count": 66624,
+      "canonical_unit_count": 0,
+      "report_eligible_unit_count": 0
+    }
+  },
+  "independentMemberSignoff": false,
+  "finalPlatformAccepted": false,
+  "scope": "Fixed project export from a successful official-data build. Not a live database or current government feed. QA07 location is limited; official crash-location maps are unavailable. Interstate totals are not supported."
+}

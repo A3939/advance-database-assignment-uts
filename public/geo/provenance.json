@@ -1,0 +1,42 @@
+{
+  "publisher": "Australian Bureau of Statistics (ABS)",
+  "dataset": "ASGS 2024 LGA_GEN",
+  "license": "CC BY 4.0",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "retrieved": "2026-09-29",
+  "crs": "EPSG:4326 (requested from the ABS service)",
+  "modifications": "Service-generalised at 0.008 degrees; coordinates rounded to 4 decimals; null geometries omitted; feature IDs added. Statistical approximations, not legal boundaries.",
+  "files": [
+    {
+      "state": "nsw",
+      "url": "https://geo.abs.gov.au/arcgis/rest/services/ASGS2024/LGA/MapServer/1/query?where=state_code_2021%3D%271%27&outFields=lga_code_2024%2Clga_name_2024%2Cstate_name_2021&outSR=4326&f=geojson&returnGeometry=true&maxAllowableOffset=0.008&geometryPrecision=4",
+      "features": 129,
+      "bytes": 251544,
+      "sha256": "7b558e0ec20381de80385ea81806373971ae896038433a6e4b05bec916672583"
+    },
+    {
+      "state": "vic",
+      "url": "https://geo.abs.gov.au/arcgis/rest/services/ASGS2024/LGA/MapServer/1/query?where=state_code_2021%3D%272%27&outFields=lga_code_2024%2Clga_name_2024%2Cstate_name_2021&outSR=4326&f=geojson&returnGeometry=true&maxAllowableOffset=0.008&geometryPrecision=4",
+      "features": 80,
+      "bytes": 111741,
+      "sha256": "203ea703f328a5918c757658c1d0b11fcc2c53b8076738cbf71133929736f763"
+    },
+    {
+      "state": "qld",
+      "url": "https://geo.abs.gov.au/arcgis/rest/services/ASGS2024/LGA/MapServer/1/query?where=state_code_2021%3D%273%27&outFields=lga_code_2024%2Clga_name_2024%2Cstate_name_2021&outSR=4326&f=geojson&returnGeometry=true&maxAllowableOffset=0.008&geometryPrecision=4",
+      "features": 78,
+      "bytes": 304504,
+      "sha256": "3fbb89d3a1545fb0cdb85181a100fc78f7de91600fbdef5f8fcdeef05caf6427"
+    }
+  ],
+  "state_boundaries": {
+    "dataset": "ABS ASGS 2021 STE_GEN",
+    "url": "https://geo.abs.gov.au/arcgis/rest/services/ASGS2021/STE/MapServer/1/query?where=1%3D1&outFields=state_code_2021%2Cstate_name_2021&outSR=4326&f=geojson&returnGeometry=true&maxAllowableOffset=0.015&geometryPrecision=4",
+    "license": "CC BY 4.0",
+    "retrieved": "2026-09-29",
+    "features": 9,
+    "bytes": 669232,
+    "sha256": "857c8c83dc67f6425dded79ecc1e86908282b079e82172f293a59664064a7749",
+    "modifications": "Generalised at 0.015 degrees; coordinates rounded to 4 decimals; feature IDs added. Default camera frames mainland Australia and Tasmania; all nine ABS features including other territories remain in the file."
+  }
+}

@@ -1,0 +1,821 @@
+.page {
+  padding: var(--space-4) 0 var(--space-4);
+  --analysis-gap: 20px;
+}
+.heading,
+.title,
+.actions,
+.toolbar,
+.toolbarRight,
+.sourceGroup {
+  display: flex;
+  align-items: center;
+}
+.heading {
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-bottom: 24px;
+}
+.title {
+  gap: 16px;
+}
+.title h1 {
+  font-size: 30px;
+  letter-spacing: -1px;
+}
+.demo {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--text-secondary);
+  font-size: 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  padding: 5px 10px;
+  background: transparent;
+}
+.demo:hover {
+  background: var(--surface-elevated);
+  color: var(--text-primary);
+}
+.actions {
+  gap: 10px;
+}
+.toolbar {
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+.sourceGroup {
+  gap: 4px;
+}
+.filterLabel {
+  margin-right: 14px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+.sourceGroup button {
+  border: 1px solid transparent;
+  border-radius: var(--radius-small);
+  background: transparent;
+  padding: 8px 20px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  min-height: 38px;
+}
+.sourceGroup button[aria-pressed="true"] {
+  background: var(--surface-elevated);
+  border-color: var(--border-strong);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+.sourceGroup button:hover {
+  color: var(--text-primary);
+  background: var(--surface-elevated);
+}
+.toolbarRight {
+  gap: 20px;
+}
+.methodButton,
+.inlineAction {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: none;
+  border: 0;
+  color: var(--text-secondary);
+  padding: 6px 0;
+  font-size: 12px;
+}
+.methodButton:hover,
+.inlineAction:hover {
+  color: var(--accent-text);
+}
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding: 24px 0 28px;
+}
+.metrics > div {
+  padding: 0 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border-right: 1px solid var(--border);
+}
+.metrics > div:first-child {
+  padding-left: 0;
+}
+.metrics > div:last-child {
+  border: 0;
+}
+.metrics span {
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+.metrics strong {
+  font-size: 34px;
+  font-weight: 600;
+  letter-spacing: -1px;
+  line-height: 1.4;
+}
+.metrics em {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  font-style: normal;
+  margin-left: 8px;
+  letter-spacing: 0;
+}
+.metrics small {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+.trendGrid,
+.patternGrid,
+.detailGrid {
+  display: grid;
+  gap: var(--analysis-gap);
+  margin-bottom: var(--analysis-gap);
+}
+.trendGrid {
+  grid-template-columns: minmax(0, 2.25fr) minmax(280px, 1fr);
+}
+.patternGrid {
+  grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
+}
+.detailGrid {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+}
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  min-width: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.cardHeading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 22px 24px 12px;
+}
+.cardHeading h2 {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.4px;
+}
+.cardHeading p {
+  font-size: 12px;
+  margin-top: 5px;
+}
+.segment {
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-small);
+  align-self: flex-start;
+  flex-shrink: 0;
+}
+.segment button {
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  padding: 5px 10px;
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+.segment button[aria-pressed="true"] {
+  background: var(--surface-elevated);
+  color: var(--text-primary);
+  box-shadow: 0 1px 3px #00000012;
+}
+.segment button:hover {
+  color: var(--text-primary);
+}
+.metricTabs {
+  display: flex;
+  gap: 20px;
+  padding: 0 24px;
+  border-bottom: 1px solid var(--border);
+}
+.metricTabs button {
+  color: var(--text-secondary);
+  padding: 9px 0 11px;
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.metricTabs button[aria-pressed="true"] {
+  color: var(--accent-text);
+  border-bottom-color: var(--accent-text);
+}
+.trendChart {
+  height: 275px;
+  margin: 12px 12px 0;
+}
+.cardFoot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 24px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: auto;
+}
+.cardFoot button,
+.bottomNote button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: 0;
+  color: var(--text-primary);
+  font-size: 12px;
+  white-space: nowrap;
+  padding: 4px 0;
+}
+.cardFoot button:hover,
+.bottomNote button:hover {
+  color: var(--accent-text);
+}
+.info {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: none;
+  border: 0;
+  color: var(--text-secondary);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+.info:hover {
+  color: var(--text-primary);
+  background: var(--surface-elevated);
+}
+.comparison .cardHeading {
+  padding-bottom: 0;
+}
+.changeValue {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 32px 24px 0;
+}
+.changeValue strong {
+  font-size: 48px;
+  letter-spacing: -2px;
+  line-height: 1.2;
+  font-weight: 500;
+}
+.changeValue svg {
+  width: 30px;
+  height: 30px;
+  color: var(--text-secondary);
+}
+.changeExplanation {
+  font-size: 13px;
+  margin: 8px 24px 30px;
+}
+.comparisonBars {
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 19px;
+}
+.comparisonBars > div > div:first-child {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+.comparisonBars strong {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+.barTrack {
+  background: var(--surface-elevated);
+  height: 8px;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.barTrack i {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+}
+.comparisonNote {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  border-top: 1px solid var(--border);
+  padding: 17px 24px;
+  margin-top: auto;
+  font-size: 12px;
+}
+.quietLabel {
+  color: var(--text-secondary);
+  font-size: 12px;
+  white-space: nowrap;
+  padding-top: 4px;
+}
+.heatmapScroll {
+  overflow-x: auto;
+  padding: 2px 20px 0;
+}
+.heatmap {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 4px;
+  table-layout: fixed;
+  min-width: 540px;
+}
+.heatmap th {
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-weight: 400;
+  padding: 4px 0;
+  text-align: center;
+}
+.heatmap th:first-child {
+  width: 36px;
+  text-align: left;
+}
+.heatmap td {
+  padding: 0;
+}
+.heatmap button {
+  width: 100%;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  background: var(--cell-color);
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: var(--text-primary);
+  font-size: 11px;
+}
+.heatmap button[data-intensity="5"],
+.heatmap button[data-intensity="6"] {
+  color: var(--background);
+}
+:global(html[data-theme="light"]) .heatmap button {
+  color: var(--text-primary);
+}
+.heatmap button:hover {
+  outline: 2px solid var(--text-secondary);
+  outline-offset: -2px;
+}
+.heatmap button.selectedCell {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+}
+.heatmapLegend {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin: 12px 24px 18px;
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+.heatmapLegend > div {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.heatmapLegend i {
+  width: 12px;
+  height: 8px;
+  border-radius: 2px;
+}
+.heatmapLegend > div span {
+  margin: 0 4px;
+}
+.monthInspection {
+  border-top: 1px solid var(--border);
+  margin-top: auto;
+  padding: 14px 24px;
+  min-height: 68px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+}
+.monthInspection > p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+.monthInspection > div:first-child {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+.monthInspection strong {
+  font-size: 12px;
+}
+.inspectionValues {
+  display: flex;
+  gap: 20px;
+  flex: 1;
+}
+.inspectionValues span {
+  display: flex;
+  flex-direction: column;
+  color: var(--text-secondary);
+  font-size: 11px;
+}
+.inspectionValues b {
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 500;
+}
+.inlineAction {
+  white-space: nowrap;
+}
+.patternChart {
+  height: 264px;
+  margin: 0 12px;
+  flex: 1;
+  min-height: 200px;
+}
+.severityChart {
+  height: 302px;
+  margin: 8px 12px 0;
+}
+.dataCard .cardHeading {
+  padding-bottom: 20px;
+}
+.tableScroll {
+  overflow-x: auto;
+}
+.dataTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.dataTable th,
+.dataTable td {
+  text-align: right;
+  padding: 13px 16px;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--border);
+  font-weight: 400;
+}
+.dataTable th:first-child {
+  text-align: left;
+  padding-left: 24px;
+}
+.dataTable td:last-child,
+.dataTable th:last-child {
+  padding-right: 24px;
+}
+.dataTable thead th {
+  color: var(--text-secondary);
+  font-size: 11px;
+  background: var(--field-background);
+}
+.dataTable th button {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: 0;
+  color: inherit;
+  padding: 0;
+}
+.dataTable th[aria-sort="ascending"] button,
+.dataTable th[aria-sort="descending"] button {
+  color: var(--text-primary);
+}
+.dataTable tbody tr:hover,
+.selectedRow {
+  background: var(--surface-elevated);
+}
+.dataTable .periodButton:hover {
+  color: var(--accent-text);
+}
+.tableFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 24px;
+  gap: 12px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: auto;
+}
+.tableFooter > div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.tableFooter button {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  color: var(--text-primary);
+}
+.bottomNote {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--text-secondary);
+  gap: 16px;
+  font-size: 12px;
+}
+.bottomNote > span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.bottomNote > span svg {
+  color: var(--accent-text);
+}
+.coverageNote {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  padding: 100px 24px;
+}
+.empty > svg {
+  color: var(--text-secondary);
+}
+.chartLoading {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  min-height: 180px;
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+@media (min-width: 1700px) {
+  .trendChart {
+    height: 310px;
+  }
+  .patternChart {
+    height: 280px;
+  }
+  .heatmap button {
+    height: 38px;
+  }
+}
+@media (max-width: 1200px) {
+  .patternGrid {
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  }
+  .detailGrid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  }
+  .cardHeading {
+    padding: 20px 20px 12px;
+    gap: 8px;
+  }
+  .cardHeading h2 {
+    font-size: 17px;
+  }
+  .quietLabel {
+    display: none;
+  }
+  .dataTable td,
+  .dataTable th {
+    padding: 12px 10px;
+  }
+  .metricTabs {
+    gap: 16px;
+  }
+}
+@media (max-width: 1000px) {
+  .trendGrid {
+    grid-template-columns: minmax(0, 1.8fr) minmax(245px, 1fr);
+  }
+  .patternGrid,
+  .detailGrid {
+    grid-template-columns: 1fr;
+  }
+  .patternChart {
+    height: 230px;
+    flex: none;
+  }
+  .severityChart {
+    height: 270px;
+  }
+  .metrics > div {
+    padding-inline: 20px;
+  }
+  .changeValue strong {
+    font-size: 42px;
+  }
+}
+@media (max-width: 700px) {
+  .page {
+    padding-top: 24px;
+    --analysis-gap: 16px;
+  }
+  .heading {
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+  .title {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .title h1 {
+    font-size: 28px;
+  }
+  .actions {
+    gap: 6px;
+  }
+  .actions > button {
+    padding-inline: 10px;
+    font-size: 12px;
+  }
+  .toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+    padding-bottom: 18px;
+  }
+  .sourceGroup {
+    width: 100%;
+  }
+  .sourceGroup button {
+    flex: 1;
+  }
+  .toolbarRight {
+    width: 100%;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .metrics {
+    gap: 20px 8px;
+    padding-block: 24px;
+  }
+  .metrics > div {
+    padding: 0 10px;
+  }
+  .metrics > div:last-child {
+    padding-right: 0;
+  }
+  .metrics strong {
+    font-size: 26px;
+    letter-spacing: -0.8px;
+  }
+  .metrics em {
+    display: none;
+  }
+  .metrics span,
+  .metrics small {
+    font-size: 11px;
+  }
+  .trendGrid {
+    grid-template-columns: 1fr;
+  }
+  .comparison {
+    min-height: 330px;
+  }
+  .changeValue {
+    margin-top: 16px;
+  }
+  .changeExplanation {
+    margin-bottom: 20px;
+  }
+  .comparisonNote {
+    margin-top: 24px;
+  }
+  .cardHeading {
+    padding: 18px 16px 12px;
+  }
+  .cardHeading h2 {
+    font-size: 16px;
+  }
+  .metricTabs {
+    padding: 0 16px;
+    gap: 16px;
+    overflow: auto;
+  }
+  .metricTabs button {
+    font-size: 11px;
+  }
+  .trendChart {
+    height: 245px;
+    margin-inline: 4px;
+  }
+  .segment button {
+    padding: 5px 7px;
+    font-size: 11px;
+  }
+  .cardFoot {
+    padding: 12px 16px;
+    flex-wrap: wrap;
+    gap: 4px;
+    font-size: 11px;
+  }
+  .heatmapScroll {
+    padding-inline: 12px;
+  }
+  .heatmapLegend {
+    margin-inline: 16px;
+    flex-wrap: wrap;
+  }
+  .monthInspection {
+    padding: 14px 16px;
+    gap: 12px;
+  }
+  .inspectionValues {
+    gap: 14px;
+    flex-basis: 100%;
+  }
+  .bottomNote {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .tableFooter {
+    padding: 12px 16px;
+  }
+  .severityChart {
+    margin-inline: 4px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page *,
+  .page *::before {
+    scroll-behavior: auto !important;
+    transition: none !important;
+  }
+}
+
+.actions :global(.ask-ai-button) {
+  background: var(--ai-button-background);
+  color: var(--ai-button-foreground);
+  border: 1px solid var(--ai-button-border);
+  font-weight: 600;
+}
+.actions :global(.ask-ai-button:hover) {
+  background: var(--ai-button-hover);
+}
+.actions > button:first-child {
+  background: var(--surface);
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+}
+:global(.analytics-chart) {
+  font-size: 12px;
+}
+
+.heatmap th:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--surface);
+}
+.yearMonths {
+  display: block;
+  color: var(--text-secondary);
+  font-size: 11px;
+  margin-top: 2px;
+}
+
+.trendChart {
+  position: relative;
+}
+.chartOverlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: var(--surface);
+  color: var(--text-secondary);
+  font-size: 12px;
+}

@@ -1,0 +1,48 @@
+{
+  "name": "arsia-web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --hostname 127.0.0.1",
+    "build": "next build",
+    "start": "next start --hostname 127.0.0.1",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test tests/*.test.ts",
+    "test:e2e": "playwright test",
+    "postinstall": "node scripts/prepare-map-worker.mjs",
+    "predev": "node scripts/prepare-map-worker.mjs",
+    "prebuild": "node scripts/prepare-map-worker.mjs",
+    "test:sandbox": "tsx --test tests/sandbox.integration.ts",
+    "sandbox:build": "docker build -t arsia-analysis:1 sandbox"
+  },
+  "dependencies": {
+    "@fontsource/inter": "^5.2.8",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "echarts": "6.1.0",
+    "lucide-react": "^0.577.0",
+    "maplibre-gl": "6.11.2",
+    "motion": "^12.0.0",
+    "next": "16.3.6",
+    "openai": "^7.23.0",
+    "radix-ui": "^1.6.7",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "server-only": "^0.0.1",
+    "tailwind-merge": "^3.0.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.0",
+    "@tailwindcss/postcss": "^4.0.0",
+    "@types/geojson": "^7946.0.16",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "eslint": "^9.0.0",
+    "eslint-config-next": "16.3.6",
+    "tailwindcss": "^4.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.9.0"
+  }
+}

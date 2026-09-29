@@ -1,0 +1,1564 @@
+{
+  "extensionVersion": "lga-name-v1",
+  "batchId": "bcc5da57-25f2-41ec-9925-bef421b02671",
+  "datasetVersion": "official-v1",
+  "aggregateSha256": "93a1a8cdb889c17bee7e144ed49e9439d1a0d8cc8904fa43cec1a4fc45e1ad36",
+  "boundaryVersion": "ABS ASGS 2024 LGA",
+  "method": "Exact state-scoped administrative-name normalisation plus explicit aliases; VIC joins ACCIDENT_NO and NODE_ID and requires all LGA names to agree after mapping. No coordinates or fuzzy matching.",
+  "limitations": [
+    "LGA is not a city, suburb or accident point.",
+    "Historical source labels are displayed on 2024 reference boundaries, not spatially reallocated to 2024 geography.",
+    "Unmatched and ambiguous records remain in source totals and are excluded from region counts.",
+    "NSW Town and QLD Suburb are source text labels only. VIC has no admitted town field.",
+    "This frontend-derived extension does not change official map eligibility, QA07 or the frozen pipeline snapshot."
+  ],
+  "inputs": [
+    {
+      "resourceId": "official_nsw_crash",
+      "sourceId": "official_nsw",
+      "sha256": "7345189f017d9c842429674ecf2196cee728de46c0572ce2a85220f9bef49aa9",
+      "rawCount": 92189,
+      "parserVersion": "xlsx-native-v1"
+    },
+    {
+      "resourceId": "official_vic_accident",
+      "sourceId": "official_vic",
+      "sha256": "a148c00601fab10d44368df80492c594123700a7f9e334ff896fd215295e91d9",
+      "rawCount": 200352,
+      "parserVersion": "csv-native-v1"
+    },
+    {
+      "resourceId": "official_vic_node",
+      "sourceId": "official_vic",
+      "sha256": "b0bdbec22ac33df66e15cff9b531ba3203320ec5fbe20076a2820b8fec966ed4",
+      "rawCount": 405918,
+      "parserVersion": "csv-native-v1"
+    },
+    {
+      "resourceId": "official_qld_crash",
+      "sourceId": "official_qld",
+      "sha256": "975be4b02a235d06589de9b486f73bafe22d0f2007f0c07abb84f54cb926c704",
+      "rawCount": 415407,
+      "parserVersion": "csv-native-v1"
+    }
+  ],
+  "boundaries": [
+    {
+      "state": "nsw",
+      "url": "https://geo.abs.gov.au/arcgis/rest/services/ASGS2024/LGA/MapServer/1/query?where=state_code_2021%3D%271%27&outFields=lga_code_2024%2Clga_name_2024%2Cstate_name_2021&outSR=4326&f=geojson&returnGeometry=true&maxAllowableOffset=0.008&geometryPrecision=4",
+      "features": 129,
+      "bytes": 251544,
+      "sha256": "7b558e0ec20381de80385ea81806373971ae896038433a6e4b05bec916672583"
+    },
+    {
+      "state": "vic",
+      "url": "https://geo.abs.gov.au/arcgis/rest/services/ASGS2024/LGA/MapServer/1/query?where=state_code_2021%3D%272%27&outFields=lga_code_2024%2Clga_name_2024%2Cstate_name_2021&outSR=4326&f=geojson&returnGeometry=true&maxAllowableOffset=0.008&geometryPrecision=4",
+      "features": 80,
+      "bytes": 111741,
+      "sha256": "203ea703f328a5918c757658c1d0b11fcc2c53b8076738cbf71133929736f763"
+    },
+    {
+      "state": "qld",
+      "url": "https://geo.abs.gov.au/arcgis/rest/services/ASGS2024/LGA/MapServer/1/query?where=state_code_2021%3D%273%27&outFields=lga_code_2024%2Clga_name_2024%2Cstate_name_2021&outSR=4326&f=geojson&returnGeometry=true&maxAllowableOffset=0.008&geometryPrecision=4",
+      "features": 78,
+      "bytes": 304504,
+      "sha256": "3fbb89d3a1545fb0cdb85181a100fc78f7de91600fbdef5f8fcdeef05caf6427"
+    }
+  ],
+  "aliases": {
+    "NSW": {
+      "UNINCORPORATED": "19399"
+    },
+    "VIC": {
+      "GEELONG": "22750",
+      "DANDENONG": "22670",
+      "BENDIGO": "22620",
+      "SHEPPARTON": "22830",
+      "MORELAND": "24700"
+    },
+    "QLD": {}
+  },
+  "references": [
+    "https://geo.abs.gov.au/arcgis/rest/services/ASGS2024/LGA/MapServer/1",
+    "https://www.merri-bek.vic.gov.au/my-council/news-and-publications/news/merri-bek-name-for-council-approved/"
+  ],
+  "sources": {
+    "NSW": {
+      "audit": {
+        "crashes": 92082,
+        "matched": 92077,
+        "unmatched": 5,
+        "duplicateNodeAccidentsCollapsed": 0,
+        "monthlyMetricsReconciled": 240,
+        "severityReconciled": true
+      },
+      "unmatchedByReason": {
+        "unmatched_name": 5
+      },
+      "crosswalk": [
+        {
+          "native": "Albury",
+          "regionId": "10050",
+          "crashes": 691
+        },
+        {
+          "native": "Armidale Regional",
+          "regionId": "10180",
+          "crashes": 318
+        },
+        {
+          "native": "Ballina",
+          "regionId": "10250",
+          "crashes": 458
+        },
+        {
+          "native": "Balranald",
+          "regionId": "10300",
+          "crashes": 26
+        },
+        {
+          "native": "Bathurst Regional",
+          "regionId": "10470",
+          "crashes": 583
+        },
+        {
+          "native": "Bayside",
+          "regionId": "10500",
+          "crashes": 2109
+        },
+        {
+          "native": "Bega Valley",
+          "regionId": "10550",
+          "crashes": 446
+        },
+        {
+          "native": "Bellingen",
+          "regionId": "10600",
+          "crashes": 218
+        },
+        {
+          "native": "Berrigan",
+          "regionId": "10650",
+          "crashes": 65
+        },
+        {
+          "native": "Blacktown",
+          "regionId": "10750",
+          "crashes": 4295
+        },
+        {
+          "native": "Bland",
+          "regionId": "10800",
+          "crashes": 111
+        },
+        {
+          "native": "Blayney",
+          "regionId": "10850",
+          "crashes": 111
+        },
+        {
+          "native": "Blue Mountains",
+          "regionId": "10900",
+          "crashes": 759
+        },
+        {
+          "native": "Bogan",
+          "regionId": "10950",
+          "crashes": 49
+        },
+        {
+          "native": "Bourke",
+          "regionId": "11150",
+          "crashes": 56
+        },
+        {
+          "native": "Brewarrina",
+          "regionId": "11200",
+          "crashes": 14
+        },
+        {
+          "native": "Broken Hill",
+          "regionId": "11250",
+          "crashes": 182
+        },
+        {
+          "native": "Burwood",
+          "regionId": "11300",
+          "crashes": 387
+        },
+        {
+          "native": "Byron",
+          "regionId": "11350",
+          "crashes": 669
+        },
+        {
+          "native": "Cabonne",
+          "regionId": "11400",
+          "crashes": 285
+        },
+        {
+          "native": "Camden",
+          "regionId": "11450",
+          "crashes": 803
+        },
+        {
+          "native": "Campbelltown",
+          "regionId": "11500",
+          "crashes": 1656
+        },
+        {
+          "native": "Canada Bay",
+          "regionId": "11520",
+          "crashes": 832
+        },
+        {
+          "native": "Canterbury-Bankstown",
+          "regionId": "11570",
+          "crashes": 4573
+        },
+        {
+          "native": "Carrathool",
+          "regionId": "11600",
+          "crashes": 81
+        },
+        {
+          "native": "Central Coast",
+          "regionId": "11650",
+          "crashes": 4369
+        },
+        {
+          "native": "Central Darling",
+          "regionId": "11700",
+          "crashes": 65
+        },
+        {
+          "native": "Cessnock",
+          "regionId": "11720",
+          "crashes": 891
+        },
+        {
+          "native": "Clarence Valley",
+          "regionId": "11730",
+          "crashes": 786
+        },
+        {
+          "native": "Cobar",
+          "regionId": "11750",
+          "crashes": 64
+        },
+        {
+          "native": "Coffs Harbour",
+          "regionId": "11800",
+          "crashes": 944
+        },
+        {
+          "native": "Coolamon",
+          "regionId": "12000",
+          "crashes": 52
+        },
+        {
+          "native": "Coonamble",
+          "regionId": "12150",
+          "crashes": 48
+        },
+        {
+          "native": "Cootamundra-Gundagai",
+          "regionId": "12160",
+          "crashes": 254
+        },
+        {
+          "native": "Cowra",
+          "regionId": "12350",
+          "crashes": 186
+        },
+        {
+          "native": "Cumberland",
+          "regionId": "12380",
+          "crashes": 2837
+        },
+        {
+          "native": "Dubbo Regional",
+          "regionId": "12390",
+          "crashes": 803
+        },
+        {
+          "native": "Dungog",
+          "regionId": "12700",
+          "crashes": 96
+        },
+        {
+          "native": "Edward River",
+          "regionId": "12730",
+          "crashes": 89
+        },
+        {
+          "native": "Eurobodalla",
+          "regionId": "12750",
+          "crashes": 527
+        },
+        {
+          "native": "Fairfield",
+          "regionId": "12850",
+          "crashes": 2481
+        },
+        {
+          "native": "Federation",
+          "regionId": "12870",
+          "crashes": 147
+        },
+        {
+          "native": "Forbes",
+          "regionId": "12900",
+          "crashes": 141
+        },
+        {
+          "native": "Georges River",
+          "regionId": "12930",
+          "crashes": 1319
+        },
+        {
+          "native": "Gilgandra",
+          "regionId": "12950",
+          "crashes": 51
+        },
+        {
+          "native": "Glen Innes Severn",
+          "regionId": "13010",
+          "crashes": 162
+        },
+        {
+          "native": "Goulburn Mulwaree",
+          "regionId": "13310",
+          "crashes": 543
+        },
+        {
+          "native": "Greater Hume",
+          "regionId": "13340",
+          "crashes": 245
+        },
+        {
+          "native": "Griffith",
+          "regionId": "13450",
+          "crashes": 372
+        },
+        {
+          "native": "Gunnedah",
+          "regionId": "13550",
+          "crashes": 156
+        },
+        {
+          "native": "Gwydir",
+          "regionId": "13660",
+          "crashes": 89
+        },
+        {
+          "native": "Hawkesbury",
+          "regionId": "13800",
+          "crashes": 1128
+        },
+        {
+          "native": "Hay",
+          "regionId": "13850",
+          "crashes": 56
+        },
+        {
+          "native": "Hilltops",
+          "regionId": "13910",
+          "crashes": 373
+        },
+        {
+          "native": "Hornsby",
+          "regionId": "14000",
+          "crashes": 1295
+        },
+        {
+          "native": "Hunters Hill",
+          "regionId": "14100",
+          "crashes": 133
+        },
+        {
+          "native": "Inner West",
+          "regionId": "14170",
+          "crashes": 2092
+        },
+        {
+          "native": "Inverell",
+          "regionId": "14220",
+          "crashes": 261
+        },
+        {
+          "native": "Junee",
+          "regionId": "14300",
+          "crashes": 84
+        },
+        {
+          "native": "Kempsey",
+          "regionId": "14350",
+          "crashes": 408
+        },
+        {
+          "native": "Kiama",
+          "regionId": "14400",
+          "crashes": 224
+        },
+        {
+          "native": "Ku-ring-gai",
+          "regionId": "14500",
+          "crashes": 916
+        },
+        {
+          "native": "Kyogle",
+          "regionId": "14550",
+          "crashes": 205
+        },
+        {
+          "native": "Lachlan",
+          "regionId": "14600",
+          "crashes": 84
+        },
+        {
+          "native": "Lake Macquarie",
+          "regionId": "14650",
+          "crashes": 2246
+        },
+        {
+          "native": "Lane Cove",
+          "regionId": "14700",
+          "crashes": 288
+        },
+        {
+          "native": "Leeton",
+          "regionId": "14750",
+          "crashes": 140
+        },
+        {
+          "native": "Lismore",
+          "regionId": "14850",
+          "crashes": 575
+        },
+        {
+          "native": "Lithgow",
+          "regionId": "14870",
+          "crashes": 452
+        },
+        {
+          "native": "Liverpool",
+          "regionId": "14900",
+          "crashes": 2812
+        },
+        {
+          "native": "Liverpool Plains",
+          "regionId": "14920",
+          "crashes": 132
+        },
+        {
+          "native": "Lockhart",
+          "regionId": "14950",
+          "crashes": 47
+        },
+        {
+          "native": "Maitland",
+          "regionId": "15050",
+          "crashes": 728
+        },
+        {
+          "native": "Mid-Coast",
+          "regionId": "15240",
+          "crashes": 1492
+        },
+        {
+          "native": "Mid-Western Regional",
+          "regionId": "15270",
+          "crashes": 498
+        },
+        {
+          "native": "Moree Plains",
+          "regionId": "15300",
+          "crashes": 179
+        },
+        {
+          "native": "Mosman",
+          "regionId": "15350",
+          "crashes": 217
+        },
+        {
+          "native": "Murray River",
+          "regionId": "15520",
+          "crashes": 133
+        },
+        {
+          "native": "Murrumbidgee",
+          "regionId": "15560",
+          "crashes": 58
+        },
+        {
+          "native": "Muswellbrook",
+          "regionId": "15650",
+          "crashes": 259
+        },
+        {
+          "native": "Nambucca Valley",
+          "regionId": "15700",
+          "crashes": 285
+        },
+        {
+          "native": "Narrabri",
+          "regionId": "15750",
+          "crashes": 188
+        },
+        {
+          "native": "Narrandera",
+          "regionId": "15800",
+          "crashes": 75
+        },
+        {
+          "native": "Narromine",
+          "regionId": "15850",
+          "crashes": 101
+        },
+        {
+          "native": "Newcastle",
+          "regionId": "15900",
+          "crashes": 2254
+        },
+        {
+          "native": "North Sydney",
+          "regionId": "15950",
+          "crashes": 586
+        },
+        {
+          "native": "Northern Beaches",
+          "regionId": "15990",
+          "crashes": 1887
+        },
+        {
+          "native": "Oberon",
+          "regionId": "16100",
+          "crashes": 171
+        },
+        {
+          "native": "Orange",
+          "regionId": "16150",
+          "crashes": 477
+        },
+        {
+          "native": "Parkes",
+          "regionId": "16200",
+          "crashes": 217
+        },
+        {
+          "native": "Parramatta",
+          "regionId": "16260",
+          "crashes": 2874
+        },
+        {
+          "native": "Penrith",
+          "regionId": "16350",
+          "crashes": 2228
+        },
+        {
+          "native": "Port Macquarie-Hastings",
+          "regionId": "16380",
+          "crashes": 809
+        },
+        {
+          "native": "Port Stephens",
+          "regionId": "16400",
+          "crashes": 732
+        },
+        {
+          "native": "Queanbeyan-Palerang Regional",
+          "regionId": "16490",
+          "crashes": 682
+        },
+        {
+          "native": "Randwick",
+          "regionId": "16550",
+          "crashes": 1311
+        },
+        {
+          "native": "Richmond Valley",
+          "regionId": "16610",
+          "crashes": 349
+        },
+        {
+          "native": "Ryde",
+          "regionId": "16700",
+          "crashes": 1298
+        },
+        {
+          "native": "Shellharbour",
+          "regionId": "16900",
+          "crashes": 650
+        },
+        {
+          "native": "Shoalhaven",
+          "regionId": "16950",
+          "crashes": 1289
+        },
+        {
+          "native": "Singleton",
+          "regionId": "17000",
+          "crashes": 402
+        },
+        {
+          "native": "Snowy Monaro Regional",
+          "regionId": "17040",
+          "crashes": 453
+        },
+        {
+          "native": "Snowy Valleys",
+          "regionId": "17080",
+          "crashes": 320
+        },
+        {
+          "native": "Strathfield",
+          "regionId": "17100",
+          "crashes": 646
+        },
+        {
+          "native": "Sutherland",
+          "regionId": "17150",
+          "crashes": 1982
+        },
+        {
+          "native": "Sydney",
+          "regionId": "17200",
+          "crashes": 2932
+        },
+        {
+          "native": "Tamworth Regional",
+          "regionId": "17310",
+          "crashes": 861
+        },
+        {
+          "native": "Temora",
+          "regionId": "17350",
+          "crashes": 89
+        },
+        {
+          "native": "Tenterfield",
+          "regionId": "17400",
+          "crashes": 165
+        },
+        {
+          "native": "The Hills",
+          "regionId": "17420",
+          "crashes": 1676
+        },
+        {
+          "native": "Tweed",
+          "regionId": "17550",
+          "crashes": 1173
+        },
+        {
+          "native": "Unincorporated",
+          "regionId": "19399",
+          "crashes": 68
+        },
+        {
+          "native": "Upper Hunter",
+          "regionId": "17620",
+          "crashes": 228
+        },
+        {
+          "native": "Upper Lachlan",
+          "regionId": "17640",
+          "crashes": 246
+        },
+        {
+          "native": "Uralla",
+          "regionId": "17650",
+          "crashes": 74
+        },
+        {
+          "native": "Wagga Wagga",
+          "regionId": "17750",
+          "crashes": 935
+        },
+        {
+          "native": "Walcha",
+          "regionId": "17850",
+          "crashes": 88
+        },
+        {
+          "native": "Walgett",
+          "regionId": "17900",
+          "crashes": 83
+        },
+        {
+          "native": "Warren",
+          "regionId": "17950",
+          "crashes": 48
+        },
+        {
+          "native": "Warrumbungle",
+          "regionId": "18020",
+          "crashes": 197
+        },
+        {
+          "native": "Waverley",
+          "regionId": "18050",
+          "crashes": 577
+        },
+        {
+          "native": "Weddin",
+          "regionId": "18100",
+          "crashes": 68
+        },
+        {
+          "native": "Wentworth",
+          "regionId": "18200",
+          "crashes": 74
+        },
+        {
+          "native": "Willoughby",
+          "regionId": "18250",
+          "crashes": 672
+        },
+        {
+          "native": "Wingecarribee",
+          "regionId": "18350",
+          "crashes": 711
+        },
+        {
+          "native": "Wollondilly",
+          "regionId": "18400",
+          "crashes": 626
+        },
+        {
+          "native": "Wollongong",
+          "regionId": "18450",
+          "crashes": 2271
+        },
+        {
+          "native": "Woollahra",
+          "regionId": "18500",
+          "crashes": 534
+        },
+        {
+          "native": "Yass Valley",
+          "regionId": "18710",
+          "crashes": 406
+        }
+      ]
+    },
+    "VIC": {
+      "audit": {
+        "crashes": 72170,
+        "matched": 69805,
+        "unmatched": 2365,
+        "duplicateNodeAccidentsCollapsed": 71264,
+        "monthlyMetricsReconciled": 240,
+        "severityReconciled": true
+      },
+      "unmatchedByReason": {
+        "missing_node": 7,
+        "unmatched_name": 48,
+        "ambiguous_lga": 2310
+      },
+      "crosswalk": [
+        {
+          "native": "ALPINE",
+          "regionId": "20110",
+          "crashes": 255
+        },
+        {
+          "native": "ARARAT",
+          "regionId": "20260",
+          "crashes": 147
+        },
+        {
+          "native": "BALLARAT",
+          "regionId": "20570",
+          "crashes": 1452
+        },
+        {
+          "native": "BANYULE",
+          "regionId": "20660",
+          "crashes": 941
+        },
+        {
+          "native": "BASS COAST",
+          "regionId": "20740",
+          "crashes": 377
+        },
+        {
+          "native": "BAW BAW",
+          "regionId": "20830",
+          "crashes": 880
+        },
+        {
+          "native": "BAYSIDE",
+          "regionId": "20910",
+          "crashes": 787
+        },
+        {
+          "native": "BENALLA",
+          "regionId": "21010",
+          "crashes": 194
+        },
+        {
+          "native": "BENDIGO",
+          "regionId": "22620",
+          "crashes": 1449
+        },
+        {
+          "native": "BOROONDARA",
+          "regionId": "21110",
+          "crashes": 1379
+        },
+        {
+          "native": "BRIMBANK",
+          "regionId": "21180",
+          "crashes": 2101
+        },
+        {
+          "native": "BULOKE",
+          "regionId": "21270",
+          "crashes": 72
+        },
+        {
+          "native": "CAMPASPE",
+          "regionId": "21370",
+          "crashes": 459
+        },
+        {
+          "native": "CARDINIA",
+          "regionId": "21450",
+          "crashes": 1371
+        },
+        {
+          "native": "CASEY",
+          "regionId": "21610",
+          "crashes": 3692
+        },
+        {
+          "native": "CENTRAL GOLDFIELDS",
+          "regionId": "21670",
+          "crashes": 132
+        },
+        {
+          "native": "COLAC OTWAY",
+          "regionId": "21750",
+          "crashes": 398
+        },
+        {
+          "native": "CORANGAMITE",
+          "regionId": "21830",
+          "crashes": 244
+        },
+        {
+          "native": "DANDENONG",
+          "regionId": "22670",
+          "crashes": 2377
+        },
+        {
+          "native": "DAREBIN",
+          "regionId": "21890",
+          "crashes": 1637
+        },
+        {
+          "native": "EAST GIPPSLAND",
+          "regionId": "22110",
+          "crashes": 667
+        },
+        {
+          "native": "FRANKSTON",
+          "regionId": "22170",
+          "crashes": 1245
+        },
+        {
+          "native": "GANNAWARRA",
+          "regionId": "22250",
+          "crashes": 102
+        },
+        {
+          "native": "GEELONG",
+          "regionId": "22750",
+          "crashes": 2980
+        },
+        {
+          "native": "GLEN EIRA",
+          "regionId": "22310",
+          "crashes": 1079
+        },
+        {
+          "native": "GLENELG",
+          "regionId": "22410",
+          "crashes": 246
+        },
+        {
+          "native": "GOLDEN PLAINS",
+          "regionId": "22490",
+          "crashes": 319
+        },
+        {
+          "native": "HEPBURN",
+          "regionId": "22910",
+          "crashes": 223
+        },
+        {
+          "native": "HINDMARSH",
+          "regionId": "22980",
+          "crashes": 72
+        },
+        {
+          "native": "HOBSONS BAY",
+          "regionId": "23110",
+          "crashes": 1073
+        },
+        {
+          "native": "HORSHAM",
+          "regionId": "23190",
+          "crashes": 210
+        },
+        {
+          "native": "HUME",
+          "regionId": "23270",
+          "crashes": 2956
+        },
+        {
+          "native": "INDIGO",
+          "regionId": "23350",
+          "crashes": 216
+        },
+        {
+          "native": "KINGSTON",
+          "regionId": "23430",
+          "crashes": 1526
+        },
+        {
+          "native": "KNOX",
+          "regionId": "23670",
+          "crashes": 1280
+        },
+        {
+          "native": "LATROBE",
+          "regionId": "23810",
+          "crashes": 674
+        },
+        {
+          "native": "LODDON",
+          "regionId": "23940",
+          "crashes": 129
+        },
+        {
+          "native": "MACEDON RANGES",
+          "regionId": "24130",
+          "crashes": 487
+        },
+        {
+          "native": "MANNINGHAM",
+          "regionId": "24210",
+          "crashes": 713
+        },
+        {
+          "native": "MANSFIELD",
+          "regionId": "24250",
+          "crashes": 252
+        },
+        {
+          "native": "MARIBYRNONG",
+          "regionId": "24330",
+          "crashes": 976
+        },
+        {
+          "native": "MAROONDAH",
+          "regionId": "24410",
+          "crashes": 883
+        },
+        {
+          "native": "MELBOURNE",
+          "regionId": "24600",
+          "crashes": 3038
+        },
+        {
+          "native": "MELTON",
+          "regionId": "24650",
+          "crashes": 1690
+        },
+        {
+          "native": "MERRI-BEK",
+          "regionId": "24700",
+          "crashes": 183
+        },
+        {
+          "native": "MERRI-BEK / MORELAND",
+          "regionId": "24700",
+          "crashes": 1836
+        },
+        {
+          "native": "MILDURA",
+          "regionId": "24780",
+          "crashes": 517
+        },
+        {
+          "native": "MITCHELL",
+          "regionId": "24850",
+          "crashes": 695
+        },
+        {
+          "native": "MOIRA",
+          "regionId": "24900",
+          "crashes": 352
+        },
+        {
+          "native": "MONASH",
+          "regionId": "24970",
+          "crashes": 1958
+        },
+        {
+          "native": "MOONEE VALLEY",
+          "regionId": "25060",
+          "crashes": 1183
+        },
+        {
+          "native": "MOORABOOL",
+          "regionId": "25150",
+          "crashes": 566
+        },
+        {
+          "native": "MORNINGTON PENINSULA",
+          "regionId": "25340",
+          "crashes": 1504
+        },
+        {
+          "native": "MOUNT ALEXANDER",
+          "regionId": "25430",
+          "crashes": 233
+        },
+        {
+          "native": "MOYNE",
+          "regionId": "25490",
+          "crashes": 244
+        },
+        {
+          "native": "MURRINDINDI",
+          "regionId": "25620",
+          "crashes": 455
+        },
+        {
+          "native": "NILLUMBIK",
+          "regionId": "25710",
+          "crashes": 625
+        },
+        {
+          "native": "NORTHERN GRAMPIANS",
+          "regionId": "25810",
+          "crashes": 175
+        },
+        {
+          "native": "PORT PHILLIP",
+          "regionId": "25900",
+          "crashes": 1389
+        },
+        {
+          "native": "PYRENEES",
+          "regionId": "25990",
+          "crashes": 158
+        },
+        {
+          "native": "QUEENSCLIFFE",
+          "regionId": "26080",
+          "crashes": 5
+        },
+        {
+          "native": "SHEPPARTON",
+          "regionId": "22830",
+          "crashes": 707
+        },
+        {
+          "native": "SOUTH GIPPSLAND",
+          "regionId": "26170",
+          "crashes": 457
+        },
+        {
+          "native": "SOUTHERN GRAMPIANS",
+          "regionId": "26260",
+          "crashes": 158
+        },
+        {
+          "native": "STONNINGTON",
+          "regionId": "26350",
+          "crashes": 1424
+        },
+        {
+          "native": "STRATHBOGIE",
+          "regionId": "26430",
+          "crashes": 221
+        },
+        {
+          "native": "SURF COAST",
+          "regionId": "26490",
+          "crashes": 487
+        },
+        {
+          "native": "SWAN HILL",
+          "regionId": "26610",
+          "crashes": 194
+        },
+        {
+          "native": "TOWONG",
+          "regionId": "26670",
+          "crashes": 143
+        },
+        {
+          "native": "WANGARATTA",
+          "regionId": "26700",
+          "crashes": 372
+        },
+        {
+          "native": "WARRNAMBOOL",
+          "regionId": "26730",
+          "crashes": 269
+        },
+        {
+          "native": "WELLINGTON",
+          "regionId": "26810",
+          "crashes": 606
+        },
+        {
+          "native": "WEST WIMMERA",
+          "regionId": "26890",
+          "crashes": 56
+        },
+        {
+          "native": "WHITEHORSE",
+          "regionId": "26980",
+          "crashes": 1246
+        },
+        {
+          "native": "WHITTLESEA",
+          "regionId": "27070",
+          "crashes": 2238
+        },
+        {
+          "native": "WODONGA",
+          "regionId": "27170",
+          "crashes": 335
+        },
+        {
+          "native": "WYNDHAM",
+          "regionId": "27260",
+          "crashes": 2175
+        },
+        {
+          "native": "YARRA",
+          "regionId": "27350",
+          "crashes": 1394
+        },
+        {
+          "native": "YARRA RANGES",
+          "regionId": "27450",
+          "crashes": 1794
+        },
+        {
+          "native": "YARRIAMBIACK",
+          "regionId": "27630",
+          "crashes": 71
+        }
+      ]
+    },
+    "QLD": {
+      "audit": {
+        "crashes": 66624,
+        "matched": 66623,
+        "unmatched": 1,
+        "duplicateNodeAccidentsCollapsed": 0,
+        "monthlyMetricsReconciled": 240,
+        "severityReconciled": true
+      },
+      "unmatchedByReason": {
+        "missing_name": 1
+      },
+      "crosswalk": [
+        {
+          "native": "Aurukun Shire",
+          "regionId": "30250",
+          "crashes": 1
+        },
+        {
+          "native": "Balonne Shire",
+          "regionId": "30300",
+          "crashes": 55
+        },
+        {
+          "native": "Banana Shire",
+          "regionId": "30370",
+          "crashes": 239
+        },
+        {
+          "native": "Barcaldine Region",
+          "regionId": "30410",
+          "crashes": 41
+        },
+        {
+          "native": "Barcoo Shire",
+          "regionId": "30450",
+          "crashes": 11
+        },
+        {
+          "native": "Blackall Tambo Region",
+          "regionId": "30760",
+          "crashes": 18
+        },
+        {
+          "native": "Boulia Shire",
+          "regionId": "30900",
+          "crashes": 7
+        },
+        {
+          "native": "Brisbane City",
+          "regionId": "31000",
+          "crashes": 16662
+        },
+        {
+          "native": "Bulloo Shire",
+          "regionId": "31750",
+          "crashes": 6
+        },
+        {
+          "native": "Bundaberg Region",
+          "regionId": "31820",
+          "crashes": 1430
+        },
+        {
+          "native": "Burdekin Shire",
+          "regionId": "31900",
+          "crashes": 243
+        },
+        {
+          "native": "Burke Shire",
+          "regionId": "31950",
+          "crashes": 23
+        },
+        {
+          "native": "Cairns Region",
+          "regionId": "32080",
+          "crashes": 1850
+        },
+        {
+          "native": "Carpentaria Shire",
+          "regionId": "32250",
+          "crashes": 22
+        },
+        {
+          "native": "Cassowary Coast Region",
+          "regionId": "32260",
+          "crashes": 381
+        },
+        {
+          "native": "Central Highlands Region",
+          "regionId": "32270",
+          "crashes": 342
+        },
+        {
+          "native": "Charters Towers Region",
+          "regionId": "32310",
+          "crashes": 213
+        },
+        {
+          "native": "Cherbourg Aboriginal Shire",
+          "regionId": "32330",
+          "crashes": 3
+        },
+        {
+          "native": "Cloncurry Shire",
+          "regionId": "32450",
+          "crashes": 59
+        },
+        {
+          "native": "Cook Shire",
+          "regionId": "32500",
+          "crashes": 155
+        },
+        {
+          "native": "Croydon Shire",
+          "regionId": "32600",
+          "crashes": 5
+        },
+        {
+          "native": "Diamantina Shire",
+          "regionId": "32750",
+          "crashes": 15
+        },
+        {
+          "native": "Doomadgee Aboriginal Shire",
+          "regionId": "32770",
+          "crashes": 10
+        },
+        {
+          "native": "Douglas Shire",
+          "regionId": "32810",
+          "crashes": 216
+        },
+        {
+          "native": "Etheridge Shire",
+          "regionId": "33100",
+          "crashes": 28
+        },
+        {
+          "native": "Flinders Shire",
+          "regionId": "33200",
+          "crashes": 39
+        },
+        {
+          "native": "Fraser Coast Region",
+          "regionId": "33220",
+          "crashes": 1360
+        },
+        {
+          "native": "Gladstone Region",
+          "regionId": "33360",
+          "crashes": 778
+        },
+        {
+          "native": "Gold Coast City",
+          "regionId": "33430",
+          "crashes": 8142
+        },
+        {
+          "native": "Goondiwindi Region",
+          "regionId": "33610",
+          "crashes": 113
+        },
+        {
+          "native": "Gympie Region",
+          "regionId": "33620",
+          "crashes": 864
+        },
+        {
+          "native": "Hinchinbrook Shire",
+          "regionId": "33800",
+          "crashes": 163
+        },
+        {
+          "native": "Hope Vale Aboriginal Shire",
+          "regionId": "33830",
+          "crashes": 7
+        },
+        {
+          "native": "Ipswich City",
+          "regionId": "33960",
+          "crashes": 2979
+        },
+        {
+          "native": "Isaac Region",
+          "regionId": "33980",
+          "crashes": 401
+        },
+        {
+          "native": "Kowanyama Aboriginal Shire",
+          "regionId": "34420",
+          "crashes": 7
+        },
+        {
+          "native": "Livingstone Shire",
+          "regionId": "34530",
+          "crashes": 414
+        },
+        {
+          "native": "Lockhart River Aboriginal Shire",
+          "regionId": "34570",
+          "crashes": 6
+        },
+        {
+          "native": "Lockyer Valley Region",
+          "regionId": "34580",
+          "crashes": 617
+        },
+        {
+          "native": "Logan City",
+          "regionId": "34590",
+          "crashes": 5704
+        },
+        {
+          "native": "Longreach Region",
+          "regionId": "34710",
+          "crashes": 59
+        },
+        {
+          "native": "Mackay Region",
+          "regionId": "34770",
+          "crashes": 1567
+        },
+        {
+          "native": "Mapoon Aboriginal Shire",
+          "regionId": "34830",
+          "crashes": 1
+        },
+        {
+          "native": "Maranoa Region",
+          "regionId": "34860",
+          "crashes": 157
+        },
+        {
+          "native": "Mareeba Shire",
+          "regionId": "34880",
+          "crashes": 339
+        },
+        {
+          "native": "Mckinlay Shire",
+          "regionId": "34800",
+          "crashes": 29
+        },
+        {
+          "native": "Moreton Bay Region",
+          "regionId": "35010",
+          "crashes": 5471
+        },
+        {
+          "native": "Mornington Shire",
+          "regionId": "35250",
+          "crashes": 8
+        },
+        {
+          "native": "Mount Isa City",
+          "regionId": "35300",
+          "crashes": 208
+        },
+        {
+          "native": "Murweh Shire",
+          "regionId": "35600",
+          "crashes": 56
+        },
+        {
+          "native": "Napranum Aboriginal Shire",
+          "regionId": "35670",
+          "crashes": 6
+        },
+        {
+          "native": "Noosa Shire",
+          "regionId": "35740",
+          "crashes": 597
+        },
+        {
+          "native": "North Burnett Region",
+          "regionId": "35760",
+          "crashes": 178
+        },
+        {
+          "native": "Northern Peninsula Area Region",
+          "regionId": "35780",
+          "crashes": 19
+        },
+        {
+          "native": "Palm Island Aboriginal Shire",
+          "regionId": "35790",
+          "crashes": 9
+        },
+        {
+          "native": "Paroo Shire",
+          "regionId": "35800",
+          "crashes": 26
+        },
+        {
+          "native": "Pormpuraaw Aboriginal Shire",
+          "regionId": "36070",
+          "crashes": 5
+        },
+        {
+          "native": "Quilpie Shire",
+          "regionId": "36150",
+          "crashes": 8
+        },
+        {
+          "native": "Redland City",
+          "regionId": "36250",
+          "crashes": 1241
+        },
+        {
+          "native": "Richmond Shire",
+          "regionId": "36300",
+          "crashes": 14
+        },
+        {
+          "native": "Rockhampton Region",
+          "regionId": "36370",
+          "crashes": 1235
+        },
+        {
+          "native": "Scenic Rim Region",
+          "regionId": "36510",
+          "crashes": 790
+        },
+        {
+          "native": "Somerset Region",
+          "regionId": "36580",
+          "crashes": 631
+        },
+        {
+          "native": "South Burnett Region",
+          "regionId": "36630",
+          "crashes": 490
+        },
+        {
+          "native": "Southern Downs Region",
+          "regionId": "36660",
+          "crashes": 435
+        },
+        {
+          "native": "Sunshine Coast Region",
+          "regionId": "36720",
+          "crashes": 3733
+        },
+        {
+          "native": "Tablelands Region",
+          "regionId": "36820",
+          "crashes": 377
+        },
+        {
+          "native": "Toowoomba Region",
+          "regionId": "36910",
+          "crashes": 1932
+        },
+        {
+          "native": "Torres Shire",
+          "regionId": "36950",
+          "crashes": 11
+        },
+        {
+          "native": "Torres Strait Island Region",
+          "regionId": "36960",
+          "crashes": 3
+        },
+        {
+          "native": "Townsville City",
+          "regionId": "37010",
+          "crashes": 2379
+        },
+        {
+          "native": "Weipa Town",
+          "regionId": "37300",
+          "crashes": 9
+        },
+        {
+          "native": "Western Downs Region",
+          "regionId": "37310",
+          "crashes": 458
+        },
+        {
+          "native": "Whitsunday Region",
+          "regionId": "37340",
+          "crashes": 458
+        },
+        {
+          "native": "Winton Shire",
+          "regionId": "37400",
+          "crashes": 29
+        },
+        {
+          "native": "Woorabinda Aboriginal Shire",
+          "regionId": "37550",
+          "crashes": 3
+        },
+        {
+          "native": "Yarrabah Aboriginal Shire",
+          "regionId": "37600",
+          "crashes": 23
+        }
+      ]
+    }
+  }
+}
