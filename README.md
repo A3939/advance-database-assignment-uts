@@ -1,4 +1,4 @@
-# ARSIA: shared development baseline
+# ARSIA: road safety data pipeline and dashboard
 
 Role B prepares native inputs, loads Raw, freezes manifests, checks input/Raw quality and coordinates the build. A's fixed schema/A06, C's projections and QA, D02–D08 and E's FP1/publication are integrated. S0, S8 and the pinned NSW/VIC/QLD full builds are verified in isolated PostgreSQL. The [official guide](docs/official-build.md) records commands, results and remaining boundaries.
 
@@ -7,7 +7,7 @@ It separates the persistent development database from disposable acceptance runs
 
 ## Current scope
 
-This development version extends the shared baseline from PR #17 with real S0/S8 publication and verified official snapshots. D09 is deferred; independent E acceptance and final platform freezing remain open.
+This development version extends the shared baseline from PR #17 with real S0/S8 publication and verified official snapshots. D09 provides a fixed-release dashboard with browser-based PDF export. Its recorded synthetic publication acceptance is complete; independent E acceptance and final platform freezing remain separate milestones.
 
 | Included | Owner |
 |---|---|
@@ -16,9 +16,10 @@ This development version extends the shared baseline from PR #17 with real S0/S8
 | Packaged NSW/VIC/QLD projections, VIC location handling, Canonical loading and C10 QA | C / Serenity |
 | D02 dimensions, D03 crash facts and D04 reconciliation QA | D / Yihua |
 | D05 trend, D06 severity, D07 map and D08 unit queries, with packaged SQL | D / Yihua; B / Peixian for integration and installed-reader validation |
+| D09 fixed-release dashboard and browser-based PDF reports | See [dashboard implementation and acceptance](docs/d09-local-dashboard.md) |
 | SQL FP1 and publication gate | E / Aditya; B / Peixian for reviewed fixes and integration |
 
-[D05–D08 query integration](docs/analysis-integration.md) is included through [PR #31](https://github.com/A3939/advance-database-assignment-uts/pull/31). Its initial 131 checks used seeded successful batches. The later [official build](docs/official-build.md) verifies real E publication and restricted readers, including B's D08 performance repair. D09's dashboard is deferred.
+[D05–D08 query integration](docs/analysis-integration.md) is included through [PR #31](https://github.com/A3939/advance-database-assignment-uts/pull/31). Its initial 131 checks used seeded successful batches. The later [official build](docs/official-build.md) verifies real E publication and restricted readers, including B's D08 performance repair. The [D09 dashboard](docs/d09-local-dashboard.md) combines these queries using one pinned publication batch.
 
 [C10 is connected to B](docs/c10-integration.md), including the [PR #28](https://github.com/A3939/advance-database-assignment-uts/pull/28) QA07 fix. The [real S0 build](docs/full-build-integration.md) and [S8 extension](docs/s8-integration.md) use all seven QA groups and E's actual FP1/publication. Earlier component receipts remain as historical evidence. Current official-scope results are recorded in the [official guide](docs/official-build.md).
 
@@ -31,7 +32,7 @@ The [C/D integration record](docs/cd-integration.md) reports 733 passed / 309 sk
 - Keep member, task and fix branches after merging so the work remains easy to trace.
 - Use merge commits to retain the original commit history. Integration does not change who owns each module.
 
-## Quick start
+## Local Python quick start
 
 Use Python 3.12 and run these commands from the repository root:
 
@@ -45,7 +46,7 @@ python tools/create_demo_inputs.py --output artifacts/demo
 python -m arsia_ingest --config artifacts/demo/config.json --output artifacts/intake
 ```
 
-The tests and 19-row demo use synthetic data with all seven native headers, so they need no Git LFS download. The demo generator requires a new or empty directory. To repeat preparation, reuse `artifacts/demo/config.json` or generate a demo elsewhere.
+The default test run skips optional database checks when their dependencies or required environment are absent. The tests and 19-row demo use synthetic data with all seven native headers, so they need no Git LFS download. The demo generator requires a new or empty directory. To repeat preparation, reuse `artifacts/demo/config.json` or generate a demo elsewhere.
 
 The team's business S0 has separate files and input variants:
 
@@ -65,10 +66,124 @@ After installation, `arsia-prepare` is an alias for `python -m arsia_ingest`. Ke
 
 Each run gets a new directory under the chosen output root, followed by `<dataset_kind>/runs/`. The JSON receipt gives its `run_dir`, status and counts. Use the output only when `run.json` says `prepared`; `preparing` is incomplete. A full run needs space for archive copies and every retained JSONL record.
 
+## Dashboard and PDF reports
+
+For an illustrative dashboard without a database, use the Python environment
+above:
+
+```sh
+python -m arsia_d09 --demo
+```
+
+Open <http://127.0.0.1:8765/>. Demo values are fixed examples and remain labelled
+as illustrative in exported reports. For published data, use the Docker setup
+below or the reader connection instructions in the [dashboard guide](docs/d09-local-dashboard.md).
+
+The dashboard displays trend, severity, map-point and unit tables from one
+published batch. Official mode requires one source; unavailable reports include
+their reasons and source quality limits.
+
+To generate a PDF:
+
+1. Select your filters and click **Read fixed release**.
+2. Click **Print / Save as PDF**.
+3. Choose **Save as PDF** in the browser's print dialog.
+
+The A4 landscape print layout includes applied filters, batch identity, source
+releases, results and quality notes. It preserves SQL NULL, zero and unavailable
+values. Export uses the displayed snapshot without another database query;
+unapplied filter edits do not change it. Ctrl+P or Cmd+P also works. This feature
+uses browser printing and requires no PDF dependency or server-side PDF endpoint.
+Browser-added headers and footers can be disabled in the print dialog.
+
+## Docker workflow
+
+### First-time setup
+
+Start Docker Desktop and follow the [team Docker guide](docs/team-docker.md) to
+create `.env` from `.env.example`, set local credentials and initialize the
+persistent database. Run the following from a clean, committed checkout on
+macOS/Linux after configuring `.env`:
+
+```sh
+sh docker/team/prepare-build.sh
+export ARSIA_REVISION="$(git rev-parse HEAD)"
+docker compose config --quiet
+docker compose --profile tools build app
+docker compose up -d --wait db
+docker compose --profile tools run --rm app info
+docker compose --profile tools run --rm app init
+docker compose --profile tools run --rm app s0
+docker compose --profile web up -d dashboard
+```
+
+`init` is for a fresh database; `s0` builds and publishes the synthetic sample.
+Open <http://localhost:8765/> or the web port configured in `.env`. Windows
+PowerShell preparation commands are in the team Docker guide.
+
+### Rebuild after code changes: one command
+
+Review and commit your intended changes first. Then run:
+
+```sh
+sh docker/team/rebuild-dashboard.sh
+```
+
+The script checks Docker and Compose configuration, prepares the Git build
+proof, builds the app image, checks installation integrity, and recreates the
+dashboard. It selects the current Git commit as `ARSIA_REVISION` automatically
+for that run, overriding stale terminal or `.env` values. No manual export or
+`.env` revision edit is needed when using the script.
+
+The database must already be running and initialized. The script leaves it
+running, stops on the first failure, and does not commit files or edit `.env`.
+Refresh your browser after it finishes. A container restart alone cannot load
+code changes because the dashboard runs the package copied into the image.
+
+### Build troubleshooting
+
+| Message or symptom | Action |
+|---|---|
+| `Commit or restore tracked changes` / `Commit your changes` | Run `git status --short`, review and commit intended changes, including new files, then rerun the rebuild script. Ignored `.env` and artifacts are allowed. |
+| Missing Git proof or revision mismatch | Run the rebuild script; it regenerates proof and selects the current commit together. |
+| `Locked file changed: ...` | Review the changed file and update its corresponding inventory checksum records, then commit and rebuild. Packaging changes can affect several `config/*inventory.json` files. |
+| Missing locked file | Restore the required file from the intended project revision before rebuilding. |
+| Docker connection failure | Start Docker Desktop, then rerun the script. |
+| Dashboard still shows old content | Confirm the rebuild completed successfully, then refresh the browser. Inspect `docker compose --profile web logs --tail=100 dashboard` if startup failed. |
+
+Git proof checks bind Docker inputs to a commit. Inventory checks separately
+verify approved file contents; both must pass. The rebuild script does not
+regenerate inventory hashes or bypass these checks.
+
+## Testing
+
+Use Python 3.12; other Python versions are outside this package's supported
+range.
+
+```sh
+# Default development dependencies and suite
+python -m pip install -r requirements-dev.txt
+python -m pytest -q
+
+# Dashboard rendering and HTTP regression checks
+python -m pytest -q tests/test_d09.py tests/test_d09_official_policy.py
+
+# Optional PostgreSQL/Docker test dependencies
+python -m pip install -r requirements-db.txt
+```
+
+Installing database dependencies does not start PostgreSQL or configure the
+integration test environment. Follow the relevant validation guide for those
+checks. Optional Docker database tests skip when `psycopg` is absent. Historical
+acceptance counts below describe their recorded runs, not a fresh run of the
+current checkout. PDF print appearance should also be checked in the browser.
+
 ## Reading guide
 
 | Document | Contents |
 |---|---|
+| [Team Docker guide](docs/team-docker.md) | First-time setup, persistent database, rebuilds and isolated acceptance runs. |
+| [D09 dashboard](docs/d09-local-dashboard.md) | Startup, fixed-release reads, PDF export and recorded acceptance. |
 | [Native intake guide](docs/native-intake.md) | B01-B05: configuration, parsing rules, L1 fields, failures and database integration. |
 | [VIC source review](docs/sources/vic-accident-vehicle.md) | B06: source definitions, four-file findings and questions for C. |
 | [S0 input guide](docs/s0-inputs.md) | B07: sample values, generation commands and input variants. |
@@ -102,8 +217,10 @@ The earlier [2026-09-15 validation](docs/native-intake.md#recorded-validation-20
 | `src/arsia_ingest/qa_input.py`, `runner.py` | QA01/QA02, evidence and the shared build lifecycle. |
 | `src/arsia_ingest/recovery.py` | Resolve a saved run using a new connection, without retrying the build. |
 | `src/arsia_ingest/build.py`, `official.py`, `official_definitions.py` | S0/S8 and pinned official build requests, preparation and source admission. |
-| `src/arsia_ingest/official_reader.py` | Source-specific official reports with explicit unavailable outputs; dashboard deferred. |
+| `src/arsia_ingest/official_reader.py` | Source-specific official reports with explicit unavailable outputs. |
 | `src/arsia_d05/` through `src/arsia_d08/` | Fixed-batch query APIs and packaged SQL; these are read APIs, not B10 load callbacks. |
+| `src/arsia_d09/` | Dashboard server, fixed-release composition, HTML, CSS and PDF print action. |
+| `docker/team/rebuild-dashboard.sh` | One-command rebuild and dashboard replacement for macOS/Linux. |
 | `config/analysis-inventory.json` | Query paths, hashes, versions and deployment dependencies; a partial inventory. |
 | `config/qa-team-v1.1.json` | Unchanged English QA text from team contract 04 §3. |
 | `config/native-inputs.json` | Seven resources, 197 ordered field names, workbook settings and file hashes. |
@@ -128,6 +245,6 @@ CSV values remain text, including blanks and leading zeros; XLSX conversion foll
 
 `prepared` means native input preparation passed. The [C/D integration](docs/cd-integration.md) verifies three-source S0 loading through crash facts. C10 has an installed `qa_c` binding, and [all seven QA groups](docs/qa-joint-validation.md) have passed joint S0 component checks with persisted results. [D05–D08 reader checks](docs/analysis-integration.md) cover installed queries, permissions and fixed batches using seeded successful test states.
 
-[B12's lock checks](docs/runner-locks.md) cover session contention and early cleanup. The [B10 local validation](docs/b10-local-validation.md) covers transaction isolation, failure evidence and recovery markers. The [complete S0 runner checks](docs/full-build-integration.md) add real E publication, repeated builds, snapshot changes, concurrency and recovery. The [S8 extension](docs/s8-integration.md) is also verified. The [official run](docs/official-build.md) passed full-snapshot publication, rollback, retry and reader checks. D09 is deferred, and E's independent acceptance and final platform freezing remain open. B09/B11 retain the agreed VIC restrictions.
+[B12's lock checks](docs/runner-locks.md) cover session contention and early cleanup. The [B10 local validation](docs/b10-local-validation.md) covers transaction isolation, failure evidence and recovery markers. The [complete S0 runner checks](docs/full-build-integration.md) add real E publication, repeated builds, snapshot changes, concurrency and recovery. The [S8 extension](docs/s8-integration.md) is also verified. The [official run](docs/official-build.md) passed full-snapshot publication, rollback, retry and reader checks. D09's real synthetic publication acceptance is recorded in the [dashboard guide](docs/d09-local-dashboard.md); E's independent acceptance and final platform freezing remain separate milestones. B09/B11 retain the agreed VIC restrictions.
 
 The baseline is team v1.1: document 04 (L1 contracts and acceptance) and document 05 (sources and mappings, sections 1-2 and 7). The [online database design](https://arsia-team-design.vercel.app/) shows the shared model. Links in the guides to `F/` and `Resources/` refer to the shared course workspace outside this Git repository; they work locally but are unavailable in a standalone clone or on GitHub.
