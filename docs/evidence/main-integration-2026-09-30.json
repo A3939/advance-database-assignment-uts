@@ -1,0 +1,98 @@
+{
+  "recorded_at_utc": "2026-09-30T10:36:33.802918+00:00",
+  "executor": "ZHENG PEIXIAN / JohnCoffey-commits (Codex-assisted)",
+  "source_branch": "peixian/dev",
+  "source_commit": "37c6b134c6e3e5d5445008e2df4722b09849a164",
+  "main_commit": "addc15118be8875d3eac62473dd95cbc35145bcf",
+  "history_merge_commit": "dc58d424bf98e02304d07cdd6e4c752159d0a256",
+  "scope": "Branch integration and documentation; no runtime or full-pipeline rerun",
+  "history": {
+    "both_heads_preserved": true,
+    "merge_tree_equals_b": true,
+    "source_unique_commits": 133,
+    "main_unique_commits": 1
+  },
+  "runtime_unchanged": true,
+  "docker_build_inputs_unchanged": true,
+  "documentation_paths": [
+    "README.md",
+    "docs/analysis-integration.md",
+    "docs/full-build-integration.md",
+    "docs/official-build.md",
+    "docs/main-integration.md",
+    "docs/evidence/main-integration-2026-09-30.json"
+  ],
+  "inventory": {
+    "files": 12,
+    "hash_records": 380,
+    "mismatches": 0
+  },
+  "docker_sources": {
+    "upstream_files": 25,
+    "overlays": 8,
+    "mismatches": 0
+  },
+  "diff_review": {
+    "unexpected_deletions": 0,
+    "frontend_or_local_output": 0,
+    "high_confidence_credentials": 0,
+    "database_files": 0,
+    "official_originals_unchanged_lfs": true,
+    "historical_document_path_references": 4
+  },
+  "docs": {
+    "local_links": 71,
+    "commit_references": 20,
+    "external_course_workspace_links": [],
+    "invalid_links": 0,
+    "invalid_commits": 0
+  },
+  "compose_config": {
+    "daily": "passed",
+    "acceptance": "passed",
+    "project_names_separate": true,
+    "containers_started": false
+  },
+  "a09_compatibility": {
+    "status": "reproduced_expected_failure",
+    "first_missing_variable_in_minimal_env": "ARSIA_REVISION",
+    "four_individual_missing_variable_checks": [
+      "ARSIA_REVISION",
+      "ARSIA_LOADER_PASSWORD",
+      "ARSIA_READER_PASSWORD",
+      "ARSIA_EXECUTOR"
+    ],
+    "not_fixed_in_this_pr": true
+  },
+  "d_latest_merge_adds_files": false,
+  "aditya_development_stale_inventories": [
+    "config/ac-inventory.json",
+    "config/analysis-inventory.json",
+    "config/build-inventory.json",
+    "config/cd-inventory.json",
+    "config/d02-inventory.json",
+    "config/d05-inventory.json",
+    "config/d06-inventory.json",
+    "config/d07-inventory.json",
+    "config/d08-inventory.json",
+    "config/d09-inventory.json"
+  ],
+  "full_pipeline_rerun": "NOT_RUN: runtime and build inputs unchanged",
+  "official_full_data_docker_acceptance": "NOT_RUN",
+  "teacher_and_course_acceptance": "NOT_CLAIMED",
+  "status": "passed",
+  "role_followup_checks": {
+    "a07_parent_test_matches_b": true,
+    "a08_separate_delivery_files": 6,
+    "c11_uncollected_delivery_files": [
+      "sql/evidence/c11_vic_source_model_queries.sql",
+      "tools/replay_c11_postgres.py",
+      "docs/role-c/c11-vic-source-model-and-query-evidence.md",
+      "docs/role-c/c11-validation.json"
+    ],
+    "c11_packaged_config_matches_c": true,
+    "vic_intake_interfaces_match_c": true,
+    "e_separate_added_paths": 17,
+    "d_duplicate_import_needed": false
+  }
+}

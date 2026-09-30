@@ -14,8 +14,9 @@ adds B's D08 parent-matching repair; the other three query modules are unchanged
 | D08 units | `arsia_d08.query_units` | `8df3b0c` | `d08-0.1.0` |
 
 These are read APIs with an explicit successful batch. They are not B10 load
-callbacks. The caller owns the connection and transaction. D09's dashboard is
-deferred; the [official reader adapter](official-build.md) is available in B.
+callbacks. The caller owns the connection and transaction.
+[D09's dashboard](d09-local-dashboard.md) is now integrated; the
+[official reader adapter](official-build.md) keeps its source-specific limits.
 
 ## Install and deploy
 
@@ -96,5 +97,7 @@ separately; its environment-dependent skips are not database acceptance.
 
 PRs #30 and #16 are merged, and E's FP1/publication are connected in B.
 The [official guide](official-build.md) records the full-snapshot runs,
-D08 repair and restricted reader interface. D09 is deferred. E's independent
-acceptance remains open; the original S0 checks do not approve unrestricted use.
+D08 repair and restricted reader interface. D09 and the Docker acceptance
+commands are now integrated. See the [main integration record](main-integration.md)
+for exact later evidence and remaining course materials. The original seeded
+S0 checks do not prove publication or approve unrestricted use.

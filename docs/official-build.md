@@ -2,7 +2,8 @@
 
 This B version connects the seven pinned NSW, restricted VIC and QLD files to
 A/C/D/E's installed callbacks, B's `FrozenManifest`, E03 SQL FP1 and E06 publication.
-Analysis covers 2020–2024; all 2,118,028 original rows remain in Raw. D09 is deferred.
+Analysis covers 2020–2024; all 2,118,028 original rows remain in Raw.
+[D09](d09-official-policy.md) now exposes the source-specific reader limits.
 
 ## Inputs and ownership
 
@@ -137,14 +138,17 @@ seven summaries. Dimensions matched all three sources, 60 months and 18 severity
 definitions, including missing and unused categories. VIC restrictions stayed
 in force.
 
-The default suite passed 970 tests with 394 optional database/archive skips.
+At that revision, the default suite passed 970 tests with 394 optional database/archive skips.
 Accepted runs contain **1,157 distinct passing tests**, including **187 real
 PostgreSQL cases**; their totals overlap. Focused runs retain their own revisions.
-The final full run matches the current inventory and installed wheel. The
+The final full run matches the inventory and installed wheel at its tested commit. The
 [receipt](evidence/official-build-validation-2026-09-27.json) records exact
 commands, versions, hashes, metrics and reader timings.
 
-C reviews B's C03/C06/C09 repairs. D reviews the D04 and D08 repairs and later
-D09 interface use. E owns independent acceptance. A/E and the team confirm the
-four [E01 course decisions](e/e01-course-decisions.md). B then freezes the expanded
-inventory and repeats affected checks. `final_platform` remains false.
+The later C and D fixes, D09 page and Docker package are integrated in B.
+E's later acceptance and Yihua's independent Windows Docker replay are recorded
+at their exact versions in the [main integration record](main-integration.md).
+They do not replace this full-snapshot receipt or claim official full-data
+Docker acceptance. A/E still need actual teacher confirmation for the four
+[E01 course decisions](e/e01-course-decisions.md). The team still needs final
+course materials. `final_platform` remains false.

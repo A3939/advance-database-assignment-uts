@@ -37,8 +37,10 @@ The SQL resource `src/arsia_ingest/sql/fp1.sql` is byte-identical to E's
 Python/SQL/JSON file, requirements, package metadata and A's 11 migrations.
 `complete_build: true` describes the installed build recipes, including S0/S8
 and pinned official inputs. Execution results are recorded in each guide.
-`final_platform: false` keeps the deferred D09 and independent platform acceptance
-outside that claim. Existing component inventories remain partial.
+`final_platform: false` keeps final platform acceptance outside that claim.
+D09 is now integrated under its own inventory and the team Docker package.
+Older scope text in component inventories describes their original delivery;
+it is not a current team progress list. Existing component inventories remain partial.
 
 The runtime checks the declared hashes before freezing. After reviewing a code
 change, run `python tools/update_build_inventory.py`, inspect its diff, rebuild
@@ -121,7 +123,9 @@ they are test probes, not alternate production bindings.
 
 The official recipe and its current validation are recorded in the
 [official guide](official-build.md); this historical S0 receipt proves no official
-release. D09 is deferred. E still runs the independent acceptance comparison,
-and A/E confirm the four course decisions in `docs/e/e01-course-decisions.md`.
-B can then freeze the final platform inventory and repeat the relevant checks.
-Dashboard acceptance and team-wide completion remain open.
+release. D09 now has real B10/E06 acceptance, and E's later acceptance checks
+are reused by the team Docker package. The [main integration record](main-integration.md)
+links their exact versions and Yihua's independent Windows replay. These do not
+change this original S0 receipt. A/E still need actual teacher confirmation for
+the four course decisions; the team still needs final report, video and signed
+meeting records. Final platform and course acceptance are not claimed.
