@@ -1,0 +1,137 @@
+{
+  "scope": "D11 synthetic S0 trend, severity and map report package from one successful private publication",
+  "complete_d11": true,
+  "dashboard_required": false,
+  "independent_e07_acceptance": false,
+  "batch": {
+    "dataset_kind": "synthetic",
+    "batch_id": "856bc5c6-a4f8-458d-8536-e9208de1ff84",
+    "input_fingerprint": "a0194382d567aa6df06bac97af3c2d228c1ff58e3b14d7468ffa54a19f31ee9d",
+    "integration_commit": "562de2910bfd7be276b3036983e5680d436fde1e",
+    "status": "succeeded"
+  },
+  "actual": {
+    "raw_rows": 19,
+    "crashes": 6,
+    "fatal_crashes": 2,
+    "fatalities": 3,
+    "casualties": 7,
+    "map_points": 4,
+    "map_denominator": 6,
+    "map_coverage_percentage": "66.67"
+  },
+  "components": {
+    "reports_and_evidence": [
+      "docs/d11-synthetic-report-package.md",
+      "docs/reports/d11-trend-report.md",
+      "docs/reports/d11-severity-report.md",
+      "docs/reports/d11-map-report.md",
+      "docs/evidence/d11-s0-query-results-2026-09-28.json",
+      "docs/evidence/d11-report-capture.py",
+      "tests/test_d11.py",
+      "tools/verify_d11_postgres.py",
+      "docs/evidence/d11-final-validation-2026-09-28/acceptance.json",
+      "docs/evidence/d11-final-validation-2026-09-28/query-results.json",
+      "docs/evidence/d11-final-validation-2026-09-28/environment.json",
+      "docs/evidence/d11-final-validation-2026-09-28/final-state.json",
+      "docs/evidence/d11-final-validation-2026-09-28/cleanup.json",
+      "docs/evidence/d11-final-validation-2026-09-28/pytest.log",
+      "docs/evidence/d11-final-validation-2026-09-28/pytest.xml",
+      "docs/evidence/d11-final-validation-2026-09-28/a03-before.log",
+      "docs/evidence/d11-final-validation-2026-09-28/a03-after.log"
+    ]
+  },
+  "files": [
+    {
+      "path": "docs/d11-synthetic-report-package.md",
+      "sha256": "616db759dd0a0481d8a234a22f32a5b12aaa7fb7fbffc8609c6bf68656523aa9"
+    },
+    {
+      "path": "docs/reports/d11-trend-report.md",
+      "sha256": "3f5a61b5d582b8f72a07e829312287eff7d9c586c3fcd8f034960cd08f42a434"
+    },
+    {
+      "path": "docs/reports/d11-severity-report.md",
+      "sha256": "2cfad333a0a1a2a4665f948b331b7d0847ea503b27705e57039510420c76fda4"
+    },
+    {
+      "path": "docs/reports/d11-map-report.md",
+      "sha256": "a9f252c3b5314664e8b995b12f966fed257ff95814ea00a928967d06f4a602a5"
+    },
+    {
+      "path": "docs/evidence/d11-s0-query-results-2026-09-28.json",
+      "sha256": "f1496c5243c392eb869600cf247f43f040694443be0d779bb7bfc8f44337746f"
+    },
+    {
+      "path": "docs/evidence/d11-report-capture.py",
+      "sha256": "ff5cb378c079cbcda8e0cea11f5f6998544523190158775dc5f491ac10d7d16c"
+    },
+    {
+      "path": "tests/test_d11.py",
+      "sha256": "b185e29e6f69bd1f7db247f9037333db2434c4333516f75d717688fce7f67a47"
+    },
+    {
+      "path": "tools/verify_d11_postgres.py",
+      "sha256": "9ea50651316693969ac36d1ed855dc945820facb0a01e7832556d7e4242593a9"
+    },
+    {
+      "path": "docs/evidence/d11-final-validation-2026-09-28/acceptance.json",
+      "sha256": "d26c19c4e4da9b2295abde29cdec785ce71a9f081c1aa7c1ef4e4c06e21a2346"
+    },
+    {
+      "path": "docs/evidence/d11-final-validation-2026-09-28/query-results.json",
+      "sha256": "601e0a583101b8f8b50b196006c4d9770a15db22fdcb5126ab86d2b14196c28a"
+    },
+    {
+      "path": "docs/evidence/d11-final-validation-2026-09-28/environment.json",
+      "sha256": "569c438cfca44343a8ac2a581283e6f01e7de24a5f6e78754c8f0796a6e664ff"
+    },
+    {
+      "path": "docs/evidence/d11-final-validation-2026-09-28/final-state.json",
+      "sha256": "dbc4b9c36a78e26384cbe23a4d657bae8af990f1ab2bbf3300c91aedc6becd18"
+    },
+    {
+      "path": "docs/evidence/d11-final-validation-2026-09-28/cleanup.json",
+      "sha256": "bff5a883de736306dcece2f24dbdbb02f9f248696fe86a2b7eb09316ab392a02"
+    },
+    {
+      "path": "docs/evidence/d11-final-validation-2026-09-28/pytest.log",
+      "sha256": "e44b15de88b5b3d3ded5a67edb1ed948af2eb6f04008de20bda74466a062c941"
+    },
+    {
+      "path": "docs/evidence/d11-final-validation-2026-09-28/pytest.xml",
+      "sha256": "85b704c4999508ee31bdea9c9217a303679486c115331244a2c3353364023abb"
+    },
+    {
+      "path": "docs/evidence/d11-final-validation-2026-09-28/a03-before.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+    },
+    {
+      "path": "docs/evidence/d11-final-validation-2026-09-28/a03-after.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+    }
+  ],
+  "boundaries": [
+    "S0 is synthetic and must not be described as official road-safety statistics.",
+    "All three reports use one successful batch and fixed input fingerprint.",
+    "Unknown month, NULL measures and covered zero periods remain distinct.",
+    "Severity definitions remain source-specific.",
+    "Unmapped crashes remain in the map coverage denominator.",
+    "The private publication was removed after validation; no shared/public release was changed.",
+    "Independent E07 comparison and the final team report remain separate."
+  ],
+  "final_acceptance": {
+    "status": "passed",
+    "integration_commit": "dc17ef3a19e2061100aee3f63128e519513d0994",
+    "postgresql": "16.15",
+    "tests": 1,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "private_publication": true,
+    "shared_publication": false,
+    "final_tables_empty": true,
+    "container_removed": true,
+    "evidence": "docs/evidence/d11-final-validation-2026-09-28"
+  }
+}

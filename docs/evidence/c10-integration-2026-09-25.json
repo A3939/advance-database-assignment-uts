@@ -1,0 +1,180 @@
+{
+  "scope": "C10 binding, installed resources and B interfaces; combined QA01-07 acceptance is separate",
+  "date": "2026-09-25",
+  "b_base": "b51dc2860f50feb9ea52d4336f7bfaa1db5471fb",
+  "c_source": {
+    "branch": "yue/role-c",
+    "checked_head": "9697c9f65b35477b03d5d05e0adc00bf15235e2c",
+    "implementation_commit": "3f6c94795ee0fc8ec0f17903f23fd4a85b5646ac",
+    "merge_commit": "cd576d05c09d796d111d3c37b0321e11d510dda7",
+    "pr": "https://github.com/A3939/advance-database-assignment-uts/pull/26",
+    "imported_paths": [
+      "src/arsia_c/qa.py",
+      "src/arsia_c/qa_expectations.py",
+      "src/arsia_c/person_checks.py",
+      "src/arsia_c/restricted_person.py",
+      "src/arsia_c/sql/c10_qa03_expectation.sql",
+      "src/arsia_c/sql/c10_qa03_projected.sql",
+      "src/arsia_c/sql/c10_qa04_auxiliary.sql",
+      "src/arsia_c/sql/c10_qa05_semantics.sql",
+      "src/arsia_c/sql/c10_qa07_location.sql",
+      "src/arsia_c/sql/c06_vic_person_checks.sql",
+      "src/arsia_c/config/c06-syn-1.json",
+      "src/arsia_c/config/c06-vic-r1.json",
+      "src/arsia_c/config/vic-restricted-inputs-v1.json",
+      "src/arsia_c/config/vic-restricted-use-v1.json"
+    ],
+    "note": "All imported bytes match the checked C branch. Existing projection/Canonical versions above are unchanged."
+  },
+  "a_schema_commit": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
+  "runtime": {
+    "postgresql": [
+      "PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+      "arsia_loader",
+      "arsia_loader",
+      "UTF8",
+      "UTC",
+      "en_US.utf8",
+      "en_US.utf8",
+      false,
+      false,
+      false,
+      false
+    ],
+    "image": "postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67"
+  },
+  "inventory": {
+    "code_file_count": 77,
+    "schema_file_count": 11,
+    "final_platform": false
+  },
+  "inputs": [
+    {
+      "path": "config/cd-inventory.json",
+      "sha256": "c54a75f3b48c5f1772cb57fe92a6b30dfcca424525d017a48fd1842094cfc480"
+    },
+    {
+      "path": "src/arsia_ingest/components.py",
+      "sha256": "d5fd31fefb0c2dc9caa60f4e9da666175e341971b31d4c35aceb838bfbbf7f5e"
+    },
+    {
+      "path": "tests/test_c10_integration_postgres.py",
+      "sha256": "0d5ed3daea31d47dfa14b78351f0444d86f01636d232e7bcf469baacb528b422"
+    },
+    {
+      "path": "tests/test_c10_packaging.py",
+      "sha256": "9dd7dc71febb4f767d4c3d9333f431b8b4e5bfece7459360855f13f48213d338"
+    },
+    {
+      "path": "tests/test_cd_inventory.py",
+      "sha256": "4772ca0cfba9cd1af54fcbb60a6453b2c0ce0d73b7dabf45cbac57f19d003fc8"
+    },
+    {
+      "path": "tests/test_cd_integration_postgres.py",
+      "sha256": "c0d6a6f806422964ffa48409eda803bf005d146c137daece105523b7ee54b712"
+    },
+    {
+      "path": "tools/verify_c10_integration_postgres.py",
+      "sha256": "bd5793e23cb4966e3f3707381d5738e8a79ec27f15dbb9872319e440a2ef628f"
+    }
+  ],
+  "wheel": {
+    "filename": "arsia_native_intake-0.1.0-py3-none-any.whl",
+    "sha256": "9f05918f105491a168708d20aee8f4060a5e68c8ab32b1df845e8e70b3535375"
+  },
+  "tests": {
+    "installed_default": {
+      "passed": 734,
+      "skipped": 314,
+      "failed": 0,
+      "clean_wheel_installation_test": "passed"
+    },
+    "postgres_interface": {
+      "tests": 68,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "pytest_exit_code": 0,
+      "exit_code": 0,
+      "permissions": "Original A03 audit passed before and after",
+      "final_tables_empty": true,
+      "publication_performed": false,
+      "boundary": "Component chain only; full B10 still requires the remaining real modules and inventory"
+    },
+    "postgres_test_breakdown": {
+      "c10_database": 5,
+      "cd_database": 6,
+      "full_build_preflight": 1,
+      "inventory": 4,
+      "runner_unit": 52
+    },
+    "counts_overlap": true
+  },
+  "observations": {
+    "s0_dimensions": [
+      3,
+      60,
+      12
+    ],
+    "c10_objects": 27,
+    "c10_summaries": 4,
+    "limited_objects": 2,
+    "caller_rollback_empty": true,
+    "original_a03_grants_passed": true,
+    "c_runtime_bytes_match_upstream": true,
+    "shared_database_used": false,
+    "publication_performed": false
+  },
+  "local_evidence_root": "artifacts/role-b-c10-integration-20260925",
+  "evidence": [
+    {
+      "path": "default.xml",
+      "sha256": "4f24502ae4dd20a79ef2e3b7fb55e1453504d5026fcad66a95270360d67b6a77"
+    },
+    {
+      "path": "default.log",
+      "sha256": "e4daffc6534f0e952ed1c62763ed091276158db6ef70a70bbb7b70eb86d3bf64"
+    },
+    {
+      "path": "postgres/inputs.json",
+      "sha256": "d8582ea97696a6a9e569589713c1bb0959a56d5b4bc9b1bca171784a534f3f1b"
+    },
+    {
+      "path": "postgres/pytest.xml",
+      "sha256": "8c05e6a1cddfa5882497be4a2d80c13c2ce63bffecd34957660936a72f3da7a0"
+    },
+    {
+      "path": "postgres/pytest.log",
+      "sha256": "af274f6e536acae53cd3011209feed9906e81ae4802d1fb740e1d84c172a39d6"
+    },
+    {
+      "path": "postgres/environment.json",
+      "sha256": "a0c3132d813f8f18e3d68d3f024c228b53d3c1be37382574e8c95b31b32fa0c4"
+    },
+    {
+      "path": "postgres/a03-before.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+    },
+    {
+      "path": "postgres/a03-after.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+    },
+    {
+      "path": "postgres/final-state.json",
+      "sha256": "dbc4b9c36a78e26384cbe23a4d657bae8af990f1ab2bbf3300c91aedc6becd18"
+    },
+    {
+      "path": "postgres/cleanup.json",
+      "sha256": "d00054b7d1d565b0b90fd2b19fbd128690f8568d5e08d7679af742ba38655c5c"
+    },
+    {
+      "path": "postgres/summary.json",
+      "sha256": "e6c9775cbeb7b1d5493c23903b80ffb8511535b6dd3508a4bc95f45fc933f654"
+    }
+  ],
+  "remaining": [
+    "Combined QA01-07 acceptance and PR26 QA07 year-coverage follow-up (B with C)",
+    "Corrected FP1 and publication with database evidence (E)",
+    "Final inventory, D analysis/query integration and complete B10 acceptance (B and owners)"
+  ]
+}

@@ -1,0 +1,4 @@
+# Python 3.12 environment for PostgreSQL/B08 integration tests.
+-r requirements-dev.txt
+psycopg[binary]==3.3.6
+typing_extensions==4.16.0

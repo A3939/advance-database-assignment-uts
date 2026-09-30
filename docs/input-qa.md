@@ -1,6 +1,6 @@
 # B11: input and Raw checks
 
-[`qa_input.py`](../src/arsia_ingest/qa_input.py) implements `QA01_INPUT` and `QA02_RAW`, with one result per frozen file and a batch summary. Native checks have passed, along with synthetic Raw comparisons on real PostgreSQL. B11 also supports the adopted VIC restricted-use protocol. QA result persistence and official publication remain pending.
+[`qa_input.py`](../src/arsia_ingest/qa_input.py) implements `QA01_INPUT` and `QA02_RAW`, with one result per frozen file and a batch summary. Native checks have passed, along with synthetic Raw comparisons on real PostgreSQL. B11 also supports the adopted VIC restricted-use protocol. [Joint S0 validation](qa-joint-validation.md) now verifies QA01/QA02 persistence alongside C and D results. Official publication remains separate.
 
 ## Shared API
 

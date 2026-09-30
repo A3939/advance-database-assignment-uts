@@ -1,0 +1,102 @@
+{
+  "scope": "PR49 official demo follow-up; installed wheel and private PostgreSQL 16",
+  "tested_commit": "bbf0a5c511e58abda3e8e72731ef18d97361ca35",
+  "summary": {
+    "tests": 57,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pytest_exit_code": 0,
+    "exit_code": 0,
+    "permissions": "Original A03 audit passed before and after",
+    "final_tables_empty": true,
+    "publication_performed": true,
+    "boundary": "D09 real B10/E06 fixed-release dashboard acceptance: two successful S0 publications, one pinned page read, refresh-only pointer switch",
+    "publication_scope": "Private synthetic test database; no public release",
+    "d09_real_publication_acceptance": true,
+    "pointer_switch_verified": true,
+    "final_platform_accepted": false
+  },
+  "environment": {
+    "postgresql": [
+      "PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+      "arsia_loader",
+      "arsia_loader",
+      "UTF8",
+      "UTC",
+      "en_US.utf8",
+      "en_US.utf8",
+      false,
+      false,
+      false,
+      false
+    ],
+    "image": "postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67"
+  },
+  "cleanup": {
+    "container_removed": "arsia-b-ac-5aa97e46639f",
+    "persistent_volume_created": false,
+    "anonymous_image_volumes_removed": true
+  },
+  "files": [
+    {
+      "path": "src/arsia_d09/web.py",
+      "sha256": "be0c19094aed266f395e0dab3a289e4a29ed62babe8639af21485f0cdb223260"
+    },
+    {
+      "path": "tests/test_d09_official_policy.py",
+      "sha256": "9764a3122c058aea30236a6910b0d9290456cd5b07ada280e39e0618bad36499"
+    },
+    {
+      "path": "tools/verify_d09_full_build_postgres.py",
+      "sha256": "3e9abbb914186db14547877730275166f7e113c613aa81c2e61accad56270ecc"
+    },
+    {
+      "path": "config/d09-inventory.json",
+      "sha256": "6da62ede00f39c4e803024b880dba4c0d3af38eb8e729d94246ecb339e27e321"
+    },
+    {
+      "path": "config/build-inventory.json",
+      "sha256": "f526da5ca18174893ece862d9d836753301e05ac7c0d5628d2d038baaf29eb02"
+    }
+  ],
+  "wheel": {
+    "name": "arsia_native_intake-0.1.0-py3-none-any.whl",
+    "sha256": "0395011a5077dca045f14f0a82982ba37b566565d665ab95f58745867d243b30"
+  },
+  "evidence": [
+    {
+      "path": "inputs.json",
+      "sha256": "9262d8b7307a6ef2df06b9b883a8fcf67f0c43b9c48d09005c428fcb58dafb8e"
+    },
+    {
+      "path": "pytest.xml",
+      "sha256": "ef0ca00c18f9885659dfbad68ebceca3206c75c6ca74ff6e6def9a8de9cda55b"
+    },
+    {
+      "path": "summary.json",
+      "sha256": "cdc302e039a09a69c98861a51c5888c8cae6c8da0659a62ec4ce98c5c33eb08d"
+    },
+    {
+      "path": "a03-before.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+    },
+    {
+      "path": "a03-after.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+    },
+    {
+      "path": "final-state.json",
+      "sha256": "dbc4b9c36a78e26384cbe23a4d657bae8af990f1ab2bbf3300c91aedc6becd18"
+    },
+    {
+      "path": "cleanup.json",
+      "sha256": "31230115b03da79cbd21a32962ddd9d941601ebe086904481bc42ad64e9a9a33"
+    }
+  ],
+  "command": "python tools/verify_d09_full_build_postgres.py --output NEW_DIRECTORY",
+  "historical_full_official_runtime": "1765269507d7cf0b9cb76eef7b9ccf97de7f1cc5",
+  "boundary": "The full official replay remains pinned to its original runtime. This follow-up changes only the explicit demo render guard; real-mode database reading is unchanged. The current installed S0/D09 suite was rerun.",
+  "execution_owner": "Role B / Peixian",
+  "final_platform_accepted": false
+}

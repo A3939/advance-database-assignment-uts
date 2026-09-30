@@ -11,9 +11,10 @@ WITH native AS (
              THEN (r.payload ->> 'Latitude')::numeric END AS lat,
         CASE WHEN pg_input_is_valid(r.payload ->> 'Longitude', 'numeric')
              THEN (r.payload ->> 'Longitude')::numeric END AS lon
- FROM raw.record r WHERE r.source_id = %(source_id)s AND r.resource_id = %(crash_resource_id)s AND r.file_sha256 = %(crash_file_sha256)s AND r.parser_version = %(crash_parser_version)s AND (r.payload ->> 'Year of crash')::integer BETWEEN %(year_from)s AND %(year_to)s
+ FROM pg_temp.c03_nsw_crash r WHERE r.source_id = %(source_id)s AND r.resource_id = %(crash_resource_id)s AND r.file_sha256 = %(crash_file_sha256)s AND r.parser_version = %(crash_parser_version)s AND (r.payload ->> 'Year of crash')::integer BETWEEN %(year_from)s AND %(year_to)s
 ), mapped AS (
- SELECT *, %(severity_map)s::jsonb -> severity AS classification,
+ SELECT *, CASE WHEN severity IS NULL THEN %(missing_severity)s::jsonb
+                ELSE %(severity_map)s::jsonb -> severity END AS classification,
         COALESCE(%(map_enabled)s AND lat BETWEEN -90 AND 90 AND lon BETWEEN -180 AND 180, false) AS usable_location,
         CASE WHEN NOT %(map_enabled)s THEN 'crs_unconfirmed'
              WHEN payload ->> 'Latitude' IS NULL OR payload ->> 'Latitude' = ''
@@ -54,6 +55,9 @@ SELECT %(batch_id)s::uuid, source_id, %(release_scope)s,
      ('fatality_count', payload ->> 'No. killed', killed IS NULL),
      ('casualty_count', NULL::text, killed IS NULL OR serious IS NULL OR moderate IS NULL OR minor IS NULL)
    ) AS reasons(field,raw_token,missing) WHERE missing HAVING count(*) > 0), '{}'::jsonb)
+ || CASE WHEN severity IS NULL AND %(missing_severity)s::jsonb IS NOT NULL
+         THEN jsonb_build_object('severity_rule', %(missing_severity_rule)s::jsonb)
+         ELSE '{}'::jsonb END
  || CASE WHEN usable_location THEN '{}'::jsonb ELSE jsonb_build_object('location', jsonb_build_object(
       'reason_code', location_reason, 'candidate_raw_record_ids', jsonb_build_array(raw_record_id),
       'resolution', 'Coordinates, CRS and location lineage cleared; crash retained.',

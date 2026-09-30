@@ -1,0 +1,794 @@
+{
+  "review_version": "official-source-decisions-2026-09-23-v1",
+  "recorded_at_utc": "2026-09-23T09:01:19.331379+00:00",
+  "scope": "Adopted project decisions and research for all current tasks. Not a runtime manifest, FP1 digest, teacher approval or release receipt.",
+  "authority": "Project decisions authorised by the user; no teammate signatures or publisher certification are asserted.",
+  "branch": "peixian/dev",
+  "base_commit": "3185b841a86a4b8f9c998636766efbf6332efa8c",
+  "guide": "docs/official-source-decisions.md",
+  "new_artifacts": [
+    {
+      "path": "docs/official-source-decisions.md",
+      "sha256": "1990ba5897500019c6b35ac44b3018f5a0e5d51eba87ebfae908faf297cb8a03",
+      "bytes": 38353
+    },
+    {
+      "path": "docs/sources/evidence/official-decisions-2026-09-23/nsw-review.json",
+      "sha256": "34bfaf62d920499324810698267fe9c2460d5eb7779ceb55c17306b246678ded",
+      "bytes": 17011
+    },
+    {
+      "path": "docs/sources/evidence/official-decisions-2026-09-23/qld-review.json",
+      "sha256": "3055484353e405a4c0ff60f4208731652378f91149f9f577b7ed4ace3cf5b43d",
+      "bytes": 11706
+    }
+  ],
+  "shared_decision_count": 14,
+  "source_decision_count": 23,
+  "task_coverage": {
+    "expected": 55,
+    "mapped": 55,
+    "duplicates": 0,
+    "missing": [],
+    "index": {
+      "A01": {
+        "title": "Reproducible environment",
+        "decisions": [
+          "O11",
+          "O13",
+          "O14"
+        ]
+      },
+      "A02": {
+        "title": "Migrations and constraints",
+        "decisions": [
+          "O02",
+          "O07",
+          "O09",
+          "O10"
+        ]
+      },
+      "A03": {
+        "title": "Roles and reader access",
+        "decisions": [
+          "O09",
+          "O12"
+        ]
+      },
+      "A04": {
+        "title": "NSW source confirmation",
+        "decisions": [
+          "O01",
+          "O03",
+          "O04",
+          "O05",
+          "O06",
+          "O07"
+        ]
+      },
+      "A05": {
+        "title": "SQL business keys",
+        "decisions": [
+          "O02",
+          "O03"
+        ]
+      },
+      "A06": {
+        "title": "Vault loading",
+        "decisions": [
+          "O02",
+          "O05",
+          "O06",
+          "O07"
+        ]
+      },
+      "A07": {
+        "title": "Append-only history and lineage",
+        "decisions": [
+          "O03",
+          "O11"
+        ]
+      },
+      "A08": {
+        "title": "NSW source model and queries",
+        "decisions": [
+          "O01",
+          "O05",
+          "O06",
+          "O14"
+        ]
+      },
+      "A09": {
+        "title": "Cold start and structure guide",
+        "decisions": [
+          "O11",
+          "O13",
+          "O14"
+        ]
+      },
+      "B01": {
+        "title": "Native CSV reader",
+        "decisions": [
+          "O01",
+          "O02"
+        ]
+      },
+      "B02": {
+        "title": "Native Excel reader",
+        "decisions": [
+          "O01",
+          "O02"
+        ]
+      },
+      "B03": {
+        "title": "Hashing and archive",
+        "decisions": [
+          "O01",
+          "O11"
+        ]
+      },
+      "B04": {
+        "title": "L1 and file metadata",
+        "decisions": [
+          "O01",
+          "O02"
+        ]
+      },
+      "B05": {
+        "title": "Reader tests and run guide",
+        "decisions": [
+          "O02",
+          "O13"
+        ]
+      },
+      "B06": {
+        "title": "VIC Accident/Vehicle review",
+        "decisions": [
+          "O01",
+          "O03",
+          "O04",
+          "O05",
+          "O06"
+        ]
+      },
+      "B07": {
+        "title": "Complete S0 files",
+        "decisions": [
+          "O08",
+          "O09"
+        ]
+      },
+      "B08": {
+        "title": "Registration and Raw loading",
+        "decisions": [
+          "O01",
+          "O02",
+          "O09"
+        ]
+      },
+      "B09": {
+        "title": "Manifest and FP1 call",
+        "decisions": [
+          "O01",
+          "O02",
+          "O03",
+          "O04",
+          "O05",
+          "O06",
+          "O07",
+          "O08",
+          "O09",
+          "O10",
+          "O11"
+        ]
+      },
+      "B10": {
+        "title": "Runner and transactions",
+        "decisions": [
+          "O09",
+          "O10",
+          "O11"
+        ]
+      },
+      "B11": {
+        "title": "QA01 and QA02",
+        "decisions": [
+          "O01",
+          "O02",
+          "O03",
+          "O09",
+          "O10"
+        ]
+      },
+      "B12": {
+        "title": "Repeat and concurrent runs",
+        "decisions": [
+          "O03",
+          "O11"
+        ]
+      },
+      "B13": {
+        "title": "Rollback and evidence",
+        "decisions": [
+          "O10",
+          "O11",
+          "O13"
+        ]
+      },
+      "B14": {
+        "title": "Uncertain commits and recovery",
+        "decisions": [
+          "O09",
+          "O11"
+        ]
+      },
+      "C01": {
+        "title": "Projection contract and samples",
+        "decisions": [
+          "O02",
+          "O04",
+          "O05",
+          "O07"
+        ]
+      },
+      "C02": {
+        "title": "VIC Person/Node review",
+        "decisions": [
+          "O03",
+          "O05",
+          "O06",
+          "O07"
+        ]
+      },
+      "C03": {
+        "title": "NSW SQL projection",
+        "decisions": [
+          "O02",
+          "O04",
+          "O05",
+          "O06",
+          "O07"
+        ]
+      },
+      "C04": {
+        "title": "VIC SQL projection",
+        "decisions": [
+          "O02",
+          "O04",
+          "O05",
+          "O06"
+        ]
+      },
+      "C05": {
+        "title": "QLD SQL projection",
+        "decisions": [
+          "O02",
+          "O04",
+          "O05",
+          "O07"
+        ]
+      },
+      "C06": {
+        "title": "Person relations and counts",
+        "decisions": [
+          "O05",
+          "O06",
+          "O09",
+          "O10"
+        ]
+      },
+      "C07": {
+        "title": "Node observations and map eligibility",
+        "decisions": [
+          "O06",
+          "O07",
+          "O09"
+        ]
+      },
+      "C08": {
+        "title": "Categories, missingness and eligibility",
+        "decisions": [
+          "O04",
+          "O05",
+          "O08",
+          "O09"
+        ]
+      },
+      "C09": {
+        "title": "Canonical from Satellite",
+        "decisions": [
+          "O02",
+          "O05",
+          "O07",
+          "O11"
+        ]
+      },
+      "C10": {
+        "title": "QA03/04/05/07",
+        "decisions": [
+          "O05",
+          "O06",
+          "O07",
+          "O09",
+          "O10"
+        ]
+      },
+      "C11": {
+        "title": "VIC source model and queries",
+        "decisions": [
+          "O01",
+          "O06",
+          "O07",
+          "O14"
+        ]
+      },
+      "D01": {
+        "title": "QLD source confirmation",
+        "decisions": [
+          "O01",
+          "O03",
+          "O04",
+          "O05",
+          "O07"
+        ]
+      },
+      "D02": {
+        "title": "Source, month and severity dimensions",
+        "decisions": [
+          "O01",
+          "O04",
+          "O05",
+          "O11"
+        ]
+      },
+      "D03": {
+        "title": "Accident facts",
+        "decisions": [
+          "O02",
+          "O05",
+          "O07",
+          "O09"
+        ]
+      },
+      "D04": {
+        "title": "QA06 reconciliation",
+        "decisions": [
+          "O05",
+          "O07",
+          "O10"
+        ]
+      },
+      "D05": {
+        "title": "Trend queries",
+        "decisions": [
+          "O04",
+          "O05",
+          "O08",
+          "O12"
+        ]
+      },
+      "D06": {
+        "title": "Severity queries",
+        "decisions": [
+          "O05",
+          "O08",
+          "O12"
+        ]
+      },
+      "D07": {
+        "title": "Map and coverage queries",
+        "decisions": [
+          "O07",
+          "O09",
+          "O12"
+        ]
+      },
+      "D08": {
+        "title": "Unit queries",
+        "decisions": [
+          "O05",
+          "O06",
+          "O08",
+          "O09",
+          "O12"
+        ]
+      },
+      "D09": {
+        "title": "Interface and fixed-batch reads",
+        "decisions": [
+          "O09",
+          "O12"
+        ]
+      },
+      "D10": {
+        "title": "QLD source model and queries",
+        "decisions": [
+          "O01",
+          "O05",
+          "O14"
+        ]
+      },
+      "D11": {
+        "title": "Synthetic reports and demonstration",
+        "decisions": [
+          "O08",
+          "O09",
+          "O12",
+          "O13",
+          "O14"
+        ]
+      },
+      "E01": {
+        "title": "Course decisions",
+        "decisions": [
+          "O14"
+        ]
+      },
+      "E02": {
+        "title": "Shared interface index",
+        "decisions": [
+          "O01",
+          "O09",
+          "O11"
+        ]
+      },
+      "E03": {
+        "title": "SQL FP1 and tests",
+        "decisions": [
+          "O11"
+        ]
+      },
+      "E04": {
+        "title": "Independent S0 expectations",
+        "decisions": [
+          "O08",
+          "O09",
+          "O10"
+        ]
+      },
+      "E05": {
+        "title": "QA protocol and completeness",
+        "decisions": [
+          "O06",
+          "O09",
+          "O10"
+        ]
+      },
+      "E06": {
+        "title": "Publication and current pointer",
+        "decisions": [
+          "O09",
+          "O10",
+          "O11",
+          "O12"
+        ]
+      },
+      "E07": {
+        "title": "Complete S0 acceptance",
+        "decisions": [
+          "O08",
+          "O09",
+          "O10",
+          "O13"
+        ]
+      },
+      "E08": {
+        "title": "Reliability and fourth state",
+        "decisions": [
+          "O03",
+          "O08",
+          "O09",
+          "O11"
+        ]
+      },
+      "E09": {
+        "title": "Cold start and real scale",
+        "decisions": [
+          "O09",
+          "O13"
+        ]
+      },
+      "E10": {
+        "title": "Course evidence and submission",
+        "decisions": [
+          "O01",
+          "O09",
+          "O12",
+          "O13",
+          "O14"
+        ]
+      }
+    }
+  },
+  "scenario_coverage": {
+    "AT01_to_AT17": "Manually cross-checked against team 04; guide section 8.",
+    "DEC01_to_DEC05": "Course decisions in section 7; semantics/location decisions in sections 3-5."
+  },
+  "source_inputs": [
+    {
+      "resource_id": "official_nsw_crash",
+      "path": "raw_datasource/nsw_crash_2020_2024.xlsx",
+      "sha256": "7345189f017d9c842429674ecf2196cee728de46c0572ce2a85220f9bef49aa9",
+      "bytes": 24466182,
+      "matches_config": true,
+      "lfs_pointer": false
+    },
+    {
+      "resource_id": "official_nsw_traffic_unit",
+      "path": "raw_datasource/nsw_traffic_unit_2020_2024.xlsx",
+      "sha256": "95349666f63952c580edb08973a8ac80be39db98ba289ec8533d61feb6d55f1b",
+      "bytes": 7133819,
+      "matches_config": true,
+      "lfs_pointer": false
+    },
+    {
+      "resource_id": "official_vic_accident",
+      "path": "raw_datasource/vic_accident.csv",
+      "sha256": "a148c00601fab10d44368df80492c594123700a7f9e334ff896fd215295e91d9",
+      "bytes": 34375919,
+      "matches_config": true,
+      "lfs_pointer": false
+    },
+    {
+      "resource_id": "official_vic_vehicle",
+      "path": "raw_datasource/vic_vehicle.csv",
+      "sha256": "05a7a1b9171abaeb5c188df549dee38edde6e76d5a03553988305a8280dccd12",
+      "bytes": 46632440,
+      "matches_config": true,
+      "lfs_pointer": false
+    },
+    {
+      "resource_id": "official_vic_person",
+      "path": "raw_datasource/vic_person.csv",
+      "sha256": "71ca8fec01370e301f282fc83e8f11e4cde16a535ee421cbbb72512ceb7194f9",
+      "bytes": 28803789,
+      "matches_config": true,
+      "lfs_pointer": false
+    },
+    {
+      "resource_id": "official_vic_node",
+      "path": "raw_datasource/vic_node.csv",
+      "sha256": "b0bdbec22ac33df66e15cff9b531ba3203320ec5fbe20076a2820b8fec966ed4",
+      "bytes": 51319968,
+      "matches_config": true,
+      "lfs_pointer": false
+    },
+    {
+      "resource_id": "official_qld_crash",
+      "path": "raw_datasource/qld_crash_locations.csv",
+      "sha256": "975be4b02a235d06589de9b486f73bafe22d0f2007f0c07abb84f54cb926c704",
+      "bytes": 213483181,
+      "matches_config": true,
+      "lfs_pointer": false
+    }
+  ],
+  "reference_files_relative_to_workspace": [
+    {
+      "path": "F/ARSIA-子任务与必要协作.md",
+      "sha256": "5ba507c1337be5e66b66a3bcdb430117d4f952f82de69bd64d1e59de0207ab1e",
+      "bytes": 22461
+    },
+    {
+      "path": "F/ARSIA-Team-Handoff/02-数据库字段字典.md",
+      "sha256": "1be2f87407dbbf5e5d332047e15b37b17025e69c443d63f666ff4cd61ba9047a",
+      "bytes": 26918
+    },
+    {
+      "path": "F/ARSIA-Team-Handoff/04-团队分工与验收.md",
+      "sha256": "ed00feb05504f4ef5907b473fdb8988632ed7297a980f5aa33c488596eba20c2",
+      "bytes": 31523
+    },
+    {
+      "path": "F/ARSIA-Team-Handoff/05-来源与映射说明.md",
+      "sha256": "5b1d131d2510c1b2644fd1e86175854301e9ce822527b6e130a46cfef20ca3ff",
+      "bytes": 20320
+    },
+    {
+      "path": "Resources/source/resources.json",
+      "sha256": "fad5d3a236dc0579b6838300462f87fde725a42c8317f3276c4c5e9f62bb23c8",
+      "bytes": 2786
+    },
+    {
+      "path": "Resources/source/metadata/nsw_package.json",
+      "sha256": "b08bde53f8a01e4028736d06ffb05921135cf1c0a2c18f540b285e3485a705d7",
+      "bytes": 15185
+    },
+    {
+      "path": "Resources/source/metadata/victoria_package.json",
+      "sha256": "36f27b21b75fe06b6203493ea845a7db03a11d0df2482ffa0e425f578f9f0a95",
+      "bytes": 106293
+    },
+    {
+      "path": "Resources/source/metadata/queensland_package.json",
+      "sha256": "c2bc6a6ac5359f20285e07b64a57d7fa698083f6375a686818e0f97e18219f2e",
+      "bytes": 24167
+    },
+    {
+      "path": "Resources/32113_Assignment_2_2026.pdf",
+      "sha256": "571ca7fd5a6e814c0bdd0e97206bfebb35fca0a9348591fecdb5ab0e49057091",
+      "bytes": 187647
+    },
+    {
+      "path": "Resources/Assignment_1-Wrk3-05-14603450.pdf",
+      "sha256": "aabadbb94a51a55b9a5e23bdf1f709a5df412ef8100b89543774e916e8ae831c",
+      "bytes": 25801044
+    }
+  ],
+  "previous_b09_b11_files_preserved": [
+    {
+      "path": "README.md",
+      "sha256": "29dba838fdbaf07843d9ba7afc62796740d27bdf274c773339a1e5676b161ff6",
+      "matches_historical_receipt": true
+    },
+    {
+      "path": "config/qa-team-v1.1-vic-r1.json",
+      "sha256": "859a5684b2a276cd69509877ea4660344fecac4ca6e5041de77280d40ebaca6b",
+      "matches_historical_receipt": true
+    },
+    {
+      "path": "config/vic-restricted-inputs-v1.json",
+      "sha256": "7eaf1e4834c6dcdb8c74e933aaff602dcaad0094e72f5508fe64ab3a34b583a3",
+      "matches_historical_receipt": true
+    },
+    {
+      "path": "config/vic-restricted-use-v1.json",
+      "sha256": "bc892d07f81f51fc2859cccd9c1302e4b1ade22240bd36f8fe118d95e861ec40",
+      "matches_historical_receipt": true
+    },
+    {
+      "path": "docs/input-qa.md",
+      "sha256": "c1930c136ec752dc79e80cc81924e0d558deefefc60adb318a77cbea470ea982",
+      "matches_historical_receipt": true
+    },
+    {
+      "path": "docs/manifest.md",
+      "sha256": "8338f801ae929eda91eef64bc22c64ecdf13a1f7ee5316e191ead8639035f4f8",
+      "matches_historical_receipt": true
+    },
+    {
+      "path": "docs/role-c/vic-minimum-impact-draft.json",
+      "sha256": "4e094212032425b38e19face7be5bd663dba4ff0dc8c1050bfa7d65c29d52b68",
+      "matches_historical_receipt": true
+    },
+    {
+      "path": "docs/role-c/vic-restricted-use-decision.md",
+      "sha256": "5dddacffa6a369110d6e3eddda5cee5677e1c3503f3f18e0e0d6636225b96b10",
+      "matches_historical_receipt": true
+    },
+    {
+      "path": "docs/sources/evidence/vic/followup-2026-09-23/basis/team-04-v1.1.md",
+      "sha256": "ed00feb05504f4ef5907b473fdb8988632ed7297a980f5aa33c488596eba20c2",
+      "matches_historical_receipt": true
+    },
+    {
+      "path": "docs/sources/evidence/vic/followup-2026-09-23/basis/team-05-v1.1.md",
+      "sha256": "5b1d131d2510c1b2644fd1e86175854301e9ce822527b6e130a46cfef20ca3ff",
+      "matches_historical_receipt": true
+    },
+    {
+      "path": "docs/sources/evidence/vic/followup-2026-09-23/basis/victoria_package.json",
+      "sha256": "36f27b21b75fe06b6203493ea845a7db03a11d0df2482ffa0e425f578f9f0a95",
+      "matches_historical_receipt": true
+    },
+    {
+      "path": "docs/sources/evidence/vic/followup-2026-09-23/evidence/api-comparison.json",
+      "sha256": "a36cc8d1aea6b30e75a1764e26eaa7c93d17bd4125ef3925821a96493174a948",
+      "matches_historical_receipt": true
+    },
+    {
+      "path": "docs/sources/evidence/vic/followup-2026-09-23/evidence/api-extra.json",
+      "sha256": "c1fb037b64591169d0216a754398396e8b9002bf03c3057d58e1bf9e9b9c165d",
+      "matches_historical_receipt": true
+    },
+    {
+      "path": "docs/sources/evidence/vic/followup-2026-09-23/evidence/api-replay.json",
+      "sha256": "981abc214aba9dd89a0c98561c21ec88f47afd05eac866db0b7c193bb9acb5e9",
+      "matches_historical_receipt": true
+    },
+    {
+      "path": "docs/sources/evidence/vic/followup-2026-09-23/evidence/api-types.json",
+      "sha256": "ed214482adb709645f53633d78fb777859214c5972d1459f7e6ab12eb1bf28bd",
+      "matches_historical_receipt": true
+    },
+    {
+      "path": "docs/sources/evidence/vic/followup-2026-09-23/evidence/cross-check.json",
+      "sha256": "0615bfffda303363e4de7a5de527d80e6b59d137cb47de7fb3429d84cfcb51b0",
+      "matches_historical_receipt": true
+    },
+    {
+      "path": "docs/sources/evidence/vic/followup-2026-09-23/evidence/local-review.json",
+      "sha256": "ea8122b9c452c3da0cc8569f7eee840627cab0829388a4e3afa8e51009a231b4",
+      "matches_historical_receipt": true
+    },
+    {
+      "path": "docs/sources/evidence/vic/followup-2026-09-23/evidence/pytest.xml",
+      "sha256": "a8b8c22c171f9821fbfad755dca9e7937ef632e009127ac96edf474b33ba7c2d",
+      "matches_historical_receipt": true
+    },
+    {
+      "path": "docs/sources/evidence/vic/followup-2026-09-23/evidence/source-retrieval.json",
+      "sha256": "dd71bcdaa6b17f17c615d4df1b0334d2f617159467ffacd9c2a0ba91784ddca1",
+      "matches_historical_receipt": true
+    },
+    {
+      "path": "docs/sources/evidence/vic/followup-2026-09-23/evidence/validation.json",
+      "sha256": "b6f8d26f7fdcfe9f3003d991f8671080cc8e77baa7709b13fee5993fc7d6f62b",
+      "matches_historical_receipt": true
+    },
+    {
+      "path": "docs/vic-restricted-inputs.md",
+      "sha256": "09480090e7a1176b9c03b900096759a3cd30e7ba2e035f608bbf9c10b8b3a4fb",
+      "matches_historical_receipt": true
+    },
+    {
+      "path": "src/arsia_ingest/manifest.py",
+      "sha256": "288bddf9f2b29522a8c05c9d49f55280e6920d3abf6ace3117812d363c78da85",
+      "matches_historical_receipt": true
+    },
+    {
+      "path": "src/arsia_ingest/qa_input.py",
+      "sha256": "7de668caf649cd1ead6b35d155cf213caabccfb4fa59ee110bd336bf57210723",
+      "matches_historical_receipt": true
+    },
+    {
+      "path": "src/arsia_ingest/vic_restricted.py",
+      "sha256": "7204f4591e607d07c25e1c7329d2da0cff787e5508b36a6309d9808f26a45c94",
+      "matches_historical_receipt": true
+    },
+    {
+      "path": "tests/test_vic_restricted.py",
+      "sha256": "e0b143e26f31cc6d6069e1922f8511499e507dd153c01590b39c481babb0d367",
+      "matches_historical_receipt": true
+    },
+    {
+      "path": "tests/test_vic_restricted_integration.py",
+      "sha256": "7fa17df7f7475a4686cfac4ca6228386d7d05cb019acf877b2e8aef980b9bf0c",
+      "matches_historical_receipt": true
+    }
+  ],
+  "checks": {
+    "json_parse": "pass",
+    "all_55_tasks_mapped_once": "pass",
+    "decision_references": "pass",
+    "local_document_links": "pass",
+    "native_sha256_matches_config": "7/7",
+    "historical_final_file_hashes": "26/26",
+    "research_count_consistency": "pass",
+    "independent_contract_and_code_review": "No substantive contradiction found; location reason clarification incorporated.",
+    "git_staging_area": "empty"
+  },
+  "actual_work_this_review": {
+    "nsw": "Official manual/API research and streaming read-only scans of both existing XLSX files; see nsw-review.json.",
+    "qld": "Official dictionary/API research and streaming read-only scan of existing CSV; see qld-review.json.",
+    "vic": "Reused adopted frozen review/cases and historical validation; checked current official Accident/flat-crash descriptions without assuming transfer of CRS to Node. No new full VIC relational scan.",
+    "course": "Read supplied A2 brief and A1 architecture, visually checked A2 pages 4-5; no teacher contact.",
+    "documentation": "Task/decision coverage, local links, JSON, file pins and prior receipt hashes checked."
+  },
+  "not_run": [
+    "pytest this review",
+    "PostgreSQL tests this review",
+    "full official Raw or pipeline build",
+    "SQL FP1",
+    "full QA persistence and publication",
+    "official map conversion",
+    "teacher/publisher/team contact"
+  ],
+  "metadata_interpretation": {
+    "file_sha256": "Native file identity, not FP1.",
+    "nsw_package": "Target resource fields checked; whole-response byte equivalence not claimed.",
+    "qld_package": "Live response SHA256 equals saved metadata; metadata MD5 matches local CSV. No new full download byte comparison."
+  },
+  "cached_collaboration_references": {
+    "origin/jj/a01-environment": "1b257c831c665e1c8d38ca7b6b0d2f8ed02afed1",
+    "origin/yue/role-c": "87d1c5803a6ec61475823ea877a995ba589f22f7",
+    "origin/yihua-zhang": "4ba04d850b9ea5e83acc4df60e0886dddd524dca",
+    "note": "Local remote-tracking snapshots inspected; no claim that this review refreshed all remote branches."
+  },
+  "preservation": {
+    "platform_code_modified": false,
+    "original_data_modified": false,
+    "existing_policies_or_receipts_modified": false,
+    "commit_or_push": false,
+    "website_or_board_update": false
+  }
+}

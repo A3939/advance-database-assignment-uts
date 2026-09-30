@@ -1,0 +1,242 @@
+{
+  "date": "2026-09-27",
+  "scope": "AT15 synthetic S0 + S8 complete build and S0 regressions; not final platform acceptance",
+  "owner": "Role B / Peixian (JohnCoffey-commits)",
+  "b_base": "0b9f951aee1b41a599c66c3e14dd463cdb63cbfb",
+  "code_commit": "509f67ad21274fe51d41c2a0d2f7dc4d28201dfb",
+  "verification": "All recorded runtime, schema, test and dependency bytes match code_commit. Tests ran on the same file bytes before commit; docs and this receipt were added afterward.",
+  "upstream": {
+    "a": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
+    "c": "6987e604bb93809aa94a736085c3e8320452461d",
+    "d": "d57c3f4ff2fb57eb84ebc414ef77911073c0de06",
+    "e": "aec3b4692382e48ea4f778f04a31a4ca5ba5fa57"
+  },
+  "inventory": {
+    "path": "config/build-inventory.json",
+    "sha256": "aa2eda356a8f9e54afe1a038d1540c41aa99a39be35a6306c101a66d8a905e70"
+  },
+  "fixture_generator": {
+    "path": "tools/create_s0_inputs.py",
+    "sha256": "4378bf2c3a57ac65ac1e321ae08ebb45b6a2b45e85680b4f4fb10870bd05f8a1"
+  },
+  "input_files": [
+    {
+      "path": "tests/fixtures/s0/config.json",
+      "sha256": "e9f786ec29dc03726ada8e606b893e5a16a3e8d780306bffea86f67f96ac9de3"
+    },
+    {
+      "path": "tests/fixtures/s0/contract.json",
+      "sha256": "a73bdac78cb3b3ec4aff66658c37108ca84c34572ef3f42460a73e169b9411b6"
+    },
+    {
+      "path": "tests/fixtures/s0/syn_nsw_crash.xlsx",
+      "sha256": "18c4953966224ee7f217afeebbb884dd6ccc01016ece2c077bb9717deb8c4541"
+    },
+    {
+      "path": "tests/fixtures/s0/syn_nsw_traffic_unit.xlsx",
+      "sha256": "c114dece4b1c4a6698c4d0e4b05b912b9aa342598fd7f0def43df2b0428bd92c"
+    },
+    {
+      "path": "tests/fixtures/s0/syn_qld_crash.csv",
+      "sha256": "7dbbd7bb3f9e5c6e07caf8c9e01be26abad6d1d383de482dcde9393071d61370"
+    },
+    {
+      "path": "tests/fixtures/s0/syn_vic_accident.csv",
+      "sha256": "369798a8aa662d644df2e98091ad8a577a9741ce018dba47892889162aa8a144"
+    },
+    {
+      "path": "tests/fixtures/s0/syn_vic_node.csv",
+      "sha256": "7bc159e10ec6d3e94a4d4673370ecd602e31bc0d2ed3971895f4126b045300a7"
+    },
+    {
+      "path": "tests/fixtures/s0/syn_vic_person.csv",
+      "sha256": "af1104f14b46c7048b96d8a61546cbe1ed5e597f986673bfcc2d73c4855f14f4"
+    },
+    {
+      "path": "tests/fixtures/s0/syn_vic_vehicle.csv",
+      "sha256": "5b7df97bde23fece0d19465ba8e4006544f6d907f963f7f352b8218b1fafec92"
+    },
+    {
+      "path": "tests/fixtures/s8/config.json",
+      "sha256": "4ce730ee8a9b7c83f61139d36ea8b9137933a72801f0a08f6b6ba09dac320ec1"
+    },
+    {
+      "path": "tests/fixtures/s8/contract.json",
+      "sha256": "38b9638e00dc4eff3daa5e6849e0cebc626ab8b650c1dbad789ad695c13e7638"
+    },
+    {
+      "path": "tests/fixtures/s8/syn_sa_crash.csv",
+      "sha256": "b3918e3f8095b6325da5809fd6c9de224b7b85d817e06bd81bc90bee1d823f88"
+    },
+    {
+      "path": "tests/fixtures/s8-bad-key/config.json",
+      "sha256": "732d8408fbf45711dd07109f1e941b986ec1f95d73a05d23d3aa1e0934f0dd57"
+    },
+    {
+      "path": "tests/fixtures/s8-bad-key/contract.json",
+      "sha256": "927d010a51a88f0e3c23cbadb5dee3e261f27b653242ac72d7be91b5d63e54d5"
+    },
+    {
+      "path": "tests/fixtures/s8-bad-key/syn_sa_crash.csv",
+      "sha256": "3144ee842017a58ce70c61304915bd1b1038ad5c7ad328d9840bfc637e6c1ffd"
+    }
+  ],
+  "environment": {
+    "postgresql": [
+      "PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+      "arsia_loader",
+      "arsia_loader",
+      "UTF8",
+      "UTC",
+      "en_US.utf8",
+      "en_US.utf8",
+      false,
+      false,
+      false,
+      false
+    ],
+    "image": "postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67"
+  },
+  "python": "3.12.6 (v3.12.6:a4a2d2b0d85, Sep  6 2024, 16:08:03) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "packages": {
+    "arsia-native-intake": "0.1.0",
+    "openpyxl": "3.1.5",
+    "psycopg": "3.3.6",
+    "psycopg-binary": "3.3.6",
+    "pytest": "8.4.2"
+  },
+  "wheel_sha256": "751832ce20d4d91d7959ffee50962e8cf81bef56d3cb9878449c203819172e81",
+  "focused": {
+    "tests": 484,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pytest_exit_code": 0,
+    "exit_code": 0,
+    "permissions": "Original A03 audit passed before and after",
+    "final_tables_empty": true,
+    "publication_performed": true,
+    "boundary": "Independent E sign-off, D09 and official replay remain separate",
+    "at15_verified": true,
+    "full_s0_regression_verified": true,
+    "publication_scope": "Private synthetic database; no official release",
+    "final_platform_accepted": false,
+    "real_postgresql_tests": 181,
+    "new_s8_database_tests": 69,
+    "existing_s0_e_database_tests": 112,
+    "by_suite": {
+      "tests.test_build_integration": 5,
+      "tests.test_project_dispatcher": 5,
+      "tests.test_s8": 16,
+      "tests.test_s8_projection": 26,
+      "tests.test_s8_projection_postgres": 46,
+      "tests.test_s8_qa_expectations": 33,
+      "tests.test_s8_build_postgres": 23,
+      "tests.test_full_build_postgres": 61,
+      "tests.test_e_gate_contract": 6,
+      "tests.test_e_publication": 4,
+      "tests.test_e_integrated_postgres": 51,
+      "tests.test_runner": 52,
+      "tests.test_recovery": 72,
+      "tests.test_manifest": 80,
+      "tests.test_cd_inventory": 4
+    }
+  },
+  "default": {
+    "tests": 1251,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 379,
+    "passed": 872,
+    "note": "Optional database/archive checks are skipped; totals overlap with focused tests."
+  },
+  "at15_result": {
+    "baseline_batch_id": "b5bf4bb6-4a55-4474-bb41-5d7becac0f0e",
+    "expanded_batch_id": "12fd4e31-d804-41c0-b33a-709eafff19c2",
+    "actual": {
+      "raw": 20,
+      "crashes": 7,
+      "units": 6,
+      "fatal_crashes": 3,
+      "fatalities": 4,
+      "casualties": 8,
+      "map_points": 5,
+      "map_denominator": 7,
+      "qa_rows": 77
+    },
+    "old_sources_unchanged": true,
+    "old_batch_unchanged": true,
+    "repeat_result": "no_change",
+    "scope": "Private synthetic acceptance; independent E sign-off remains separate"
+  },
+  "bad_key": "Fails in projection; original B0 pointer and rows unchanged; no candidate Vault/Canonical/DW rows or SA hub survive rollback.",
+  "independent_qa": "Wrong projected fatalities, casualties, month and latitude fail C10; missing SA QA05/QA06/QA07 objects fail the real E gate.",
+  "privileges": "Actual arsia_loader sessions; unchanged A03 audit before/after. Owner deploys functions, injects damaged QA test rows and clears this private database only.",
+  "local_evidence_root": "artifacts/role-b-at15-20260927",
+  "reports": [
+    {
+      "path": "validation-final/inputs.json",
+      "sha256": "5669398fdc3d34a8f8bcdea8dc1c62a15828edb7dcddaaa7281cc42220b4f2fe"
+    },
+    {
+      "path": "validation-final/environment.json",
+      "sha256": "a0c3132d813f8f18e3d68d3f024c228b53d3c1be37382574e8c95b31b32fa0c4"
+    },
+    {
+      "path": "validation-final/command.json",
+      "sha256": "3b47a03c17677d224639d2330449258a89c2aca7b27b39a73aa7ab1a760dd403"
+    },
+    {
+      "path": "validation-final/migrations.log",
+      "sha256": "a82236d6e3beed2c859d39313200a6015d460a7e09505404f5e0f9d729723ae9"
+    },
+    {
+      "path": "validation-final/pytest.xml",
+      "sha256": "781c18f3130e37816cd8b559fd192f1519ae70f24bc312dcdeb5751df1145238"
+    },
+    {
+      "path": "validation-final/pytest.log",
+      "sha256": "48406895f77e0d0911635b2d8a310be1ec3e080dba84a2959209cfc4581a7ec6"
+    },
+    {
+      "path": "validation-final/a03-before.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+    },
+    {
+      "path": "validation-final/a03-after.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4"
+    },
+    {
+      "path": "validation-final/final-state.json",
+      "sha256": "dbc4b9c36a78e26384cbe23a4d657bae8af990f1ab2bbf3300c91aedc6becd18"
+    },
+    {
+      "path": "validation-final/summary.json",
+      "sha256": "017998a5bddd94ecc62b12625d745bb438e60d2ab9ba0f92b5a5e2495001be39"
+    },
+    {
+      "path": "validation-final/cleanup.json",
+      "sha256": "9d4c06605e20d1630f5647a7ac054aadc369e5c868de14f8756a2001b76d6f5c"
+    },
+    {
+      "path": "validation-final/ac-evidence/s8/test_at15_s0_to_s8_exact_results_history_and_no_change/builds/synthetic/runs/29d892a7-1630-4021-b64c-babb9179d2e8/at15-assertions.json",
+      "sha256": "6cee36ebddc29d8b5a9f799d4abd701fc8ac14371174e063d14b91856b87ee84"
+    },
+    {
+      "path": "default-final.xml",
+      "sha256": "e516f27a06c7ff6aa3842f7655a17935f870ceb987122371a338f3f155cb09f1"
+    },
+    {
+      "path": "default-final.log",
+      "sha256": "4bcec56ba971ad1881e66fec516a765a66391db86f6881dc0de6aa02dffdfbe7"
+    }
+  ],
+  "remaining": {
+    "E": "Independent comparison and acceptance review against AT15 expectations",
+    "D/B": "D09 reader/UI integration",
+    "team": "Admitted official-source replay, course decisions and final platform freeze"
+  },
+  "new_material_needed_from_peixian": false,
+  "official_release": false,
+  "final_platform_accepted": false
+}

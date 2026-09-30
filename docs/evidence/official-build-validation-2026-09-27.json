@@ -1,0 +1,1791 @@
+{
+  "receipt_version": "b-official-build-validation-v1",
+  "recorded_at_utc": "2026-09-27T12:42:15.953457+00:00",
+  "scope": "Pinned NSW/VIC/QLD full snapshots in a disposable database; no shared or public release.",
+  "path_base": "workspace_root",
+  "project_root": "artifacts/role-b-e-integration-20260927/integration",
+  "code": {
+    "branch_base_commit": "c8772ba6205be7830e191ba101997fa56aff2532",
+    "tested_head_commit": "d5239db471e33ce30c137e9087f712c14cc6cea0",
+    "tested_uncommitted_changes": false,
+    "note": "The head and working-tree state come from the successful run. File hashes identify the executed code; no later delivery commit is claimed as tested.",
+    "inventory": {
+      "path": "artifacts/role-b-e-integration-20260927/integration/config/build-inventory.json",
+      "sha256": "b3e46ba02d5c286960a44bfa1759884195e3131928bf9cc6a00ee0f55447dd21",
+      "bytes": 35606
+    },
+    "runtime_files_verified": 104,
+    "migrations_verified": 11,
+    "test_dependency_files_verified": 147,
+    "installed_files_verified": 91,
+    "wheel": {
+      "path": "artifacts/role-b-official-build-20260927/wheel-09/arsia_native_intake-0.1.0-py3-none-any.whl",
+      "sha256": "ac8eb3718c54ec78162bd074f5e3a953732bcb406a0bb82d4d6f46dbf9483f88",
+      "bytes": 210242
+    },
+    "upstream": {
+      "a": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
+      "c": "6987e604bb93809aa94a736085c3e8320452461d",
+      "d": "d57c3f4ff2fb57eb84ebc414ef77911073c0de06",
+      "e": "aec3b4692382e48ea4f778f04a31a4ca5ba5fa57"
+    }
+  },
+  "environment": {
+    "python": "3.12.6 (v3.12.6:a4a2d2b0d85, Sep  6 2024, 16:08:03) [Clang 13.0.0 (clang-1300.0.29.30)]",
+    "packages": {
+      "arsia-native-intake": "0.1.0",
+      "openpyxl": "3.1.5",
+      "psycopg": "3.3.6",
+      "psycopg-binary": "3.3.6",
+      "pytest": "8.4.2"
+    },
+    "postgresql": {
+      "postgresql": [
+        "PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+        "arsia_loader",
+        "arsia_loader",
+        "UTF8",
+        "UTC",
+        "en_US.utf8",
+        "en_US.utf8",
+        false,
+        false,
+        false,
+        false
+      ],
+      "image": "postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67"
+    },
+    "postgres_storage": "disposable container layer"
+  },
+  "tests": {
+    "runs": {
+      "default": {
+        "passed": 970,
+        "skipped": 394,
+        "failed": 0,
+        "errors": 0,
+        "real_postgresql": 0,
+        "report": {
+          "path": "artifacts/role-b-official-build-20260927/default-11.xml",
+          "sha256": "6f173d930e200b31d2159256cff7d0ddaed3753ac5171afa3f8195088e8f5893",
+          "bytes": 313947
+        }
+      },
+      "analysis": {
+        "passed": 131,
+        "skipped": 0,
+        "failed": 0,
+        "errors": 0,
+        "real_postgresql": 63,
+        "passed_by_module": {
+          "tests.test_analysis_inventory": 2,
+          "tests.test_analysis_postgres": 20,
+          "tests.test_cd_inventory": 4,
+          "tests.test_d05": 15,
+          "tests.test_d05_postgres": 4,
+          "tests.test_d06": 14,
+          "tests.test_d06_postgres": 4,
+          "tests.test_d07": 15,
+          "tests.test_d07_postgres": 6,
+          "tests.test_d08": 18,
+          "tests.test_d08_postgres": 6,
+          "tests.test_qa_joint_postgres": 23
+        },
+        "report": {
+          "path": "artifacts/role-b-official-build-20260927/analysis-regression-02/pytest.xml",
+          "sha256": "56e9748d7b5829e20da8a11e02a2e5dccfe46c25dc07dcce5e6664b99c464c15",
+          "bytes": 15240
+        },
+        "tested_head_commit": "c8772ba6205be7830e191ba101997fa56aff2532",
+        "tested_uncommitted_changes": true,
+        "runtime_paths_changed_since_run": [
+          "config/native-inputs.json",
+          "config/official-inputs-v1.json",
+          "config/official-nsw-v1.json",
+          "config/qa-team-v1.1.json",
+          "sql/e/fp1.sql",
+          "src/arsia_c/canonical_validation.py",
+          "src/arsia_c/person_checks.py",
+          "src/arsia_c/sql/c06_vic_person_checks.sql",
+          "src/arsia_d04/reconciliation.py",
+          "src/arsia_d05/__init__.py",
+          "src/arsia_d05/sql/d05_trend.sql",
+          "src/arsia_d05/trend.py",
+          "src/arsia_d06/__init__.py",
+          "src/arsia_d06/severity.py",
+          "src/arsia_d06/sql/d06_severity.sql",
+          "src/arsia_d07/__init__.py",
+          "src/arsia_d07/map_query.py",
+          "src/arsia_d07/sql/d07_map.sql",
+          "src/arsia_d08/__init__.py",
+          "src/arsia_d08/sql/d08_units.sql",
+          "src/arsia_d08/unit_query.py",
+          "src/arsia_ingest/build.py",
+          "src/arsia_ingest/official.py",
+          "src/arsia_ingest/official_definitions.py",
+          "src/arsia_ingest/official_reader.py",
+          "src/arsia_ingest/publication.py",
+          "src/arsia_ingest/publication_checks.py",
+          "src/arsia_ingest/sql/fp1.sql"
+        ],
+        "recorded_inputs": {
+          "path": "artifacts/role-b-official-build-20260927/analysis-regression-02/inputs.json",
+          "sha256": "5dfb2c6f8f9c13bf02012c8fecffac7a04ab6073da2fa299d256c79ab653cd2b",
+          "bytes": 84298
+        }
+      },
+      "nsw": {
+        "passed": 74,
+        "skipped": 0,
+        "failed": 0,
+        "errors": 0,
+        "real_postgresql": 48,
+        "passed_by_module": {
+          "tests.test_c03_nsw_postgres": 42,
+          "tests.test_c03_nsw_projection": 25,
+          "tests.test_c03_packaging": 1,
+          "tests.test_nsw_cold_plan_postgres": 6
+        },
+        "report": {
+          "path": "artifacts/role-b-official-build-20260927/nsw-regression-02/pytest.xml",
+          "sha256": "5624b75f53caaef9f9d4c8fd493f6b1bd08569258e99de37abe6d1aae994490a",
+          "bytes": 9886
+        },
+        "tested_head_commit": "c8772ba6205be7830e191ba101997fa56aff2532",
+        "tested_uncommitted_changes": true,
+        "runtime_paths_changed_since_run": [
+          "src/arsia_c/canonical_validation.py",
+          "src/arsia_c/person_checks.py",
+          "src/arsia_c/sql/c06_vic_person_checks.sql",
+          "src/arsia_d04/reconciliation.py",
+          "src/arsia_d08/sql/d08_units.sql",
+          "src/arsia_ingest/official_definitions.py"
+        ],
+        "recorded_inputs": {
+          "path": "artifacts/role-b-official-build-20260927/nsw-regression-02/inputs.json",
+          "sha256": "e362aa469ccea95d7a9bef9353ea55fb17d23cfdda49dd21845a5fce2405dc1a",
+          "bytes": 94478
+        }
+      },
+      "c09": {
+        "passed": 67,
+        "skipped": 0,
+        "failed": 0,
+        "errors": 0,
+        "real_postgresql": 29,
+        "passed_by_module": {
+          "tests.test_c09_acceptance_postgres": 24,
+          "tests.test_c09_canonical": 38,
+          "tests.test_c09_cold_plan_postgres": 2,
+          "tests.test_c09_postgres": 3
+        },
+        "report": {
+          "path": "artifacts/role-b-official-build-20260927/c09-regression/pytest.xml",
+          "sha256": "406f6088944a41e43de16c308e138f5bdbfcdc6cbe5004814c4653d0ebe787fd",
+          "bytes": 8691
+        },
+        "tested_head_commit": "c8772ba6205be7830e191ba101997fa56aff2532",
+        "tested_uncommitted_changes": true,
+        "runtime_paths_changed_since_run": [
+          "src/arsia_c/person_checks.py",
+          "src/arsia_c/sql/c06_vic_person_checks.sql",
+          "src/arsia_d04/reconciliation.py",
+          "src/arsia_d08/sql/d08_units.sql"
+        ],
+        "recorded_inputs": {
+          "path": "artifacts/role-b-official-build-20260927/c09-regression/inputs.json",
+          "sha256": "23c155b9035557c92ffbd19fb5a94046ecf180049e72d52dafc677d9c50c0b5d",
+          "bytes": 94969
+        }
+      },
+      "c06": {
+        "passed": 32,
+        "skipped": 0,
+        "failed": 0,
+        "errors": 0,
+        "real_postgresql": 31,
+        "passed_by_module": {
+          "tests.test_c06_cold_plan_postgres": 3,
+          "tests.test_c10_integration_postgres": 5,
+          "tests.test_c10_packaging": 1,
+          "tests.test_qa_joint_postgres": 23
+        },
+        "report": {
+          "path": "artifacts/role-b-official-build-20260927/c06-regression-03/pytest.xml",
+          "sha256": "2905111d7820f931c4baefe2ac501f3e4af9c130d2688814b51fd8630cb9dd66",
+          "bytes": 4351
+        },
+        "tested_head_commit": "0469df69fe6bd5c62c27f43dbc37a42850c164d0",
+        "tested_uncommitted_changes": true,
+        "runtime_paths_changed_since_run": [
+          "src/arsia_d04/reconciliation.py",
+          "src/arsia_d08/sql/d08_units.sql"
+        ],
+        "recorded_inputs": {
+          "path": "artifacts/role-b-official-build-20260927/c06-regression-03/inputs.json",
+          "sha256": "e552b3cf609e2de3813924f7b90c3723d82cd34d1157b75dc060df1c86676f52",
+          "bytes": 93885
+        }
+      },
+      "d04": {
+        "passed": 49,
+        "skipped": 0,
+        "failed": 0,
+        "errors": 0,
+        "real_postgresql": 29,
+        "passed_by_module": {
+          "tests.test_cd_integration_postgres": 7,
+          "tests.test_cd_inventory": 4,
+          "tests.test_d04_lineage_postgres": 16,
+          "tests.test_d04_official_contract": 16,
+          "tests.test_d04_parent_short_form_postgres": 2,
+          "tests.test_d04_postgres": 4
+        },
+        "report": {
+          "path": "artifacts/role-b-official-build-20260927/d04-regression-02/pytest.xml",
+          "sha256": "b72bffd71454c0ba0317dcaab36f24aa3f1576347dc3642503308cfda50db362",
+          "bytes": 6932
+        },
+        "tested_head_commit": "7d92c87fe5410bc642f6e2133b80818eb27e72f7",
+        "tested_uncommitted_changes": true,
+        "runtime_paths_changed_since_run": [
+          "config/native-inputs.json",
+          "config/official-inputs-v1.json",
+          "config/official-nsw-v1.json",
+          "config/qa-team-v1.1.json",
+          "sql/e/fp1.sql",
+          "src/arsia_d05/__init__.py",
+          "src/arsia_d05/sql/d05_trend.sql",
+          "src/arsia_d05/trend.py",
+          "src/arsia_d06/__init__.py",
+          "src/arsia_d06/severity.py",
+          "src/arsia_d06/sql/d06_severity.sql",
+          "src/arsia_d07/__init__.py",
+          "src/arsia_d07/map_query.py",
+          "src/arsia_d07/sql/d07_map.sql",
+          "src/arsia_d08/__init__.py",
+          "src/arsia_d08/sql/d08_units.sql",
+          "src/arsia_d08/unit_query.py",
+          "src/arsia_ingest/build.py",
+          "src/arsia_ingest/official.py",
+          "src/arsia_ingest/official_definitions.py",
+          "src/arsia_ingest/official_reader.py",
+          "src/arsia_ingest/publication.py",
+          "src/arsia_ingest/publication_checks.py",
+          "src/arsia_ingest/sql/fp1.sql"
+        ],
+        "recorded_inputs": {
+          "path": "artifacts/role-b-official-build-20260927/d04-regression-02/inputs.json",
+          "sha256": "3876d7a089d50dfb9eca68287c4d134ef7b78e331dab005cb435499017f21a76",
+          "bytes": 83428
+        }
+      },
+      "d08": {
+        "passed": 46,
+        "skipped": 0,
+        "failed": 0,
+        "errors": 0,
+        "real_postgresql": 28,
+        "passed_by_module": {
+          "tests.test_analysis_postgres": 20,
+          "tests.test_d08": 18,
+          "tests.test_d08_cold_plan_postgres": 2,
+          "tests.test_d08_postgres": 6
+        },
+        "report": {
+          "path": "artifacts/role-b-official-build-20260927/d08-regression-03/pytest.xml",
+          "sha256": "8c006783053b1eaef028e10be285e8e61df6c5f9b04dfa7c1b9045966d9642f9",
+          "bytes": 5698
+        },
+        "tested_head_commit": "3fdc63895a546290ce1d5632963d769828105426",
+        "tested_uncommitted_changes": true,
+        "runtime_paths_changed_since_run": [],
+        "recorded_inputs": {
+          "path": "artifacts/role-b-official-build-20260927/d08-regression-03/inputs.json",
+          "sha256": "20ef11168866b53e0e4cb244b5a7753fa4cd17f49a6705f6e34adf8c87a749a6",
+          "bytes": 94515
+        }
+      },
+      "official": {
+        "passed": 8,
+        "skipped": 0,
+        "failed": 0,
+        "errors": 0,
+        "real_postgresql": 8,
+        "passed_by_module": {
+          "tests.test_official_build_postgres": 8
+        },
+        "report": {
+          "path": "artifacts/role-b-official-build-20260927/validation-08/pytest.xml",
+          "sha256": "da637a87bc3d0706b2413d022309514d8796f17b14a0742e9eb6037d5f4f0367",
+          "bytes": 1296
+        },
+        "tested_head_commit": "d5239db471e33ce30c137e9087f712c14cc6cea0",
+        "tested_uncommitted_changes": false,
+        "runtime_paths_changed_since_run": [],
+        "recorded_inputs": {
+          "path": "artifacts/role-b-official-build-20260927/validation-08/inputs.json",
+          "sha256": "09779230ff2a3127654c8cb3a6bd12d1444a0c132c1c8cf5c58f76cba0be9e41",
+          "bytes": 93714
+        }
+      }
+    },
+    "unique_passed": 1157,
+    "real_postgresql_passed": 187,
+    "focused_non_database_checks_also_in_default": {
+      "analysis": 68,
+      "nsw": 26,
+      "c09": 38,
+      "c06": 1,
+      "d04": 20,
+      "d08": 18
+    },
+    "overlap": "Counts use XML module/name identities. Do not add run totals as unique tests. Focused runs retain their own revision and changed-path record; the successful full run matches the complete current inventory.",
+    "skips": "394 optional database/archive checks in the default environment; the 7 selected database runs have no skips."
+  },
+  "d08_scaled_cases": [
+    {
+      "scope": "Synthetic query-plan regression; not official acceptance",
+      "parents": 1001,
+      "units": 2001,
+      "original_query_ms": 277.821,
+      "revised_query_ms": 5.401,
+      "installed_function_seconds": 0.006009083008393645,
+      "scans": {
+        "fact_crash": [
+          {
+            "rows": 1001,
+            "loops": 1
+          }
+        ],
+        "unit": [
+          {
+            "rows": 2001,
+            "loops": 1
+          }
+        ]
+      },
+      "read_only_counts_unchanged": true,
+      "permanent_statistics_or_grants_changed": false,
+      "evidence": {
+        "path": "artifacts/role-b-official-build-20260927/d08-regression-03/ac-evidence/d08-cold-plan-1000.json",
+        "sha256": "1eb8a2b5a5171e18e6eb942acdde31a25f6360bedc3880c49959ddc3fa62d82d",
+        "bytes": 28125
+      }
+    },
+    {
+      "scope": "Synthetic query-plan regression; not official acceptance",
+      "parents": 5001,
+      "units": 10001,
+      "original_query_ms": 1504.254,
+      "revised_query_ms": 30.312,
+      "installed_function_seconds": 0.029002833005506545,
+      "scans": {
+        "fact_crash": [
+          {
+            "rows": 5001,
+            "loops": 1
+          }
+        ],
+        "unit": [
+          {
+            "rows": 10001,
+            "loops": 1
+          }
+        ]
+      },
+      "read_only_counts_unchanged": true,
+      "permanent_statistics_or_grants_changed": false,
+      "evidence": {
+        "path": "artifacts/role-b-official-build-20260927/d08-regression-03/ac-evidence/d08-cold-plan-5000.json",
+        "sha256": "02bd4d87e9f9e8212e66d16108b2e2821166bb9fae3e742960f3debb341fd0ad",
+        "bytes": 27554
+      }
+    }
+  ],
+  "c06_scaled_case": {
+    "scope": "Synthetic SQL regression; not official build acceptance",
+    "input_rows": {
+      "accident": 1000,
+      "vehicle": 2000,
+      "person": 3000
+    },
+    "execution_time_ms": 174.847,
+    "accident_group_scans": [
+      {
+        "alias": "g",
+        "rows": 1000,
+        "loops": 1
+      },
+      {
+        "alias": "a_2",
+        "rows": 1000,
+        "loops": 1
+      },
+      {
+        "alias": "a_3",
+        "rows": 1000,
+        "loops": 1
+      }
+    ],
+    "executed_as": "arsia_loader",
+    "caller_rollback": true,
+    "permanent_statistics_or_grants_changed": false
+  },
+  "inputs": {
+    "analysis": {
+      "year_from": 2020,
+      "year_to": 2024
+    },
+    "source_count": 3,
+    "resource_count": 7,
+    "native_rows": 2118028,
+    "files": [
+      {
+        "resource_id": "official_nsw_crash",
+        "file_sha256": "7345189f017d9c842429674ecf2196cee728de46c0572ce2a85220f9bef49aa9",
+        "raw_count": 92189
+      },
+      {
+        "resource_id": "official_nsw_traffic_unit",
+        "file_sha256": "95349666f63952c580edb08973a8ac80be39db98ba289ec8533d61feb6d55f1b",
+        "raw_count": 170962
+      },
+      {
+        "resource_id": "official_qld_crash",
+        "file_sha256": "975be4b02a235d06589de9b486f73bafe22d0f2007f0c07abb84f54cb926c704",
+        "raw_count": 415407
+      },
+      {
+        "resource_id": "official_vic_accident",
+        "file_sha256": "a148c00601fab10d44368df80492c594123700a7f9e334ff896fd215295e91d9",
+        "raw_count": 200352
+      },
+      {
+        "resource_id": "official_vic_node",
+        "file_sha256": "b0bdbec22ac33df66e15cff9b531ba3203320ec5fbe20076a2820b8fec966ed4",
+        "raw_count": 405918
+      },
+      {
+        "resource_id": "official_vic_person",
+        "file_sha256": "71ca8fec01370e301f282fc83e8f11e4cde16a535ee421cbbb72512ceb7194f9",
+        "raw_count": 467730
+      },
+      {
+        "resource_id": "official_vic_vehicle",
+        "file_sha256": "05a7a1b9171abaeb5c188df549dee38edde6e76d5a03553988305a8280dccd12",
+        "raw_count": 365470
+      }
+    ],
+    "fresh_preparation": {
+      "run_id": "68c4ac54-5569-4c91-a43b-7eea73539a32",
+      "elapsed_seconds": 38.85205250000581,
+      "started_at": "2026-09-27T07:55:54.497+00:00",
+      "finished_at": "2026-09-27T07:56:33.339+00:00",
+      "matches_archived_file_identities": true
+    },
+    "full_build_preparation": {
+      "reused": true,
+      "run_id": "68c4ac54-5569-4c91-a43b-7eea73539a32",
+      "finished_at": "2026-09-27T07:56:33.339+00:00"
+    }
+  },
+  "build_results": {
+    "s0-baseline": {
+      "result": {
+        "run_id": "039c66fe-665f-4af1-885f-37fbcbcc7272",
+        "dataset_kind": "synthetic",
+        "batch_id": "fd0e04d5-d21f-435a-bf40-8979ce9c2059",
+        "evidence_ref": "artifacts/role-b-official-build-20260927/validation-08/ac-evidence/official-build/builds/synthetic/runs/039c66fe-665f-4af1-885f-37fbcbcc7272",
+        "input_fingerprint": "a0194382d567aa6df06bac97af3c2d228c1ff58e3b14d7468ffa54a19f31ee9d",
+        "result": "succeeded",
+        "previous_batch_id": null,
+        "qa_summary": [
+          {
+            "rule_id": "QA01_INPUT",
+            "result": "pass",
+            "affected_count": 0
+          },
+          {
+            "rule_id": "QA02_RAW",
+            "result": "pass",
+            "affected_count": 0
+          },
+          {
+            "rule_id": "QA03_PROJECTED",
+            "result": "pass",
+            "affected_count": 0
+          },
+          {
+            "rule_id": "QA04_AUXILIARY",
+            "result": "pass",
+            "affected_count": 0
+          },
+          {
+            "rule_id": "QA05_SEMANTICS",
+            "result": "pass",
+            "affected_count": 0
+          },
+          {
+            "rule_id": "QA06_RECONCILIATION",
+            "result": "pass",
+            "affected_count": 0
+          },
+          {
+            "rule_id": "QA07_LOCATION",
+            "result": "limited",
+            "affected_count": 2
+          }
+        ]
+      },
+      "elapsed_seconds": 0.267,
+      "python_peak_rss_bytes": 61374464,
+      "rss_scope": "Peak for this pytest process since start, including earlier test stages",
+      "callback_timings": [
+        {
+          "stage": "project",
+          "elapsed_seconds": 0.031
+        },
+        {
+          "stage": "vault",
+          "elapsed_seconds": 0.008
+        },
+        {
+          "stage": "canonical",
+          "elapsed_seconds": 0.008
+        },
+        {
+          "stage": "dw",
+          "elapsed_seconds": 0.008
+        },
+        {
+          "stage": "qa_c",
+          "elapsed_seconds": 0.027
+        },
+        {
+          "stage": "qa_d",
+          "elapsed_seconds": 0.021
+        },
+        {
+          "stage": "publish",
+          "elapsed_seconds": 0.021
+        }
+      ]
+    },
+    "official-publication-rollback": {
+      "result": {
+        "run_id": "dc0d0202-388a-4cf2-b61d-099852c072ef",
+        "dataset_kind": "official",
+        "batch_id": "683f092d-8ea2-4b76-a552-091247c5a12d",
+        "evidence_ref": "artifacts/role-b-official-build-20260927/validation-08/ac-evidence/official-build/builds/official/runs/dc0d0202-388a-4cf2-b61d-099852c072ef",
+        "input_fingerprint": "7f7aa45e4b4423ff54c80cdc15515c9283fb6a6f8126ee590000d3655b8a7eb8",
+        "result": "failed",
+        "stage": "publish",
+        "error_code": "RUN_ERROR",
+        "message": "publish raised RuntimeError"
+      },
+      "elapsed_seconds": 1121.513,
+      "python_peak_rss_bytes": 4771020800,
+      "rss_scope": "Peak for this pytest process since start, including earlier test stages",
+      "callback_timings": [
+        {
+          "stage": "project",
+          "elapsed_seconds": 82.229
+        },
+        {
+          "stage": "vault",
+          "elapsed_seconds": 28.695
+        },
+        {
+          "stage": "canonical",
+          "elapsed_seconds": 41.371
+        },
+        {
+          "stage": "dw",
+          "elapsed_seconds": 4.891
+        },
+        {
+          "stage": "qa_c",
+          "elapsed_seconds": 178.875
+        },
+        {
+          "stage": "qa_d",
+          "elapsed_seconds": 6.321
+        },
+        {
+          "stage": "publish",
+          "elapsed_seconds": 2.831
+        }
+      ]
+    },
+    "official-success": {
+      "result": {
+        "run_id": "e54dfbcc-2767-4f54-aeea-3ac02f5bb639",
+        "dataset_kind": "official",
+        "batch_id": "d6f0e958-7c94-4f2f-ba85-9d44e597cc02",
+        "evidence_ref": "artifacts/role-b-official-build-20260927/validation-08/ac-evidence/official-build/builds/official/runs/e54dfbcc-2767-4f54-aeea-3ac02f5bb639",
+        "input_fingerprint": "7f7aa45e4b4423ff54c80cdc15515c9283fb6a6f8126ee590000d3655b8a7eb8",
+        "result": "succeeded",
+        "previous_batch_id": null,
+        "qa_summary": [
+          {
+            "rule_id": "QA01_INPUT",
+            "result": "pass",
+            "affected_count": 0
+          },
+          {
+            "rule_id": "QA02_RAW",
+            "result": "pass",
+            "affected_count": 0
+          },
+          {
+            "rule_id": "QA03_PROJECTED",
+            "result": "pass",
+            "affected_count": 0
+          },
+          {
+            "rule_id": "QA04_AUXILIARY",
+            "result": "pass",
+            "affected_count": 0
+          },
+          {
+            "rule_id": "QA05_SEMANTICS",
+            "result": "pass",
+            "affected_count": 0
+          },
+          {
+            "rule_id": "QA06_RECONCILIATION",
+            "result": "pass",
+            "affected_count": 0
+          },
+          {
+            "rule_id": "QA07_LOCATION",
+            "result": "limited",
+            "affected_count": 230876
+          }
+        ]
+      },
+      "elapsed_seconds": 1504.945,
+      "python_peak_rss_bytes": 4771020800,
+      "rss_scope": "Peak for this pytest process since start, including earlier test stages",
+      "callback_timings": [
+        {
+          "stage": "project",
+          "elapsed_seconds": 80.617
+        },
+        {
+          "stage": "vault",
+          "elapsed_seconds": 35.835
+        },
+        {
+          "stage": "canonical",
+          "elapsed_seconds": 43.819
+        },
+        {
+          "stage": "dw",
+          "elapsed_seconds": 5.426
+        },
+        {
+          "stage": "qa_c",
+          "elapsed_seconds": 239.305
+        },
+        {
+          "stage": "qa_d",
+          "elapsed_seconds": 11.385
+        },
+        {
+          "stage": "publish",
+          "elapsed_seconds": 4.91
+        }
+      ]
+    },
+    "official-no-change": {
+      "result": {
+        "run_id": "42506c2d-4127-4aa6-84f9-4abfc2f309ae",
+        "dataset_kind": "official",
+        "batch_id": "d6f0e958-7c94-4f2f-ba85-9d44e597cc02",
+        "evidence_ref": "artifacts/role-b-official-build-20260927/validation-08/ac-evidence/official-build/builds/official/runs/42506c2d-4127-4aa6-84f9-4abfc2f309ae",
+        "input_fingerprint": "7f7aa45e4b4423ff54c80cdc15515c9283fb6a6f8126ee590000d3655b8a7eb8",
+        "result": "no_change",
+        "previous_batch_id": "d6f0e958-7c94-4f2f-ba85-9d44e597cc02",
+        "qa_summary": [
+          {
+            "rule_id": "QA01_INPUT",
+            "result": "pass",
+            "affected_count": 0
+          },
+          {
+            "rule_id": "QA02_RAW",
+            "result": "pass",
+            "affected_count": 0
+          },
+          {
+            "rule_id": "QA03_PROJECTED",
+            "result": "pass",
+            "affected_count": 0
+          },
+          {
+            "rule_id": "QA04_AUXILIARY",
+            "result": "pass",
+            "affected_count": 0
+          },
+          {
+            "rule_id": "QA05_SEMANTICS",
+            "result": "pass",
+            "affected_count": 0
+          },
+          {
+            "rule_id": "QA06_RECONCILIATION",
+            "result": "pass",
+            "affected_count": 0
+          },
+          {
+            "rule_id": "QA07_LOCATION",
+            "result": "limited",
+            "affected_count": 230876
+          }
+        ]
+      },
+      "elapsed_seconds": 57.391,
+      "python_peak_rss_bytes": 4771020800,
+      "rss_scope": "Peak for this pytest process since start, including earlier test stages",
+      "callback_timings": []
+    }
+  },
+  "database": {
+    "successful_batch_counts": {
+      "rv.sat_crash": 230876,
+      "rv.sat_unit": 303119,
+      "rv.link_crash_unit": 303119,
+      "canonical.crash": 230876,
+      "canonical.unit": 303119,
+      "dw.dim_source": 3,
+      "dw.dim_severity": 18,
+      "dw.fact_crash": 230876,
+      "qa.check_result": 63
+    },
+    "database_bytes_after_success": 4121369623,
+    "official_raw_count": 2118028,
+    "synthetic_raw_count": 19,
+    "failed_batch_empty": true,
+    "synthetic_history_unchanged": true
+  },
+  "quality": {
+    "summary": [
+      {
+        "rule_id": "QA01_INPUT",
+        "result": "pass",
+        "affected_count": 0
+      },
+      {
+        "rule_id": "QA02_RAW",
+        "result": "pass",
+        "affected_count": 0
+      },
+      {
+        "rule_id": "QA03_PROJECTED",
+        "result": "pass",
+        "affected_count": 0
+      },
+      {
+        "rule_id": "QA04_AUXILIARY",
+        "result": "pass",
+        "affected_count": 0
+      },
+      {
+        "rule_id": "QA05_SEMANTICS",
+        "result": "pass",
+        "affected_count": 0
+      },
+      {
+        "rule_id": "QA06_RECONCILIATION",
+        "result": "pass",
+        "affected_count": 0
+      },
+      {
+        "rule_id": "QA07_LOCATION",
+        "result": "limited",
+        "affected_count": 230876
+      }
+    ],
+    "stored_result_count": 63,
+    "concrete_result_count": 56,
+    "vic_policy": "Exact restricted policy retained; full-source confirmation remains false. QA02 preserves every native row.",
+    "official_maps": "Unavailable; QA07 limited records the real unmapped denominator, not valid map points."
+  },
+  "source_metrics": {
+    "official_nsw": {
+      "crash_count": 92082,
+      "fatal_crash_count": 1388,
+      "fatality_count": 1507,
+      "casualty_count": 78154,
+      "map_count": 0,
+      "unmapped_count": 92082,
+      "canonical_unit_count": 170747,
+      "report_eligible_unit_count": 170747
+    },
+    "official_vic": {
+      "crash_count": 72170,
+      "fatal_crash_count": 1182,
+      "fatality_count": 1265,
+      "casualty_count": 91798,
+      "map_count": 0,
+      "unmapped_count": 72170,
+      "canonical_unit_count": 132372,
+      "report_eligible_unit_count": 0
+    },
+    "official_qld": {
+      "crash_count": 66624,
+      "fatal_crash_count": 1304,
+      "fatality_count": 1424,
+      "casualty_count": 88609,
+      "map_count": 0,
+      "unmapped_count": 66624,
+      "canonical_unit_count": 0,
+      "report_eligible_unit_count": 0
+    }
+  },
+  "expected_observations": {
+    "path": "artifacts/role-b-e-integration-20260927/integration/config/official-expected-results-v1.json",
+    "sha256": "71382aecb7969a023f48e52934bcb9873726a49b67807beea9c950184a01c609",
+    "bytes": 5239
+  },
+  "reader": {
+    "official_nsw:trend": {
+      "source_id": "official_nsw",
+      "report": "trend",
+      "status": "available",
+      "reason": null,
+      "source_label": "NSW pinned Crash / Traffic Unit snapshot",
+      "quality_limits": [
+        "Official maps are unavailable.",
+        "Source definitions differ; do not pool interstate totals."
+      ],
+      "returned_rows": 5
+    },
+    "official_nsw:severity": {
+      "source_id": "official_nsw",
+      "report": "severity",
+      "status": "available",
+      "reason": null,
+      "source_label": "NSW pinned Crash / Traffic Unit snapshot",
+      "quality_limits": [
+        "Official maps are unavailable.",
+        "Source definitions differ; do not pool interstate totals."
+      ],
+      "returned_rows": 5
+    },
+    "official_nsw:map": {
+      "source_id": "official_nsw",
+      "report": "map",
+      "status": "unavailable",
+      "reason": "Official maps are disabled by the pinned source policy.",
+      "source_label": "NSW pinned Crash / Traffic Unit snapshot",
+      "quality_limits": [
+        "Official maps are unavailable.",
+        "Source definitions differ; do not pool interstate totals."
+      ],
+      "returned_rows": null
+    },
+    "official_nsw:units": {
+      "source_id": "official_nsw",
+      "report": "units",
+      "status": "available",
+      "reason": null,
+      "source_label": "NSW pinned Crash / Traffic Unit snapshot",
+      "quality_limits": [
+        "Official maps are unavailable.",
+        "Source definitions differ; do not pool interstate totals."
+      ],
+      "returned_rows": 11
+    },
+    "official_nsw:monthly": {
+      "source_id": "official_nsw",
+      "report": "trend",
+      "status": "available",
+      "reason": null,
+      "source_label": "NSW pinned Crash / Traffic Unit snapshot",
+      "quality_limits": [
+        "Official maps are unavailable.",
+        "Source definitions differ; do not pool interstate totals."
+      ],
+      "returned_rows": 60
+    },
+    "official_vic:trend": {
+      "source_id": "official_vic",
+      "report": "trend",
+      "status": "available",
+      "reason": null,
+      "source_label": "VIC restricted Accident snapshot",
+      "quality_limits": [
+        "Official maps are unavailable.",
+        "Source definitions differ; do not pool interstate totals.",
+        "Accident metrics only; Person and Vehicle rows are retained for checks, not reporting."
+      ],
+      "returned_rows": 5
+    },
+    "official_vic:severity": {
+      "source_id": "official_vic",
+      "report": "severity",
+      "status": "available",
+      "reason": null,
+      "source_label": "VIC restricted Accident snapshot",
+      "quality_limits": [
+        "Official maps are unavailable.",
+        "Source definitions differ; do not pool interstate totals.",
+        "Accident metrics only; Person and Vehicle rows are retained for checks, not reporting."
+      ],
+      "returned_rows": 4
+    },
+    "official_vic:map": {
+      "source_id": "official_vic",
+      "report": "map",
+      "status": "unavailable",
+      "reason": "Official maps are disabled by the pinned source policy.",
+      "source_label": "VIC restricted Accident snapshot",
+      "quality_limits": [
+        "Official maps are unavailable.",
+        "Source definitions differ; do not pool interstate totals.",
+        "Accident metrics only; Person and Vehicle rows are retained for checks, not reporting."
+      ],
+      "returned_rows": null
+    },
+    "official_vic:units": {
+      "source_id": "official_vic",
+      "report": "units",
+      "status": "unavailable",
+      "reason": "The VIC restricted profile excludes vehicle and person statistics.",
+      "source_label": "VIC restricted Accident snapshot",
+      "quality_limits": [
+        "Official maps are unavailable.",
+        "Source definitions differ; do not pool interstate totals.",
+        "Accident metrics only; Person and Vehicle rows are retained for checks, not reporting."
+      ],
+      "returned_rows": null
+    },
+    "official_vic:monthly": {
+      "source_id": "official_vic",
+      "report": "trend",
+      "status": "available",
+      "reason": null,
+      "source_label": "VIC restricted Accident snapshot",
+      "quality_limits": [
+        "Official maps are unavailable.",
+        "Source definitions differ; do not pool interstate totals.",
+        "Accident metrics only; Person and Vehicle rows are retained for checks, not reporting."
+      ],
+      "returned_rows": 60
+    },
+    "official_qld:trend": {
+      "source_id": "official_qld",
+      "report": "trend",
+      "status": "available",
+      "reason": null,
+      "source_label": "QLD pinned crash snapshot",
+      "quality_limits": [
+        "Official maps are unavailable.",
+        "Source definitions differ; do not pool interstate totals.",
+        "No unit-detail records are available in this resource."
+      ],
+      "returned_rows": 5
+    },
+    "official_qld:severity": {
+      "source_id": "official_qld",
+      "report": "severity",
+      "status": "available",
+      "reason": null,
+      "source_label": "QLD pinned crash snapshot",
+      "quality_limits": [
+        "Official maps are unavailable.",
+        "Source definitions differ; do not pool interstate totals.",
+        "No unit-detail records are available in this resource."
+      ],
+      "returned_rows": 4
+    },
+    "official_qld:map": {
+      "source_id": "official_qld",
+      "report": "map",
+      "status": "unavailable",
+      "reason": "Official maps are disabled by the pinned source policy.",
+      "source_label": "QLD pinned crash snapshot",
+      "quality_limits": [
+        "Official maps are unavailable.",
+        "Source definitions differ; do not pool interstate totals.",
+        "No unit-detail records are available in this resource."
+      ],
+      "returned_rows": null
+    },
+    "official_qld:units": {
+      "source_id": "official_qld",
+      "report": "units",
+      "status": "unavailable",
+      "reason": "This QLD resource has no unit-detail records.",
+      "source_label": "QLD pinned crash snapshot",
+      "quality_limits": [
+        "Official maps are unavailable.",
+        "Source definitions differ; do not pool interstate totals.",
+        "No unit-detail records are available in this resource."
+      ],
+      "returned_rows": null
+    },
+    "official_qld:monthly": {
+      "source_id": "official_qld",
+      "report": "trend",
+      "status": "available",
+      "reason": null,
+      "source_label": "QLD pinned crash snapshot",
+      "quality_limits": [
+        "Official maps are unavailable.",
+        "Source definitions differ; do not pool interstate totals.",
+        "No unit-detail records are available in this resource."
+      ],
+      "returned_rows": 60
+    }
+  },
+  "reader_query_seconds": {
+    "official_nsw:trend": 0.078,
+    "official_nsw:severity": 0.324,
+    "official_nsw:map": 0.042,
+    "official_nsw:units": 0.554,
+    "official_nsw:monthly": 0.44,
+    "official_vic:trend": 0.034,
+    "official_vic:severity": 0.212,
+    "official_vic:map": 0.031,
+    "official_vic:units": 0.031,
+    "official_vic:monthly": 0.348,
+    "official_qld:trend": 0.078,
+    "official_qld:severity": 0.19,
+    "official_qld:map": 0.031,
+    "official_qld:units": 0.031,
+    "official_qld:monthly": 0.348
+  },
+  "commands": {
+    "official": {
+      "argv": [
+        "artifacts/role-b-e-integration-20260927/official-venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "-o",
+        "pythonpath=",
+        "artifacts/role-b-e-integration-20260927/integration/tests/test_official_build_postgres.py",
+        "--junitxml=artifacts/role-b-official-build-20260927/validation-08/pytest.xml"
+      ],
+      "cwd": "artifacts/role-b-official-build-20260927/validation-08",
+      "pythonpath_removed": true
+    },
+    "analysis": {
+      "argv": [
+        "artifacts/role-b-e-integration-20260927/official-venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "-o",
+        "pythonpath=",
+        "artifacts/role-b-e-integration-20260927/integration/tests/test_analysis_postgres.py",
+        "artifacts/role-b-e-integration-20260927/integration/tests/test_analysis_inventory.py",
+        "artifacts/role-b-e-integration-20260927/integration/tests/test_d05.py",
+        "artifacts/role-b-e-integration-20260927/integration/tests/test_d06.py",
+        "artifacts/role-b-e-integration-20260927/integration/tests/test_d07.py",
+        "artifacts/role-b-e-integration-20260927/integration/tests/test_d08.py",
+        "artifacts/role-b-e-integration-20260927/integration/tests/test_d05_postgres.py",
+        "artifacts/role-b-e-integration-20260927/integration/tests/test_d06_postgres.py",
+        "artifacts/role-b-e-integration-20260927/integration/tests/test_d07_postgres.py",
+        "artifacts/role-b-e-integration-20260927/integration/tests/test_d08_postgres.py",
+        "artifacts/role-b-e-integration-20260927/integration/tests/test_cd_inventory.py",
+        "artifacts/role-b-e-integration-20260927/integration/tests/test_qa_joint_postgres.py",
+        "--junitxml=artifacts/role-b-official-build-20260927/analysis-regression-02/pytest.xml"
+      ],
+      "cwd": "artifacts/role-b-official-build-20260927/analysis-regression-02",
+      "pythonpath_removed": true
+    },
+    "nsw": {
+      "argv": [
+        "artifacts/role-b-e-integration-20260927/official-venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "-o",
+        "pythonpath=",
+        "artifacts/role-b-e-integration-20260927/integration/tests/test_nsw_cold_plan_postgres.py",
+        "artifacts/role-b-e-integration-20260927/integration/tests/test_c03_nsw_postgres.py",
+        "artifacts/role-b-e-integration-20260927/integration/tests/test_c03_nsw_projection.py",
+        "artifacts/role-b-e-integration-20260927/integration/tests/test_c03_packaging.py",
+        "--junitxml=artifacts/role-b-official-build-20260927/nsw-regression-02/pytest.xml"
+      ],
+      "cwd": "artifacts/role-b-official-build-20260927/nsw-regression-02",
+      "pythonpath_removed": true
+    },
+    "c09": {
+      "argv": [
+        "artifacts/role-b-e-integration-20260927/official-venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "-o",
+        "pythonpath=",
+        "artifacts/role-b-e-integration-20260927/integration/tests/test_c09_canonical.py",
+        "artifacts/role-b-e-integration-20260927/integration/tests/test_c09_postgres.py",
+        "artifacts/role-b-e-integration-20260927/integration/tests/test_c09_acceptance_postgres.py",
+        "artifacts/role-b-e-integration-20260927/integration/tests/test_c09_cold_plan_postgres.py",
+        "--junitxml=artifacts/role-b-official-build-20260927/c09-regression/pytest.xml"
+      ],
+      "cwd": "artifacts/role-b-official-build-20260927/c09-regression",
+      "pythonpath_removed": true
+    },
+    "c06": {
+      "argv": [
+        "artifacts/role-b-e-integration-20260927/official-venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "-o",
+        "pythonpath=",
+        "artifacts/role-b-e-integration-20260927/integration/tests/test_c06_cold_plan_postgres.py",
+        "artifacts/role-b-e-integration-20260927/integration/tests/test_c10_integration_postgres.py",
+        "artifacts/role-b-e-integration-20260927/integration/tests/test_c10_packaging.py",
+        "artifacts/role-b-e-integration-20260927/integration/tests/test_qa_joint_postgres.py",
+        "--junitxml=artifacts/role-b-official-build-20260927/c06-regression-03/pytest.xml"
+      ],
+      "cwd": "artifacts/role-b-official-build-20260927/c06-regression-03",
+      "pythonpath_removed": true
+    },
+    "d04": {
+      "argv": [
+        "artifacts/role-b-e-integration-20260927/official-venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "-o",
+        "pythonpath=",
+        "artifacts/role-b-e-integration-20260927/integration/tests/test_d04_lineage_postgres.py",
+        "artifacts/role-b-e-integration-20260927/integration/tests/test_d04_official_contract.py",
+        "artifacts/role-b-e-integration-20260927/integration/tests/test_d04_parent_short_form_postgres.py",
+        "artifacts/role-b-e-integration-20260927/integration/tests/test_cd_integration_postgres.py",
+        "artifacts/role-b-e-integration-20260927/integration/tests/test_d04_postgres.py",
+        "artifacts/role-b-e-integration-20260927/integration/tests/test_cd_inventory.py",
+        "--junitxml=artifacts/role-b-official-build-20260927/d04-regression-02/pytest.xml"
+      ],
+      "cwd": "artifacts/role-b-official-build-20260927/d04-regression-02",
+      "pythonpath_removed": true
+    },
+    "d08": {
+      "argv": [
+        "artifacts/role-b-e-integration-20260927/official-venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "-o",
+        "pythonpath=",
+        "artifacts/role-b-e-integration-20260927/integration/tests/test_d08_cold_plan_postgres.py",
+        "artifacts/role-b-e-integration-20260927/integration/tests/test_analysis_postgres.py",
+        "artifacts/role-b-e-integration-20260927/integration/tests/test_d08_postgres.py",
+        "artifacts/role-b-e-integration-20260927/integration/tests/test_d08.py",
+        "--junitxml=artifacts/role-b-official-build-20260927/d08-regression-03/pytest.xml"
+      ],
+      "cwd": "artifacts/role-b-official-build-20260927/d08-regression-03",
+      "pythonpath_removed": true
+    },
+    "default": {
+      "argv": [
+        "env",
+        "-u",
+        "PYTHONPATH",
+        "artifacts/role-b-e-integration-20260927/official-venv/bin/python",
+        "-m",
+        "pytest",
+        "artifacts/role-b-e-integration-20260927/integration/tests",
+        "-o",
+        "pythonpath=",
+        "-q",
+        "--junitxml=default-11.xml"
+      ],
+      "cwd": "artifacts/role-b-official-build-20260927",
+      "stdout": "default-11.log",
+      "stderr": "redirected to stdout",
+      "pythonpath_removed": true,
+      "git_head": "3fdc63895a546290ce1d5632963d769828105426",
+      "working_tree": [
+        " M config/analysis-inventory.json",
+        " M config/build-inventory.json",
+        " M config/d08-inventory.json",
+        " M docs/analysis-integration.md",
+        " M docs/contributions/peixian.md",
+        " M src/arsia_d08/sql/d08_units.sql",
+        " M tests/test_d08.py",
+        "?? tests/test_d08_cold_plan_postgres.py",
+        "?? tools/verify_d08_cold_plan_postgres.py"
+      ],
+      "record_basis": "Recorded immediately before executing this command.",
+      "installed_wheel": {
+        "path": "artifacts/role-b-official-build-20260927/wheel-09/arsia_native_intake-0.1.0-py3-none-any.whl",
+        "path_base": "workspace_root",
+        "sha256": "ac8eb3718c54ec78162bd074f5e3a953732bcb406a0bb82d4d6f46dbf9483f88"
+      },
+      "scope_note": "After this run, only timing evidence was added to the PostgreSQL official-reader test, which is skipped by the default environment. Runtime and default test behavior were unchanged."
+    }
+  },
+  "diagnosis": {
+    "initial_attempts": "validation-01, validation-02, validation-03 and validation-05 were cancelled diagnostic attempts; repeated fixture errors are not distinct business defects.",
+    "harness_correction": "validation-04 was cancelled early to replace a wrong expected exception message with the runner's sanitized message and a flag confirming that the real publisher returned. This was a test-harness correction, not a business defect.",
+    "d08_reader_failure": "validation-07 completed real E06 publication, the injected rollback, a successful official retry and source-metric checks. Its NSW D08 reader query was cancelled after more than eight minutes. The suite did not pass; those partial results are diagnostic evidence, not final acceptance.",
+    "d08_change": "D08 combines eligible parent and unit rows with UNION ALL, marks parent presence with a window over all four identity fields, and aggregates units before joining source labels. Actual saved plans must read Fact Crash and Unit once. Date filters, eligibility, metric rules and grants remain unchanged.",
+    "d08_candidates": "The two lateral candidates in d08-regression and d08-regression-02 failed the cold-plan assertions. They remain diagnostic only; the accepted suite must include the saved single-pass window plans.",
+    "d04_interface_failure": "validation-06 completed C QA but failed at qa_d with D04_MANIFEST, before publication. This was a real frozen-contract compatibility issue, not a cancelled run or eight independent business defects. D04 now resolves omitted parent_fields only for one exact selected same-source Crash key; explicit invalid or ambiguous forms still fail.",
+    "d04_candidate": "The first d04-regression had two fixture errors. Only d04-regression-02 is counted as accepted validation.",
+    "e06_offline_preflight": "Preserved full06 QA01/02/C evidence passed the available offline shape/evidence checks. The preflight is diagnostic only; it cannot establish database coverage or publication.",
+    "c03_change": "File-scoped temporary NSW inputs and statistics bound the relationship and unit joins; native values and business rules remain unchanged.",
+    "c06_change": "All selected Accident, Vehicle and Person Raw rows are retained in a loader-owned temporary table, with a non-unique native-key index and temporary statistics. The packaged SQL keeps its selected/native CTEs inline and runs through the existing prepared Python entry points. Normal and restricted diagnostic outputs match the original SQL in bounded cases; no rule, source policy or permanent grant changed.",
+    "c06_candidates": "c06-regression and c06-regression-02 retain failed performance candidates. Only the selected passing C06 run is included in accepted test counts; the query used 6,000 synthetic rows and ran each Accident group once.",
+    "c09_change": "The Unit-to-Crash lineage check now performs a bounded lateral lookup with all four existing parent-key predicates. The scaled PostgreSQL case checks the actual plan, rejects a wrong existing parent and verifies caller rollback. Business rules and source boundaries remain unchanged.",
+    "vault_plan": "Rolled-back SQL fixtures plus autovacuum left misleading Raw relation statistics. The nested foreign-key query chose a source-only index scan. Regression and full-snapshot suites now use separate fresh databases.",
+    "runtime_boundary": "No session planner override, owner-side ANALYZE, new runtime wait or weakened constraint was used to pass the official run.",
+    "maintenance": "For reused databases with stale Raw statistics, A/the maintainer can run ANALYZE raw.record after the import commits. The loader keeps its original grants; B does not automate owner maintenance."
+  },
+  "remaining": {
+    "d08": "Role D reviews and adopts B's bounded D08 parent lookup and full-volume reader evidence.",
+    "d04": "Role D reviews and adopts B's strict parent short-form compatibility fix; the original D04 implementation remains credited to D.",
+    "d09": "Deferred; the source-specific reader interface is available for later integration.",
+    "e": "Independent expected-result comparison and platform acceptance.",
+    "c": "Review and adopt B's C03, C06 and C09 performance changes on the C branch.",
+    "team": "Confirm the E01 course decisions before final submission and platform freezing.",
+    "final_platform": false
+  },
+  "evidence": [
+    {
+      "path": "artifacts/role-b-official-build-20260927/validation-08/summary.json",
+      "sha256": "4414f6b1c2b6ea30b8c820dd80855c03303beb616c652d8bfb1352c50df4388b",
+      "bytes": 547
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/validation-08/inputs.json",
+      "sha256": "09779230ff2a3127654c8cb3a6bd12d1444a0c132c1c8cf5c58f76cba0be9e41",
+      "bytes": 93714
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/validation-08/command.json",
+      "sha256": "5659545235c5d49c7dbf0bb8bb5b8b4482466683d4092e9a57363f7bfc1f764b",
+      "bytes": 708
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/validation-08/pytest.xml",
+      "sha256": "da637a87bc3d0706b2413d022309514d8796f17b14a0742e9eb6037d5f4f0367",
+      "bytes": 1296
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/validation-08/pytest.log",
+      "sha256": "0b873d2b9b6e4caa01fe2431d39e5002812b833ac70017fab447b790556b9ff9",
+      "bytes": 270
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/validation-08/a03-before.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4",
+      "bytes": 405
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/validation-08/a03-after.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4",
+      "bytes": 405
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/validation-08/final-state.json",
+      "sha256": "dbc4b9c36a78e26384cbe23a4d657bae8af990f1ab2bbf3300c91aedc6becd18",
+      "bytes": 451
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/validation-08/cleanup.json",
+      "sha256": "4e4e459ddb78016f26f0d5235226b8ea85711ca7ab30266403aff95245636835",
+      "bytes": 134
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/analysis-regression-02/summary.json",
+      "sha256": "2b9961b2263177edf6a3f57653b451f2e74d75ba62d164216422779e44c2e645",
+      "bytes": 341
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/analysis-regression-02/inputs.json",
+      "sha256": "5dfb2c6f8f9c13bf02012c8fecffac7a04ab6073da2fa299d256c79ab653cd2b",
+      "bytes": 84298
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/analysis-regression-02/command.json",
+      "sha256": "709dde4b5ae17a1397639a75f958a242acf36489e43fa27df1479a56dd9f88ff",
+      "bytes": 2400
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/analysis-regression-02/pytest.xml",
+      "sha256": "56e9748d7b5829e20da8a11e02a2e5dccfe46c25dc07dcce5e6664b99c464c15",
+      "bytes": 15240
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/analysis-regression-02/pytest.log",
+      "sha256": "3c90b34563b27e60052b32e28d35684002bcc9e225032eeaf6a03cf4643b46ad",
+      "bytes": 349
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/analysis-regression-02/a03-before.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4",
+      "bytes": 405
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/analysis-regression-02/a03-after.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4",
+      "bytes": 405
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/analysis-regression-02/final-state.json",
+      "sha256": "dbc4b9c36a78e26384cbe23a4d657bae8af990f1ab2bbf3300c91aedc6becd18",
+      "bytes": 451
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/analysis-regression-02/cleanup.json",
+      "sha256": "a463e629ff0106b508dd209b592eca22689fbc0930876130d4b6814866742880",
+      "bytes": 134
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/nsw-regression-02/summary.json",
+      "sha256": "8f8fa3e2e38c15c92f0e86605a6e9029d9f09a9549b416e2c7c4d0803cbd65de",
+      "bytes": 340
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/nsw-regression-02/inputs.json",
+      "sha256": "e362aa469ccea95d7a9bef9353ea55fb17d23cfdda49dd21845a5fce2405dc1a",
+      "bytes": 94478
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/nsw-regression-02/command.json",
+      "sha256": "9c9ee37c8e86cc52401e30750cfa2caa0b83c2889d86f45f7650496784c18c7b",
+      "bytes": 1191
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/nsw-regression-02/pytest.xml",
+      "sha256": "5624b75f53caaef9f9d4c8fd493f6b1bd08569258e99de37abe6d1aae994490a",
+      "bytes": 9886
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/nsw-regression-02/pytest.log",
+      "sha256": "39f670692abfe18fc05d9133e3bf3b572a2ada38e4a40e17db360d755b18d2b6",
+      "bytes": 342
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/nsw-regression-02/a03-before.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4",
+      "bytes": 405
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/nsw-regression-02/a03-after.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4",
+      "bytes": 405
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/nsw-regression-02/final-state.json",
+      "sha256": "dbc4b9c36a78e26384cbe23a4d657bae8af990f1ab2bbf3300c91aedc6becd18",
+      "bytes": 451
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/nsw-regression-02/cleanup.json",
+      "sha256": "ae33798995182183482ef185a41c19a96f992d1408560b2f950a20be6f088ed5",
+      "bytes": 134
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/c09-regression/summary.json",
+      "sha256": "bbcfd76017f681d9457349c0f4ae2356fee4b6dcc118d76dd9f28e1833fbe920",
+      "bytes": 369
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/c09-regression/inputs.json",
+      "sha256": "23c155b9035557c92ffbd19fb5a94046ecf180049e72d52dafc677d9c50c0b5d",
+      "bytes": 94969
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/c09-regression/command.json",
+      "sha256": "9df0c22dde976a0fd753cc284ad77e218af2d92e0e890496de67ef5ab1577328",
+      "bytes": 1186
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/c09-regression/pytest.xml",
+      "sha256": "406f6088944a41e43de16c308e138f5bdbfcdc6cbe5004814c4653d0ebe787fd",
+      "bytes": 8691
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/c09-regression/pytest.log",
+      "sha256": "04f23a6ad7f0e481e14497a52c7ffc6172919d802b4057995691a735129d1e0b",
+      "bytes": 259
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/c09-regression/a03-before.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4",
+      "bytes": 405
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/c09-regression/a03-after.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4",
+      "bytes": 405
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/c09-regression/final-state.json",
+      "sha256": "dbc4b9c36a78e26384cbe23a4d657bae8af990f1ab2bbf3300c91aedc6becd18",
+      "bytes": 451
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/c09-regression/cleanup.json",
+      "sha256": "22011a80740e281e88b96e3009dc151249cdd0b365cd4e08b929b7695ff99d0c",
+      "bytes": 134
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/c06-regression-03/summary.json",
+      "sha256": "46a746840256f1cee080b4c0eb6f82fa58076de2779b0d920d09b6ec6afe0351",
+      "bytes": 372
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/c06-regression-03/inputs.json",
+      "sha256": "e552b3cf609e2de3813924f7b90c3723d82cd34d1157b75dc060df1c86676f52",
+      "bytes": 93885
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/c06-regression-03/command.json",
+      "sha256": "3151337141185db3a51a6f629f3cf8a218b48c066475d59edb990327907b4ea7",
+      "bytes": 1198
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/c06-regression-03/pytest.xml",
+      "sha256": "2905111d7820f931c4baefe2ac501f3e4af9c130d2688814b51fd8630cb9dd66",
+      "bytes": 4351
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/c06-regression-03/pytest.log",
+      "sha256": "e6fa9bf7196304ee3cc2995987e7c879ff5afddebc3f15d4a2f7d58f32947362",
+      "bytes": 262
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/c06-regression-03/a03-before.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4",
+      "bytes": 405
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/c06-regression-03/a03-after.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4",
+      "bytes": 405
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/c06-regression-03/final-state.json",
+      "sha256": "dbc4b9c36a78e26384cbe23a4d657bae8af990f1ab2bbf3300c91aedc6becd18",
+      "bytes": 451
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/c06-regression-03/cleanup.json",
+      "sha256": "d2c187bb77e4aa6a7eb8e8b9c5560b2892c558c0084d09f33f6de16517816354",
+      "bytes": 134
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/d04-regression-02/summary.json",
+      "sha256": "0320e58556997ef2a902127397161e586ccc14172bc8c990fec89a13cab2127e",
+      "bytes": 426
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/d04-regression-02/inputs.json",
+      "sha256": "3876d7a089d50dfb9eca68287c4d134ef7b78e331dab005cb435499017f21a76",
+      "bytes": 83428
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/d04-regression-02/command.json",
+      "sha256": "1756089f4e8cc679ac7745aa1ebc108716769a79cd2f56781a4cba8d6ba9f378",
+      "bytes": 1526
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/d04-regression-02/pytest.xml",
+      "sha256": "b72bffd71454c0ba0317dcaab36f24aa3f1576347dc3642503308cfda50db362",
+      "bytes": 6932
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/d04-regression-02/pytest.log",
+      "sha256": "a2251ef5e745daad8aae930008a069fdf767d410835fd69488ee7b97de1e9f1c",
+      "bytes": 262
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/d04-regression-02/a03-before.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4",
+      "bytes": 405
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/d04-regression-02/a03-after.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4",
+      "bytes": 405
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/d04-regression-02/final-state.json",
+      "sha256": "dbc4b9c36a78e26384cbe23a4d657bae8af990f1ab2bbf3300c91aedc6becd18",
+      "bytes": 451
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/d04-regression-02/cleanup.json",
+      "sha256": "6f34f3621db53228807c2c1fa05b2fc71d287f084cfd4d0a8e2bd9b6a276d766",
+      "bytes": 134
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/d08-regression-03/summary.json",
+      "sha256": "0f88a5f4e45f4f1c32da97a14010528352f81f08cb78f7d0dd95108e68d016e0",
+      "bytes": 388
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/d08-regression-03/inputs.json",
+      "sha256": "20ef11168866b53e0e4cb244b5a7753fa4cd17f49a6705f6e34adf8c87a749a6",
+      "bytes": 94515
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/d08-regression-03/command.json",
+      "sha256": "82e160cddb315d3e91a394e3f9f6e6482cd3e954a777fbdf3e63a9151a8ccb74",
+      "bytes": 1176
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/d08-regression-03/pytest.xml",
+      "sha256": "8c006783053b1eaef028e10be285e8e61df6c5f9b04dfa7c1b9045966d9642f9",
+      "bytes": 5698
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/d08-regression-03/pytest.log",
+      "sha256": "b626f06285c6eb4626688d38fa3444f2aedb7a919b0f2f7655a3a3e67bf50906",
+      "bytes": 263
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/d08-regression-03/a03-before.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4",
+      "bytes": 405
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/d08-regression-03/a03-after.log",
+      "sha256": "24feb46055761133d7c39ceb0fc84a998246095d8bfcfde44990e63f5d8a74b4",
+      "bytes": 405
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/d08-regression-03/final-state.json",
+      "sha256": "dbc4b9c36a78e26384cbe23a4d657bae8af990f1ab2bbf3300c91aedc6becd18",
+      "bytes": 451
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/d08-regression-03/cleanup.json",
+      "sha256": "a9825855532bcd2730894a34c9d8b56223fe3ff2301b0413db24de63ce109266",
+      "bytes": 134
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/validation-08/ac-evidence/official-build/frozen-manifest.json",
+      "sha256": "59afcfa390428c0a03312fdbbd0453d5af24149857a293169e78775af2dc4630",
+      "bytes": 244872
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/validation-08/ac-evidence/official-build/intake.json",
+      "sha256": "fe563ebe4f4be1df12c8bb8587671a9d80a34d4b23eba9ef83093eac10bbd244",
+      "bytes": 10157
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/validation-08/ac-evidence/official-build/native-files.json",
+      "sha256": "333465b565ca4efe2d3165229f088ada0015bf97d676e3f2172f1825cd9f1582",
+      "bytes": 2047
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/validation-08/ac-evidence/official-build/database.json",
+      "sha256": "ebdb79c1150218d2818a6763f1f1e381417940c37295ac8a79732a7bb4bdbcc3",
+      "bytes": 472
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/validation-08/ac-evidence/official-build/raw-counts.json",
+      "sha256": "9ea79077953642e8589a789cb5fc33a6c4284d6963ffd1ad44697282b73bba1e",
+      "bytes": 1114
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/validation-08/ac-evidence/official-build/qa-results.json",
+      "sha256": "ca4fac3265dbdb6e2a58617fa49966ba6370fcd527081be297a71ea03400f9b8",
+      "bytes": 74646
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/validation-08/ac-evidence/official-build/source-year-counts.json",
+      "sha256": "95e62f7883b398155df561b0042a484f08f8dd9cc2005d303100bb6ba5c82ed6",
+      "bytes": 925
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/validation-08/ac-evidence/official-build/source-metrics.json",
+      "sha256": "6cf1218b00b284efa6546a524a9aed4530454521770bb4a9a6a7db5c6ed61cc1",
+      "bytes": 6481
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/validation-08/ac-evidence/official-build/reader-results.json",
+      "sha256": "9bc6f594e60eb70ecf01a424cbf8863709db1cf4fd87536e458860574cca7c71",
+      "bytes": 175283
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/validation-08/ac-evidence/official-build/reader-timings.json",
+      "sha256": "cf874ca7e2745765cf076fecf5fd16bf2ba1bac1db3c4cedfca3447ea47f35a2",
+      "bytes": 532
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/validation-08/ac-evidence/official-build/s0-baseline-result.json",
+      "sha256": "0e8fec60d6cd9d8322d34704d814320b64a3218ed8e0f132245af652aef86c3e",
+      "bytes": 1989
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/validation-08/ac-evidence/official-build/official-publication-rollback-result.json",
+      "sha256": "4d8ae377cd26a12fdd71683059cd1240c755b15df1a6555ca7d1a756f650e604",
+      "bytes": 1285
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/validation-08/ac-evidence/official-build/official-success-result.json",
+      "sha256": "47c37106aadc5e052fae91d024401d60d61bcfe93fb013634085f5e929ef48a3",
+      "bytes": 2002
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/validation-08/ac-evidence/official-build/official-no-change-result.json",
+      "sha256": "d82d87ce722bb16e6b265b74c4b21121375b1d2f551891668ea7ab0f2efc94c4",
+      "bytes": 1548
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/default-11.xml",
+      "sha256": "6f173d930e200b31d2159256cff7d0ddaed3753ac5171afa3f8195088e8f5893",
+      "bytes": 313947
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/default-11.log",
+      "sha256": "8b172248805847aede84027cd9db0414adb2291f474f96b46dbbf2de54f629be",
+      "bytes": 35648
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/fresh-prepare-summary.json",
+      "sha256": "e2e58ca8fe9cf3d55510574d03ef697f49f6e15d8dc89ffe206c2d962458eeea",
+      "bytes": 10194
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/vault-planner-diagnostic.md",
+      "sha256": "215fe2ea408a3871c959cb1aefc02bb0edd6006b62891b23142f043821289c07",
+      "bytes": 3969
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/c09-parent-plan-diagnostic.md",
+      "sha256": "48b86b88cae61fd1f7017349869c7304cf64ae7d00f110496b1218ef771a9868",
+      "bytes": 1745
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/c06-query-plan-diagnostic.md",
+      "sha256": "d25249fc7826627a4569794da038b0cdf22536e70ee51a47150535466b622ab7",
+      "bytes": 2542
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/c06-regression/summary.json",
+      "sha256": "4dc36830611913901ffaeca79319d51fcb24abba577a802e0e49c929cab9f560",
+      "bytes": 372
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/c06-regression-02/summary.json",
+      "sha256": "4dc36830611913901ffaeca79319d51fcb24abba577a802e0e49c929cab9f560",
+      "bytes": 372
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/d04-regression/summary.json",
+      "sha256": "491fb6634b27a445d7dc2b17102b47e91e9b3857f8e834be5772fac69f002a34",
+      "bytes": 426
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/d04-parent-contract-diagnostic.md",
+      "sha256": "90d04d053d2c912485351411153fb23ad87ac27b36e1baadf2d267e66fa80f6c",
+      "bytes": 2257
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/e06-offline-full06-preflight.json",
+      "sha256": "ef71c73c0001b74f2ee3f003c0d7839e1140fa562d6ae4a53a88de872db6e99d",
+      "bytes": 1461
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/d08-first-read-diagnostic.md",
+      "sha256": "a22498fe2f26e5dc182a27e7b875b60bf8343819a3b777b63b680e092b4f554c",
+      "bytes": 4702
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/d08-regression/summary.json",
+      "sha256": "3ce40f5ae346267a0f1e46f8c1003076c4dd457ff65010f4281913648505ef36",
+      "bytes": 388
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/d08-regression-02/summary.json",
+      "sha256": "9c816797e3919af277a09effca8b9fc8ad43e42a34cc4d2879279654e45f814b",
+      "bytes": 388
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/d08-probe/original-01/summary.json",
+      "sha256": "12e87fa6ab4451e619e605f82bb6b5670962a3f294cb031691308f0ffcd4debd",
+      "bytes": 370
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/d08-probe/window-01/summary.json",
+      "sha256": "12e87fa6ab4451e619e605f82bb6b5670962a3f294cb031691308f0ffcd4debd",
+      "bytes": 370
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/validation-07/d08-reader-cancel.json",
+      "sha256": "b7e2db92f8c3bf5787edee295645a02395012148525b55a724e285667826fe61",
+      "bytes": 522
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/validation-06/ac-evidence/official-build/official-publication-rollback-result.json",
+      "sha256": "2b840329f8b3a814c97de42a722e74af45199e978e2895ba85449733d1d2757f",
+      "bytes": 1231
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/validation-01/summary.json",
+      "sha256": "3633fbc485f4be97aa1026c2ae405f315d3b1deafcc8aaf21ed6d60aebb535a9",
+      "bytes": 548
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/validation-02/summary.json",
+      "sha256": "765aac1c0681ddfe090b68040f38a56668c539a0bb82d8b3c03cb4544bb78796",
+      "bytes": 548
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/validation-03/summary.json",
+      "sha256": "a4efd061720aeb9ec896f8c7246d782396ad934ef2f96477839c71ccabdc3229",
+      "bytes": 548
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/validation-04/summary.json",
+      "sha256": "7b13f9b356aa384a5d9a06c0e3d78093167cadf44b7195d142edd0e5718b2135",
+      "bytes": 546
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/validation-05/summary.json",
+      "sha256": "e6eb9b7d58e36591851f6695dc204836b4831fde976f1287c052d36882ac95f2",
+      "bytes": 548
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/validation-06/summary.json",
+      "sha256": "55d6d7bd400d559373b9762616dfb7712eac839f339ebe9da29f735f13a0242e",
+      "bytes": 548
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/validation-07/summary.json",
+      "sha256": "bb08ba74cf386dfcdb48e01cd8c8b9eb7b9b1c648bf3f8f10bbb8821fdde4e61",
+      "bytes": 548
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/c09-regression/ac-evidence/c09-cold-parent-plan.json",
+      "sha256": "f2ea9946ab867e90c312bf0f3cf269a63f8ac117e53c3e6cffb5540a39186828",
+      "bytes": 33303
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/c06-regression-03/ac-evidence/c06-cold-plan.json",
+      "sha256": "8501d01beb1f5d4936340da704bf318d1aac5b24c53f1543d9c95dc51d5ad388",
+      "bytes": 111419
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/d08-regression-03/ac-evidence/d08-cold-plan-1000.json",
+      "sha256": "1eb8a2b5a5171e18e6eb942acdde31a25f6360bedc3880c49959ddc3fa62d82d",
+      "bytes": 28125
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/d08-regression-03/ac-evidence/d08-cold-plan-5000.json",
+      "sha256": "02bd4d87e9f9e8212e66d16108b2e2821166bb9fae3e742960f3debb341fd0ad",
+      "bytes": 27554
+    },
+    {
+      "path": "artifacts/role-b-official-build-20260927/default-11-command.json",
+      "sha256": "70761d3b341f10a60ae0016bea04c219e92c29ad4d3281b5029da0f764c16e8f",
+      "bytes": 1615
+    }
+  ]
+}

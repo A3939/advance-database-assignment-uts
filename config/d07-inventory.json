@@ -1,0 +1,64 @@
+{
+  "scope": "D07 map-point and coverage component; D08-D09 and final analysis inventory remain separate",
+  "complete_d07": true,
+  "complete_analysis": false,
+  "binding": {
+    "python": "arsia_d07:query_map",
+    "sql": [
+      "published.d07_map_points(text,uuid,text[],integer,integer,integer[])",
+      "published.d07_map_coverage(text,uuid,text[],integer,integer,integer[])"
+    ],
+    "version": "d07-0.1.0"
+  },
+  "components": {
+    "analysis": [
+      "src/arsia_d07/__init__.py",
+      "src/arsia_d07/map_query.py",
+      "src/arsia_d07/sql/d07_map.sql",
+      "src/arsia_ingest/models.py",
+      "pyproject.toml",
+      "requirements.txt"
+    ]
+  },
+  "code_files": [
+    {
+      "path": "src/arsia_d07/__init__.py",
+      "sha256": "31fe018b422e58e3d8522fbb3f2a8eb3197330c61a2ce1c1dab840ae27b6b247"
+    },
+    {
+      "path": "src/arsia_d07/map_query.py",
+      "sha256": "67c5b56d3a1552aceb90d405ca8e2c3add4a9c606a78148a324c77c124ce715a"
+    },
+    {
+      "path": "src/arsia_d07/sql/d07_map.sql",
+      "sha256": "a0c4fb218e4d731b9c9966cbb720707871781393c457d8b23d31aa64aa9e0b41"
+    },
+    {
+      "path": "src/arsia_ingest/models.py",
+      "sha256": "ed9ce88b03d4cb76e9b1a27e352345d4e6789e266431f40754bc0b2dba3fa8db"
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "108a16070206e775a5cd421a9c2f0d53bcf0f5f500c001045412d1c6ea2963a4"
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "b6f17223b854c27346eefdaeef137f2c0f5c5f8c85004c701a61662ccbc015eb"
+    }
+  ],
+  "dependencies": {
+    "base_branch": "yihua/dev",
+    "d03_commit": "67b08ee5676e32ec2960a5de39f7a98707c9d344",
+    "database": "PostgreSQL 16 with migrations 001-011 and deployed D07 SQL",
+    "roles": [
+      "arsia_migrator",
+      "arsia_reader",
+      "arsia_loader"
+    ],
+    "inputs": [
+      "meta.batch.manifest",
+      "dw.dim_source",
+      "dw.fact_crash"
+    ]
+  }
+}

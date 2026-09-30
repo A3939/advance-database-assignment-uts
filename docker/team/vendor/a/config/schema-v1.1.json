@@ -1,0 +1,181 @@
+{
+  "contract": "arsia-schema-v1.1",
+  "dictionary": {
+    "title": "Complete Database Field Dictionary",
+    "sha256": "99a4835bf2c63d5b0eb5f7e642b19e54613c02fb676c88aef07d60dec2933298",
+    "declared_table_count": 17,
+    "declared_field_count": 129
+  },
+  "schemas": ["canonical", "dw", "meta", "qa", "raw", "rv"],
+  "constraint_counts": {
+    "check": 46,
+    "foreign_key": 30,
+    "primary_key": 17,
+    "unique": 6
+  },
+  "tables": {
+    "canonical.crash": [
+      ["batch_id", "uuid", false],
+      ["source_id", "text", false],
+      ["release_scope", "text", false],
+      ["crash_key", "text", false],
+      ["raw_record_id", "uuid", false],
+      ["occurrence_year", "integer", false],
+      ["occurrence_month", "integer", true],
+      ["occurrence_date", "date", true],
+      ["date_precision", "text", false],
+      ["severity_raw", "text", true],
+      ["severity_code", "text", false],
+      ["severity_definition_version", "text", false],
+      ["is_fatal_crash", "boolean", true],
+      ["fatality_count", "integer", true],
+      ["casualty_count", "integer", true],
+      ["fatal_crash_eligible", "boolean", false],
+      ["fatality_eligible", "boolean", false],
+      ["casualty_eligible", "boolean", false],
+      ["latitude", "numeric(10,7)", true],
+      ["longitude", "numeric(10,7)", true],
+      ["location_crs", "text", true],
+      ["map_eligible", "boolean", false],
+      ["location_record_id", "uuid", true],
+      ["quality_notes", "jsonb", false]
+    ],
+    "canonical.unit": [
+      ["batch_id", "uuid", false],
+      ["source_id", "text", false],
+      ["release_scope", "text", false],
+      ["unit_key", "text", false],
+      ["crash_key", "text", false],
+      ["raw_record_id", "uuid", false],
+      ["unit_type_raw", "text", true],
+      ["unit_type_code", "text", true],
+      ["statistical_scope", "text", false],
+      ["count_eligible", "boolean", false],
+      ["quality_notes", "jsonb", false]
+    ],
+    "dw.dim_month": [
+      ["month_id", "integer", false],
+      ["calendar_year", "integer", false],
+      ["calendar_month", "integer", false]
+    ],
+    "dw.dim_severity": [
+      ["batch_id", "uuid", false],
+      ["source_id", "text", false],
+      ["severity_code", "text", false],
+      ["severity_label", "text", false],
+      ["definition_version", "text", false],
+      ["definition_text", "text", false]
+    ],
+    "dw.dim_source": [
+      ["batch_id", "uuid", false],
+      ["source_id", "text", false],
+      ["source_name", "text", false],
+      ["jurisdiction_code", "text", false],
+      ["release_label", "text", false],
+      ["release_scope", "text", false]
+    ],
+    "dw.fact_crash": [
+      ["batch_id", "uuid", false],
+      ["source_id", "text", false],
+      ["release_scope", "text", false],
+      ["crash_key", "text", false],
+      ["occurrence_year", "integer", false],
+      ["month_id", "integer", true],
+      ["severity_code", "text", false],
+      ["is_fatal_crash", "boolean", true],
+      ["fatality_count", "integer", true],
+      ["casualty_count", "integer", true],
+      ["fatal_crash_eligible", "boolean", false],
+      ["fatality_eligible", "boolean", false],
+      ["casualty_eligible", "boolean", false],
+      ["latitude", "numeric(10,7)", true],
+      ["longitude", "numeric(10,7)", true],
+      ["map_eligible", "boolean", false]
+    ],
+    "meta.batch": [
+      ["batch_id", "uuid", false],
+      ["dataset_kind", "text", false],
+      ["input_fingerprint", "text", false],
+      ["manifest", "jsonb", false],
+      ["status", "text", false],
+      ["started_at", "timestamp with time zone", false],
+      ["finished_at", "timestamp with time zone", true],
+      ["error_details", "jsonb", true]
+    ],
+    "meta.current_release": [
+      ["dataset_kind", "text", false],
+      ["batch_id", "uuid", false],
+      ["batch_status", "text", false],
+      ["switched_at", "timestamp with time zone", false]
+    ],
+    "meta.resource": [
+      ["resource_id", "text", false],
+      ["source_id", "text", false],
+      ["resource_role", "text", false],
+      ["entity_kind", "text", false]
+    ],
+    "meta.source": [
+      ["source_id", "text", false],
+      ["jurisdiction_code", "text", false],
+      ["source_name", "text", false],
+      ["publisher", "text", false]
+    ],
+    "qa.check_result": [
+      ["batch_id", "uuid", false],
+      ["rule_id", "text", false],
+      ["object_key", "text", false],
+      ["result", "text", false],
+      ["affected_count", "bigint", false],
+      ["actual", "jsonb", false],
+      ["expected", "jsonb", false],
+      ["evidence", "jsonb", false],
+      ["raw_record_id", "uuid", true],
+      ["checked_at", "timestamp with time zone", false]
+    ],
+    "raw.record": [
+      ["raw_record_id", "uuid", false],
+      ["resource_id", "text", false],
+      ["source_id", "text", false],
+      ["file_sha256", "text", false],
+      ["parser_version", "text", false],
+      ["row_locator", "text", false],
+      ["payload", "jsonb", false],
+      ["ingested_at", "timestamp with time zone", false]
+    ],
+    "rv.hub_crash": [
+      ["source_id", "text", false],
+      ["release_scope", "text", false],
+      ["crash_key", "text", false],
+      ["first_seen_batch_id", "uuid", false]
+    ],
+    "rv.hub_unit": [
+      ["source_id", "text", false],
+      ["release_scope", "text", false],
+      ["unit_key", "text", false],
+      ["first_seen_batch_id", "uuid", false]
+    ],
+    "rv.link_crash_unit": [
+      ["batch_id", "uuid", false],
+      ["source_id", "text", false],
+      ["release_scope", "text", false],
+      ["unit_key", "text", false],
+      ["crash_key", "text", false]
+    ],
+    "rv.sat_crash": [
+      ["batch_id", "uuid", false],
+      ["source_id", "text", false],
+      ["release_scope", "text", false],
+      ["crash_key", "text", false],
+      ["raw_record_id", "uuid", false],
+      ["attributes", "jsonb", false]
+    ],
+    "rv.sat_unit": [
+      ["batch_id", "uuid", false],
+      ["source_id", "text", false],
+      ["release_scope", "text", false],
+      ["unit_key", "text", false],
+      ["raw_record_id", "uuid", false],
+      ["attributes", "jsonb", false]
+    ]
+  }
+}

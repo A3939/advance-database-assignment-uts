@@ -1,0 +1,57 @@
+{
+  "version": "c06-syn-1",
+  "mapping_version": "syn-1",
+  "basis": "Unchanged B07 syn-1 definitions, team-v1.1 section 4; fictional only.",
+  "common_rules": {
+    "missing_rule": "Only native empty string and NULL mean missing in used fields. No NA, Unknown or numeric sentinel is declared. Unused columns remain native blanks and have no business mapping.",
+    "keys": "Keep exact text and component order, including leading zeros. Empty or all-whitespace keys block. C calls A's SQL key encoder; this generator creates no business keys.",
+    "counts": "Counts use nonnegative whole people or units as stated per field. Invalid integers and negative counts block. Any missing component makes its casualty sum NULL; never substitute zero.",
+    "dates": "NSW and QLD have year/month precision; never add a day. Missing month with a known year gives year precision. VIC dates must be real YYYY-MM-DD dates. English month names use the fixed January\u2013December table in 05 section 3.",
+    "scope_filter": "Resolve parent crash keys against the full native crash snapshot before applying the inclusive analysis years. A missing parent is an orphan, not an out-of-range record.",
+    "blank_values": {
+      "csv": "",
+      "xlsx": null
+    }
+  },
+  "keys": {
+    "person": {
+      "fields": [
+        "ACCIDENT_NO",
+        "PERSON_ID"
+      ],
+      "unique": true
+    },
+    "accident": {
+      "fields": [
+        "ACCIDENT_NO"
+      ],
+      "unique": true
+    },
+    "vehicle": {
+      "fields": [
+        "ACCIDENT_NO",
+        "VEHICLE_ID"
+      ],
+      "unique": true
+    }
+  },
+  "person_mapping": {
+    "destination": "Raw only; no Person entity is created in Canonical or DW.",
+    "vehicle_reference": {
+      "resource_id": "<vehicle>",
+      "fields": [
+        "ACCIDENT_NO",
+        "VEHICLE_ID"
+      ],
+      "empty_vehicle_id": "Allowed: a Person need not be linked to a vehicle in this fictional definition.",
+      "nonempty_unmatched": "block"
+    },
+    "count_scope": "One person per row; compare per-accident count to NO_PERSONS. Injury categories are not populated or mapped for this fixture."
+  },
+  "declared_person_count": {
+    "field": "NO_PERSONS",
+    "resource_id": "<person>",
+    "scope": "All Person rows for the same accident, including legal empty vehicle references."
+  },
+  "occurrence_date": "ACCIDENT_DATE"
+}

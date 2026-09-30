@@ -1,0 +1,65 @@
+{
+  "scope": "D08 basic-unit query component; D09 and final analysis inventory remain separate",
+  "complete_d08": true,
+  "complete_analysis": false,
+  "binding": {
+    "python": "arsia_d08:query_units",
+    "sql": [
+      "published.d08_unit_counts(text,uuid,text[],integer,integer,integer[])"
+    ],
+    "version": "d08-0.1.0"
+  },
+  "components": {
+    "analysis": [
+      "src/arsia_d08/__init__.py",
+      "src/arsia_d08/unit_query.py",
+      "src/arsia_d08/sql/d08_units.sql",
+      "src/arsia_ingest/models.py",
+      "pyproject.toml",
+      "requirements.txt"
+    ]
+  },
+  "code_files": [
+    {
+      "path": "src/arsia_d08/__init__.py",
+      "sha256": "9314a637e47dc6157912818d9f78075cd13e23e91f134f27867ad45be7ee70e6"
+    },
+    {
+      "path": "src/arsia_d08/unit_query.py",
+      "sha256": "bc320d252ab940592ee3715556de6c008ec13ba71f4719cc19f25d6fa8916e01"
+    },
+    {
+      "path": "src/arsia_d08/sql/d08_units.sql",
+      "sha256": "29d3cc8200dc86f43e0cc2777df620b203d00deea7ed1e9f54ff89f036883c85"
+    },
+    {
+      "path": "src/arsia_ingest/models.py",
+      "sha256": "ed9ce88b03d4cb76e9b1a27e352345d4e6789e266431f40754bc0b2dba3fa8db"
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "108a16070206e775a5cd421a9c2f0d53bcf0f5f500c001045412d1c6ea2963a4"
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "b6f17223b854c27346eefdaeef137f2c0f5c5f8c85004c701a61662ccbc015eb"
+    }
+  ],
+  "dependencies": {
+    "base_branch": "yihua/dev",
+    "c09_commit": "53c4750479542061ebeba059a3ef090d41443f4d",
+    "d03_commit": "67b08ee5676e32ec2960a5de39f7a98707c9d344",
+    "database": "PostgreSQL 16 with migrations 001-011 and deployed D08 SQL",
+    "roles": [
+      "arsia_migrator",
+      "arsia_reader",
+      "arsia_loader"
+    ],
+    "inputs": [
+      "meta.batch.manifest",
+      "canonical.unit",
+      "dw.dim_source",
+      "dw.fact_crash"
+    ]
+  }
+}

@@ -11,13 +11,20 @@ dependencies = ["openpyxl==3.1.5"]
 
 [project.scripts]
 arsia-prepare = "arsia_ingest.cli:main"
+arsia-dashboard = "arsia_d09.web:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [tool.setuptools.package-data]
+"arsia_c" = ["sql/*.sql", "config/*.json"]
 "arsia_c.projections" = ["sql/*.sql"]
-"arsia_ingest" = ["policies/*.json"]
+"arsia_ingest" = ["policies/*.json", "sql/*.sql"]
+"arsia_d05" = ["sql/*.sql"]
+"arsia_d06" = ["sql/*.sql"]
+"arsia_d07" = ["sql/*.sql"]
+"arsia_d08" = ["sql/*.sql"]
+"arsia_d09" = ["sql/*.sql", "templates/*.html", "static/*.css"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

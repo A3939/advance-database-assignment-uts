@@ -1,0 +1,30 @@
+{
+  "owner": "Role E / Aditya",
+  "version": "e04-s0-v1",
+  "purpose": "Independent expectation layer for comparing B07 fixture definitions with E's interpretation.",
+  "dataset_kind": "synthetic",
+  "analysis": {"year_from": 2020, "year_to": 2024},
+  "resources": {
+    "syn_nsw_crash": {"layer": "crash", "raw_count": 2},
+    "syn_nsw_traffic_unit": {"layer": "auxiliary", "raw_count": 3},
+    "syn_vic_accident": {"layer": "crash", "raw_count": 2},
+    "syn_vic_vehicle": {"layer": "auxiliary", "raw_count": 3},
+    "syn_vic_person": {"layer": "auxiliary", "raw_count": 3},
+    "syn_vic_node": {"layer": "auxiliary", "raw_count": 4},
+    "syn_qld_crash": {"layer": "crash", "raw_count": 2}
+  },
+  "independent_rules": {
+    "native_missing": "empty string or NULL only",
+    "severity": ["F", "I", "N", "__MISSING__"],
+    "pass": "expected.violation_count=0 and required coverage is fully evaluated",
+    "limited": "only QA07 may be limited",
+    "block": "missing coverage, unsupported definition, invalid core value, orphan, row mismatch or publication-integrity failure",
+    "fingerprint": "SHA-256 of normalized FP1 JSON input excluding provenance/runtime values",
+    "source_year_coverage": "every enabled source x every analysis year, including zero-crash years"
+  },
+  "comparison_targets": {
+    "b07_contract": "tests/fixtures/s0/contract.json",
+    "qa_contract": "config/qa-team-v1.1.json",
+    "status": "expectations prepared; execution must be recorded as separate evidence"
+  }
+}

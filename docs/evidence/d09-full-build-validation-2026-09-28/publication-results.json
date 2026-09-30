@@ -1,0 +1,101 @@
+{
+  "first": {
+    "batch_id": "59e39553-0d20-43a0-b29d-02d528890ca2",
+    "dataset_kind": "synthetic",
+    "input_fingerprint": "37f5830ae82f7fc614a2f1b3dd989a6886b57e457f6893b4105594aa9b12ef44",
+    "previous_batch_id": null,
+    "qa_summary": [
+      {
+        "affected_count": 0,
+        "result": "pass",
+        "rule_id": "QA01_INPUT"
+      },
+      {
+        "affected_count": 0,
+        "result": "pass",
+        "rule_id": "QA02_RAW"
+      },
+      {
+        "affected_count": 0,
+        "result": "pass",
+        "rule_id": "QA03_PROJECTED"
+      },
+      {
+        "affected_count": 0,
+        "result": "pass",
+        "rule_id": "QA04_AUXILIARY"
+      },
+      {
+        "affected_count": 0,
+        "result": "pass",
+        "rule_id": "QA05_SEMANTICS"
+      },
+      {
+        "affected_count": 0,
+        "result": "pass",
+        "rule_id": "QA06_RECONCILIATION"
+      },
+      {
+        "affected_count": 2,
+        "result": "limited",
+        "rule_id": "QA07_LOCATION"
+      }
+    ],
+    "result": "succeeded",
+    "run_id": "a9e4b02a-95df-4e01-9e9f-ded5685ca4fa"
+  },
+  "second": {
+    "batch_id": "0870f5dd-11e3-43d6-919b-551a9ca17736",
+    "dataset_kind": "synthetic",
+    "input_fingerprint": "15e6b308d507db13a012788c1f6b77b4f38f8d3cb0d6929bb0cec6503f1b35c9",
+    "previous_batch_id": "59e39553-0d20-43a0-b29d-02d528890ca2",
+    "qa_summary": [
+      {
+        "affected_count": 0,
+        "result": "pass",
+        "rule_id": "QA01_INPUT"
+      },
+      {
+        "affected_count": 0,
+        "result": "pass",
+        "rule_id": "QA02_RAW"
+      },
+      {
+        "affected_count": 0,
+        "result": "pass",
+        "rule_id": "QA03_PROJECTED"
+      },
+      {
+        "affected_count": 0,
+        "result": "pass",
+        "rule_id": "QA04_AUXILIARY"
+      },
+      {
+        "affected_count": 0,
+        "result": "pass",
+        "rule_id": "QA05_SEMANTICS"
+      },
+      {
+        "affected_count": 0,
+        "result": "pass",
+        "rule_id": "QA06_RECONCILIATION"
+      },
+      {
+        "affected_count": 1,
+        "result": "limited",
+        "rule_id": "QA07_LOCATION"
+      }
+    ],
+    "result": "succeeded",
+    "run_id": "54fec38e-248a-4ef0-b3b6-4f5a1878fd92"
+  },
+  "assertions": {
+    "first_crash_count": 6,
+    "first_eligible_unit_count": 6,
+    "second_crash_count": 2,
+    "pinned_page_batch_id": "59e39553-0d20-43a0-b29d-02d528890ca2",
+    "current_release_after_second": "0870f5dd-11e3-43d6-919b-551a9ca17736",
+    "old_page_stayed_on_first": true,
+    "refreshed_page_used_second": true
+  }
+}

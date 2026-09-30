@@ -1,0 +1,1652 @@
+{
+  "scope": "Synthetic S0 fault injection only; unchanged D04; no publication",
+  "tested_b_head": "ecd946ef725f3c28aa91d71c06e4663eceb1d480",
+  "cases": [
+    {
+      "kind": "direct",
+      "source_id": "syn_nsw",
+      "crash_key": "[\"0001\"]",
+      "original_raw": {
+        "file_sha256": "18c4953966224ee7f217afeebbb884dd6ccc01016ece2c077bb9717deb8c4541",
+        "ingested_at": "2026-09-25T04:43:58.635502+00:00",
+        "parser_version": "xlsx-native-v1",
+        "payload": {
+          "Alignment": null,
+          "Conurbation 1": null,
+          "Crash ID": "0001",
+          "DCA - code": null,
+          "DCA - description": null,
+          "DCA supplement": null,
+          "Day of week of crash": null,
+          "Degree of crash": null,
+          "Degree of crash - detailed": "F",
+          "Direction": null,
+          "Distance": null,
+          "First impact type": null,
+          "Identifying feature": null,
+          "Identifying feature type": null,
+          "Key TU type": null,
+          "LGA": null,
+          "Latitude": "-33.8600000",
+          "Longitude": "151.2000000",
+          "Month of crash": "January",
+          "Natural lighting": null,
+          "No. killed": "2",
+          "No. minor-other injured": "0",
+          "No. moderately injured": "0",
+          "No. of traffic units involved": "2",
+          "No. seriously injured": "1",
+          "Other TU type": null,
+          "Other traffic control": null,
+          "Primary hazardous feature": null,
+          "Primary permanent feature": null,
+          "Primary temporary feature": null,
+          "RUM - code": null,
+          "RUM - description": null,
+          "Reporting year": null,
+          "Road classification (admin)": null,
+          "Road surface": null,
+          "Route no.": null,
+          "School zone active": null,
+          "School zone location": null,
+          "Signals operation": null,
+          "Speed limit": null,
+          "Street lighting": null,
+          "Street of crash": null,
+          "Street type": null,
+          "Surface condition": null,
+          "Town": null,
+          "Two-hour intervals": null,
+          "Type of location": null,
+          "Urbanisation": null,
+          "Weather": null,
+          "Year of crash": "2020"
+        },
+        "raw_record_id": "91b7dcc6-7c1c-4911-a712-f8f2473677f4",
+        "resource_id": "syn_nsw_crash",
+        "row_locator": "[\"Sheet1\", 2]",
+        "source_id": "syn_nsw"
+      },
+      "replacement_raw": {
+        "file_sha256": "18c4953966224ee7f217afeebbb884dd6ccc01016ece2c077bb9717deb8c4541",
+        "ingested_at": "2026-09-25T04:43:58.635502+00:00",
+        "parser_version": "xlsx-native-v1",
+        "payload": {
+          "Alignment": null,
+          "Conurbation 1": null,
+          "Crash ID": "0002",
+          "DCA - code": null,
+          "DCA - description": null,
+          "DCA supplement": null,
+          "Day of week of crash": null,
+          "Degree of crash": null,
+          "Degree of crash - detailed": null,
+          "Direction": null,
+          "Distance": null,
+          "First impact type": null,
+          "Identifying feature": null,
+          "Identifying feature type": null,
+          "Key TU type": null,
+          "LGA": null,
+          "Latitude": null,
+          "Longitude": null,
+          "Month of crash": null,
+          "Natural lighting": null,
+          "No. killed": null,
+          "No. minor-other injured": null,
+          "No. moderately injured": null,
+          "No. of traffic units involved": "1",
+          "No. seriously injured": null,
+          "Other TU type": null,
+          "Other traffic control": null,
+          "Primary hazardous feature": null,
+          "Primary permanent feature": null,
+          "Primary temporary feature": null,
+          "RUM - code": null,
+          "RUM - description": null,
+          "Reporting year": null,
+          "Road classification (admin)": null,
+          "Road surface": null,
+          "Route no.": null,
+          "School zone active": null,
+          "School zone location": null,
+          "Signals operation": null,
+          "Speed limit": null,
+          "Street lighting": null,
+          "Street of crash": null,
+          "Street type": null,
+          "Surface condition": null,
+          "Town": null,
+          "Two-hour intervals": null,
+          "Type of location": null,
+          "Urbanisation": null,
+          "Weather": null,
+          "Year of crash": "2020"
+        },
+        "raw_record_id": "2a0ab028-14c7-43f9-bc2e-24c7ce8d0bce",
+        "resource_id": "syn_nsw_crash",
+        "row_locator": "[\"Sheet1\", 3]",
+        "source_id": "syn_nsw"
+      },
+      "expected_key_or_parent": "[\"0001\"]",
+      "replacement_key_or_parent": "[\"0002\"]",
+      "same_frozen_file": true,
+      "injected_by": "test owner after normal C09 and D03",
+      "application_role": "arsia_loader",
+      "facts_unchanged": true,
+      "expected_result": "block",
+      "callback_counts": {
+        "qa06_block_count": 0,
+        "qa06_object_count": 15,
+        "qa06_pass_count": 15
+      },
+      "actual_object": {
+        "actual": {
+          "evaluated_count": 2,
+          "metrics": {
+            "casualty_delta": 0,
+            "casualty_known_delta": 0,
+            "crash_delta": 0,
+            "definition_error_count": 0,
+            "extra_fact_count": 0,
+            "fatal_crash_delta": 0,
+            "fatal_crash_known_delta": 0,
+            "fatality_delta": 0,
+            "fatality_known_delta": 0,
+            "field_mismatch_count": 0,
+            "lineage_error_count": 0,
+            "missing_fact_count": 0
+          },
+          "violation_count": 0
+        },
+        "affected_count": 0,
+        "batch_id": "94118973-1916-48de-9ce8-6e7d8a4c5be1",
+        "checked_at": "2026-09-25T04:43:58.753455+00:00",
+        "evidence": {
+          "producer_version": "d04-0.1.0",
+          "reason_codes": [],
+          "references": [
+            {
+              "batch_id": "94118973-1916-48de-9ce8-6e7d8a4c5be1",
+              "occurrence_year": 2020,
+              "source_id": "syn_nsw"
+            }
+          ],
+          "resolution": "Canonical and fact rows, lineage, definitions and aggregates agree."
+        },
+        "expected": {
+          "evaluated_count": 2,
+          "metrics": {
+            "casualty_delta": 0,
+            "casualty_known_delta": 0,
+            "crash_delta": 0,
+            "definition_error_count": 0,
+            "extra_fact_count": 0,
+            "fatal_crash_delta": 0,
+            "fatal_crash_known_delta": 0,
+            "fatality_delta": 0,
+            "fatality_known_delta": 0,
+            "field_mismatch_count": 0,
+            "lineage_error_count": 0,
+            "missing_fact_count": 0
+          },
+          "violation_count": 0
+        },
+        "object_key": "source_year:syn_nsw:2020",
+        "raw_record_id": null,
+        "result": "pass",
+        "rule_id": "QA06_RECONCILIATION"
+      },
+      "actual_batch": {
+        "actual": {
+          "evaluated_count": 15,
+          "metrics": {
+            "block_count": 0,
+            "limited_count": 0,
+            "missing_count": 0,
+            "object_count": 15,
+            "pass_count": 15
+          },
+          "violation_count": 0
+        },
+        "affected_count": 0,
+        "batch_id": "94118973-1916-48de-9ce8-6e7d8a4c5be1",
+        "checked_at": "2026-09-25T04:43:58.766437+00:00",
+        "evidence": {
+          "producer_version": "d04-0.1.0",
+          "reason_codes": [],
+          "references": [
+            {
+              "object_key": "source_year:syn_nsw:2020",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_nsw:2021",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_nsw:2022",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_nsw:2023",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_nsw:2024",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_qld:2020",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_qld:2021",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_qld:2022",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_qld:2023",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_qld:2024",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_vic:2020",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_vic:2021",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_vic:2022",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_vic:2023",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_vic:2024",
+              "result": "pass"
+            }
+          ],
+          "resolution": "See each source-year QA06 result."
+        },
+        "expected": {
+          "evaluated_count": 15,
+          "metrics": {
+            "block_count": 0,
+            "limited_count": 0,
+            "missing_count": 0,
+            "object_count": 15,
+            "pass_count": 15
+          },
+          "violation_count": 0
+        },
+        "object_key": "batch",
+        "raw_record_id": null,
+        "result": "pass",
+        "rule_id": "QA06_RECONCILIATION"
+      },
+      "original_case_sha256": "b761b919d2c81a143ae9896f78b5809060105cfba2122e89ee0030816d735274"
+    },
+    {
+      "kind": "direct",
+      "source_id": "syn_qld",
+      "crash_key": "[\"0001\"]",
+      "original_raw": {
+        "file_sha256": "7dbbd7bb3f9e5c6e07caf8c9e01be26abad6d1d383de482dcde9393071d61370",
+        "ingested_at": "2026-09-25T04:43:58.803771+00:00",
+        "parser_version": "csv-native-v1",
+        "payload": {
+          "Count_Casualty_Fatality": "0",
+          "Count_Casualty_Hospitalised": "1",
+          "Count_Casualty_MedicallyTreated": "0",
+          "Count_Casualty_MinorInjury": "0",
+          "Count_Casualty_Total": "1",
+          "Count_Unit_Bicycle": "0",
+          "Count_Unit_Bus": "0",
+          "Count_Unit_Car": "2",
+          "Count_Unit_Motorcycle_Moped": "0",
+          "Count_Unit_Other": "0",
+          "Count_Unit_Pedestrian": "0",
+          "Count_Unit_Truck": "0",
+          "Crash_Atmospheric_Condition": "",
+          "Crash_Controlling_Authority": "",
+          "Crash_DCA_Code": "",
+          "Crash_DCA_Description": "",
+          "Crash_DCA_Group_Description": "",
+          "Crash_Day_Of_Week": "",
+          "Crash_Hour": "",
+          "Crash_Latitude": "-27.4700000",
+          "Crash_Lighting_Condition": "",
+          "Crash_Longitude": "153.0200000",
+          "Crash_Month": "January",
+          "Crash_Nature": "",
+          "Crash_Ref_Number": "0001",
+          "Crash_Road_Horiz_Align": "",
+          "Crash_Road_Surface_Condition": "",
+          "Crash_Road_Vert_Align": "",
+          "Crash_Roadway_Feature": "",
+          "Crash_Severity": "I",
+          "Crash_Speed_Limit": "",
+          "Crash_Street": "",
+          "Crash_Street_Intersecting": "",
+          "Crash_Traffic_Control": "",
+          "Crash_Type": "",
+          "Crash_Year": "2020",
+          "DCA_Key_Approach_Dir": "",
+          "Loc_ABS_Remoteness": "",
+          "Loc_ABS_Statistical_Area_2": "",
+          "Loc_ABS_Statistical_Area_3": "",
+          "Loc_ABS_Statistical_Area_4": "",
+          "Loc_Federal_Electorate": "",
+          "Loc_Local_Government_Area": "",
+          "Loc_Main_Roads_Region": "",
+          "Loc_Police_District": "",
+          "Loc_Police_Division": "",
+          "Loc_Police_Region": "",
+          "Loc_Post_Code": "",
+          "Loc_Queensland_Transport_Region": "",
+          "Loc_State_Electorate": "",
+          "Loc_Suburb": "",
+          "State_Road_Name": ""
+        },
+        "raw_record_id": "849ea6c3-ba9c-431f-a99b-714b42cbdde4",
+        "resource_id": "syn_qld_crash",
+        "row_locator": "csv:1",
+        "source_id": "syn_qld"
+      },
+      "replacement_raw": {
+        "file_sha256": "7dbbd7bb3f9e5c6e07caf8c9e01be26abad6d1d383de482dcde9393071d61370",
+        "ingested_at": "2026-09-25T04:43:58.803771+00:00",
+        "parser_version": "csv-native-v1",
+        "payload": {
+          "Count_Casualty_Fatality": "0",
+          "Count_Casualty_Hospitalised": "0",
+          "Count_Casualty_MedicallyTreated": "0",
+          "Count_Casualty_MinorInjury": "0",
+          "Count_Casualty_Total": "0",
+          "Count_Unit_Bicycle": "1",
+          "Count_Unit_Bus": "0",
+          "Count_Unit_Car": "1",
+          "Count_Unit_Motorcycle_Moped": "0",
+          "Count_Unit_Other": "0",
+          "Count_Unit_Pedestrian": "0",
+          "Count_Unit_Truck": "0",
+          "Crash_Atmospheric_Condition": "",
+          "Crash_Controlling_Authority": "",
+          "Crash_DCA_Code": "",
+          "Crash_DCA_Description": "",
+          "Crash_DCA_Group_Description": "",
+          "Crash_Day_Of_Week": "",
+          "Crash_Hour": "",
+          "Crash_Latitude": "-27.5000000",
+          "Crash_Lighting_Condition": "",
+          "Crash_Longitude": "153.0500000",
+          "Crash_Month": "February",
+          "Crash_Nature": "",
+          "Crash_Ref_Number": "0002",
+          "Crash_Road_Horiz_Align": "",
+          "Crash_Road_Surface_Condition": "",
+          "Crash_Road_Vert_Align": "",
+          "Crash_Roadway_Feature": "",
+          "Crash_Severity": "N",
+          "Crash_Speed_Limit": "",
+          "Crash_Street": "",
+          "Crash_Street_Intersecting": "",
+          "Crash_Traffic_Control": "",
+          "Crash_Type": "",
+          "Crash_Year": "2021",
+          "DCA_Key_Approach_Dir": "",
+          "Loc_ABS_Remoteness": "",
+          "Loc_ABS_Statistical_Area_2": "",
+          "Loc_ABS_Statistical_Area_3": "",
+          "Loc_ABS_Statistical_Area_4": "",
+          "Loc_Federal_Electorate": "",
+          "Loc_Local_Government_Area": "",
+          "Loc_Main_Roads_Region": "",
+          "Loc_Police_District": "",
+          "Loc_Police_Division": "",
+          "Loc_Police_Region": "",
+          "Loc_Post_Code": "",
+          "Loc_Queensland_Transport_Region": "",
+          "Loc_State_Electorate": "",
+          "Loc_Suburb": "",
+          "State_Road_Name": ""
+        },
+        "raw_record_id": "1344e552-b3b9-44c7-ab81-c0512590e902",
+        "resource_id": "syn_qld_crash",
+        "row_locator": "csv:2",
+        "source_id": "syn_qld"
+      },
+      "expected_key_or_parent": "[\"0001\"]",
+      "replacement_key_or_parent": "[\"0002\"]",
+      "same_frozen_file": true,
+      "injected_by": "test owner after normal C09 and D03",
+      "application_role": "arsia_loader",
+      "facts_unchanged": true,
+      "expected_result": "block",
+      "callback_counts": {
+        "qa06_block_count": 0,
+        "qa06_object_count": 15,
+        "qa06_pass_count": 15
+      },
+      "actual_object": {
+        "actual": {
+          "evaluated_count": 1,
+          "metrics": {
+            "casualty_delta": 0,
+            "casualty_known_delta": 0,
+            "crash_delta": 0,
+            "definition_error_count": 0,
+            "extra_fact_count": 0,
+            "fatal_crash_delta": 0,
+            "fatal_crash_known_delta": 0,
+            "fatality_delta": 0,
+            "fatality_known_delta": 0,
+            "field_mismatch_count": 0,
+            "lineage_error_count": 0,
+            "missing_fact_count": 0
+          },
+          "violation_count": 0
+        },
+        "affected_count": 0,
+        "batch_id": "0b83a292-279a-49ed-92bf-6ec5550c034d",
+        "checked_at": "2026-09-25T04:43:58.917766+00:00",
+        "evidence": {
+          "producer_version": "d04-0.1.0",
+          "reason_codes": [],
+          "references": [
+            {
+              "batch_id": "0b83a292-279a-49ed-92bf-6ec5550c034d",
+              "occurrence_year": 2020,
+              "source_id": "syn_qld"
+            }
+          ],
+          "resolution": "Canonical and fact rows, lineage, definitions and aggregates agree."
+        },
+        "expected": {
+          "evaluated_count": 1,
+          "metrics": {
+            "casualty_delta": 0,
+            "casualty_known_delta": 0,
+            "crash_delta": 0,
+            "definition_error_count": 0,
+            "extra_fact_count": 0,
+            "fatal_crash_delta": 0,
+            "fatal_crash_known_delta": 0,
+            "fatality_delta": 0,
+            "fatality_known_delta": 0,
+            "field_mismatch_count": 0,
+            "lineage_error_count": 0,
+            "missing_fact_count": 0
+          },
+          "violation_count": 0
+        },
+        "object_key": "source_year:syn_qld:2020",
+        "raw_record_id": null,
+        "result": "pass",
+        "rule_id": "QA06_RECONCILIATION"
+      },
+      "actual_batch": {
+        "actual": {
+          "evaluated_count": 15,
+          "metrics": {
+            "block_count": 0,
+            "limited_count": 0,
+            "missing_count": 0,
+            "object_count": 15,
+            "pass_count": 15
+          },
+          "violation_count": 0
+        },
+        "affected_count": 0,
+        "batch_id": "0b83a292-279a-49ed-92bf-6ec5550c034d",
+        "checked_at": "2026-09-25T04:43:58.923097+00:00",
+        "evidence": {
+          "producer_version": "d04-0.1.0",
+          "reason_codes": [],
+          "references": [
+            {
+              "object_key": "source_year:syn_nsw:2020",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_nsw:2021",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_nsw:2022",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_nsw:2023",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_nsw:2024",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_qld:2020",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_qld:2021",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_qld:2022",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_qld:2023",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_qld:2024",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_vic:2020",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_vic:2021",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_vic:2022",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_vic:2023",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_vic:2024",
+              "result": "pass"
+            }
+          ],
+          "resolution": "See each source-year QA06 result."
+        },
+        "expected": {
+          "evaluated_count": 15,
+          "metrics": {
+            "block_count": 0,
+            "limited_count": 0,
+            "missing_count": 0,
+            "object_count": 15,
+            "pass_count": 15
+          },
+          "violation_count": 0
+        },
+        "object_key": "batch",
+        "raw_record_id": null,
+        "result": "pass",
+        "rule_id": "QA06_RECONCILIATION"
+      },
+      "original_case_sha256": "1361b48e9f206b5d9c6de84b86fcdf2360de393717e7aaa256228e86a799a33c"
+    },
+    {
+      "kind": "node",
+      "source_id": "syn_vic",
+      "crash_key": "[\"0001\"]",
+      "original_raw": {
+        "file_sha256": "7bc159e10ec6d3e94a4d4673370ecd602e31bc0d2ed3971895f4126b045300a7",
+        "ingested_at": "2026-09-25T04:43:58.959176+00:00",
+        "parser_version": "csv-native-v1",
+        "payload": {
+          "ACCIDENT_NO": "0001",
+          "AMG_X": "",
+          "AMG_Y": "",
+          "DEG_URBAN_NAME": "",
+          "LATITUDE": "-37.8",
+          "LGA NAME ALL": "",
+          "LGA_NAME": "",
+          "LONGITUDE": "144.9",
+          "NODE_ID": "NODE01",
+          "NODE_TYPE": "",
+          "POSTCODE_CRASH": ""
+        },
+        "raw_record_id": "c5422548-5aa7-4bf4-a09d-24795a76048a",
+        "resource_id": "syn_vic_node",
+        "row_locator": "csv:1",
+        "source_id": "syn_vic"
+      },
+      "replacement_raw": {
+        "file_sha256": "7bc159e10ec6d3e94a4d4673370ecd602e31bc0d2ed3971895f4126b045300a7",
+        "ingested_at": "2026-09-25T04:43:58.959176+00:00",
+        "parser_version": "csv-native-v1",
+        "payload": {
+          "ACCIDENT_NO": "0002",
+          "AMG_X": "",
+          "AMG_Y": "",
+          "DEG_URBAN_NAME": "",
+          "LATITUDE": "-37.9",
+          "LGA NAME ALL": "",
+          "LGA_NAME": "",
+          "LONGITUDE": "145.0",
+          "NODE_ID": "NODE02",
+          "NODE_TYPE": "",
+          "POSTCODE_CRASH": ""
+        },
+        "raw_record_id": "3ea9cbe5-8580-46a8-8f5c-313f805a0662",
+        "resource_id": "syn_vic_node",
+        "row_locator": "csv:3",
+        "source_id": "syn_vic"
+      },
+      "expected_key_or_parent": "[\"0001\", \"NODE01\"]",
+      "replacement_key_or_parent": "[\"0002\", \"NODE02\"]",
+      "same_frozen_file": true,
+      "injected_by": "test owner after normal C09 and D03",
+      "application_role": "arsia_loader",
+      "facts_unchanged": true,
+      "expected_result": "block",
+      "callback_counts": {
+        "qa06_block_count": 0,
+        "qa06_object_count": 15,
+        "qa06_pass_count": 15
+      },
+      "actual_object": {
+        "actual": {
+          "evaluated_count": 1,
+          "metrics": {
+            "casualty_delta": 0,
+            "casualty_known_delta": 0,
+            "crash_delta": 0,
+            "definition_error_count": 0,
+            "extra_fact_count": 0,
+            "fatal_crash_delta": 0,
+            "fatal_crash_known_delta": 0,
+            "fatality_delta": 0,
+            "fatality_known_delta": 0,
+            "field_mismatch_count": 0,
+            "lineage_error_count": 0,
+            "missing_fact_count": 0
+          },
+          "violation_count": 0
+        },
+        "affected_count": 0,
+        "batch_id": "144bffe6-d4bb-4cb3-b8ff-c446c75176f8",
+        "checked_at": "2026-09-25T04:43:59.081793+00:00",
+        "evidence": {
+          "producer_version": "d04-0.1.0",
+          "reason_codes": [],
+          "references": [
+            {
+              "batch_id": "144bffe6-d4bb-4cb3-b8ff-c446c75176f8",
+              "occurrence_year": 2020,
+              "source_id": "syn_vic"
+            }
+          ],
+          "resolution": "Canonical and fact rows, lineage, definitions and aggregates agree."
+        },
+        "expected": {
+          "evaluated_count": 1,
+          "metrics": {
+            "casualty_delta": 0,
+            "casualty_known_delta": 0,
+            "crash_delta": 0,
+            "definition_error_count": 0,
+            "extra_fact_count": 0,
+            "fatal_crash_delta": 0,
+            "fatal_crash_known_delta": 0,
+            "fatality_delta": 0,
+            "fatality_known_delta": 0,
+            "field_mismatch_count": 0,
+            "lineage_error_count": 0,
+            "missing_fact_count": 0
+          },
+          "violation_count": 0
+        },
+        "object_key": "source_year:syn_vic:2020",
+        "raw_record_id": null,
+        "result": "pass",
+        "rule_id": "QA06_RECONCILIATION"
+      },
+      "actual_batch": {
+        "actual": {
+          "evaluated_count": 15,
+          "metrics": {
+            "block_count": 0,
+            "limited_count": 0,
+            "missing_count": 0,
+            "object_count": 15,
+            "pass_count": 15
+          },
+          "violation_count": 0
+        },
+        "affected_count": 0,
+        "batch_id": "144bffe6-d4bb-4cb3-b8ff-c446c75176f8",
+        "checked_at": "2026-09-25T04:43:59.083193+00:00",
+        "evidence": {
+          "producer_version": "d04-0.1.0",
+          "reason_codes": [],
+          "references": [
+            {
+              "object_key": "source_year:syn_nsw:2020",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_nsw:2021",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_nsw:2022",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_nsw:2023",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_nsw:2024",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_qld:2020",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_qld:2021",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_qld:2022",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_qld:2023",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_qld:2024",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_vic:2020",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_vic:2021",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_vic:2022",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_vic:2023",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_vic:2024",
+              "result": "pass"
+            }
+          ],
+          "resolution": "See each source-year QA06 result."
+        },
+        "expected": {
+          "evaluated_count": 15,
+          "metrics": {
+            "block_count": 0,
+            "limited_count": 0,
+            "missing_count": 0,
+            "object_count": 15,
+            "pass_count": 15
+          },
+          "violation_count": 0
+        },
+        "object_key": "batch",
+        "raw_record_id": null,
+        "result": "pass",
+        "rule_id": "QA06_RECONCILIATION"
+      },
+      "original_case_sha256": "552abc48fcc2a7bc7179a543abb76b2fb508cfa3bf682f0399aa656edef6a1a7"
+    },
+    {
+      "kind": "primary",
+      "source_id": "syn_nsw",
+      "crash_key": "[\"0001\"]",
+      "original_raw": {
+        "file_sha256": "18c4953966224ee7f217afeebbb884dd6ccc01016ece2c077bb9717deb8c4541",
+        "ingested_at": "2026-09-25T04:43:58.107974+00:00",
+        "parser_version": "xlsx-native-v1",
+        "payload": {
+          "Alignment": null,
+          "Conurbation 1": null,
+          "Crash ID": "0001",
+          "DCA - code": null,
+          "DCA - description": null,
+          "DCA supplement": null,
+          "Day of week of crash": null,
+          "Degree of crash": null,
+          "Degree of crash - detailed": "F",
+          "Direction": null,
+          "Distance": null,
+          "First impact type": null,
+          "Identifying feature": null,
+          "Identifying feature type": null,
+          "Key TU type": null,
+          "LGA": null,
+          "Latitude": "-33.8600000",
+          "Longitude": "151.2000000",
+          "Month of crash": "January",
+          "Natural lighting": null,
+          "No. killed": "2",
+          "No. minor-other injured": "0",
+          "No. moderately injured": "0",
+          "No. of traffic units involved": "2",
+          "No. seriously injured": "1",
+          "Other TU type": null,
+          "Other traffic control": null,
+          "Primary hazardous feature": null,
+          "Primary permanent feature": null,
+          "Primary temporary feature": null,
+          "RUM - code": null,
+          "RUM - description": null,
+          "Reporting year": null,
+          "Road classification (admin)": null,
+          "Road surface": null,
+          "Route no.": null,
+          "School zone active": null,
+          "School zone location": null,
+          "Signals operation": null,
+          "Speed limit": null,
+          "Street lighting": null,
+          "Street of crash": null,
+          "Street type": null,
+          "Surface condition": null,
+          "Town": null,
+          "Two-hour intervals": null,
+          "Type of location": null,
+          "Urbanisation": null,
+          "Weather": null,
+          "Year of crash": "2020"
+        },
+        "raw_record_id": "9c990e86-299c-4c46-be0c-9960c8ebc31c",
+        "resource_id": "syn_nsw_crash",
+        "row_locator": "[\"Sheet1\", 2]",
+        "source_id": "syn_nsw"
+      },
+      "replacement_raw": {
+        "file_sha256": "18c4953966224ee7f217afeebbb884dd6ccc01016ece2c077bb9717deb8c4541",
+        "ingested_at": "2026-09-25T04:43:58.107974+00:00",
+        "parser_version": "xlsx-native-v1",
+        "payload": {
+          "Alignment": null,
+          "Conurbation 1": null,
+          "Crash ID": "0002",
+          "DCA - code": null,
+          "DCA - description": null,
+          "DCA supplement": null,
+          "Day of week of crash": null,
+          "Degree of crash": null,
+          "Degree of crash - detailed": null,
+          "Direction": null,
+          "Distance": null,
+          "First impact type": null,
+          "Identifying feature": null,
+          "Identifying feature type": null,
+          "Key TU type": null,
+          "LGA": null,
+          "Latitude": null,
+          "Longitude": null,
+          "Month of crash": null,
+          "Natural lighting": null,
+          "No. killed": null,
+          "No. minor-other injured": null,
+          "No. moderately injured": null,
+          "No. of traffic units involved": "1",
+          "No. seriously injured": null,
+          "Other TU type": null,
+          "Other traffic control": null,
+          "Primary hazardous feature": null,
+          "Primary permanent feature": null,
+          "Primary temporary feature": null,
+          "RUM - code": null,
+          "RUM - description": null,
+          "Reporting year": null,
+          "Road classification (admin)": null,
+          "Road surface": null,
+          "Route no.": null,
+          "School zone active": null,
+          "School zone location": null,
+          "Signals operation": null,
+          "Speed limit": null,
+          "Street lighting": null,
+          "Street of crash": null,
+          "Street type": null,
+          "Surface condition": null,
+          "Town": null,
+          "Two-hour intervals": null,
+          "Type of location": null,
+          "Urbanisation": null,
+          "Weather": null,
+          "Year of crash": "2020"
+        },
+        "raw_record_id": "5d190c48-6d71-4019-a1ac-90e1539e2ae1",
+        "resource_id": "syn_nsw_crash",
+        "row_locator": "[\"Sheet1\", 3]",
+        "source_id": "syn_nsw"
+      },
+      "expected_key_or_parent": "[\"0001\"]",
+      "replacement_key_or_parent": "[\"0002\"]",
+      "same_frozen_file": true,
+      "injected_by": "test owner after normal C09 and D03",
+      "application_role": "arsia_loader",
+      "facts_unchanged": true,
+      "expected_result": "block",
+      "callback_counts": {
+        "qa06_block_count": 0,
+        "qa06_object_count": 15,
+        "qa06_pass_count": 15
+      },
+      "actual_object": {
+        "actual": {
+          "evaluated_count": 2,
+          "metrics": {
+            "casualty_delta": 0,
+            "casualty_known_delta": 0,
+            "crash_delta": 0,
+            "definition_error_count": 0,
+            "extra_fact_count": 0,
+            "fatal_crash_delta": 0,
+            "fatal_crash_known_delta": 0,
+            "fatality_delta": 0,
+            "fatality_known_delta": 0,
+            "field_mismatch_count": 0,
+            "lineage_error_count": 0,
+            "missing_fact_count": 0
+          },
+          "violation_count": 0
+        },
+        "affected_count": 0,
+        "batch_id": "3310f99a-bcf0-4517-9f80-b7cc7ceac12d",
+        "checked_at": "2026-09-25T04:43:58.262288+00:00",
+        "evidence": {
+          "producer_version": "d04-0.1.0",
+          "reason_codes": [],
+          "references": [
+            {
+              "batch_id": "3310f99a-bcf0-4517-9f80-b7cc7ceac12d",
+              "occurrence_year": 2020,
+              "source_id": "syn_nsw"
+            }
+          ],
+          "resolution": "Canonical and fact rows, lineage, definitions and aggregates agree."
+        },
+        "expected": {
+          "evaluated_count": 2,
+          "metrics": {
+            "casualty_delta": 0,
+            "casualty_known_delta": 0,
+            "crash_delta": 0,
+            "definition_error_count": 0,
+            "extra_fact_count": 0,
+            "fatal_crash_delta": 0,
+            "fatal_crash_known_delta": 0,
+            "fatality_delta": 0,
+            "fatality_known_delta": 0,
+            "field_mismatch_count": 0,
+            "lineage_error_count": 0,
+            "missing_fact_count": 0
+          },
+          "violation_count": 0
+        },
+        "object_key": "source_year:syn_nsw:2020",
+        "raw_record_id": null,
+        "result": "pass",
+        "rule_id": "QA06_RECONCILIATION"
+      },
+      "actual_batch": {
+        "actual": {
+          "evaluated_count": 15,
+          "metrics": {
+            "block_count": 0,
+            "limited_count": 0,
+            "missing_count": 0,
+            "object_count": 15,
+            "pass_count": 15
+          },
+          "violation_count": 0
+        },
+        "affected_count": 0,
+        "batch_id": "3310f99a-bcf0-4517-9f80-b7cc7ceac12d",
+        "checked_at": "2026-09-25T04:43:58.275681+00:00",
+        "evidence": {
+          "producer_version": "d04-0.1.0",
+          "reason_codes": [],
+          "references": [
+            {
+              "object_key": "source_year:syn_nsw:2020",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_nsw:2021",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_nsw:2022",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_nsw:2023",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_nsw:2024",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_qld:2020",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_qld:2021",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_qld:2022",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_qld:2023",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_qld:2024",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_vic:2020",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_vic:2021",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_vic:2022",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_vic:2023",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_vic:2024",
+              "result": "pass"
+            }
+          ],
+          "resolution": "See each source-year QA06 result."
+        },
+        "expected": {
+          "evaluated_count": 15,
+          "metrics": {
+            "block_count": 0,
+            "limited_count": 0,
+            "missing_count": 0,
+            "object_count": 15,
+            "pass_count": 15
+          },
+          "violation_count": 0
+        },
+        "object_key": "batch",
+        "raw_record_id": null,
+        "result": "pass",
+        "rule_id": "QA06_RECONCILIATION"
+      },
+      "original_case_sha256": "e31cb5e68521660ebff9a48d771e85756bd88dc42eb005e558011bf3e8fca7c3"
+    },
+    {
+      "kind": "primary",
+      "source_id": "syn_qld",
+      "crash_key": "[\"0001\"]",
+      "original_raw": {
+        "file_sha256": "7dbbd7bb3f9e5c6e07caf8c9e01be26abad6d1d383de482dcde9393071d61370",
+        "ingested_at": "2026-09-25T04:43:58.4752+00:00",
+        "parser_version": "csv-native-v1",
+        "payload": {
+          "Count_Casualty_Fatality": "0",
+          "Count_Casualty_Hospitalised": "1",
+          "Count_Casualty_MedicallyTreated": "0",
+          "Count_Casualty_MinorInjury": "0",
+          "Count_Casualty_Total": "1",
+          "Count_Unit_Bicycle": "0",
+          "Count_Unit_Bus": "0",
+          "Count_Unit_Car": "2",
+          "Count_Unit_Motorcycle_Moped": "0",
+          "Count_Unit_Other": "0",
+          "Count_Unit_Pedestrian": "0",
+          "Count_Unit_Truck": "0",
+          "Crash_Atmospheric_Condition": "",
+          "Crash_Controlling_Authority": "",
+          "Crash_DCA_Code": "",
+          "Crash_DCA_Description": "",
+          "Crash_DCA_Group_Description": "",
+          "Crash_Day_Of_Week": "",
+          "Crash_Hour": "",
+          "Crash_Latitude": "-27.4700000",
+          "Crash_Lighting_Condition": "",
+          "Crash_Longitude": "153.0200000",
+          "Crash_Month": "January",
+          "Crash_Nature": "",
+          "Crash_Ref_Number": "0001",
+          "Crash_Road_Horiz_Align": "",
+          "Crash_Road_Surface_Condition": "",
+          "Crash_Road_Vert_Align": "",
+          "Crash_Roadway_Feature": "",
+          "Crash_Severity": "I",
+          "Crash_Speed_Limit": "",
+          "Crash_Street": "",
+          "Crash_Street_Intersecting": "",
+          "Crash_Traffic_Control": "",
+          "Crash_Type": "",
+          "Crash_Year": "2020",
+          "DCA_Key_Approach_Dir": "",
+          "Loc_ABS_Remoteness": "",
+          "Loc_ABS_Statistical_Area_2": "",
+          "Loc_ABS_Statistical_Area_3": "",
+          "Loc_ABS_Statistical_Area_4": "",
+          "Loc_Federal_Electorate": "",
+          "Loc_Local_Government_Area": "",
+          "Loc_Main_Roads_Region": "",
+          "Loc_Police_District": "",
+          "Loc_Police_Division": "",
+          "Loc_Police_Region": "",
+          "Loc_Post_Code": "",
+          "Loc_Queensland_Transport_Region": "",
+          "Loc_State_Electorate": "",
+          "Loc_Suburb": "",
+          "State_Road_Name": ""
+        },
+        "raw_record_id": "2f2dbd4c-517e-46df-94b5-e61ffbabe5a3",
+        "resource_id": "syn_qld_crash",
+        "row_locator": "csv:1",
+        "source_id": "syn_qld"
+      },
+      "replacement_raw": {
+        "file_sha256": "7dbbd7bb3f9e5c6e07caf8c9e01be26abad6d1d383de482dcde9393071d61370",
+        "ingested_at": "2026-09-25T04:43:58.4752+00:00",
+        "parser_version": "csv-native-v1",
+        "payload": {
+          "Count_Casualty_Fatality": "0",
+          "Count_Casualty_Hospitalised": "0",
+          "Count_Casualty_MedicallyTreated": "0",
+          "Count_Casualty_MinorInjury": "0",
+          "Count_Casualty_Total": "0",
+          "Count_Unit_Bicycle": "1",
+          "Count_Unit_Bus": "0",
+          "Count_Unit_Car": "1",
+          "Count_Unit_Motorcycle_Moped": "0",
+          "Count_Unit_Other": "0",
+          "Count_Unit_Pedestrian": "0",
+          "Count_Unit_Truck": "0",
+          "Crash_Atmospheric_Condition": "",
+          "Crash_Controlling_Authority": "",
+          "Crash_DCA_Code": "",
+          "Crash_DCA_Description": "",
+          "Crash_DCA_Group_Description": "",
+          "Crash_Day_Of_Week": "",
+          "Crash_Hour": "",
+          "Crash_Latitude": "-27.5000000",
+          "Crash_Lighting_Condition": "",
+          "Crash_Longitude": "153.0500000",
+          "Crash_Month": "February",
+          "Crash_Nature": "",
+          "Crash_Ref_Number": "0002",
+          "Crash_Road_Horiz_Align": "",
+          "Crash_Road_Surface_Condition": "",
+          "Crash_Road_Vert_Align": "",
+          "Crash_Roadway_Feature": "",
+          "Crash_Severity": "N",
+          "Crash_Speed_Limit": "",
+          "Crash_Street": "",
+          "Crash_Street_Intersecting": "",
+          "Crash_Traffic_Control": "",
+          "Crash_Type": "",
+          "Crash_Year": "2021",
+          "DCA_Key_Approach_Dir": "",
+          "Loc_ABS_Remoteness": "",
+          "Loc_ABS_Statistical_Area_2": "",
+          "Loc_ABS_Statistical_Area_3": "",
+          "Loc_ABS_Statistical_Area_4": "",
+          "Loc_Federal_Electorate": "",
+          "Loc_Local_Government_Area": "",
+          "Loc_Main_Roads_Region": "",
+          "Loc_Police_District": "",
+          "Loc_Police_Division": "",
+          "Loc_Police_Region": "",
+          "Loc_Post_Code": "",
+          "Loc_Queensland_Transport_Region": "",
+          "Loc_State_Electorate": "",
+          "Loc_Suburb": "",
+          "State_Road_Name": ""
+        },
+        "raw_record_id": "f8e2b209-e330-43d8-8286-d7c0ffedbfd4",
+        "resource_id": "syn_qld_crash",
+        "row_locator": "csv:2",
+        "source_id": "syn_qld"
+      },
+      "expected_key_or_parent": "[\"0001\"]",
+      "replacement_key_or_parent": "[\"0002\"]",
+      "same_frozen_file": true,
+      "injected_by": "test owner after normal C09 and D03",
+      "application_role": "arsia_loader",
+      "facts_unchanged": true,
+      "expected_result": "block",
+      "callback_counts": {
+        "qa06_block_count": 0,
+        "qa06_object_count": 15,
+        "qa06_pass_count": 15
+      },
+      "actual_object": {
+        "actual": {
+          "evaluated_count": 1,
+          "metrics": {
+            "casualty_delta": 0,
+            "casualty_known_delta": 0,
+            "crash_delta": 0,
+            "definition_error_count": 0,
+            "extra_fact_count": 0,
+            "fatal_crash_delta": 0,
+            "fatal_crash_known_delta": 0,
+            "fatality_delta": 0,
+            "fatality_known_delta": 0,
+            "field_mismatch_count": 0,
+            "lineage_error_count": 0,
+            "missing_fact_count": 0
+          },
+          "violation_count": 0
+        },
+        "affected_count": 0,
+        "batch_id": "8909e4aa-b199-4c0d-b9cc-f366b4903447",
+        "checked_at": "2026-09-25T04:43:58.595586+00:00",
+        "evidence": {
+          "producer_version": "d04-0.1.0",
+          "reason_codes": [],
+          "references": [
+            {
+              "batch_id": "8909e4aa-b199-4c0d-b9cc-f366b4903447",
+              "occurrence_year": 2020,
+              "source_id": "syn_qld"
+            }
+          ],
+          "resolution": "Canonical and fact rows, lineage, definitions and aggregates agree."
+        },
+        "expected": {
+          "evaluated_count": 1,
+          "metrics": {
+            "casualty_delta": 0,
+            "casualty_known_delta": 0,
+            "crash_delta": 0,
+            "definition_error_count": 0,
+            "extra_fact_count": 0,
+            "fatal_crash_delta": 0,
+            "fatal_crash_known_delta": 0,
+            "fatality_delta": 0,
+            "fatality_known_delta": 0,
+            "field_mismatch_count": 0,
+            "lineage_error_count": 0,
+            "missing_fact_count": 0
+          },
+          "violation_count": 0
+        },
+        "object_key": "source_year:syn_qld:2020",
+        "raw_record_id": null,
+        "result": "pass",
+        "rule_id": "QA06_RECONCILIATION"
+      },
+      "actual_batch": {
+        "actual": {
+          "evaluated_count": 15,
+          "metrics": {
+            "block_count": 0,
+            "limited_count": 0,
+            "missing_count": 0,
+            "object_count": 15,
+            "pass_count": 15
+          },
+          "violation_count": 0
+        },
+        "affected_count": 0,
+        "batch_id": "8909e4aa-b199-4c0d-b9cc-f366b4903447",
+        "checked_at": "2026-09-25T04:43:58.602355+00:00",
+        "evidence": {
+          "producer_version": "d04-0.1.0",
+          "reason_codes": [],
+          "references": [
+            {
+              "object_key": "source_year:syn_nsw:2020",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_nsw:2021",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_nsw:2022",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_nsw:2023",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_nsw:2024",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_qld:2020",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_qld:2021",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_qld:2022",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_qld:2023",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_qld:2024",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_vic:2020",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_vic:2021",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_vic:2022",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_vic:2023",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_vic:2024",
+              "result": "pass"
+            }
+          ],
+          "resolution": "See each source-year QA06 result."
+        },
+        "expected": {
+          "evaluated_count": 15,
+          "metrics": {
+            "block_count": 0,
+            "limited_count": 0,
+            "missing_count": 0,
+            "object_count": 15,
+            "pass_count": 15
+          },
+          "violation_count": 0
+        },
+        "object_key": "batch",
+        "raw_record_id": null,
+        "result": "pass",
+        "rule_id": "QA06_RECONCILIATION"
+      },
+      "original_case_sha256": "bd0de982c36227252e042057498bd974a62f81fab7de6ef0f6ff9e58d6260f7f"
+    },
+    {
+      "kind": "primary",
+      "source_id": "syn_vic",
+      "crash_key": "[\"0001\"]",
+      "original_raw": {
+        "file_sha256": "369798a8aa662d644df2e98091ad8a577a9741ce018dba47892889162aa8a144",
+        "ingested_at": "2026-09-25T04:43:58.311814+00:00",
+        "parser_version": "csv-native-v1",
+        "payload": {
+          "ACCIDENT_DATE": "2020-01-15",
+          "ACCIDENT_NO": "0001",
+          "ACCIDENT_TIME": "",
+          "ACCIDENT_TYPE": "",
+          "ACCIDENT_TYPE_DESC": "",
+          "DAY_OF_WEEK": "",
+          "DAY_WEEK_DESC": "",
+          "DCA_CODE": "",
+          "DCA_DESC": "",
+          "LIGHT_CONDITION": "",
+          "NODE_ID": "NODE01",
+          "NO_OF_VEHICLES": "1",
+          "NO_PERSONS": "2",
+          "NO_PERSONS_INJ_2": "1",
+          "NO_PERSONS_INJ_3": "0",
+          "NO_PERSONS_KILLED": "1",
+          "NO_PERSONS_NOT_INJ": "0",
+          "POLICE_ATTEND": "",
+          "RMA": "",
+          "ROAD_GEOMETRY": "",
+          "ROAD_GEOMETRY_DESC": "",
+          "SEVERITY": "F",
+          "SPEED_ZONE": ""
+        },
+        "raw_record_id": "f0385016-d63f-45fe-9374-5865c7bef3ff",
+        "resource_id": "syn_vic_accident",
+        "row_locator": "csv:1",
+        "source_id": "syn_vic"
+      },
+      "replacement_raw": {
+        "file_sha256": "369798a8aa662d644df2e98091ad8a577a9741ce018dba47892889162aa8a144",
+        "ingested_at": "2026-09-25T04:43:58.311814+00:00",
+        "parser_version": "csv-native-v1",
+        "payload": {
+          "ACCIDENT_DATE": "2021-02-15",
+          "ACCIDENT_NO": "0002",
+          "ACCIDENT_TIME": "",
+          "ACCIDENT_TYPE": "",
+          "ACCIDENT_TYPE_DESC": "",
+          "DAY_OF_WEEK": "",
+          "DAY_WEEK_DESC": "",
+          "DCA_CODE": "",
+          "DCA_DESC": "",
+          "LIGHT_CONDITION": "",
+          "NODE_ID": "NODE02",
+          "NO_OF_VEHICLES": "2",
+          "NO_PERSONS": "1",
+          "NO_PERSONS_INJ_2": "1",
+          "NO_PERSONS_INJ_3": "0",
+          "NO_PERSONS_KILLED": "0",
+          "NO_PERSONS_NOT_INJ": "0",
+          "POLICE_ATTEND": "",
+          "RMA": "",
+          "ROAD_GEOMETRY": "",
+          "ROAD_GEOMETRY_DESC": "",
+          "SEVERITY": "I",
+          "SPEED_ZONE": ""
+        },
+        "raw_record_id": "2f241f83-b0ee-414b-9133-ff8bde984d77",
+        "resource_id": "syn_vic_accident",
+        "row_locator": "csv:2",
+        "source_id": "syn_vic"
+      },
+      "expected_key_or_parent": "[\"0001\"]",
+      "replacement_key_or_parent": "[\"0002\"]",
+      "same_frozen_file": true,
+      "injected_by": "test owner after normal C09 and D03",
+      "application_role": "arsia_loader",
+      "facts_unchanged": true,
+      "expected_result": "block",
+      "callback_counts": {
+        "qa06_block_count": 0,
+        "qa06_object_count": 15,
+        "qa06_pass_count": 15
+      },
+      "actual_object": {
+        "actual": {
+          "evaluated_count": 1,
+          "metrics": {
+            "casualty_delta": 0,
+            "casualty_known_delta": 0,
+            "crash_delta": 0,
+            "definition_error_count": 0,
+            "extra_fact_count": 0,
+            "fatal_crash_delta": 0,
+            "fatal_crash_known_delta": 0,
+            "fatality_delta": 0,
+            "fatality_known_delta": 0,
+            "field_mismatch_count": 0,
+            "lineage_error_count": 0,
+            "missing_fact_count": 0
+          },
+          "violation_count": 0
+        },
+        "affected_count": 0,
+        "batch_id": "fd981c1c-72c4-4c9d-89c1-34223daccacf",
+        "checked_at": "2026-09-25T04:43:58.438642+00:00",
+        "evidence": {
+          "producer_version": "d04-0.1.0",
+          "reason_codes": [],
+          "references": [
+            {
+              "batch_id": "fd981c1c-72c4-4c9d-89c1-34223daccacf",
+              "occurrence_year": 2020,
+              "source_id": "syn_vic"
+            }
+          ],
+          "resolution": "Canonical and fact rows, lineage, definitions and aggregates agree."
+        },
+        "expected": {
+          "evaluated_count": 1,
+          "metrics": {
+            "casualty_delta": 0,
+            "casualty_known_delta": 0,
+            "crash_delta": 0,
+            "definition_error_count": 0,
+            "extra_fact_count": 0,
+            "fatal_crash_delta": 0,
+            "fatal_crash_known_delta": 0,
+            "fatality_delta": 0,
+            "fatality_known_delta": 0,
+            "field_mismatch_count": 0,
+            "lineage_error_count": 0,
+            "missing_fact_count": 0
+          },
+          "violation_count": 0
+        },
+        "object_key": "source_year:syn_vic:2020",
+        "raw_record_id": null,
+        "result": "pass",
+        "rule_id": "QA06_RECONCILIATION"
+      },
+      "actual_batch": {
+        "actual": {
+          "evaluated_count": 15,
+          "metrics": {
+            "block_count": 0,
+            "limited_count": 0,
+            "missing_count": 0,
+            "object_count": 15,
+            "pass_count": 15
+          },
+          "violation_count": 0
+        },
+        "affected_count": 0,
+        "batch_id": "fd981c1c-72c4-4c9d-89c1-34223daccacf",
+        "checked_at": "2026-09-25T04:43:58.439756+00:00",
+        "evidence": {
+          "producer_version": "d04-0.1.0",
+          "reason_codes": [],
+          "references": [
+            {
+              "object_key": "source_year:syn_nsw:2020",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_nsw:2021",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_nsw:2022",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_nsw:2023",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_nsw:2024",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_qld:2020",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_qld:2021",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_qld:2022",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_qld:2023",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_qld:2024",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_vic:2020",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_vic:2021",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_vic:2022",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_vic:2023",
+              "result": "pass"
+            },
+            {
+              "object_key": "source_year:syn_vic:2024",
+              "result": "pass"
+            }
+          ],
+          "resolution": "See each source-year QA06 result."
+        },
+        "expected": {
+          "evaluated_count": 15,
+          "metrics": {
+            "block_count": 0,
+            "limited_count": 0,
+            "missing_count": 0,
+            "object_count": 15,
+            "pass_count": 15
+          },
+          "violation_count": 0
+        },
+        "object_key": "batch",
+        "raw_record_id": null,
+        "result": "pass",
+        "rule_id": "QA06_RECONCILIATION"
+      },
+      "original_case_sha256": "2d2db16dbee3187f69488c96cf1279eb7852fb61911677b314ff0fe6237955f8"
+    }
+  ]
+}

@@ -1,0 +1,158 @@
+{
+  "recorded_at": "2026-09-28T21:26:07.215504+10:00",
+  "scope": "Five D09 review fixes; installed wheel and private synthetic PostgreSQL builds",
+  "base_commit": "c027d96d2cd114c1f1dc48198afbb687bb401a4f",
+  "implementation_commit": "a6c4131bd91cc21e0131987a6a2885c3710e027e",
+  "validation_timing": "Tests ran before the implementation commit. Every recorded code, schema, test and dependency file was then matched by SHA-256 to the clean committed checkout.",
+  "original_d09": {
+    "author": "yyyZYH / Role D",
+    "implementation_commit": "d468cec2392a10a10b83c2ae8d6a5caac0516995",
+    "pr": 43
+  },
+  "fix_author": {
+    "role": "B / Peixian",
+    "git": "ZHENG PEIXIAN <johnzpx@gmail.com>",
+    "github": "JohnCoffey-commits"
+  },
+  "version": "d09-0.1.1",
+  "python": "3.12.6 (v3.12.6:a4a2d2b0d85, Sep  6 2024, 16:08:03) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "postgres_image": "postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67",
+  "a_schema_commit": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
+  "migrations": "001-011, unchanged",
+  "wheel": {
+    "filename": "arsia_native_intake-0.1.0-py3-none-any.whl",
+    "sha256": "1af78b1a5d49f1c4513c35b94d584831390c498b26cafec2ecdce6f9b17b952c"
+  },
+  "execution": {
+    "installed_wheel": true,
+    "outside_checkout": true,
+    "pytest_pythonpath_disabled": true,
+    "d09_sql_loaded_from_installed_resource": true,
+    "packaged_sql_html_css_match_source": true
+  },
+  "runtime_files": [
+    {
+      "path": "src/arsia_d09/__init__.py",
+      "sha256": "dcb0f3e2c0b96a5ef1712c8ce1250561232557c9c4a90a30ce701083b00285c0"
+    },
+    {
+      "path": "src/arsia_d09/__main__.py",
+      "sha256": "df0535a129405097b3c99d82b9779d2449d96e0c3dd2a0a7a3249f85070baaec"
+    },
+    {
+      "path": "src/arsia_d09/dashboard.py",
+      "sha256": "bba006ebce469006b5891964d3110ad21355a3a4556503cd8ef16c7ec950f31c"
+    },
+    {
+      "path": "src/arsia_d09/web.py",
+      "sha256": "ccb5518db41ba41349f5fcca1f9116df7ab785e77589c00f654fba662672e152"
+    },
+    {
+      "path": "src/arsia_d09/sql/d09_context.sql",
+      "sha256": "f147a3410c7af9a0e28cda6e2cafee1b0ca81117574ebacd86b0e3f36f8f00ba"
+    },
+    {
+      "path": "src/arsia_d09/templates/dashboard.html",
+      "sha256": "e45cf10cb19efb1d8eeae52c5d391216cb0436d8349ae648df992515e3ed25ee"
+    },
+    {
+      "path": "src/arsia_d09/static/dashboard.css",
+      "sha256": "f654846b36318ce567c381c2beceb5d554a3d24cd490808ca3ba3230fd9f9339"
+    },
+    {
+      "path": "src/arsia_ingest/models.py",
+      "sha256": "ed9ce88b03d4cb76e9b1a27e352345d4e6789e266431f40754bc0b2dba3fa8db"
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "108a16070206e775a5cd421a9c2f0d53bcf0f5f500c001045412d1c6ea2963a4"
+    },
+    {
+      "path": "requirements-db.txt",
+      "sha256": "28936395acc85dae2c3bac9c374edde94f2e0a1a2be51a2cafa6c51ebd68ef3f"
+    }
+  ],
+  "runs": {
+    "d09-postgres": {
+      "passed": 42,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0,
+      "test_modules": {
+        "tests.test_d09": 22,
+        "tests.test_d09_full_build_postgres": 15,
+        "tests.test_build_integration": 5
+      },
+      "recorded_input_files_matching_commit": 267,
+      "a03_audit": "Original A03 audit passed before and after",
+      "final_tables_empty": true,
+      "container_removed": true,
+      "anonymous_image_volumes_removed": true,
+      "postgresql": "PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+      "evidence_sha256": {
+        "inputs.json": "4b97c6aa76a4fe9a53b998624be996cc62687e3649703485ca71c4f63c89572c",
+        "summary.json": "c3544d4675a5d22af9a686a0e216f1961c152243798df4557de09c70ffffd58c",
+        "pytest.xml": "0fdefca8cd9579ccfa82a6658c0ff54d773ff086a47d339604c79c852b6fae53",
+        "environment.json": "a0c3132d813f8f18e3d68d3f024c228b53d3c1be37382574e8c95b31b32fa0c4",
+        "final-state.json": "dbc4b9c36a78e26384cbe23a4d657bae8af990f1ab2bbf3300c91aedc6becd18",
+        "cleanup.json": "7000fdd665ff222f5f61eddf5c21794287a897e8b0838f27945b8396cea5f345"
+      }
+    },
+    "b-full-build": {
+      "passed": 335,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0,
+      "test_modules": {
+        "tests.test_build_integration": 5,
+        "tests.test_full_build_postgres": 61,
+        "tests.test_e_gate_contract": 6,
+        "tests.test_e_publication": 4,
+        "tests.test_e_integrated_postgres": 51,
+        "tests.test_runner": 52,
+        "tests.test_recovery": 72,
+        "tests.test_manifest": 80,
+        "tests.test_cd_inventory": 4
+      },
+      "recorded_input_files_matching_commit": 267,
+      "a03_audit": "Original A03 audit passed before and after",
+      "final_tables_empty": true,
+      "container_removed": true,
+      "anonymous_image_volumes_removed": true,
+      "postgresql": "PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+      "evidence_sha256": {
+        "inputs.json": "ddb57f7255a561b6c7dbae1f58b1181fb388e8579210eab182167a324e5b3ce5",
+        "summary.json": "b4e1e6c6e3d6f19768ab1332336a32d6d386ebf22376f989bfa37bd972a4504d",
+        "pytest.xml": "52738e4f9bfb75bb134bfcdf05d95e0f4abe931aebfd60274d917ae415c26b26",
+        "environment.json": "a0c3132d813f8f18e3d68d3f024c228b53d3c1be37382574e8c95b31b32fa0c4",
+        "final-state.json": "dbc4b9c36a78e26384cbe23a4d657bae8af990f1ab2bbf3300c91aedc6becd18",
+        "cleanup.json": "c3a4453cb4b9731ce51e0092e5a3319e241b9a34833134d9f159f630ce0e5789"
+      }
+    },
+    "default-with-db-dependency": {
+      "passed": 1002,
+      "skipped": 398,
+      "failures": 0,
+      "errors": 0,
+      "junit_sha256": "8ecb96c72ebdbcffc221130a3237e787cf144054c96c80b9b681d76b9bfab4f8"
+    },
+    "default-without-db-dependency": {
+      "passed": 1002,
+      "skipped": 398,
+      "failures": 0,
+      "errors": 0,
+      "junit_sha256": "b5b47882605375f0bb5ff1088a6fdbb50538fea5df6276dc5b223ab23644e9a6",
+      "psycopg_installed": false
+    }
+  },
+  "checked_input_files": 267,
+  "local_evidence_directory": "artifacts/d09-review-fixes-20260928/",
+  "reproduction": "docs/d09-review-fixes.md",
+  "public_release": false,
+  "final_platform_accepted": false,
+  "remaining": [
+    "D review and merge",
+    "Deploy updated D09 SQL with the wheel",
+    "E independent platform acceptance"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "scope": "PR #28 merge metadata; no runtime or schema change",
+  "validated_b_head": "c115883f0f6b6b7642bbde71e4085f749111b0e4",
+  "c_merge_commit": "6987e604bb93809aa94a736085c3e8320452461d",
+  "c_imported_files_matched": 14,
+  "code_file_hashes_unchanged": 77,
+  "migration_hashes_unchanged": 11,
+  "previous_inventory_sha256": "331a22e6a7bd9c02871db6c37800777f0d22c4eeba4e7ef88e916e4c36c9d629",
+  "current_inventory_sha256": "eefb354e1436daac699df812ec3edc2d2b1718d73e424177df0115d060a25d42",
+  "previous_validation_receipt": "docs/evidence/c10-year-coverage-2026-09-25.json",
+  "previous_receipt_sha256": "1fbef7912784c63f9a17bb4b553f685b4c0ad95057c75f797466df5ae75923b1",
+  "check": {
+    "command": "AC_REQUIRE_INSTALLED=1 CD_REQUIRE_INSTALLED=1 D02_REQUIRE_INSTALLED=1 /path/to/installed-venv/bin/python -m pytest -q -o pythonpath= /path/to/checkout/tests/test_cd_inventory.py",
+    "passed": 4,
+    "failed": 0,
+    "skipped": 0,
+    "installed_package_outside_checkout": true,
+    "local_evidence": "artifacts/c10-year-coverage-20260925/pr27-merge-inventory.xml",
+    "sha256": "eeedb737bde561e55546c4893378284e18932cda729a1073fee262ffd7464f44"
+  },
+  "note": "The earlier 84-test database/interface run used the previous inventory hash. Only upstream provenance metadata changed; all code, resource, schema hashes and binding definitions are unchanged. Prior receipts retain the status at test time. No database rerun or full-platform acceptance is claimed."
+}

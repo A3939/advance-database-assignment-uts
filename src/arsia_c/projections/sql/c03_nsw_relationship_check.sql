@@ -6,7 +6,7 @@ WITH crash_rows AS (
     SELECT
         r.raw_record_id,
         r.payload ->> 'Crash ID' AS crash_id
-    FROM raw.record AS r
+    FROM pg_temp.c03_nsw_crash AS r
     WHERE r.source_id = %(source_id)s
       AND r.resource_id = %(crash_resource_id)s
       AND r.file_sha256 = %(crash_file_sha256)s
@@ -17,7 +17,7 @@ unit_rows AS (
         r.raw_record_id,
         r.payload ->> 'Crash ID' AS crash_id,
         r.payload ->> 'Traffic unit ID' AS traffic_unit_id
-    FROM raw.record AS r
+    FROM pg_temp.c03_nsw_unit AS r
     WHERE r.source_id = %(source_id)s
       AND r.resource_id = %(unit_resource_id)s
       AND r.file_sha256 = %(unit_file_sha256)s

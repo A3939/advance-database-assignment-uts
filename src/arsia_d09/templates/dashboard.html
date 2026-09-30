@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ARSIA fixed-release dashboard</title>
+  <style>{{css}}</style>
+</head>
+<body>
+  <header class="hero">
+    <div>
+      <p class="eyebrow">D09 · ROLE D</p>
+      <h1>Road safety, one release at a time.</h1>
+      <p>Every section on this page is bound to the batch captured when the page load began.</p>
+    </div>
+    <div class="version">{{version}}</div>
+  </header>
+  <main>
+    {{demo_banner}}
+    <form method="get" action="/" class="filters">
+      <label>Mode<select name="mode"><option value="synthetic" {{synthetic_selected}}>Synthetic</option><option value="official" {{official_selected}}>Official</option></select></label>
+      <label>Sources (one in official mode)<input name="sources" value="{{sources}}" placeholder="syn_nsw,syn_vic or official_nsw"></label>
+      <label>From<input name="year_from" value="{{year_from}}" inputmode="numeric" placeholder="2020"></label>
+      <label>To<input name="year_to" value="{{year_to}}" inputmode="numeric" placeholder="2024"></label>
+      <label>Months<input name="months" value="{{months}}" placeholder="1,2,3"></label>
+      <label>Trend<select name="grain"><option value="year" {{year_selected}}>Year</option><option value="month" {{month_selected}}>Month</option></select></label>
+      <button type="submit">Read fixed release</button>
+    </form>
+    {{summary}}
+    {{content}}
+  </main>
+  <footer>SQL NULL and zero are displayed without browser-side recalculation.</footer>
+</body>
+</html>

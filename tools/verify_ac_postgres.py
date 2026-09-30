@@ -77,23 +77,25 @@ def check_install(inventory):
     return installed
 
 
-def main():
+def main(*, inventory_path="config/ac-inventory.json", additional_tests=(), tests=TESTS,
+         scope="Installed NSW component chain and D02; no full inventory freeze or publication",
+         pg_tmpfs=True):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--docker", default=shutil.which("docker") or "docker")
     args = parser.parse_args()
     if sys.version_info[:2] != (3, 12):
         parser.error("Use Python 3.12")
-    inventory = json.loads((ROOT / "config/ac-inventory.json").read_text(encoding="utf-8"))
+    inventory = json.loads((ROOT / inventory_path).read_text(encoding="utf-8"))
     installed = check_install(inventory)
     migrations = sorted((ROOT / "sql/migrations").glob("*.sql"))
     if [p.name[:3] for p in migrations] != [f"{i:03}" for i in range(1, 12)]:
         parser.error("Expected A migrations 001 through 011")
-    if not {str(p.relative_to(ROOT)) for p in migrations} <= {
+    if not {p.relative_to(ROOT).as_posix() for p in migrations} <= {
         item["path"] for item in inventory["schema_files"]
     }:
         parser.error("The inventory must include all eleven migrations")
-    selected = [ROOT / "tests" / name for name in TESTS]
+    selected = [ROOT / "tests" / name for name in dict.fromkeys((*tests, *additional_tests))]
     for path in selected:
         if not path.is_file():
             parser.error("Missing test: " + str(path))
@@ -103,12 +105,24 @@ def main():
         if p.is_file() and "__pycache__" not in p.parts
     } | set(ROOT.glob("requirements*.txt")) | set((ROOT / "config").glob("*.json")) | {
         ROOT / "pyproject.toml", Path(__file__).resolve(), audit_path,
-    })
+    } | set((ROOT / "tools").glob("verify_*postgres.py")))
     out = args.output.resolve()
     out.mkdir(parents=True, exist_ok=False)
+    try:
+        integration_head = run(
+            ["git", "-C", str(ROOT), "rev-parse", "HEAD"]
+        ).stdout.strip()
+        working_tree = run(
+            ["git", "-C", str(ROOT), "status", "--short"]
+        ).stdout.splitlines()
+    except subprocess.CalledProcessError:
+        integration_head = os.environ.get("ARSIA_VALIDATION_HEAD", "working-tree")
+        working_tree = [
+            "Git metadata unavailable in the validation process; exact file hashes follow"
+        ]
     write(out, "inputs.json", {
-        "integration_head": run(["git", "-C", str(ROOT), "rev-parse", "HEAD"]).stdout.strip(),
-        "working_tree": run(["git", "-C", str(ROOT), "status", "--short"]).stdout.splitlines(),
+        "integration_head": integration_head,
+        "working_tree": working_tree,
         "inventory": inventory, "migrations": [record(p) for p in migrations],
         "installed_files": installed, "tests": [record(p) for p in selected],
         "test_dependencies": [record(p) for p in dependencies],
@@ -116,7 +130,7 @@ def main():
         "packages": {name: importlib.metadata.version(name) for name in (
             "arsia-native-intake", "openpyxl", "psycopg", "psycopg-binary", "pytest",
         )},
-        "scope": "Installed NSW component chain and D02; no full inventory freeze or publication",
+        "scope": scope, "postgres_storage": "tmpfs" if pg_tmpfs else "disposable container layer",
     })
     name = "arsia-b-ac-" + secrets.token_hex(6)
     password = secrets.token_urlsafe(30)
@@ -129,9 +143,11 @@ def main():
                 encoding="utf-8",
             )
             envfile.chmod(0o600)
+            storage = ["--tmpfs", "/var/lib/postgresql/data"] if pg_tmpfs else [
+                "-e", "PGDATA=/var/lib/postgresql/official-review"]
             run([args.docker, "run", "-d", "--name", name, "--label", "arsia.scope=b-ac-integration",
-                 "--env-file", str(envfile), "-p", "127.0.0.1::5432", "--tmpfs",
-                 "/var/lib/postgresql/data", IMAGE, "postgres", "-c", "timezone=UTC", "-c", "log_timezone=UTC"])
+                 "--env-file", str(envfile), "-p", "127.0.0.1::5432", *storage,
+                 IMAGE, "postgres", "-c", "timezone=UTC", "-c", "log_timezone=UTC"])
             started = True
         for _ in range(150):
             ready = subprocess.run([args.docker, "exec", name, "pg_isready", "-h", "127.0.0.1",
@@ -163,7 +179,9 @@ def main():
         env.update(ARSIA_TEST_DSN=loader, ARSIA_TEST_ADMIN_DSN=admin,
                    D02_LOADER_DSN=loader, D02_ADMIN_DSN=admin, D02_REQUIRE_INSTALLED="1",
                    D02_EVIDENCE_DIR=str(out / "d02-evidence"), AC_REQUIRE_INSTALLED="1",
-                   AC_EVIDENCE_DIR=str(out / "ac-evidence"), AC_TEST_RUN=test_run)
+                   AC_EVIDENCE_DIR=str(out / "ac-evidence"), AC_TEST_RUN=test_run,
+                   CD_EVIDENCE_DIR=str(out / "cd-evidence"), CD_REQUIRE_INSTALLED="1",
+                   C07_TEST_DSN=loader)
         import psycopg
         with psycopg.connect(loader) as connection:
             row = connection.execute("""SELECT version(),current_user,session_user,
@@ -197,13 +215,14 @@ def main():
             **totals, "pytest_exit_code": result.returncode, "exit_code": exit_code,
             "permissions": "Original A03 audit passed before and after",
             "final_tables_empty": not any(counts.values()), "publication_performed": False,
-            "boundary": "Component chain only; full B10 still requires the remaining real modules and inventory",
+            "boundary": scope,
         })
         return exit_code
     finally:
         if started:
-            run([args.docker, "rm", "-f", name])
-            write(out, "cleanup.json", {"container_removed": name, "persistent_volume_created": False})
+            run([args.docker, "rm", "-f", "-v", name])
+            write(out, "cleanup.json", {"container_removed": name, "persistent_volume_created": False,
+                                       "anonymous_image_volumes_removed": True})
 
 
 if __name__ == "__main__":
