@@ -1,0 +1,392 @@
+{
+  "c_base": "ad8baeddd3f6d2eeccdc2e31bafd71b687ad4da8",
+  "a_commit": "c0824da06b6e7b3f73c4ddeab2114d10b7156913",
+  "image": "postgres@sha256:efedf3595f1d6f415c08568ba171029bf54052e754cc9f030e3f2412b21f3d67",
+  "python": "3.12.6 (v3.12.6:a4a2d2b0d85, Sep  6 2024, 16:08:03) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "files": [
+    {
+      "source_id": "official_vic",
+      "resource_id": "official_vic_accident",
+      "resource_role": "crash",
+      "entity_kind": "crash",
+      "format": "csv",
+      "encoding": "utf-8",
+      "sheet": null,
+      "header_row": 1,
+      "header": [
+        "ACCIDENT_NO",
+        "ACCIDENT_DATE",
+        "ACCIDENT_TIME",
+        "ACCIDENT_TYPE",
+        "ACCIDENT_TYPE_DESC",
+        "DAY_OF_WEEK",
+        "DAY_WEEK_DESC",
+        "DCA_CODE",
+        "DCA_DESC",
+        "LIGHT_CONDITION",
+        "NODE_ID",
+        "NO_OF_VEHICLES",
+        "NO_PERSONS_KILLED",
+        "NO_PERSONS_INJ_2",
+        "NO_PERSONS_INJ_3",
+        "NO_PERSONS_NOT_INJ",
+        "NO_PERSONS",
+        "POLICE_ATTEND",
+        "ROAD_GEOMETRY",
+        "ROAD_GEOMETRY_DESC",
+        "SEVERITY",
+        "SPEED_ZONE",
+        "RMA"
+      ],
+      "file_sha256": "a148c00601fab10d44368df80492c594123700a7f9e334ff896fd215295e91d9",
+      "raw_count": 200352,
+      "parser_version": "csv-native-v1",
+      "locator_version": "csv-logical-v1"
+    },
+    {
+      "source_id": "official_vic",
+      "resource_id": "official_vic_vehicle",
+      "resource_role": "vehicle",
+      "entity_kind": "unit",
+      "format": "csv",
+      "encoding": "utf-8",
+      "sheet": null,
+      "header_row": 1,
+      "header": [
+        "ACCIDENT_NO",
+        "VEHICLE_ID",
+        "VEHICLE_YEAR_MANUF",
+        "VEHICLE_DCA_CODE",
+        "INITIAL_DIRECTION",
+        "ROAD_SURFACE_TYPE",
+        "ROAD_SURFACE_TYPE_DESC",
+        "REG_STATE",
+        "VEHICLE_BODY_STYLE",
+        "VEHICLE_MAKE",
+        "VEHICLE_MODEL",
+        "VEHICLE_POWER",
+        "VEHICLE_TYPE",
+        "VEHICLE_TYPE_DESC",
+        "VEHICLE_WEIGHT",
+        "CONSTRUCTION_TYPE",
+        "FUEL_TYPE",
+        "NO_OF_WHEELS",
+        "NO_OF_CYLINDERS",
+        "SEATING_CAPACITY",
+        "TARE_WEIGHT",
+        "TOTAL_NO_OCCUPANTS",
+        "CARRY_CAPACITY",
+        "CUBIC_CAPACITY",
+        "FINAL_DIRECTION",
+        "DRIVER_INTENT",
+        "VEHICLE_MOVEMENT",
+        "TRAILER_TYPE",
+        "VEHICLE_COLOUR_1",
+        "VEHICLE_COLOUR_2",
+        "CAUGHT_FIRE",
+        "INITIAL_IMPACT",
+        "LAMPS",
+        "LEVEL_OF_DAMAGE",
+        "TOWED_AWAY_FLAG",
+        "TRAFFIC_CONTROL",
+        "TRAFFIC_CONTROL_DESC"
+      ],
+      "file_sha256": "05a7a1b9171abaeb5c188df549dee38edde6e76d5a03553988305a8280dccd12",
+      "raw_count": 365470,
+      "parser_version": "csv-native-v1",
+      "locator_version": "csv-logical-v1"
+    },
+    {
+      "source_id": "official_vic",
+      "resource_id": "official_vic_person",
+      "resource_role": "person",
+      "entity_kind": "person_raw",
+      "format": "csv",
+      "encoding": "utf-8",
+      "sheet": null,
+      "header_row": 1,
+      "header": [
+        "ACCIDENT_NO",
+        "PERSON_ID",
+        "VEHICLE_ID",
+        "SEX",
+        "AGE_GROUP",
+        "INJ_LEVEL",
+        "INJ_LEVEL_DESC",
+        "SEATING_POSITION",
+        "HELMET_BELT_WORN",
+        "ROAD_USER_TYPE",
+        "ROAD_USER_TYPE_DESC",
+        "LICENCE_STATE",
+        "TAKEN_HOSPITAL",
+        "EJECTED_CODE"
+      ],
+      "file_sha256": "71ca8fec01370e301f282fc83e8f11e4cde16a535ee421cbbb72512ceb7194f9",
+      "raw_count": 467730,
+      "parser_version": "csv-native-v1",
+      "locator_version": "csv-logical-v1"
+    },
+    {
+      "source_id": "official_vic",
+      "resource_id": "official_vic_node",
+      "resource_role": "node",
+      "entity_kind": "node_raw",
+      "format": "csv",
+      "encoding": "utf-8",
+      "sheet": null,
+      "header_row": 1,
+      "header": [
+        "ACCIDENT_NO",
+        "NODE_ID",
+        "NODE_TYPE",
+        "AMG_X",
+        "AMG_Y",
+        "LGA_NAME",
+        "LGA NAME ALL",
+        "DEG_URBAN_NAME",
+        "LATITUDE",
+        "LONGITUDE",
+        "POSTCODE_CRASH"
+      ],
+      "file_sha256": "b0bdbec22ac33df66e15cff9b531ba3203320ec5fbe20076a2820b8fec966ed4",
+      "raw_count": 405918,
+      "parser_version": "csv-native-v1",
+      "locator_version": "csv-logical-v1"
+    }
+  ],
+  "analysis": {
+    "year_from": 2020,
+    "year_to": 2024
+  },
+  "query_file_sha256": "6bcc911b2aefd779d2f31c6a197a7c9a3f1f60b149adeefbc449bb275027c7fe",
+  "runner_sha256": "eb9488eac84447ee58c39d6ce89d7c939226e4ea34ab096ac217ff388cfd1f3a",
+  "migrations": {
+    "sql/migrations/001_meta_registry.sql": "b44608c4baee8ce1d4ac6c3912a1a7d671772a1b305a32976b10f7bf00fe1893",
+    "sql/migrations/002_raw_record.sql": "550c022b204380af2c0b2ffffc48295df3b562fd217f99a62f392d8db15eb059",
+    "sql/migrations/003_b08_loader_role.sql": "e84a2d122bcb8f5edd6ffeb9974ef48eac3910ae801d5a929286734978f9269d",
+    "sql/migrations/004_meta_batch.sql": "5c828f4071cab7ea097ee5b001aa6aca8fb567f04889a091a02842cf14fbb801",
+    "sql/migrations/005_raw_vault.sql": "36fedf6f1c6b128e8006ad2e76815c44099c5557de8140deb04e599d4c4f14f8",
+    "sql/migrations/006_canonical.sql": "c6b414f581d15183d89d98bebda71f373827a945d9e3eb2d9a60e699054e37dd",
+    "sql/migrations/007_warehouse.sql": "32add012cc1f2919e0aa07926fea86922999b02dd37bb070e4bb2b6247fc87ee",
+    "sql/migrations/008_qa.sql": "408c3775b218808fceb40a4119f8e5f20735664e1775671f5876d838b6219e29",
+    "sql/migrations/009_database_roles.sql": "cd1b8f3c4969111cab71777ea063dfe89e69dc29566dbd779c708e2f889d03d5",
+    "sql/migrations/010_business_key.sql": "de7a14a6df0c0336c7f40c2178159e0f53a4f702da44cde9a20c53a95443d922",
+    "sql/migrations/011_review_validation_fixes.sql": "fb4d03819dbb4a37366aa5b3cb59fe4e8bec0d76eae3fcfbc3783ebb13f51de6"
+  },
+  "replay": "B native reader + B08 registration + COPY into empty Raw; diagnostic replay, not a B10 build",
+  "publication_performed": false,
+  "environment": [
+    "PostgreSQL 16.15 (Debian 16.15-1.pgdg12+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+    "arsia_loader",
+    "arsia_loader",
+    "UTF8",
+    "UTC"
+  ],
+  "loaded_counts": {
+    "official_vic_accident": 200352,
+    "official_vic_vehicle": 365470,
+    "official_vic_person": 467730,
+    "official_vic_node": 405918
+  },
+  "results": {
+    "Q0": {
+      "row_count": 4,
+      "sample": [
+        {
+          "resource_id": "official_vic_accident",
+          "raw_count": 200352,
+          "blank_key_rows": 0,
+          "duplicate_key_groups": 0,
+          "duplicate_extra_rows": "0"
+        },
+        {
+          "resource_id": "official_vic_node",
+          "raw_count": 405918,
+          "blank_key_rows": 0,
+          "duplicate_key_groups": 199359,
+          "duplicate_extra_rows": "205651"
+        },
+        {
+          "resource_id": "official_vic_person",
+          "raw_count": 467730,
+          "blank_key_rows": 0,
+          "duplicate_key_groups": 0,
+          "duplicate_extra_rows": "0"
+        },
+        {
+          "resource_id": "official_vic_vehicle",
+          "raw_count": 365470,
+          "blank_key_rows": 0,
+          "duplicate_key_groups": 0,
+          "duplicate_extra_rows": "0"
+        }
+      ],
+      "detail_file": "Q0.jsonl",
+      "detail_sha256": "2006bfc7d4175eaae0331526c99854591c29295a383db20bc12570a165a5b3c4",
+      "query_sha256": "f7b111cfe402e6d8c7d99d3bdced1d56a3a8cf1a5019188b4c113b076f2b4475"
+    },
+    "Q1": {
+      "row_count": 1,
+      "sample": [
+        {
+          "vehicle_orphan_count": 0,
+          "person_orphan_count": 0,
+          "node_orphan_count": 0
+        }
+      ],
+      "detail_file": "Q1.jsonl",
+      "detail_sha256": "e11722ff1df3bcacf20c27b6b8e0866d214646aa279446bf991b9459a084914e",
+      "query_sha256": "d0e8498d35a81544f79033d14d85077fad4e3beb28aa760b147ea0bc851d5015"
+    },
+    "Q2": {
+      "row_count": 39,
+      "sample": [
+        {
+          "raw_record_id": "a281ee06-5664-5234-8cb5-8c0539531f3a",
+          "row_locator": "csv:281006",
+          "accident_no": "T20210002973",
+          "person_id": "01",
+          "vehicle_id": "B",
+          "road_user_type": "9",
+          "seating_position": "NA"
+        }
+      ],
+      "detail_file": "Q2.jsonl",
+      "detail_sha256": "f6e1fa0b187f7587bf6386d71f3f13a214a15967322fc2c1b2111e73f4e62420",
+      "query_sha256": "81e0e0bcbb1be094871a02dff0b8c6d420673ad9cc74f839c0df57c5b8db826e"
+    },
+    "Q2B": {
+      "row_count": 1,
+      "sample": [
+        {
+          "person_rows": 467730,
+          "empty_vehicle_refs": 18776,
+          "null_vehicle_refs": 0,
+          "space_only_vehicle_refs": 0,
+          "registered_pedestrian_nonassociation": 18752,
+          "other_empty_refs": 24
+        }
+      ],
+      "detail_file": "Q2B.jsonl",
+      "detail_sha256": "40215c1f948ba9889ec730139ec6428f7d0ecffad579aab0e94b6c2bda430b8a",
+      "query_sha256": "386e3f475b246c1cc65554b5ea3f98227017de7f51bdbefaa62f626b248d0fe4"
+    },
+    "Q3A": {
+      "row_count": 1,
+      "sample": [
+        {
+          "duplicate_group_count": 202505,
+          "duplicate_extra_row_count": "202505"
+        }
+      ],
+      "detail_file": "Q3A.jsonl",
+      "detail_sha256": "4499ad27889fc43c132bb1162f2ccc4473c1715e516e239757aad440723c2c9e",
+      "query_sha256": "0fb72a15e435463f4410673796f3ac2d59a416935e8ce416edb0fa33462c5509"
+    },
+    "Q3B": {
+      "row_count": 199359,
+      "sample": [
+        {
+          "accident_no": "T20120011767",
+          "node_id": "24437",
+          "observation_count": 6
+        }
+      ],
+      "observations_in_repeated_groups": 405010,
+      "detail_file": "Q3B.jsonl",
+      "detail_sha256": "db44fa1e1a85fdac24aaf38625727652a81b5064bb7ade87a18a435be50b7bb6",
+      "query_sha256": "f63149b1a177cfcfe4c48b32a73750061eec491cbc64d1ea732552f5394faf97"
+    },
+    "Q3C": {
+      "row_count": 1,
+      "sample": [
+        {
+          "groups_varying_only_deg_urban_name": 3137,
+          "observations_in_those_groups": "12566"
+        }
+      ],
+      "detail_file": "Q3C.jsonl",
+      "detail_sha256": "a7f294b02ba7bda5c0c351d0bebddd49c801754f2e075ffe898fc5d3fe5d91fe",
+      "query_sha256": "55b2fb1a54c25e3ad1572ada8979ad143678c851cb724c3049428a717c964147"
+    },
+    "Q4": {
+      "row_count": 1,
+      "sample": [
+        {
+          "invalid_coordinate_group_count": 0,
+          "coordinate_conflict_group_count": 0,
+          "single_coordinate_pair_group_count": 200267
+        }
+      ],
+      "detail_file": "Q4.jsonl",
+      "detail_sha256": "90eb123ec6f5f0da677c3092133ac1edfe7028ef5102fb5870a34153bbffa2ff",
+      "query_sha256": "cf95f9c97b3c8bf64a7b3de7cee39def8d39bbca1dc719b038532c9921f5dd85"
+    },
+    "Q5A": {
+      "row_count": 50,
+      "sample": [
+        {
+          "accident_no": "T20160000627",
+          "vehicle_count": 21,
+          "person_count": 28,
+          "node_observation_count": 2,
+          "rows_from_naive_multi_join": 1176
+        }
+      ],
+      "detail_file": "Q5A.jsonl",
+      "detail_sha256": "78df112e96c528ba6bcabf4d24c64d2b2d8547f57747b2b785d7b25a461f3609",
+      "query_sha256": "c88bc3754f461f38ec7a2f476d2fcc215d5d34879fff8355789c08d805b31951"
+    },
+    "Q5B": {
+      "row_count": 1176,
+      "sample": [
+        {
+          "accident_no": "T20160000627",
+          "vehicle_id": "A",
+          "person_id": "01",
+          "node_id": "358316",
+          "vehicle_raw_record_id": "ddbd46e9-5b0f-5d8f-9eb1-13f2c64b5823",
+          "person_raw_record_id": "60524029-e93b-57ce-8969-32528dbb4346",
+          "node_raw_record_id": "1c09b5d4-2479-5725-bb2d-7e9d1892e6b5"
+        }
+      ],
+      "detail_file": "Q5B.jsonl",
+      "detail_sha256": "de2254b99caa3a3cadb1456b94138a909332b8f691f6f9e44f1198dd7f10363c",
+      "query_sha256": "4132f0ab4e121630d421a4262a8ae7ff3275d36ccfb44ddfe25b8abecd276a84"
+    },
+    "Q5C": {
+      "row_count": 1,
+      "sample": [
+        {
+          "person_rows": 467730,
+          "joined_rows": "467730",
+          "multiplied_person_rows": 0,
+          "matched_person_rows": 448915,
+          "unmatched_or_nonassociated_rows": 18815
+        }
+      ],
+      "detail_file": "Q5C.jsonl",
+      "detail_sha256": "e3ca32d3c104be39ef23877115a6f3e2f647cfaaa640fb2274c22e2d189d68fc",
+      "query_sha256": "39d58460974156522864fcd1c4c0aceb3e652190b77ac40c2d36f9a0a6c7d19b"
+    },
+    "Q6": {
+      "row_count": 85,
+      "sample": [
+        {
+          "raw_record_id": "6e4e5ed7-a62c-508a-b233-97fc4088867a",
+          "row_locator": "csv:101916",
+          "accident_no": "T20170018084",
+          "node_id": "-1",
+          "accident_date": "2017-09-20"
+        }
+      ],
+      "detail_file": "Q6.jsonl",
+      "detail_sha256": "56cb4acab9e4f10fd3fc655aa6fb7fa091c92a581cb82fe4ff31e3eec852fbb9",
+      "query_sha256": "1088b1d50b39417ee7bec5c9dab072b2a3eb490c0e8b2ae1eeaeab5a30d51c20"
+    }
+  },
+  "raw_after_rollback": 0,
+  "permissions": "Original A03 audit passed before and after; no grants added",
+  "container_removed": true,
+  "full_results": "Reproduce locally with tools/replay_c11_postgres.py; detail files are not committed."
+}
