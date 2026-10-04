@@ -1,0 +1,21 @@
+node_modules/
+.next/
+.next-agent/
+.playwright-cli/
+output/playwright/
+out/
+*.tsbuildinfo
+.env*
+playwright-report/
+test-results/
+/artifacts/
+public/vendor/
+
+.next-regions/
+
+.next-analysis/
+
+.DS_Store
+
+# Independent demo build output
+.next-demo-build/

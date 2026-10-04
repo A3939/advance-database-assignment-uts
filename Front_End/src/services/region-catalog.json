@@ -1,0 +1,1156 @@
+{
+  "NSW": [
+    {
+      "id": "10050",
+      "name": "Albury"
+    },
+    {
+      "id": "10180",
+      "name": "Armidale"
+    },
+    {
+      "id": "10250",
+      "name": "Ballina"
+    },
+    {
+      "id": "10300",
+      "name": "Balranald"
+    },
+    {
+      "id": "10470",
+      "name": "Bathurst"
+    },
+    {
+      "id": "10500",
+      "name": "Bayside (NSW)"
+    },
+    {
+      "id": "10550",
+      "name": "Bega Valley"
+    },
+    {
+      "id": "10600",
+      "name": "Bellingen"
+    },
+    {
+      "id": "10650",
+      "name": "Berrigan"
+    },
+    {
+      "id": "15750",
+      "name": "Narrabri"
+    },
+    {
+      "id": "10750",
+      "name": "Blacktown"
+    },
+    {
+      "id": "10800",
+      "name": "Bland"
+    },
+    {
+      "id": "10850",
+      "name": "Blayney"
+    },
+    {
+      "id": "10900",
+      "name": "Blue Mountains"
+    },
+    {
+      "id": "10950",
+      "name": "Bogan"
+    },
+    {
+      "id": "11150",
+      "name": "Bourke"
+    },
+    {
+      "id": "11200",
+      "name": "Brewarrina"
+    },
+    {
+      "id": "11250",
+      "name": "Broken Hill"
+    },
+    {
+      "id": "11300",
+      "name": "Burwood"
+    },
+    {
+      "id": "11350",
+      "name": "Byron"
+    },
+    {
+      "id": "11400",
+      "name": "Cabonne"
+    },
+    {
+      "id": "11450",
+      "name": "Camden"
+    },
+    {
+      "id": "11500",
+      "name": "Campbelltown (NSW)"
+    },
+    {
+      "id": "11520",
+      "name": "Canada Bay"
+    },
+    {
+      "id": "11570",
+      "name": "Canterbury-Bankstown"
+    },
+    {
+      "id": "11600",
+      "name": "Carrathool"
+    },
+    {
+      "id": "11650",
+      "name": "Central Coast (NSW)"
+    },
+    {
+      "id": "11700",
+      "name": "Central Darling"
+    },
+    {
+      "id": "11720",
+      "name": "Cessnock"
+    },
+    {
+      "id": "11730",
+      "name": "Clarence Valley"
+    },
+    {
+      "id": "11750",
+      "name": "Cobar"
+    },
+    {
+      "id": "11800",
+      "name": "Coffs Harbour"
+    },
+    {
+      "id": "12000",
+      "name": "Coolamon"
+    },
+    {
+      "id": "12150",
+      "name": "Coonamble"
+    },
+    {
+      "id": "12160",
+      "name": "Cootamundra-Gundagai"
+    },
+    {
+      "id": "12350",
+      "name": "Cowra"
+    },
+    {
+      "id": "12380",
+      "name": "Cumberland"
+    },
+    {
+      "id": "12390",
+      "name": "Dubbo"
+    },
+    {
+      "id": "12700",
+      "name": "Dungog"
+    },
+    {
+      "id": "12730",
+      "name": "Edward River"
+    },
+    {
+      "id": "12750",
+      "name": "Eurobodalla"
+    },
+    {
+      "id": "12850",
+      "name": "Fairfield"
+    },
+    {
+      "id": "12870",
+      "name": "Federation"
+    },
+    {
+      "id": "12900",
+      "name": "Forbes"
+    },
+    {
+      "id": "12930",
+      "name": "Georges River"
+    },
+    {
+      "id": "12950",
+      "name": "Gilgandra"
+    },
+    {
+      "id": "13010",
+      "name": "Glen Innes Severn"
+    },
+    {
+      "id": "13310",
+      "name": "Goulburn Mulwaree"
+    },
+    {
+      "id": "13340",
+      "name": "Greater Hume"
+    },
+    {
+      "id": "13450",
+      "name": "Griffith"
+    },
+    {
+      "id": "13550",
+      "name": "Gunnedah"
+    },
+    {
+      "id": "13660",
+      "name": "Gwydir"
+    },
+    {
+      "id": "13800",
+      "name": "Hawkesbury"
+    },
+    {
+      "id": "13850",
+      "name": "Hay"
+    },
+    {
+      "id": "13910",
+      "name": "Hilltops"
+    },
+    {
+      "id": "14000",
+      "name": "Hornsby"
+    },
+    {
+      "id": "14100",
+      "name": "Hunters Hill"
+    },
+    {
+      "id": "14170",
+      "name": "Inner West"
+    },
+    {
+      "id": "14220",
+      "name": "Inverell"
+    },
+    {
+      "id": "14300",
+      "name": "Junee"
+    },
+    {
+      "id": "14350",
+      "name": "Kempsey"
+    },
+    {
+      "id": "14400",
+      "name": "Kiama"
+    },
+    {
+      "id": "14500",
+      "name": "Ku-ring-gai"
+    },
+    {
+      "id": "14550",
+      "name": "Kyogle"
+    },
+    {
+      "id": "14600",
+      "name": "Lachlan"
+    },
+    {
+      "id": "14650",
+      "name": "Lake Macquarie"
+    },
+    {
+      "id": "14700",
+      "name": "Lane Cove"
+    },
+    {
+      "id": "15800",
+      "name": "Narrandera"
+    },
+    {
+      "id": "15850",
+      "name": "Narromine"
+    },
+    {
+      "id": "15900",
+      "name": "Newcastle"
+    },
+    {
+      "id": "14750",
+      "name": "Leeton"
+    },
+    {
+      "id": "14850",
+      "name": "Lismore"
+    },
+    {
+      "id": "14870",
+      "name": "Lithgow"
+    },
+    {
+      "id": "14900",
+      "name": "Liverpool"
+    },
+    {
+      "id": "14920",
+      "name": "Liverpool Plains"
+    },
+    {
+      "id": "14950",
+      "name": "Lockhart"
+    },
+    {
+      "id": "15050",
+      "name": "Maitland"
+    },
+    {
+      "id": "15240",
+      "name": "Mid-Coast"
+    },
+    {
+      "id": "15270",
+      "name": "Mid-Western"
+    },
+    {
+      "id": "15300",
+      "name": "Moree Plains"
+    },
+    {
+      "id": "15350",
+      "name": "Mosman"
+    },
+    {
+      "id": "15520",
+      "name": "Murray River"
+    },
+    {
+      "id": "15560",
+      "name": "Murrumbidgee"
+    },
+    {
+      "id": "15650",
+      "name": "Muswellbrook"
+    },
+    {
+      "id": "15700",
+      "name": "Nambucca Valley"
+    },
+    {
+      "id": "15950",
+      "name": "North Sydney"
+    },
+    {
+      "id": "15990",
+      "name": "Northern Beaches"
+    },
+    {
+      "id": "16100",
+      "name": "Oberon"
+    },
+    {
+      "id": "16150",
+      "name": "Orange"
+    },
+    {
+      "id": "16200",
+      "name": "Parkes"
+    },
+    {
+      "id": "16260",
+      "name": "Parramatta"
+    },
+    {
+      "id": "16350",
+      "name": "Penrith"
+    },
+    {
+      "id": "16380",
+      "name": "Port Macquarie-Hastings"
+    },
+    {
+      "id": "16400",
+      "name": "Port Stephens"
+    },
+    {
+      "id": "16490",
+      "name": "Queanbeyan-Palerang"
+    },
+    {
+      "id": "16550",
+      "name": "Randwick"
+    },
+    {
+      "id": "16610",
+      "name": "Richmond Valley"
+    },
+    {
+      "id": "16700",
+      "name": "Ryde"
+    },
+    {
+      "id": "16900",
+      "name": "Shellharbour"
+    },
+    {
+      "id": "16950",
+      "name": "Shoalhaven"
+    },
+    {
+      "id": "17000",
+      "name": "Singleton"
+    },
+    {
+      "id": "17040",
+      "name": "Snowy Monaro"
+    },
+    {
+      "id": "17080",
+      "name": "Snowy Valleys"
+    },
+    {
+      "id": "17100",
+      "name": "Strathfield"
+    },
+    {
+      "id": "17150",
+      "name": "Sutherland"
+    },
+    {
+      "id": "17200",
+      "name": "Sydney"
+    },
+    {
+      "id": "17310",
+      "name": "Tamworth"
+    },
+    {
+      "id": "17350",
+      "name": "Temora"
+    },
+    {
+      "id": "17400",
+      "name": "Tenterfield"
+    },
+    {
+      "id": "17420",
+      "name": "The Hills"
+    },
+    {
+      "id": "17550",
+      "name": "Tweed"
+    },
+    {
+      "id": "17620",
+      "name": "Upper Hunter"
+    },
+    {
+      "id": "17640",
+      "name": "Upper Lachlan"
+    },
+    {
+      "id": "17650",
+      "name": "Uralla"
+    },
+    {
+      "id": "17750",
+      "name": "Wagga Wagga"
+    },
+    {
+      "id": "17850",
+      "name": "Walcha"
+    },
+    {
+      "id": "17900",
+      "name": "Walgett"
+    },
+    {
+      "id": "17950",
+      "name": "Warren"
+    },
+    {
+      "id": "18020",
+      "name": "Warrumbungle"
+    },
+    {
+      "id": "18050",
+      "name": "Waverley"
+    },
+    {
+      "id": "18100",
+      "name": "Weddin"
+    },
+    {
+      "id": "18200",
+      "name": "Wentworth"
+    },
+    {
+      "id": "18250",
+      "name": "Willoughby"
+    },
+    {
+      "id": "18350",
+      "name": "Wingecarribee"
+    },
+    {
+      "id": "18400",
+      "name": "Wollondilly"
+    },
+    {
+      "id": "18450",
+      "name": "Wollongong"
+    },
+    {
+      "id": "18500",
+      "name": "Woollahra"
+    },
+    {
+      "id": "18710",
+      "name": "Yass Valley"
+    },
+    {
+      "id": "19399",
+      "name": "Unincorporated NSW"
+    }
+  ],
+  "VIC": [
+    {
+      "id": "26980",
+      "name": "Whitehorse"
+    },
+    {
+      "id": "27070",
+      "name": "Whittlesea"
+    },
+    {
+      "id": "27170",
+      "name": "Wodonga"
+    },
+    {
+      "id": "27260",
+      "name": "Wyndham"
+    },
+    {
+      "id": "27350",
+      "name": "Yarra"
+    },
+    {
+      "id": "27450",
+      "name": "Yarra Ranges"
+    },
+    {
+      "id": "27630",
+      "name": "Yarriambiack"
+    },
+    {
+      "id": "29399",
+      "name": "Unincorporated Vic"
+    },
+    {
+      "id": "20110",
+      "name": "Alpine"
+    },
+    {
+      "id": "20260",
+      "name": "Ararat"
+    },
+    {
+      "id": "20570",
+      "name": "Ballarat"
+    },
+    {
+      "id": "20660",
+      "name": "Banyule"
+    },
+    {
+      "id": "20740",
+      "name": "Bass Coast"
+    },
+    {
+      "id": "20830",
+      "name": "Baw Baw"
+    },
+    {
+      "id": "20910",
+      "name": "Bayside (Vic.)"
+    },
+    {
+      "id": "21010",
+      "name": "Benalla"
+    },
+    {
+      "id": "21110",
+      "name": "Boroondara"
+    },
+    {
+      "id": "21180",
+      "name": "Brimbank"
+    },
+    {
+      "id": "21270",
+      "name": "Buloke"
+    },
+    {
+      "id": "21370",
+      "name": "Campaspe"
+    },
+    {
+      "id": "21450",
+      "name": "Cardinia"
+    },
+    {
+      "id": "21610",
+      "name": "Casey"
+    },
+    {
+      "id": "21670",
+      "name": "Central Goldfields"
+    },
+    {
+      "id": "21750",
+      "name": "Colac Otway"
+    },
+    {
+      "id": "21830",
+      "name": "Corangamite"
+    },
+    {
+      "id": "21890",
+      "name": "Darebin"
+    },
+    {
+      "id": "22110",
+      "name": "East Gippsland"
+    },
+    {
+      "id": "22170",
+      "name": "Frankston"
+    },
+    {
+      "id": "22250",
+      "name": "Gannawarra"
+    },
+    {
+      "id": "22310",
+      "name": "Glen Eira"
+    },
+    {
+      "id": "22410",
+      "name": "Glenelg"
+    },
+    {
+      "id": "22490",
+      "name": "Golden Plains"
+    },
+    {
+      "id": "22620",
+      "name": "Greater Bendigo"
+    },
+    {
+      "id": "22670",
+      "name": "Greater Dandenong"
+    },
+    {
+      "id": "22750",
+      "name": "Greater Geelong"
+    },
+    {
+      "id": "22830",
+      "name": "Greater Shepparton"
+    },
+    {
+      "id": "22910",
+      "name": "Hepburn"
+    },
+    {
+      "id": "22980",
+      "name": "Hindmarsh"
+    },
+    {
+      "id": "23110",
+      "name": "Hobsons Bay"
+    },
+    {
+      "id": "23190",
+      "name": "Horsham"
+    },
+    {
+      "id": "23270",
+      "name": "Hume"
+    },
+    {
+      "id": "23350",
+      "name": "Indigo"
+    },
+    {
+      "id": "23430",
+      "name": "Kingston (Vic.)"
+    },
+    {
+      "id": "23670",
+      "name": "Knox"
+    },
+    {
+      "id": "23810",
+      "name": "Latrobe (Vic.)"
+    },
+    {
+      "id": "23940",
+      "name": "Loddon"
+    },
+    {
+      "id": "24130",
+      "name": "Macedon Ranges"
+    },
+    {
+      "id": "24210",
+      "name": "Manningham"
+    },
+    {
+      "id": "24250",
+      "name": "Mansfield"
+    },
+    {
+      "id": "24330",
+      "name": "Maribyrnong"
+    },
+    {
+      "id": "24410",
+      "name": "Maroondah"
+    },
+    {
+      "id": "24600",
+      "name": "Melbourne"
+    },
+    {
+      "id": "24650",
+      "name": "Melton"
+    },
+    {
+      "id": "24700",
+      "name": "Merri-bek"
+    },
+    {
+      "id": "24780",
+      "name": "Mildura"
+    },
+    {
+      "id": "24850",
+      "name": "Mitchell"
+    },
+    {
+      "id": "24900",
+      "name": "Moira"
+    },
+    {
+      "id": "24970",
+      "name": "Monash"
+    },
+    {
+      "id": "25060",
+      "name": "Moonee Valley"
+    },
+    {
+      "id": "25150",
+      "name": "Moorabool"
+    },
+    {
+      "id": "25340",
+      "name": "Mornington Peninsula"
+    },
+    {
+      "id": "25430",
+      "name": "Mount Alexander"
+    },
+    {
+      "id": "25490",
+      "name": "Moyne"
+    },
+    {
+      "id": "25620",
+      "name": "Murrindindi"
+    },
+    {
+      "id": "25710",
+      "name": "Nillumbik"
+    },
+    {
+      "id": "25810",
+      "name": "Northern Grampians"
+    },
+    {
+      "id": "25900",
+      "name": "Port Phillip"
+    },
+    {
+      "id": "25990",
+      "name": "Pyrenees"
+    },
+    {
+      "id": "26080",
+      "name": "Queenscliffe"
+    },
+    {
+      "id": "26170",
+      "name": "South Gippsland"
+    },
+    {
+      "id": "26260",
+      "name": "Southern Grampians"
+    },
+    {
+      "id": "26350",
+      "name": "Stonnington"
+    },
+    {
+      "id": "26430",
+      "name": "Strathbogie"
+    },
+    {
+      "id": "26490",
+      "name": "Surf Coast"
+    },
+    {
+      "id": "26610",
+      "name": "Swan Hill"
+    },
+    {
+      "id": "26670",
+      "name": "Towong"
+    },
+    {
+      "id": "26700",
+      "name": "Wangaratta"
+    },
+    {
+      "id": "26730",
+      "name": "Warrnambool"
+    },
+    {
+      "id": "26810",
+      "name": "Wellington"
+    },
+    {
+      "id": "26890",
+      "name": "West Wimmera"
+    }
+  ],
+  "QLD": [
+    {
+      "id": "33100",
+      "name": "Etheridge"
+    },
+    {
+      "id": "33200",
+      "name": "Flinders (Qld)"
+    },
+    {
+      "id": "33220",
+      "name": "Fraser Coast"
+    },
+    {
+      "id": "33360",
+      "name": "Gladstone"
+    },
+    {
+      "id": "33430",
+      "name": "Gold Coast"
+    },
+    {
+      "id": "33610",
+      "name": "Goondiwindi"
+    },
+    {
+      "id": "33620",
+      "name": "Gympie"
+    },
+    {
+      "id": "33800",
+      "name": "Hinchinbrook"
+    },
+    {
+      "id": "33830",
+      "name": "Hope Vale"
+    },
+    {
+      "id": "33960",
+      "name": "Ipswich"
+    },
+    {
+      "id": "33980",
+      "name": "Isaac"
+    },
+    {
+      "id": "34420",
+      "name": "Kowanyama"
+    },
+    {
+      "id": "34530",
+      "name": "Livingstone"
+    },
+    {
+      "id": "34570",
+      "name": "Lockhart River"
+    },
+    {
+      "id": "34580",
+      "name": "Lockyer Valley"
+    },
+    {
+      "id": "34590",
+      "name": "Logan"
+    },
+    {
+      "id": "37570",
+      "name": "Wujal Wujal"
+    },
+    {
+      "id": "30250",
+      "name": "Aurukun"
+    },
+    {
+      "id": "30300",
+      "name": "Balonne"
+    },
+    {
+      "id": "30370",
+      "name": "Banana"
+    },
+    {
+      "id": "30410",
+      "name": "Barcaldine"
+    },
+    {
+      "id": "30450",
+      "name": "Barcoo"
+    },
+    {
+      "id": "30760",
+      "name": "Blackall Tambo"
+    },
+    {
+      "id": "30900",
+      "name": "Boulia"
+    },
+    {
+      "id": "31000",
+      "name": "Brisbane"
+    },
+    {
+      "id": "31750",
+      "name": "Bulloo"
+    },
+    {
+      "id": "31820",
+      "name": "Bundaberg"
+    },
+    {
+      "id": "31900",
+      "name": "Burdekin"
+    },
+    {
+      "id": "31950",
+      "name": "Burke"
+    },
+    {
+      "id": "32080",
+      "name": "Cairns"
+    },
+    {
+      "id": "32250",
+      "name": "Carpentaria"
+    },
+    {
+      "id": "32260",
+      "name": "Cassowary Coast"
+    },
+    {
+      "id": "32270",
+      "name": "Central Highlands (Qld)"
+    },
+    {
+      "id": "32310",
+      "name": "Charters Towers"
+    },
+    {
+      "id": "32330",
+      "name": "Cherbourg"
+    },
+    {
+      "id": "32450",
+      "name": "Cloncurry"
+    },
+    {
+      "id": "32500",
+      "name": "Cook"
+    },
+    {
+      "id": "32600",
+      "name": "Croydon"
+    },
+    {
+      "id": "32750",
+      "name": "Diamantina"
+    },
+    {
+      "id": "32770",
+      "name": "Doomadgee"
+    },
+    {
+      "id": "32810",
+      "name": "Douglas"
+    },
+    {
+      "id": "34710",
+      "name": "Longreach"
+    },
+    {
+      "id": "34770",
+      "name": "Mackay"
+    },
+    {
+      "id": "34800",
+      "name": "McKinlay"
+    },
+    {
+      "id": "34830",
+      "name": "Mapoon"
+    },
+    {
+      "id": "34860",
+      "name": "Maranoa"
+    },
+    {
+      "id": "34880",
+      "name": "Mareeba"
+    },
+    {
+      "id": "35010",
+      "name": "Moreton Bay"
+    },
+    {
+      "id": "35250",
+      "name": "Mornington"
+    },
+    {
+      "id": "35300",
+      "name": "Mount Isa"
+    },
+    {
+      "id": "35600",
+      "name": "Murweh"
+    },
+    {
+      "id": "35670",
+      "name": "Napranum"
+    },
+    {
+      "id": "35740",
+      "name": "Noosa"
+    },
+    {
+      "id": "35760",
+      "name": "North Burnett"
+    },
+    {
+      "id": "35780",
+      "name": "Northern Peninsula Area"
+    },
+    {
+      "id": "37600",
+      "name": "Yarrabah"
+    },
+    {
+      "id": "35790",
+      "name": "Palm Island"
+    },
+    {
+      "id": "35800",
+      "name": "Paroo"
+    },
+    {
+      "id": "36070",
+      "name": "Pormpuraaw"
+    },
+    {
+      "id": "36150",
+      "name": "Quilpie"
+    },
+    {
+      "id": "36250",
+      "name": "Redland"
+    },
+    {
+      "id": "36300",
+      "name": "Richmond"
+    },
+    {
+      "id": "36370",
+      "name": "Rockhampton"
+    },
+    {
+      "id": "36510",
+      "name": "Scenic Rim"
+    },
+    {
+      "id": "36580",
+      "name": "Somerset"
+    },
+    {
+      "id": "36630",
+      "name": "South Burnett"
+    },
+    {
+      "id": "36660",
+      "name": "Southern Downs"
+    },
+    {
+      "id": "36720",
+      "name": "Sunshine Coast"
+    },
+    {
+      "id": "36820",
+      "name": "Tablelands"
+    },
+    {
+      "id": "36910",
+      "name": "Toowoomba"
+    },
+    {
+      "id": "36950",
+      "name": "Torres"
+    },
+    {
+      "id": "36960",
+      "name": "Torres Strait Island"
+    },
+    {
+      "id": "37010",
+      "name": "Townsville"
+    },
+    {
+      "id": "37300",
+      "name": "Weipa"
+    },
+    {
+      "id": "37310",
+      "name": "Western Downs"
+    },
+    {
+      "id": "37340",
+      "name": "Whitsunday"
+    },
+    {
+      "id": "37400",
+      "name": "Winton"
+    },
+    {
+      "id": "37550",
+      "name": "Woorabinda"
+    }
+  ]
+}
