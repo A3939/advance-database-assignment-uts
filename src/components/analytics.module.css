@@ -19,9 +19,27 @@
 .title {
   gap: 16px;
 }
+.title > div {
+  display: flex;
+  flex-direction: column;
+}
+.eyebrow {
+  color: #1477b3;
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 1.5px;
+}
 .title h1 {
-  font-size: 30px;
-  letter-spacing: -1px;
+  margin-top: 3px;
+  color: #102b4b;
+  font-size: clamp(30px, 2.6vw, 43px);
+  line-height: 1.05;
+  letter-spacing: -1.3px;
+}
+.title p {
+  margin-top: 4px;
+  color: var(--text-secondary);
+  font-size: 13px;
 }
 .demo {
   display: flex;
@@ -94,44 +112,54 @@
 }
 .metrics {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  padding: 24px 0 28px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  padding: 24px 0 20px;
 }
 .metrics > div {
-  padding: 0 32px;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  border-right: 1px solid var(--border);
+  position: relative;
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  grid-template-rows: auto auto auto;
+  column-gap: 13px;
+  min-height: 112px;
+  padding: 17px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
 }
-.metrics > div:first-child {
-  padding-left: 0;
-}
-.metrics > div:last-child {
-  border: 0;
-}
-.metrics span {
+.metrics > div > span {
+  grid-column: 2;
   color: var(--text-secondary);
-  font-size: 13px;
+  font-size: 12px;
 }
-.metrics strong {
-  font-size: 34px;
-  font-weight: 600;
+.metrics > div > strong {
+  grid-column: 2;
+  font-size: clamp(24px, 2vw, 32px);
+  font-weight: 650;
   letter-spacing: -1px;
-  line-height: 1.4;
+  line-height: 1.2;
 }
-.metrics em {
-  font-size: 12px;
-  font-weight: 400;
+.metrics > div > small {
+  grid-column: 2;
+  font-size: 11px;
   color: var(--text-secondary);
+}
+.metricIcon {
+  grid-row: 1 / span 2;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  color: #147db9;
+  background: #e8f4fc;
   font-style: normal;
-  margin-left: 8px;
-  letter-spacing: 0;
 }
-.metrics small {
-  font-size: 12px;
-  color: var(--text-secondary);
-}
+.metricCoral { color: #d85959; background: #fff0ef; }
+.metricAmber { color: #b97424; background: #fff5e7; }
+.metricGreen { color: #338968; background: #eaf6f0; }
 .trendGrid,
 .patternGrid,
 .detailGrid {
@@ -146,7 +174,7 @@
   grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
 }
 .detailGrid {
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+  grid-template-columns: minmax(0, 1fr);
 }
 .card {
   background: var(--surface);
@@ -594,9 +622,7 @@
   .patternGrid {
     grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
   }
-  .detailGrid {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
-  }
+  .detailGrid { grid-template-columns: minmax(0, 1fr); }
   .cardHeading {
     padding: 20px 20px 12px;
     gap: 8px;
@@ -616,6 +642,7 @@
   }
 }
 @media (max-width: 1000px) {
+  .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .trendGrid {
     grid-template-columns: minmax(0, 1.8fr) minmax(245px, 1fr);
   }
@@ -631,7 +658,7 @@
     height: 270px;
   }
   .metrics > div {
-    padding-inline: 20px;
+    padding-inline: 17px;
   }
   .changeValue strong {
     font-size: 42px;
@@ -678,14 +705,12 @@
     gap: 8px;
   }
   .metrics {
-    gap: 20px 8px;
+    grid-template-columns: 1fr;
+    gap: 10px;
     padding-block: 24px;
   }
   .metrics > div {
-    padding: 0 10px;
-  }
-  .metrics > div:last-child {
-    padding-right: 0;
+    padding: 15px;
   }
   .metrics strong {
     font-size: 26px;
@@ -790,7 +815,7 @@
   color: var(--text-primary);
   border-color: var(--border-strong);
 }
-:global(.analytics-chart) {
+.page :global(.analytics-chart) {
   font-size: 12px;
 }
 

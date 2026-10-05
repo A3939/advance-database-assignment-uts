@@ -1,5 +1,5 @@
-import Overview from "@/components/overview";
+import { SpatialDashboard } from "@/components/report-dashboard";
 
 export default function MapPage() {
-  return <Overview view="map" />;
+  return <SpatialDashboard />;
 }

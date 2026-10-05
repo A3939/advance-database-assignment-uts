@@ -82,7 +82,7 @@ export function Workspace({ children }: { children: ReactNode }) {
         <a className="skip-link" href="#main">
           Skip to content
         </a>
-        <div className={`app-shell independent-shell${path === "/" || path === "/map" || path === "/severity" ? " is-dashboard" : ""}`}>
+        <div className={`app-shell independent-shell${path === "/" || path === "/analytics" || path === "/map" || path === "/severity" ? " is-dashboard" : ""}`}>
           <button className="mobile-menu-button" aria-label="Open navigation" aria-expanded={menuOpen} onClick={() => setMenuOpen(true)}>
             <Menu size={22} />
           </button>

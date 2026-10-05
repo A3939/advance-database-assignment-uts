@@ -1,5 +1,5 @@
-import Overview from "@/components/overview";
+import { SeverityDashboard } from "@/components/report-dashboard";
 
 export default function SeverityPage() {
-  return <Overview view="severity" />;
+  return <SeverityDashboard />;
 }

@@ -16,11 +16,15 @@ import {
   ArrowUpRight,
   ArrowUpDown,
   CalendarDays,
+  CarFront,
   ChevronLeft,
   ChevronRight,
   Download,
+  Heart,
   Info,
   RotateCcw,
+  TriangleAlert,
+  Users,
   X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -92,7 +96,6 @@ export default function Analytics() {
     "monthly",
   );
   const [metric, setMetric] = useState<MetricKey>("crashes");
-  const [severityMode, setSeverityMode] = useState<"count" | "share">("count");
   const [dateOpen, setDateOpen] = useState(false);
   const [draftFrom, setDraftFrom] = useState("");
   const [draftTo, setDraftTo] = useState("");
@@ -173,10 +176,6 @@ export default function Analytics() {
   const knownCrashCounts = monthly.flatMap((row) =>
     row.crashes === null ? [] : [row.crashes],
   );
-  const monthlyAverage = knownCrashCounts.length
-    ? knownCrashCounts.reduce((sum, value) => sum + value, 0) /
-      knownCrashCounts.length
-    : null;
   const maxCell = Math.max(...knownCrashCounts, 1);
   const minCell = Math.min(...knownCrashCounts, maxCell);
   const tableRows = useMemo(() => {
@@ -234,7 +233,7 @@ export default function Analytics() {
       demo: bundle.meta.demo,
       exportedAt: new Date().toISOString(),
       filters: actualFilters,
-      view: { metric, granularity, severityMode },
+      view: { metric, granularity },
       analysis: bundle,
       note: `${bundle.data.notes.join(" ")} Aggregate values only; no underlying crash records.`,
     };
@@ -320,9 +319,13 @@ export default function Analytics() {
     <div className={styles.page}>
       <div className={styles.heading}>
         <div className={styles.title}>
-          <h1>Analytics</h1>
+          <div>
+            <span className={styles.eyebrow}>REPORT 01 · D05</span>
+            <h1>Trend Analysis</h1>
+            <p>Track recorded crash outcomes over time using verified D05 aggregates.</p>
+          </div>
           <button className={styles.demo} onClick={methodology}>
-            {isDemo ? "Demo data" : "Published snapshot"} <Info size={13} />
+            {isDemo ? "Demo data" : "Official snapshot"} <Info size={13} />
           </button>
         </div>
         <div className={styles.actions}>
@@ -478,33 +481,28 @@ export default function Analytics() {
         <div aria-busy={loading}>
           <div className={styles.metrics} aria-label="Analysis summary">
             <div>
+              <i className={styles.metricIcon}><CarFront size={20} /></i>
               <span>Recorded crashes</span>
               <strong data-testid="analytics-total">{number(total)}</strong>
-              <small>
-                {actualFilters.source} · {dateLabel}
-              </small>
+              <small>{actualFilters.source} · source-defined events</small>
             </div>
             <div>
-              <span>Monthly average</span>
-              <strong>
-                {number(monthlyAverage, 1)}
-                <em>crashes</em>
-              </strong>
-              <small>
-                {knownCrashCounts.length || "—"} months with known counts
-              </small>
+              <i className={`${styles.metricIcon} ${styles.metricCoral}`}><TriangleAlert size={20} /></i>
+              <span>Fatal crashes</span>
+              <strong>{number(data?.overview.fatalCrashes.value)}</strong>
+              <small>{data?.summary.fatalShare == null ? "Known-status denominator" : `${(data.summary.fatalShare * 100).toFixed(2)}% of known crashes`}</small>
             </div>
             <div>
-              <span>Fatal crash share</span>
-              <strong>
-                {data?.summary.fatalShare == null
-                  ? "—"
-                  : `${(data.summary.fatalShare * 100).toFixed(2)}%`}
-              </strong>
-              <small>
-                {number(data?.overview.fatalCrashes.value)} fatal crashes ·
-                known status denominator
-              </small>
+              <i className={`${styles.metricIcon} ${styles.metricAmber}`}><Heart size={20} /></i>
+              <span>Lives lost</span>
+              <strong>{number(data?.overview.livesLost.value)}</strong>
+              <small>Recorded fatalities</small>
+            </div>
+            <div>
+              <i className={`${styles.metricIcon} ${styles.metricGreen}`}><Users size={20} /></i>
+              <span>Casualties</span>
+              <strong>{number(data?.overview.casualties.value)}</strong>
+              <small>{dateLabel}</small>
             </div>
           </div>
           {bundle && !bundle.meta.coverage.complete && (
@@ -518,7 +516,7 @@ export default function Analytics() {
             <article className={`${styles.card} ${styles.trendCard}`}>
               <div className={styles.cardHeading}>
                 <div>
-                  <h2>Trend over time</h2>
+                  <h2>Recorded crashes over time</h2>
                   <p>
                     {METRICS[metric]} ·{" "}
                     {metric === "livesLost" || metric === "casualties"
@@ -857,71 +855,11 @@ export default function Analytics() {
               </div>
             </article>
           </section>
-          <section
-            className={styles.detailGrid}
-            aria-label="Severity and analysis data"
-          >
-            <article className={styles.card}>
-              <div className={styles.cardHeading}>
-                <div>
-                  <h2>Severity profile</h2>
-                  <p>{actualFilters.source} crash classifications</p>
-                </div>
-                <div className={styles.segment} aria-label="Severity measure">
-                  {(["count", "share"] as const).map((mode) => (
-                    <button
-                      key={mode}
-                      aria-pressed={severityMode === mode}
-                      onClick={() => setSeverityMode(mode)}
-                      disabled={
-                        loading || data?.severityAvailability !== "available"
-                      }
-                    >
-                      {mode === "count" ? "Count" : "Share"}
-                    </button>
-                  ))}
-                </div>
-              </div>
-              <div className={styles.severityChart}>
-                {!loading && data?.severityAvailability !== "available" ? (
-                  <div className={styles.chartLoading} role="status">
-                    <p>
-                      {data?.severityReason ||
-                        "Severity distribution is unavailable for this selection."}
-                    </p>
-                  </div>
-                ) : (
-                  <Chart
-                    kind="severity"
-                    rows={[]}
-                    severity={data?.severity ?? []}
-                    mode={severityMode}
-                  />
-                )}
-              </div>
-              <div className={styles.cardFoot}>
-                <span>Source-specific categories</span>
-                <button
-                  onClick={() =>
-                    evidence(
-                      "Severity definitions & values",
-                      data?.severityReason ||
-                        "Severity counts classify crash events, not individual injuries. Shares use all selected crashes in this source. Categories are not equivalent across states.",
-                      data?.severity.map((row) => ({
-                        label: row.label,
-                        value: `${number(row.count)} crashes · ${row.share == null ? "—" : `${(row.share * 100).toFixed(2)}%`} · ${row.definition}`,
-                      })),
-                    )
-                  }
-                >
-                  Definitions <ArrowUpRight size={14} />
-                </button>
-              </div>
-            </article>
+          <section className={styles.detailGrid} aria-label="D05 analysis data">
             <article className={`${styles.card} ${styles.dataCard}`}>
               <div className={styles.cardHeading}>
                 <div>
-                  <h2>Analysis data</h2>
+                  <h2>D05 verified result table</h2>
                   <p>Aggregates behind the charts</p>
                 </div>
                 <div className={styles.segment} aria-label="Table interval">

@@ -1,9 +1,11 @@
-# ARSIA Dashboard 2.0
+# ARSIA Dashboard 3.0
 
-Preserved release of the application served locally at `http://127.0.0.1:3117`
-before the 3.0 report-page redesign.
+Dashboard 3.0, developed from the preserved ARSIA Dashboard 2.0 release.
 
-- Preserves the complete working source state used for Dashboard 2.0.
-- Excludes generated caches, test artifacts, and `node_modules`.
-- Published independently on the `version-2.0` branch.
+Design objective: retain the ARSIA shell and official snapshot while making
+Trend (D05), Severity (D06), and Spatial (D07) visually and analytically
+distinct report pages.
+
+- Published independently on the `version-3.0` branch.
+- The preserved 2.0 release remains available on `version-2.0`.
 

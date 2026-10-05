@@ -9,6 +9,7 @@ out/
 playwright-report/
 test-results/
 /artifacts/
+/_logs/
 public/vendor/
 
 .next-regions/
