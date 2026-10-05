@@ -5,13 +5,14 @@ import "@fontsource/inter/latin-600.css";
 import "@fontsource/inter/latin-700.css";
 import "maplibre-gl/dist/maplibre-gl.css";
 import "./globals.css";
+import "./independent.css";
 import { Workspace } from "@/components/workspace";
 import { ThemeProvider } from "@/components/theme-provider";
 import { THEME_INITIALIZATION_SCRIPT } from "@/lib/theme";
 export const metadata: Metadata = {
   title: "ARSIA — Road safety intelligence",
   description:
-    "ARSIA traffic crash analysis from a read-only project snapshot of NSW, VIC and QLD official source data, with source definitions and a simulated assistant.",
+    "Explore road crash trends, severity and local areas using a read-only project snapshot of NSW, VIC and QLD source data, with definitions and limitations alongside the results.",
 };
 export default function RootLayout({
   children,
@@ -19,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark" data-theme="dark" suppressHydrationWarning>
+    <html lang="en" className="light" data-theme="light" suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{ __html: THEME_INITIALIZATION_SCRIPT }}

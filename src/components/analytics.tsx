@@ -21,7 +21,6 @@ import {
   Download,
   Info,
   RotateCcw,
-  Sparkles,
   X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -82,7 +81,7 @@ const monthEnd = (month: string) =>
 const filterKey = (filters: Filters) => JSON.stringify(filters);
 
 export default function Analytics() {
-  const { filters, setFilters, showEvidence, askAI, notify } = useWorkspace();
+  const { filters, setFilters, showEvidence, notify } = useWorkspace();
   const actualFilters = useMemo(() => analyticsFilters(filters), [filters]);
   const [result, setResult] = useState<{ key: string; bundle: Bundle } | null>(
     null,
@@ -334,10 +333,6 @@ export default function Analytics() {
           >
             <Download size={16} />
             Export
-          </Button>
-          <Button className="ask-ai-button" onClick={askAI}>
-            <Sparkles size={17} />
-            Ask AI
           </Button>
         </div>
       </div>

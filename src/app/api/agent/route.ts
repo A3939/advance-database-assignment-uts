@@ -42,6 +42,12 @@ async function body(request: Request) {
   }
 }
 export async function POST(request: Request) {
+  // This independent preview never spends another account's AI quota.
+  if (process.env.ARSIA_AI_ENABLED !== "true")
+    return Response.json(
+      { error: "ARSIA Assistant is disabled in this edition." },
+      { status: 503, headers },
+    );
   if (!sameOrigin(request))
     return Response.json(
       { error: "Cross-origin requests are not allowed." },

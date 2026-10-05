@@ -9,17 +9,18 @@ import {
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  Sun,
-  Moon,
-  Settings2,
+  House,
+  ChartNoAxesCombined,
+  ChartBar,
+  MapPin,
+  ShieldCheck,
+  Menu,
   ArrowUpRight,
   FileText,
   Check,
   CircleHelp,
 } from "lucide-react";
-import { MotionConfig, motion } from "motion/react";
-import { Button } from "@/components/ui/button";
-import { useTheme } from "@/components/theme-provider";
+import { MotionConfig } from "motion/react";
 import {
   Dialog,
   DialogContent,
@@ -27,7 +28,6 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import { AgentPanel } from "./agent-panel";
 import { DEFAULT_FILTERS, IS_DEMO } from "@/services/config";
 import type { Filters, Evidence } from "@/services/contracts";
 interface EvidenceView {
@@ -42,7 +42,6 @@ interface EvidenceView {
 interface WorkspaceState {
   filters: Filters;
   setFilters: (f: Filters) => void;
-  askAI: () => void;
   showEvidence: (e: EvidenceView) => void;
   notify: (message: string) => void;
 }
@@ -53,19 +52,18 @@ export function useWorkspace() {
   return c;
 }
 const NAV = [
-  ["/", "Overview"],
-  ["/analytics", "Analytics"],
-  ["/data", "Data"],
-  ["/imports", "Imports"],
-  ["/reports", "Reports"],
+  { href: "/", label: "Overview", icon: House },
+  { href: "/analytics", label: "Trends", icon: ChartNoAxesCombined },
+  { href: "/severity", label: "Severity", icon: ChartBar },
+  { href: "/map", label: "Map", icon: MapPin },
+  { href: "/data", label: "Data & Quality", icon: ShieldCheck },
 ];
 export function Workspace({ children }: { children: ReactNode }) {
   const [filters, setFilters] = useState<Filters>(DEFAULT_FILTERS),
-    [agentOpen, setAgentOpen] = useState(false),
+    [menuOpen, setMenuOpen] = useState(false),
     [evidence, setEvidence] = useState<EvidenceView | null>(null),
     [notice, setNotice] = useState("");
   const path = usePathname();
-  const { theme, toggleTheme } = useTheme();
   useEffect(() => {
     if (!notice) return;
     const t = setTimeout(() => setNotice(""), 4500);
@@ -76,7 +74,6 @@ export function Workspace({ children }: { children: ReactNode }) {
       value={{
         filters,
         setFilters,
-        askAI: () => setAgentOpen(true),
         showEvidence: setEvidence,
         notify: setNotice,
       }}
@@ -85,121 +82,46 @@ export function Workspace({ children }: { children: ReactNode }) {
         <a className="skip-link" href="#main">
           Skip to content
         </a>
-        <div
-          className={`app-shell${path === "/" || path === "/explore" ? " is-dashboard" : ""}`}
-        >
-          <header className="topbar">
-            <Link className="brand" href="/" aria-label="ARSIA overview">
-              <span className="brand-symbol">
-                A<span />
-              </span>
-              <span>ARSIA</span>
+        <div className={`app-shell independent-shell${path === "/" || path === "/map" || path === "/severity" ? " is-dashboard" : ""}`}>
+          <button className="mobile-menu-button" aria-label="Open navigation" aria-expanded={menuOpen} onClick={() => setMenuOpen(true)}>
+            <Menu size={22} />
+          </button>
+          {menuOpen && <button className="mobile-nav-shade" aria-label="Close navigation" onClick={() => setMenuOpen(false)} />}
+          <aside className={`topbar product-sidebar${menuOpen ? " is-open" : ""}`}>
+            <Link className="brand" href="/" aria-label="ARSIA overview" onClick={() => setMenuOpen(false)}>
+              <strong>ARSIA</strong>
+              <small>Road Safety Intelligence</small>
             </Link>
             <nav className="navigation" aria-label="Main navigation">
-              {NAV.map(([href, label]) => (
+              {NAV.map(({ href, label, icon: Icon }) => (
                 <Link
                   key={href}
                   href={href}
                   className={path === href ? "nav-item active" : "nav-item"}
                   aria-current={path === href ? "page" : undefined}
+                  onClick={() => setMenuOpen(false)}
                 >
-                  {path === href && (
-                    <motion.span
-                      className="nav-active"
-                      layoutId="nav-indicator"
-                      transition={{ duration: 0.2 }}
-                    />
-                  )}
+                  <Icon size={19} aria-hidden="true" />
                   <span>{label}</span>
                 </Link>
               ))}
             </nav>
-            <div className="header-actions">
-              <Button
-                variant="ghost"
-                className="icon-button"
-                aria-label="Settings"
-                onClick={() =>
-                  setEvidence({
-                    title: "Workspace settings",
-                    description: `This local workspace uses the ${theme} theme and English interface. Use the sun or moon button in the header to switch themes. System reduced-motion preferences are respected automatically.`,
-                    rows: [
-                      {
-                        label: "Appearance",
-                        value: theme === "dark" ? "Dark theme" : "Light theme",
-                      },
-                      {
-                        label: "Data provider",
-                        value: IS_DEMO
-                          ? "Demo fixtures"
-                          : "Project snapshot · official source data · read-only, not live",
-                      },
-                      { label: "Snapshot batch", value: filters.batchId },
-                      {
-                        label: "Accounts & preferences",
-                        value: "Not connected in this preview",
-                      },
-                      { label: "Font", value: "Inter, served locally" },
-                    ],
-                  })
-                }
-              >
-                <Settings2 />
-              </Button>
-              <Button
-                variant="ghost"
-                className="icon-button theme-toggle"
-                aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
-                title={`${theme === "dark" ? "Dark" : "Light"} theme · Switch to ${theme === "dark" ? "light" : "dark"} theme`}
-                onClick={toggleTheme}
-              >
-                {theme === "dark" ? (
-                  <Sun aria-hidden="true" />
-                ) : (
-                  <Moon aria-hidden="true" />
-                )}
-              </Button>
-              <Button
-                variant="outline"
-                className="avatar"
-                aria-label="Profile"
-                onClick={() =>
-                  setEvidence({
-                    title: "Local workspace profile",
-                    description:
-                      "You are exploring ARSIA in a local workspace. Sign-in, teams and account management are not connected.",
-                    rows: [
-                      {
-                        label: "Workspace",
-                        value: "Peixian · ARSIA",
-                      },
-                    ],
-                  })
-                }
-              >
-                P
-              </Button>
+            <div className="sidebar-footnote">
+              <span aria-hidden="true" />
+              Evidence for safer roads
             </div>
-          </header>
-          <main id="main">{children}</main>
+          </aside>
+          <div className="product-content">
+            <header className="product-header">
+              <div>
+                <strong>Australian Road Crash Analytics</strong>
+                <span>Evidence for safer roads</span>
+              </div>
+              <p>NSW · VIC · QLD <span>Project snapshot · 2020–2024</span></p>
+            </header>
+            <main id="main">{children}</main>
+          </div>
         </div>
-        <AgentPanel
-          key={[
-            path,
-            filters.source,
-            filters.regionId || "",
-            filters.dateRange.from,
-            filters.dateRange.to,
-            filters.datasetVersion,
-            filters.batchId,
-          ].join("|")}
-          open={agentOpen}
-          setOpen={(open) => {
-            // Evidence is the top interaction layer; dismiss it before its parent drawer.
-            if (!open && evidence) setEvidence(null);
-            else setAgentOpen(open);
-          }}
-        />
         <Dialog
           open={!!evidence}
           onOpenChange={(open) => {

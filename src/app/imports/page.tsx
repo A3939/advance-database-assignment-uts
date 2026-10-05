@@ -1,4 +1,5 @@
-import { ImportsPage } from "@/components/secondary-pages";
+import { redirect } from "next/navigation";
+
 export default function Page() {
-  return <ImportsPage />;
+  redirect("/data");
 }

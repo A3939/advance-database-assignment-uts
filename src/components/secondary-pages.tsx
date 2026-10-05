@@ -51,16 +51,13 @@ export function DataPage() {
     <div className="secondary-page">
       <div className="page-heading">
         <div>
-          <span className="eyebrow">YOUR DATA WORKSPACE</span>
+          <span className="eyebrow">DATA &amp; QUALITY</span>
           <h1>Know what you’re exploring.</h1>
           <p className="page-subtitle">
             Three independent sources. Clear definitions. No hidden assumptions.
           </p>
         </div>
-        <Link className="button-link primary" href="/imports">
-          <UploadCloud size={17} />
-          Import data
-        </Link>
+        <span className="pill">Read-only project snapshot</span>
       </div>
       {error && (
         <div className="error-banner" role="alert">

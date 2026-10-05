@@ -80,9 +80,9 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     if (!initialized) {
       try {
         activeTheme =
-          localStorage.getItem(THEME_STORAGE_KEY) === "light"
-            ? "light"
-            : "dark";
+          localStorage.getItem(THEME_STORAGE_KEY) === "dark"
+            ? "dark"
+            : "light";
       } catch {
         activeTheme = DEFAULT_THEME;
       }

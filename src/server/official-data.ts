@@ -17,6 +17,7 @@ import type {
 } from "../services/contracts";
 import regionCatalog from "../services/region-catalog.json";
 import { DEFAULT_FILTERS, selectSource } from "../services/config";
+import { canonicalSnapshotBytes, canonicalSnapshotText } from "./snapshot-bytes";
 
 interface Observation {
   batch_id: string;
@@ -200,11 +201,13 @@ export function decodeOfficialSnapshot(
   bytes: Buffer,
   text: string,
 ): OfficialSnapshot {
-  if (createHash("sha256").update(bytes).digest("hex") !== SNAPSHOT_SHA)
+  const canonicalBytes = canonicalSnapshotBytes(bytes);
+  const canonicalText = canonicalSnapshotText(text);
+  if (createHash("sha256").update(canonicalBytes).digest("hex") !== SNAPSHOT_SHA)
     throw Error("Official snapshot integrity check failed.");
-  if (createHash("sha256").update(text).digest("hex") !== PROVENANCE_SHA)
+  if (createHash("sha256").update(canonicalText).digest("hex") !== PROVENANCE_SHA)
     throw Error("Official snapshot provenance integrity check failed.");
-  const provenance = JSON.parse(text) as OfficialSnapshot["provenance"];
+  const provenance = JSON.parse(canonicalText) as OfficialSnapshot["provenance"];
   if (
     provenance.batchId !== DEFAULT_FILTERS.batchId ||
     provenance.version !== DEFAULT_FILTERS.datasetVersion ||
@@ -212,7 +215,7 @@ export function decodeOfficialSnapshot(
     provenance.evidenceHashes["reader-results.json"] !== SNAPSHOT_SHA
   )
     throw Error("Official snapshot provenance mismatch.");
-  return { reports: JSON.parse(bytes.toString("utf8")), provenance };
+  return { reports: JSON.parse(canonicalBytes.toString("utf8")), provenance };
 }
 let pending: Promise<OfficialSnapshot> | undefined;
 export function loadOfficialSnapshot(): Promise<OfficialSnapshot> {

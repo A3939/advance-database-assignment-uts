@@ -4,6 +4,7 @@ import { createHash } from "node:crypto";
 import { join } from "node:path";
 import type { Filters, MapRegion, Overview, Provenance, Source, TimePoint } from "../services/contracts";
 import type { OfficialReadService } from "./official-data";
+import { canonicalSnapshotBytes } from "./snapshot-bytes";
 
 type Counts = [number, number | null, number | null, number | null];
 type Row = [string, string, ...Counts, number[]];
@@ -22,8 +23,9 @@ const SHA = "93a1a8cdb889c17bee7e144ed49e9439d1a0d8cc8904fa43cec1a4fc45e1ad36";
 let pending: Promise<RegionSnapshot> | undefined;
 export function loadRegionSnapshot() {
   return pending ??= readFile(join(process.cwd(), "data/regions/aggregates.json")).then(bytes => {
-    if (createHash("sha256").update(bytes).digest("hex") !== SHA) throw Error("Regional snapshot integrity failure.");
-    return JSON.parse(bytes.toString()) as RegionSnapshot;
+    const canonicalBytes = canonicalSnapshotBytes(bytes);
+    if (createHash("sha256").update(canonicalBytes).digest("hex") !== SHA) throw Error("Regional snapshot integrity failure.");
+    return JSON.parse(canonicalBytes.toString()) as RegionSnapshot;
   }).catch(error => { pending = undefined; throw error; });
 }
 export async function regionEvidence() {

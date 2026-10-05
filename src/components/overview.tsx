@@ -10,9 +10,8 @@ import {
   Users,
   Info,
   Download,
-  Sparkles,
   ArrowUpRight,
-  ChartNoAxesCombined,
+  Table2,
   Loader2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -60,8 +59,8 @@ interface Bundle {
 }
 const format = (n: number | null | undefined) =>
   n == null ? "—" : n.toLocaleString("en-AU");
-export default function Overview({ explore = false }: { explore?: boolean }) {
-  const { filters, setFilters, askAI, showEvidence, notify } = useWorkspace();
+export default function Overview({ view = "overview" }: { view?: "overview" | "map" | "severity" }) {
+  const { filters, setFilters, showEvidence, notify } = useWorkspace();
   const [granularity, setGranularity] = useState<Granularity>("yearly"),
     [bundle, setBundle] = useState<Bundle | null>(null),
     [loading, setLoading] = useState(true),
@@ -208,7 +207,7 @@ export default function Overview({ explore = false }: { explore?: boolean }) {
   }
   return (
     <div
-      className={`overview ${filters.source === "All" ? "all-sources" : ""}`}
+      className={`overview focus-${view} ${filters.source === "All" ? "all-sources" : ""}`}
     >
       <section
         className="page-heading overview-toolbar"
@@ -216,7 +215,7 @@ export default function Overview({ explore = false }: { explore?: boolean }) {
       >
         <div className="heading-title">
           <div className="title-line">
-            <h1 className="sr-only">{explore ? "Explore" : "Overview"}</h1>
+            <h1 className="sr-only">{view === "map" ? "Crash Map" : view === "severity" ? "Crash Severity" : "Overview"}</h1>
             <Popover
               open={dateOpen}
               onOpenChange={(open) => {
@@ -317,12 +316,14 @@ export default function Overview({ explore = false }: { explore?: boolean }) {
             <Download size={17} />
             {exporting ? "Exporting…" : "Export"}
           </Button>
-          <Button className="ask-ai-button" onClick={askAI}>
-            <Sparkles size={18} />
-            Ask AI
-          </Button>
         </div>
       </section>
+      {view !== "overview" && (
+        <div className="section-intro">
+          <h2>{view === "map" ? "Explore crash locations" : "Understand crash severity"}</h2>
+          <p>{view === "map" ? "Select a state or local government area to inspect recorded crashes. Counts are not risk rates or precise crash points." : "Review each source’s own severity categories and definitions. Categories are not assumed to be equivalent across states."}</p>
+        </div>
+      )}
       {error && (
         <div className="error-banner" role="alert">
           {error}
@@ -455,6 +456,10 @@ export default function Overview({ explore = false }: { explore?: boolean }) {
             className="spatial-panel seamless-map"
             aria-label="Crash map"
           >
+            <div className="map-panel-heading">
+              <h2>Crash locations</h2>
+              <p>{filters.source === "All" ? "Source coverage by state · not incident points" : "Recorded crashes by local government area"}</p>
+            </div>
             {bundle ? (
               <SpatialMap
                 onShowEvidence={() =>
@@ -549,11 +554,11 @@ export default function Overview({ explore = false }: { explore?: boolean }) {
                   </div>
                   <button
                     className="compare-button"
-                    aria-label="Compare periods"
+                    aria-label="View trend values and evidence"
                     onClick={showTrend}
                   >
-                    <ChartNoAxesCombined size={16} />
-                    <span>Compare periods</span>
+                    <Table2 size={16} />
+                    <span>View values</span>
                   </button>
                 </div>
               </div>
@@ -642,6 +647,13 @@ export default function Overview({ explore = false }: { explore?: boolean }) {
             </article>
           </div>
         </section>
+        <aside className="snapshot-strip" aria-label="Data status">
+          <strong>Data &amp; quality</strong>
+          <span>NSW · VIC · QLD</span>
+          <span>Project snapshot · 2020–2024</span>
+          <span>Source definitions differ</span>
+          <button onClick={() => showEvidence({ title: "Data basis", description: bundle?.overview.meta.definition || "Read-only project snapshot of official source data.", evidence: bundle?.overview.meta.evidence, rows: [{ label: "Batch", value: bundle?.overview.meta.batchId || filters.batchId }, { label: "Coverage", value: dateLabel }, { label: "Comparison", value: "State sources retain their own definitions; no national total or risk ranking is implied." }] })}>View evidence <ArrowUpRight size={14} /></button>
+        </aside>
       </div>
     </div>
   );
