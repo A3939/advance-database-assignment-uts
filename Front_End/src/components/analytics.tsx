@@ -15,6 +15,11 @@ import {
   type KeyboardEvent,
 } from "react";
 import dynamic from "next/dynamic";
+import Link from "next/link";
+import AnalyticsSeverity from "./analytics-severity";
+import AnalyticsSpatial from "./analytics-spatial";
+import { arsia } from "@/services";
+import { monthlyInsights } from "@/services/analytics-insights";
 import {
   ArrowDownRight,
   ArrowUpRight,
@@ -37,7 +42,7 @@ import {
 import { useWorkspace } from "@/components/workspace";
 import { analyticsFilters, getAnalytics } from "@/services/analytics";
 import { IS_DEMO, selectSource } from "@/services/config";
-import type { Filters, TimePoint } from "@/services/contracts";
+import type { Filters, TimePoint, MapData, Response } from "@/services/contracts";
 import styles from "./analytics.module.css";
 
 const Chart = dynamic(() => import("@/components/analytics-chart"), {
@@ -84,10 +89,10 @@ const monthEnd = (month: string) =>
     .slice(0, 10);
 const filterKey = (filters: Filters) => JSON.stringify(filters);
 
-export default function Analytics() {
-  const { filters, catalog, setFilters, showEvidence, askAI, notify, view, setView } = useWorkspace();
+export default function Analytics({ dashboard = "trends" }: { dashboard?: "trends" | "severity" | "spatial" }) {
+  const { filters, catalog, setFilters, showEvidence, askAI, notify, view, setView, analysisHref } = useWorkspace();
   const actualFilters = useMemo(() => analyticsFilters(filters, catalog.sources[0]?.source), [filters,catalog.sources]);
-  const [result, setResult] = useState<{ key: string; bundle: Bundle } | null>(
+  const [result, setResult] = useState<{ key: string; bundle: Bundle; map: Response<MapData> | null } | null>(
     null,
   );
   const [error, setError] = useState("");
@@ -96,7 +101,6 @@ export default function Analytics() {
   const setMetric = (metric: MetricKey) => setView({ ...view, metric });
   const setGranularity = (granularity: "monthly" | "yearly") => setView({ ...view, granularity });
   const [focusedCell, setFocusedCell] = useState(0);
-  const [severityMode, setSeverityMode] = useState<"count" | "share">("count");
   const [dateOpen, setDateOpen] = useState(false);
   const [draftFrom, setDraftFrom] = useState("");
   const [draftTo, setDraftTo] = useState("");
@@ -113,7 +117,7 @@ export default function Analytics() {
   }>({ key: "period", ascending: false });
   const [page, setPage] = useState(1);
   const heatmap = useRef<HTMLDivElement>(null);
-  const key = filterKey(actualFilters);
+  const key = `${dashboard}:${filterKey(actualFilters)}`;
   const loading = result?.key !== key;
   // Never display an old source underneath new filters while a provider resolves.
   const bundle = result?.key === key ? result.bundle : null;
@@ -126,10 +130,10 @@ export default function Analytics() {
   useEffect(() => {
     let active = true;
     const controller = new AbortController();
-    getAnalytics(actualFilters, undefined, controller.signal)
-      .then((bundle) => {
+    Promise.all([getAnalytics(actualFilters, undefined, controller.signal), dashboard === "spatial" ? arsia.getMapData(actualFilters, controller.signal) : Promise.resolve(null)])
+      .then(([bundle, map]) => {
         if (!active) return;
-        setResult({ key: filterKey(actualFilters), bundle });
+        setResult({ key, bundle, map });
         setError("");
         if (filters.source === "All") setFilters(actualFilters);
       })
@@ -140,7 +144,7 @@ export default function Analytics() {
     return () => {
       active = false; controller.abort();
     };
-  }, [actualFilters, filters.source, retry, setFilters]);
+  }, [actualFilters, filters.source, retry, setFilters, dashboard, key]);
 
   const monthly: TimePoint[] = useMemo(
     () =>
@@ -177,14 +181,10 @@ export default function Analytics() {
   const latest = data?.yearly.at(-1);
   const comparison = latest?.comparisons[metric];
   const singleMonth = data?.monthly.length === 1;
-  const total = data?.summary.total;
-  const knownCrashCounts = monthly.flatMap((row) =>
-    row.crashes === null ? [] : [row.crashes],
-  );
-  const monthlyAverage = knownCrashCounts.length
-    ? knownCrashCounts.reduce((sum, value) => sum + value, 0) /
-      knownCrashCounts.length
-    : null;
+  const total = data?.overview[metric].value;
+  const insights = monthlyInsights(monthly, metric);
+  const knownCrashCounts = monthly.flatMap(row => row[metric] === null ? [] : [row[metric]!]);
+  const monthlyAverage = insights.average;
   const maxCell = Math.max(...knownCrashCounts, 1);
   const minCell = Math.min(...knownCrashCounts, maxCell);
   const tableRows = useMemo(() => {
@@ -241,7 +241,8 @@ export default function Analytics() {
       demo: bundle.meta.demo,
       exportedAt: new Date().toISOString(),
       filters: actualFilters,
-      view: { metric, granularity, severityMode },
+      view: { metric, granularity, dashboard },
+      spatial: result?.map ?? undefined,
       analysis: bundle,
       note: `${bundle.data.notes.join(" ")} Aggregate values only; no underlying crash records.`,
     };
@@ -278,7 +279,11 @@ export default function Analytics() {
   }
   return (
     <div className={styles.page}>
-      <h1 className="sr-only">Analytics</h1>
+      <nav className={styles.dashboardNav} aria-label="Analytics dashboards">
+        <strong>Analytics</strong>
+        {([['trends', '/analytics', 'Trends'], ['severity', '/analytics/severity', 'Severity'], ['spatial', '/analytics/spatial', 'Spatial']] as const).map(([id, path, label]) => <Link key={id} href={analysisHref(path)} aria-current={dashboard === id ? "page" : undefined}>{label}</Link>)}
+        <span>Project snapshot · 2020–2024</span>
+      </nav>
       <div className={styles.toolbar} aria-label="Analytics filters">
         <div className={styles.filters}>
           <div className={styles.sourceGroup} aria-label="Analysis source">
@@ -293,6 +298,7 @@ export default function Analytics() {
               </button>
             ))}
           </div>
+          <label className={styles.areaFilter}><span className={styles.filterLabel}>Area</span><select aria-label="Analysis area" value={actualFilters.regionId || ""} onChange={e => changeFilters({...actualFilters, regionId:e.target.value || undefined})}><option value="">All LGAs</option>{regionsForSource(actualFilters.source).map(region => <option key={region.id} value={region.id}>{region.name}</option>)}</select></label>
           {actualFilters.regionId && <button className="region-filter-chip" onClick={() => changeFilters({ ...actualFilters, regionId: undefined })} aria-label="Clear LGA filter">
             {regionsForSource(actualFilters.source).find(r => r.id === actualFilters.regionId)?.name} LGA ×
           </button>}
@@ -394,6 +400,7 @@ export default function Analytics() {
           </Button>
         </div>
       </div>
+      <div className={styles.pageHeading}><div><span className={styles.eyebrow}>ANALYTICS / {dashboard === "trends" ? "01" : dashboard === "severity" ? "02" : "03"}</span><h1>{dashboard === "trends" ? "Trends over time" : dashboard === "severity" ? "Severity & outcomes" : "Spatial distribution"}</h1><p>{dashboard === "trends" ? "Understand when recorded crashes change and how monthly patterns compare." : dashboard === "severity" ? "Understand the composition and consequences of recorded crashes." : "Explore where crashes are recorded and how they are distributed across areas."}</p></div><span>{actualFilters.source} · {dateLabel}</span></div>
       {error ? (
         <div className={styles.empty} role="alert">
           <h2>Analysis unavailable</h2>
@@ -421,12 +428,12 @@ export default function Analytics() {
             Reset dates
           </Button>
         </div>
-      ) : (
+      ) : dashboard === "severity" ? (data ? <AnalyticsSeverity key={key} data={data} evidence={evidence} resetDates={resetDates}/> : <div className={styles.empty} role="status">Loading severity analysis…</div>) : dashboard === "spatial" ? (data && result?.key === key && result.map ? <AnalyticsSpatial key={key} data={result.map.data} filters={actualFilters} evidence={evidence} onSelect={id => changeFilters({...actualFilters, regionId:id || undefined})} onSourceSelect={source => changeFilters(selectSource(actualFilters, source))}/> : <div className={styles.empty} role="status">Loading spatial analysis…</div>) : (
         <div aria-busy={loading}>
           <div className={styles.firstScreen}>
             <div className={styles.metrics} aria-label="Analysis summary">
               <div>
-                <span>Recorded crashes</span>
+                <span>{METRICS[metric]}</span>
                 <strong data-testid="analytics-total">{number(total)}</strong>
                 <small>
                   {actualFilters.source} · {dateLabel}
@@ -436,24 +443,14 @@ export default function Analytics() {
                 <span>Monthly average</span>
                 <strong>
                   {number(monthlyAverage, 1)}
-                  <em>crashes</em>
+                  <em>{metric === "livesLost" || metric === "casualties" ? "people" : "events"}</em>
                 </strong>
                 <small>
                   {knownCrashCounts.length || "—"} months with known counts
                 </small>
               </div>
-              <div>
-                <span>Fatal crash share</span>
-                <strong>
-                  {data?.summary.fatalShare == null
-                    ? "—"
-                    : `${(data.summary.fatalShare * 100).toFixed(2)}%`}
-                </strong>
-                <small>
-                  {number(data?.overview.fatalCrashes.value)} fatal crashes ·
-                  known status denominator
-                </small>
-              </div>
+              <div><span>Latest year-on-year change</span><strong>{percentage(comparison?.yoyPct)}</strong><small>{latest ? `${latest.year} vs ${latest.previousYear} · matching months` : "Matching periods required"}</small></div>
+              <div><span>Peak month</span><strong className={styles.peakValue}>{insights.peak ? monthLabel(insights.peak.period) : "—"}</strong><small>{number(insights.peak?.[metric])} {METRICS[metric].toLowerCase()}</small></div>
             </div>
             {bundle && !bundle.meta.coverage.complete && (
               <div className={styles.coverageNote}>
@@ -634,7 +631,7 @@ export default function Analytics() {
               <div className={styles.cardHeading}>
                 <div>
                   <h2>Monthly distribution</h2>
-                  <p>Crashes by year and month · summary and patterns use crashes</p>
+                  <p>{METRICS[metric]} by year and month</p>
                 </div>
                 <span className={styles.quietLabel}>
                   Arrow keys to move · Enter to inspect
@@ -643,7 +640,7 @@ export default function Analytics() {
               <div className={styles.heatmapScroll} ref={heatmap}>
                 <table className={styles.heatmap}>
                   <caption className="sr-only">
-                    {isDemo ? "Synthetic" : "Published"} crash counts. Arrow
+                    {isDemo ? "Synthetic" : "Published"} {METRICS[metric].toLowerCase()} counts. Arrow
                     keys move between months; Enter inspects a month.
                   </caption>
                   <thead>
@@ -663,8 +660,8 @@ export default function Analytics() {
                           const row = data?.monthly.find(
                             (r) => r.period === period,
                           );
-                          const value = row?.crashes;
-                          const status = !row ? "Not in selected period" : row.availability === "no_results" ? "No coverage" : row.availability === "unsupported" ? "Unsupported" : value == null ? "Unknown count" : `${number(value)} ${isDemo ? "demo " : ""}crashes`;
+                          const value = row?.[metric];
+                          const status = !row ? "Not in selected period" : row.availability === "no_results" ? "No coverage" : row.availability === "unsupported" ? "Unsupported" : value == null ? "Unknown count" : `${number(value)} ${isDemo ? "demo " : ""}${METRICS[metric].toLowerCase()}`;
                           const cellStatus = !row ? "outside" : row.availability === "no_results" ? "no-coverage" : row.availability === "unsupported" ? "unsupported" : value == null ? "unknown" : value === 0 ? "zero" : "known";
                           const visibleValue = cellStatus === "outside" ? "Out" : cellStatus === "no-coverage" ? "N/C" : cellStatus === "unsupported" ? "N/S" : cellStatus === "unknown" ? "?" : number(value);
                           const intensity =
@@ -715,7 +712,7 @@ export default function Analytics() {
                 <span>
                   {isDemo
                     ? "Synthetic monthly allocation"
-                    : "Recorded monthly crashes"}
+                    : `Recorded monthly ${METRICS[metric].toLowerCase()}`}
                 </span>
                 <div>
                   <span>Fewer</span>
@@ -782,7 +779,7 @@ export default function Analytics() {
               <div className={styles.cardHeading}>
                 <div>
                   <h2>Typical month</h2>
-                  <p>Average crashes by calendar month</p>
+                  <p>Average {METRICS[metric].toLowerCase()} by calendar month</p>
                 </div>
                 <button
                   className={styles.info}
@@ -792,10 +789,10 @@ export default function Analytics() {
                       "Calendar-month averages",
                       isDemo
                         ? "Each mean uses observed instances of that month within the selection. Missing months are excluded. The repeated shape is a property of fixed synthetic weights, not real seasonality."
-                        : "Each mean uses months with known crash counts within the selection. Missing and unknown months are excluded. This descriptive average does not establish seasonality or explain why crashes occurred.",
-                      data?.calendarMonths.map((row) => ({
-                        label: row.label,
-                        value: `${number(row.average, 1)} crashes · ${row.observedMonths} observed months`,
+                        : "Each mean uses months with known counts for the selected metric. Missing and unknown months are excluded. This descriptive average does not establish seasonality or explain causation.",
+                      insights.calendar.map((row) => ({
+                        label: MONTHS[row.month - 1],
+                        value: `${number(row.average, 1)} ${METRICS[metric].toLowerCase()} · ${row.observed} observed months`,
                       })),
                     )
                   }
@@ -804,7 +801,7 @@ export default function Analytics() {
                 </button>
               </div>
               <div className={styles.patternChart}>
-                <Chart kind="seasonality" rows={monthly} />
+                <Chart kind="seasonality" rows={monthly} metric={metric} />
               </div>
               <div className={styles.cardFoot}>
                 <span>
@@ -815,68 +812,7 @@ export default function Analytics() {
               </div>
             </article>
           </section>}
-          <section
-            className={styles.detailGrid}
-            aria-label="Severity and analysis data"
-          >
-            <article className={styles.card}>
-              <div className={styles.cardHeading}>
-                <div>
-                  <h2>Severity profile</h2>
-                  <p>{actualFilters.source} crash classifications</p>
-                </div>
-                <div className={styles.segment} aria-label="Severity measure">
-                  {(["count", "share"] as const).map((mode) => (
-                    <button
-                      key={mode}
-                      aria-pressed={severityMode === mode}
-                      onClick={() => setSeverityMode(mode)}
-                      disabled={
-                        loading || data?.severityAvailability !== "available"
-                      }
-                    >
-                      {mode === "count" ? "Count" : "Share"}
-                    </button>
-                  ))}
-                </div>
-              </div>
-              <div className={styles.severityChart} data-mode={severityMode}>
-                {!loading && data?.severityAvailability !== "available" ? (
-                  <div className={styles.chartLoading} role="status">
-                    <p>
-                      {data?.severityReason ||
-                        "Severity distribution is unavailable for this selection."}
-                    </p>
-                    {data?.severityAvailability === "unsupported" && <Button variant="outline" onClick={resetDates}>Use full-period selection</Button>}
-                  </div>
-                ) : (
-                  <Chart
-                    kind="severity"
-                    rows={[]}
-                    severity={data?.severity ?? []}
-                    mode={severityMode}
-                  />
-                )}
-              </div>
-              <div className={styles.cardFoot}>
-                <span>Source-specific categories</span>
-                <button
-                  onClick={() =>
-                    evidence(
-                      "Severity definitions & values",
-                      data?.severityReason ||
-                        "Severity counts classify crash events, not individual injuries. Shares use all selected crashes in this source. Categories are not equivalent across states.",
-                      data?.severity.map((row) => ({
-                        label: row.label,
-                        value: `${number(row.count)} crashes · ${row.share == null ? "—" : `${(row.share * 100).toFixed(2)}%`} · ${row.definition}`,
-                      })),
-                    )
-                  }
-                >
-                  Definitions <ArrowUpRight size={14} />
-                </button>
-              </div>
-            </article>
+          <section className={styles.fullWidthData} aria-label="Trend data">
             <article className={`${styles.card} ${styles.dataCard}`}>
               <div className={styles.cardHeading}>
                 <div>

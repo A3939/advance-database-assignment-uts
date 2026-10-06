@@ -139,10 +139,10 @@ export function Workspace({ children }: { children: ReactNode }) {
                 <Link
                   key={target}
                   href={href(target)}
-                  className={path === target ? "nav-item active" : "nav-item"}
-                  aria-current={path === target ? "page" : undefined}
+                  className={(path === target || (target === "/analytics" && path.startsWith("/analytics/"))) ? "nav-item active" : "nav-item"}
+                  aria-current={(path === target || (target === "/analytics" && path.startsWith("/analytics/"))) ? "page" : undefined}
                 >
-                  {path === target && (
+                  {(path === target || (target === "/analytics" && path.startsWith("/analytics/"))) && (
                     <motion.span
                       className="nav-active"
                       layoutId="nav-indicator"

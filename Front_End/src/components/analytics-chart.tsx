@@ -353,7 +353,7 @@ export default function AnalyticsChart({
       const pieWidth = stacked ? size.width : Math.max(80, size.width - nameWidth - 58);
       const radius = Math.max(20, Math.min(pieWidth / 2 - 16, pieHeight / 2 - 12));
       const sliceColor = (label: string) =>
-        /fatal/i.test(label) ? token("--coral")
+        /^fatal\b/i.test(label) ? token("--coral")
         : /serious|hospitalisation/i.test(label) ? token("--severity-serious")
         : /moderate|medical/i.test(label) ? token("--severity-moderate")
         : /non-casualty|non-injury|towaway/i.test(label) ? token("--severity-non-injury")
@@ -466,9 +466,11 @@ export default function AnalyticsChart({
             data: severityData.map((row) => ({
               value: validValue(row.count) ? row.count : null,
               itemStyle: {
-                color: /^(fatal|serious|hospitalisation)/i.test(row.label)
-                  ? token("--coral")
-                  : token("--chart-neutral"),
+                color: /^fatal/i.test(row.label) ? token("--coral")
+                  : /serious|hospitalisation/i.test(row.label) ? token("--severity-serious")
+                  : /moderate|medical/i.test(row.label) ? token("--severity-moderate")
+                  : /non-casualty|non-injury|towaway/i.test(row.label) ? token("--severity-non-injury")
+                  : token("--severity-other"),
                 borderRadius: [0, 3, 3, 0],
               },
             })),

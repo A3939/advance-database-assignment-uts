@@ -4,6 +4,116 @@
   --analysis-control-height: 40px;
   --analysis-toolbar-height: calc(var(--analysis-control-height) + var(--space-3) + 1px);
 }
+
+/* Three independent dashboards share the existing ARSIA theme tokens. */
+.dashboardNav { display:flex; align-items:center; gap:8px; border-bottom:1px solid var(--border); margin-bottom:18px; }
+.dashboardNav strong { font-size:16px; margin-right:22px; }
+.dashboardNav a { padding:15px 20px; color:var(--text-secondary); border-bottom:2px solid transparent; font-size:13px; }
+.dashboardNav a[aria-current="page"] { color:var(--accent-text); border-color:var(--accent-text); font-weight:600; }
+.dashboardNav a:hover { background:var(--surface); color:var(--text-primary); }
+.dashboardNav > span { margin-left:auto; color:var(--text-secondary); font-size:11px; }
+.pageHeading { display:flex; align-items:flex-end; justify-content:space-between; gap:20px; margin:26px 0 0; }
+.pageHeading h1 { font-size:30px; letter-spacing:-1px; line-height:1.3; font-weight:600; margin:6px 0; }
+.pageHeading p { font-size:13px; max-width:760px; }
+.pageHeading > span { color:var(--text-secondary); font-size:12px; padding-bottom:3px; white-space:nowrap; }
+.eyebrow { color:var(--accent-text); font-size:10px; letter-spacing:1.8px; }
+.areaFilter { display:flex; align-items:center; }
+.areaFilter select, .tableControls select, .definitionBox select { border:1px solid var(--border); background:var(--surface); color:var(--text-primary); border-radius:7px; padding:9px 12px; font-size:12px; max-width:220px; min-width:0; }
+.page .metrics { grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; padding:22px 0; }
+.page .metrics > div { position:relative; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:18px 22px; gap:6px; min-width:0; }
+.page .metrics strong { font-size:30px; line-height:1.25; font-variant-numeric:tabular-nums; }
+.page .metrics span { padding-right:24px; }
+.page .metrics small { font-size:11px; line-height:1.5; }
+.page .metrics .peakValue, .page .metrics .areaName { font-size:25px; overflow-wrap:anywhere; }
+.coralIcon { position:absolute; right:18px; top:18px; color:var(--coral); }
+.page .firstScreen { height:auto; display:block; margin-bottom:var(--analysis-gap); }
+.page .trendGrid { margin-bottom:0; }
+.page .trendGrid .trendChart { height:285px; flex:none; }
+.fullWidthData { margin-top:var(--analysis-gap); }
+.severityGrid, .balancedGrid, .spatialGrid { display:grid; gap:var(--analysis-gap); margin-bottom:var(--analysis-gap); }
+.severityGrid { grid-template-columns:minmax(0,1.55fr) minmax(0,1fr); }
+.balancedGrid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.spatialGrid { grid-template-columns:minmax(0,1.85fr) minmax(300px,1fr); }
+.page .severityGrid .severityChart { height:270px; margin:4px 20px; flex:none; }
+.donutPanel { display:flex; align-items:center; justify-content:center; flex:1; gap:24px; padding:24px; flex-wrap:wrap; }
+.donut { width:170px; height:170px; border-radius:50%; display:grid; place-items:center; background:conic-gradient(var(--coral) 0 var(--share),var(--severity-non-injury) var(--share) 100%); }
+.donut > div { width:128px; height:128px; background:var(--surface); border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:7px; }
+.donut strong { font-size:27px; font-weight:600; }
+.donut span { font-size:12px; color:var(--text-secondary); }
+.donutLegend { flex:1; min-width:175px; max-width:290px; }
+.donutLegend p { display:flex; align-items:center; gap:8px; padding:12px 0; font-size:12px; border-bottom:1px solid var(--border); }
+.donutLegend i { width:9px; height:9px; border-radius:50%; flex-shrink:0; }
+.donutLegend strong { margin-left:auto; color:var(--text-primary); }
+.donutLegend small { display:block; margin-top:14px; color:var(--text-secondary); font-size:11px; line-height:1.6; }
+.outcomeRows { padding:16px 24px; display:flex; flex-direction:column; gap:21px; }
+.outcomeRows > div { display:grid; grid-template-columns:55px 1fr 55px 105px; align-items:center; gap:14px; font-size:12px; }
+.outcomeRows strong { font-size:13px; text-align:right; font-weight:500; }
+.outcomeRows small { color:var(--text-secondary); font-size:10px; text-align:right; }
+.outcomeRows span small { display:block; text-align:left; }
+.outcomeTrack { background:var(--surface-elevated); height:8px; border-radius:3px; }
+.outcomeTrack i { display:block; height:100%; border-radius:3px; background:var(--coral); }
+.consequences { display:grid; grid-template-columns:1fr 1fr; gap:12px; padding:6px 24px 14px; }
+.consequences > div { display:flex; flex-direction:column; gap:6px; background:var(--surface-elevated); border:1px solid var(--border); border-radius:8px; padding:14px; }
+.consequences span, .consequences small { font-size:11px; color:var(--text-secondary); }
+.consequences strong { font-size:26px; font-weight:600; }
+.definitionBox { margin:0 24px 22px; padding:16px; background:var(--status-soft); border:1px solid var(--border); border-radius:8px; }
+.definitionBox label { display:block; margin-bottom:8px; font-size:11px; color:var(--text-secondary); }
+.definitionBox select { width:100%; max-width:none; }
+.definitionBox p { font-size:12px; line-height:1.65; margin:12px 0; }
+.textButton { color:var(--accent-text); display:inline-flex; align-items:center; gap:5px; background:transparent; border:0; padding:4px 0; font-size:12px; text-align:left; }
+.textButton:hover { text-decoration:underline; }
+.page .dataTable .definitionCell { white-space:normal; min-width:330px; max-width:660px; font-size:12px; line-height:1.65; color:var(--text-secondary); text-align:left; }
+.emptyDetail { padding:25px; color:var(--text-secondary); font-size:13px; }
+.spatialMap { position:relative; height:480px; overflow:hidden; isolation:isolate; }
+.spatialMap :global(.map-stage) { width:100%; height:100%; min-height:0; }
+.rankList { padding:0 24px 16px; list-style:none; }
+.rankList button { display:flex; width:100%; align-items:center; gap:12px; padding:10px 0; border:0; background:transparent; color:var(--text-primary); border-bottom:1px solid var(--border); text-align:left; font-size:12px; }
+.rankList button[aria-pressed="true"], .rankList button:hover { color:var(--accent-text); }
+.rankIndex { color:var(--text-secondary); font-size:10px; width:16px; }
+.rankName { flex:1; min-width:0; }
+.rankName i { display:block; height:4px; margin-top:8px; border-radius:2px; background:var(--coral); opacity:.8; }
+.rankList strong { font-weight:500; font-variant-numeric:tabular-nums; }
+.plot { width:100%; height:auto; min-height:180px; max-height:280px; padding:5px 16px; }
+.plot line { stroke:var(--chart-grid); stroke-width:1; }
+.plot text { fill:var(--text-secondary); font:11px Inter,sans-serif; }
+.areaFill { fill:var(--chart-area); }
+.linePath { fill:none; stroke:var(--chart-trend); stroke-width:2.5; }
+.scatterDot { fill:var(--coral); fill-opacity:.65; stroke:var(--surface); stroke-width:1; cursor:pointer; }
+.selectedDot { fill:var(--chart-trend); stroke:var(--text-primary); stroke-width:1.5; cursor:pointer; }
+.scatterDot:hover, .scatterDot:focus { fill:var(--chart-trend); fill-opacity:1; }
+.localDetail { margin-bottom:var(--analysis-gap); }
+.localityList { display:flex; flex-wrap:wrap; gap:12px; padding:8px 24px; }
+.localityList > span { display:flex; gap:20px; justify-content:space-between; font-size:12px; padding:12px; background:var(--surface-elevated); border-radius:7px; flex:1; min-width:170px; }
+.tableControls { display:flex; align-items:center; flex-wrap:wrap; gap:10px; }
+.search { display:flex; align-items:center; gap:8px; border:1px solid var(--border); border-radius:7px; padding:8px 10px; }
+.search input { background:transparent; color:var(--text-primary); font-size:12px; outline:0; width:150px; }
+@media(max-width:1100px) {
+  .page .metrics { gap:12px; }
+  .page .metrics > div { padding:16px; }
+  .page .metrics strong { font-size:27px; }
+  .balancedGrid, .severityGrid { grid-template-columns:minmax(0,1fr) minmax(0,1fr); }
+  .spatialGrid { grid-template-columns:minmax(0,1.4fr) minmax(270px,1fr); }
+  .outcomeRows > div { grid-template-columns:40px 1fr 48px; }
+  .outcomeRows > div > small { display:none; }
+  .pageHeading > span { display:none; }
+}
+@media(max-width:760px) {
+  .dashboardNav { gap:0; }
+  .dashboardNav > span { display:none; }
+  .dashboardNav strong { margin-right:8px; font-size:14px; }
+  .dashboardNav a { padding:14px 13px; }
+  .pageHeading { margin-top:20px; }
+  .pageHeading h1 { font-size:26px; }
+  .page .metrics { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .page .metrics > div { border:1px solid var(--border); padding:16px; }
+  .page .metrics strong, .page .metrics .peakValue, .page .metrics .areaName { font-size:23px; }
+  .coralIcon { right:12px; top:15px; width:16px; }
+  .severityGrid, .spatialGrid, .balancedGrid { grid-template-columns:1fr; }
+  .spatialMap { height:430px; }
+  .tableControls { width:100%; }
+  .cardHeading:has(.tableControls) { flex-wrap:wrap; }
+  .areaFilter select { max-width:185px; }
+}
 .actions,
 .toolbar,
 .filters,
@@ -832,3 +942,11 @@
 .statusLegend { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: 0 24px 16px; color: var(--text-secondary); font-size: 11px; line-height: 1.6; }
 .statusLegend span { display: inline-flex; align-items: center; gap: 6px; }
 .statusLegend b { min-width: 24px; text-align: center; color: var(--text-primary); font-size: 11px; }
+
+/* Keep the outer KPI cards padded and outlined, overriding the legacy strip. */
+.page .metrics > div:first-child { padding-left:22px; }
+.page .metrics > div:last-child { border:1px solid var(--border); }
+@media(max-width:1100px) { .page .metrics > div:first-child { padding-left:16px; } }
+@media(max-width:760px) {
+  .page .severityGrid .severityChart[data-mode="share"] { height:380px; }
+}
