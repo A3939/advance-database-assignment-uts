@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { ArrowDownWideNarrow, ArrowUpRight, ChevronLeft, ChevronRight, CircleHelp, Map, MapPin, Search, Target } from "lucide-react";
 import type { Filters, MapData, SourceSelection } from "@/services/contracts";
 import { spatialInsights } from "@/services/analytics-insights";
+import AnalyticsMetricCard from "./analytics-metric-card";
 import styles from "./analytics.module.css";
 
 const SpatialMap = dynamic(() => import("./spatial-map"), { ssr: false, loading: () => <div className={styles.chartLoading}>Loading local boundaries…</div> });
@@ -27,12 +28,12 @@ export default function AnalyticsSpatial({ data, filters, onSelect, onSourceSele
   const coverage = () => evidence("Spatial scope & coverage", "Local government areas use ABS 2024 boundaries and the snapshot's recorded LGA crosswalk. Counts show recorded crashes, not exposure-adjusted risk or precise crash locations. Rankings and concentration use mapped records only. A missing match is not a crash-free area.", [{label:"Mapped records",value:n(data.coverage?.matched ?? total)}, {label:"Records outside the map",value:n(data.coverage?.unmatched)}, {label:"Boundary / aggregation",value:"ABS 2024 LGA · selected source and period"}]);
   if (data.regionMode !== "lga" || data.illustrationOnly) return <div className={styles.empty}><h2>LGA analysis unavailable</h2><p>{data.unavailableReason || "This selection does not provide observed LGA aggregates."}</p></div>;
   return <>
-    <div className={styles.metrics} aria-label="Spatial summary">{[
+    <section className={`metric-grid ${styles.allMetrics} ${styles.singleMetrics}`} aria-label="Spatial summary">{[
       {label:"Mapped crashes",value:n(total),note:`${filters.source} · selected period`,Icon:MapPin},
       {label:"Areas with records",value:n(represented),note:`Of ${n(ranked.length)} observed LGAs`,Icon:Map},
       {label:"Top 5 concentration",value:pct(topFiveShare),note:"Share of mapped crashes",Icon:Target},
       {label:selected ? "Selected area rank" : "Highest-count area",value:selected ? `#${selected.rank}` : ranked[0]?.name ?? "—",note:selected?.name ?? `${n(ranked[0]?.count)} recorded crashes`,Icon:ArrowDownWideNarrow},
-    ].map(({label,value,note,Icon}) => <div key={label}><Icon size={20} className={styles.coralIcon}/><span>{label}</span><strong className={label === "Highest-count area" ? styles.areaName : ""}>{value}</strong><small>{note}</small></div>)}</div>
+    ].map(({label,value,note,Icon}) => <AnalyticsMetricCard key={label} label={label} value={value} Icon={Icon} areaName={label === "Highest-count area"} onDefinition={() => evidence(label, note, [{label:filters.source,value}])}/> )}</section>
     <section className={styles.spatialGrid} aria-label="Geographic distribution">
       <article className={styles.card}><div className={styles.cardHeading}><div><h2>Where crashes are recorded</h2><p>{filters.source} · LGA aggregates · select an area to inspect</p></div><button className={styles.info} aria-label="Spatial scope and coverage" onClick={coverage}><CircleHelp size={17}/></button></div><div className={styles.spatialMap}><SpatialMap data={data} source={filters.source} onSelect={onSelect} onSourceSelect={onSourceSelect}/></div><div className={styles.cardFoot}><span>Area totals · counts are not risk rates</span><button onClick={coverage}>Scope & coverage <ArrowUpRight size={14}/></button></div></article>
       <article className={styles.card}><div className={styles.cardHeading}><div><h2>Highest-count LGAs</h2><p>Top 10 · mapped crashes in {filters.source}</p></div></div><ol className={styles.rankList}>{ranked.slice(0,10).map(row => <li key={row.id}><button aria-pressed={selected?.id === row.id} onClick={() => onSelect(row.id)}><span className={styles.rankIndex}>{row.rank.toString().padStart(2,"0")}</span><span className={styles.rankName}>{row.name}<i style={{width:`${row.count / Math.max(ranked[0]?.count ?? 0,1) * 100}%`}}/></span><strong>{n(row.count)}</strong></button></li>)}</ol><div className={styles.cardFoot}><span>{selected ? `Inspecting ${selected.name}` : "Choose an area for local detail"}</span></div></article>

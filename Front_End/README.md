@@ -57,6 +57,7 @@ Next.js 在服务端读取文件并校验哈希，**没有连接父项目 Postgr
 | `/api/data/overview` | `Response<Overview>` | 事故数、致命事故数、死亡人数、伤亡人数及口径；All 按州列值 |
 | `/api/data/timeseries` | `Response<TimePoint[]>` | 月/年趋势、Analytics 热图、同比、月份均值和表格；加 `granularity=monthly` 或 `yearly`，默认 yearly |
 | `/api/data/severity` | `Response<Severity[]>` | 严重程度分类与事故数；州级只有完整五年数据，LGA 扩展支持整月筛选 |
+| `/api/data/severity-change` | `Response<SeverityChange>` | 严重程度哑铃图：用已校验逐月分类汇总对比所选首末年份的相同月份；All 分州展示，州总数包含未匹配地区，不拆分五年报表 |
 | `/api/data/map` | `Response<MapData>` | 全国州界和单州 LGA 计数、匹配覆盖、选区；不是事故点坐标接口 |
 | `/api/data/metadata` | `Dataset[]` | 来源标题、版本、批次、覆盖、定义和限制；不使用 `Response<T>` 包装 |
 | `/api/data/evidence` | `{ demo: false, ...provenance }` | 固定批次的 QA、文件哈希、来源和发布证据 |

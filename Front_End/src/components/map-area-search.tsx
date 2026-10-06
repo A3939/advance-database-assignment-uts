@@ -11,11 +11,12 @@ export interface MapAreaOption {
 }
 
 /** A local, source-scoped combobox; selecting an option uses the map's drilldown. */
-export default function MapAreaSearch({ options, selectedId, onSelect, onClear }: {
+export default function MapAreaSearch({ options, selectedId, onSelect, onClear, direction = "up" }: {
   options: MapAreaOption[];
   selectedId?: string;
   onSelect: (option: MapAreaOption) => void;
   onClear: () => void;
+  direction?: "up" | "down";
 }) {
   const listId = useId();
   const root = useRef<HTMLDivElement>(null);
@@ -33,7 +34,9 @@ export default function MapAreaSearch({ options, selectedId, onSelect, onClear }
     const updateHeight = () => {
       const box = root.current?.getBoundingClientRect();
       const viewportTop = window.visualViewport?.offsetTop || 0;
-      if (box) setListHeight(Math.max(0, Math.min(280, box.top - viewportTop - 16)));
+      const viewportBottom = viewportTop + (window.visualViewport?.height || window.innerHeight);
+      if (box) setListHeight(Math.max(0, Math.min(280,
+        direction === "down" ? viewportBottom - box.bottom - 16 : box.top - viewportTop - 16)));
     };
     const dismiss = (event: PointerEvent) => {
       if (!root.current?.contains(event.target as Node)) setOpen(false);
@@ -49,7 +52,7 @@ export default function MapAreaSearch({ options, selectedId, onSelect, onClear }
       window.removeEventListener("scroll", updateHeight, true);
       window.visualViewport?.removeEventListener("resize", updateHeight);
     };
-  }, [open]);
+  }, [open, direction]);
 
   useEffect(() => {
     if (open && activeIndex >= 0)
@@ -97,7 +100,8 @@ export default function MapAreaSearch({ options, selectedId, onSelect, onClear }
         onClick={() => { input.current?.focus(); setQuery(""); setOpen(false); setActiveIndex(-1); if (selectedId) onClear(); }}>
         <X size={13} />
       </button>}
-      {open && <div className="map-area-results" style={{ maxHeight: listHeight }}>
+      {open && <div className="map-area-results" style={{ maxHeight: listHeight,
+        ...(direction === "down" ? { top: "calc(100% + 8px)", bottom: "auto" } : {}) }}>
         <ul id={listId} role="listbox" aria-label="Areas">
           {matches.map((option, index) => <li key={option.id} id={`${listId}-${index}`}
             role="option" aria-selected={option.id === (selectedId || "")}

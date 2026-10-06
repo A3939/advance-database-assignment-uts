@@ -1,4 +1,5 @@
-import type { ArsiaService, Filters, AgentEvent } from "./contracts";
+import type { ArsiaService, Filters, AgentEvent, Response } from "./contracts";
+import type { SeverityChange } from "./severity-change";
 
 async function get<T>(
   report: string,
@@ -23,6 +24,8 @@ async function get<T>(
     throw Error(`Project data request failed (${response.status}).`);
   return response.json() as Promise<T>;
 }
+export const getSeverityChange = (filters: Filters, signal?: AbortSignal) => get<Response<SeverityChange>>("severity-change", filters, {}, signal);
+
 export const httpProvider: ArsiaService = {
   getOverview: (f, signal) => get("overview", f, {}, signal),
   getTimeSeries: (f, granularity, signal) => get("timeseries", f, { granularity }, signal),

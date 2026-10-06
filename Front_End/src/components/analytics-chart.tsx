@@ -13,6 +13,7 @@ import { CanvasRenderer } from "echarts/renderers";
 import type { EChartsCoreOption } from "echarts/core";
 import { useTheme } from "@/components/theme-provider";
 import type { Severity, TimePoint } from "@/services/contracts";
+import { timePointLabel } from "@/services/periods";
 
 echarts.use([
   LineChart,
@@ -26,7 +27,7 @@ echarts.use([
 ]);
 
 type Metric = "crashes" | "fatalCrashes" | "livesLost" | "casualties";
-type ChartKind = "trend" | "seasonality" | "severity";
+type ChartKind = "trend" | "seasonality" | "severity" | "fatal-outcomes";
 
 export type AnalyticsChartPoint = Omit<TimePoint, Metric> &
   Record<Metric, number | null>;
@@ -155,7 +156,9 @@ export default function AnalyticsChart({
       ? `${metricLabels[metric]} by ${granularity === "monthly" ? "month" : "year"}. ${onSelectPeriod && granularity === "monthly" ? "Use left and right arrow keys to inspect a month and Enter to select it. " : ""}Exact values are available through View values, Monthly average values or Definitions beside this chart.`
       : kind === "seasonality"
         ? `Average ${metricLabels[metric].toLowerCase()} for each calendar month across the supplied monthly observations. Missing months are not zero-filled. This descriptive pattern does not establish seasonality. Exact values are available through View values, Monthly average values or Definitions beside this chart.`
-        : `Severity ${mode === "share" ? "shares within each source" : "crash counts"}. ${mode === "share" ? `Proportional pie chart. ${severityData.map(row => `${row.label}: ${row.share == null ? "Unavailable" : formatPieShare(row.share)}`).join("; ")}. ` : ""}Categories retain their source definitions. Exact values are available through View values, Monthly average values or Definitions beside this chart.`;
+        : kind === "fatal-outcomes"
+          ? "Grouped columns compare fatal crash events and lives lost (people) by year. The counts are separate, not stacked or added. Asterisks mark selected-month subtotals. Unknown values are not zero-filled. Use left and right arrow keys to inspect a year, or View annual values for exact counts."
+          : `Severity ${mode === "share" ? "shares within each source" : "crash counts"}. ${mode === "share" ? `Proportional pie chart. ${severityData.map(row => `${row.label}: ${row.share == null ? "Unavailable" : formatPieShare(row.share)}`).join("; ")}. ` : ""}Categories retain their source definitions. Exact values are available through View values, Monthly average values or Definitions beside this chart.`;
 
   useEffect(() => {
     const element = host.current;
@@ -339,6 +342,33 @@ export default function AnalyticsChart({
             emphasis: { focus: "none" },
           },
         ],
+      });
+    } else if (kind === "fatal-outcomes") {
+      Object.assign(option, {
+        grid: { left: 12, right: 16, top: 48, bottom: 12, containLabel: true },
+        legend: {
+          top: 4, left: "center", itemWidth: 12, itemHeight: 8, itemGap: 18,
+          selectedMode: false,
+          textStyle: { color: text, fontFamily: "Inter, system-ui, sans-serif", fontSize },
+          data: ["Fatal crashes (events)", "Lives lost (people)"],
+        },
+        tooltip: {
+          ...tooltip, trigger: "axis", axisPointer: { type: "shadow" },
+          formatter: (params: unknown) => {
+            const row = trend[tooltipIndex(params)];
+            return row ? `${timePointLabel(row)}\nFatal crashes (events): ${validValue(row.fatalCrashes) ? formatCount(row.fatalCrashes) : "Unavailable"}\nLives lost (people): ${validValue(row.livesLost) ? formatCount(row.livesLost) : "Unavailable"}` : "";
+          },
+        },
+        xAxis: { ...categoryAxis, data: trend.map(row => `${row.period}${row.fullYear === false ? "*" : ""}`), axisLabel: { color: text, fontSize, interval: 0, margin: 12 } },
+        series: ([
+          { metric: "fatalCrashes", name: "Fatal crashes (events)", color: token("--coral") },
+          { metric: "livesLost", name: "Lives lost (people)", color: token("--chart-trend") },
+        ] as const).map(item => ({
+          name: item.name, type: "bar", barMaxWidth: compact ? 20 : 28,
+          data: trend.map(row => validValue(row[item.metric]) ? row[item.metric] : null),
+          itemStyle: { color: item.color, borderRadius: [3, 3, 0, 0] },
+          emphasis: { focus: "series" },
+        })),
       });
     } else if (mode === "share") {
       // Keep the existing instance; replace the Cartesian axes with pie sectors.
@@ -536,7 +566,7 @@ export default function AnalyticsChart({
       aria-label={description}
       onBlur={() => chart.current?.dispatchAction({ type: "hideTip" })}
       onKeyDown={(event) => {
-        if (kind !== "trend" || !trend.length) return;
+        if ((kind !== "trend" && kind !== "fatal-outcomes") || !trend.length) return;
         if (
           event.key === "ArrowLeft" ||
           event.key === "ArrowRight" ||

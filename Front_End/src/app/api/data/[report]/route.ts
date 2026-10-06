@@ -1,4 +1,5 @@
 import { createRegionalProvider, loadRegionSnapshot, regionEvidence } from "@/server/region-data";
+import { getSeverityChange } from "@/server/severity-change";
 import {
   createOfficialProvider,
   loadOfficialSnapshot,
@@ -20,6 +21,7 @@ export async function GET(
       "overview",
       "timeseries",
       "severity",
+      "severity-change",
       "map",
       "records",
       "metadata",
@@ -61,8 +63,8 @@ export async function GET(
     );
   }
   try {
-    const snapshot = await loadOfficialSnapshot(),
-      service = createRegionalProvider(createOfficialProvider(snapshot), await loadRegionSnapshot());
+    const [snapshot, regional] = await Promise.all([loadOfficialSnapshot(), loadRegionSnapshot()]);
+    const service = createRegionalProvider(createOfficialProvider(snapshot), regional);
     let payload: unknown;
     switch (report) {
       case "region-evidence":
@@ -85,6 +87,9 @@ export async function GET(
         break;
       case "severity":
         payload = await service.getSeverityDistribution(filters);
+        break;
+      case "severity-change":
+        payload = await getSeverityChange(filters, service, regional);
         break;
       case "map":
         payload = await service.getMapData(filters);

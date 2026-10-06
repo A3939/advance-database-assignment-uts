@@ -18,6 +18,9 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import AnalyticsSeverity from "./analytics-severity";
 import AnalyticsSpatial from "./analytics-spatial";
+import AnalyticsAllSources from "./analytics-all-sources";
+import AnalyticsMetricCard from "./analytics-metric-card";
+import MapAreaSearch from "./map-area-search";
 import { arsia } from "@/services";
 import { monthlyInsights } from "@/services/analytics-insights";
 import {
@@ -25,12 +28,17 @@ import {
   ArrowUpRight,
   ArrowUpDown,
   CalendarDays,
+  CarFront,
   ChevronLeft,
   ChevronRight,
   Download,
   Info,
+  Heart,
   RotateCcw,
   Sparkles,
+  Siren,
+  TrendingUp,
+  Users,
   X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -40,9 +48,9 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { useWorkspace } from "@/components/workspace";
-import { analyticsFilters, getAnalytics } from "@/services/analytics";
+import { getAnalytics } from "@/services/analytics";
 import { IS_DEMO, selectSource } from "@/services/config";
-import type { Filters, TimePoint, MapData, Response } from "@/services/contracts";
+import type { Filters, TimePoint, MapData, Response, SourceSelection } from "@/services/contracts";
 import styles from "./analytics.module.css";
 
 const Chart = dynamic(() => import("@/components/analytics-chart"), {
@@ -73,6 +81,7 @@ const METRICS = {
   livesLost: "Lives lost",
   casualties: "Casualties",
 } as const;
+const METRIC_ICONS = { crashes: CarFront, fatalCrashes: Siren, livesLost: Heart, casualties: Users };
 type MetricKey = keyof typeof METRICS;
 type Bundle = Awaited<ReturnType<typeof getAnalytics>>;
 const number = (value: number | null | undefined, decimals = 0) =>
@@ -91,8 +100,9 @@ const filterKey = (filters: Filters) => JSON.stringify(filters);
 
 export default function Analytics({ dashboard = "trends" }: { dashboard?: "trends" | "severity" | "spatial" }) {
   const { filters, catalog, setFilters, showEvidence, askAI, notify, view, setView, analysisHref } = useWorkspace();
-  const actualFilters = useMemo(() => analyticsFilters(filters, catalog.sources[0]?.source), [filters,catalog.sources]);
-  const [result, setResult] = useState<{ key: string; bundle: Bundle; map: Response<MapData> | null } | null>(
+  const actualFilters = filters;
+  const areaOptions = useMemo(() => [{id:"", name:"All areas"}, ...catalog.sources.filter(item => filters.source === "All" || item.source === filters.source).flatMap(item => regionsForSource(item.source).map(region => ({ ...region, name: filters.source === "All" ? `${region.name} (${item.source})` : region.name, source:item.source }))).sort((a,b) => a.name.localeCompare(b.name))], [filters.source, catalog.sources]);
+  const [result, setResult] = useState<{ key: string; bundle: Bundle; all: Bundle[]; map: Response<MapData> | null; sourceMaps: { source: SourceSelection; response: Response<MapData> }[] } | null>(
     null,
   );
   const [error, setError] = useState("");
@@ -130,12 +140,20 @@ export default function Analytics({ dashboard = "trends" }: { dashboard?: "trend
   useEffect(() => {
     let active = true;
     const controller = new AbortController();
-    Promise.all([getAnalytics(actualFilters, undefined, controller.signal), dashboard === "spatial" ? arsia.getMapData(actualFilters, controller.signal) : Promise.resolve(null)])
-      .then(([bundle, map]) => {
+    const sourceFilters = actualFilters.source === "All" ? catalog.sources.map(item => selectSource(actualFilters, item.source)) : [actualFilters];
+    Promise.all([
+      Promise.all(sourceFilters.map(selected => getAnalytics(selected, undefined, controller.signal))),
+      dashboard === "spatial" ? arsia.getMapData(actualFilters, controller.signal) : Promise.resolve(null),
+      dashboard === "spatial" && actualFilters.source === "All"
+        ? Promise.all(sourceFilters.map(async selected => ({ source: selected.source, response: await arsia.getMapData(selected, controller.signal) })))
+        : Promise.resolve([]),
+    ])
+      .then(([all, map, sourceMaps]) => {
+        const bundle = all[0];
+        if (!bundle) throw Error("No sources are available.");
         if (!active) return;
-        setResult({ key, bundle, map });
+        setResult({ key, bundle, all, map, sourceMaps });
         setError("");
-        if (filters.source === "All") setFilters(actualFilters);
       })
       .catch(() => {
         if (active)
@@ -144,7 +162,7 @@ export default function Analytics({ dashboard = "trends" }: { dashboard?: "trend
     return () => {
       active = false; controller.abort();
     };
-  }, [actualFilters, filters.source, retry, setFilters, dashboard, key]);
+  }, [actualFilters, retry, dashboard, key, catalog.sources]);
 
   const monthly: TimePoint[] = useMemo(
     () =>
@@ -243,7 +261,9 @@ export default function Analytics({ dashboard = "trends" }: { dashboard?: "trend
       filters: actualFilters,
       view: { metric, granularity, dashboard },
       spatial: result?.map ?? undefined,
-      analysis: bundle,
+      spatialBySource: actualFilters.source === "All" && dashboard === "spatial" ? result?.sourceMaps : undefined,
+      analysis: actualFilters.source === "All" ? undefined : bundle,
+      analyses: actualFilters.source === "All" ? result?.all : undefined,
       note: `${bundle.data.notes.join(" ")} Aggregate values only; no underlying crash records.`,
     };
     const url = URL.createObjectURL(
@@ -282,13 +302,12 @@ export default function Analytics({ dashboard = "trends" }: { dashboard?: "trend
       <nav className={styles.dashboardNav} aria-label="Analytics dashboards">
         <strong>Analytics</strong>
         {([['trends', '/analytics', 'Trends'], ['severity', '/analytics/severity', 'Severity'], ['spatial', '/analytics/spatial', 'Spatial']] as const).map(([id, path, label]) => <Link key={id} href={analysisHref(path)} aria-current={dashboard === id ? "page" : undefined}>{label}</Link>)}
-        <span>Project snapshot · 2020–2024</span>
       </nav>
       <div className={styles.toolbar} aria-label="Analytics filters">
         <div className={styles.filters}>
           <div className={styles.sourceGroup} aria-label="Analysis source">
-            <span className={styles.filterLabel}>Source</span>
-            {catalog.sources.map(s=>s.source).map((source) => (
+            <span className={styles.areasLabel}>Areas</span>
+            {(["All", ...catalog.sources.map(s=>s.source)] as SourceSelection[]).map((source) => (
               <button
                 key={source}
                 aria-pressed={actualFilters.source === source}
@@ -298,7 +317,10 @@ export default function Analytics({ dashboard = "trends" }: { dashboard?: "trend
               </button>
             ))}
           </div>
-          <label className={styles.areaFilter}><span className={styles.filterLabel}>Area</span><select aria-label="Analysis area" value={actualFilters.regionId || ""} onChange={e => changeFilters({...actualFilters, regionId:e.target.value || undefined})}><option value="">All LGAs</option>{regionsForSource(actualFilters.source).map(region => <option key={region.id} value={region.id}>{region.name}</option>)}</select></label>
+          <div className={styles.areaFilter}><div className={styles.areaSearch}><MapAreaSearch direction="down" options={areaOptions} selectedId={actualFilters.regionId} onClear={() => changeFilters({...actualFilters, regionId:undefined})} onSelect={option => {
+            const area = areaOptions.find(item => item.id === option.id);
+            changeFilters({...selectSource(actualFilters, area && "source" in area ? area.source : actualFilters.source), regionId:option.id || undefined});
+          }}/></div></div>
           {actualFilters.regionId && <button className="region-filter-chip" onClick={() => changeFilters({ ...actualFilters, regionId: undefined })} aria-label="Clear LGA filter">
             {regionsForSource(actualFilters.source).find(r => r.id === actualFilters.regionId)?.name} LGA ×
           </button>}
@@ -400,7 +422,6 @@ export default function Analytics({ dashboard = "trends" }: { dashboard?: "trend
           </Button>
         </div>
       </div>
-      <div className={styles.pageHeading}><div><span className={styles.eyebrow}>ANALYTICS / {dashboard === "trends" ? "01" : dashboard === "severity" ? "02" : "03"}</span><h1>{dashboard === "trends" ? "Trends over time" : dashboard === "severity" ? "Severity & outcomes" : "Spatial distribution"}</h1><p>{dashboard === "trends" ? "Understand when recorded crashes change and how monthly patterns compare." : dashboard === "severity" ? "Understand the composition and consequences of recorded crashes." : "Explore where crashes are recorded and how they are distributed across areas."}</p></div><span>{actualFilters.source} · {dateLabel}</span></div>
       {error ? (
         <div className={styles.empty} role="alert">
           <h2>Analysis unavailable</h2>
@@ -415,7 +436,7 @@ export default function Analytics({ dashboard = "trends" }: { dashboard?: "trend
             Try again
           </Button>
         </div>
-      ) : isEmpty ? (
+      ) : actualFilters.source === "All" ? (loading || !result ? <div className={styles.empty} role="status">Loading source comparisons…</div> : <AnalyticsAllSources bundles={result.all} dashboard={dashboard} metric={metric} granularity={view.granularity} map={result.map?.data ?? null} sourceMaps={result.sourceMaps.map(({source, response}) => ({source, data:response.data}))} evidence={evidence} setMetric={setMetric} setGranularity={setGranularity} onSourceSelect={source => changeFilters(selectSource(actualFilters, source))}/>) : isEmpty ? (
         <div className={styles.empty}>
           <CalendarDays size={32} />
           <h2>No data for this selection</h2>
@@ -431,27 +452,12 @@ export default function Analytics({ dashboard = "trends" }: { dashboard?: "trend
       ) : dashboard === "severity" ? (data ? <AnalyticsSeverity key={key} data={data} evidence={evidence} resetDates={resetDates}/> : <div className={styles.empty} role="status">Loading severity analysis…</div>) : dashboard === "spatial" ? (data && result?.key === key && result.map ? <AnalyticsSpatial key={key} data={result.map.data} filters={actualFilters} evidence={evidence} onSelect={id => changeFilters({...actualFilters, regionId:id || undefined})} onSourceSelect={source => changeFilters(selectSource(actualFilters, source))}/> : <div className={styles.empty} role="status">Loading spatial analysis…</div>) : (
         <div aria-busy={loading}>
           <div className={styles.firstScreen}>
-            <div className={styles.metrics} aria-label="Analysis summary">
-              <div>
-                <span>{METRICS[metric]}</span>
-                <strong data-testid="analytics-total">{number(total)}</strong>
-                <small>
-                  {actualFilters.source} · {dateLabel}
-                </small>
-              </div>
-              <div>
-                <span>Monthly average</span>
-                <strong>
-                  {number(monthlyAverage, 1)}
-                  <em>{metric === "livesLost" || metric === "casualties" ? "people" : "events"}</em>
-                </strong>
-                <small>
-                  {knownCrashCounts.length || "—"} months with known counts
-                </small>
-              </div>
-              <div><span>Latest year-on-year change</span><strong>{percentage(comparison?.yoyPct)}</strong><small>{latest ? `${latest.year} vs ${latest.previousYear} · matching months` : "Matching periods required"}</small></div>
-              <div><span>Peak month</span><strong className={styles.peakValue}>{insights.peak ? monthLabel(insights.peak.period) : "—"}</strong><small>{number(insights.peak?.[metric])} {METRICS[metric].toLowerCase()}</small></div>
-            </div>
+            <section className={`metric-grid ${styles.allMetrics} ${styles.singleMetrics}`} aria-label="Analysis summary">
+              <AnalyticsMetricCard label={METRICS[metric]} value={number(total)} Icon={METRIC_ICONS[metric]} valueTestId="analytics-total" disabled={!bundle} onDefinition={() => evidence(METRICS[metric], data?.overview[metric].definition || "Selected-period source total.", [{label:"Value",value:number(total)}])}/>
+              <AnalyticsMetricCard label="Monthly average" value={number(monthlyAverage, 1)} Icon={CalendarDays} disabled={!bundle} onDefinition={() => evidence("Monthly average", "Average over selected months with known counts. Unobserved months are not recorded zeros.", [{label:"Months with known counts",value:number(knownCrashCounts.length)}, {label:"Unit",value:metric === "livesLost" || metric === "casualties" ? "people" : "events"}])}/>
+              <AnalyticsMetricCard label="Latest year-on-year change" value={percentage(comparison?.yoyPct)} Icon={TrendingUp} disabled={!bundle} onDefinition={() => evidence("Latest year-on-year change", latest ? `${latest.year} vs ${latest.previousYear} · matching months` : "Matching periods required", [{label:"Change",value:percentage(comparison?.yoyPct)}])}/>
+              <AnalyticsMetricCard label="Peak month" value={insights.peak ? monthLabel(insights.peak.period) : "—"} Icon={CalendarDays} compact disabled={!bundle} onDefinition={() => evidence("Peak month", "The selected month with the highest known count for this metric.", [{label:METRICS[metric],value:number(insights.peak?.[metric])}])}/>
+            </section>
             {bundle && !bundle.meta.coverage.complete && (
               <div className={styles.coverageNote}>
                 <Info size={15} />
