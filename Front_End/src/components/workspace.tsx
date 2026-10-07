@@ -9,6 +9,7 @@ import {
   type ReactNode,
 } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   Sun,
@@ -128,7 +129,7 @@ export function Workspace({ children }: { children: ReactNode }) {
           <header className="topbar">
             <Link className="brand" href={href("/")} aria-label="ARSIA overview">
               <span className="brand-symbol">
-                A<span />
+                <Image src="/arsia-logo.png" alt="" width={44} height={44} priority />
               </span>
               <span>ARSIA</span>
             </Link>
