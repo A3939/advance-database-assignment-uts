@@ -3,11 +3,15 @@
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import { ArrowUpRight, ArrowDownWideNarrow, CalendarDays, CarFront, Heart, Info, Map, MapPin, PieChart, Siren, Target, TrendingUp, Users, type LucideIcon } from "lucide-react";
-import { monthlyInsights, spatialInsights } from "@/services/analytics-insights";
+import { allSourceAreaRanking, monthlyInsights, spatialInsights } from "@/services/analytics-insights";
+import { timePointLabel } from "@/services/periods";
 import type { getAnalytics, MetricKey } from "@/services/analytics";
 import type { MapData, SourceSelection } from "@/services/contracts";
 import styles from "./analytics.module.css";
 import AnalyticsSeverityChange from "./analytics-severity-change";
+import AnalyticsSeverityShare from "./analytics-severity-share";
+import AnalyticsSpeedZone from "./analytics-speed-zone";
+import AnalyticsConcentration from "./analytics-concentration";
 
 const Chart = dynamic(() => import("./analytics-chart"), { ssr: false });
 const SpatialMap = dynamic(() => import("./spatial-map"), { ssr: false });
@@ -25,7 +29,7 @@ type SummaryCard = {
 };
 
 /** All retains separate source observations; it never invents a national total. */
-export default function AnalyticsAllSources({ bundles, dashboard, metric, granularity, map, sourceMaps, evidence, onSourceSelect, setMetric, setGranularity }: {
+export default function AnalyticsAllSources({ bundles, dashboard, metric, granularity, map, sourceMaps, evidence, onSourceSelect, onAreaSelect, setMetric, setGranularity }: {
   bundles: Bundle[];
   dashboard: "trends" | "severity" | "spatial";
   metric: MetricKey;
@@ -34,6 +38,7 @@ export default function AnalyticsAllSources({ bundles, dashboard, metric, granul
   sourceMaps: { source: SourceSelection; data: MapData }[];
   evidence: (title: string, description: string, rows?: { label: string; value: string }[]) => void;
   onSourceSelect: (source: SourceSelection) => void;
+  onAreaSelect: (source: SourceSelection, regionId: string) => void;
   setMetric: (metric: MetricKey) => void;
   setGranularity: (interval: "monthly" | "yearly") => void;
 }) {
@@ -46,6 +51,7 @@ export default function AnalyticsAllSources({ bundles, dashboard, metric, granul
     const spatial = sourceMap?.regionMode === "lga" && !sourceMap.illustrationOnly ? spatialInsights(sourceMap.regions) : null;
     return { data, monthly, latest, spatial };
   });
+  const rankedAreas = allSourceAreaRanking(sourceMaps);
   const cards: SummaryCard[] = dashboard === "trends" ? [
     { label: labels[metric], Icon: metricIcons[metric], description: "Selected-period totals remain separate for each source. Source definitions and availability apply.", values: summaries.map(({data}) => ({source:data.source, value:number(data.overview[metric].value), note:data.overview[metric].definition})) },
     { label: "Monthly average", Icon: CalendarDays, description: "Average over selected months with known counts. Unobserved or unknown months are not recorded zeros.", values: summaries.map(({data, monthly}) => ({source:data.source, value:number(monthly.average, 1), note:`${monthly.observed} months with known counts`})) },
@@ -69,23 +75,40 @@ export default function AnalyticsAllSources({ bundles, dashboard, metric, granul
         <div className={`metric-by-source ${compact ? styles.compactValues : ""} ${compact && dashboard === "spatial" ? styles.areaValues : ""}`}>{values.map(row => <div key={row.source}><span>{row.source}</span><strong title={row.note}>{row.value}</strong></div>)}</div>
       </article>)}
     </section>
-    <p className={styles.allSourceNote}><Info size={15}/>All available sources · definitions differ by source; counts are shown separately.</p>
-    {dashboard === "trends" && <div className={styles.cardHeading}>
+    {dashboard === "severity" && <section className={`${styles.severityGrid} ${styles.allSeverityGrid}`} aria-label="Severity composition">
+      <article className={styles.card}>
+        <div className={styles.cardHeading}><div><h2>Severity distribution by source</h2></div><div className={styles.segment} aria-label="Severity measure">{(["count", "share"] as const).map(value => <button key={value} aria-pressed={severityMode === value} onClick={() => setSeverityMode(value)}>{value === "count" ? "Count" : "Share"}</button>)}</div></div>
+        <div className={styles.severityChart} data-mode={severityMode}>{bundles.some(({data}) => data.severityAvailability === "available") ? severityMode === "share" ? <AnalyticsSeverityShare sources={bundles.map(({data}) => data.source)} rows={bundles.flatMap(({data}) => data.severityAvailability === "available" ? data.severity.map(row => ({...row, source:data.source})) : [])}/> : <Chart kind="severity" rows={[]} severitySources={bundles.map(({data}) => data.source)} severity={bundles.flatMap(({data}) => data.severityAvailability === "available" ? data.severity.map(row => ({...row, source:data.source})) : [])} mode={severityMode}/> : <div className={styles.chartLoading} role="status">No category breakdown is available for this selection.</div>}</div>
+        {bundles.filter(({data}) => data.severityAvailability !== "available").map(({data}) => <p className={styles.severityNotice} key={data.source}>{data.source}: {data.severityReason || "Category breakdown unavailable for this selection."}</p>)}
+        <div className={styles.cardFoot}><span>Source definitions differ · N/A ≠ 0</span><button onClick={() => evidence("Severity definitions & values", "Categories are grouped for display only. Share uses each source’s own selected-period crash denominator. These native categories are not an interstate harmonisation.", bundles.flatMap(({data}) => data.severity.map(row => ({label:`${data.source} · ${row.label}`, value:`${number(row.count)} crashes · ${row.share != null && row.share > 0 && row.share < .001 ? "<0.1%" : percentage(row.share == null ? null : row.share * 100)} · ${row.definition}`}))))}>Definitions <ArrowUpRight size={14}/></button></div>
+      </article>
+      {bundles[0] && <AnalyticsSpeedZone filters={{...bundles[0].data.filters, source:"All", regionId:undefined}} evidence={evidence}/>}
+    </section>}
+    {dashboard === "spatial" && map && <section className={styles.spatialGrid} aria-label="Geographic distribution">
+      <article className={`${styles.spatialMap} spatial-panel seamless-map`} aria-label="Crash map"><SpatialMap data={map} source="All" onSourceSelect={onSourceSelect} onSelect={() => {}} compactLegend/></article>
+      <article className={styles.card}>
+        <div className={styles.cardHeading}><div><h2>Highest-count areas</h2></div></div>
+        <ol className={styles.rankList}>{rankedAreas.slice(0, 10).map(row => <li key={`${row.source}:${row.id}`}><button onClick={() => onAreaSelect(row.source, row.id)}><span className={styles.rankIndex}>{row.rank.toString().padStart(2, "0")}</span><span className={styles.rankName}>{row.name.endsWith(`(${row.source})`) ? row.name : `${row.name} (${row.source})`}<i style={{width:`${row.count / Math.max(rankedAreas[0]?.count ?? 0, 1) * 100}%`}}/></span><strong>{number(row.count)}</strong></button></li>)}</ol>
+        {!rankedAreas.length && <p className={styles.emptyDetail}>No mapped areas for this period.</p>}
+      </article>
+    </section>}
+    {dashboard === "spatial" && <article className={`${styles.card} ${styles.concentrationCard}`} aria-label="Crash concentration by area">
+      <div className={styles.cardHeading}><div><h2>Crash concentration by area</h2></div>
+        <button className={styles.info} aria-label="Crash concentration definitions" onClick={() => evidence("Crash concentration by area", "Each source is ranked separately from highest to lowest crash count. The horizontal axis is the cumulative percentage of supplied mapped areas, including recorded zero-count areas. The vertical axis is the cumulative share of mapped crashes. Unmatched records are excluded. Hover values use the nearest whole number of areas, without interpolating crash counts. The diagonal represents an equal number of crashes in every area; a higher curve indicates more concentration, not greater risk. Source coverage and definitions still differ.", summaries.map(({data,spatial}) => ({label:data.source,value:spatial ? `${number(spatial.ranked.length)} mapped areas · ${number(spatial.total)} mapped crashes` : "Observed LGA data unavailable"})))}><Info size={17}/></button>
+      </div>
+      <AnalyticsConcentration comparison groups={sourceMaps.map(({source,data}) => ({source,regions:data.regionMode === "lga" && !data.illustrationOnly ? data.regions : []}))}/>
+    </article>}
+    {dashboard === "trends" && <article className={styles.card} style={{marginBlock:"var(--analysis-gap, 20px)"}} aria-label="Source trend comparison">
+      <div className={styles.cardHeading} style={{flexWrap:"wrap"}}>
+        <div style={{display:"flex",alignItems:"center",gap:10}}><h2>{labels[metric]} over time</h2><button className={styles.info} aria-label="Source trend values and definitions" onClick={() => evidence(`${labels[metric]} over time`, "Source counts use the same time and value axes and remain separate. Definitions and coverage differ by source. Missing values are gaps, not zeros. Asterisks mark selected-month subtotals.", bundles.flatMap(({data}) => (granularity === "monthly" ? data.monthly : data.timeSeriesYearly).map(row => ({label:`${data.source} · ${timePointLabel(row)}`, value:number(row[metric])}))))}><Info size={16}/></button></div>
+        <div className={styles.segment} aria-label="Trend interval">{(["monthly", "yearly"] as const).map(value => <button key={value} aria-pressed={granularity === value} onClick={() => setGranularity(value)}>{value === "monthly" ? "Monthly" : "Yearly"}</button>)}</div>
+      </div>
       <div className={styles.metricTabs} aria-label="Trend metric">{Object.entries(labels).map(([key, label]) => <button key={key} aria-pressed={metric === key} onClick={() => setMetric(key as MetricKey)}>{label}</button>)}</div>
-      <div className={styles.segment} aria-label="Trend interval">{(["monthly", "yearly"] as const).map(value => <button key={value} aria-pressed={granularity === value} onClick={() => setGranularity(value)}>{value === "monthly" ? "Monthly" : "Yearly"}</button>)}</div>
-    </div>}
-    {dashboard === "severity" && <div className={styles.cardHeading}><h2>Native severity by source</h2><div className={styles.segment} aria-label="Severity measure">{(["count", "share"] as const).map(value => <button key={value} aria-pressed={severityMode === value} onClick={() => setSeverityMode(value)}>{value === "count" ? "Count" : "Share"}</button>)}</div></div>}
-    {dashboard === "spatial" && map && <article className={styles.card}><div className={styles.cardHeading}><div><h2>Recorded crashes by source</h2><p>Select a state to explore its LGA distribution</p></div></div><div className={styles.spatialMap}><SpatialMap data={map} source="All" onSourceSelect={onSourceSelect} onSelect={() => {}}/></div><div className={styles.cardFoot}>State aggregates · available sources only · counts are not risk rates</div></article>}
-    <section className={styles.sourceComparison} aria-label="All source comparisons">
-      {bundles.map(({data, meta}) => <article className={styles.card} key={data.source}>
-        <div className={styles.cardHeading}><div><h2>{data.source}</h2><p>{dashboard === "severity" ? "Original crash severity categories" : dashboard === "trends" ? labels[metric] : "Recorded crashes"}</p></div><button className={styles.textButton} onClick={() => onSourceSelect(data.source)}>Explore <ArrowUpRight size={13}/></button></div>
-        {dashboard === "spatial" && <div className={styles.sourceValue}><span>Recorded crashes<strong>{number(data.overview.crashes.value)}</strong></span></div>}
-        {dashboard === "trends" && <div className={styles.trendChart}><Chart kind="trend" rows={granularity === "monthly" ? data.monthly : data.timeSeriesYearly} granularity={granularity} metric={metric}/></div>}
-        {dashboard === "severity" && <div className={styles.severityChart} data-mode={severityMode}>{data.severityAvailability === "available" ? <Chart kind="severity" rows={[]} severity={data.severity} mode={severityMode}/> : <div className={styles.chartLoading} role="status">{data.severityReason || "No severity categories are available for this selection."}</div>}</div>}
-        <div className={styles.cardFoot}>{dashboard === "trends" ? "Individual chart scale · source-specific counts" : dashboard === "severity" ? "Categories retain their source definitions" : meta.definition}</div>
-      </article>)}
-    </section>
+      {/* Keep a definite, non-shrinking canvas host even while development styles refresh. */}
+      <div style={{height:"clamp(320px, 30vw, 370px)",minHeight:320,flex:"none",margin:"14px clamp(4px, 2vw, 16px) 18px"}}><Chart kind="trend" rows={bundles.flatMap(({data}) => (granularity === "monthly" ? data.monthly : data.timeSeriesYearly).map(row => ({...row, source:data.source})))} trendSources={bundles.map(({data}) => data.source)} granularity={granularity} metric={metric}/></div>
+      {granularity === "yearly" && bundles.some(({data}) => data.timeSeriesYearly.some(row => row.fullYear === false)) && <div className={styles.cardFoot}>* Selected months only · not a full-year total</div>}
+    </article>}
     {dashboard === "severity" && bundles[0] && <AnalyticsSeverityChange filters={{...bundles[0].data.filters, source:"All", regionId:undefined}} evidence={evidence}/>}
-    <article className={styles.card}><div className={styles.cardHeading}><div><h2>Source detail</h2><p>Separate source counts for the selected period</p></div></div><div className={styles.tableScroll}><table className={styles.dataTable}><caption className="sr-only">All source counts; no national total</caption><thead><tr><th scope="col">Source</th>{Object.values(labels).map(label => <th scope="col" key={label}>{label}</th>)}</tr></thead><tbody>{bundles.map(({data}) => <tr key={data.source}><th scope="row">{data.source}</th>{(Object.keys(labels) as MetricKey[]).map(key => <td key={key}>{number(data.overview[key].value)}</td>)}</tr>)}</tbody></table></div></article>
+    <article className={styles.card}><div className={styles.cardHeading}><div><h2>Source detail</h2></div></div><div className={styles.tableScroll}><table className={styles.dataTable}><caption className="sr-only">All source counts; no national total</caption><thead><tr><th scope="col">Source</th>{Object.values(labels).map(label => <th scope="col" key={label}>{label}</th>)}</tr></thead><tbody>{bundles.map(({data}) => <tr key={data.source}><th scope="row">{data.source}</th>{(Object.keys(labels) as MetricKey[]).map(key => <td key={key}>{number(data.overview[key].value)}</td>)}</tr>)}</tbody></table></div></article>
   </>;
 }

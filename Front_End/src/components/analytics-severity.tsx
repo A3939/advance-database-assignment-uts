@@ -38,26 +38,25 @@ export default function AnalyticsSeverity({ data, evidence, resetDates }: Props)
     </section>
     <section className={styles.severityGrid} aria-label="Severity composition">
       <article className={styles.card}>
-        <div className={styles.cardHeading}><div><h2>Native severity distribution</h2><p>{data.source} · original source classifications</p></div><div className={styles.segment} aria-label="Severity measure">{(["count", "share"] as const).map(value => <button key={value} aria-pressed={mode === value} onClick={() => setMode(value)} disabled={data.severityAvailability !== "available"}>{value === "count" ? "Count" : "Share"}</button>)}</div></div>
-        <div className={styles.severityChart} data-mode={mode}>
+        <div className={styles.cardHeading}><div><h2>Native severity distribution</h2></div><div className={styles.segment} aria-label="Severity measure">{(["count", "share"] as const).map(value => <button key={value} aria-pressed={mode === value} onClick={() => setMode(value)} disabled={data.severityAvailability !== "available"}>{value === "count" ? "Count" : "Share"}</button>)}</div></div>
+        <div className={`${styles.severityChart} ${styles.singleSeverityChart}`} data-mode={mode}>
           {data.severityAvailability === "available" ? <Chart kind="severity" rows={[]} severity={data.severity} mode={mode}/> : <div className={styles.chartLoading} role="status"><p>{data.severityReason || "No category breakdown is available for this selection."}</p><button className={styles.textButton} onClick={resetDates}>Use full-period selection</button></div>}
         </div>
-        <div className={styles.cardFoot}><span>Counts and shares of recorded crashes</span><button onClick={definition}>Definitions <ArrowUpRight size={14}/></button></div>
+        <div className={styles.cardFoot}><button onClick={definition}>Definitions <ArrowUpRight size={14}/></button></div>
       </article>
       <article className={styles.card}>
-        <div className={styles.cardHeading}><div><h2>Fatal crashes & lives lost</h2><p>{data.source} · annual counts · events and people</p></div><button className={styles.info} aria-label="Fatal outcomes definitions and annual values" onClick={annualValues}><CircleHelp size={17}/></button></div>
+        <div className={styles.cardHeading}><div><h2>Fatal crashes & lives lost</h2></div><button className={styles.info} aria-label="Fatal outcomes definitions and annual values" onClick={annualValues}><CircleHelp size={17}/></button></div>
         <div className={styles.fatalOutcomesChart}><Chart kind="fatal-outcomes" rows={data.timeSeriesYearly} granularity="yearly"/></div>
-        <div className={styles.cardFoot}><span>{data.timeSeriesYearly.some(row => !row.fullYear) ? "* Selected months only · not a full-year total" : "Crash events and people · separate counts"}</span><button onClick={annualValues}>View annual values <ArrowUpRight size={14}/></button></div>
+        <div className={styles.cardFoot}>{data.timeSeriesYearly.some(row => !row.fullYear) && <span>Selected months only · not a full-year total</span>}<button onClick={annualValues}>View annual values <ArrowUpRight size={14}/></button></div>
       </article>
     </section>
     <section className={styles.balancedGrid} aria-label="Outcome interpretation">
       <article className={styles.card}>
-        <div className={styles.cardHeading}><div><h2>Fatal outcomes by year</h2><p>Fatal crashes as a percentage of all recorded crashes</p></div></div>
+        <div className={styles.cardHeading}><div><h2>Fatal outcomes by year</h2><p>Fatal crashes / all crashes</p></div></div>
         <div className={styles.outcomeRows}>{years.map(row => <div key={row.year}><span>{row.year}{!row.fullYear && <small>Selected months</small>}</span><div className={styles.outcomeTrack}><i style={{width:`${(row.share ?? 0) / max * 100}%`}}/></div><strong>{pct(row.share)}</strong><small>{n(row.fatalCrashes)} / {n(row.crashes)}</small></div>)}</div>
-        <div className={styles.cardFoot}><span>All-crash denominator; may differ from the known-status proportion above.</span></div>
       </article>
       <AnalyticsSeverityChange filters={data.filters} evidence={evidence}/>
     </section>
-    <article className={styles.card}><div className={styles.cardHeading}><div><h2>Severity detail</h2><p>Source-specific categories are retained</p></div><button className={styles.info} aria-label="Severity table definitions" onClick={definition}><CircleHelp size={17}/></button></div><div className={styles.tableScroll}><table className={styles.dataTable}><caption className="sr-only">Source severity categories, counts, shares and definitions</caption><thead><tr><th scope="col">Source category</th><th scope="col">Crashes</th><th scope="col">Share of all crashes</th><th scope="col">Source definition</th></tr></thead><tbody>{data.severity.map(row => <tr key={row.label}><th scope="row">{row.label}</th><td>{n(row.count)}</td><td>{pct(row.share == null ? null : row.share * 100)}</td><td className={styles.definitionCell}>{row.definition}</td></tr>)}</tbody></table>{!data.severity.length && <p className={styles.emptyDetail}>{data.severityReason || "No severity breakdown is available."}</p>}</div></article>
+    <article className={styles.card}><div className={styles.cardHeading}><div><h2>Severity detail</h2></div><button className={styles.info} aria-label="Severity table definitions" onClick={definition}><CircleHelp size={17}/></button></div><div className={styles.tableScroll}><table className={styles.dataTable}><caption className="sr-only">Source severity categories, counts, shares and definitions</caption><thead><tr><th scope="col">Source category</th><th scope="col">Crashes</th><th scope="col">Share of all crashes</th><th scope="col">Source definition</th></tr></thead><tbody>{data.severity.map(row => <tr key={row.label}><th scope="row">{row.label}</th><td>{n(row.count)}</td><td>{pct(row.share == null ? null : row.share * 100)}</td><td className={styles.definitionCell}>{row.definition}</td></tr>)}</tbody></table>{!data.severity.length && <p className={styles.emptyDetail}>{data.severityReason || "No severity breakdown is available."}</p>}</div></article>
   </>;
 }

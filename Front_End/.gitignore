@@ -19,3 +19,7 @@ public/vendor/
 
 # Independent demo build output
 .next-demo-build/
+
+# Local previews, verification copies and generated evidence
+.next-*/
+/output/

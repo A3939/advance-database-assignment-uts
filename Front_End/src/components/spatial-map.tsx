@@ -13,6 +13,7 @@ interface Props {
   source: SourceSelection;
   onSelect: (id: string, name?: string) => void;
   onSourceSelect: (source: SourceSelection) => void;
+  compactLegend?: boolean;
 }
 
 // One concentration scale for both map levels. Missing observations stay neutral.
@@ -34,6 +35,7 @@ export default function SpatialMap({
   source,
   onSelect,
   onSourceSelect,
+  compactLegend = false,
 }: Props) {
   const { theme } = useTheme();
   const footer = useRef<HTMLDivElement>(null);
@@ -579,16 +581,18 @@ export default function SpatialMap({
       <div className="map-bottom-bar" ref={footer}>
       <div
         className={`map-legend${boundaryOnly ? " boundary-only-legend" : ""}`}
+        role="group"
+        aria-label={data.legendLabel || (boundaryOnly ? "Boundaries only" : "Recorded crash count colour scale")}
       >
-        <span>
+        {(!compactLegend || boundaryOnly) && <span>
           {data.legendLabel ||
             (data.illustrationOnly
               ? "Illustrative concentration"
               : boundaryOnly
                 ? "Boundaries only"
                 : "Recorded crashes by source")}
-        </span>
-        {data.coverage && <span className="region-coverage">{data.coverage.percentage === null ? "No data for this period" : `${data.coverage.percentage}% matched · ${data.coverage.unmatched.toLocaleString("en-AU")} unmatched`}</span>}
+        </span>}
+        {!compactLegend && data.coverage && <span className="region-coverage">{data.coverage.percentage === null ? "No data for this period" : `${data.coverage.percentage}% matched · ${data.coverage.unmatched.toLocaleString("en-AU")} unmatched`}</span>}
         {!boundaryOnly && (
           <>
             <div>

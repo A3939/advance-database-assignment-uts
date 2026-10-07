@@ -122,28 +122,21 @@ export default function Overview({ explore = false }: { explore?: boolean }) {
       key: "crashes",
       label: "Crashes",
       icon: CarFront,
-      note: `Recorded crashes · ${monthRangeLabel(filters)}`,
     },
     {
       key: "fatalCrashes",
       label: "Fatal crashes",
       icon: TriangleAlert,
-      note:
-        metricDefs?.fatalShare != null
-          ? `${(metricDefs.fatalShare * 100).toFixed(2)}% of recorded crashes`
-          : "No ratio available",
     },
     {
       key: "livesLost",
       label: "Lives lost",
       icon: Heart,
-      note: "Recorded deaths · source-defined",
     },
     {
       key: "casualties",
       label: "Casualties",
       icon: Users,
-      note: "Source-defined casualty count",
     },
   ] as const;
   const yearOnly =
@@ -332,7 +325,7 @@ export default function Overview({ explore = false }: { explore?: boolean }) {
         aria-busy={loading}
       >
         <section className="metric-grid" aria-label="Overview metrics">
-          {cards.map(({ key, label, icon: Icon, note }) => (
+          {cards.map(({ key, label, icon: Icon }) => (
             <article className="panel metric-card" key={key}>
               <div className="metric-label">
                 <Icon size={25} strokeWidth={1.5} />
@@ -410,13 +403,9 @@ export default function Overview({ explore = false }: { explore?: boolean }) {
                   <div className="metric-value">
                     {format(metricDefs?.[key].value)}
                   </div>
-                  <p title={metricDefs?.[key].reason}>
-                    {metricDefs?.[key].availability === "unsupported"
-                      ? "Unavailable for this source · see definition"
-                      : metricDefs?.[key].availability === "unknown"
-                        ? "Unknown · see definition"
-                        : note}
-                  </p>
+                  {(metricDefs?.[key].availability === "unsupported" || metricDefs?.[key].availability === "unknown") && <p title={metricDefs[key].reason}>
+                    {metricDefs[key].availability === "unsupported" ? "Unavailable for this source" : "Unknown"}
+                  </p>}
                 </>
               )}
             </article>
@@ -574,10 +563,6 @@ export default function Overview({ explore = false }: { explore?: boolean }) {
                 </div>
               )}
               <div className="panel-footer">
-                <span>
-                  <Info size={16} />
-                  Source-specific · categories differ across states
-                </span>
                 <button
                   disabled={!bundle}
                   onClick={() =>

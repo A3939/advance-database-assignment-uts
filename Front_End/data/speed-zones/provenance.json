@@ -1,0 +1,103 @@
+{
+  "extensionVersion": "speed-zone-v1",
+  "batchId": "bcc5da57-25f2-41ec-9925-bef421b02671",
+  "datasetVersion": "official-v1",
+  "aggregateSha256": "15dc6ea6000b982aec809cb300a9884c0d1fb77b087f8eccc2c4b38476a58422",
+  "readerSha256": "fed5e2ea8736ce5db17fbdf1227cc4e6cafed2ec8fa3937956c218542e134e8d",
+  "inputs": [
+    {
+      "resourceId": "official_nsw_crash",
+      "sourceId": "official_nsw",
+      "sha256": "7345189f017d9c842429674ecf2196cee728de46c0572ce2a85220f9bef49aa9",
+      "rawCount": 92189,
+      "parserVersion": "xlsx-native-v1"
+    },
+    {
+      "resourceId": "official_vic_accident",
+      "sourceId": "official_vic",
+      "sha256": "a148c00601fab10d44368df80492c594123700a7f9e334ff896fd215295e91d9",
+      "rawCount": 200352,
+      "parserVersion": "csv-native-v1"
+    },
+    {
+      "resourceId": "official_qld_crash",
+      "sourceId": "official_qld",
+      "sha256": "975be4b02a235d06589de9b486f73bafe22d0f2007f0c07abb84f54cb926c704",
+      "rawCount": 415407,
+      "parserVersion": "csv-native-v1"
+    }
+  ],
+  "sources": {
+    "NSW": {
+      "field": "Speed limit",
+      "nativeValues": {
+        "10 km/h": 66,
+        "100 km/h": 10296,
+        "110 km/h": 3868,
+        "20 km/h": 40,
+        "30 km/h": 193,
+        "40 km/h": 3848,
+        "50 km/h": 30656,
+        "60 km/h": 25194,
+        "70 km/h": 7709,
+        "80 km/h": 8897,
+        "90 km/h": 1289,
+        "Unknown": 26
+      },
+      "audit": {
+        "rawRows": 92189,
+        "selectedCrashes": 92082,
+        "excludedCrashes": 26,
+        "monthlyMeasuresReconciled": 180
+      }
+    },
+    "VIC": {
+      "field": "SPEED_ZONE",
+      "nativeValues": {
+        "030": 172,
+        "040": 5378,
+        "050": 11610,
+        "060": 22871,
+        "070": 4088,
+        "075": 3,
+        "080": 11764,
+        "090": 88,
+        "100": 9437,
+        "110": 657,
+        "777": 187,
+        "888": 529,
+        "999": 5386
+      },
+      "audit": {
+        "rawRows": 200352,
+        "selectedCrashes": 72170,
+        "excludedCrashes": 6105,
+        "monthlyMeasuresReconciled": 180
+      }
+    },
+    "QLD": {
+      "field": "Crash_Speed_Limit",
+      "nativeValues": {
+        "0 - 50 km/h": 14028,
+        "100 - 110 km/h": 10468,
+        "60 km/h": 31101,
+        "70 km/h": 4792,
+        "80 - 90 km/h": 6235
+      },
+      "audit": {
+        "rawRows": 415407,
+        "selectedCrashes": 66624,
+        "excludedCrashes": 0,
+        "monthlyMeasuresReconciled": 180
+      }
+    }
+  },
+  "method": "Count distinct native crash events per calendar month and compatible source speed band. Fatal uses the admitted source-native crash severity. Share = fatal events / recorded events in the same source, months and band; unknown fatal status withholds the share.",
+  "limitations": [
+    "QLD publishes 0–50, 80–90 and 100–110 intervals; exact source values are grouped only into these whole intervals. No interval is split.",
+    "NSW unknown limits and VIC 075/777/888/999 are retained separately and excluded from plotted bands; no special-code meaning or speed is inferred.",
+    "QLD records casualty crashes; source inclusion and severity definitions differ. Shares are not exposure-adjusted risk or state safety rankings.",
+    "State-wide, whole-month extension only; LGA speed breakdowns are unsupported.",
+    "Derived frontend extension, not an amendment to the frozen official pipeline report or its permissions."
+  ]
+}

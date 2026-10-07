@@ -688,6 +688,7 @@ p {
   font-size: 12px;
   padding: 0;
 }
+.panel-footer > button:only-child { margin-left:auto; }
 .panel-footer button:hover {
   color: var(--accent-text);
 }

@@ -1,5 +1,6 @@
 import { createRegionalProvider, loadRegionSnapshot, regionEvidence } from "@/server/region-data";
 import { getSeverityChange } from "@/server/severity-change";
+import { getSpeedZones, loadSpeedZoneSnapshot, speedZoneEvidence } from "@/server/speed-zone";
 import {
   createOfficialProvider,
   loadOfficialSnapshot,
@@ -22,6 +23,8 @@ export async function GET(
       "timeseries",
       "severity",
       "severity-change",
+      "speed-zones",
+      "speed-zone-evidence",
       "map",
       "records",
       "metadata",
@@ -67,6 +70,12 @@ export async function GET(
     const service = createRegionalProvider(createOfficialProvider(snapshot), regional);
     let payload: unknown;
     switch (report) {
+      case "speed-zones":
+        payload = await getSpeedZones(filters, service, await loadSpeedZoneSnapshot());
+        break;
+      case "speed-zone-evidence":
+        payload = await speedZoneEvidence();
+        break;
       case "region-evidence":
         payload = await regionEvidence();
         break;

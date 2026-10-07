@@ -13,14 +13,14 @@ const change = (value: number | null) => value === null ? "—" : `${Math.abs(va
 function SourceDumbbell({ group, periods, max }: { group: SeverityChangeGroup; periods: NonNullable<SeverityChange["periods"]>; max: number }) {
   const largest = group.rows.reduce<SeverityChangeGroup["rows"][number] | null>((best, row) => row.change !== null && (!best || Math.abs(row.change) > Math.abs(best.change!)) ? row : best, null);
   return <section className={styles.changeSource} aria-label={`${group.source} severity share change`}>
-    <div className={styles.changeSourceHeading}><strong>{group.source}{group.area ? ` · ${group.area} LGA` : ""}</strong><span>Share of recorded crashes</span></div>
+    <div className={styles.changeSourceHeading}><strong>{group.source}{group.area ? ` · ${group.area} LGA` : ""}</strong></div>
     {group.reason && <p className={styles.changeNotice} role="status">{group.reason}</p>}
     {group.rows.length > 0 && <>
       <div className={styles.changeTableWrap}>
         <table className={styles.changeTable}>
           <caption className="sr-only">{group.source}: native severity shares, {periods[0].label} versus {periods[1].label}. Change in percentage points.</caption>
           <thead><tr><th scope="col"><span className="sr-only">Source category</span></th><th scope="col"><span className="sr-only">Share comparison</span></th><th scope="col">{periods[0].year}</th><th scope="col">{periods[1].year}</th><th scope="col">Change</th></tr></thead>
-          <tbody>{group.rows.map(row => <tr key={row.label}>
+          <tbody>{group.rows.map(row => <tr key={row.label} className={styles.changeRow} tabIndex={0}>
             <th scope="row">{row.label}</th>
             <td className={styles.changePlot} aria-hidden="true"><div className={styles.changeTrack}>
               {[0, 1, 2, 3, 4].map(tick => <i className={styles.changeGridline} key={tick} style={{ left: `${tick * 25}%` }}/>) }
@@ -72,7 +72,7 @@ export default function AnalyticsSeverityChange({ filters, evidence }: {
     {!current && <p className={styles.changeNotice} role="status">Loading severity comparison…</p>}
     {current?.error && <div className={styles.changeNotice} role="status"><p>{current.error}</p><button className={styles.textButton} onClick={() => setRetry(value => value + 1)}>Reload comparison</button></div>}
     {data?.reason ? <p className={styles.changeNotice} role="status">{data.reason}</p> : periods && <>
-      <div className={styles.changeLegend}><span><i/>{periods[0].year}</span><span><i/>{periods[1].year}</span>{filters.source === "All" && <small>Separate source classifications</small>}</div>
+      <div className={styles.changeLegend}><span><i/>{periods[0].year}</span><span><i/>{periods[1].year}</span></div>
       {data?.groups.map(group => <SourceDumbbell key={group.source} group={group} periods={periods} max={max}/>)}
     </>}
   </article>;

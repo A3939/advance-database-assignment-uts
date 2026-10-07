@@ -41,7 +41,9 @@
     ".next-analysis/types/**/*.ts",
     ".next-analysis/dev/types/**/*.ts",
     ".next-demo-build/types/**/*.ts",
-    ".next-demo-build/dev/types/**/*.ts"
+    ".next-demo-build/dev/types/**/*.ts",
+    ".next-local-preview-20261007/types/**/*.ts",
+    ".next-local-preview-20261007/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",

@@ -1,5 +1,39 @@
 import type { ArsiaService, Filters, AgentEvent, Response } from "./contracts";
 import type { SeverityChange } from "./severity-change";
+import type { SpeedZoneData } from "./speed-zone";
+
+export const DATA_REQUEST_TIMEOUT_MS = 20_000;
+
+/** Bound both the response and its body. A stalled request must not leave a
+ * dashboard loading indefinitely, even if a transport ignores cancellation. */
+async function readDataJson<T>(url: string, signal?: AbortSignal): Promise<T> {
+  signal?.throwIfAborted();
+  const controller = new AbortController();
+  let rejectStopped!: (reason: unknown) => void;
+  const stopped = new Promise<never>((_, reject) => { rejectStopped = reject; });
+  const stop = (reason: unknown) => {
+    rejectStopped(reason);
+    controller.abort(reason);
+  };
+  const onAbort = () => stop(signal!.reason);
+  signal?.addEventListener("abort", onAbort, { once: true });
+  const timeout = setTimeout(() => stop(new DOMException(
+    "The data request took too long. Please try again.", "TimeoutError",
+  )), DATA_REQUEST_TIMEOUT_MS);
+  try {
+    return await Promise.race([
+      (async () => {
+        const response = await fetch(url, { signal: controller.signal, cache: "no-store" });
+        if (!response.ok) throw Error(`Project data request failed (${response.status}).`);
+        return await response.json() as T;
+      })(),
+      stopped,
+    ]);
+  } finally {
+    clearTimeout(timeout);
+    signal?.removeEventListener("abort", onAbort);
+  }
+}
 
 async function get<T>(
   report: string,
@@ -16,15 +50,10 @@ async function get<T>(
     params.set("datasetVersion", filters.datasetVersion);
     params.set("batchId", filters.batchId);
   }
-  const response = await fetch(`/api/data/${report}?${params}`, {
-    signal,
-    cache: "no-store",
-  });
-  if (!response.ok)
-    throw Error(`Project data request failed (${response.status}).`);
-  return response.json() as Promise<T>;
+  return readDataJson<T>(`/api/data/${report}?${params}`, signal);
 }
 export const getSeverityChange = (filters: Filters, signal?: AbortSignal) => get<Response<SeverityChange>>("severity-change", filters, {}, signal);
+export const getSpeedZones = (filters: Filters, signal?: AbortSignal) => get<Response<SpeedZoneData>>("speed-zones", filters, {}, signal);
 
 export const httpProvider: ArsiaService = {
   getOverview: (f, signal) => get("overview", f, {}, signal),

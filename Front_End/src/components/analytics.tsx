@@ -22,6 +22,7 @@ import AnalyticsAllSources from "./analytics-all-sources";
 import AnalyticsMetricCard from "./analytics-metric-card";
 import MapAreaSearch from "./map-area-search";
 import { arsia } from "@/services";
+import { DATA_REQUEST_TIMEOUT_MS } from "@/services/http-provider";
 import { monthlyInsights } from "@/services/analytics-insights";
 import {
   ArrowDownRight,
@@ -84,6 +85,11 @@ const METRICS = {
 const METRIC_ICONS = { crashes: CarFront, fatalCrashes: Siren, livesLost: Heart, casualties: Users };
 type MetricKey = keyof typeof METRICS;
 type Bundle = Awaited<ReturnType<typeof getAnalytics>>;
+type AnalysisLoad = { key: string; attempt: number } & (
+  | { status: "ready"; bundle: Bundle; all: Bundle[]; map: Response<MapData> | null;
+      sourceMaps: { source: SourceSelection; response: Response<MapData> }[] }
+  | { status: "error"; message: string }
+);
 const number = (value: number | null | undefined, decimals = 0) =>
   value == null
     ? "—"
@@ -100,12 +106,17 @@ const filterKey = (filters: Filters) => JSON.stringify(filters);
 
 export default function Analytics({ dashboard = "trends" }: { dashboard?: "trends" | "severity" | "spatial" }) {
   const { filters, catalog, setFilters, showEvidence, askAI, notify, view, setView, analysisHref } = useWorkspace();
-  const actualFilters = filters;
+  // URL restoration can create a new object for the same selection. Only
+  // actual query changes should cancel an in-flight request and start another.
+  const actualFilters = useMemo<Filters>(() => ({
+    source: filters.source, regionId: filters.regionId,
+    dateRange: { from: filters.dateRange.from, to: filters.dateRange.to },
+    datasetVersion: filters.datasetVersion, batchId: filters.batchId,
+    ...(filters.releaseId ? { releaseId: filters.releaseId } : {}),
+  }), [filters.source, filters.regionId, filters.dateRange.from, filters.dateRange.to,
+    filters.datasetVersion, filters.batchId, filters.releaseId]);
   const areaOptions = useMemo(() => [{id:"", name:"All areas"}, ...catalog.sources.filter(item => filters.source === "All" || item.source === filters.source).flatMap(item => regionsForSource(item.source).map(region => ({ ...region, name: filters.source === "All" ? `${region.name} (${item.source})` : region.name, source:item.source }))).sort((a,b) => a.name.localeCompare(b.name))], [filters.source, catalog.sources]);
-  const [result, setResult] = useState<{ key: string; bundle: Bundle; all: Bundle[]; map: Response<MapData> | null; sourceMaps: { source: SourceSelection; response: Response<MapData> }[] } | null>(
-    null,
-  );
-  const [error, setError] = useState("");
+  const [load, setLoad] = useState<AnalysisLoad | null>(null);
   const [retry, setRetry] = useState(0);
   const { metric } = view;
   const setMetric = (metric: MetricKey) => setView({ ...view, metric });
@@ -128,9 +139,13 @@ export default function Analytics({ dashboard = "trends" }: { dashboard?: "trend
   const [page, setPage] = useState(1);
   const heatmap = useRef<HTMLDivElement>(null);
   const key = `${dashboard}:${filterKey(actualFilters)}`;
-  const loading = result?.key !== key;
-  // Never display an old source underneath new filters while a provider resolves.
-  const bundle = result?.key === key ? result.bundle : null;
+  // Data and errors belong to one selection AND one retry. A failed old
+  // selection must not obscure a new load (including browser back/forward).
+  const current = load?.key === key && load.attempt === retry ? load : null;
+  const loading = current === null;
+  const result = current?.status === "ready" ? current : null;
+  const error = current?.status === "error" ? current.message : "";
+  const bundle = result?.bundle ?? null;
   const data = bundle?.data;
   const granularity = data?.monthlyAvailability === "unsupported" ? "yearly" : view.granularity;
   const isDemo = bundle?.meta.demo ?? IS_DEMO;
@@ -152,12 +167,18 @@ export default function Analytics({ dashboard = "trends" }: { dashboard?: "trend
         const bundle = all[0];
         if (!bundle) throw Error("No sources are available.");
         if (!active) return;
-        setResult({ key, bundle, all, map, sourceMaps });
-        setError("");
+        setLoad({ key, attempt: retry, status: "ready", bundle, all, map, sourceMaps });
       })
-      .catch(() => {
-        if (active)
-          setError("This analysis could not be loaded. Please try again.");
+      .catch((error: unknown) => {
+        // A cancelled old selection is silent. A current failure is visible,
+        // and its sibling requests should no longer occupy network resources.
+        if (!active) return;
+        controller.abort();
+        setLoad({ key, attempt: retry, status: "error", message:
+          error instanceof Error && error.name === "TimeoutError"
+            ? `The data request did not finish within ${DATA_REQUEST_TIMEOUT_MS / 1000} seconds. Please try again.`
+            : "This analysis could not be loaded. Please try again.",
+        });
       });
     return () => {
       active = false; controller.abort();
@@ -195,6 +216,13 @@ export default function Analytics({ dashboard = "trends" }: { dashboard?: "trend
   );
 
   const years = [...new Set(data?.monthly.map((row) => row.year) ?? [])];
+  const monthlyStates = [
+    { symbol: "Out", label: "Not selected", shown: years.length * 12 > (data?.monthly.length ?? 0) },
+    { symbol: "N/C", label: "No coverage", shown: data?.monthly.some(row => row.availability === "no_results") },
+    { symbol: "?", label: "Unknown count", shown: data?.monthly.some(row => row.availability !== "no_results" && row.availability !== "unsupported" && row[metric] == null) },
+    { symbol: "0", label: "Recorded zero", shown: data?.monthly.some(row => row.availability !== "no_results" && row.availability !== "unsupported" && row[metric] === 0) },
+    { symbol: "N/S", label: "Unsupported", shown: data?.monthly.some(row => row.availability === "unsupported") },
+  ].filter(state => state.shown);
   const selectedMonth = data?.monthly.find((row) => row.period === selected);
   const latest = data?.yearly.at(-1);
   const comparison = latest?.comparisons[metric];
@@ -229,7 +257,6 @@ export default function Analytics({ dashboard = "trends" }: { dashboard?: "trend
   const availableRange = sourceCoverage(catalog, filters.source);
   const draftPeriod = wholeMonthRange(draftFrom, draftTo, dateBounds);
   function changeFilters(next: Filters) {
-    setError("");
     setPage(1);
     setSelection(null);
     setFilters(next);
@@ -411,7 +438,7 @@ export default function Analytics({ dashboard = "trends" }: { dashboard?: "trend
             className={styles.exportButton}
             variant="outline"
             onClick={exportData}
-            disabled={loading || !data || isEmpty}
+            disabled={loading || !!error || !data || isEmpty}
           >
             <Download size={16} />
             Export
@@ -429,14 +456,13 @@ export default function Analytics({ dashboard = "trends" }: { dashboard?: "trend
           <Button
             variant="outline"
             onClick={() => {
-              setError("");
               setRetry((n) => n + 1);
             }}
           >
             Try again
           </Button>
         </div>
-      ) : actualFilters.source === "All" ? (loading || !result ? <div className={styles.empty} role="status">Loading source comparisons…</div> : <AnalyticsAllSources bundles={result.all} dashboard={dashboard} metric={metric} granularity={view.granularity} map={result.map?.data ?? null} sourceMaps={result.sourceMaps.map(({source, response}) => ({source, data:response.data}))} evidence={evidence} setMetric={setMetric} setGranularity={setGranularity} onSourceSelect={source => changeFilters(selectSource(actualFilters, source))}/>) : isEmpty ? (
+      ) : actualFilters.source === "All" ? (loading || !result ? <div className={styles.empty} role="status">Loading source comparisons…</div> : <AnalyticsAllSources bundles={result.all} dashboard={dashboard} metric={metric} granularity={view.granularity} map={result.map?.data ?? null} sourceMaps={result.sourceMaps.map(({source, response}) => ({source, data:response.data}))} onAreaSelect={(source, regionId) => changeFilters({...selectSource(actualFilters, source), regionId})} evidence={evidence} setMetric={setMetric} setGranularity={setGranularity} onSourceSelect={source => changeFilters(selectSource(actualFilters, source))}/>) : isEmpty ? (
         <div className={styles.empty}>
           <CalendarDays size={32} />
           <h2>No data for this selection</h2>
@@ -470,12 +496,6 @@ export default function Analytics({ dashboard = "trends" }: { dashboard?: "trend
                 <div className={styles.cardHeading}>
                   <div>
                     <h2>Trend over time</h2>
-                    <p>
-                      {METRICS[metric]} ·{" "}
-                      {metric === "livesLost" || metric === "casualties"
-                        ? "people"
-                        : "events"}
-                    </p>
                   </div>
                   <div className={styles.segment} aria-label="Trend interval">
                     {(["monthly", "yearly"] as const).map((mode) => (
@@ -517,13 +537,8 @@ export default function Analytics({ dashboard = "trends" }: { dashboard?: "trend
                   {!loading && !trendRows.some(row => row[metric] !== null) && <div className={styles.chartOverlay} role="status">{data?.overview[metric].availability === "unsupported" ? data.overview[metric].reason || `${METRICS[metric]} is unsupported for this selection.` : `${METRICS[metric]} unavailable for this selection. Unknown observations are not zero.`}</div>}
                 </div>
                 <div className={styles.cardFoot}>
-                  <span>
-                    {granularity === "monthly"
-                      ? isDemo
-                        ? "Monthly values are synthetically allocated."
-                        : "Recorded monthly counts · published snapshot."
-                      : "Years reflect the selected calendar months."}
-                  </span>
+                  {isDemo && granularity === "monthly" && <span>Synthetic monthly values</span>}
+                  {granularity === "yearly" && data?.yearly.some(row => !row.fullYear) && <span>Selected months only · not a full-year total</span>}
                   <button
                     onClick={() =>
                       evidence(
@@ -632,16 +647,12 @@ export default function Analytics({ dashboard = "trends" }: { dashboard?: "trend
               </article>
             </section>
           </div>
-          {singleMonth ? <section className={`${styles.card} ${styles.singleMonthDetail}`} aria-label="Selected month details"><div className={styles.cardHeading}><div><h2>{monthLabel(data!.monthly[0].period)} details</h2><p>One selected month; a calendar-month pattern requires a wider period.</p></div></div><div className={styles.inspectionValues}>{Object.entries(METRICS).map(([field, label]) => <span key={field}>{label}<b>{number(data!.monthly[0][field as MetricKey])}</b></span>)}</div><div className={styles.cardFoot}><span>Matching-month comparison appears above. Counts are not risk rates.</span></div></section> : <section className={styles.patternGrid} aria-label="Monthly patterns">
+          {singleMonth ? <section className={`${styles.card} ${styles.singleMonthDetail}`} aria-label="Selected month details"><div className={styles.cardHeading}><div><h2>{monthLabel(data!.monthly[0].period)} details</h2></div></div><div className={styles.inspectionValues}>{Object.entries(METRICS).map(([field, label]) => <span key={field}>{label}<b>{number(data!.monthly[0][field as MetricKey])}</b></span>)}</div></section> : <section className={styles.patternGrid} aria-label="Monthly patterns">
             <article className={`${styles.card} ${styles.heatmapCard}`}>
               <div className={styles.cardHeading}>
                 <div>
                   <h2>Monthly distribution</h2>
-                  <p>{METRICS[metric]} by year and month</p>
                 </div>
-                <span className={styles.quietLabel}>
-                  Arrow keys to move · Enter to inspect
-                </span>
               </div>
               <div className={styles.heatmapScroll} ref={heatmap}>
                 <table className={styles.heatmap}>
@@ -715,11 +726,7 @@ export default function Analytics({ dashboard = "trends" }: { dashboard?: "trend
                 </table>
               </div>
               <div className={styles.heatmapLegend}>
-                <span>
-                  {isDemo
-                    ? "Synthetic monthly allocation"
-                    : `Recorded monthly ${METRICS[metric].toLowerCase()}`}
-                </span>
+                {isDemo && <span>Synthetic monthly allocation</span>}
                 <div>
                   <span>Fewer</span>
                   {[1, 2, 3, 4, 5, 6].map((n) => (
@@ -728,9 +735,8 @@ export default function Analytics({ dashboard = "trends" }: { dashboard?: "trend
                   <span>More</span>
                 </div>
               </div>
-              <div className={styles.statusLegend} aria-label="Monthly observation states"><span><b>Out</b> Not selected</span><span><b>N/C</b> No coverage</span><span><b>?</b> Unknown count</span><span><b>0</b> Recorded zero</span>{data?.monthly.some(row => row.availability === "unsupported") && <span><b>N/S</b> Unsupported</span>}</div>
-              <div className={styles.monthInspection} aria-live="polite">
-                {selected ? (
+              {monthlyStates.length > 0 && <div className={styles.statusLegend} aria-label="Monthly observation states">{monthlyStates.map(state => <span key={state.symbol}><b>{state.symbol}</b> {state.label}</span>)}</div>}
+              {selected && <div className={styles.monthInspection} aria-live="polite">
                   <>
                     <div>
                       <strong>{monthLabel(selected)}</strong>
@@ -773,13 +779,7 @@ export default function Analytics({ dashboard = "trends" }: { dashboard?: "trend
                       </p>
                     )}
                   </>
-                ) : (
-                  <p>
-                    <Info size={15} />
-                    Select a month for its crash and casualty breakdown.
-                  </p>
-                )}
-              </div>
+              </div>}
             </article>
             <article className={styles.card}>
               <div className={styles.cardHeading}>
@@ -809,13 +809,7 @@ export default function Analytics({ dashboard = "trends" }: { dashboard?: "trend
               <div className={styles.patternChart}>
                 <Chart kind="seasonality" rows={monthly} metric={metric} />
               </div>
-              <div className={styles.cardFoot}>
-                <span>
-                  {isDemo
-                    ? "Observed months only · synthetic pattern"
-                    : "Known monthly counts · descriptive average"}
-                </span>
-              </div>
+              {isDemo && <div className={styles.cardFoot}><span>Synthetic pattern</span></div>}
             </article>
           </section>}
           <section className={styles.fullWidthData} aria-label="Trend data">
@@ -823,7 +817,6 @@ export default function Analytics({ dashboard = "trends" }: { dashboard?: "trend
               <div className={styles.cardHeading}>
                 <div>
                   <h2>Analysis data</h2>
-                  <p>Aggregates behind the charts</p>
                 </div>
                 <div className={styles.segment} aria-label="Table interval">
                   {(["yearly", "monthly"] as const).map((mode) => (

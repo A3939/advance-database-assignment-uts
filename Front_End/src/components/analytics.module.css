@@ -23,13 +23,9 @@
 .areaSearch { width:220px; max-width:100%; --map-control-size:40px; --map-control-gap:8px; }
 .areaSearch :global(.map-area-search) { width:100%; }
 .areaSearch :global(.map-area-results) { z-index:20; }
-.sourceComparison { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--analysis-gap); margin:22px 0; }
-.sourceComparison .trendChart { height:260px; flex:none; }
-.sourceComparison .severityChart[data-mode="share"] { height:380px; flex:none; }
 .sourceValue { display:flex; flex-wrap:wrap; gap:8px 20px; padding:0 24px 8px; font-size:12px; color:var(--text-secondary); }
 .sourceValue strong { display:block; color:var(--text-primary); font-size:25px; font-weight:600; }
 .allSourceNote { display:flex; align-items:center; gap:8px; font-size:12px; color:var(--text-secondary); padding:16px 0 0; }
-@media(max-width:1000px) { .sourceComparison { grid-template-columns:1fr; } }
 .areaFilter select, .tableControls select, .definitionBox select { border:1px solid var(--border); background:var(--surface); color:var(--text-primary); border-radius:7px; padding:9px 12px; font-size:12px; max-width:220px; min-width:0; }
 .page .metrics { grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; padding:22px 0; }
 .page .metrics > div { position:relative; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:18px 22px; gap:6px; min-width:0; }
@@ -45,7 +41,7 @@
 .severityGrid, .balancedGrid, .spatialGrid { display:grid; gap:var(--analysis-gap); margin-bottom:var(--analysis-gap); }
 .severityGrid { grid-template-columns:minmax(0,1.55fr) minmax(0,1fr); }
 .balancedGrid { grid-template-columns:repeat(2,minmax(0,1fr)); }
-.spatialGrid { grid-template-columns:minmax(0,1.85fr) minmax(300px,1fr); }
+.spatialGrid { grid-template-columns:minmax(0,1.85fr) minmax(300px,1fr); margin-top:var(--analysis-gap); }
 .page .severityGrid .severityChart { height:270px; margin:4px 20px; flex:none; }
 .fatalOutcomesChart { height:300px; min-height:285px; flex:1; margin:0 16px; }
 .changeCard { container-type:inline-size; margin-bottom:var(--analysis-gap); }
@@ -77,6 +73,23 @@
 .changeStartDot, .changeEndDot { position:absolute; width:10px; height:10px; border-radius:50%; top:50%; transform:translate(-50%,-50%); }
 .changeStartDot { border:2px solid var(--severity-moderate); background:var(--surface); }
 .changeEndDot { background:var(--chart-trend); }
+.changeTable .changeRow { border-radius:6px; transition:background-color 160ms ease,box-shadow 160ms ease; }
+.changeRow .changeStartDot, .changeRow .changeEndDot { transition:transform 160ms ease,box-shadow 160ms ease; }
+.changeRow .changeConnector { transition:background-color 160ms ease,box-shadow 160ms ease; }
+.changeTable .changeRow:is(:hover,:focus-visible) {
+  background:color-mix(in srgb,var(--chart-trend) 5%,var(--surface));
+  box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--chart-trend) 18%,transparent);
+}
+.changeTable .changeRow:focus-visible { outline:2px solid var(--accent-text); outline-offset:2px; }
+.changeRow:is(:hover,:focus-visible) th { color:var(--text-primary); }
+.changeRow:is(:hover,:focus-visible) .changeStartDot,
+.changeRow:is(:hover,:focus-visible) .changeEndDot { transform:translate(-50%,-50%) scale(1.25); }
+.changeRow:is(:hover,:focus-visible) .changeStartDot { box-shadow:0 0 0 3px color-mix(in srgb,var(--severity-moderate) 14%,transparent); }
+.changeRow:is(:hover,:focus-visible) .changeEndDot { box-shadow:0 0 0 4px color-mix(in srgb,var(--chart-trend) 16%,transparent); }
+.changeRow:is(:hover,:focus-visible) .changeConnector { background:var(--chart-trend); box-shadow:0 0 0 1px color-mix(in srgb,var(--chart-trend) 12%,transparent); }
+@media(prefers-reduced-motion:reduce) {
+  .changeTable .changeRow, .changeRow .changeStartDot, .changeRow .changeEndDot, .changeRow .changeConnector { transition:none; }
+}
 .changeAxis { height:26px; margin-bottom:14px; }
 .changeAxis > div { grid-column:2; position:relative; align-self:start; margin:0 6px; border-top:1px solid var(--border-strong); }
 .changeAxis span { position:absolute; top:7px; transform:translateX(-50%); font-size:9px; color:var(--text-secondary); }
@@ -129,8 +142,20 @@
 .textButton:hover { text-decoration:underline; }
 .page .dataTable .definitionCell { white-space:normal; min-width:330px; max-width:660px; font-size:12px; line-height:1.65; color:var(--text-secondary); text-align:left; }
 .emptyDetail { padding:25px; color:var(--text-secondary); font-size:13px; }
-.spatialMap { position:relative; height:480px; overflow:hidden; isolation:isolate; }
-.spatialMap :global(.map-stage) { width:100%; height:100%; min-height:0; }
+.spatialMap {
+  --map-background:var(--background);
+  --map-bleed:0px;
+  position:relative;
+  display:flex;
+  min-width:0;
+  min-height:560px;
+  background:transparent;
+  border:0;
+  border-radius:0;
+  overflow:hidden;
+  isolation:isolate;
+}
+.spatialMap :global(.map-stage) { width:100%; margin-left:0; min-height:560px; }
 .rankList { padding:0 24px 16px; list-style:none; }
 .rankList button { display:flex; width:100%; align-items:center; gap:12px; padding:10px 0; border:0; background:transparent; color:var(--text-primary); border-bottom:1px solid var(--border); text-align:left; font-size:12px; }
 .rankList button[aria-pressed="true"], .rankList button:hover { color:var(--accent-text); }
@@ -146,6 +171,33 @@
 .scatterDot { fill:var(--coral); fill-opacity:.65; stroke:var(--surface); stroke-width:1; cursor:pointer; }
 .selectedDot { fill:var(--chart-trend); stroke:var(--text-primary); stroke-width:1.5; cursor:pointer; }
 .scatterDot:hover, .scatterDot:focus { fill:var(--chart-trend); fill-opacity:1; }
+.concentrationCard { margin-bottom:var(--analysis-gap); }
+.concentrationChart { margin:0 24px 18px; min-width:0; }
+.concentrationLegend { display:flex; flex-wrap:wrap; gap:12px 24px; padding:8px 0 20px; font-size:12px; color:var(--text-secondary); }
+.concentrationLegend span { display:inline-flex; align-items:center; gap:8px; }
+.concentrationLegend i, .concentrationReadout i { display:inline-block; width:9px; height:9px; border-radius:50%; flex-shrink:0; }
+.concentrationLegend .concentrationReference { margin-left:auto; }
+.concentrationLegend .concentrationReference i { width:20px; height:0; border-top:1px dashed var(--text-secondary); border-radius:0; }
+.concentrationPlot { position:relative; }
+.concentrationPlot svg { display:block; overflow:visible; }
+.concentrationGrid line { stroke:var(--chart-grid); stroke-dasharray:4 4; }
+.concentrationGrid text, .concentrationTick, .concentrationAxisTitle { fill:var(--text-secondary); font:11px var(--font-sans); }
+.concentrationDiagonal { fill:none; stroke:var(--text-secondary); stroke-width:1; stroke-dasharray:5 5; opacity:.5; }
+.concentrationGuide { stroke:var(--text-secondary); stroke-width:1; stroke-dasharray:4 4; }
+.concentrationHitArea { cursor:crosshair; touch-action:pan-y; }
+.concentrationHitArea:focus-visible { outline:2px solid var(--accent-text); outline-offset:4px; }
+.concentrationTooltip { position:absolute; z-index:2; padding:14px 16px; border:1px solid var(--border-strong); border-radius:8px; background:var(--surface-elevated); color:var(--text-primary); box-shadow:0 6px 20px #0003; pointer-events:none; font-size:12px; }
+.concentrationTooltip > strong { display:block; font-size:12px; font-weight:500; margin-bottom:12px; }
+.concentrationReadout + .concentrationReadout { margin-top:10px; padding-top:10px; border-top:1px solid var(--border); }
+.concentrationReadout > span { display:flex; align-items:center; gap:7px; margin-bottom:5px; }
+.concentrationReadout b { font-weight:600; }
+.concentrationReadout > span > span { margin-left:auto; font-size:15px; font-weight:600; }
+.concentrationReadout p { color:var(--text-secondary); font-size:11px; margin:3px 0 0; line-height:1.5; }
+@media(max-width:760px) {
+  .concentrationChart { margin-inline:16px; }
+  .concentrationLegend { gap:10px 16px; }
+  .concentrationLegend .concentrationReference { margin-left:0; }
+}
 .localDetail { margin-bottom:var(--analysis-gap); }
 .localityList { display:flex; flex-wrap:wrap; gap:12px; padding:8px 24px; }
 .localityList > span { display:flex; gap:20px; justify-content:space-between; font-size:12px; padding:12px; background:var(--surface-elevated); border-radius:7px; flex:1; min-width:170px; }
@@ -174,7 +226,7 @@
   .page .metrics strong, .page .metrics .peakValue, .page .metrics .areaName { font-size:23px; }
   .coralIcon { right:12px; top:15px; width:16px; }
   .severityGrid, .spatialGrid, .balancedGrid { grid-template-columns:1fr; }
-  .spatialMap { height:430px; }
+  .spatialMap { min-height:560px; }
   .tableControls { width:100%; }
   .cardHeading:has(.tableControls) { flex-wrap:wrap; }
   .areaFilter select { max-width:185px; }
@@ -389,6 +441,7 @@
   color: var(--text-secondary);
   margin-top: auto;
 }
+.cardFoot > button:only-child { margin-left:auto; }
 .cardFoot button,
 .bottomNote button {
   display: flex;
@@ -1051,3 +1104,64 @@
   .singleCompactValue, .singleAreaValue { font-size:19px; }
 }
 @media(max-width:360px) { .page { --analysis-label-width:64px; --analysis-item-width:52px; } }
+
+/* Unified vertical severity comparison; single-source outcome chart stays intact. */
+.page .allSeverityGrid .severityChart { height:360px; margin:4px 14px; }
+.reservedOutcomes { flex:1; min-height:360px; }
+.severityNotice { padding:4px 24px 12px; color:var(--text-secondary); font-size:12px; line-height:1.6; }
+@media(max-width:760px) {
+  .page .allSeverityGrid .severityChart { height:330px; margin:4px 8px; }
+  .reservedOutcomes { min-height:260px; }
+}
+
+/* Native composition shares use per-source 100% tracks. */
+.page .severityGrid .severityChart[data-mode="share"] { height:auto; min-height:270px; }
+.page .allSeverityGrid .severityChart[data-mode="share"] { min-height:360px; }
+/* Single-state shares retain the original pie; All keeps its stacked tracks. */
+.page .severityGrid .singleSeverityChart[data-mode="share"] { height:300px; }
+@media(max-width:540px) {
+  .page .severityGrid .singleSeverityChart[data-mode="share"] { height:420px; }
+}
+.shareComposition { padding:14px 4px 18px; --share-label:86px; }
+.shareAxis { position:relative; height:24px; margin:0 0 12px calc(var(--share-label) + 12px); color:var(--text-secondary); font-size:10px; }
+.shareAxis span { position:absolute; transform:translateX(-50%); }
+.shareAxis span:first-child { transform:none; }
+.shareAxis span:last-child { transform:translateX(-100%); }
+.shareSource { display:grid; grid-template-columns:var(--share-label) minmax(0,1fr); gap:12px; margin-bottom:26px; }
+.shareSourceChart { position:relative; min-width:0; }
+.shareSourceLabel strong { display:block; font-size:16px; font-weight:600; margin:4px 0 8px; }
+.shareFatal { display:inline-block; padding:5px 6px; background:var(--coral); color:#18221c; font-size:10px; font-weight:600; border-radius:4px; white-space:nowrap; }
+.shareTrack { display:flex; height:40px; width:100%; overflow:hidden; background:var(--surface-elevated); }
+.shareSegment { flex:none; display:flex; align-items:center; justify-content:center; min-width:0; }
+.shareSegment[data-muted="true"] { opacity:.28; }
+.shareSource[data-muted="true"] .shareTrack { opacity:.28; }
+.shareTrack[data-active="true"] { outline:8px solid #ffffff08; }
+.shareTrack:focus-visible { outline:2px solid var(--chart-trend); outline-offset:3px; }
+.shareSegment b { font-size:11px; font-weight:600; color:#17231b; white-space:nowrap; }
+.shareSegment[data-tone="0"], .shareNativeLegend i[data-tone="0"] { background:var(--coral); }
+.shareSegment[data-tone="1"], .shareNativeLegend i[data-tone="1"] { background:var(--severity-serious); }
+.shareSegment[data-tone="2"], .shareNativeLegend i[data-tone="2"] { background:var(--severity-moderate); }
+.shareSegment[data-tone="3"], .shareNativeLegend i[data-tone="3"] { background:var(--severity-other); }
+.shareSegment[data-tone="4"], .shareNativeLegend i[data-tone="4"] { background:var(--severity-non-injury); }
+.shareSegment[data-tone="5"], .shareNativeLegend i[data-tone="5"] { background:var(--chart-neutral); }
+.shareNativeLegend { display:flex; flex-wrap:wrap; column-gap:16px; row-gap:9px; padding:0; margin:12px 0 0; list-style:none; }
+.shareNativeLegend li { display:flex; align-items:baseline; gap:6px; color:var(--text-secondary); font-size:10px; line-height:1.6; }
+.shareNativeLegend i { flex:none; display:inline-block; width:8px; height:8px; border-radius:50%; }
+.shareNativeLegend strong { color:var(--text-primary); font-weight:500; white-space:nowrap; }
+.shareCompositionNote { border-top:1px solid var(--border); padding-top:14px; font-size:11px; color:var(--text-secondary); line-height:1.6; }
+.shareUnavailable { color:var(--text-secondary); font-size:12px; padding:10px 0; }
+@media(max-width:540px) {
+  .shareComposition { --share-label:62px; padding:14px 0; }
+  .shareSource { gap:8px; }
+  .shareSourceLabel strong { font-size:14px; }
+  .shareFatal { font-size:9px; padding:4px; }
+  .shareTrack { height:36px; }
+  .shareSegment b { font-size:9px; }
+  .shareNativeLegend { column-gap:10px; }
+}
+
+.shareSegment[data-tone="4"] b { color:#f1f5ef; }
+
+.speedZoneChart { height:360px; min-height:300px; margin:4px 16px 0; flex:1; }
+.speedZoneNotice { margin:4px 24px 8px; font-size:10px; line-height:1.6; color:var(--text-secondary); }
+@media(max-width:540px) { .speedZoneChart { height:310px; min-height:310px; margin-inline:8px; } }
