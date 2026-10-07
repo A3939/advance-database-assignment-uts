@@ -12,6 +12,7 @@ import AnalyticsSeverityChange from "./analytics-severity-change";
 import AnalyticsSeverityShare from "./analytics-severity-share";
 import AnalyticsSpeedZone from "./analytics-speed-zone";
 import AnalyticsConcentration from "./analytics-concentration";
+import AnalyticsPeriodComparison from "./analytics-period-comparison";
 
 const Chart = dynamic(() => import("./analytics-chart"), { ssr: false });
 const SpatialMap = dynamic(() => import("./spatial-map"), { ssr: false });
@@ -108,6 +109,7 @@ export default function AnalyticsAllSources({ bundles, dashboard, metric, granul
       <div style={{height:"clamp(320px, 30vw, 370px)",minHeight:320,flex:"none",margin:"14px clamp(4px, 2vw, 16px) 18px"}}><Chart kind="trend" rows={bundles.flatMap(({data}) => (granularity === "monthly" ? data.monthly : data.timeSeriesYearly).map(row => ({...row, source:data.source})))} trendSources={bundles.map(({data}) => data.source)} granularity={granularity} metric={metric}/></div>
       {granularity === "yearly" && bundles.some(({data}) => data.timeSeriesYearly.some(row => row.fullYear === false)) && <div className={styles.cardFoot}>* Selected months only · not a full-year total</div>}
     </article>}
+    {dashboard === "trends" && <AnalyticsPeriodComparison sources={bundles.map(({data}) => ({source:data.source,monthly:data.monthly}))} metric={metric} evidence={evidence}/>}
     {dashboard === "severity" && bundles[0] && <AnalyticsSeverityChange filters={{...bundles[0].data.filters, source:"All", regionId:undefined}} evidence={evidence}/>}
     <article className={styles.card}><div className={styles.cardHeading}><div><h2>Source detail</h2></div></div><div className={styles.tableScroll}><table className={styles.dataTable}><caption className="sr-only">All source counts; no national total</caption><thead><tr><th scope="col">Source</th>{Object.values(labels).map(label => <th scope="col" key={label}>{label}</th>)}</tr></thead><tbody>{bundles.map(({data}) => <tr key={data.source}><th scope="row">{data.source}</th>{(Object.keys(labels) as MetricKey[]).map(key => <td key={key}>{number(data.overview[key].value)}</td>)}</tr>)}</tbody></table></div></article>
   </>;
