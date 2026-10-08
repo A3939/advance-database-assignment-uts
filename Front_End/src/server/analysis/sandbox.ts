@@ -1,11 +1,11 @@
 import { execFile } from "node:child_process";
-import { mkdtemp, chmod, writeFile, rm } from "node:fs/promises";
-import { tmpdir } from "node:os";
+import { mkdir, chmod, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { randomUUID } from "node:crypto";
 import { promisify } from "node:util";
+import { sandboxRoot, saveSandboxReceipt, ownershipLabels, cleanSandbox, type SandboxReceipt } from "./sandbox-ownership";
 const exec = promisify(execFile);
-export const SANDBOX_IMAGE = "arsia-analysis:1";
+export const SANDBOX_IMAGE = process.env.ARSIA_ANALYSIS_IMAGE || "arsia-analysis:2";
 export const SANDBOX_TIMEOUT = 30000;
 export type SandboxResult = {
   status: "succeeded" | "failed" | "unavailable";
@@ -37,9 +37,11 @@ export function sandboxArguments(
   name: string,
   inputDirectory: string,
   image: string,
+  receipt?: SandboxReceipt,
 ) {
   return [
     "run",
+    ...(receipt ? Object.entries(ownershipLabels(receipt)).flatMap(([k,v])=>["--label",`${k}=${v}`]) : []),
     "--name",
     name,
     "--pull=never",
@@ -72,15 +74,15 @@ export async function runPython(
   timeout = SANDBOX_TIMEOUT,
 ): Promise<SandboxResult> {
   signal.throwIfAborted();
+  if (!Number.isFinite(timeout) || timeout<1 || timeout>SANDBOX_TIMEOUT) throw Error("Invalid sandbox wall time budget.");
+  if (Buffer.byteLength(JSON.stringify(inputs))>4*1024*1024) throw Error("Sandbox input byte limit exceeded.");
   if (!code.trim() || code.length > 24000)
     throw Error("Python code must be 1–24,000 characters.");
   let image: string;
   try {
-    image = (
-      await docker(["image", "inspect", SANDBOX_IMAGE, "--format", "{{.Id}}"], {
-        signal,
-      })
-    ).stdout.trim();
+    const description = JSON.parse((await docker(["image", "inspect", SANDBOX_IMAGE], {signal})).stdout)[0];
+    if(description.Config?.Labels?.['arsia.analysis.wall_seconds']!=='35' || JSON.stringify(description.Config?.Entrypoint)!==JSON.stringify(['/usr/bin/timeout','--signal=KILL','35s','python','-I','/opt/arsia/runner.py']))throw Error('Sandbox image needs the independent wall-clock supervisor.');
+    image = description.Id;
     if (!/^sha256:[a-f0-9]{64}$/.test(image)) throw Error("Image not found");
   } catch {
     signal.throwIfAborted();
@@ -92,15 +94,31 @@ export async function runPython(
       files: [],
     };
   }
-  const directory = await mkdtemp(join(tmpdir(), "arsia-analysis-"));
-  const name = `arsia-analysis-${randomUUID()}`;
+  const token=randomUUID();
+  const directory=join(sandboxRoot(),'inputs',token);
+  const name=`arsia-analysis-${token}`;
+  const receiptPath=join(sandboxRoot(),token+'.json');
+  const receipt:SandboxReceipt={version:1,token,name,directory,image,ownerPid:process.pid,createdAt:new Date().toISOString(),state:'prepared'};
+  await mkdir(directory,{recursive:true,mode:0o700});
+  await saveSandboxReceipt(receiptPath,receipt);
   try {
     await chmod(directory, 0o755);
     await writeFile(join(directory, "input.json"), JSON.stringify(inputs), {
       mode: 0o444,
     });
     await writeFile(join(directory, "analysis.py"), code, { mode: 0o444 });
-    const result = await docker(sandboxArguments(name, directory, image), {
+    const createArgs=sandboxArguments(name,directory,image,receipt);
+    createArgs[0]='create';
+    // Finish the bounded create call before honouring cancellation; a killed
+    // docker-run client could otherwise race cleanup with late creation.
+    const created=await docker(createArgs);
+    const containerId=created.stdout.trim();
+    if(!/^[a-f0-9]{64}$/.test(containerId))throw Error('Container creation identity is unavailable.');
+    receipt.containerId=containerId;
+    receipt.state="running";
+    await saveSandboxReceipt(receiptPath,receipt);
+    signal.throwIfAborted();
+    const result = await docker(['start','--attach',name], {
       signal,
       timeout,
       maxBuffer: 13 * 1024 * 1024,
@@ -149,8 +167,14 @@ export async function runPython(
       image,
     };
   } finally {
-    // Only our cryptographically unique container is removed, including on cancellation.
-    await docker(["rm", "-f", name]).catch(() => {});
-    await rm(directory, { recursive: true, force: true });
+    try {
+      await cleanSandbox(receipt,docker);
+      receipt.state='cleaned';
+      await saveSandboxReceipt(receiptPath,receipt);
+    } catch {
+      receipt.state='cleanup_failed';receipt.cleanupError='Sandbox cleanup could not be verified. Its ownership receipt was retained for explicit recovery.';
+      await saveSandboxReceipt(receiptPath,receipt);
+      throw Error(receipt.cleanupError);
+    }
   }
 }

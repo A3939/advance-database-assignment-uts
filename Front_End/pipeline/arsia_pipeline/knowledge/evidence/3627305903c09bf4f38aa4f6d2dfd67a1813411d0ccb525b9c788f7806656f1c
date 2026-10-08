@@ -1,0 +1,1041 @@
+{
+  "id" : "6jn4-m8rx",
+  "name" : "ACT Road Crash Data",
+  "assetType" : "dataset",
+  "attribution" : "Roads ACT, City and Environment Directorate",
+  "attributionLink" : "https://www.act.gov.au/directorates-and-agencies/city-and-environment-directorate",
+  "averageRating" : 0,
+  "category" : "Transport",
+  "createdAt" : 1517787912,
+  "description" : "<b>DATASET DISCLAIMER: Spatial location of road crashes within the ACT from 2015 to 2025 that have been reported by the Police or the Public through the AFP Crash Report Form. This dataset only represents crashes that have been reported using the AFP Crash Report Form, and any crashes which have been reported through other channels are not displayed within this dataset. \nNote that this data may not represent the exact spatial location of each reported road crash, as the points of each crash are purely indicative of the intersection or midblock location as indicated by the point attributes. Crashes are reviewed on an annual basis, so the existing data may change over time as a result of this review.</b>",
+  "diciBackend" : false,
+  "displayType" : "table",
+  "downloadCount" : 10632,
+  "hideFromCatalog" : false,
+  "hideFromDataJson" : false,
+  "licenseId" : "CC_40_BY",
+  "locale" : "en_AU",
+  "locked" : false,
+  "newBackend" : true,
+  "numberOfComments" : 0,
+  "oid" : 38769450,
+  "provenance" : "official",
+  "publicationAppendEnabled" : true,
+  "publicationDate" : 1660607717,
+  "publicationGroup" : 14860156,
+  "publicationStage" : "published",
+  "rowsUpdatedAt" : 1790782671,
+  "rowsUpdatedBy" : "m7km-7fxa",
+  "tableId" : 18818460,
+  "totalTimesRated" : 0,
+  "viewCount" : 35784,
+  "viewLastModified" : 1790782597,
+  "viewType" : "tabular",
+  "approvals" : [ {
+    "reviewedAt" : 1517979410,
+    "reviewedAutomatically" : true,
+    "state" : "approved",
+    "submissionId" : 4905669,
+    "submissionObject" : "public_audience_request",
+    "submissionOutcome" : "change_audience",
+    "submittedAt" : 1517979410,
+    "targetAudience" : "public",
+    "workflowId" : 2135,
+    "submissionDetails" : {
+      "permissionType" : "READ"
+    },
+    "submissionOutcomeApplication" : {
+      "failureCount" : 0,
+      "status" : "success"
+    },
+    "submitter" : {
+      "id" : "m7km-7fxa",
+      "displayName" : "TCCS"
+    }
+  } ],
+  "clientContext" : {
+    "clientContextVariables" : [ ],
+    "inheritedVariables" : { }
+  },
+  "columns" : [ {
+    "id" : 564654597,
+    "name" : "CRASH_ID",
+    "dataTypeName" : "text",
+    "description" : "Unique Identifier for Crash",
+    "fieldName" : "crash_id",
+    "position" : 1,
+    "renderTypeName" : "text",
+    "tableColumnId" : 60936207,
+    "width" : 196,
+    "cachedContents" : {
+      "non_null" : "76657",
+      "largest" : "999",
+      "null" : "0",
+      "top" : [ {
+        "item" : "10",
+        "count" : "1"
+      }, {
+        "item" : "100",
+        "count" : "1"
+      }, {
+        "item" : "1000",
+        "count" : "1"
+      }, {
+        "item" : "1001",
+        "count" : "1"
+      }, {
+        "item" : "1002",
+        "count" : "1"
+      }, {
+        "item" : "1003",
+        "count" : "1"
+      }, {
+        "item" : "1004",
+        "count" : "1"
+      }, {
+        "item" : "1005",
+        "count" : "1"
+      }, {
+        "item" : "1006",
+        "count" : "1"
+      }, {
+        "item" : "1007",
+        "count" : "1"
+      }, {
+        "item" : "1008",
+        "count" : "1"
+      }, {
+        "item" : "101",
+        "count" : "1"
+      }, {
+        "item" : "102",
+        "count" : "1"
+      }, {
+        "item" : "103",
+        "count" : "1"
+      }, {
+        "item" : "104",
+        "count" : "1"
+      }, {
+        "item" : "105",
+        "count" : "1"
+      }, {
+        "item" : "106",
+        "count" : "1"
+      }, {
+        "item" : "107",
+        "count" : "1"
+      }, {
+        "item" : "108",
+        "count" : "1"
+      }, {
+        "item" : "1",
+        "count" : "1"
+      } ],
+      "smallest" : "1",
+      "count" : "76657",
+      "cardinality" : "76657"
+    },
+    "format" : {
+      "displayStyle" : "plain",
+      "align" : "right"
+    }
+  }, {
+    "id" : 564654598,
+    "name" : "CRASH_DATE",
+    "dataTypeName" : "calendar_date",
+    "description" : "Reported date of crash",
+    "fieldName" : "crash_date",
+    "position" : 2,
+    "rdfProperties" : "",
+    "renderTypeName" : "calendar_date",
+    "tableColumnId" : 60936208,
+    "width" : 220,
+    "cachedContents" : {
+      "non_null" : "76657",
+      "largest" : "2026-09-07T00:00:00.000",
+      "null" : "0",
+      "top" : [ {
+        "item" : "2015-06-16T00:00:00.000",
+        "count" : "55"
+      }, {
+        "item" : "2020-03-04T00:00:00.000",
+        "count" : "53"
+      }, {
+        "item" : "2017-03-23T00:00:00.000",
+        "count" : "48"
+      }, {
+        "item" : "2015-06-18T00:00:00.000",
+        "count" : "47"
+      }, {
+        "item" : "2017-04-26T00:00:00.000",
+        "count" : "47"
+      }, {
+        "item" : "2016-05-26T00:00:00.000",
+        "count" : "46"
+      }, {
+        "item" : "2015-05-19T00:00:00.000",
+        "count" : "45"
+      }, {
+        "item" : "2019-02-13T00:00:00.000",
+        "count" : "45"
+      }, {
+        "item" : "2018-06-22T00:00:00.000",
+        "count" : "45"
+      }, {
+        "item" : "2018-05-07T00:00:00.000",
+        "count" : "44"
+      }, {
+        "item" : "2016-03-03T00:00:00.000",
+        "count" : "44"
+      }, {
+        "item" : "2021-05-04T00:00:00.000",
+        "count" : "44"
+      }, {
+        "item" : "2015-11-25T00:00:00.000",
+        "count" : "44"
+      }, {
+        "item" : "2016-07-05T00:00:00.000",
+        "count" : "44"
+      }, {
+        "item" : "2016-12-16T00:00:00.000",
+        "count" : "44"
+      }, {
+        "item" : "2015-04-17T00:00:00.000",
+        "count" : "44"
+      }, {
+        "item" : "2016-05-09T00:00:00.000",
+        "count" : "44"
+      }, {
+        "item" : "2016-05-10T00:00:00.000",
+        "count" : "44"
+      }, {
+        "item" : "2021-05-05T00:00:00.000",
+        "count" : "44"
+      }, {
+        "item" : "2015-05-28T00:00:00.000",
+        "count" : "43"
+      } ],
+      "smallest" : "2015-01-01T00:00:00.000",
+      "count" : "76657",
+      "cardinality" : "76657"
+    },
+    "format" : {
+      "view" : "date_dmy",
+      "rdf" : "",
+      "align" : "left"
+    }
+  }, {
+    "id" : 564654599,
+    "name" : "CRASH_TIME",
+    "dataTypeName" : "text",
+    "description" : "Reported approximate time of crash",
+    "fieldName" : "crash_time",
+    "position" : 3,
+    "renderTypeName" : "text",
+    "tableColumnId" : 60936209,
+    "width" : 220,
+    "cachedContents" : {
+      "non_null" : "76657",
+      "largest" : "9:59 PM",
+      "null" : "0",
+      "top" : [ {
+        "item" : "5:30 PM",
+        "count" : "1061"
+      }, {
+        "item" : "8:30 AM",
+        "count" : "924"
+      }, {
+        "item" : "4:30 PM",
+        "count" : "805"
+      }, {
+        "item" : "6:00 PM",
+        "count" : "792"
+      }, {
+        "item" : "9:00 AM",
+        "count" : "717"
+      }, {
+        "item" : "3:30 PM",
+        "count" : "714"
+      }, {
+        "item" : "5:00 PM",
+        "count" : "652"
+      }, {
+        "item" : "4:00 PM",
+        "count" : "638"
+      }, {
+        "item" : "8:00 AM",
+        "count" : "578"
+      }, {
+        "item" : "8:45 AM",
+        "count" : "574"
+      }, {
+        "item" : "6:30 PM",
+        "count" : "567"
+      }, {
+        "item" : "3:00 PM",
+        "count" : "539"
+      }, {
+        "item" : "12:30 PM",
+        "count" : "522"
+      }, {
+        "item" : "5:45 PM",
+        "count" : "518"
+      }, {
+        "item" : "5:30 pm",
+        "count" : "508"
+      }, {
+        "item" : "1:30 PM",
+        "count" : "506"
+      }, {
+        "item" : "5:20 PM",
+        "count" : "499"
+      }, {
+        "item" : "5:15 PM",
+        "count" : "474"
+      }, {
+        "item" : "2:30 PM",
+        "count" : "471"
+      }, {
+        "item" : "8:15 AM",
+        "count" : "470"
+      } ],
+      "smallest" : "01:15 pm",
+      "count" : "76657",
+      "cardinality" : "76657"
+    },
+    "format" : {
+      "displayStyle" : "plain",
+      "align" : "left"
+    }
+  }, {
+    "id" : 564654600,
+    "name" : "SUBURB_LOCATION",
+    "dataTypeName" : "text",
+    "description" : "Suburb/Rural Division location of crash",
+    "fieldName" : "suburb_location",
+    "position" : 4,
+    "renderTypeName" : "text",
+    "tableColumnId" : 60936210,
+    "width" : 176,
+    "cachedContents" : {
+      "non_null" : "76643",
+      "largest" : "YARRALUMLA",
+      "null" : "14",
+      "top" : [ {
+        "item" : "CITY",
+        "count" : "3231"
+      }, {
+        "item" : "GUNGAHLIN",
+        "count" : "3218"
+      }, {
+        "item" : "BELCONNEN",
+        "count" : "2788"
+      }, {
+        "item" : "PARKES",
+        "count" : "2614"
+      }, {
+        "item" : "PHILLIP",
+        "count" : "2585"
+      }, {
+        "item" : "BRUCE",
+        "count" : "2282"
+      }, {
+        "item" : "LYNEHAM",
+        "count" : "1998"
+      }, {
+        "item" : "FYSHWICK",
+        "count" : "1969"
+      }, {
+        "item" : "GREENWAY",
+        "count" : "1854"
+      }, {
+        "item" : "GRIFFITH",
+        "count" : "1821"
+      }, {
+        "item" : "KAMBAH",
+        "count" : "1685"
+      }, {
+        "item" : "BRADDON",
+        "count" : "1535"
+      }, {
+        "item" : "SYMONSTON",
+        "count" : "1514"
+      }, {
+        "item" : "WESTON",
+        "count" : "1494"
+      }, {
+        "item" : "WANNIASSA",
+        "count" : "1285"
+      }, {
+        "item" : "ACTON",
+        "count" : "1110"
+      }, {
+        "item" : "MOLONGLO VALLEY",
+        "count" : "1107"
+      }, {
+        "item" : "BELCONNEN (RURAL)",
+        "count" : "1097"
+      }, {
+        "item" : "DICKSON",
+        "count" : "1076"
+      }, {
+        "item" : "CURTIN",
+        "count" : "1009"
+      } ],
+      "smallest" : "ACTON",
+      "count" : "76657",
+      "cardinality" : "76657"
+    },
+    "format" : {
+      "displayStyle" : "plain",
+      "align" : "left"
+    }
+  }, {
+    "id" : 564654601,
+    "name" : "LONGITUDE",
+    "dataTypeName" : "number",
+    "description" : "Longitude coordinate for spatial location of crash",
+    "fieldName" : "x",
+    "position" : 5,
+    "renderTypeName" : "number",
+    "tableColumnId" : 60936211,
+    "width" : 112,
+    "cachedContents" : {
+      "non_null" : "76657",
+      "largest" : "149.39631165",
+      "null" : "0",
+      "top" : [ {
+        "item" : "149.0707205",
+        "count" : "77"
+      }, {
+        "item" : "149.134091",
+        "count" : "73"
+      }, {
+        "item" : "149.1340984",
+        "count" : "66"
+      }, {
+        "item" : "149.1297711",
+        "count" : "59"
+      }, {
+        "item" : "149.1701312",
+        "count" : "52"
+      }, {
+        "item" : "149.1369888",
+        "count" : "51"
+      }, {
+        "item" : "149.1428641",
+        "count" : "48"
+      }, {
+        "item" : "149.0720216",
+        "count" : "46"
+      }, {
+        "item" : "149.0763261",
+        "count" : "44"
+      }, {
+        "item" : "149.0745203",
+        "count" : "41"
+      }, {
+        "item" : "149.1701225",
+        "count" : "40"
+      }, {
+        "item" : "149.1381971",
+        "count" : "39"
+      }, {
+        "item" : "149.1004719",
+        "count" : "38"
+      }, {
+        "item" : "149.0841874",
+        "count" : "36"
+      }, {
+        "item" : "149.0840626",
+        "count" : "35"
+      }, {
+        "item" : "149.147434",
+        "count" : "34"
+      }, {
+        "item" : "149.1428663",
+        "count" : "32"
+      }, {
+        "item" : "149.1322344",
+        "count" : "31"
+      }, {
+        "item" : "149.0897029",
+        "count" : "31"
+      }, {
+        "item" : "149.10039",
+        "count" : "31"
+      } ],
+      "smallest" : "148.7876728",
+      "count" : "76657",
+      "cardinality" : "76657"
+    },
+    "format" : {
+      "precisionStyle" : "standard",
+      "noCommas" : "false",
+      "align" : "right"
+    }
+  }, {
+    "id" : 564654602,
+    "name" : "LATITUDE",
+    "dataTypeName" : "number",
+    "description" : "Latitude coordinate for spatial location of crash",
+    "fieldName" : "y",
+    "position" : 6,
+    "renderTypeName" : "number",
+    "tableColumnId" : 60936212,
+    "width" : 112,
+    "cachedContents" : {
+      "non_null" : "76657",
+      "largest" : "-35.14329768",
+      "null" : "0",
+      "top" : [ {
+        "item" : "-35.34814454",
+        "count" : "77"
+      }, {
+        "item" : "-35.28710586",
+        "count" : "66"
+      }, {
+        "item" : "-35.28717431",
+        "count" : "59"
+      }, {
+        "item" : "-35.27578391",
+        "count" : "56"
+      }, {
+        "item" : "-35.38418872",
+        "count" : "52"
+      }, {
+        "item" : "-35.24059388",
+        "count" : "48"
+      }, {
+        "item" : "-35.17979675",
+        "count" : "47"
+      }, {
+        "item" : "-35.39624812",
+        "count" : "46"
+      }, {
+        "item" : "-35.29128039",
+        "count" : "44"
+      }, {
+        "item" : "-35.30282536",
+        "count" : "39"
+      }, {
+        "item" : "-35.41540086",
+        "count" : "37"
+      }, {
+        "item" : "-35.34876782",
+        "count" : "35"
+      }, {
+        "item" : "-35.35075552",
+        "count" : "35"
+      }, {
+        "item" : "-35.34885687",
+        "count" : "32"
+      }, {
+        "item" : "-35.38418633",
+        "count" : "32"
+      }, {
+        "item" : "-35.35083736",
+        "count" : "31"
+      }, {
+        "item" : "-35.32304167",
+        "count" : "31"
+      }, {
+        "item" : "-35.32340974",
+        "count" : "31"
+      }, {
+        "item" : "-35.24825433",
+        "count" : "31"
+      }, {
+        "item" : "-35.29125563",
+        "count" : "30"
+      } ],
+      "smallest" : "-35.89116025",
+      "count" : "76657",
+      "cardinality" : "76657"
+    },
+    "format" : {
+      "precisionStyle" : "standard",
+      "noCommas" : "false",
+      "align" : "right"
+    }
+  }, {
+    "id" : 564654603,
+    "name" : "INTERSECTION",
+    "dataTypeName" : "text",
+    "description" : "Indicates whether the crash occurred at an intersection",
+    "fieldName" : "intersection",
+    "position" : 7,
+    "renderTypeName" : "text",
+    "tableColumnId" : 60936213,
+    "width" : 244,
+    "cachedContents" : {
+      "non_null" : "76657",
+      "largest" : "YES",
+      "null" : "0",
+      "top" : [ {
+        "item" : "YES",
+        "count" : "42778"
+      }, {
+        "item" : "NO",
+        "count" : "33879"
+      } ],
+      "smallest" : "NO",
+      "count" : "76657",
+      "cardinality" : "76657"
+    },
+    "format" : {
+      "displayStyle" : "plain",
+      "align" : "left"
+    }
+  }, {
+    "id" : 564654604,
+    "name" : "MIDBLOCK",
+    "dataTypeName" : "text",
+    "description" : "Indicates whether the crash occurred within a road midblock",
+    "fieldName" : "midblock",
+    "position" : 8,
+    "renderTypeName" : "text",
+    "tableColumnId" : 60936214,
+    "width" : 196,
+    "cachedContents" : {
+      "non_null" : "76657",
+      "largest" : "YES",
+      "null" : "0",
+      "top" : [ {
+        "item" : "NO",
+        "count" : "42793"
+      }, {
+        "item" : "YES",
+        "count" : "33864"
+      } ],
+      "smallest" : "NO",
+      "count" : "76657",
+      "cardinality" : "76657"
+    },
+    "format" : {
+      "displayStyle" : "plain",
+      "align" : "left"
+    }
+  }, {
+    "id" : 564654605,
+    "name" : "CRASH_DIRECTION",
+    "dataTypeName" : "text",
+    "description" : "Direction of travel at location of crash",
+    "fieldName" : "crash_direction",
+    "position" : 9,
+    "renderTypeName" : "text",
+    "tableColumnId" : 60936215,
+    "width" : 280,
+    "cachedContents" : {
+      "non_null" : "47871",
+      "largest" : "West bound / Unknown",
+      "null" : "28786",
+      "top" : [ {
+        "item" : "South bound",
+        "count" : "9558"
+      }, {
+        "item" : "North bound",
+        "count" : "9445"
+      }, {
+        "item" : "West bound",
+        "count" : "7554"
+      }, {
+        "item" : "East bound",
+        "count" : "7522"
+      }, {
+        "item" : "East / South bound",
+        "count" : "2350"
+      }, {
+        "item" : "North / East bound",
+        "count" : "2349"
+      }, {
+        "item" : "North / West bound",
+        "count" : "2330"
+      }, {
+        "item" : "South / West bound",
+        "count" : "2314"
+      }, {
+        "item" : "East / West bound",
+        "count" : "1681"
+      }, {
+        "item" : "North / South bound",
+        "count" : "1667"
+      }, {
+        "item" : "Unknown",
+        "count" : "679"
+      }, {
+        "item" : "North bound / Unknown",
+        "count" : "90"
+      }, {
+        "item" : "East bound / Unknown",
+        "count" : "70"
+      }, {
+        "item" : "South bound / Unknown",
+        "count" : "68"
+      }, {
+        "item" : "West bound / Unknown",
+        "count" : "45"
+      }, {
+        "item" : "North / East / West bound",
+        "count" : "41"
+      }, {
+        "item" : "North / South / West bound",
+        "count" : "36"
+      }, {
+        "item" : "North / East / South bound",
+        "count" : "32"
+      }, {
+        "item" : "East / South / West bound",
+        "count" : "29"
+      }, {
+        "item" : "East / South bound / Unknown",
+        "count" : "4"
+      } ],
+      "smallest" : "East bound",
+      "count" : "76657",
+      "cardinality" : "76657"
+    },
+    "format" : {
+      "displayStyle" : "plain",
+      "align" : "left"
+    }
+  }, {
+    "id" : 564654617,
+    "name" : "CRASH_TYPE",
+    "dataTypeName" : "text",
+    "description" : "Details on the section of car, objects involved in the collision and position on road",
+    "fieldName" : "crash_type",
+    "position" : 10,
+    "renderTypeName" : "text",
+    "tableColumnId" : 143324712,
+    "cachedContents" : {
+      "non_null" : "76657",
+      "largest" : "Struck vehicle (Off Road)",
+      "null" : "0",
+      "top" : [ {
+        "item" : "Rear end collision",
+        "count" : "33306"
+      }, {
+        "item" : "Right angle collision",
+        "count" : "10679"
+      }, {
+        "item" : "Other - vehicle to vehicle",
+        "count" : "8162"
+      }, {
+        "item" : "Same direction side swipe",
+        "count" : "7563"
+      }, {
+        "item" : "Struck object (Off Road)",
+        "count" : "4705"
+      }, {
+        "item" : "Right turn into oncoming vehicle",
+        "count" : "3331"
+      }, {
+        "item" : "Collision with parked vehicle",
+        "count" : "2738"
+      }, {
+        "item" : "Struck animal (Not Ridden On Road)",
+        "count" : "1563"
+      }, {
+        "item" : "Collision while one vehicle reversing",
+        "count" : "1410"
+      }, {
+        "item" : "Overturned (On Road)",
+        "count" : "702"
+      }, {
+        "item" : "Struck pedestrian (On Road)",
+        "count" : "514"
+      }, {
+        "item" : "Other - Single vehicle (On Road)",
+        "count" : "407"
+      }, {
+        "item" : "Head on collision",
+        "count" : "400"
+      }, {
+        "item" : "Opposite direction side swipe",
+        "count" : "334"
+      }, {
+        "item" : "Struck object (On Road)",
+        "count" : "245"
+      }, {
+        "item" : "No object struck (Off Road)",
+        "count" : "195"
+      }, {
+        "item" : "Struck vehicle (Off Road)",
+        "count" : "148"
+      }, {
+        "item" : "Overturned (Off Road)",
+        "count" : "145"
+      }, {
+        "item" : "Struck pedestrian (Off Road)",
+        "count" : "96"
+      }, {
+        "item" : "Fall from moving vehicle (On Road)",
+        "count" : "9"
+      } ],
+      "smallest" : "Collision while one vehicle reversing",
+      "count" : "76657",
+      "cardinality" : "76657"
+    },
+    "format" : { }
+  }, {
+    "id" : 564654606,
+    "name" : "CRASH_SEVERITY",
+    "dataTypeName" : "text",
+    "description" : "Level of severity for crash",
+    "fieldName" : "crash_severity",
+    "position" : 11,
+    "renderTypeName" : "text",
+    "tableColumnId" : 60936217,
+    "width" : 268,
+    "cachedContents" : {
+      "non_null" : "76657",
+      "largest" : "Property damage only",
+      "null" : "0",
+      "top" : [ {
+        "item" : "Property damage only",
+        "count" : "69976"
+      }, {
+        "item" : "Injury",
+        "count" : "6576"
+      }, {
+        "item" : "Fatal",
+        "count" : "105"
+      } ],
+      "smallest" : "Fatal",
+      "count" : "76657",
+      "cardinality" : "76657"
+    },
+    "format" : {
+      "displayStyle" : "plain",
+      "align" : "left"
+    }
+  }, {
+    "id" : 564654607,
+    "name" : "LIGHTING_CONDITION",
+    "dataTypeName" : "text",
+    "description" : "Level of lighting present at the time of the crash",
+    "fieldName" : "lighting_condition",
+    "position" : 12,
+    "renderTypeName" : "text",
+    "tableColumnId" : 60936218,
+    "width" : 316,
+    "cachedContents" : {
+      "non_null" : "76657",
+      "largest" : "Unknown",
+      "null" : "0",
+      "top" : [ {
+        "item" : "Daylight",
+        "count" : "59387"
+      }, {
+        "item" : "Dark - good street lighting",
+        "count" : "9288"
+      }, {
+        "item" : "Semi-darkness",
+        "count" : "3374"
+      }, {
+        "item" : "Dark - poor street lighting",
+        "count" : "3170"
+      }, {
+        "item" : "Dark - no street lights",
+        "count" : "1426"
+      }, {
+        "item" : "Unknown",
+        "count" : "12"
+      } ],
+      "smallest" : "Dark - good street lighting",
+      "count" : "76657",
+      "cardinality" : "76657"
+    },
+    "format" : {
+      "displayStyle" : "plain",
+      "align" : "left"
+    }
+  }, {
+    "id" : 564654608,
+    "name" : "ROAD_CONDITION",
+    "dataTypeName" : "text",
+    "description" : "Level of moisture on road at time of crash",
+    "fieldName" : "road_condition",
+    "position" : 13,
+    "renderTypeName" : "text",
+    "tableColumnId" : 60936219,
+    "width" : 268,
+    "cachedContents" : {
+      "non_null" : "76657",
+      "largest" : "Wet surface",
+      "null" : "0",
+      "top" : [ {
+        "item" : "Good dry surface",
+        "count" : "65221"
+      }, {
+        "item" : "Wet surface",
+        "count" : "10682"
+      }, {
+        "item" : "Loose surface",
+        "count" : "328"
+      }, {
+        "item" : "Unknown",
+        "count" : "220"
+      }, {
+        "item" : "Muddy or oily surface",
+        "count" : "107"
+      }, {
+        "item" : "Snow or ice",
+        "count" : "99"
+      } ],
+      "smallest" : "Good dry surface",
+      "count" : "76657",
+      "cardinality" : "76657"
+    },
+    "format" : {
+      "displayStyle" : "plain",
+      "align" : "left"
+    }
+  }, {
+    "id" : 564654609,
+    "name" : "WEATHER_CONDITION",
+    "dataTypeName" : "text",
+    "description" : "Weather condition at the time of the crash",
+    "fieldName" : "weather_condition",
+    "position" : 14,
+    "renderTypeName" : "text",
+    "tableColumnId" : 60936220,
+    "width" : 304,
+    "cachedContents" : {
+      "non_null" : "76657",
+      "largest" : "Unknown",
+      "null" : "0",
+      "top" : [ {
+        "item" : "Fine",
+        "count" : "62004"
+      }, {
+        "item" : "Light rain",
+        "count" : "6646"
+      }, {
+        "item" : "Cloudy or Overcast",
+        "count" : "5361"
+      }, {
+        "item" : "Heavy rain",
+        "count" : "1857"
+      }, {
+        "item" : "Fog",
+        "count" : "540"
+      }, {
+        "item" : "Smoke or dust",
+        "count" : "123"
+      }, {
+        "item" : "Unknown",
+        "count" : "70"
+      }, {
+        "item" : "Snow or sleet",
+        "count" : "41"
+      }, {
+        "item" : "Other",
+        "count" : "15"
+      } ],
+      "smallest" : "Cloudy or Overcast",
+      "count" : "76657",
+      "cardinality" : "76657"
+    },
+    "format" : {
+      "displayStyle" : "plain",
+      "align" : "left"
+    }
+  }, {
+    "id" : 564654610,
+    "name" : "Location",
+    "dataTypeName" : "location",
+    "description" : "",
+    "fieldName" : "location",
+    "position" : 15,
+    "renderTypeName" : "location",
+    "tableColumnId" : 60936221,
+    "width" : 196,
+    "format" : { }
+  }, {
+    "id" : 564654615,
+    "name" : "Suburb",
+    "dataTypeName" : "number",
+    "fieldName" : ":@computed_region_h8vr_r9vc",
+    "position" : 19,
+    "renderTypeName" : "number",
+    "tableColumnId" : 60975052,
+    "computationStrategy" : {
+      "source_columns" : [ "location" ],
+      "type" : "georegion_match_on_point",
+      "parameters" : {
+        "region" : "_h8vr-r9vc",
+        "primary_key" : "_feature_id"
+      }
+    },
+    "format" : { }
+  }, {
+    "id" : 564654616,
+    "name" : "Zip Codes",
+    "dataTypeName" : "number",
+    "fieldName" : ":@computed_region_m3s3_eev9",
+    "position" : 20,
+    "renderTypeName" : "number",
+    "tableColumnId" : 60975053,
+    "computationStrategy" : {
+      "source_columns" : [ "location" ],
+      "type" : "georegion_match_on_point",
+      "parameters" : {
+        "region" : "_m3s3-eev9",
+        "primary_key" : "_feature_id"
+      }
+    },
+    "format" : { }
+  } ],
+  "grants" : [ {
+    "inherited" : false,
+    "type" : "viewer",
+    "flags" : [ "public" ]
+  } ],
+  "license" : {
+    "name" : "Creative Commons Attribution 4.0 International",
+    "logoUrl" : "images/licenses/cc30by.png",
+    "termsLink" : "http://creativecommons.org/licenses/by/4.0/legalcode"
+  },
+  "metadata" : {
+    "custom_fields" : {
+      "Contributing Agency" : {
+        "Contact Email" : "tccs.datacapability@act.gov.au",
+        "Agency Name" : "City Services",
+        "Directorate" : "City and Environment"
+      },
+      "Data Set Coverage" : {
+        "Geospatial Coverage" : "ACT only",
+        "Temporal Coverage" : "2012 until current",
+        "Update Regularity" : "Updated every weeknight"
+      }
+    },
+    "availableDisplayTypes" : [ "table", "fatrow", "page" ]
+  },
+  "owner" : {
+    "id" : "m7km-7fxa",
+    "displayName" : "TCCS",
+    "profileImageUrlLarge" : "/api/users/m7km-7fxa/profile_images/LARGE",
+    "profileImageUrlMedium" : "/api/users/m7km-7fxa/profile_images/THUMB",
+    "profileImageUrlSmall" : "/api/users/m7km-7fxa/profile_images/TINY",
+    "screenName" : "TCCS",
+    "type" : "interactive",
+    "flags" : [ "acceptedEula" ]
+  },
+  "query" : { },
+  "rights" : [ "read" ],
+  "tableAuthor" : {
+    "id" : "m7km-7fxa",
+    "displayName" : "TCCS",
+    "profileImageUrlLarge" : "/api/users/m7km-7fxa/profile_images/LARGE",
+    "profileImageUrlMedium" : "/api/users/m7km-7fxa/profile_images/THUMB",
+    "profileImageUrlSmall" : "/api/users/m7km-7fxa/profile_images/TINY",
+    "screenName" : "TCCS",
+    "type" : "interactive",
+    "flags" : [ "acceptedEula" ]
+  },
+  "tags" : [ "roads", "crash", "location", "data", "spatial" ],
+  "flags" : [ "default", "ownerMayBeContacted", "restorable", "restorePossibleForType" ]
+}

@@ -45,8 +45,9 @@ test("official snapshot interactions, boundary map, filters, export and agent tr
     if (r.status() >= 400) badRequests.push(`${r.status()} ${r.url()}`);
   });
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.goto("/");
-  await page.getByRole("combobox", { name: "Data source" }).selectOption("NSW");
+  await page.goto("/?datasetVersion=official-v1&batchId=bcc5da57-25f2-41ec-9925-bef421b02671");
+  await page.getByRole("combobox", { name: "Data source" }).click();
+  await page.getByRole("option", { name: "NSW", exact: true }).click();
   await expect(page.locator(".metric-value").first()).toHaveText("92,082");
   await expect(page.locator(".maplibregl-canvas")).toBeVisible();
   await expect(page.locator(".map-marker")).toHaveCount(0);
@@ -74,9 +75,7 @@ test("official snapshot interactions, boundary map, filters, export and agent tr
     await canvas.hover({ position: regionPosition });
     await expect(page.locator(".map-readout")).toBeVisible({ timeout: 500 });
   }).toPass({ timeout: 6000 });
-  await expect(page.locator(".spatial-panel")).toContainText(
-    /Recorded crashes · LGA/i,
-  );
+  await expect(page.locator(".map-legend i[data-band]").first()).toBeVisible();
   const severityChart = page.locator(".severity-panel .chart");
   const severityBounds = await severityChart.boundingBox();
   if (!severityBounds) throw new Error("Severity chart is not visible");
@@ -103,13 +102,16 @@ test("official snapshot interactions, boundary map, filters, export and agent tr
   await expect(
     page.getByRole("button", { name: "Export", exact: true }),
   ).toBeEnabled();
-  await page.getByRole("combobox", { name: "Data source" }).selectOption("VIC");
+  await page.getByRole("combobox", { name: "Data source" }).click();
+  await page.getByRole("option", { name: "VIC", exact: true }).click();
   await expect(page.locator(".metric-value").first()).toHaveText("72,170");
   await expect(page.locator(".maplibregl-canvas")).toBeVisible();
   await expect(page.locator(".map-marker")).toHaveCount(0);
-  await page.getByRole("combobox", { name: "Data source" }).selectOption("QLD");
+  await page.getByRole("combobox", { name: "Data source" }).click();
+  await page.getByRole("option", { name: "QLD", exact: true }).click();
   await expect(page.locator(".metric-value").first()).toHaveText("66,624");
-  await page.getByRole("combobox", { name: "Data source" }).selectOption("NSW");
+  await page.getByRole("combobox", { name: "Data source" }).click();
+  await page.getByRole("option", { name: "NSW", exact: true }).click();
   await page.getByRole("button", { name: "2020 – 2024", exact: true }).click();
   await page.getByRole("button", { name: "2024", exact: true }).click();
   await page.getByRole("button", { name: "Apply period" }).click();
@@ -171,35 +173,27 @@ test("official snapshot interactions, boundary map, filters, export and agent tr
     fullPage: true,
   });
 });
-test("navigation, metadata-only imports, settings and unavailable reports", async ({
+test("navigation, isolated imports selection, settings and Studio", async ({
   page,
 }) => {
-  await page.goto("/data");
+  await page.goto("/data?datasetVersion=official-v1&batchId=bcc5da57-25f2-41ec-9925-bef421b02671");
   await expect(page.locator(".dataset-card")).toHaveCount(3);
   await page.getByRole("link", { name: "Imports", exact: true }).click();
-  await page.getByLabel("Import files").setInputFiles({
+  await expect(page.getByText("Local integration environment", { exact: true })).toBeVisible();
+  await page.getByLabel("Import data files", { exact: true }).setInputFiles({
     name: "uploaded-crashes.csv",
     mimeType: "text/csv",
     buffer: Buffer.from("id,date\n1,2024-01-01"),
   });
-  await expect(page.locator(".file-list")).toContainText(
-    "uploaded-crashes.csv",
-  );
-  await page.getByRole("button", { name: "Preview import steps" }).click();
-  await expect(page.locator(".job-state")).toContainText("needs input");
-  await expect(page.locator(".job-state")).toContainText("not connected");
+  await expect(page.getByText("uploaded-crashes.csv", { exact: true })).toBeVisible();
   await page
     .getByRole("button", { name: "Remove uploaded-crashes.csv" })
     .click();
   await expect(
-    page.getByRole("button", { name: "Preview import steps" }),
+    page.getByRole("button", { name: "Upload & run", exact: true }),
   ).toBeDisabled();
-  await page.getByRole("link", { name: "Reports", exact: true }).click();
-  await expect(
-    page.getByText("Saved report authoring is not connected yet.", {
-      exact: false,
-    }),
-  ).toBeVisible();
+  await page.getByRole("link", { name: "Studio", exact: true }).click();
+  await expect(page.getByRole("button", { name: "New study", exact: true })).toBeVisible();
   await page.getByRole("button", { name: "Settings", exact: true }).click();
   await expect(page.getByRole("dialog")).toContainText("Not connected");
   await page.keyboard.press("Escape");
@@ -212,8 +206,9 @@ test("navigation, metadata-only imports, settings and unavailable reports", asyn
 test("a failed source request clears old counts, disables export and recovers without demo fallback", async ({
   page,
 }) => {
-  await page.goto("/");
-  await page.getByRole("combobox", { name: "Data source" }).selectOption("NSW");
+  await page.goto("/?datasetVersion=official-v1&batchId=bcc5da57-25f2-41ec-9925-bef421b02671");
+  await page.getByRole("combobox", { name: "Data source" }).click();
+  await page.getByRole("option", { name: "NSW", exact: true }).click();
   await expect(page.locator(".metric-value").first()).toHaveText("92,082");
   await page.route("**/api/data/overview?**", async (route) => {
     if (new URL(route.request().url()).searchParams.get("source") === "VIC") {
@@ -226,7 +221,8 @@ test("a failed source request clears old counts, disables export and recovers wi
       await route.continue();
     }
   });
-  await page.getByRole("combobox", { name: "Data source" }).selectOption("VIC");
+  await page.getByRole("combobox", { name: "Data source" }).click();
+  await page.getByRole("option", { name: "VIC", exact: true }).click();
   await expect(page.locator(".error-banner")).toContainText(
     "snapshot could not be loaded",
   );
@@ -237,7 +233,8 @@ test("a failed source request clears old counts, disables export and recovers wi
     page.getByRole("button", { name: "Export", exact: true }),
   ).toBeDisabled();
   await page.unroute("**/api/data/overview?**");
-  await page.getByRole("combobox", { name: "Data source" }).selectOption("QLD");
+  await page.getByRole("combobox", { name: "Data source" }).click();
+  await page.getByRole("option", { name: "QLD", exact: true }).click();
   await expect(page.locator(".metric-value").first()).toHaveText("66,624");
   await expect(page.locator(".error-banner")).toHaveCount(0);
   await expect(
@@ -251,7 +248,7 @@ for (const width of [1280, 768, 390])
   }) => {
     await page.setViewportSize({ width, height: 1000 });
     await page.emulateMedia({ reducedMotion: "reduce" });
-    await page.goto("/");
+    await page.goto("/?datasetVersion=official-v1&batchId=bcc5da57-25f2-41ec-9925-bef421b02671");
     await expect(page.locator(".metric-by-source").first()).toContainText(
       "92,082",
     );
@@ -308,8 +305,9 @@ test("local-only resources, chart tooltip and preserved map canvas", async ({
     }
     return route.continue();
   });
-  await page.goto("/");
-  await page.getByRole("combobox", { name: "Data source" }).selectOption("NSW");
+  await page.goto("/?datasetVersion=official-v1&batchId=bcc5da57-25f2-41ec-9925-bef421b02671");
+  await page.getByRole("combobox", { name: "Data source" }).click();
+  await page.getByRole("option", { name: "NSW", exact: true }).click();
   await expect(page.locator(".maplibregl-canvas")).toBeVisible();
   await expect(page.locator(".map-marker")).toHaveCount(0);
   await page
@@ -320,7 +318,8 @@ test("local-only resources, chart tooltip and preserved map canvas", async ({
   await page
     .locator(".maplibregl-canvas")
     .evaluate((el) => el.setAttribute("data-instance-check", "original"));
-  await page.getByRole("combobox", { name: "Data source" }).selectOption("VIC");
+  await page.getByRole("combobox", { name: "Data source" }).click();
+  await page.getByRole("option", { name: "VIC", exact: true }).click();
   await expect(page.locator(".maplibregl-canvas")).toBeVisible();
   await expect(page.locator(".map-marker")).toHaveCount(0);
   await expect(page.locator(".maplibregl-canvas")).toHaveAttribute(
@@ -335,7 +334,7 @@ test("WebGL unavailable shows a usable local boundary fallback", async ({
   await page.addInitScript(
     `const nativeGetContext=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(type,...args){return type.includes('webgl')?null:nativeGetContext.call(this,type,...args)};`,
   );
-  await page.goto("/");
+  await page.goto("/?datasetVersion=official-v1&batchId=bcc5da57-25f2-41ec-9925-bef421b02671");
   await expect(page.locator(".fallback-note")).toContainText(
     "WebGL unavailable",
   );
@@ -347,7 +346,7 @@ test("WebGL unavailable shows a usable local boundary fallback", async ({
     .getByRole("button", { name: "Select New South Wales", exact: true })
     .focus();
   await page.keyboard.press("Enter");
-  await expect(page.getByRole("combobox", { name: "Data source" })).toHaveValue(
+  await expect(page.getByRole("combobox", { name: "Data source" })).toHaveText(
     "NSW",
   );
   await expect(page.locator(".map-fallback path")).toHaveCount(129);
@@ -358,8 +357,8 @@ test("All country coverage, unavailable state feedback and animated drilldown", 
 }) => {
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(e.message));
-  await page.goto("/");
-  await expect(page.getByRole("combobox", { name: "Data source" })).toHaveValue(
+  await page.goto("/?datasetVersion=official-v1&batchId=bcc5da57-25f2-41ec-9925-bef421b02671");
+  await expect(page.getByRole("combobox", { name: "Data source" })).toHaveText(
     "All",
   );
   await expect(page.getByRole("button", { name: "Explore NSW" })).toBeVisible();
@@ -387,7 +386,7 @@ test("All country coverage, unavailable state feedback and animated drilldown", 
   await page
     .getByRole("button", { name: "WA: no data for this period" })
     .click();
-  await expect(page.getByRole("combobox", { name: "Data source" })).toHaveValue(
+  await expect(page.getByRole("combobox", { name: "Data source" })).toHaveText(
     "All",
   );
   await expect(page.locator(".map-readout")).toContainText("No data");
@@ -396,7 +395,7 @@ test("All country coverage, unavailable state feedback and animated drilldown", 
     .evaluate((el) => el.setAttribute("data-instance-check", "country"));
   const start = await page.locator(".maplibregl-canvas").screenshot();
   await page.getByRole("button", { name: "Explore NSW" }).click();
-  await expect(page.getByRole("combobox", { name: "Data source" })).toHaveValue(
+  await expect(page.getByRole("combobox", { name: "Data source" })).toHaveText(
     "NSW",
   );
   await expect(page.locator(".maplibregl-canvas")).toBeVisible();
@@ -412,7 +411,8 @@ test("All country coverage, unavailable state feedback and animated drilldown", 
       await page.locator(".maplibregl-canvas").screenshot(),
     ),
   ).not.toBe(0);
-  await page.getByRole("combobox", { name: "Data source" }).selectOption("All");
+  await page.getByRole("combobox", { name: "Data source" }).click();
+  await page.getByRole("option", { name: "All", exact: true }).click();
   await expect(page.getByRole("button", { name: "Explore QLD" })).toBeVisible();
   await page.getByRole("button", { name: "Explore QLD" }).click();
   await expect(page.locator(".metric-value").first()).toHaveText("66,624");
@@ -429,7 +429,7 @@ test("theme defaults to dark, persists after reload and preserves the map canvas
   });
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.goto("/");
+  await page.goto("/?datasetVersion=official-v1&batchId=bcc5da57-25f2-41ec-9925-bef421b02671");
 
   const root = page.locator("html");
   const canvas = page.locator(".maplibregl-canvas");
@@ -439,7 +439,8 @@ test("theme defaults to dark, persists after reload and preserves the map canvas
   await expect(
     page.getByRole("button", { name: "Switch to light theme", exact: true }),
   ).toBeVisible();
-  await page.getByRole("combobox", { name: "Data source" }).selectOption("QLD");
+  await page.getByRole("combobox", { name: "Data source" }).click();
+  await page.getByRole("option", { name: "QLD", exact: true }).click();
   await expect(page.locator(".maplibregl-canvas")).toBeVisible();
   await expect(page.locator(".map-marker")).toHaveCount(0);
   await canvas.evaluate((element) =>
@@ -464,7 +465,7 @@ test("theme defaults to dark, persists after reload and preserves the map canvas
     )
     .not.toBe(darkBackground);
   await expect(canvas).toHaveAttribute("data-theme-instance", "before-light");
-  await expect(page.getByRole("combobox", { name: "Data source" })).toHaveValue(
+  await expect(page.getByRole("combobox", { name: "Data source" })).toHaveText(
     "QLD",
   );
   await expect(page.locator(".metric-value").first()).toHaveText("66,624");
@@ -513,7 +514,7 @@ test("theme remains usable when local storage is unavailable", async ({
       },
     });
   });
-  await page.goto("/");
+  await page.goto("/?datasetVersion=official-v1&batchId=bcc5da57-25f2-41ec-9925-bef421b02671");
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
   await page.getByRole("button", { name: "Switch to light theme" }).click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
@@ -533,7 +534,7 @@ test("official Overview, Analytics and Data snapshots remain readable in both th
       ["/analytics", "analytics"],
       ["/data", "data"],
     ]) {
-      await page.goto(path);
+      await page.goto(`${path}?datasetVersion=official-v1&batchId=bcc5da57-25f2-41ec-9925-bef421b02671`);
       if (name === "overview")
         await expect(page.locator(".metric-by-source").first()).toContainText(
           "92,082",
@@ -642,14 +643,13 @@ for (const viewport of [
   }) => {
     await page.setViewportSize(viewport);
     await page.emulateMedia({ reducedMotion: "reduce" });
-    await page.goto("/");
+    await page.goto("/?datasetVersion=official-v1&batchId=bcc5da57-25f2-41ec-9925-bef421b02671");
     await page.evaluate(() => document.fonts.ready.then(() => undefined));
 
     for (const source of ["All", "QLD"]) {
       await test.step(`${source} layout`, async () => {
-        await page
-          .getByRole("combobox", { name: "Data source" })
-          .selectOption(source);
+        await page.getByRole("combobox", { name: "Data source" }).click();
+        await page.getByRole("option", { name: source, exact: true }).click();
         await expect(page.locator(".dashboard-body")).toHaveAttribute(
           "aria-busy",
           "false",

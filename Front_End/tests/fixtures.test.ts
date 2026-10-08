@@ -160,6 +160,16 @@ test("agent streams simulation and evidence, honours cancelled requests", async 
     cancelled.push(e);
   assert.equal(cancelled.length, 0);
 });
+test("import is metadata-only and never pretends to publish", async () => {
+  await assert.rejects(() => api.createImportJob([]));
+  const job = await api.createImportJob([
+    { name: "example.csv", size: 12, type: "text/csv" },
+  ]);
+  assert.equal(job.status, "queued");
+  assert.ok(job.demo);
+  await new Promise((r) => setTimeout(r, 1450));
+  assert.equal((await api.getImportJobStatus(job.id)).status, "needs_input");
+});
 
 test("sample record identity and attributes stay stable across date filters", async () => {
   const pagination = { page: 1, pageSize: 50, search: "2024-03" };

@@ -1,0 +1,505 @@
+{
+ "currentVersion": 10.91,
+ "cimVersion": "2.9.0",
+ "id": 0,
+ "name": "Crashes (last 5 years)",
+ "type": "Feature Layer",
+ "description": "",
+ "geometryType": "esriGeometryPoint",
+ "sourceSpatialReference": {
+  "wkid": 4283,
+  "latestWkid": 4283,
+  "xyTolerance": 8.983152841195213E-9,
+  "zTolerance": 0.001,
+  "mTolerance": 0.001,
+  "falseX": -400,
+  "falseY": -400,
+  "xyUnits": 9.999999999999999E8,
+  "falseZ": 0,
+  "zUnits": 1,
+  "falseM": 0,
+  "mUnits": 1
+ },
+ "copyrightText": "",
+ "parentLayer": null,
+ "subLayers": [],
+ "minScale": 0,
+ "maxScale": 0,
+ "referenceScale": 0.0,
+ "drawingInfo": {
+  "renderer": {
+   "type": "uniqueValue",
+   "field1": "SEVERITY",
+   "uniqueValueInfos": [
+    {
+     "symbol": {
+      "type": "esriPMS",
+      "url": "79c720048a91238bbecd18d0dd6aa2d7",
+      "imageData": "iVBORw0KGgoAAAANSUhEUgAAAA8AAAAOCAYAAADwikbvAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAs0lEQVQokbXSoWqCYRQG4OcDYfwY7GO7A6NYvA+DZRgsFhkIMyxZpmXBalhdXRlGL8B78AoE28LAY5ky9Hf+Invbe+DhLafkipT+DQe1xOJiHJTxEXQSn5cuP+EW42CW2BTCwT36P7WKB7wVXX5B9qsPg/fE1584qKN1cL5DD6Nzy69IOfdBME2scnHQRCMHQgXPeDzCwQ3GJ+Au3WCSWB4uZ2ifwfB9tJxYY14A73PVb28BUDcghwIsmFoAAAAASUVORK5CYII=",
+      "contentType": "image/png",
+      "width": 11,
+      "height": 10,
+      "angle": 0,
+      "xoffset": 1,
+      "yoffset": 1
+     },
+     "value": "1",
+     "label": "Fatal"
+    },
+    {
+     "symbol": {
+      "type": "esriPMS",
+      "url": "40dbfe8da7a81d814cb472fc38485582",
+      "imageData": "iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAfklEQVQYlc2RsQnDMBRE3xffEMgEsnqPYo9kMoJW0gzxDqlsMoDBlX4KQQjYUp0r7x5X3CkAMfVk89TkZGMeVyWmHrMnTupwKQxKNo8TTxhAuzN07PB+QTavX1M7uN2b5dpM/x0+9mvix1ecbECZpyZhKfA8rsQUmg8CPKblA6QtIjF6M1fLAAAAAElFTkSuQmCC",
+      "contentType": "image/png",
+      "width": 8,
+      "height": 8,
+      "angle": 0,
+      "xoffset": 0,
+      "yoffset": 0
+     },
+     "value": "2",
+     "label": "Hospital"
+    },
+    {
+     "symbol": {
+      "type": "esriSMS",
+      "style": "esriSMSCircle",
+      "color": [
+       0,
+       176,
+       80,
+       255
+      ],
+      "size": 7,
+      "angle": 0,
+      "xoffset": 0,
+      "yoffset": 0,
+      "outline": {
+       "color": [
+        0,
+        128,
+        57,
+        255
+       ],
+       "width": 1
+      }
+     },
+     "value": "3",
+     "label": "Medical"
+    },
+    {
+     "symbol": {
+      "type": "esriPMS",
+      "url": "647ec959f75ebfc8b05b337687991852",
+      "imageData": "iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAA5UlEQVQokXXSoY7CMBjA8T/kI4gzmBMbCeoMFjA8BgliM+xJRnrHkxDEZsjEHgLDzmJQiJlTRwJJA6yoyzFaKtv/L2m+VnCsRAV+qNLSdSbPG1kcDaubydfzmdc0jdFksSxegiyOhhUmf++8efpy5XjW2yyOakhc8eDDB2CzO1hIXsUA437PQpKowK9uduxCiQq6Eqq0XM9nnr5cXUMBoN0SQP9fqWkao+NZbze7A+N+rxZ/70t+fk+FwXyGKi0FYLJYFlkcWegxnn6t8tqUnlG7JVZsvcMjAm3FFvhDiQq6AK7vcQdCNaOxcP+LxQAAAABJRU5ErkJggg==",
+      "contentType": "image/png",
+      "width": 9,
+      "height": 9,
+      "angle": 0,
+      "xoffset": 0,
+      "yoffset": 0
+     },
+     "value": "4",
+     "label": "PDO Major"
+    },
+    {
+     "symbol": {
+      "type": "esriPMS",
+      "url": "26443f31e1f27697e4deaec0c61d0209",
+      "imageData": "iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAA3klEQVQokXXSwQqCMBzH8V8y5gPYxXqEiBDD9xC6eIlg+SA9hw3Ei6fw4FuIIyJ6BU/RZV30MDtElG3uuH0/MP4bgWHxnM9YxBrTGfnfSIvEt5Qqs9PRVVa/3oWxGAXvGKUzddyu7SDls06LZICIKV6uFgAAUZ01RMZiAPADT0OE53xmKaXFJsRzPicsYk12Orpd25mGAgCgNsVE4nslZfVrKZ+1qM7wA28QXy83PO4P0fc4sIg1BAB2YSzSItHQb7zd7MvBlP4RtakWa+/wiyYSWqyBD+I5nwOA6Xu8AK6QoMPdgPjqAAAAAElFTkSuQmCC",
+      "contentType": "image/png",
+      "width": 9,
+      "height": 9,
+      "angle": 0,
+      "xoffset": 0,
+      "yoffset": 0
+     },
+     "value": "5",
+     "label": "PDO minor"
+    }
+   ],
+   "fieldDelimiter": ",",
+   "authoringInfo": {
+    "colorRamp": {
+     "type": "multipart",
+     "colorRamps": [
+      {
+       "type": "algorithmic",
+       "algorithm": "esriCIELabAlgorithm",
+       "fromColor": [
+        215,
+        224,
+        252,
+        255
+       ],
+       "toColor": [
+        215,
+        224,
+        252,
+        255
+       ]
+      },
+      {
+       "type": "algorithmic",
+       "algorithm": "esriCIELabAlgorithm",
+       "fromColor": [
+        211,
+        252,
+        179,
+        255
+       ],
+       "toColor": [
+        211,
+        252,
+        179,
+        255
+       ]
+      },
+      {
+       "type": "algorithmic",
+       "algorithm": "esriCIELabAlgorithm",
+       "fromColor": [
+        252,
+        209,
+        182,
+        255
+       ],
+       "toColor": [
+        252,
+        209,
+        182,
+        255
+       ]
+      },
+      {
+       "type": "algorithmic",
+       "algorithm": "esriCIELabAlgorithm",
+       "fromColor": [
+        252,
+        184,
+        250,
+        255
+       ],
+       "toColor": [
+        252,
+        184,
+        250,
+        255
+       ]
+      },
+      {
+       "type": "algorithmic",
+       "algorithm": "esriCIELabAlgorithm",
+       "fromColor": [
+        192,
+        252,
+        234,
+        255
+       ],
+       "toColor": [
+        192,
+        252,
+        234,
+        255
+       ]
+      },
+      {
+       "type": "algorithmic",
+       "algorithm": "esriCIELabAlgorithm",
+       "fromColor": [
+        252,
+        197,
+        215,
+        255
+       ],
+       "toColor": [
+        252,
+        197,
+        215,
+        255
+       ]
+      },
+      {
+       "type": "algorithmic",
+       "algorithm": "esriCIELabAlgorithm",
+       "fromColor": [
+        182,
+        185,
+        252,
+        255
+       ],
+       "toColor": [
+        182,
+        185,
+        252,
+        255
+       ]
+      },
+      {
+       "type": "algorithmic",
+       "algorithm": "esriCIELabAlgorithm",
+       "fromColor": [
+        252,
+        252,
+        215,
+        255
+       ],
+       "toColor": [
+        252,
+        252,
+        215,
+        255
+       ]
+      },
+      {
+       "type": "algorithmic",
+       "algorithm": "esriCIELabAlgorithm",
+       "fromColor": [
+        244,
+        215,
+        252,
+        255
+       ],
+       "toColor": [
+        244,
+        215,
+        252,
+        255
+       ]
+      },
+      {
+       "type": "algorithmic",
+       "algorithm": "esriCIELabAlgorithm",
+       "fromColor": [
+        202,
+        244,
+        252,
+        255
+       ],
+       "toColor": [
+        202,
+        244,
+        252,
+        255
+       ]
+      },
+      {
+       "type": "algorithmic",
+       "algorithm": "esriCIELabAlgorithm",
+       "fromColor": [
+        184,
+        252,
+        206,
+        255
+       ],
+       "toColor": [
+        184,
+        252,
+        206,
+        255
+       ]
+      },
+      {
+       "type": "algorithmic",
+       "algorithm": "esriCIELabAlgorithm",
+       "fromColor": [
+        224,
+        194,
+        252,
+        255
+       ],
+       "toColor": [
+        224,
+        194,
+        252,
+        255
+       ]
+      },
+      {
+       "type": "algorithmic",
+       "algorithm": "esriCIELabAlgorithm",
+       "fromColor": [
+        220,
+        252,
+        204,
+        255
+       ],
+       "toColor": [
+        220,
+        252,
+        204,
+        255
+       ]
+      }
+     ]
+    }
+   }
+  },
+  "scaleSymbols": true,
+  "transparency": 0,
+  "labelingInfo": null
+ },
+ "defaultVisibility": false,
+ "extent": {
+  "xmin": 105.66150501700008,
+  "ymin": -35.094630999999936,
+  "xmax": 128.91782150900008,
+  "ymax": -10.429950227999939,
+  "spatialReference": {
+   "wkid": 4283,
+   "latestWkid": 4283,
+   "xyTolerance": 8.983152841195215E-9,
+   "zTolerance": 0.001,
+   "mTolerance": 0.001,
+   "falseX": -400,
+   "falseY": -400,
+   "xyUnits": 9.999999999999999E8,
+   "falseZ": -100000,
+   "zUnits": 10000,
+   "falseM": -100000,
+   "mUnits": 10000
+  }
+ },
+ "hasAttachments": false,
+ "htmlPopupType": "esriServerHTMLPopupTypeAsHTMLText",
+ "displayField": "SEVERITY",
+ "typeIdField": null,
+ "subtypeFieldName": null,
+ "subtypeField": null,
+ "defaultSubtypeCode": null,
+ "fields": [
+  {
+   "name": "ACC_ID",
+   "type": "esriFieldTypeInteger",
+   "alias": "ACC_ID",
+   "domain": null
+  },
+  {
+   "name": "CRASH_DATE",
+   "type": "esriFieldTypeDate",
+   "alias": "CRASH_DATE",
+   "length": 8,
+   "domain": null
+  },
+  {
+   "name": "SEVERITY",
+   "type": "esriFieldTypeString",
+   "alias": "SEVERITY",
+   "length": 1,
+   "domain": null
+  },
+  {
+   "name": "GEOLOC",
+   "type": "esriFieldTypeGeometry",
+   "alias": "GEOLOC",
+   "domain": null
+  },
+  {
+   "name": "OBJECTID",
+   "type": "esriFieldTypeOID",
+   "alias": "OBJECT_ID",
+   "domain": null
+  },
+  {
+   "name": "GlobalID",
+   "type": "esriFieldTypeGlobalID",
+   "alias": "GlobalID",
+   "length": 38,
+   "domain": null
+  }
+ ],
+ "geometryField": {
+  "name": "GEOLOC",
+  "type": "esriFieldTypeGeometry",
+  "alias": "GEOLOC"
+ },
+ "indexes": [
+  {
+   "name": "gdb_ct3_335551",
+   "fields": "OBJECTID",
+   "isAscending": true,
+   "isUnique": false,
+   "description": ""
+  },
+  {
+   "name": "UUID_335551",
+   "fields": "GlobalID",
+   "isAscending": true,
+   "isUnique": true,
+   "description": ""
+  },
+  {
+   "name": "S334345_idx",
+   "fields": "GEOLOC",
+   "isAscending": true,
+   "isUnique": true,
+   "description": ""
+  }
+ ],
+ "subtypes": [],
+ "relationships": [],
+ "canModifyLayer": true,
+ "canScaleSymbols": false,
+ "hasLabels": false,
+ "capabilities": "Map,Query,Data",
+ "maxRecordCount": 2000,
+ "supportsStatistics": true,
+ "supportsExceedsLimitStatistics": true,
+ "supportsAdvancedQueries": true,
+ "supportedQueryFormats": "JSON, geoJSON, PBF",
+ "isDataVersioned": false,
+ "ownershipBasedAccessControlForFeatures": {"allowOthersToQuery": true},
+ "useStandardizedQueries": true,
+ "supportedSpatialRelationships": [
+  "esriSpatialRelIntersects",
+  "esriSpatialRelContains",
+  "esriSpatialRelCrosses",
+  "esriSpatialRelEnvelopeIntersects",
+  "esriSpatialRelIndexIntersects",
+  "esriSpatialRelOverlaps",
+  "esriSpatialRelTouches",
+  "esriSpatialRelWithin",
+  "esriSpatialRelRelation"
+ ],
+ "advancedQueryCapabilities": {
+  "useStandardizedQueries": true,
+  "supportsStatistics": true,
+  "supportsPercentileStatistics": true,
+  "supportsHavingClause": true,
+  "supportsOrderBy": true,
+  "supportsDistinct": true,
+  "supportsCountDistinct": true,
+  "supportsPagination": true,
+  "supportsLod": false,
+  "supportsQueryWithLodSR": false,
+  "supportsTrueCurve": true,
+  "supportsQueryWithDatumTransformation": true,
+  "supportsReturningQueryExtent": true,
+  "supportsQueryWithDistance": true,
+  "supportsSqlExpression": true,
+  "supportsTimeRelation": true,
+  "supportsSqlFormat": false,
+  "supportsQueryAnalytic": true
+ },
+ "supportsDatumTransformation": true,
+ "advancedQueryAnalyticCapabilities": {
+  "supportsLinearRegression": true,
+  "supportsAsync": false,
+  "supportsPercentileAnalytic": true
+ },
+ "dateFieldsTimeReference": {
+  "timeZone": "W. Australia Standard Time",
+  "respectsDaylightSaving": false
+ },
+ "preferredTimeReference": null,
+ "datesInUnknownTimezone": false,
+ "hasMetadata": true,
+ "isDataArchived": true,
+ "archivingInfo": {
+  "supportsQueryWithHistoricMoment": true,
+  "startArchivingMoment": 1708569287000
+ },
+ "supportsCoordinatesQuantization": true,
+ "supportsDynamicLegends": true
+}

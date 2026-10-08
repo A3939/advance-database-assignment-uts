@@ -8,7 +8,8 @@ const AgentVisualization = dynamic(() => import("./agent-visualization"), {
   ssr: false,
 });
 import { useEffect, useRef, useState } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { openStudyFromPage, studyHref } from "@/services/studio-client";
 import {
   ArrowUpRight,
   Plus,
@@ -44,6 +45,7 @@ interface Message {
   status: "complete" | "streaming" | "error" | "stopped";
   error?: string;
   question?: string;
+  transferId?: string;
 }
 export function AgentPanel({
   open,
@@ -62,6 +64,9 @@ export function AgentPanel({
     bottom = useRef<HTMLDivElement>(null),
     mounted = useRef(true);
   const context: AgentContext = { filters, page: path };
+  const router = useRouter();
+  const [transferError, setTransferError] = useState("");
+  const [transferring, setTransferring] = useState(false);
   useEffect(() => {
     bottom.current?.scrollIntoView({ behavior: "instant", block: "nearest" });
   }, [messages, progress]);
@@ -156,6 +161,7 @@ export function AgentPanel({
         }
         if (event.type === "evidence")
           update((m) => ({ ...m, evidence: [...m.evidence, event.evidence] }));
+        if (event.type === "transfer") update((m) => ({ ...m, transferId: event.id }));
         if (event.type === "artifact")
           update((m) => ({
             ...m,
@@ -241,14 +247,14 @@ export function AgentPanel({
                     detail: "Rank local government areas",
                     icon: ArrowUpRight,
                     question:
-                      "Rank the top 10 NSW LGAs by crashes within the selected dates. Use a bar chart and show unmatched coverage. This is not a risk ranking.",
+                      "Discover whether this source supports geographic aggregates, then rank its top 10 admitted areas by crashes within the selected dates. Use a bar chart and show unmatched coverage. This is not a risk ranking.",
                   },
                   {
                     label: "Create an analysis",
                     detail: "Python, report & downloadable code",
                     icon: Code2,
                     question:
-                      "Use Python to calculate year-on-year crash changes for NSW over the selected dates. Export a CSV and concise Markdown report with provenance and limitations. Do not infer causes.",
+                      "Use Python to calculate year-on-year crash changes for the selected source over the selected dates. Export a CSV and concise Markdown report with provenance and limitations. Do not infer causes.",
                   },
                 ].map(({ label, detail, icon: Icon, question }) => (
                   <button key={label} onClick={() => void send(question)}>
@@ -337,6 +343,12 @@ export function AgentPanel({
                   Retry
                 </Button>
               )}
+              {m.status === "complete" && m.transferId && <Button variant="outline" className="agent-retry" disabled={transferring || busy} onClick={async () => {
+                setTransferring(true); setTransferError("");
+                try { const study = await openStudyFromPage({ transferId: m.transferId }); setOpen(false); router.push(studyHref(study)); }
+                catch (e) { setTransferError((e as Error).message); }
+                finally { setTransferring(false); }
+              }}><ArrowUpRight size={14} />{transferring ? "Saving study…" : "Open in Studio"}</Button>}
             </div>
           ))}
           {busy && (
@@ -346,6 +358,7 @@ export function AgentPanel({
             </div>
           )}
           <div ref={bottom} />
+          {transferError && <p className="agent-error" role="alert">{transferError}</p>}
         </div>
         <form
           className="agent-input"

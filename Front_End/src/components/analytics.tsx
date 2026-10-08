@@ -16,6 +16,7 @@ import {
 } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
+import StudioResourcePicker from "./studio-resource-picker";
 import AnalyticsSeverity from "./analytics-severity";
 import AnalyticsSpatial from "./analytics-spatial";
 import AnalyticsAllSources from "./analytics-all-sources";
@@ -29,6 +30,7 @@ import {
   ArrowUpRight,
   ArrowUpDown,
   CalendarDays,
+  BookOpen,
   CarFront,
   ChevronLeft,
   ChevronRight,
@@ -105,6 +107,7 @@ const monthEnd = (month: string) =>
 const filterKey = (filters: Filters) => JSON.stringify(filters);
 
 export default function Analytics({ dashboard = "trends" }: { dashboard?: "trends" | "severity" | "spatial" }) {
+  const [resourcePicker, setResourcePicker] = useState(false);
   const { filters, catalog, setFilters, showEvidence, askAI, notify, view, setView, analysisHref } = useWorkspace();
   // URL restoration can create a new object for the same selection. Only
   // actual query changes should cancel an in-flight request and start another.
@@ -115,7 +118,7 @@ export default function Analytics({ dashboard = "trends" }: { dashboard?: "trend
     ...(filters.releaseId ? { releaseId: filters.releaseId } : {}),
   }), [filters.source, filters.regionId, filters.dateRange.from, filters.dateRange.to,
     filters.datasetVersion, filters.batchId, filters.releaseId]);
-  const areaOptions = useMemo(() => [{id:"", name:"All areas"}, ...catalog.sources.filter(item => filters.source === "All" || item.source === filters.source).flatMap(item => regionsForSource(item.source).map(region => ({ ...region, name: filters.source === "All" ? `${region.name} (${item.source})` : region.name, source:item.source }))).sort((a,b) => a.name.localeCompare(b.name))], [filters.source, catalog.sources]);
+  const areaOptions = useMemo(() => [{id:"", name:"All areas"}, ...catalog.sources.filter(item => !filters.releaseId && (filters.source === "All" || item.source === filters.source)).flatMap(item => regionsForSource(item.source).map(region => ({ ...region, name: filters.source === "All" ? `${region.name} (${item.source})` : region.name, source:item.source }))).sort((a,b) => a.name.localeCompare(b.name))], [filters.source, filters.releaseId, catalog.sources]);
   const [load, setLoad] = useState<AnalysisLoad | null>(null);
   const [retry, setRetry] = useState(0);
   const { metric } = view;
@@ -147,7 +150,10 @@ export default function Analytics({ dashboard = "trends" }: { dashboard?: "trend
   const error = current?.status === "error" ? current.message : "";
   const bundle = result?.bundle ?? null;
   const data = bundle?.data;
-  const granularity = data?.monthlyAvailability === "unsupported" ? "yearly" : view.granularity;
+  const monthlyUnsupported = actualFilters.source === "All"
+    ? !!result?.all.length && result.all.every(item => item.data.monthlyAvailability === "unsupported")
+    : data?.monthlyAvailability === "unsupported";
+  const granularity = monthlyUnsupported ? "yearly" : view.granularity;
   const isDemo = bundle?.meta.demo ?? IS_DEMO;
   const coverage = bundle?.meta.coverage ?? sourceCoverage(catalog,actualFilters.source);
   const coverageLabel = `${coverage.from.slice(0, 4)}–${coverage.to.slice(0, 4)}`;
@@ -251,7 +257,9 @@ export default function Analytics({ dashboard = "trends" }: { dashboard?: "trend
   const totalPages = Math.max(1, Math.ceil(tableRows.length / 8));
   const currentPage = Math.min(page, totalPages);
   const visibleRows = tableRows.slice((currentPage - 1) * 8, currentPage * 8);
-  const isEmpty = !loading && monthly.length === 0 && yearly.length === 0;
+  const isEmpty = !loading && (actualFilters.source === "All"
+    ? (result?.all ?? []).every(item => item.data.monthly.length === 0 && item.data.timeSeriesYearly.length === 0)
+    : monthly.length === 0 && yearly.length === 0);
   const dateLabel = monthRangeLabel(actualFilters);
   const dateBounds = catalog.mode === "local" ? LOCAL_DATE_BOUNDS : {min:"2019-01",max:"2026-12"};
   const availableRange = sourceCoverage(catalog, filters.source);
@@ -278,7 +286,7 @@ export default function Analytics({ dashboard = "trends" }: { dashboard?: "trend
     description: string,
     rows?: { label: string; value: string }[],
   ) {
-    showEvidence({ title, description, rows: [{ label: "Selected period", value: monthRangeLabel(actualFilters) }, { label: "Source / LGA", value: `${actualFilters.source}${actualFilters.regionId ? ` · ${actualFilters.regionId}` : ""}` }, { label: actualFilters.releaseId ? "Release / version" : "Batch / version", value: `${actualFilters.batchId} / ${actualFilters.datasetVersion}` }, ...(rows || [])], evidence: bundle?.meta.evidence });
+    showEvidence({ title, description, presentation: "summary", rows: [{ label: "Selected period", value: monthRangeLabel(actualFilters) }, { label: "Source / LGA", value: `${actualFilters.source}${actualFilters.regionId ? ` · ${actualFilters.regionId}` : ""}` }, { label: actualFilters.releaseId ? "Release / version" : "Batch / version", value: `${actualFilters.batchId} / ${actualFilters.datasetVersion}` }, ...(rows || [])], evidence: bundle?.meta.evidence });
   }
   function exportData() {
     if (!bundle) return;
@@ -434,6 +442,8 @@ export default function Analytics({ dashboard = "trends" }: { dashboard?: "trend
               </Button>
             </PopoverContent>
           </Popover>
+          <Button variant="outline" className={`icon-button ${styles.studioButton}`} aria-label="Add to Studio" title="Choose a chart or table to add to Studio" disabled={loading || !data || isEmpty} onClick={() => setResourcePicker(true)}><BookOpen size={16}/></Button>
+          <StudioResourcePicker open={resourcePicker} onClose={() => setResourcePicker(false)} page={dashboard} query={{granularity}} context={{filters:actualFilters,metric,notes:"",references:""}} />
           <Button
             className={styles.exportButton}
             variant="outline"
@@ -462,7 +472,7 @@ export default function Analytics({ dashboard = "trends" }: { dashboard?: "trend
             Try again
           </Button>
         </div>
-      ) : actualFilters.source === "All" ? (loading || !result ? <div className={styles.empty} role="status">Loading source comparisons…</div> : <AnalyticsAllSources bundles={result.all} dashboard={dashboard} metric={metric} granularity={view.granularity} map={result.map?.data ?? null} sourceMaps={result.sourceMaps.map(({source, response}) => ({source, data:response.data}))} onAreaSelect={(source, regionId) => changeFilters({...selectSource(actualFilters, source), regionId})} evidence={evidence} setMetric={setMetric} setGranularity={setGranularity} onSourceSelect={source => changeFilters(selectSource(actualFilters, source))}/>) : isEmpty ? (
+      ) : actualFilters.source === "All" ? (loading || !result ? <div className={styles.empty} role="status">Loading source comparisons…</div> : <AnalyticsAllSources bundles={result.all} dashboard={dashboard} metric={metric} granularity={granularity} map={result.map?.data ?? null} sourceMaps={result.sourceMaps.map(({source, response}) => ({source, data:response.data}))} onAreaSelect={(source, regionId) => changeFilters({...selectSource(actualFilters, source), regionId})} evidence={evidence} setMetric={setMetric} setGranularity={setGranularity} onSourceSelect={source => changeFilters(selectSource(actualFilters, source))}/>) : isEmpty ? (
         <div className={styles.empty}>
           <CalendarDays size={32} />
           <h2>No data for this selection</h2>

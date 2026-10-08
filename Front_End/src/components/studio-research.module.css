@@ -1,0 +1,35 @@
+.dialog { background: var(--surface); color: var(--text-primary); max-height: 90dvh; overflow-y: auto; }
+.scope { color: var(--text-secondary); font-size: 12px; overflow-wrap: anywhere; }
+.resourceOptions { display: grid; gap: 6px; max-height: 36dvh; overflow-y: auto; }
+.resourceOption { display:flex; align-items:flex-start; gap:12px; padding:12px; border:1px solid var(--border); border-radius:8px; cursor:pointer; }
+.resourceOption:has(input:checked) { border-color:var(--ring); background:var(--surface-elevated); }
+.resourceOption input { margin-top:3px; }
+.resourceOption span { display:grid; gap:5px; }
+.resourceOption small,.note { color:var(--text-secondary); font-size:12px; line-height:1.6; }
+.field { display:grid; gap:6px; font-size:13px; margin:12px 0; }
+.field select,.field input,.field textarea { border:1px solid var(--border); border-radius:6px; background:var(--surface-elevated); color:var(--text-primary); padding:8px; width:100%; min-width:0; }
+.error { color:var(--danger,#e06b64); font-size:13px; }
+.entryGrid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin:20px 0; }
+.entryGrid button { text-align:left; border:1px solid var(--border); border-radius:10px; background:var(--surface); color:var(--text-primary); padding:18px; cursor:pointer; }
+.entryGrid button[aria-pressed=true] { border-color:var(--ring); background:var(--surface-elevated); }
+.entryGrid strong,.entryGrid small { display:block; }
+.entryGrid small { color:var(--text-secondary); line-height:1.5; margin-top:8px; }
+.outline { display:grid; gap:7px; font-size:12px; overflow-y:auto; }
+.outline h3 { margin:8px 0 0; font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--text-secondary); }
+.outline button { text-align:left; padding:5px 8px; background:transparent; border:0; color:var(--text-primary); cursor:pointer; overflow:hidden; text-overflow:ellipsis; }
+.tools { display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin:12px 0; }
+.tools button,.tools select { border:1px solid var(--border); border-radius:6px; padding:7px 10px; background:var(--surface); color:var(--text-primary); cursor:pointer; }
+.notice { border:1px solid var(--border); border-radius:8px; padding:12px; font-size:12px; line-height:1.6; color:var(--text-secondary); margin:12px 0; }
+.figure { width:100%; height:auto; background:white; border-radius:6px; }
+.checks { display:flex; flex-wrap:wrap; gap:6px; font-size:11px; margin:10px 0; }
+.checks span { border:1px solid var(--border); padding:4px 7px; border-radius:4px; }
+.capability { border-bottom:1px solid var(--border); padding:10px 0; font-size:12px; }
+.capability strong,.capability span { display:block; margin:4px 0; }
+@media(max-width:640px) { .entryGrid { grid-template-columns:1fr; } .entryGrid button {padding:12px;} }
+
+/* Recovery compares readable field values; raw diagnostic JSON remains an optional bounded panel. */
+.notice pre { max-width:100%; max-height:20rem; overflow:auto; white-space:pre-wrap; overflow-wrap:anywhere; }
+.pendingEdit { margin:12px 0; padding:12px 0; border-bottom:1px solid var(--border); min-width:0; }
+.pendingEdit dl { margin:8px 0 0; }
+.pendingEdit dt { color:var(--text-secondary); font-weight:600; }
+.pendingEdit dd { margin:4px 0 12px; white-space:pre-wrap; overflow-wrap:anywhere; }

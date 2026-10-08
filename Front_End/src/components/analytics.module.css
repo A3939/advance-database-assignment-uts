@@ -242,6 +242,10 @@
   gap: 10px;
   flex-shrink: 0;
 }
+.actions .studioButton {
+  width: var(--analysis-control-height);
+  height: var(--analysis-control-height);
+}
 .filters {
   gap: 16px;
   flex-wrap: wrap;
@@ -458,33 +462,6 @@
 .bottomNote button:hover {
   color: var(--accent-text);
 }
-.periodComparison { margin: 0 0 var(--analysis-gap, 20px); }
-.periodComparisonHeading { align-items: center; flex-wrap: wrap; }
-.periodComparisonTitle { display: flex; align-items: center; gap: 10px; }
-.periodComparisonControls { display: flex; flex-wrap: wrap; gap: 10px; }
-.periodComparisonControls label { display: flex; align-items: center; gap: 8px; color: var(--text-secondary); font-size: 12px; }
-.periodComparisonControls select { min-width: 105px; max-width: 165px; padding: 8px 10px; border: 1px solid var(--border-strong); border-radius: 7px; background: var(--surface-elevated); color: var(--text-primary); font: inherit; }
-.periodComparisonControls select:disabled { opacity: .5; }
-.periodComparisonScroll { overflow-x: auto; }
-.periodComparisonTable { min-width: 760px; margin: 0 24px 8px; font-size: 12px; font-variant-numeric: tabular-nums; }
-.periodComparisonRow { display: grid; grid-template-columns: 70px minmax(170px, 245px) minmax(230px, 1fr) 118px; align-items: center; gap: 16px; min-height: 55px; border-bottom: 1px solid var(--border); }
-.periodComparisonHeader { min-height: 38px; color: var(--text-secondary); font-size: 11px; }
-.periodComparisonHeader span:last-child { text-align: right; }
-.periodComparisonSource { font-size: 14px; }
-.periodComparisonAverages { color: var(--text-secondary); white-space: nowrap; }
-.periodComparisonAverages span { padding: 0 6px; }
-.periodComparisonPlot { position: relative; height: 26px; background: linear-gradient(to right, transparent calc(25% - .5px), var(--chart-grid) 25%, transparent calc(25% + .5px), transparent calc(75% - .5px), var(--chart-grid) 75%, transparent calc(75% + .5px)); }
-.periodComparisonZero { position: absolute; left: 50%; top: -6px; bottom: -6px; border-left: 1px solid var(--border-strong); }
-.periodComparisonBar { position: absolute; top: 4px; height: 18px; border-radius: 2px; }
-.periodComparisonBar[data-source="NSW"] { background: var(--chart-trend); }
-.periodComparisonBar[data-source="VIC"] { background: var(--coral); }
-.periodComparisonBar[data-source="QLD"] { background: var(--chart-blue); }
-.periodComparisonValue { text-align: right; font-size: 17px; }
-.periodComparisonValue[data-source="NSW"] { color: var(--chart-trend); }
-.periodComparisonValue[data-source="VIC"] { color: var(--coral); }
-.periodComparisonValue[data-source="QLD"] { color: var(--chart-blue); }
-.periodComparisonAxis { display: flex; justify-content: space-between; margin: 8px 134px 0 343px; color: var(--text-secondary); font-size: 10px; }
-.periodComparisonNote { padding: 8px 24px 20px; color: var(--text-secondary); font-size: 11px; }
 .info {
   display: inline-flex;
   align-items: center;
@@ -916,6 +893,11 @@
     padding-inline: 10px;
     font-size: 12px;
   }
+  .actions .studioButton {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+  }
   .toolbar {
     align-items: flex-start;
     flex-direction: column;
@@ -1106,7 +1088,7 @@
 .page .filters { gap:12px 0; }
 .page .areaFilter { margin-left:var(--analysis-item-inset); }
 .page .filters :global(.region-filter-chip) { margin-left:12px; }
-.allMetrics { margin:22px 0 0; gap:16px; }
+.allMetrics { margin:22px 0 var(--analysis-gap); gap:var(--analysis-gap); }
 .allMetrics :global(.metric-card) { min-width:0; padding:18px 20px; }
 .allMetrics :global(.metric-label) { font-size:14px; gap:9px; min-height:32px; }
 .allMetrics :global(.metric-label) > svg { flex-shrink:0; }
@@ -1116,7 +1098,7 @@
 .allMetrics .compactValues strong { font-size:17px; letter-spacing:-0.3px; overflow-wrap:anywhere; }
 .allMetrics .compactValues small { color:var(--text-secondary); font-size:10px; line-height:1.5; margin-top:4px; }
 .allMetrics .areaValues strong { font-size:15px; line-height:1.35; }
-.singleMetrics { margin-bottom:22px; }
+.singleMetrics { margin-bottom:var(--analysis-gap); }
 .singleMetricValue { display:block; margin-top:16px; font-size:23px; font-weight:600; line-height:1.2; letter-spacing:-0.6px; font-variant-numeric:tabular-nums; }
 .singleCompactValue { font-size:17px; letter-spacing:-0.3px; overflow-wrap:anywhere; }
 .singleAreaValue { font-size:15px; line-height:1.35; overflow-wrap:anywhere; }

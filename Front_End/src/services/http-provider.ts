@@ -1,4 +1,5 @@
 import type { ArsiaService, Filters, AgentEvent, Response } from "./contracts";
+import { importPreview } from "./import-preview";
 import type { SeverityChange } from "./severity-change";
 import type { SpeedZoneData } from "./speed-zone";
 
@@ -49,6 +50,7 @@ async function get<T>(
     params.set("to", filters.dateRange.to);
     params.set("datasetVersion", filters.datasetVersion);
     params.set("batchId", filters.batchId);
+    if (filters.releaseId) params.set("releaseId", filters.releaseId);
   }
   return readDataJson<T>(`/api/data/${report}?${params}`, signal);
 }
@@ -114,4 +116,6 @@ export const httpProvider: ArsiaService = {
       reader.releaseLock();
     }
   },
+  createImportJob: (files) => importPreview.createImportJob(files),
+  getImportJobStatus: (id) => importPreview.getImportJobStatus(id),
 };

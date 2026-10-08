@@ -1,0 +1,67 @@
+# OPTIONAL legacy deterministic-worker Linux rehearsal, not the running dev launcher.
+# Autonomous Agent execution is NOT wired in this compose file: the worker has
+# no Docker daemon or trusted Next model gateway access. Use the documented
+# host-service deployment design for the autonomous executor, not a socket mount.
+# Review README before using. Never point these volumes at existing data.
+name: arsia-imports-compose-local
+services:
+  db:
+    image: postgres:16.15-bookworm
+    environment:
+      POSTGRES_DB: arsia_imports_compose
+      POSTGRES_USER: arsia_imports
+      POSTGRES_PASSWORD_FILE: /run/secrets/import_database_password
+      TZ: UTC
+    secrets: [import_database_password]
+    volumes: [imports_pgdata:/var/lib/postgresql/data]
+    command: [postgres, -c, timezone=UTC, -c, shared_buffers=128MB]
+    restart: unless-stopped
+    mem_limit: 1536m
+    cpus: 1.5
+    healthcheck:
+      test: [CMD-SHELL, pg_isready -U arsia_imports -d arsia_imports_compose]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    logging: &logging
+      driver: json-file
+      options: {max-size: 10m, max-file: '3'}
+  bootstrap:
+    build: .
+    command: [bootstrap]
+    secrets: [import_database_password]
+    volumes: [imports_files:/app/artifacts/imports-local]
+    depends_on:
+      db: {condition: service_healthy}
+    logging: *logging
+  api:
+    build: .
+    command: [api]
+    volumes: [imports_files:/app/artifacts/imports-local, imports_socket:/run/arsia]
+    depends_on:
+      bootstrap: {condition: service_completed_successfully}
+    restart: unless-stopped
+    mem_limit: 512m
+    cpus: 0.5
+    read_only: true
+    tmpfs: [/tmp]
+    logging: *logging
+  worker:
+    build: .
+    command: [worker]
+    volumes: [imports_files:/app/artifacts/imports-local]
+    depends_on:
+      bootstrap: {condition: service_completed_successfully}
+    restart: unless-stopped
+    mem_limit: 4g
+    cpus: 2
+    read_only: true
+    tmpfs: [/tmp]
+    logging: *logging
+secrets:
+  import_database_password:
+    file: ${ARSIA_IMPORT_PASSWORD_FILE:?Set a PRIVATE password file for this separate local test}
+volumes:
+  imports_pgdata:
+  imports_files:
+  imports_socket:

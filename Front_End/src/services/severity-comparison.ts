@@ -17,18 +17,19 @@ const displayGroups = [
 const key = (label: string) => label.trim().toLowerCase();
 const validCount = (value: number) => Number.isFinite(value) && value >= 0;
 
-export function severityComparison(rows: SeverityValue[], requestedSources: Source[] = []) {
+/** Shared display grouping only; keeps each native observation and its metrics intact. */
+export function groupSeverityCategories<T extends Pick<Severity, "label" | "source">>(rows: T[], requestedSources: Source[] = []) {
   const sources = [...new Set([...requestedSources, ...rows.flatMap(row => row.source ? [row.source] : [])])];
   const multiple = sources.length > 1;
   const sourceKeys = sources.length ? sources : [undefined];
-  const slot = (row: SeverityValue) => multiple
+  const slot = (row: T) => multiple
     ? displayGroups.find(group => group.labels.includes(key(row.label)))?.label ?? row.label
     : row.label;
   // If a source supplies two native categories for one display slot, retain
   // separate native categories rather than merging, overwriting or dropping them.
   const ambiguous = new Set(rows.filter(row => rows.some(other =>
     other !== row && other.source === row.source && slot(other) === slot(row))).map(slot));
-  const resolvedSlot = (row: SeverityValue) => ambiguous.has(slot(row)) ? row.label : slot(row);
+  const resolvedSlot = (row: T) => ambiguous.has(slot(row)) ? row.label : slot(row);
   const labels = [...new Set(rows.map(resolvedSlot))];
   if (multiple) labels.sort((a, b) => {
     const order = (label: string) => {
@@ -37,10 +38,16 @@ export function severityComparison(rows: SeverityValue[], requestedSources: Sour
     };
     return order(a) - order(b);
   });
-  const groups: SeverityGroup[] = labels.map(label => ({
+  const groups = labels.map(label => ({
     label,
     rows: sourceKeys.map(source => rows.find(row => row.source === source && resolvedSlot(row) === label) ?? null),
   }));
+  return { sources, multiple, groups };
+}
+
+export function severityComparison(rows: SeverityValue[], requestedSources: Source[] = []) {
+  const { sources, multiple, groups } = groupSeverityCategories(rows, requestedSources);
+  const sourceKeys = sources.length ? sources : [undefined];
   const totals = sourceKeys.map(source => rows.filter(row => row.source === source && validCount(row.count)).reduce((sum, row) => sum + row.count, 0));
   return { sources, multiple, groups, series: sourceKeys.map((source, index) => ({
     source,

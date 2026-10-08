@@ -40,14 +40,20 @@
     ".next-regions/dev/types/**/*.ts",
     ".next-analysis/types/**/*.ts",
     ".next-analysis/dev/types/**/*.ts",
-    ".next-demo-build/types/**/*.ts",
-    ".next-demo-build/dev/types/**/*.ts",
-    ".next-local-preview-20261007/types/**/*.ts",
-    ".next-local-preview-20261007/dev/types/**/*.ts"
+    "artifacts/maintenance-build-20261004-01/types/**/*.ts",
+    "artifacts/maintenance-build-20261004-01/dev/types/**/*.ts",
+    "artifacts/maintenance-build-20261004-02/types/**/*.ts",
+    "artifacts/maintenance-build-20261004-02/dev/types/**/*.ts",
+    "artifacts/maintenance-build-20261004-03/types/**/*.ts",
+    "artifacts/maintenance-build-20261004-03/dev/types/**/*.ts",
+    "artifacts/bounded-maintenance-build-20261004-01/types/**/*.ts",
+    "artifacts/bounded-maintenance-build-20261004-01/dev/types/**/*.ts",
+    "artifacts/map-legend-build-20261004-01/types/**/*.ts",
+    "artifacts/map-legend-build-20261004-01/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",
-    "artifacts",
-    "output"
+    "artifacts/**",
+    "output/**"
   ]
 }

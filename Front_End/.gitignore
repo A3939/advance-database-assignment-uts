@@ -17,9 +17,14 @@ public/vendor/
 
 .DS_Store
 
-# Independent demo build output
-.next-demo-build/
+# Local Imports runtime and Python build/test caches
+/pipeline/.venv/
+/pipeline/**/__pycache__/
+/pipeline/.pytest_cache/
+/pipeline/*.egg-info/
 
-# Local previews, verification copies and generated evidence
+# Independent local build outputs
 .next-*/
+
+# Local verification outputs and historical source backups
 /output/

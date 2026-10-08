@@ -15,7 +15,7 @@ import zipfile
 ROOT = Path(__file__).resolve().parents[1]
 # The native source files remain in the original database project, read-only.
 # Override this optional rebuild input when the frontend is cloned elsewhere.
-RAW = Path(os.environ.get('ARSIA_RAW_DATA_DIR', ROOT.parent / 'raw_datasource')).expanduser().resolve()
+RAW = Path(os.environ.get('ARSIA_RAW_DATA_DIR', ROOT.parent / 'Workspace_Github' / 'raw_datasource')).expanduser().resolve()
 NS = {'m': 'http://schemas.openxmlformats.org/spreadsheetml/2006/main'}
 PROV = json.loads((ROOT / 'data/official/provenance.json').read_text())
 REPORTS = json.loads((ROOT / 'data/official/reader-results.json').read_text())

@@ -1,7 +1,8 @@
 import type { AgentContext, AgentTurn } from "../../services/contracts";
 import { DEFAULT_FILTERS } from "../../services/config";
 import { object } from "./tools";
-import { parseOfficialFilters } from "../official-data";
+import { parseDataFilters } from "../data-catalog";
+import { LOCAL_VERSION } from "../../services/catalog-contracts";
 
 export const contextKey = (c: AgentContext) =>
   [
@@ -12,13 +13,14 @@ export const contextKey = (c: AgentContext) =>
     c.filters.dateRange.to,
     c.filters.datasetVersion,
     c.filters.batchId,
+    c.filters.releaseId || "",
   ].join("|");
 function parseContext(value: unknown): AgentContext {
   const c = object(value),
     f = object(c.filters),
     r = object(f.dateRange);
   if (
-    !["/", "/analytics", "/explore", "/data"].includes(
+    !["/", "/analytics", "/analytics/severity", "/analytics/spatial", "/explore", "/data", "/imports", "/reports", "/studio"].includes(
       String(c.page),
     )
   )
@@ -26,7 +28,8 @@ function parseContext(value: unknown): AgentContext {
   for (const value of [f.source, f.datasetVersion, f.batchId, r.from, r.to])
     if (typeof value !== "string" || !value || value.length > 100)
       throw Error("Incomplete filter context.");
-  const filters = parseOfficialFilters(
+  if (f.releaseId !== undefined && f.datasetVersion !== LOCAL_VERSION) throw Error("A snapshot cannot include a local release.");
+  const filters = parseDataFilters(
     new URLSearchParams({
       source: f.source as string,
       ...(f.regionId !== undefined ? { regionId: String(f.regionId) } : {}),
@@ -34,11 +37,12 @@ function parseContext(value: unknown): AgentContext {
       to: r.to as string,
       datasetVersion: f.datasetVersion as string,
       batchId: f.batchId as string,
+      ...(f.releaseId ? {releaseId:String(f.releaseId)} : {}),
     }),
   );
   if (
-    filters.batchId !== DEFAULT_FILTERS.batchId ||
-    filters.datasetVersion !== DEFAULT_FILTERS.datasetVersion
+    filters.datasetVersion !== LOCAL_VERSION && (filters.batchId !== DEFAULT_FILTERS.batchId ||
+    filters.datasetVersion !== DEFAULT_FILTERS.datasetVersion)
   )
     throw Error(
       "This dataset version or batch is not connected. Refresh the page.",
@@ -79,19 +83,4 @@ export function parseAgentRequest(value: unknown) {
 }
 export type AgentRequest = ReturnType<typeof parseAgentRequest>;
 
-export function sameOrigin(request: Request) {
-  if (request.headers.get("sec-fetch-site") === "cross-site") return false;
-  const origin = request.headers.get("origin");
-  if (!origin) return true;
-  try {
-    const supplied = new URL(origin),
-      target = new URL(request.url);
-    // Next may normalize request.url to localhost while the browser uses 127.0.0.1.
-    return (
-      supplied.protocol === target.protocol &&
-      supplied.host === (request.headers.get("host") || target.host)
-    );
-  } catch {
-    return false;
-  }
-}
+export { localRequest as sameOrigin } from "../local-request";

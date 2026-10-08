@@ -56,3 +56,15 @@
 @media (max-width: 700px) { .page { padding-top: 24px; } .heading { flex-wrap: wrap; gap: 6px; } .previewBadge { margin-top: 0; } .newDataset { grid-template-columns: minmax(0, 1fr); } .guide { border-left: 0; border-top: 1px solid var(--border); } .guide h3 br { display: none; } .guide ol { margin: 20px 0; } .sectionHeading > span { display: none; } .table th, .table td { padding-left: 14px; padding-right: 14px; } .uploadFooter { align-items: flex-start; } .dropzone, .linkPanel { padding: 20px 12px; } }
 
 @media (max-width: 600px) { .table th:nth-child(2), .table td:nth-child(2), .table th:nth-child(3), .table td:nth-child(3) { display: none; } .table th:first-child { width: auto; } }
+.tabs { display: flex; gap: 6px; margin: -5px 0 23px; border-bottom: 1px solid var(--border); }
+.tabs button { display: inline-flex; align-items: center; gap: 8px; padding: 11px 14px; border: 0; border-bottom: 2px solid transparent; color: var(--text-secondary); background: transparent; cursor: pointer; font-size: 12px; }
+.tabs button[aria-pressed="true"] { color: var(--text-primary); border-bottom-color: var(--accent-text); }
+.tabs button:focus-visible, .rowActions :is(button,a):focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; }
+.libraryMessage { padding: 24px; display: flex; align-items: center; gap: 14px; color: var(--text-secondary); font-size: 12px; line-height: 1.6; }
+.libraryMessage p { margin: 0; }
+.dataset small { max-width: 470px; white-space: normal; line-height: 1.5; }
+.sourceCode { width: auto; min-width: 38px; max-width: 80px; padding-inline: 6px; overflow-wrap: anywhere; white-space: normal; }
+.rowActions { display: flex; align-items: center; gap: 6px; }
+.rowActions button, .rowActions a { display: inline-flex; align-items: center; justify-content: center; border: 1px solid transparent; border-radius: 5px; background: transparent; color: var(--text-secondary); width: 29px; height: 29px; cursor: pointer; }
+.rowActions button:hover, .rowActions a:hover { color: var(--text-primary); background: var(--surface-elevated); border-color: var(--border); }
+@media (max-width: 600px) { .tabs button { font-size: 11px; padding-inline: 10px; } .heading { align-items: center; } .heading > button { margin-top: 12px; } .libraryMessage { flex-wrap: wrap; padding: 18px; } .dataset small { max-width: 180px; } }

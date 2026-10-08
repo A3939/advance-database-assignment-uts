@@ -1,0 +1,21 @@
+# Example Linux host service. Not installed by the local task.
+[Unit]
+Description=ARSIA private local import API
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=arsia
+Group=arsia
+WorkingDirectory=/srv/arsia/pipeline
+ExecStart=/srv/arsia/pipeline/.venv/bin/python -m arsia_pipeline.dev serve
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=45
+UMask=0077
+NoNewPrivileges=true
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target

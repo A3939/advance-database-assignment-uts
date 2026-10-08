@@ -1,0 +1,181 @@
+{
+  "version": "implementation-reviewed-lookup-claims-v1",
+  "scope": "Implementation-maintained pinned interpretation, never proposal authority or source admission. Every cited raw reference is reverified; actual full input constraints remain mandatory.",
+  "claims": [
+    {
+      "id": "vic-20260914-accident-node-reference",
+      "dataset_urls": [
+        "https://opendata.transport.vic.gov.au/dataset/victoria-road-crash-data",
+        "https://opendata.transport.vic.gov.au/dataset/bb77800e-1857-4edc-bf9e-e188437a1c8e"
+      ],
+      "document_url": "https://opendata.transport.vic.gov.au/api/3/action/package_show?id=victoria-road-crash-data",
+      "document_sha256": "b49db512d35f455a0172f45db29006e9cfc5cec44c0f986995f08fe57e0f2580",
+      "child_url": "https://opendata.transport.vic.gov.au/dataset/bb77800e-1857-4edc-bf9e-e188437a1c8e/resource/20772c1a-8b19-424a-a733-eb84f725f611/download/accident.csv",
+      "child_fields": [
+        "NODE_ID"
+      ],
+      "parent_url": "https://opendata.transport.vic.gov.au/dataset/bb77800e-1857-4edc-bf9e-e188437a1c8e/resource/466fd3b5-201b-42b5-b10d-e926324fa215/download/node.csv",
+      "parent_fields": [
+        "NODE_ID"
+      ],
+      "allow_blank": false,
+      "coverage": {
+        "from": "2012-01-01",
+        "to": "2025-12-31"
+      },
+      "references": [
+        {
+          "document_id": "pinned-directory",
+          "document_sha256": "b49db512d35f455a0172f45db29006e9cfc5cec44c0f986995f08fe57e0f2580",
+          "locator": {
+            "kind": "json-pointer",
+            "pointer": "/result/resources/0/url"
+          },
+          "value_sha256": "2d2c77c4459e9a86af5c30a3bf22d58701f9991bc695521ec6b4d79bd6a7be81",
+          "quote": "https://opendata.transport.vic.gov.au/dataset/bb77800e-1857-4edc-bf9e-e188437a1c8e/resource/20772c1a-8b19-424a-a733-eb84f725f611/download/accident.csv",
+          "reference_version": "pinned-evidence-reference-v1",
+          "extractor_version": "raw-metadata-v1"
+        },
+        {
+          "document_id": "pinned-directory",
+          "document_sha256": "b49db512d35f455a0172f45db29006e9cfc5cec44c0f986995f08fe57e0f2580",
+          "locator": {
+            "kind": "json-pointer",
+            "pointer": "/result/resources/4/url"
+          },
+          "value_sha256": "3350d7d92cbae5d1d818bd6213b970d08f5bf6412e4f8e18d777e7dc48b44237",
+          "quote": "https://opendata.transport.vic.gov.au/dataset/bb77800e-1857-4edc-bf9e-e188437a1c8e/resource/466fd3b5-201b-42b5-b10d-e926324fa215/download/node.csv",
+          "reference_version": "pinned-evidence-reference-v1",
+          "extractor_version": "raw-metadata-v1"
+        },
+        {
+          "document_id": "pinned-directory",
+          "document_sha256": "b49db512d35f455a0172f45db29006e9cfc5cec44c0f986995f08fe57e0f2580",
+          "locator": {
+            "kind": "json-pointer",
+            "pointer": "/result/resources/0/attributes/10/db_name"
+          },
+          "value_sha256": "24597ec2fa474d659fc1ce5c31bcf4353a6632fe38d3ae5f52483e15d6bfd870",
+          "quote": "NODE_ID",
+          "reference_version": "pinned-evidence-reference-v1",
+          "extractor_version": "raw-metadata-v1"
+        },
+        {
+          "document_id": "pinned-directory",
+          "document_sha256": "b49db512d35f455a0172f45db29006e9cfc5cec44c0f986995f08fe57e0f2580",
+          "locator": {
+            "kind": "json-pointer",
+            "pointer": "/result/resources/0/attributes/10/definition"
+          },
+          "value_sha256": "347c82eb25276d29ca4e1c24b6af989ba40e387ed4bd1acf7cd94015cc53d9f4",
+          "quote": "The node id of the accident. It starts with 1 and incremented by one when a new accident location is identified.",
+          "reference_version": "pinned-evidence-reference-v1",
+          "extractor_version": "raw-metadata-v1"
+        },
+        {
+          "document_id": "pinned-directory",
+          "document_sha256": "b49db512d35f455a0172f45db29006e9cfc5cec44c0f986995f08fe57e0f2580",
+          "locator": {
+            "kind": "json-pointer",
+            "pointer": "/result/resources/4/description"
+          },
+          "value_sha256": "8b7acf2f372b6f27f77ec13745b3f279e4e90c67a6389fe2577a1bcbee12c05c",
+          "quote": "Table contains information about where accident is located on the map. NODE_ID is the primary key of the table. NODE_ID is referred by ACCIDENT and FATAL_ACCIDENT table. Same node_id can be assigned to more than one accident.",
+          "reference_version": "pinned-evidence-reference-v1",
+          "extractor_version": "raw-metadata-v1"
+        },
+        {
+          "document_id": "pinned-directory",
+          "document_sha256": "b49db512d35f455a0172f45db29006e9cfc5cec44c0f986995f08fe57e0f2580",
+          "locator": {
+            "kind": "json-pointer",
+            "pointer": "/result/resources/4/attributes/1/db_name"
+          },
+          "value_sha256": "24597ec2fa474d659fc1ce5c31bcf4353a6632fe38d3ae5f52483e15d6bfd870",
+          "quote": "NODE_ID",
+          "reference_version": "pinned-evidence-reference-v1",
+          "extractor_version": "raw-metadata-v1"
+        },
+        {
+          "document_id": "pinned-directory",
+          "document_sha256": "b49db512d35f455a0172f45db29006e9cfc5cec44c0f986995f08fe57e0f2580",
+          "locator": {
+            "kind": "json-pointer",
+            "pointer": "/result/resources/4/attributes/1/definition"
+          },
+          "value_sha256": "347c82eb25276d29ca4e1c24b6af989ba40e387ed4bd1acf7cd94015cc53d9f4",
+          "quote": "The node id of the accident. It starts with 1 and incremented by one when a new accident location is identified.",
+          "reference_version": "pinned-evidence-reference-v1",
+          "extractor_version": "raw-metadata-v1"
+        },
+        {
+          "document_id": "pinned-directory",
+          "document_sha256": "b49db512d35f455a0172f45db29006e9cfc5cec44c0f986995f08fe57e0f2580",
+          "locator": {
+            "kind": "json-pointer",
+            "pointer": "/result/resources/4/attributes/0/definition"
+          },
+          "value_sha256": "e99556e1fbacbf0d8c0853a11012825c81da0c42dc79cdd868d62620aff6ce7a",
+          "quote": "ACCIDENT_NO is the Primary Key for the database to uniquely identify the accident and cannot contain NULL values.\nFirst character T indicates TIS incident and characters 2-5 typically represent the year in which the accident created in TIS system and characters 6-11 are a numeric sequencing number.",
+          "reference_version": "pinned-evidence-reference-v1",
+          "extractor_version": "raw-metadata-v1"
+        },
+        {
+          "document_id": "pinned-directory",
+          "document_sha256": "b49db512d35f455a0172f45db29006e9cfc5cec44c0f986995f08fe57e0f2580",
+          "locator": {
+            "kind": "json-pointer",
+            "pointer": "/result/resources/0/reporting_period_start"
+          },
+          "value_sha256": "50ffa1db8d9e7869314c85f138c957034b753007d77132f59d6629ed08aa8b3d",
+          "quote": "2012-01-01T00:00:00",
+          "reference_version": "pinned-evidence-reference-v1",
+          "extractor_version": "raw-metadata-v1"
+        },
+        {
+          "document_id": "pinned-directory",
+          "document_sha256": "b49db512d35f455a0172f45db29006e9cfc5cec44c0f986995f08fe57e0f2580",
+          "locator": {
+            "kind": "json-pointer",
+            "pointer": "/result/resources/0/reporting_period_end"
+          },
+          "value_sha256": "198a663e342ec6393280924412f3b2af4097caf22525081f4214d881ce4f7b95",
+          "quote": "2026-01-31T00:00:00",
+          "reference_version": "pinned-evidence-reference-v1",
+          "extractor_version": "raw-metadata-v1"
+        },
+        {
+          "document_id": "pinned-directory",
+          "document_sha256": "b49db512d35f455a0172f45db29006e9cfc5cec44c0f986995f08fe57e0f2580",
+          "locator": {
+            "kind": "json-pointer",
+            "pointer": "/result/resources/4/reporting_period_start"
+          },
+          "value_sha256": "50ffa1db8d9e7869314c85f138c957034b753007d77132f59d6629ed08aa8b3d",
+          "quote": "2012-01-01T00:00:00",
+          "reference_version": "pinned-evidence-reference-v1",
+          "extractor_version": "raw-metadata-v1"
+        },
+        {
+          "document_id": "pinned-directory",
+          "document_sha256": "b49db512d35f455a0172f45db29006e9cfc5cec44c0f986995f08fe57e0f2580",
+          "locator": {
+            "kind": "json-pointer",
+            "pointer": "/result/resources/4/reporting_period_end"
+          },
+          "value_sha256": "12b53fb51a175d726439ead106f913891a08f82971179b49740f76f28492ceb3",
+          "quote": "2025-12-31T00:00:00",
+          "reference_version": "pinned-evidence-reference-v1",
+          "extractor_version": "raw-metadata-v1"
+        }
+      ],
+      "source_limits": [
+        "Implementation review of exact frozen publisher prose, not publisher CSVW or machine-readable FK assertion.",
+        "Establishes only the stated ACCIDENT.NODE_ID reference to Node.NODE_ID, not actual key uniqueness or complete coverage.",
+        "Node description calls NODE_ID the primary key while its ACCIDENT_NO attribute also uses database primary-key wording; this interpretation does not resolve key/cardinality quality.",
+        "Existing frozen Node input contains duplicate keys; physical QA must reject it. No deduplication, row exclusion, coordinate averaging or native-policy change authorized.",
+        "Only overlap of the two stated reporting periods; future metadata versions need new review."
+      ]
+    }
+  ]
+}

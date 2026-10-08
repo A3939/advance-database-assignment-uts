@@ -8,6 +8,8 @@ import { useTheme } from "@/components/theme-provider";
 import MapAreaSearch from "@/components/map-area-search";
 import type { MapData, SourceSelection } from "@/services/contracts";
 import { mapPadding, mapSvgPath, projectMapPoint } from "@/lib/map-viewport";
+import { mapCountBand, mapCountBins } from "@/lib/map-scale";
+import PointGridMap from "./point-grid-map";
 interface Props {
   data: MapData;
   source: SourceSelection;
@@ -17,9 +19,11 @@ interface Props {
 }
 
 // One concentration scale for both map levels. Missing observations stay neutral.
-function concentrationToken(count: number | undefined, maximum: number) {
-  if (count === undefined) return "--map-land";
-  return `--map-ramp-${Math.max(1, Math.min(7, Math.ceil((count / Math.max(1, maximum)) * 7)))}`;
+function concentrationToken(count: number | undefined, maximum: number, compactLegend = false) {
+  const band = mapCountBand(count, maximum);
+  if (band === null) return "--map-land";
+  if (band === 0) return compactLegend ? "--map-ramp-1" : "--surface-elevated";
+  return `--map-ramp-${band}`;
 }
 function regionLabel(current: MapData, id: string, name: string) {
   const region = current.regions.find(r => r.id === id);
@@ -30,7 +34,10 @@ function regionLabel(current: MapData, id: string, name: string) {
 function duration(ms: number) {
   return matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : ms;
 }
-export default function SpatialMap({
+export default function SpatialMap(props: Props) {
+  return props.data.pointGrid ? <PointGridMap key={props.source} data={props.data} /> : <BoundaryMap {...props} />;
+}
+function BoundaryMap({
   data,
   source,
   onSelect,
@@ -335,7 +342,7 @@ export default function SpatialMap({
     const maximum = Math.max(1, ...observations.map((r) => r.count ?? 0));
     const colors = observations.flatMap((r) => [
       r.id,
-      token(concentrationToken(r.count, maximum)),
+      token(concentrationToken(r.count, maximum, compactLegend)),
     ]);
     instance.setPaintProperty(
       "regions",
@@ -447,7 +454,7 @@ export default function SpatialMap({
     return () => {
       instance.off("move", placeLabels);
     };
-  }, [data, boundary, loaded, theme]);
+  }, [data, boundary, loaded, theme, compactLegend]);
   const country = data.level === "country";
   const hoveredState = hover ? data.states?.find(s => s.code === hover.id) : undefined;
   const hoverReadout = hover?.url === data.boundaryUrl
@@ -460,6 +467,7 @@ export default function SpatialMap({
     ? (data.states || []).map((s) => ({ id: s.code, count: s.count }))
     : data.regions;
   const observedMaximum = Math.max(0, ...observations.map((r) => r.count ?? 0));
+  const hasCounts = observations.some(row => row.count !== undefined);
   const maximum = Math.max(1, observedMaximum);
   const areaOptions = country
     ? (data.states || []).filter(state => state.code !== "9").map(state => ({ id: state.code, name: state.name, keywords: state.label, unavailable: !state.available }))
@@ -495,7 +503,7 @@ export default function SpatialMap({
                   data.level,
                   insets,
                 )}
-                fill={`var(${concentrationToken(observations.find((r) => r.id === id)?.count, maximum)})`}
+                fill={`var(${concentrationToken(observations.find((r) => r.id === id)?.count, maximum, compactLegend)})`}
                 stroke="var(--map-line)"
                 strokeWidth={data.selectedRegionId === id ? "2.5" : "1"}
                 aria-pressed={data.selectedRegionId === id}
@@ -584,28 +592,37 @@ export default function SpatialMap({
         role="group"
         aria-label={data.legendLabel || (boundaryOnly ? "Boundaries only" : "Recorded crash count colour scale")}
       >
-        {(!compactLegend || boundaryOnly) && <span>
+        {(boundaryOnly || (!compactLegend && data.illustrationOnly)) && <span>
           {data.legendLabel ||
             (data.illustrationOnly
               ? "Illustrative concentration"
-              : boundaryOnly
-                ? "Boundaries only"
-                : "Recorded crashes by source")}
+              : "Boundaries only")}
         </span>}
-        {!compactLegend && data.coverage && <span className="region-coverage">{data.coverage.percentage === null ? "No data for this period" : `${data.coverage.percentage}% matched · ${data.coverage.unmatched.toLocaleString("en-AU")} unmatched`}</span>}
-        {!boundaryOnly && (
+        {!boundaryOnly && compactLegend && (
           <>
             <div>
               {Array.from({ length: 7 }, (_, i) => (
                 <i key={i} style={{ background: `var(--map-ramp-${i + 1})` }} />
               ))}
             </div>
+            <span className="legend-ends"><span>Lower</span><span>Higher</span></span>
+          </>
+        )}
+        {!boundaryOnly && !compactLegend && observedMaximum > 0 && (
+          <>
+            <div>
+              {mapCountBins(observedMaximum).map(bin => (
+                <i key={bin.band} data-band={bin.band} title={`${bin.from.toLocaleString("en-AU")}–${bin.to.toLocaleString("en-AU")} recorded crashes`} style={{ background: `var(--map-ramp-${bin.band})` }} />
+              ))}
+            </div>
             <span className="legend-ends">
-              <span>Lower</span>
-              <span>Higher</span>
+              <span>1 crash</span>
+              <span>{maximum.toLocaleString("en-AU")} crashes</span>
             </span>
           </>
         )}
+        {!compactLegend && !boundaryOnly && hasCounts && observedMaximum === 0 && <span>0 recorded crashes in every displayed area</span>}
+        {!compactLegend && !boundaryOnly && !hasCounts && <span>No covered counts for this selection</span>}
         {data.unavailableReason && (
           <p className="map-availability-note">{data.unavailableReason}</p>
         )}

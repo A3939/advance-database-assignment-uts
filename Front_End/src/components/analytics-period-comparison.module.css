@@ -1,0 +1,58 @@
+/* Keep the comparison layout with its component, separate from shared dashboard styles. */
+.periodComparison { margin: 0 0 var(--analysis-gap, 20px); }
+.periodComparison .periodComparisonHeading { align-items: center; flex-wrap: wrap; gap: 20px; padding-bottom: 24px; }
+.periodComparisonTitle { display: flex; align-items: center; gap: 10px; }
+.periodComparisonControls { display: flex; flex-wrap: nowrap; align-items: center; gap: 16px; margin-left: auto; }
+.periodComparisonField { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.periodComparisonField label { color: var(--text-secondary); font-size: 12px; white-space: nowrap; }
+.periodComparisonSelect { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 132px; min-height: 44px; padding: 10px 12px; border: 1px solid var(--border-strong); border-radius: 8px; background: var(--surface); color: var(--text-primary); font: inherit; font-size: 13px; font-weight: 500; line-height: 1.4; font-variant-numeric: tabular-nums; cursor: pointer; transition: background 160ms ease, border-color 160ms ease; }
+.periodComparisonSelect:hover { background: var(--surface-elevated); }
+.periodComparisonSelect[data-state="open"] { border-color: var(--accent-text); background: var(--surface-elevated); }
+.periodComparisonSelect:focus-visible { outline: 2px solid var(--accent-text); outline-offset: 3px; }
+.periodComparisonSelect:disabled { opacity: .5; cursor: not-allowed; }
+.periodComparisonChevron { display: flex; color: var(--text-secondary); flex-shrink: 0; transition: transform 160ms ease; }
+.periodComparisonSelect[data-state="open"] .periodComparisonChevron { transform: rotate(180deg); }
+.periodComparisonMenu { z-index: 100; min-width: max(var(--radix-select-trigger-width), 148px); max-height: var(--radix-select-content-available-height); overflow-y: auto; padding: 5px; border: 1px solid var(--border-strong); border-radius: 10px; background: var(--surface); color: var(--text-primary); box-shadow: 0 12px 32px #0003; }
+.periodComparisonOption { display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 44px; padding: 9px 10px; border-radius: 6px; font-size: 13px; font-weight: 500; font-variant-numeric: tabular-nums; cursor: pointer; outline: none; user-select: none; }
+.periodComparisonOption[data-state="checked"] { color: var(--accent-text); background: var(--accent-soft); }
+.periodComparisonOption[data-highlighted] { background: var(--surface-elevated); box-shadow: inset 0 0 0 1px var(--border-strong); }
+.periodComparisonOption > span:last-child { display: flex; }
+.periodComparisonScroll { overflow-x: auto; margin: 0 24px 20px; }
+.periodComparisonTable { min-width: 680px; font-variant-numeric: tabular-nums; }
+.periodComparisonRow { display: grid; grid-template-columns: minmax(70px, .85fr) minmax(105px, 1.2fr) minmax(105px, 1.2fr) minmax(220px, 4fr) 100px; align-items: center; gap: 20px; min-height: 68px; border-bottom: 1px solid var(--border); }
+.periodComparisonHeader { min-height: 74px; border-top: 1px solid var(--border); font-size: 14px; font-weight: 500; }
+.periodComparisonHeader > span:first-child { color: var(--text-secondary); font-size: 13px; font-weight: 400; }
+.periodComparisonUnit { display: block; margin-top: 5px; color: var(--text-secondary); font-size: 12px; font-weight: 400; }
+.periodComparisonChangeHeading { text-align: center; }
+.periodComparisonSource { display: flex; align-items: center; gap: 12px; font-size: 16px; font-weight: 600; }
+.periodComparisonDot { background: var(--chart-blue); flex-shrink: 0; width: 10px; height: 10px; border-radius: 50%; }
+.periodComparisonAverage { color: var(--text-primary); font-size: 18px; font-weight: 500; letter-spacing: -.2px; }
+.periodComparisonPlot { position: relative; height: 26px; }
+.periodComparisonGridline { position: absolute; top: -21px; bottom: -21px; border-left: 1px dashed var(--chart-grid); }
+.periodComparisonZero { position: absolute; left: 50%; top: -21px; bottom: -21px; border-left: 1px solid var(--border-strong); }
+.periodComparisonBar { background: var(--chart-blue); position: absolute; top: 4px; height: 18px; border-radius: 3px; }
+.periodComparisonBar[data-source="NSW"], .periodComparisonDot[data-source="NSW"] { background: var(--chart-trend); }
+.periodComparisonBar[data-source="VIC"], .periodComparisonDot[data-source="VIC"] { background: var(--coral); }
+.periodComparisonBar[data-source="QLD"], .periodComparisonDot[data-source="QLD"] { background: var(--chart-blue); }
+.periodComparisonValue { text-align: right; font-size: 20px; font-weight: 600; letter-spacing: -.3px; }
+.periodComparisonValue[data-source="NSW"] { color: var(--chart-trend); }
+.periodComparisonValue[data-source="VIC"] { color: var(--coral); }
+.periodComparisonValue[data-source="QLD"] { color: var(--chart-blue); }
+.periodComparisonAxisRow { min-width: 680px; min-height: 36px; border: 0; }
+.periodComparisonAxis { position: relative; grid-column: 4; height: 16px; color: var(--text-secondary); font-size: 11px; font-variant-numeric: tabular-nums; }
+.periodComparisonAxis span { position: absolute; transform: translateX(-50%); }
+.periodComparisonAxis span:nth-child(1) { left: 0; }
+.periodComparisonAxis span:nth-child(2) { left: 25%; }
+.periodComparisonAxis span:nth-child(3) { left: 50%; }
+.periodComparisonAxis span:nth-child(4) { left: 75%; }
+.periodComparisonAxis span:nth-child(5) { left: 100%; }
+@media (max-width: 760px) {
+  .periodComparisonControls { width: 100%; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .periodComparisonField { flex-direction: column; align-items: stretch; gap: 6px; }
+  .periodComparisonSelect { width: 100%; min-width: 0; padding-inline: 6px; gap: 4px; font-size: 11px; }
+  .periodComparisonChevron svg { width: 12px; }
+  .periodComparisonScroll { margin-inline: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .periodComparisonSelect, .periodComparisonChevron { transition: none; }
+}

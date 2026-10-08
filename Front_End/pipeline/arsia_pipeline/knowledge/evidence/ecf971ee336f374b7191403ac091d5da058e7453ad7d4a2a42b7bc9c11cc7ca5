@@ -1,0 +1,37 @@
+{
+ "culture": "en-AU",
+ "name": "CDM_CRASH",
+ "guid": "5CBFD5B2-3479-4D6A-BF38-029FE0885E3F",
+ "catalogPath": "",
+ "snippet": "Vehicular crashes in Tasmania since 1-1-2009 to present day. Includes categorised crashes: Fatal; Serious; Minor; First Aid; Property Damage; Other. ",
+ "description": "",
+ "summary": "Vehicular crashes in Tasmania since 1-1-2009 to present day. Includes categorised crashes: Fatal; Serious; Minor; First Aid; Property Damage; Other. ",
+ "title": "CDM_CRASH",
+ "tags": [
+  "Crash"
+ ],
+ "type": "Map Service",
+ "typeKeywords": [
+  "Data",
+  "Service",
+  "Map Service",
+  "ArcGIS Server"
+ ],
+ "thumbnail": "thumbnail/thumbnail.png",
+ "url": "",
+ "extent": [
+  [
+   143.655709047318,
+   -43.6118169080908
+  ],
+  [
+   148.399779929201,
+   -39.6239237674024
+  ]
+ ],
+ "minScale": 0,
+ "maxScale": 1.7976931348623157E308,
+ "spatialReference": "WGS_1984_Web_Mercator_Auxiliary_Sphere",
+ "accessInformation": "",
+ "licenseInfo": ""
+}

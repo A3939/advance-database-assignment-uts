@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "profiles": {
+    "baseline-v1": {
+      "model": "gpt-6-luna", "reasoning_effort": "medium", "max_output_tokens": 12000, "request_timeout_seconds": 240,
+      "budget": {"model_calls": 80, "tool_calls": 120, "correction_count": 24, "wall_seconds": 3600, "compute_seconds": 2400},
+      "context": {"compact_bytes": 55000, "max_bytes": 60000, "memory_bytes": 25000},
+      "progress": {"warn_after_tools": 0, "stop_after_tools": 0}
+    },
+    "expanded-v1": {
+      "model": "gpt-6.1-sol", "reasoning_effort": "high", "max_output_tokens": 24000, "request_timeout_seconds": 600,
+      "budget": {"model_calls": 120, "tool_calls": 200, "correction_count": 40, "wall_seconds": 7200, "compute_seconds": 2400},
+      "context": {"compact_bytes": 180000, "max_bytes": 240000, "memory_bytes": 80000},
+      "progress": {"warn_after_tools": 20, "stop_after_tools": 40}
+    }
+  }
+}

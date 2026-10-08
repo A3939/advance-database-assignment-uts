@@ -1,0 +1,10 @@
+*
+!Dockerfile
+!requirements.txt
+!requirements-intake.txt
+!sandbox/
+!sandbox/**
+!arsia_pipeline/
+!arsia_pipeline/**
+**/__pycache__
+**/*.pyc

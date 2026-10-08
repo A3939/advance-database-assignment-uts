@@ -75,13 +75,13 @@ Evidence 包括 recordedAt `2026-09-28T12:43:08.025519+00:00`、runtime commit�
 
 重新接入脚本、默认 artifacts 路径和以后变更批次/hash 的审查要求见 [README.md](README.md#重新接入与更新快照)。接口不会自动发现最新产物。
 
-## 可选助手与展示页边界
+## 真实只读助手与导入预览
 
 `sendAgentMessage(context, message, signal, history)` 通过 `POST /api/agent` 获取 NDJSON 流，返回 `AsyncIterable<AgentEvent>`。message 为增量文本；progress、tool_result、evidence、done、error 描述状态。工具和模型输出均为 `simulated: false`，失败不回退模板。AbortSignal 传递到 SDK；历史按当前筛选上下文隔离。
 
 工具包括元数据、四指标、趋势、可比时间段、严重程度与批次证据，复用现有服务端聚合适配器。算术由代码完成。接口、服务端模型配置及限制见 [AI.md](AI.md)。
 
-本展示版已删除 `createImportJob` / `getImportJobStatus` 及 Imports 模拟流程。Data 只展示目录与上传模式；没有文件上传、导入、发布或 Studio 接口。Studio 导航仅普通外观占位，点击无动作。
+`createImportJob(files)` / `getImportJobStatus(jobId)` 仍为浏览器元数据模拟，不读取文件内容、不上传、不入库。Imports 与真实 AI 查询是独立能力。
 
 ## Analytics 派生分析
 

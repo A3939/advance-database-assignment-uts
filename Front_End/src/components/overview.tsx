@@ -9,6 +9,7 @@ import { useEffect, useState, useMemo } from "react";
 import dynamic from "next/dynamic";
 import {
   CalendarDays,
+  BookOpen,
   CarFront,
   TriangleAlert,
   Heart,
@@ -16,11 +17,11 @@ import {
   Info,
   Download,
   Sparkles,
-  ArrowUpRight,
   ChartNoAxesCombined,
   Loader2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import StudioResourcePicker from "./studio-resource-picker";
 import SourceSelect from "@/components/source-select";
 import {
   Popover,
@@ -79,6 +80,7 @@ export default function Overview({ explore = false }: { explore?: boolean }) {
     [exporting, setExporting] = useState(false);
   const [severitySource, setSeveritySource] = useState<string>(catalog.sources[0]?.source || "");
   const [retry, setRetry] = useState(0);
+  const [resourcePicker, setResourcePicker] = useState(false);
   const key = JSON.stringify([filters, granularity]);
   const bundle = result?.key === key ? result.bundle : null;
   const mapBundle = bundle || result?.bundle;
@@ -300,6 +302,8 @@ export default function Overview({ explore = false }: { explore?: boolean }) {
         </div>
         <div className="filter-actions">
           <SourceSelect value={filters.source} onChange={source => change({ ...selectSource(filters, source), ...(catalog.mode === "local" ? {dateRange:coverageMonthRange(sourceCoverage(catalog,source))} : {}) })} />
+          <Button variant="outline" className="icon-button" aria-label="Add to Studio" title="Choose an Overview resource" disabled={loading || !bundle} onClick={() => setResourcePicker(true)}><BookOpen size={16}/></Button>
+          <StudioResourcePicker open={resourcePicker} onClose={() => setResourcePicker(false)} page="overview" query={{granularity}} contextById={{severity:{filters:selectSource(filters,severitySource),metric:"crashes",notes:"",references:""}}} context={{filters,metric:view.metric,notes:"",references:""}} />
           <Button
             variant="outline"
             disabled={loading || exporting || !bundle}
@@ -562,29 +566,6 @@ export default function Overview({ explore = false }: { explore?: boolean }) {
                   {bundle?.severity.meta.availability === "unsupported" && <Button variant="outline" size="sm" onClick={() => change({ ...filters, dateRange: coverageMonthRange(availableRange) })}>Use full-period selection</Button>}
                 </div>
               )}
-              <div className="panel-footer">
-                <button
-                  disabled={!bundle}
-                  onClick={() =>
-                    showEvidence({
-                      title: "Classification coverage",
-                      description:
-                        bundle?.severity.meta.reason ||
-                        bundle?.severity.meta.definition ||
-                        "Loading classification coverage.",
-                      demo: bundle?.severity.meta.demo,
-                      evidence: bundle?.severity.meta.evidence,
-                      rows: bundle?.severity.data.map((r) => ({
-                        label: `${r.source ? `${displaySource(r.source)} · ` : ""}${r.label}`,
-                        value: format(r.count),
-                      })),
-                    })
-                  }
-                >
-                  View definitions
-                  <ArrowUpRight size={14} />
-                </button>
-              </div>
             </article>
           </div>
         </section>

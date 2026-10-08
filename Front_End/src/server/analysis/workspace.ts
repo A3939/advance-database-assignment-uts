@@ -1,20 +1,21 @@
+import { hasRegionalProvider } from '../../services/catalog-contracts';
+import { parseDataFilters } from "../data-catalog";
+import { SNAPSHOT_CATALOG, type DataCatalog } from "../../services/catalog-contracts";
 /** Authorized, aggregate-only analytical workspace. No SQL or caller-selected file paths. */
 import type { FunctionTool } from "openai/resources/responses/responses";
-import type { AgentContext, Filters, Source } from "../../services/contracts";
+import type { AgentContext, Filters, Provenance } from "../../services/contracts";
 import type {
   AnalysisArtifact,
   AnalysisRow,
   AnalysisView,
 } from "../../services/analysis-contracts";
 import {
-  parseOfficialFilters,
   type OfficialReadService,
 } from "../official-data";
 import type { RegionSnapshot } from "../region-data";
 import { saveArtifact } from "./artifacts";
 import { runPython } from "./sandbox";
 
-const states: Source[] = ["NSW", "VIC", "QLD"];
 const metrics = ["crashes", "fatalCrashes", "livesLost", "casualties"];
 const dimensions = [
   "source",
@@ -24,6 +25,8 @@ const dimensions = [
   "regionId",
   "regionName",
   "locality",
+  "longitude",
+  "latitude",
 ];
 const define = (
   name: string,
@@ -53,8 +56,8 @@ export const workspaceTools: FunctionTool[] = [
     "workspace_query",
     'Read aggregate tables with validated filters, grouping, sums and rankings. Always separates sources. Source/date null inherit page; regionId null inherits page area, "all" removes area restriction explicitly, or use a discovered ABS code. WHERE filters apply BEFORE grouping. A queryId retains up to 10,000 result rows locally for Python/chart tools; only the first 12 rows go to the model. Empty groupBy returns native rows. Data are sparse: missing rows are not imputed as zeros.',
     {
-      dataset: str(["monthly_metrics", "lga_monthly", "locality_monthly"]),
-      source: { type: ["string", "null"], enum: [...states, "All", null] },
+      dataset: str(["monthly_metrics", "yearly_metrics", "lga_monthly", "locality_monthly", "geographic_cells"]),
+      source: { type: ["string", "null"], description: "A source identifier from workspace_catalog, All, or null." },
       dateRange: {
         type: ["object", "null"],
         properties: { from: { type: "string" }, to: { type: "string" } },
@@ -189,6 +192,7 @@ export class AnalysisWorkspace {
     private context: AgentContext,
     private service: OfficialReadService,
     private regional: RegionSnapshot,
+    private dataCatalog: DataCatalog = SNAPSHOT_CATALOG,
   ) {}
   async execute(
     name: string,
@@ -209,9 +213,12 @@ export class AnalysisWorkspace {
     return {
       source: this.context.filters.source,
       batchId: this.context.filters.batchId,
-      dataMode: "project data snapshot",
-      coverage: this.regional.coverage,
+      releaseId: this.context.filters.releaseId,
+      dataMode: this.context.filters.releaseId ? "pinned local release" : "project data snapshot",
+      coverage: this.dataCatalog.coverage,
       datasets: [
+        { id: "geographic_cells", grain: "one source + trusted rounded longitude/latitude cell within the requested dates", dimensions: ["source", "longitude", "latitude"], metrics: ["crashes"], definition: "Single-source crash counts at 0.1-degree precision. Not exact crash sites or ABS regions. Returned cells may be truncated; inspect coordinateCoverage before claiming a complete geographic total. Other metrics and region filters are unsupported." },
+        { id:"yearly_metrics", grain:"one source and reported year; preserves annual precision without creating months", dimensions:["source","period","year"], metrics, definition:"Direct yearly provider observations; partial coverage is recorded, and months are not inferred." },
         {
           id: "monthly_metrics",
           grain:
@@ -239,23 +246,25 @@ export class AnalysisWorkspace {
         {
           id: "locality_monthly",
           grain: "source + period + regionId + locality; sparse monthly counts",
-          dimensions,
+          dimensions: dimensions.slice(0, 7),
           metrics: ["crashes"],
           definition:
             "NSW Town and QLD Loc_Suburb native text labels. VIC locality is not connected. These are not validated geographic city polygons.",
         },
       ],
       fieldDictionary: {
-        source: "NSW, VIC, QLD; never pool their incompatible definitions",
-        period: "YYYY-MM",
+        source: "An identifier from sources; never pool overlapping datasets or incompatible definitions",
+        period: "YYYY-MM for monthly data; YYYY for yearly observations",
         year: "YYYY",
         month: "01…12",
         regionId: "ABS 2024 LGA code or __unmatched__",
         regionName: "Verified state-scoped many-to-one name lookup",
         locality: "Source-reported Town/Loc_Suburb text, not geocoded",
-        crashes: "Crash events (NSW/VIC); casualty crashes (QLD)",
-        fatalCrashes: "Events involving a death",
-        livesLost: "Recorded deaths, distinct from fatal crashes",
+        longitude: "Rounded WGS84 cell centre longitude; not an exact crash location",
+        latitude: "Rounded WGS84 cell centre latitude; not an exact crash location",
+        crashes: "Source-defined crash counts; consult that source's metricDefinitions and retain its event scope",
+        fatalCrashes: "Source-defined fatal crash events; never substitute death counts or infer from an unspecified severity label",
+        livesLost: "Source-reported deaths, distinct from fatal crashes; retain null when this measure is not established",
         casualties:
           "Native source injury/death definition; preserve null as unknown",
       },
@@ -281,19 +290,18 @@ export class AnalysisWorkspace {
           "VIC locality labels",
           "Exposure/population denominators",
           "Weather and causal variables",
-          "Other states",
-          "Live database",
         ],
         notVerified: [
-          "Crash coordinates / datum conversion",
+          "New or unreviewed datum conversions; geographic_cells only exposes already verified rounded aggregates",
           "Metropolitan city crosswalks",
           "Arbitrary joins",
         ],
-        notExposed: ["Raw crash identifiers", "Person or vehicle records"],
+        notExposed: ["Raw crash identifiers", "Exact crash coordinates", "Person or vehicle records"],
         noResults:
           "A supported query can return no observations; absence is not automatically zero.",
       },
       sources: await this.service.getDatasetMetadata(),
+      sourceCapabilities: this.dataCatalog.sources.map(s=>({source:s.source,origin:s.origin,coverage:s.coverage,capabilities:s.capabilities})),
       python: {
         packages: ["pandas 2.2.3", "numpy 2.2.6", "matplotlib 3.10.3"],
         input: "/data/input.json",
@@ -304,7 +312,7 @@ export class AnalysisWorkspace {
     };
   }
   private filters(a: Record<string, unknown>): Filters {
-    if (a.source !== null && ![...states, "All"].includes(a.source as string))
+    if (a.source !== null && ![...this.dataCatalog.sources.map(s => s.source), "All"].includes(a.source as string))
       return invalid("Unsupported source.");
     const source = (a.source ??
       this.context.filters.source) as Filters["source"];
@@ -321,12 +329,13 @@ export class AnalysisWorkspace {
           ? undefined
           : safeText(a.regionId, 30);
     try {
-      return parseOfficialFilters(
+      return parseDataFilters(
         new URLSearchParams({
           source,
           from: safeText(date.from, 10),
           to: safeText(date.to, 10),
           batchId: this.context.filters.batchId,
+      ...(this.context.filters.releaseId ? { releaseId: this.context.filters.releaseId } : {}),
           datasetVersion: this.context.filters.datasetVersion,
           ...(region ? { regionId: region } : {}),
         }),
@@ -341,21 +350,22 @@ export class AnalysisWorkspace {
     const dataset = safeText(a.dataset),
       f = this.filters(a);
     if (
-      !["monthly_metrics", "lga_monthly", "locality_monthly"].includes(dataset)
+      !["monthly_metrics", "yearly_metrics", "lga_monthly", "locality_monthly", "geographic_cells"].includes(dataset)
     )
       return invalid("Unknown dataset; use workspace_catalog.");
     const availableDimensions =
-      dataset === "monthly_metrics"
+      dataset === "geographic_cells" ? ["source", "longitude", "latitude"] : dataset === "yearly_metrics" ? dimensions.slice(0,3) : dataset === "monthly_metrics"
         ? dimensions.slice(0, 4)
         : dataset === "lga_monthly"
           ? dimensions.slice(0, 6)
-          : dimensions;
+          : dimensions.slice(0, 7);
     const selectedMetrics = list(
       a.metrics,
       dataset === "locality_monthly" ? ["crashes"] : metrics,
       4,
     );
     if (!selectedMetrics.length) return invalid("Select at least one metric.");
+    if (dataset === "geographic_cells" && (f.source === "All" || f.regionId || selectedMetrics.some(metric => metric !== "crashes"))) return { source: f.source, releaseId: f.releaseId, batchId: f.batchId, datasetVersion: f.datasetVersion, requestedRange: f.dateRange, availability: "unsupported", reason: "Coordinate cells support one source and crash counts only, without an ABS region filter.", preview: [] };
     const group = list(a.groupBy, availableDimensions, 5);
     const predicates = Array.isArray(a.where)
       ? a.where
@@ -381,12 +391,23 @@ export class AnalysisWorkspace {
       Number(a.limit) > 10000
     )
       return invalid("limit must be 1–10,000.");
-    const sources = f.source === "All" ? states : [f.source];
+    const sources = f.source === "All" ? this.dataCatalog.sources.map(s => s.source) : [f.source];
     let rows: AnalysisRow[] = [];
+    const sourceAvailability: {source:string;meta:Provenance}[] = [];
+    let coordinateCoverage: Omit<NonNullable<import("../../services/contracts").MapData["pointGrid"]>, "cells"> | undefined;
     for (const source of sources) {
       const scope = { ...f, source };
-      if (dataset === "monthly_metrics") {
-        const result = await this.service.getTimeSeries(scope, "monthly");
+      if (dataset === "geographic_cells") {
+        const result = await this.service.getMapData(scope);
+        sourceAvailability.push({source,meta:result.meta});
+        if (result.data.pointGrid) {
+          const {cells, ...coverage} = result.data.pointGrid;
+          coordinateCoverage = coverage;
+          rows.push(...cells.map(cell => ({source,longitude:cell.longitude,latitude:cell.latitude,crashes:cell.count})));
+        }
+      } else if (dataset === "monthly_metrics" || dataset === "yearly_metrics") {
+        const result = await this.service.getTimeSeries(scope, dataset === "yearly_metrics" ? "yearly" : "monthly");
+        sourceAvailability.push({source,meta:result.meta});
         rows.push(
           ...result.data.map((p) => ({
             source,
@@ -400,7 +421,13 @@ export class AnalysisWorkspace {
           })),
         );
       } else {
+        if (!hasRegionalProvider(this.dataCatalog.sources.find(s => s.source === source),this.dataCatalog.releaseId)) return invalid("Regional aggregate capability is not available for this published source. Use monthly_metrics.");
+        // Apply the same publication reconciliation and coverage gate as the map API.
+        const proof = await this.service.getMapData(scope);
+        if (proof.meta.availability !== "available" || !proof.meta.coverage.complete) return invalid("Regional aggregate coverage is unavailable for this selection.");
+        sourceAvailability.push({source,meta:proof.meta});
         const data = this.regional.sources[source];
+        if (!data) return invalid("Regional aggregate capability is unavailable.");
         const names = new Map(data.regions.map((r) => [r.id, r.name]));
         if (names.size !== data.regions.length)
           throw Error("Regional join integrity failure");
@@ -462,7 +489,7 @@ export class AnalysisWorkspace {
     );
     const observedRows = rows.length;
     const observedPeriods = [
-      ...new Set(rows.map((r) => String(r.period))),
+      ...new Set(rows.flatMap((r) => typeof r.period === "string" ? [r.period] : [])),
     ].sort();
     const observedRange = observedPeriods.length
       ? { from: observedPeriods[0], to: observedPeriods.at(-1) }
@@ -515,7 +542,8 @@ export class AnalysisWorkspace {
     const queryId = `Q${this.queries.size + 1}`;
     const notes = [
       "Sources remain separate. Counts are not population/exposure-adjusted risk.",
-      ...(dataset !== "monthly_metrics"
+      ...(dataset === "geographic_cells" ? ["Rounded coordinate cells are not exact crash sites or assigned ABS areas. Only crash counts are available. Aggregates over returned cells are partial when coordinateCoverage.truncated is true; missing totalCells/truncated metadata leaves completeness unknown. Unlocated crashes are excluded."] : []),
+      ...(!["monthly_metrics","yearly_metrics","geographic_cells"].includes(dataset)
         ? [
             "LGA names use ABS 2024 reference areas; this is not a metropolitan-city ranking. Sparse rows are not imputed. Unmatched areas are retained unless explicitly filtered.",
           ]
@@ -529,10 +557,14 @@ export class AnalysisWorkspace {
     const provenance = {
       source: f.source,
       batchId: f.batchId,
+      releaseId: f.releaseId,
+      sourceAvailability,
+      ...(coordinateCoverage ? {coordinateCoverage} : {}),
+      sourceBatches: Object.fromEntries(this.dataCatalog.sources.map(s=>[s.source,s.batchId])),
       datasetVersion: f.datasetVersion,
       requestedRange: f.dateRange,
       regionId: f.regionId ?? null,
-      coverage: this.regional.coverage,
+      coverage: this.dataCatalog.coverage,
       dataset,
       query: a,
       observedRange,
@@ -545,13 +577,14 @@ export class AnalysisWorkspace {
           ? "unsupported"
           : rows.length
             ? "available"
-            : "no_results",
+            : sourceAvailability.some(s=>s.meta.availability==="unsupported") ? "unsupported"
+            : sourceAvailability.some(s=>s.meta.availability==="unknown") ? "unknown" : "no_results",
       outsidePageRange:
         JSON.stringify(f.dateRange) !==
         JSON.stringify(this.context.filters.dateRange),
       evidenceRefs: [
-        "/api/data/evidence",
-        ...(dataset === "monthly_metrics" && !f.regionId
+        `/api/data/evidence?${new URLSearchParams({source:f.source,from:f.dateRange.from,to:f.dateRange.to,datasetVersion:f.datasetVersion,batchId:f.batchId,...(f.releaseId?{releaseId:f.releaseId}:{})})}`,
+        ...(["monthly_metrics","yearly_metrics","geographic_cells"].includes(dataset) && !f.regionId
           ? []
           : ["/api/data/region-evidence"]),
       ],
@@ -559,7 +592,7 @@ export class AnalysisWorkspace {
     this.queries.set(queryId, {
       rows,
       provenance,
-      truncated: resultRows > rows.length,
+      truncated: resultRows > rows.length || coordinateCoverage?.truncated === true,
       evidenceId,
     });
     return {
@@ -568,7 +601,7 @@ export class AnalysisWorkspace {
       columns: [...keys, ...selectedMetrics],
       preview: rows.slice(0, 12),
       previewRows: Math.min(12, rows.length),
-      truncated: resultRows > rows.length,
+      truncated: resultRows > rows.length || coordinateCoverage?.truncated === true,
       retainedLocally: rows.length,
     };
   }
@@ -737,6 +770,7 @@ export class AnalysisWorkspace {
       source,
       inputScopes,
       batchId: this.context.filters.batchId,
+      releaseId: this.context.filters.releaseId,
       title: a.title,
       status: result.status,
       stdout: result.stdout,

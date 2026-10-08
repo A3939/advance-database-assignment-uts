@@ -2904,3 +2904,5 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--lime); outline-
 
 .demo-link-error { padding: 48px; color: var(--text-secondary); }
 .demo-link-error a { display: inline-block; margin-top: 16px; color: var(--accent-text); }
+
+.workspace-settings-actions { display: flex; flex-wrap: wrap; gap: 8px; }

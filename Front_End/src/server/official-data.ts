@@ -1,3 +1,5 @@
+type Source = string;
+import { yearScope, selectedMonths } from "../services/periods";
 /** Server-side, read-only adapter for the admitted D05/D06 official export. */
 import { readFile } from "node:fs/promises";
 import { createHash } from "node:crypto";
@@ -8,7 +10,6 @@ import type {
   Metric,
   Overview,
   Provenance,
-  Source,
   TimePoint,
   StateCoverage,
   Dataset,
@@ -86,7 +87,7 @@ const KNOWN: Partial<Record<Key, keyof Observation>> = {
   livesLost: "fatality_known_count",
   casualties: "casualty_known_count",
 };
-const DEFINITIONS = {
+const DEFINITIONS: Record<string, Record<Key,string>> = {
   NSW: {
     crashes:
       "Recorded crash events in the pinned NSW Crash file, selected by Year of crash and Month of crash.",
@@ -191,7 +192,7 @@ const BOUNDS: Record<Source, MapData["bounds"]> = {
     [153.7, -10.5],
   ],
 };
-const TITLES = { NSW: "New South Wales", VIC: "Victoria", QLD: "Queensland" };
+const TITLES: Record<string,string> = { NSW: "New South Wales", VIC: "Victoria", QLD: "Queensland" };
 const SNAPSHOT_SHA =
   "fed5e2ea8736ce5db17fbdf1227cc4e6cafed2ec8fa3937956c218542e134e8d";
 const PROVENANCE_SHA =
@@ -289,7 +290,11 @@ export function createOfficialProvider(
         granularity: "month",
         complete:
           f.dateRange.from >= provenance.coverage.from &&
-          f.dateRange.to <= provenance.coverage.to,
+          f.dateRange.to <= provenance.coverage.to &&
+          sources.every(source => {
+            const expected = Array.from({length: Number(f.dateRange.to.slice(0,4)) - Number(f.dateRange.from.slice(0,4)) + 1}, (_, i) => selectedMonths(f, Number(f.dateRange.from.slice(0,4)) + i).length).reduce((a,b) => a+b, 0);
+            return new Set(sourceRows(f, source).map(row => `${row.period_year}-${row.period_month}`)).size === expected;
+          }),
       },
       definition:
         f.source === "All"
@@ -388,6 +393,7 @@ export function createOfficialProvider(
           data.push({
             ...(f.source === "All" ? { source } : {}),
             period,
+            ...(granularity === "yearly" ? yearScope(f, Number(period), new Set(observations.map(row => row.period_month)).size) : {}),
             crashes: count(observations, "crashes"),
             fatalCrashes: count(observations, "fatalCrashes"),
             livesLost: count(observations, "livesLost"),
@@ -554,7 +560,7 @@ export function parseOfficialFilters(params: URLSearchParams): Filters {
   if (Number(to.slice(0, 4)) - Number(from.slice(0, 4)) > 20)
     throw Error("Select a range of at most 20 years.");
   const regionId = params.get("regionId") || undefined;
-  if (regionId && (source === "All" || !regionCatalog[source as Source].some(r => r.id === regionId)))
+  if (regionId && (source === "All" || !regionCatalog[source as keyof typeof regionCatalog].some(r => r.id === regionId)))
     throw Error("Choose a valid LGA within the selected source.");
   return {
     ...selectSource(DEFAULT_FILTERS, source as Filters["source"]),

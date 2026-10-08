@@ -1,0 +1,6 @@
+# Streaming public-file inspection and document extraction.
+ijson==3.4.0.post0
+xlrd==2.0.2
+pypdf==6.1.1
+charset-normalizer==3.4.3
+defusedxml==0.7.1

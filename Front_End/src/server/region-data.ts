@@ -1,4 +1,5 @@
 /** Derived, read-only LGA extension. Never changes canonical point eligibility. */
+import { yearScope } from "../services/periods";
 import { readFile } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import { join } from "node:path";
@@ -29,7 +30,9 @@ export function loadRegionSnapshot() {
 export async function regionEvidence() {
   // Fixed path, no caller-supplied filesystem input. Integrity verified against aggregate loader.
   await loadRegionSnapshot();
-  const evidence = JSON.parse(await readFile(join(process.cwd(), "data/regions/provenance.json"), "utf8"));
+  const bytes = await readFile(join(process.cwd(), "data/regions/provenance.json"));
+  if (createHash("sha256").update(bytes).digest("hex") !== "97b6f9c669b2b08dc9574a040cee745dae5429dc6a8f34f370a1aa4e7ffa477d") throw Error("Regional provenance integrity failure.");
+  const evidence = JSON.parse(bytes.toString());
   if (evidence.aggregateSha256 !== SHA) throw Error("Regional provenance mismatch.");
   return evidence;
 }
@@ -87,7 +90,7 @@ export function createRegionalProvider(base: OfficialReadService, snapshot: Regi
         const group = granularity === "yearly" ? p.slice(0, 4) : p;
         groups.set(group, [...(groups.get(group) || []), ...observations.filter(r => r[0] === p)]);
       }
-      return { data: [...groups].map(([period, list]) => ({ period, ...Object.fromEntries(keys.map((k, i) => [k, sum(list, i)])) } as TimePoint)), meta: meta(f, original.meta) };
+      return { data: [...groups].map(([period, list]) => ({ period, ...(granularity === "yearly" ? yearScope(f, Number(period), periods(f).filter(p => p.startsWith(period)).length) : {}), ...Object.fromEntries(keys.map((k, i) => [k, sum(list, i)])) } as TimePoint)), meta: meta(f, original.meta) };
     },
     async getSeverityDistribution(f) {
       if (!f.regionId) return base.getSeverityDistribution(f);
@@ -105,8 +108,10 @@ export function createRegionalProvider(base: OfficialReadService, snapshot: Regi
         const group = localities.get(id) || new Map<string, number>();
         group.set(name, (group.get(name) || 0) + count); localities.set(id, group);
       }
+      const regionRows = new Map<string, Row[]>();
+      for (const row of observations) { const list = regionRows.get(row[1]) || []; list.push(row); regionRows.set(row[1], list); }
       const regions: MapRegion[] = months.size ? d.regions.map(region => {
-        const selected = observations.filter(r => r[1] === region.id), group = localities.get(region.id);
+        const selected = regionRows.get(region.id) || [], group = localities.get(region.id);
         return { ...region, count: sum(selected, 0) || 0, fatalCrashes: sum(selected, 1),
           ...(group ? { localities: [...group].sort((a,b) => b[1]-a[1] || a[0].localeCompare(b[0])).slice(0,8).map(([name,count]) => ({name,count})), localityTotal: [...group.values()].reduce((a,b) => a+b,0) } : {}) };
       }).sort((a,b) => b.count-a.count || a.name.localeCompare(b.name)) : [];

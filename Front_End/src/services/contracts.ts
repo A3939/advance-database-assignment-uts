@@ -1,18 +1,18 @@
 import type { AnalysisArtifact, AnalysisView } from "./analysis-contracts";
 /** ARSIA Web contract v1. No database credentials or pipeline imports belong here. */
-export type Source = "NSW" | "VIC" | "QLD";
+export type Source = string;
 export type SourceSelection = Source | "All";
 export type Availability =
   "available" | "unknown" | "unsupported" | "no_results";
 export type Granularity = "yearly" | "monthly";
 export interface Filters {
-  releaseId?: string;
   source: SourceSelection;
   /** ABS 2024 LGA code; never an accident coordinate. */
   regionId?: string;
   dateRange: { from: string; to: string }; // inclusive ISO calendar dates
   datasetVersion: string;
   batchId: string;
+  releaseId?: string;
 }
 export interface Evidence {
   id: string;
@@ -22,13 +22,23 @@ export interface Evidence {
   /** Server-produced tool result, never a model-authored URL. */
   result?: unknown;
   rows?: { label: string; value: string }[];
+  query?: { tool: string; parameters: unknown; requestedContext: AgentContext;
+    /** Historical records: parameters only; never a conclusion correctness flag. */
+    validated?: boolean;
+    assurance?: { parameters: "validated"; execution: string; claims: "scoped_values_checked" | "not_automatically_verified" };
+  };
 }
 export interface Provenance {
+  sourceBatchId?: string;
+  sourceBatches?: Record<string,string>;
   demo: boolean;
   source: SourceSelection;
   datasetVersion: string;
   batchId: string;
+  releaseId?: string;
   availability: Availability;
+  /** Trusted per-measure support/observation state for published source queries. */
+  metricAvailability?: Partial<Record<"crashes" | "fatalCrashes" | "livesLost" | "casualties", Availability>>;
   reason?: string;
   coverage: {
     from: string;
@@ -65,11 +75,11 @@ export interface Overview {
   fatalShare: number | null;
 }
 export interface TimePoint {
+  source?: Source;
+  period: string;
   selectedMonths?: number[];
   observedMonths?: number;
   fullYear?: boolean;
-  source?: Source;
-  period: string;
   crashes: number | null;
   fatalCrashes: number | null;
   livesLost: number | null;
@@ -112,6 +122,17 @@ export interface MapData {
   regionMode?: "lga";
   selectedRegionId?: string;
   coverage?: { matched: number; unmatched: number; total: number; percentage: number | null };
+  /** Rounded trusted-coordinate cells, independent of ABS regions and exact crash points. */
+  pointGrid?: {
+    metric: "crashes";
+    precisionDegrees: number;
+    cells: { longitude: number; latitude: number; count: number }[];
+    returnedCells: number;
+    totalCells?: number;
+    truncated?: boolean;
+    locatedCrashCount?: number;
+    unlocatedCrashCount?: number;
+  };
 }
 export interface CrashRecord {
   id: string;
@@ -139,6 +160,8 @@ export interface Records {
   sampleOnly: boolean;
 }
 export interface Dataset {
+  sourceBatchId?: string;
+  releaseId?: string;
   demo?: boolean;
   description?: string;
   evidence?: Evidence[];
@@ -161,14 +184,33 @@ export interface AgentTurn {
   context: AgentContext;
 }
 export type AgentEvent =
+  | { type: "report_draft"; draft: import("./studio-contracts").ResearchReportDraft }
+  | { type: "transfer"; id: string }
+  | { type: "plan"; steps: { label: string; stage: "data" | "analysis" | "presentation"; optional: boolean }[] }
   | { type: "artifact"; artifact: AnalysisArtifact }
   | { type: "visualization"; view: AnalysisView }
   | { type: "message"; text: string; simulated: boolean }
-  | { type: "progress"; text: string }
+  | { type: "progress"; text: string; tool?: string }
+  | { type: "tool_error"; name: string; parameters: unknown; message: string }
   | { type: "tool_result"; name: string; data: unknown; simulated: boolean }
   | { type: "evidence"; evidence: Evidence }
   | { type: "done"; model: string }
   | { type: "error"; code: string; message: string };
+export type ImportStatus =
+  "queued" | "running" | "needs_input" | "succeeded" | "failed";
+export interface ImportFile {
+  name: string;
+  size: number;
+  type: string;
+}
+export interface ImportJob {
+  id: string;
+  status: ImportStatus;
+  demo: boolean;
+  files: ImportFile[];
+  steps: { label: string; status: "pending" | "complete" | "active" }[];
+  message: string;
+}
 export interface ArsiaService {
   getOverview(filters: Filters, signal?: AbortSignal): Promise<Response<Overview>>;
   getTimeSeries(
@@ -190,4 +232,6 @@ export interface ArsiaService {
     signal?: AbortSignal,
     history?: AgentTurn[],
   ): AsyncIterable<AgentEvent>;
+  createImportJob(files: ImportFile[]): Promise<ImportJob>;
+  getImportJobStatus(jobId: string): Promise<ImportJob>;
 }

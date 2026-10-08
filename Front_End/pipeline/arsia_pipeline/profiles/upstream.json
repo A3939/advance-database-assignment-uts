@@ -1,0 +1,43 @@
+{
+  "repository": "https://github.com/A3939/advance-database-assignment-uts",
+  "commit": "39fd9032dd792ab5f350e1eaf66697653a263272",
+  "authors": {
+    "A": "JJ: NSW source contract, schema and Vault",
+    "B": "Peixian: intake, integration, provenance, restricted policy transport",
+    "C": "Serenity: source projections, canonical and QA",
+    "D": "Yihua: warehouse and analytical queries",
+    "E": "Aditya: publication and FP1"
+  },
+  "files": [
+    {
+      "path": "native-inputs.json",
+      "upstream_path": "config/native-inputs.json",
+      "sha256": "ad676ed8293883a531e3685112fde921f2e060e2f4554d0282716c345338b270"
+    },
+    {
+      "path": "official-nsw-v1.json",
+      "upstream_path": "config/official-nsw-v1.json",
+      "sha256": "46d6fd0966338b51fd232c77f343b0f5237353f149decd2377da83de909597cf"
+    },
+    {
+      "path": "c05-qld-official-v1.json",
+      "upstream_path": "config/c05-qld-official-v1.json",
+      "sha256": "40c0535ae002e57bd3a072ce90415c9ca619a801d3063db1ab524d8684fddeb4"
+    },
+    {
+      "path": "vic-restricted-use-v1.json",
+      "upstream_path": "config/vic-restricted-use-v1.json",
+      "sha256": "bc892d07f81f51fc2859cccd9c1302e4b1ade22240bd36f8fe118d95e861ec40"
+    },
+    {
+      "path": "vic-restricted-inputs-v1.json",
+      "upstream_path": "config/vic-restricted-inputs-v1.json",
+      "sha256": "7eaf1e4834c6dcdb8c74e933aaff602dcaad0094e72f5508fe64ab3a34b583a3"
+    },
+    {
+      "path": "qa-team-v1.1-vic-r1.json",
+      "upstream_path": "config/qa-team-v1.1-vic-r1.json",
+      "sha256": "859a5684b2a276cd69509877ea4660344fecac4ca6e5041de77280d40ebaca6b"
+    }
+  ]
+}

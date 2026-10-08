@@ -11,7 +11,7 @@ import { THEME_INITIALIZATION_SCRIPT } from "@/lib/theme";
 export const metadata: Metadata = {
   title: "ARSIA — Road safety intelligence",
   description:
-    "ARSIA traffic crash analysis from a read-only project snapshot of NSW, VIC and QLD official source data, with source definitions and a simulated assistant.",
+    "ARSIA road crash analysis, source-aware data imports and a local research Studio with optional AI assistance.",
 };
 export default function RootLayout({
   children,

@@ -8,14 +8,16 @@
 
 ## 运行兼容
 
-旧位置保留相对符号链接 `Workspace_Github/frontend -> ../ARSIA`，用于兼容仍在运行的 3100–3103 预览及旧窗口路径；代码只有新目录这一份。未停止任何已有预览进程。今后请在新目录开发，旧链接不属于新仓库，不应提交到原数据库仓库。
+旧位置保留相对符号链接 `Workspace_Github/frontend -> ../ARSIA`，用于兼容旧窗口路径；旧链接不属于新仓库，不应提交到原数据库仓库。2026-09-30 将 `ARSIA-dashboard-trust` 的最新提交 `3398f1f` 快进整合到此目录的 `peixian/arsia-platform`，保留全部历史。唯一开发目录为 `Workspace/ARSIA`，唯一固定本地预览为 3100；历史验证中的其他端口不再使用。
 
 ```sh
 cd "/Users/zhengpeixian/ZPX/UTS/Advanced Database/Assignment 2/Workspace/ARSIA"
-npm run dev -- --port 3104
+npm run dev
 ```
 
-已有快照、地理边界可直接运行。AI 使用原有 `.env.local`；Python 分析仍需 Docker Desktop 及已建立的 `arsia-analysis:1` 镜像。`.env*`、node_modules、各构建目录、测试输出及分析文件继续被 Git 忽略。
+已有快照、地理边界可直接运行。AI 使用原目录保留的 `.env.local`；Python 分析仍需 Docker Desktop 及已建立的 `arsia-analysis:1` 镜像。`.env*`、node_modules、各构建目录、测试输出及分析文件继续被 Git 忽略。开发服务支持热更新；不为每次改动新开服务或递增端口。
+
+旧 `ARSIA-dashboard-trust` 工作树已收起。2026-09-30 按用户只保留最新版的要求，删除 `artifacts/worktree-archive/` 旧工作树归档及 `.next-agent`、`.next-regions`、`.next-analysis` 三份旧构建目录；最新源码、数据、环境配置、依赖及当前 `.next` 保留。当前唯一预览运行于 3100。`peixian/arsia-dashboard-trust` 分支及提交历史仍保留在 Git 中。
 
 ## 可选的数据快照重建
 

@@ -1,0 +1,32 @@
+{
+  "profile_version": "generic-v1",
+  "source_id": "wa_example",
+  "jurisdiction": "WA",
+  "source_name": "Western Australia example crash extract",
+  "publisher": "Synthetic local test fixture",
+  "source_evidence": "Fictional test data; not an official WA source contract.",
+  "licence": "Synthetic test fixture",
+  "confirmed": true,
+  "analysis": {"year_from": 2020, "year_to": 2024},
+  "resources": [
+    {"role": "crash", "filename": "wa-events.csv", "key": ["EVENT_ID"]},
+    {"role": "unit", "filename": "wa-units.csv", "key": ["EVENT_ID", "UNIT_ID"]}
+  ],
+  "relations": [
+    {"child": "unit", "parent": "crash", "fields": ["EVENT_ID"]}
+  ],
+  "mapping": {
+    "date": "OCCURRED_ON",
+    "date_format": "%Y-%m-%d",
+    "severity": "OUTCOME",
+    "fatalities": "DEATHS",
+    "casualties": ["DEATHS", "INJURIES"],
+    "declared_units": "UNIT_TOTAL",
+    "unit_type": "KIND"
+  },
+  "severity": {
+    "Fatal": {"code": "fatal", "label": "Fatal (example definition)", "is_fatal_crash": true},
+    "Injury": {"code": "injury", "label": "Injury (example definition)", "is_fatal_crash": false},
+    "": {"code": "unknown", "label": "Not recorded", "is_fatal_crash": null}
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "cldr_commit": "16f6b8578ba5fe98959034706f337674f816fc3f",
+  "cldr_release": "47.0.0",
+  "files": {
+    "tzdb.zip": "474bb631ac1aafdb3e3470f3dcf01fbaf2805d903a367dfa16e85a561307ced6",
+    "windowsZones.json": "b521286624cc02ec76c20b1a7417bf48f0fbbc9a79cee1b846a3a5268c324ac2"
+  },
+  "tzdata_package": "2025.2",
+  "tzdb_version": "2025b",
+  "version": "timezone-bundle-v1"
+}

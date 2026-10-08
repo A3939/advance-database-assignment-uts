@@ -1,0 +1,42 @@
+.icon,.more {display:grid;place-items:center;flex-shrink:0;width:32px;height:32px;border:0;border-radius:7px;background:transparent;color:var(--text-secondary);cursor:pointer;}
+.icon:hover,.more:hover {background:var(--surface-elevated);color:var(--text-primary);}
+.list {display:flex;flex-direction:column;gap:4px;overflow:auto;min-height:80px;flex:1;scrollbar-width:thin;}
+.row {display:flex;align-items:center;min-width:0;border-radius:8px;padding-right:4px;}
+.row:hover {background:var(--surface);}
+.row[data-active=true] {background:var(--surface-elevated);box-shadow:inset 2px 0 var(--accent-text);}
+.select {display:flex;align-items:center;gap:9px;flex:1;min-width:0;min-height:43px;padding:11px 10px;border:0;background:transparent;color:var(--text-secondary);cursor:pointer;text-align:left;font:inherit;font-size:13px;}
+.select svg {flex-shrink:0;}
+.select span {overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.row[data-active=true] .select {color:var(--text-primary);}
+.more {width:28px;height:30px;opacity:.65;}
+.row:hover .more,.row:focus-within .more,.more[data-state=open] {opacity:1;}
+.more:disabled {opacity:.3;cursor:default;}
+.menu {z-index:80;min-width:176px;padding:5px;border:1px solid var(--border);border-radius:10px;background:var(--surface-elevated);color:var(--text-primary);box-shadow:0 10px 32px #0004;font-size:13px;}
+.menu [role=menuitem] {display:flex;align-items:center;gap:10px;padding:10px;border-radius:6px;outline:none;cursor:pointer;}
+.menu [data-highlighted] {background:var(--surface);color:var(--accent-text);}
+.menu .destructive {color:var(--error-text);}
+.separator {height:1px;background:var(--border);margin:4px;}
+.searchDialog,.editDialog {background:var(--surface)!important;color:var(--text-primary);border-color:var(--border)!important;border-radius:14px!important;}
+.searchDialog {width:min(600px,calc(100vw - 32px))!important;max-width:none!important;padding:22px!important;gap:16px!important;}
+.searchInput {display:flex;align-items:center;gap:10px;border:1px solid var(--border-strong);border-radius:9px;padding:10px 12px;background:var(--background);color:var(--text-secondary);}
+.searchInput:focus-within {border-color:var(--accent-text);}
+.searchInput input {width:100%;min-width:0;padding:0;border:0;background:transparent;color:var(--text-primary);font:inherit;font-size:14px;outline:none;box-shadow:none;}
+.results {height:min(360px,50dvh);overflow:auto;display:flex;flex-direction:column;gap:4px;scrollbar-width:thin;}
+.results button {display:flex;align-items:center;gap:10px;text-align:left;min-height:46px;padding:10px;border:0;border-radius:8px;background:transparent;color:var(--text-primary);font:inherit;font-size:13px;cursor:pointer;}
+.results button:hover {background:var(--surface-elevated);}
+.results svg {flex-shrink:0;color:var(--text-secondary);}
+.results span {overflow-wrap:anywhere;}
+.results small {margin-left:auto;color:var(--text-secondary);font-size:10px;}
+.empty {font-size:12px;color:var(--text-secondary);padding:8px;line-height:1.7;}
+.editDialog {width:min(440px,calc(100vw - 32px))!important;padding:24px!important;}
+.editDialog>p {color:var(--text-secondary);font-size:13px;line-height:1.7;}
+.editDialog input {width:100%;padding:11px;border:1px solid var(--border-strong);border-radius:7px;background:var(--background);color:var(--text-primary);font:inherit;font-size:14px;}
+.actions {display:flex;gap:8px;justify-content:flex-end;margin-top:20px;}
+.actions button {padding:9px 14px;border:1px solid var(--border);border-radius:7px;background:transparent;color:var(--text-primary);font:inherit;font-size:13px;cursor:pointer;}
+.actions .saveButton {background:var(--accent-soft);color:var(--accent-text);border-color:var(--hint-border);}
+.actions .deleteButton {background:#b93535;color:white;border-color:#b93535;}
+.actions button:disabled {opacity:.5;cursor:default;}
+.error {color:var(--error-text);font-size:12px;line-height:1.6;overflow-wrap:anywhere;}
+.srOnly {position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+.icon:focus-visible,.more:focus-visible,.select:focus-visible,.results button:focus-visible,.actions button:focus-visible,.editDialog input:focus-visible {outline:2px solid var(--ring);outline-offset:2px;}
+@media(max-width:767px){.searchInput input,.editDialog input{font-size:16px;}.more{opacity:1;}}

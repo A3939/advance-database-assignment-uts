@@ -1,0 +1,20 @@
+.stage { overflow: hidden; min-height: 450px; }
+.hidden { visibility: hidden; }
+.fallback { position: absolute; inset: 0; width: 100%; height: 100%; }
+.cell { fill: var(--chart-trend); fill-opacity: .68; stroke: var(--map-background); stroke-width: 1; }
+.readout { position: absolute; top: 12px; left: 12px; right: 12px; z-index: 2; margin: 0; padding: 10px; border-radius: 8px; background: var(--surface-elevated); color: var(--text-primary); font-size: 12px; pointer-events: none; }
+.footer { position: absolute; left: 12px; right: 12px; bottom: 12px; z-index: 2; border: 1px solid var(--border); border-radius: 12px; padding: 12px; background: var(--surface-elevated); color: var(--text-primary); }
+.footer p { font-size: 11px; line-height: 1.5; margin: 5px 0; color: var(--text-secondary); }
+.heading { display: flex; gap: 12px; align-items: center; justify-content: space-between; }
+.heading strong { font-size: 12px; }
+.controls { display: flex; gap: 3px; flex-shrink: 0; }
+.controls button { border: 1px solid var(--border); color: var(--text-primary); border-radius: 6px; background: transparent; padding: 5px; display: grid; place-items: center; }
+.controls button:disabled { opacity: .4; }
+.controls button:focus-visible, .footer summary:focus-visible, .table:focus-visible { outline: 2px solid var(--chart-trend); outline-offset: 3px; }
+.footer summary { cursor: pointer; font-size: 12px; padding-top: 3px; }
+.footer .warning { color: var(--coral); }
+.table { max-height: 220px; overflow: auto; margin-top: 8px; }
+.table table { width: 100%; border-collapse: collapse; font-size: 11px; }
+.table caption { text-align: left; color: var(--text-secondary); padding: 5px 0; }
+.table th, .table td { padding: 6px; text-align: right; border-bottom: 1px solid var(--border); }
+@media (max-width: 420px) { .heading { align-items: flex-start; } .footer { padding: 10px; } }

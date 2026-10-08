@@ -7,14 +7,13 @@ import {
 } from "../src/server/official-data";
 import { DEFAULT_FILTERS, selectSource } from "../src/services/config";
 import { getAnalytics } from "../src/services/analytics";
-import type { Source } from "../src/services/contracts";
 const totals = {
   NSW: [92082, 1388, 1507, 78154],
   VIC: [72170, 1182, 1265, 91798],
   QLD: [66624, 1304, 1424, 88609],
 };
 const keys = ["crashes", "fatalCrashes", "livesLost", "casualties"] as const;
-for (const source of ["NSW", "VIC", "QLD"] as Source[])
+for (const source of ["NSW", "VIC", "QLD"] as ("NSW" | "VIC" | "QLD")[])
   test(`${source}: admitted official snapshot, monthly, yearly and severity reconcile to independently recorded totals`, async () => {
     const snapshot = await loadOfficialSnapshot();
     const api = createOfficialProvider(snapshot),
@@ -121,7 +120,7 @@ test("real map data contains only source totals and boundaries; records cannot f
     country.data.states?.find((r) => r.label === "WA")?.count,
     undefined,
   );
-  for (const source of ["NSW", "VIC", "QLD"] as Source[]) {
+  for (const source of ["NSW", "VIC", "QLD"] as ("NSW" | "VIC" | "QLD")[]) {
     const f = selectSource(DEFAULT_FILTERS, source);
     const map = await api.getMapData(f);
     assert.equal(map.meta.availability, "unsupported");

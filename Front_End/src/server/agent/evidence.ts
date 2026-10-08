@@ -34,6 +34,9 @@ export function evidenceRows(value: unknown): NonNullable<Evidence["rows"]> {
         value: `${dates(scope.requestedRange)}${scope.regionId ? ` · LGA ${scope.regionId}` : ""}`,
       });
     }
+  if (r.releaseId) rows.push({label:"Release",value:String(r.releaseId)});
+  else if (r.batchId) rows.push({label:"Snapshot batch",value:String(r.batchId)});
+  if (r.sourceBatches && typeof r.sourceBatches === "object") rows.push({label:"Source batches",value:Object.entries(r.sourceBatches).map(([source,batch])=>`${source}: ${batch}`).join("; ")});
   if (r.queryId) rows.push({ label: "Query", value: String(r.queryId) });
   if (r.dataset) rows.push({ label: "Table", value: String(r.dataset) });
   if (r.returnedRows !== undefined)

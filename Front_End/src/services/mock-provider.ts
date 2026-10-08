@@ -1,3 +1,4 @@
+import { importPreview } from "./import-preview";
 import type {
   ArsiaService,
   Filters,
@@ -280,7 +281,7 @@ export const mockProvider: ArsiaService = {
     return {
       meta: meta(f),
       data: rows.length
-        ? FIXTURES[f.source].labels.map((label, i) => ({
+        ? FIXTURES[f.source as keyof typeof FIXTURES].labels.map((label, i) => ({
             label,
             count: rows.reduce((n, r) => n + r.severity[i], 0),
             definition: `Illustrative ${f.source} source category; not a cross-state standard.`,
@@ -316,7 +317,7 @@ export const mockProvider: ArsiaService = {
           })),
         },
       };
-    const fixture = FIXTURES[f.source];
+    const fixture = FIXTURES[f.source as keyof typeof FIXTURES];
     const counts = allocate(sum(f, "crashes"), [34, 44, 22]);
     return {
       meta: {
@@ -354,7 +355,7 @@ export const mockProvider: ArsiaService = {
       };
     const source = f.source;
     const months = selected(f);
-    const fixture = FIXTURES[source];
+    const fixture = FIXTURES[source as keyof typeof FIXTURES];
     let rows = months.flatMap((month) =>
       Array.from({ length: 3 }, (_, i) => ({
         id: `DEMO-${source}-${month.period}-${i + 1}`,
@@ -399,7 +400,7 @@ export const mockProvider: ArsiaService = {
   async getDatasetMetadata() {
     return (Object.keys(FIXTURES) as Source[]).map((source) => ({
       source,
-      title: FIXTURES[source].title,
+      title: FIXTURES[source as keyof typeof FIXTURES].title,
       version: "demo-v1.0",
       batchId: `demo-${source.toLowerCase()}-v1`,
       coverage: "2020–2024",
@@ -463,4 +464,6 @@ export const mockProvider: ArsiaService = {
     } satisfies AgentEvent;
     yield { type: "evidence", evidence: evidence[0] };
   },
+  createImportJob: (files) => importPreview.createImportJob(files),
+  getImportJobStatus: (id) => importPreview.getImportJobStatus(id),
 };

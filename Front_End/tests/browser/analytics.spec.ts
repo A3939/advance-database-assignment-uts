@@ -69,7 +69,7 @@ const dataTable = (page: Page) =>
   });
 
 async function openAnalytics(page: Page) {
-  await page.goto("/analytics");
+  await page.goto("/analytics?datasetVersion=official-v1&batchId=bcc5da57-25f2-41ec-9925-bef421b02671");
   await expect(
     page.getByRole("heading", { name: "Analytics", exact: true }),
   ).toBeVisible();
@@ -117,8 +117,8 @@ test("Analytics follows Overview and resolves All to an explicit NSW selection i
           .join("\n") + "\n",
     }),
   );
-  await page.goto("/");
-  await expect(page.getByRole("combobox", { name: "Data source" })).toHaveValue(
+  await page.goto("/?datasetVersion=official-v1&batchId=bcc5da57-25f2-41ec-9925-bef421b02671");
+  await expect(page.getByRole("combobox", { name: "Data source" })).toHaveText(
     "All",
   );
   const navigation = page.getByRole("navigation", { name: "Main navigation" });
@@ -128,7 +128,7 @@ test("Analytics follows Overview and resolves All to an explicit NSW selection i
   await navigation
     .getByRole("link", { name: "Analytics", exact: true })
     .click();
-  await expect(page).toHaveURL(/\/analytics$/);
+  await expect(page).toHaveURL(/\/analytics(?:\?|$)/);
   await expect(page.getByTestId("analytics-total")).toHaveText("92,082");
   await expect(
     page.getByRole("button", { name: "NSW", exact: true }),
@@ -160,7 +160,7 @@ test("source and half-year filters reconcile totals and compare matching months 
   await expect(page.getByTestId("analytics-total")).toHaveText(
     formatted(qldHalfYear.crashes),
   );
-  const comparison = article(page, "Year-on-year change");
+  const comparison = article(page, "Crashes year-on-year");
   const current = qldHalfYear;
   await expect(comparison).toContainText("2024 vs 2023");
   await expect(comparison).toContainText(
@@ -222,19 +222,15 @@ test("heatmap supports keyboard inspection, click selection and analysis of one 
   );
   await expect(
     page.getByRole("button", {
-      name: "Analysis period: Mar 2024 – Mar 2024",
+      name: "Analysis period: Mar 2024",
       exact: true,
     }),
   ).toBeVisible();
-  await expect(article(page, "Year-on-year change")).toContainText(
+  await expect(article(page, "Crashes year-on-year")).toContainText(
     "Mar–Mar · 1 matched months",
   );
-  await expect(
-    article(page, "Monthly distribution").getByRole("button", {
-      name: "Feb 2024: no observation",
-      exact: true,
-    }),
-  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Mar 2024 details", exact: true })).toBeVisible();
+  await expect(article(page, "Monthly distribution")).toHaveCount(0);
   await expect(dataTable(page).getByRole("row")).toHaveCount(2);
 });
 
@@ -415,19 +411,19 @@ test("missing months and empty selections remain explicit across themes and mobi
   ).toBeVisible();
   const heatmap = article(page, "Monthly distribution");
   const missing = heatmap.getByRole("button", {
-    name: "Jan 2019: no observation",
+    name: "Jan 2019: No coverage",
     exact: true,
   });
-  await expect(missing).toHaveText("—");
+  await expect(missing).toHaveText("N/C");
   await missing.click();
   await expect(heatmap).toContainText(
-    "No observation for this month in the current selection.",
+    "No coverage for this month.",
   );
   await expect(
     heatmap.getByRole("button", { name: "Analyze this month", exact: true }),
   ).toHaveCount(0);
-  await expect(article(page, "Year-on-year change")).toContainText(
-    "A comparable baseline is unavailable.",
+  await expect(article(page, "Crashes year-on-year")).toContainText(
+    "The same months in the previous year are not fully covered.",
   );
   await selectPeriod(page, "2025-01", "2025-12");
   await expect(

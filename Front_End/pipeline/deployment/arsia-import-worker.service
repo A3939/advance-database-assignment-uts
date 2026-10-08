@@ -1,0 +1,21 @@
+# Example Linux trusted orchestrator. Never use this unit for generated Python.
+[Unit]
+Description=ARSIA durable autonomous import worker
+After=network-online.target arsia-import-api.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=arsia
+Group=arsia
+WorkingDirectory=/srv/arsia/pipeline
+ExecStart=/srv/arsia/pipeline/.venv/bin/python -m arsia_pipeline.worker
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=60
+UMask=0077
+NoNewPrivileges=true
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target

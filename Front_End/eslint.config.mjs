@@ -6,6 +6,7 @@ export default defineConfig([
   ...nextTs,
   globalIgnores([
     ".next/**",
+    ".next-*/**",
     ".next-demo-build/**",
     ".next-agent/**",
     ".next-regions/**",

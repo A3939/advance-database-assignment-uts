@@ -81,7 +81,8 @@ export default function AgentVisualization({ view }: { view: AnalysisView }) {
           left: 12,
           right: 18,
           bottom: 20,
-          containLabel: true,
+          outerBoundsMode: "same",
+          outerBoundsContain: "axisLabel",
         },
         xAxis: {
           type: "category",
@@ -91,6 +92,10 @@ export default function AgentVisualization({ view }: { view: AnalysisView }) {
             hideOverlap: true,
             overflow: "truncate",
             width: 72,
+            formatter: (label: string) => {
+              const year = /^(\d{4})-01-01 – \1-12-31$/.exec(label);
+              return year ? year[1] : label;
+            },
           },
           axisLine: { lineStyle: { color: token("--border") } },
           axisTick: { show: false },
@@ -121,6 +126,7 @@ export default function AgentVisualization({ view }: { view: AnalysisView }) {
     );
   }, [view, theme]);
   const columns = Object.keys(view.rows[0] || {});
+  const unknownMetric = view.kind !== 'table' && view.rows.length > 0 && view.rows.every(row => row[view.y] === null);
   return (
     <figure className="agent-viz">
       <figcaption>
@@ -137,7 +143,8 @@ export default function AgentVisualization({ view }: { view: AnalysisView }) {
           aria-label={view.title}
         />
       )}
-      <details open={view.kind === "table"}>
+      {unknownMetric && <p role="status">No known values for {view.y}. Unknown observations are not zero.</p>}
+      <details open={view.kind === "table" || unknownMetric}>
         <summary>View data{view.truncated ? " · partial result" : ""}</summary>
         <div
           className="agent-table-scroll"

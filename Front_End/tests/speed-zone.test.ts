@@ -9,7 +9,7 @@ import { GET } from "../src/app/api/data/[report]/route";
 
 const filters = {...DEFAULT_FILTERS, source:"NSW" as const};
 function fixture() {
-  const data = {field:"posted_limit", rows:[["2020-01","60",10,2,10],["2020-02","60",20,1,20],["2020-01","70",4,0,4]], excluded:[["2020-01","unknown",6,1,6]]};
+  const data: SpeedZoneSnapshot["sources"][string] = {field:"posted_limit", rows:[["2020-01","60",10,2,10],["2020-02","60",20,1,20],["2020-01","70",4,0,4]], excluded:[["2020-01","unknown",6,1,6]]};
   const snapshot = {extensionVersion:"test", batchId:filters.batchId, datasetVersion:filters.datasetVersion,
     coverage:{from:"2020-01-01",to:"2024-12-31"}, bands:[{id:"60",label:"60"},{id:"70",label:"70"},{id:"80-90",label:"80–90"}],
     sources:{NSW:structuredClone(data),VIC:structuredClone(data),QLD:structuredClone(data)}} as SpeedZoneSnapshot;
@@ -78,7 +78,8 @@ test("actual snapshot reconciles selected months and all three source totals",as
   const full=await getSpeedZones(DEFAULT_FILTERS,official,snapshot);
   assert.equal(full.meta.demo,false);assert.equal(full.meta.availability,"available");
   assert.deepEqual(full.data.bands.map(b=>b.id),["0-50","60","70","80-90","100-110"]);
-  const totals={NSW:[92082,1388,26],VIC:[72170,1182,6105],QLD:[66624,1304,0]};
+  const totals: Record<string, [number, number, number]>={NSW:[92082,1388,26],VIC:[72170,1182,6105],QLD:[66624,1304,0]};
+  assert.deepEqual(full.data.groups.map(group=>group.source),["NSW","VIC","QLD"]);
   for(const g of full.data.groups){
     assert.equal(g.rows.reduce((n,r)=>n+r.crashes,0)+g.excluded.reduce((n,r)=>n+r.crashes,0),totals[g.source][0]);
     assert.equal(g.rows.reduce((n,r)=>n+r.fatalCrashes,0)+g.excluded.reduce((n,r)=>n+r.fatalCrashes,0),totals[g.source][1]);
@@ -102,5 +103,9 @@ test("actual API honours whole-month validation and pinned identity",async()=>{
   const response=await call("source=All");assert.equal(response.status,200);
   const body=await response.json();assert.equal(body.data.groups.length,3);assert.equal(body.meta.availability,"available");
   assert.equal((await call("from=2020-01-02")).status,400);
-  const unknown=await (await call("batchId=unverified")).json();assert.equal(unknown.meta.availability,"unsupported");assert.ok(unknown.data.groups.every((g:{rows:unknown[]})=>!g.rows.length));
+  // The integrated host validates the pinned catalog before running an extension.
+  // An unadmitted batch fails at that boundary, rather than returning a report.
+  // Direct extension identity rejection remains covered above.
+  const unknownResponse=await call("batchId=unverified");assert.equal(unknownResponse.status,503);
+  const unknown=await unknownResponse.json();assert.equal(unknown.data,undefined);assert.equal(typeof unknown.error,"string");
 });

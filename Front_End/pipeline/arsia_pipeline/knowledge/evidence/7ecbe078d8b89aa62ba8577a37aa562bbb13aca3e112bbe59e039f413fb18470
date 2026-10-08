@@ -1,0 +1,1485 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" prefix="og: https://ogp.me/ns#">
+  <head>
+    <meta charset="utf-8" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QH724PXX59"></script>
+<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments)};gtag("js", new Date());gtag("set", "developer_id.dMDhkMT", true);gtag("config", "G-QH724PXX59", {"groups":"default","linker":{"domains":["www.officeofroadsafety.gov.au","officeofroadsafety.gov.au","ors.govcms.gov.au"]},"page_placeholder":"PLACEHOLDER_page_location"});gtag('config', 'G-0XT7NFV9ZS', {'name': 'govcms'}); gtag('govcms.send', 'pageview', {'anonymizeIp': true})</script>
+<meta name="description" content="Road safety data comes from a wide range of sources – crash, infrastructure, vehicle, enforcement and health-related systems." />
+<link rel="canonical" href="https://www.officeofroadsafety.gov.au/data-hub/data-catalogue" />
+<meta property="og:site_name" content="Office of Road Safety" />
+<meta property="og:url" content="https://www.officeofroadsafety.gov.au/data-hub/data-catalogue" />
+<meta property="og:title" content="Data Catalogue" />
+<meta property="og:description" content="Road safety data comes from a wide range of sources – crash, infrastructure, vehicle, enforcement and health-related systems." />
+<meta name="dcterms.title" content="Data Catalogue" />
+<meta name="dcterms.creator" content="Department of Infrastructure, Transport, Regional Development and Communications" />
+<meta name="dcterms.description" content="Road safety data comes from a wide range of sources – crash, infrastructure, vehicle, enforcement and health-related systems." />
+<meta name="dcterms.publisher" content="Department of Infrastructure, Transport, Regional Development and Communications" />
+<meta name="dcterms.created" content="2023-05-15" />
+<meta name="dcterms.modified" content="2023-11-22" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:description" content="Road safety data comes from a wide range of sources – crash, infrastructure, vehicle, enforcement and health-related systems." />
+<meta name="twitter:site" content="@infra_regional" />
+<meta name="twitter:title" content="Data Catalogue" />
+<meta name="twitter:creator" content="@infra_regional" />
+<meta name="Generator" content="Drupal 11 (http://drupal.org) + GovCMS (http://govcms.gov.au)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="/themes/custom/custom/ors/favicon.ico" type="image/vnd.microsoft.icon" />
+
+    <title>Data Catalogue | Office of Road Safety</title>
+    <link rel="stylesheet" media="all" href="/sites/default/files/css/css_j6NQCMayT4T6nTaswV7L2Arn1qgJpKqAqS5YSo1npOY.css?delta=0&amp;language=en&amp;theme=ors&amp;include=eJxdiUsKwzAMBS_kWtveJsi16pjKH_TklNy-kE0hm2GYKeN4NTy3VT_VNzibi1HRkVgf8FNrL2EY6D2647LbnGxcjOcOyrYma_yXuPpcSSt2yQEnXBolhoSjyhd0MbaRl8oPlVc18g" />
+<link rel="stylesheet" media="all" href="/sites/default/files/css/css_l40scQcxCtowu6ax53yyQYiiTg7rMz8mwXilBVVd4RQ.css?delta=1&amp;language=en&amp;theme=ors&amp;include=eJxdiUsKwzAMBS_kWtveJsi16pjKH_TklNy-kE0hm2GYKeN4NTy3VT_VNzibi1HRkVgf8FNrL2EY6D2647LbnGxcjOcOyrYma_yXuPpcSSt2yQEnXBolhoSjyhd0MbaRl8oPlVc18g" />
+<link rel="stylesheet" media="all" href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700" />
+<link rel="stylesheet" media="all" href="/sites/default/files/css/css_9kmY471FAjKrr6Mw52rhJYpQYwmh20D5PfGrNzcQiQw.css?delta=3&amp;language=en&amp;theme=ors&amp;include=eJxdiUsKwzAMBS_kWtveJsi16pjKH_TklNy-kE0hm2GYKeN4NTy3VT_VNzibi1HRkVgf8FNrL2EY6D2647LbnGxcjOcOyrYma_yXuPpcSSt2yQEnXBolhoSjyhd0MbaRl8oPlVc18g" />
+
+    
+  <script >bazadebezolkohpepadr="2094806472"</script><script type="text/javascript" src="https://www.officeofroadsafety.gov.au/akam/13/7cdc35fd"  defer></script></head>
+  <body>
+    <div id="top">
+            <a href="#main-content" class="visually-hidden focusable">
+        Skip to main content
+      </a>
+    </div>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    
+
+
+  <div class="page-notifications">
+      <div class="region region-notifications">
+    <div class="views-element-container settings-tray-editable block block-views block-views-blocksite-notifications-block-1" id="block-views-block-site-notifications-block-1" data-drupal-settingstray="editable">
+  
+    
+      <div data-region="notifications"><div class="view view-site-notifications view-id-site_notifications view-display-id-block_1 js-view-dom-id-c77eb211956d38152306978e424f4e32e92cee378b11eca5a53ff91909b723e3">
+  
+    
+      
+  
+          </div>
+</div>
+
+  </div>
+
+  </div>
+
+  </div>
+
+<div class="au-body au-grid layout-container">
+
+    
+
+<div>
+  <header  class="au-header au-body">
+    <div class="container">
+      <div class="row header--vertical-align">
+
+                  <div class="logo col-sm-6">
+              <div class="region region-logo">
+    <div id="block-ors-sitebranding" class="settings-tray-editable block block-system block-system-branding-block" data-drupal-settingstray="editable">
+  
+    
+        <a href="/" title="Home" rel="home">
+      <img src="/themes/custom/custom/ors/logo.svg" alt="" style="width: auto;" />
+    </a>
+      
+</div>
+
+  </div>
+
+          </div>
+         
+                  <div class="search col-sm-6">
+              <div class="region region-search">
+    <div class="views-exposed-form settings-tray-editable block block-views block-views-exposed-filter-blockcontent-search-page-1" data-drupal-selector="views-exposed-form-content-search-page-1" id="block-ors-exposedformcontent-searchpage-1" data-drupal-settingstray="editable">
+  
+    
+      <form action="/search" method="get" id="views-exposed-form-content-search-page-1" accept-charset="UTF-8">
+  <div class="js-form-item form-item js-form-type-textfield form-type-textfield js-form-item-keys form-item-keys">
+            <label for="edit-keys">Enter search terms</label>
+                  <input  placeholder="What are you looking for?" data-drupal-selector="edit-keys" type="text" id="edit-keys" name="keys" value="" size="30" maxlength="128" class="form-text au-text-input" />
+
+                  </div>
+<div data-drupal-selector="edit-actions" class="form-actions js-form-wrapper form-wrapper" id="edit-actions">  <input data-drupal-selector="edit-submit-content-search" type="submit" id="edit-submit-content-search" value="Submit search" class="js-form-submit form-submit au-btn" />
+</div>
+
+
+</form>
+
+  </div>
+
+  </div>
+
+          </div>
+        
+      </div>
+    </div>
+  </header>
+
+      <div class="navigation">
+        <div class="region region-navigation">
+        <nav aria-labelledby="block-ors-mainnavigation-menu" id="block-ors-mainnavigation" class="settings-tray-editable" data-drupal-settingstray="editable">
+            
+      <h2 class="visually-hidden" id="block-ors-mainnavigation-menu">Main navigation</h2>
+    
+
+        
+
+
+
+
+
+
+<nav  class="au-main-nav" aria-label="main navigation">
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div id="main-nav-default" class="au-main-nav__content au-main-nav__content--closed">
+        <button
+          aria-controls="main-nav-default"
+          class="au-main-nav__toggle au-main-nav__toggle--open"
+          onClick="return AU.mainNav.Toggle( this )">
+          Menu
+        </button>
+        <div class="au-main-nav__menu">
+          <div class="au-main-nav__menu-inner">
+            <div class="au-main-nav__focus-trap-top"></div>
+            <button
+              aria-controls="main-nav-default"
+              class="au-main-nav__toggle au-main-nav__toggle--close"
+              onClick="return AU.mainNav.Toggle( this )">
+              Close
+            </button>
+
+                                                                <ul data-region="navigation" class="au-link-list">
+                                                            <li>
+                  <a href="/about" data-drupal-link-system-path="node/2">About</a>
+                                  </li>
+                                              <li class="active">
+                  <a href="/data-hub" data-drupal-link-system-path="node/13">Data Hub</a>
+                                                                                            <ul class="menu">
+                                                            <li>
+                  <a href="/data-hub/nrss-data" data-drupal-link-system-path="node/57">National Road Safety Strategy data</a>
+                                  </li>
+                                              <li>
+                  <a href="/data-hub/fatalities-data" data-drupal-link-system-path="node/58">Fatalities data</a>
+                                  </li>
+                                              <li>
+                  <a href="/data-hub/serious-injuries-data" data-drupal-link-system-path="node/59">Injuries data</a>
+                                  </li>
+                                              <li>
+                  <a href="/data-hub/enforcement-data" data-drupal-link-system-path="node/61">Enforcement data</a>
+                                  </li>
+                                              <li>
+                  <a href="/data-hub/resources" data-drupal-link-system-path="node/62">Resources</a>
+                                  </li>
+                                              <li class="active">
+                  <a href="/data-hub/data-catalogue" data-drupal-link-system-path="node/89" class="is-active" aria-current="page">Data Catalogue</a>
+                                  </li>
+                            </ul>
+                      
+                                  </li>
+                                              <li>
+                  <a href="/contacts" data-drupal-link-system-path="node/6">Contacts</a>
+                                  </li>
+                            </ul>
+                      
+                    <div class="au-main-nav__focus-trap-bottom"></div>
+
+
+        </div>
+        </div>
+
+        <div
+          class="au-main-nav__overlay"
+          aria-controls="main-nav-default"
+          onClick="return AU.mainNav.Toggle( this )">
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+</nav>
+
+  </nav>
+
+  </div>
+
+    </div>
+  
+</div>
+
+      <div class="page-help">
+      <div class="container">
+        
+      </div>
+    </div>
+  
+      <div class="page-admin">
+        <div class="region region-admin">
+    
+  </div>
+
+    </div>
+    <article>
+          <section class="page-layout__content-header-section">
+        <div class="content-top">
+          <div class="container">
+              <div class="region region-content-top">
+    <div id="block-ors-breadcrumbs" class="settings-tray-editable block block-system block-system-breadcrumb-block" data-drupal-settingstray="editable">
+  
+    
+        <nav class="au-breadcrumbs" aria-label="breadcrumb">
+  <ol class="au-link-list au-link-list--inline">
+          <li>
+                  <a href="/">Home</a>
+              </li>
+          <li>
+                  <a href="/data-hub">National Road Safety Data Hub</a>
+              </li>
+          <li>
+                  Data Catalogue
+              </li>
+      </ol>
+</nav>
+
+  </div>
+<div id="block-ors-title" class="settings-tray-editable block block-ctools-block block-entity-fieldnodetitle" data-drupal-settingstray="editable">
+  
+    
+      
+  <h1 class="au-header-heading">Data Catalogue</h1>
+
+
+  </div>
+
+  </div>
+
+          </div>
+        </div>
+      </section>
+    
+        <main>
+      <a id="main-content" tabindex="-1"></a>
+                    <div class="main-content">
+          <div class="au-body au-grid layout-container container">
+              <div class="region region-content">
+    <div data-drupal-messages-fallback class="hidden"></div><div id="block-ors-mainpagecontent" class="block block-system block-system-main-block">
+  
+    
+      
+<article>
+<div class="node node--type-govcms-standard-page node--view-mode-full page-layout--84 page-layout">
+        <section class=>
+              <div class="row">
+          <div class="page-layout__content">
+            
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field__item"><p><span><span><span>Road safety data comes from a wide range of sources – crash, infrastructure, vehicle, enforcement and health-related systems.</span></span></span></p>
+<p><span><span><span>This data catalogue is an entry point to Australian road safety data, and supports the National Road Safety Strategy 2021-30 and the National Road Safety Action Plan 2023-25.</span></span></span></p>
+<p><span><span><span>The Australian and state and territory governments have worked together to establish the catalogue and will continue to further develop and enhance the collection.</span></span></span></p>
+<h2><span><span><span>Catalogue</span></span></span></h2>
+</div>
+          
+            <div  class="components">
+                    <div class="paragraph paragraph--type--accordion paragraph--view-mode--default">
+    <div class="paragraph-content">
+        
+  
+
+
+  <section class="au-accordion">
+
+    
+      <a href="#accordion-89" class="au-accordion__title au-accordion--closed"
+         aria-expanded="false" aria-selected="false" aria-controls="accordion-89" onclick="return AU.accordion.Toggle( this )">Road safety outcomes</a>
+
+      <div class="au-accordion__body au-accordion--closed" aria-hidden="true" id="accordion-89">
+        <div class="au-accordion__body-wrapper"><table>
+<thead>
+<tr>
+<th>
+<p class="text-align-left"><strong>Dataset name</strong></p>
+</th>
+<th>
+<p class="text-align-left"><strong>Jurisdiction</strong></p>
+</th>
+<th>
+<p class="text-align-left"><strong>Available at </strong></p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Australian Transport Statistics - transport safety</td>
+<td>National</td>
+<td>
+<p><a href="https://www.bitre.gov.au/sites/default/files/documents/bitre-yearbook-2022.pdf">www.bitre.gov.au/sites/default/files/documents/bitre-yearbook-2022.pdf</a> (refer Chapter 10)</p>
+<p><a href="https://www.bitre.gov.au/sites/default/files/documents/bitre-yearbook-2022-10-transport-safety.xlsx">www.bitre.gov.au/sites/default/files/documents/bitre-yearbook-2022-10-transport-safety.xlsx</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>National crash data</p>
+</td>
+<td>
+<p>National</p>
+</td>
+<td>
+<p><a href="http://www.bitre.gov.au/statistics/safety">www.bitre.gov.au/statistics/safety</a></p>
+<p><a href="https://app.powerbi.com/view?r=eyJrIjoiZjU4YjhiMGYtNTljYS00ZjEyLTg5NTItN2YyOWExNDcwNTdmIiwidCI6ImFhMjFiNjQwLWJhYzItNDU2ZC04NTA1LWYyY2MwN2Y1MTc4NCJ9&amp;pageName=ReportSection0872ca58aca00519e8e1">National Crash Dashboard</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Australian road deaths database</p>
+</td>
+<td>
+<p>National</p>
+</td>
+<td>
+<p><a href="http://www.bitre.gov.au/statistics/safety/fatal_road_crash_database">www.bitre.gov.au/statistics/safety/fatal_road_crash_database</a></p>
+<p><span><span><a href="https://www.bitre.gov.au/publications/ongoing/road_deaths_australia_monthly_bulletins">https://www.bitre.gov.au/publications/ongoing/road_deaths_australia_monthly_bulletins</a></span></span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>International road safety comparisons</p>
+</td>
+<td>
+<p>National</p>
+</td>
+<td>
+<p><a href="http://www.bitre.gov.au/publications/ongoing/international_road_safety_comparisons">www.bitre.gov.au/publications/ongoing/international_road_safety_comparisons</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Trauma registry cases</p>
+</td>
+<td>
+<p>National</p>
+</td>
+<td>
+<p><a href="http://www.bitre.gov.au/publications/ongoing/severe-injury">www.bitre.gov.au/publications/ongoing/severe-injury</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Hospitalised injuries from road crashes</p>
+</td>
+<td>
+<p>National</p>
+</td>
+<td>
+<p><a href="http://www.bitre.gov.au/publications/ongoing/hospitalised-injury">www.bitre.gov.au/publications/ongoing/hospitalised-injury</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>National hospital morbidity database</p>
+</td>
+<td>
+<p>National</p>
+</td>
+<td>
+<p><a href="https://meteor.aihw.gov.au/content/394352">meteor.aihw.gov.au/content/394352</a> </p>
+</td>
+</tr>
+<tr>
+<td>
+<p>National mortality database</p>
+</td>
+<td>
+<p>National</p>
+</td>
+<td>
+<p><a href="https://aihw.gov.au/reports-data/health-conditions-disability-deaths/life-expectancy-deaths/overview">aihw.gov.au/reports-data/health-conditions-disability-deaths/life-expectancy-deaths/overview</a></p>
+<p><a href="http://www.aihw.gov.au/about-our-data/our-data-collections/national-mortality-database">www.aihw.gov.au/about-our-data/our-data-collections/national-mortality-database</a></p>
+</td>
+</tr>
+<tr>
+<td><span><span><span>Work-related fatalities data</span></span></span></td>
+<td><span><span>National</span></span></td>
+<td><span><span><a href="https://data.safeworkaustralia.gov.au/data-collection/work-related-fatalities-data">https://data.safeworkaustralia.gov.au/data-collection/work-related-fatalities-data</a></span></span></td>
+</tr>
+<tr>
+<td><span><span><span>Road transport industry – WHS statistics</span></span></span></td>
+<td><span><span>National</span></span></td>
+<td><span><span><a href="https://data.safeworkaustralia.gov.au/interactive-data/industry/road-transport">https://data.safeworkaustralia.gov.au/interactive-data/industry/road-transport</a></span></span></td>
+</tr>
+<tr>
+<td>
+<p>ACT road crash data</p>
+</td>
+<td>
+<p>ACT</p>
+</td>
+<td>
+<p><a href="http://www.data.act.gov.au/Transport/ACT-Road-Crash-Data/6jn4-m8rx">www.data.act.gov.au/Transport/ACT-Road-Crash-Data/6jn4-m8rx</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>NSW road crash data</p>
+</td>
+<td>
+<p>NSW</p>
+</td>
+<td>
+<p><a href="https://opendata.transport.nsw.gov.au/dataset/nsw-crash-data">opendata.transport.nsw.gov.au/dataset/nsw-crash-data</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>NT road crash data</p>
+</td>
+<td>
+<p>NT</p>
+</td>
+<td>
+<p><a href="https://roadsafety.nt.gov.au/research-and-statistics">roadsafety.nt.gov.au/research-and-statistics</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Queensland road crash data</p>
+</td>
+<td>
+<p>QLD</p>
+</td>
+<td>
+<p><a href="http://www.data.qld.gov.au/dataset/crash-data-from-queensland-roads">www.data.qld.gov.au/dataset/crash-data-from-queensland-roads</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>SA road crash data</p>
+</td>
+<td>
+<p>SA</p>
+</td>
+<td>
+<p><a href="https://data.sa.gov.au/data/dataset/road-crash-data">data.sa.gov.au/data/dataset/road-crash-data</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Tasmania road crash data</p>
+</td>
+<td>
+<p>TAS</p>
+</td>
+<td>
+<p><a href="http://www.transport.tas.gov.au/road_safety_and_rules/crash_statistics">www.transport.tas.gov.au/road_safety_and_rules/crash_statistics</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Victoria road crash data</p>
+</td>
+<td>
+<p>VIC</p>
+</td>
+<td>
+<p><a href="https://discover.data.vic.gov.au/dataset/crash-stats-data-extract">discover.data.vic.gov.au/dataset/crash-stats-data-extract</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>WA road crash data</p>
+</td>
+<td>
+<p>WA</p>
+</td>
+<td>
+<p><a href="https://portal-mainroads.opendata.arcgis.com/datasets/mainroads::crash-information-last-5-years">portal-mainroads.opendata.arcgis.com/datasets/mainroads::crash-information-last-5-years</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+      </div>
+
+    
+  </section>
+
+
+    </div>
+  </div>
+
+              <div class="paragraph paragraph--type--accordion paragraph--view-mode--default">
+    <div class="paragraph-content">
+        
+  
+
+
+  <section class="au-accordion">
+
+    
+      <a href="#accordion-90" class="au-accordion__title au-accordion--closed"
+         aria-expanded="false" aria-selected="false" aria-controls="accordion-90" onclick="return AU.accordion.Toggle( this )">Vehicles</a>
+
+      <div class="au-accordion__body au-accordion--closed" aria-hidden="true" id="accordion-90">
+        <div class="au-accordion__body-wrapper"><table>
+<thead>
+<tr>
+<th>
+<p class="text-align-left"><strong>Dataset name</strong></p>
+</th>
+<th>
+<p class="text-align-left"><strong>Jurisdiction</strong></p>
+</th>
+<th>
+<p class="text-align-left"><strong>Available at </strong></p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sales of vehicles with active safety features</td>
+<td>National</td>
+<td>
+<p><a href="https://www.bitre.gov.au/sites/default/files/documents/bitre-yearbook-2022.pdf">www.bitre.gov.au/sites/default/files/documents/bitre-yearbook-2022.pdf</a> (refer Chapter 6)</p>
+<p><a href="https://www.bitre.gov.au/sites/default/files/documents/bitre-yearbook-2022-6-road.xlsx">www.bitre.gov.au/sites/default/files/documents/bitre-yearbook-2022-6-road.xlsx</a> (refer Table 6.10c)</p>
+</td>
+</tr>
+<tr>
+<td>Australian Design Rules</td>
+<td>National</td>
+<td><a href="https://www.infrastructure.gov.au/infrastructure-transport-vehicles/vehicles/vehicle-design-regulation/australian-design-rules">www.infrastructure.gov.au/infrastructure-transport-vehicles/vehicles/vehicle-design-regulation/australian-design-rules</a></td>
+</tr>
+<tr>
+<td>
+<p>Motor vehicle census</p>
+</td>
+<td>
+<p>National</p>
+</td>
+<td>
+<p><a href="http://www.bitre.gov.au/publications/2022/motor-vehicles-australia-january-2022-first-issue">www.bitre.gov.au/publications/2022/motor-vehicles-australia-january-2022-first-issue</a></p>
+<p>Prior to 2022:</p>
+<p><a href="http://www.abs.gov.au/statistics/industry/tourism-and-transport/motor-vehicle-census-australia/latest-release">www.abs.gov.au/statistics/industry/tourism-and-transport/motor-vehicle-census-australia/latest-release</a></p>
+</td>
+</tr>
+<tr>
+<td><span><span>ANCAP Safety ratings</span></span></td>
+<td><span><span>National</span></span></td>
+<td><span><span><a href="http://www.ancap.com.au/safety-ratings">www.ancap.com.au/safety-ratings</a></span></span></td>
+</tr>
+</tbody>
+</table>
+</div>
+      </div>
+
+    
+  </section>
+
+
+    </div>
+  </div>
+
+              <div class="paragraph paragraph--type--accordion paragraph--view-mode--default">
+    <div class="paragraph-content">
+        
+  
+
+
+  <section class="au-accordion">
+
+    
+      <a href="#accordion-93" class="au-accordion__title au-accordion--closed"
+         aria-expanded="false" aria-selected="false" aria-controls="accordion-93" onclick="return AU.accordion.Toggle( this )">Road users</a>
+
+      <div class="au-accordion__body au-accordion--closed" aria-hidden="true" id="accordion-93">
+        <div class="au-accordion__body-wrapper"><table>
+<thead>
+<tr>
+<th>
+<p class="text-align-left"><strong>Dataset name</strong></p>
+</th>
+<th>
+<p class="text-align-left"><strong>Jurisdiction</strong></p>
+</th>
+<th>
+<p class="text-align-left"><strong>Available at </strong></p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="3">
+<h5>Enforcement</h5>
+</td>
+</tr>
+<tr>
+<td>
+<p>Road safety enforcement data</p>
+</td>
+<td>
+<p>National</p>
+</td>
+<td>
+<p><a href="http://www.bitre.gov.au/statistics/safety">www.bitre.gov.au/statistics/safety</a></p>
+<p><a href="https://app.powerbi.com/view?r=eyJrIjoiZTAxY2EyOTAtYTdhMS00NTRiLWI0NDktM2U1ZDI0NzY0ZTU5IiwidCI6ImFhMjFiNjQwLWJhYzItNDU2ZC04NTA1LWYyY2MwN2Y1MTc4NCJ9">Enforcement dashboard</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>NSW speed camera locations</p>
+</td>
+<td>
+<p>NSW</p>
+</td>
+<td>
+<p><a href="https://opendata.transport.nsw.gov.au/dataset/nsw-speed-cameras">opendata.transport.nsw.gov.au/dataset/nsw-speed-cameras</a></p>
+<p>&nbsp;</p>
+</td>
+</tr>
+<tr>
+<td colspan="3">
+<h5>Attitudes and behaviours</h5>
+</td>
+</tr>
+<tr>
+<td>E-Survey of Road Users’ Attitudes</td>
+<td>International</td>
+<td><a href="https://www.esranet.eu/storage/minisites/esra2023countryfactsheetaustralia.pdf">https://www.esranet.eu/storage/minisites/esra2023countryfactsheetaustralia.pdf</a></td>
+</tr>
+<tr>
+<td>
+<p>Community attitude survey</p>
+</td>
+<td>
+<p>National</p>
+</td>
+<td>
+<p><a href="http://www.infrastructure.gov.au/department/media/publications/community-attitudes-road-safety-2017-survey-report">www.infrastructure.gov.au/department/media/publications/community-attitudes-road-safety-2017-survey-report</a></p>
+</td>
+</tr>
+<tr>
+<td>Self-reported road safety behaviours</td>
+<td>National</td>
+<td>
+<p><a href="http://www.pc.gov.au/ongoing/report-on-government-services/2023/justice/police-services">https://www.pc.gov.au/ongoing/report-on-government-services/2023/justice/police-services</a> (refer Table 6A.3)</p>
+</td>
+</tr>
+<tr>
+<td>NSW Safety Performance Indicators Observational Survey (Summary report)</td>
+<td>NSW</td>
+<td><a href="https://www.transport.nsw.gov.au/system/files/media/documents/2023/NSW%20Safety%20Performance%20Indicator%20Observational%20Study%20-%20Summary%20Report.pdf">https://www.transport.nsw.gov.au/system/files/media/documents/2023/NSW%20Safety%20Performance%20Indicator%20Observational%20Study%20-%20Summary%20Report.pdf</a></td>
+</tr>
+<tr>
+<td>
+<p>Queensland road safety perceptions and attitudes</p>
+</td>
+<td>
+<p>QLD</p>
+</td>
+<td>
+<p><a href="http://www.tmr.qld.gov.au/safety/road-safety/‌road-safety-strategy-and-action-plans/road-safety-research-reports">www.tmr.qld.gov.au/safety/road-safety/‌road-safety-strategy-and-action-plans/road-safety-research-reports</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Victoria road safety monitor</p>
+</td>
+<td>
+<p>VIC</p>
+</td>
+<td>
+<p><a href="http://www.tac.vic.gov.au/road-safety/statistics/about-tac-surveys/road-safety-and-marketing-surveys">www.tac.vic.gov.au/road-safety/statistics/about-tac-surveys/road-safety-and-marketing-surveys</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+      </div>
+
+    
+  </section>
+
+
+    </div>
+  </div>
+
+              <div class="paragraph paragraph--type--accordion paragraph--view-mode--default">
+    <div class="paragraph-content">
+        
+  
+
+
+  <section class="au-accordion">
+
+    
+      <a href="#accordion-95" class="au-accordion__title au-accordion--closed"
+         aria-expanded="false" aria-selected="false" aria-controls="accordion-95" onclick="return AU.accordion.Toggle( this )">Road infrastructure</a>
+
+      <div class="au-accordion__body au-accordion--closed" aria-hidden="true" id="accordion-95">
+        <div class="au-accordion__body-wrapper"><table>
+<thead>
+<tr>
+<th>
+<p class="text-align-left"><strong>Dataset name</strong></p>
+</th>
+<th>
+<p class="text-align-left"><strong>Jurisdiction</strong></p>
+</th>
+<th>
+<p class="text-align-left"><strong>Available at </strong></p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="3">
+<h5>Condition / ratings</h5>
+</td>
+</tr>
+<tr>
+<td>
+<p>Heavy vehicle road reform: asset registers and heavy vehicle infrastructure ratings</p>
+</td>
+<td>
+<p>National</p>
+</td>
+<td>
+<p><a href="http://www.infrastructure.gov.au/infrastructure-transport-vehicles/transport-strategy-policy/heavy-vehicle-road-reform/background-heavy-vehicle-road-reform/heavy-vehicle-road-reform-phase-one#hivr">www.infrastructure.gov.au/infrastructure-transport-vehicles/transport-strategy-policy/heavy-vehicle-road-reform/background-heavy-vehicle-road-reform/heavy-vehicle-road-reform-phase-one#hivr</a></p>
+<p>&nbsp;</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Queensland road system condition - roughness data and class</p>
+</td>
+<td>
+<p>QLD</p>
+</td>
+<td>
+<p><a href="http://www.data.qld.gov.au/dataset/road-condition-roughness-data-and-class-1km-segments">www.data.qld.gov.au/dataset/road-condition-roughness-data-and-class-1km-segments</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Victoria pavement condition data</p>
+</td>
+<td>
+<p>VIC</p>
+</td>
+<td>
+<p><a href="https://discover.data.vic.gov.au/dataset/pavement-condition-data">discover.data.vic.gov.au/dataset/pavement-condition-data</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>WA pavement and surfacing state</p>
+</td>
+<td>
+<p>WA</p>
+</td>
+<td>
+<p><a href="https://portal-mainroads.opendata.arcgis.com/datasets/pavement-and-surfacing-state">portal-mainroads.opendata.arcgis.com/datasets/pavement-and-surfacing-state</a></p>
+</td>
+</tr>
+<tr>
+<td colspan="3">
+<h5>Rest areas</h5>
+</td>
+</tr>
+<tr>
+<td>
+<p>Rest areas</p>
+</td>
+<td>
+<p>National</p>
+</td>
+<td>
+<p><a href="https://data.datahub.freightaustralia.gov.au/dataset/heavy-vehicle-rest-areas">data.datahub.freightaustralia.gov.au/dataset/heavy-vehicle-rest-areas</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>NSW rest areas</p>
+</td>
+<td>
+<p>NSW</p>
+</td>
+<td>
+<p><a href="https://opendata.transport.nsw.gov.au/dataset/nsw-rest-areas">https://opendata.transport.nsw.gov.au/dataset/nsw-rest-areas</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Queensland rest areas</p>
+</td>
+<td>
+<p>QLD</p>
+</td>
+<td>
+<p><a href="http://www.qld.gov.au/transport/safety/holiday-travel/stops/reviver">www.qld.gov.au/transport/safety/holiday-travel/stops/reviver</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>SA rest areas</p>
+</td>
+<td>
+<p>SA</p>
+</td>
+<td>
+<p><a href="https://data.sa.gov.au/data/dataset/rest-areas-state-maintained">data.sa.gov.au/data/dataset/rest-areas-state-maintained</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Tasmania rest areas</p>
+</td>
+<td>
+<p>TAS</p>
+</td>
+<td>
+<p><a href="http://www.caravanontour.com/australia/tasmania/rest-areas">www.caravanontour.com/australia/tasmania/rest-areas</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Victoria rest areas</p>
+</td>
+<td>
+<p>VIC</p>
+</td>
+<td>
+<p><a href="http://www.vicroads.vic.gov.au/safety-and-road-rules/driver-safety/fatigue/restareas-map">www.vicroads.vic.gov.au/safety-and-road-rules/driver-safety/fatigue/restareas-map</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>WA rest areas</p>
+</td>
+<td>
+<p>WA</p>
+</td>
+<td>
+<p><a href="http://www.mainroads.wa.gov.au/travel-information/driving-in-wa/long-distance-driving/">www.mainroads.wa.gov.au/travel-information/driving-in-wa/long-distance-driving/</a></p>
+</td>
+</tr>
+<tr>
+<td colspan="3">
+<h5>Speed limits</h5>
+</td>
+</tr>
+<tr>
+<td>
+<p>NSW speed limits</p>
+</td>
+<td>
+<p>NSW</p>
+</td>
+<td>
+<p><a href="https://opendata.transport.nsw.gov.au/dataset/speed-zones">opendata.transport.nsw.gov.au/dataset/speed-zones</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Queensland roads and speed limits</p>
+</td>
+<td>
+<p>QLD</p>
+</td>
+<td>
+<p><a href="http://www.data.qld.gov.au/dataset/speed-limits-for-state-and-local-roads">www.data.qld.gov.au/dataset/speed-limits-for-state-and-local-roads</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Victoria speed zones</p>
+</td>
+<td>
+<p>VIC</p>
+</td>
+<td>
+<p><a href="https://discover.data.vic.gov.au/dataset/speed-zone-data">discover.data.vic.gov.au/dataset/speed-zone-data</a></p>
+</td>
+</tr>
+<tr>
+<td colspan="3">
+<h5>Networks</h5>
+</td>
+</tr>
+<tr>
+<td>
+<p>National Land Transport Network</p>
+</td>
+<td>
+<p>National</p>
+</td>
+<td>
+<p><a href="https://investment.infrastructure.gov.au/resources-funding-recipients/national-land-transport-network">investment.infrastructure.gov.au/resources-funding-recipients/national-land-transport-network</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Queensland network</p>
+</td>
+<td>
+<p>QLD</p>
+</td>
+<td>
+<p><a href="http://www.data.qld.gov.au/dataset/queensland-roads-and-tracks">www.data.qld.gov.au/dataset/queensland-roads-and-tracks</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Vicmap transport road network</p>
+</td>
+<td>
+<p>VIC</p>
+</td>
+<td>
+<p><a href="https://discover.data.vic.gov.au/dataset/simplified-vicmap-transport-road-network">discover.data.vic.gov.au/dataset/simplified-vicmap-transport-road-network</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>NSW roads hierarchy</p>
+</td>
+<td>
+<p>NSW</p>
+</td>
+<td>
+<p><a href="https://roads-waterways.transport.nsw.gov.au/classification/map/">roads-waterways.transport.nsw.gov.au/classification/map/</a></p>
+</td>
+</tr>
+<tr>
+<td>ACT Restricted access vehicle network</td>
+<td>ACT</td>
+<td><a href="https://www.cityservices.act.gov.au/roads-and-paths/restricted-access-vehicle-networks">www.cityservices.act.gov.au/roads-and-paths/restricted-access-vehicle-networks</a></td>
+</tr>
+<tr>
+<td>
+<p>NSW freight and special purpose vehicle networks</p>
+</td>
+<td>
+<p>NSW</p>
+</td>
+<td>
+<p><a href="https://roads-waterways.transport.nsw.gov.au/business-industry/heavy-vehicles/maps/restricted-access-vehicles-map/map/index.html">NSW freight and special purpose vehicle networkshigher mass limit routes&nbsp;&nbsp; &nbsp;NSW&nbsp;&nbsp; &nbsp;roads-waterways.transport.nsw.gov.au/business-industry/heavy-vehicles/maps/restricted-access-vehicles-map/map/index.html&nbsp;</a></p>
+<p><a href="https://roads-waterways.transport.nsw.gov.au/business-industry/heavy-vehicles/maps/restricted-access-vehicles-map/map/index.html">www.transport.nsw.gov.au/operations/roads-and-waterways/business-and-industry/heavy-vehicles/maps-and-approved-road-lists</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Queensland heavy vehicle routes</p>
+</td>
+<td>
+<p>QLD</p>
+</td>
+<td>
+<p><a href="https://qldspatial.information.qld.gov.au/catalogue/custom/index.page">qldspatial.information.qld.gov.au/catalogue/custom/index.page</a></p>
+<p>(search for: heavy vehicle routes)<br><br>
+			&nbsp;</p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Tasmania higher mass limit network</p>
+</td>
+<td>
+<p>TAS</p>
+</td>
+<td>
+<p><a href="https://data.stategrowth.tas.gov.au/Networks/?mapName=hml">data.stategrowth.tas.gov.au/Networks/?mapName=hml</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Victoria HVR higher mass limit routes</p>
+</td>
+<td>
+<p>VIC</p>
+</td>
+<td>
+<p><a href="http://www.data.vic.gov.au/data/dataset/higher-mass-limit-routes">www.data.vic.gov.au/data/dataset/higher-mass-limit-routes</a></p>
+</td>
+</tr>
+<tr>
+<td colspan="3">
+<h5>Road characteristics</h5>
+</td>
+</tr>
+<tr>
+<td>
+<p>SA pedestrian crossings</p>
+</td>
+<td>
+<p>SA</p>
+</td>
+<td>
+<p><a href="https://data.sa.gov.au/data/dataset/pedestrian-crossings">data.sa.gov.au/data/dataset/pedestrian-crossings</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>SA traffic signals</p>
+</td>
+<td>
+<p>SA</p>
+</td>
+<td>
+<p><a href="https://data.sa.gov.au/data/dataset/traffic-signals">data.sa.gov.au/data/dataset/traffic-signals</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Victoria traffic signals</p>
+</td>
+<td>
+<p>VIC</p>
+</td>
+<td>
+<p><a href="https://discover.data.vic.gov.au/dataset/traffic-lights1">discover.data.vic.gov.au/dataset/traffic-lights1</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>SA stop signs</p>
+</td>
+<td>
+<p>SA</p>
+</td>
+<td>
+<p><a href="https://data.sa.gov.au/data/dataset/stop-signs-for-state-maintained-roads">data.sa.gov.au/data/dataset/stop-signs-for-state-maintained-roads</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>SA public transport data</p>
+</td>
+<td>
+<p>SA</p>
+</td>
+<td>
+<p><a href="https://data.sa.gov.au/data/dataset/adelaide-public-transport-stop-data">data.sa.gov.au/data/dataset/adelaide-public-transport-stop-data</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+      </div>
+
+    
+  </section>
+
+
+    </div>
+  </div>
+
+              <div class="paragraph paragraph--type--accordion paragraph--view-mode--default">
+    <div class="paragraph-content">
+        
+  
+
+
+  <section class="au-accordion">
+
+    
+      <a href="#accordion-94" class="au-accordion__title au-accordion--closed"
+         aria-expanded="false" aria-selected="false" aria-controls="accordion-94" onclick="return AU.accordion.Toggle( this )">Road investment</a>
+
+      <div class="au-accordion__body au-accordion--closed" aria-hidden="true" id="accordion-94">
+        <div class="au-accordion__body-wrapper"><table>
+<thead>
+<tr>
+<th>
+<p class="text-align-left"><span><span><span><strong><span><span>Dataset name</span></span></strong></span></span></span></p>
+</th>
+<th>
+<p class="text-align-left"><span><span><span><strong><span><span>Jurisdiction</span></span></strong></span></span></span></p>
+</th>
+<th>
+<p class="text-align-left"><span><span><span><strong><span><span>Available at </span></span></strong></span></span></span></p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="3">
+<h5><span><span><span><span>Construction/maintenance</span></span></span></span></h5>
+</td>
+</tr>
+<tr>
+<td>
+<p><span><span><span><span>Roadworks and road closures</span></span></span></span></p>
+</td>
+<td>
+<p><span><span><span><span><span>National</span></span></span></span></span></p>
+</td>
+<td>
+<p><span><span><span><a href="https://data.datahub.freightaustralia.gov.au/dataset/harmonised-national-roadworks"><span>data.datahub.freightaustralia.gov.au/dataset/harmonised-national-roadworks</span></a> </span></span></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+      </div>
+
+    
+  </section>
+
+
+    </div>
+  </div>
+
+              <div class="paragraph paragraph--type--accordion paragraph--view-mode--default">
+    <div class="paragraph-content">
+        
+  
+
+
+  <section class="au-accordion">
+
+    
+      <a href="#accordion-96" class="au-accordion__title au-accordion--closed"
+         aria-expanded="false" aria-selected="false" aria-controls="accordion-96" onclick="return AU.accordion.Toggle( this )">Other</a>
+
+      <div class="au-accordion__body au-accordion--closed" aria-hidden="true" id="accordion-96">
+        <div class="au-accordion__body-wrapper"><table>
+<thead>
+<tr>
+<th>
+<p class="text-align-left">Dataset name</p>
+</th>
+<th>
+<p class="text-align-left"><span><span><span><strong><span><span>Jurisdiction</span></span></strong></span></span></span></p>
+</th>
+<th>
+<p class="text-align-left"><span><span><span><strong><span><span>Available at </span></span></strong></span></span></span></p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="3">
+<h5><span><span><span><span>Traffic volumes / VKT</span></span></span></span></h5>
+</td>
+</tr>
+<tr>
+<td>
+<p><span><span><span><span>Harmonised traffic counts</span></span></span></span></p>
+</td>
+<td>
+<p><span><span><span><span><span>National</span></span></span></span></span></p>
+</td>
+<td>
+<p><span><span><span><a href="https://data.datahub.freightaustralia.gov.au/dataset/harmonised-traffic-counts"><span>data.datahub.freightaustralia.gov.au/dataset/harmonised-traffic-counts</span></a> </span></span></span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span><span><span><span>NSW interactive average daily traffic volume map</span></span></span></span></p>
+</td>
+<td>
+<p><span><span><span><span><span>NSW</span></span></span></span></span></p>
+</td>
+<td>
+<p><span><span><span><a href="https://roads-waterways.transport.nsw.gov.au/about/corporate-publications/statistics/traffic-volumes/aadt-map/index.html#/?z=6"><span>roads-waterways.transport.nsw.gov.au/about/corporate-publications/statistics/traffic-volumes/aadt-map/index.html#/?z=6</span></a> </span></span></span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span><span><span><span>Queensland traffic data</span></span></span></span></p>
+</td>
+<td>
+<p><span><span><span><span>QLD</span></span></span></span></p>
+</td>
+<td>
+<p><span><span><span><a href="http://www.data.qld.gov.au/dataset/queensland-traffic-data-averaged-by-hour-of-day-and-day-of-week"><span>www.data.qld.gov.au/dataset/queensland-traffic-data-averaged-by-hour-of-day-and-day-of-week</span></a> </span></span></span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span><span><span><span>Queensland traffic census for the Queensland state-declared road network</span></span></span></span></p>
+</td>
+<td>
+<p><span><span><span><span>QLD</span></span></span></span></p>
+</td>
+<td>
+<p><span><span><span><a href="http://www.data.qld.gov.au/dataset/traffic-census-for-the-queensland-state-declared-road-network/resource/1f52e522-7cb8-451c-b4c2-8467a087e883"><span>www.data.qld.gov.au/dataset/traffic-census-for-the-queensland-state-declared-road-network/resource/1f52e522-7cb8-451c-b4c2-8467a087e883</span></a> </span></span></span></p>
+<p>&nbsp;</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span><span><span><span>SA traffic volume</span></span></span></span></p>
+</td>
+<td>
+<p><span><span><span><span>SA</span></span></span></span></p>
+</td>
+<td>
+<p><span><span><span><a href="https://data.sa.gov.au/data/dataset/traffic-volumes"><span>data.sa.gov.au/data/dataset/traffic-volumes</span></a> </span></span></span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span><span><span><span>Victoria traffic count locations</span></span></span></span></p>
+</td>
+<td>
+<p><span><span><span><span>VIC</span></span></span></span></p>
+</td>
+<td>
+<p><span><span><span><a href="https://discover.data.vic.gov.au/dataset/traffic-count-locations"><span>discover.data.vic.gov.au/dataset/traffic-count-locations</span></a> </span></span></span></p>
+<p>&nbsp;</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span><span><span><span>Victoria traffic volumes for freeways and arterial roads</span></span></span></span></p>
+</td>
+<td>
+<p><span><span><span><span>VIC</span></span></span></span></p>
+</td>
+<td>
+<p><span><span><span><a href="https://discover.data.vic.gov.au/dataset/traffic-volume-for-freeways-and-arterial-roads"><span>discover.data.vic.gov.au/dataset/traffic-volume-for-freeways-and-arterial-roads</span></a> </span></span></span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span><span><span><span>WA traffic digest</span></span></span></span></p>
+</td>
+<td>
+<p><span><span><span><span>WA</span></span></span></span></p>
+</td>
+<td>
+<p><span><span><span><a href="https://portal-mainroads.opendata.arcgis.com/datasets/traffic-digest"><span>portal-mainroads.opendata.arcgis.com/datasets/traffic-digest</span></a> </span></span></span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span><span><span><span>WA trafficmap</span></span></span></span></p>
+</td>
+<td>
+<p><span><span><span><span>WA</span></span></span></span></p>
+</td>
+<td>
+<p><span><span><span><a href="https://trafficmap.mainroads.wa.gov.au/map"><span>trafficmap.mainroads.wa.gov.au/map</span></a> </span></span></span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span><span><span><span>Vehicle kilometres travelled</span></span></span></span></p>
+</td>
+<td>
+<p><span><span><span><span><span>National</span></span></span></span></span></p>
+</td>
+<td>
+<p><span><span><span><a href="http://www.bitre.gov.au/sites/default/files/documents/bitre-yearbook-2022.pdf"><span><span>www.bitre.gov.au/sites/default/files/documents/bitre-yearbook-2022.pdf</span></span></a></span></span></span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><span><span><span><span>Survey of motor vehicle use</span></span></span></span></p>
+</td>
+<td>
+<p><span><span><span><span><span>National</span></span></span></span></span></p>
+</td>
+<td>
+<p><span><span><span><a href="http://www.abs.gov.au/statistics/industry/tourism-and-transport/survey-motor-vehicle-use-australia"><span><span>www.abs.gov.au/statistics/industry/tourism-and-transport/survey-motor-vehicle-use-australia</span></span></a> </span></span></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+      </div>
+
+    
+  </section>
+
+
+    </div>
+  </div>
+
+              <div class="modifiers modifiers-id-paragraph-97 modifiers-type-paragraph modifiers-bundle-content modifiers-display-default paragraph paragraph--type--content paragraph--view-mode--default">
+    <div class="paragraph-content">
+          
+      <h2>Further Information </h2>
+  
+            <div class="field field--name-field-body field--type-text-long field--label-hidden field__item"><p>Australian Government:</p>
+<ul>
+<li><span><span><span><a href="https://www.officeofroadsafety.gov.au"><span>Office of Road Safety:</span></a><span> the Office of Road Safety facilitates national efforts to improve road safety outcomes for all Australians.</span></span></span></span></li>
+<li><span><span><span><a href="https://www.roadsafety.gov.au/"><span>Roadsafety.gov.au</span></a>:<span>&nbsp;a central source of information on road safety in Australia, the National Road Safety Strategy, Action Plans, and road safety programs and projects.</span></span></span></span></li>
+<li><span><span><span><a href="https://www.bitre.gov.au/statistics/safety/fatal_road_crash_database"><span>Bureau of Infrastructure and Transport Research Economics (BITRE):</span></a><span> BITRE provides economic analysis, research and statistics on infrastructure and transport to inform both Australian Government policy development and wider community understanding. BITRE publishes regular monthly, quarterly and annual road safety crash data series. In addition, research papers and information sheets are released on an occasional basis.</span></span></span></span></li>
+<li><span><span><span><a href="https://data.gov.au/home"><span>Data.gov.au:</span></a><span> a central source of Australian open government data published by federal, state and local government agencies.</span></span></span></span></li>
+</ul>
+<p><span><span><span><span>State and territory governments:</span></span></span></span></p>
+<ul>
+<li><span><span><span><a href="https://www.cityservices.act.gov.au/roads-and-paths/road-safety"><span>Australian Capital Territory</span></a></span></span></span></li>
+<li><span><span><span><a href="https://roadsafety.transport.nsw.gov.au/"><span>New South Wales</span></a></span></span></span></li>
+<li><span><span><span><a href="https://roadsafety.nt.gov.au/"><span>Northern Territory</span></a></span></span></span></li>
+<li><span><span><span><a href="https://www.tmr.qld.gov.au/Safety/Road-safety.aspx"><span>Queensland</span></a></span></span></span></li>
+<li><span><span><span><a href="https://www.dit.sa.gov.au/towardszerotogether"><span>South Australia</span></a></span></span></span></li>
+<li><span><span><span><a href="https://www.stategrowth.tas.gov.au/Transport_and_Infrastructure/road_safety"><span>Tasmania</span></a></span></span></span></li>
+<li><span><span><span><a href="https://www.vicroads.vic.gov.au/safety-and-road-rules"><span>Victoria</span></a></span></span></span></li>
+<li><span><span><span><a href="https://www.wa.gov.au/organisation/road-safety-commission"><span>Western Australia</span></a></span></span></span></li>
+</ul>
+</div>
+      
+        </div>
+  </div>
+
+      
+      </div>
+  
+
+
+          </div>
+                    <aside class="page-layout__sidebar">
+            <div class="block-region-sidebar">
+              
+
+
+
+  
+
+
+
+<aside  class="au-side-nav au-accordion" aria-label="side navigation">
+  <button
+    class="au-side-nav__toggle au-accordion__title au-accordion--closed"
+    aria-controls="nav-default"
+    aria-expanded="false"
+    aria-selected="false"
+    onclick="return AU.accordion.Toggle( this )"
+  >
+    In this section
+  </button>
+  <div id="nav-default" class="au-side-nav__content au-accordion--closed au-accordion__body">
+          <h2 class="au-sidenav__title">
+        <a href="/data-hub">Data Hub</a>
+      </h2>
+                <ul class="au-link-list">
+                  <li>
+                  <a href="/data-hub/nrss-data" data-drupal-link-system-path="node/57">National Road Safety Strategy data</a>
+                      </li>
+                <li>
+                  <a href="/data-hub/fatalities-data" data-drupal-link-system-path="node/58">Fatalities data</a>
+                      </li>
+                <li>
+                  <a href="/data-hub/serious-injuries-data" data-drupal-link-system-path="node/59">Injuries data</a>
+                      </li>
+                <li>
+                  <a href="/data-hub/enforcement-data" data-drupal-link-system-path="node/61">Enforcement data</a>
+                      </li>
+                <li>
+                  <a href="/data-hub/resources" data-drupal-link-system-path="node/62">Resources</a>
+                      </li>
+                <li class="active">
+                  <span>Data Catalogue</span>
+                      </li>
+        </ul>
+  
+  </div>
+</aside>
+
+
+              
+            </div>
+          </aside>
+                  </div>
+          </section>
+    </div>
+</article>
+
+
+  </div>
+
+  </div>
+
+          </div>
+        </div>
+      
+          </main>
+  </article>
+    
+    
+    
+    
+                    
+<footer class="au-footer au-body">
+  <div class="container">
+
+                
+      
+      <div class="postscript row">
+
+              <div class="postscript-1 col-sm-6 col-md-6">
+            <div class="region region-postscript-1">
+        <nav aria-labelledby="block-ors-footer-menu" id="block-ors-footer" class="settings-tray-editable" data-drupal-settingstray="editable">
+            
+      <h2 class="visually-hidden" id="block-ors-footer-menu">Footer</h2>
+    
+
+        
+              <ul data-region="postscript_1" class="au-link-list menu menu-level-0">
+                    <li class="menu-item">
+        <a href="https://www.infrastructure.gov.au/utilities/copyright.aspx">Copyright</a>
+              </li>
+                <li class="menu-item">
+        <a href="https://www.infrastructure.gov.au/utilities/disclaimer.aspx">Disclaimer</a>
+              </li>
+                <li class="menu-item">
+        <a href="https://www.infrastructure.gov.au/utilities/privacy.aspx">Privacy</a>
+              </li>
+                <li class="menu-item">
+        <a href="https://www.infrastructure.gov.au/">Department</a>
+              </li>
+                <li class="menu-item">
+        <a href="https://www.australia.gov.au/">australia.gov.au</a>
+              </li>
+        </ul>
+  
+
+
+  </nav>
+
+  </div>
+
+        </div>
+      
+              <div class="postscript-2 col-sm-6 col-md-6">
+            <div class="region region-postscript-2">
+    <div id="block-sociallinks" class="settings-tray-editable block block-block-content block-block-content33d5dee6-55ce-4c38-b767-0fa2c7cbe21d" data-drupal-settingstray="editable">
+  
+    
+      
+            <div class="field field--name-body field--type-text-with-summary field--label-hidden field__item"><ul>
+<li><a href="https://www.facebook.com/AusGovInfrastructure"><span>facebook</span></a></li>
+<li><a href="https://www.linkedin.com/company/infrastructureau/"><span>linkedin</span></a></li>
+<li><a href="https://www.youtube.com/c/InfrastructureTransportRegionalDevComms"><span>youtube</span></a></li>
+</ul>
+</div>
+      
+  </div>
+
+  </div>
+
+        </div>
+      
+      
+      
+      </div>    
+    
+  </div>
+  </footer>
+  <a href="#top" title="Back to top" class="back-to-top__link au-direction-link au-direction-link--up">Back to top</a>
+
+</div>
+
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","pathPrefix":"","currentPath":"node\/89","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"google_analytics":{"account":"G-QH724PXX59","trackOutbound":true,"trackMailto":true,"trackTel":true,"trackDownload":true,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc(x|m)?|dot(x|m)?|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt(x|m)?|pot(x|m)?|pps(x|m)?|ppam|sld(x|m)?|thmx|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls(x|m|b)?|xlt(x|m)|xlam|xml|z|zip","trackDomainMode":2,"trackCrossDomains":["www.officeofroadsafety.gov.au","officeofroadsafety.gov.au","ors.govcms.gov.au"]},"ajaxTrustedUrl":{"\/search":true},"user":{"uid":0,"permissionsHash":"61c1f2fc8169b6fb357d6f47da70189e6b8cfddddd4794236dd949720b30ea0c"}}</script>
+<script src="/core/assets/vendor/jquery/jquery.min.js?v=4.0.0"></script>
+<script src="/sites/default/files/js/js_Cumm3-Nn-JUQuEr-6xKGwltf_nRrHaA8UIEiUhpEjV0.js?scope=footer&amp;delta=1&amp;language=en&amp;theme=ors&amp;include=eJx9zsEKAjEMBNAfaunVvymxW8NgmkgSF_bvFcGL4N5mhncYNmOZnZTkSIxo_DMUtn2suPQn7sgeSZ7TG4tdSWrkIVD-gz6t0hjmG0zPlWJRzlOzCFqV9rJsww3To0GRxd7he2g4HhkvJ_9VEw"></script>
+
+  <noscript><img src="https://www.officeofroadsafety.gov.au/akam/13/pixel_7cdc35fd?a=dD1hMGFmNTY3MjI4NzVhODkyY2QyNDA3ZGEyOGJiYTIyYjE2MjMzNWU5JmpzPW9mZg==" style="visibility: hidden; position: absolute; left: -999px; top: -999px;" /></noscript></body>
+</html>

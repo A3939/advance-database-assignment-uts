@@ -5,6 +5,8 @@ import { join } from "node:path";
 import type { Filters, Response, Source } from "../services/contracts";
 import type { SpeedZoneBand, SpeedZoneData, SpeedZoneGroup } from "../services/speed-zone";
 import type { OfficialReadService } from "./official-data";
+import type { DataCatalog } from "../services/catalog-contracts";
+import { derivedSourceBinding, checkDerivedResponse, derivedEvidenceLink } from "./derived-report-binding";
 
 type Row = [period: string, band: string, crashes: number, fatalCrashes: number, fatalKnown: number];
 export interface SpeedZoneSnapshot {
@@ -35,22 +37,30 @@ export async function speedZoneEvidence() {
   return evidence;
 }
 
-export async function getSpeedZones(filters: Filters, service: Pick<OfficialReadService, "getOverview">, snapshot: SpeedZoneSnapshot): Promise<Response<SpeedZoneData>> {
+export async function getSpeedZones(filters: Filters, service: Pick<OfficialReadService, "getOverview">, snapshot: SpeedZoneSnapshot, catalog?: DataCatalog): Promise<Response<SpeedZoneData>> {
   const original = await service.getOverview(filters);
-  const reason = filters.batchId !== snapshot.batchId || filters.datasetVersion !== snapshot.datasetVersion
+  const identityMatches = !filters.releaseId && filters.batchId === snapshot.batchId && filters.datasetVersion === snapshot.datasetVersion;
+  const sources: Source[] = filters.source === "All"
+    ? original.data.crashes.bySource?.map(item => item.source) ?? (identityMatches ? Object.keys(snapshot.sources) : [])
+    : [filters.source];
+  const manifest = catalog?.mode === "local" ? await speedZoneEvidence() : undefined;
+  const bindings = new Map(sources.filter(source=>snapshot.sources[source]).map(source=>[source,derivedSourceBinding(filters,source,snapshot,catalog,manifest)]));
+  const reason = ![...bindings.values()].some(Boolean)
     ? "This batch has no verified speed-zone breakdown."
+    : filters.source !== "All" && !snapshot.sources[filters.source] ? "No verified speed-zone observations exist for this source."
     : filters.regionId ? "Speed-zone breakdowns are available for whole sources only."
     : filters.dateRange.from < snapshot.coverage.from || filters.dateRange.to > snapshot.coverage.to
       ? "Speed-zone data covers January 2020 to December 2024; select dates within this period."
       : !filters.dateRange.from.endsWith("-01") || new Date(Date.parse(filters.dateRange.to) + 86400000).getUTCDate() !== 1 || filters.dateRange.from > filters.dateRange.to
         ? "Select an ordered range of whole calendar months." : null;
-  const sources: Source[] = filters.source === "All" ? ["NSW", "VIC", "QLD"] : [filters.source];
+
   const groups = await Promise.all(sources.map(async (source): Promise<SpeedZoneGroup> => {
     const data = snapshot.sources[source];
-    const empty = {source, field:data.field, rows:[], excluded:[]};
-    if (reason) return {...empty, availability:"unsupported", reason};
+    const empty = {source, field:data?.field ?? "", rows:[], excluded:[]};
+    const binding=bindings.get(source);
+    if (reason || !data || !binding) return {...empty, availability:"unsupported", reason:reason || "No verified speed-zone observations exist for this source."};
     const overview = await service.getOverview({...filters, source});
-    if (overview.meta.source !== source || overview.meta.batchId !== filters.batchId || overview.meta.datasetVersion !== filters.datasetVersion) throw Error("Speed-zone source identity mismatch.");
+    checkDerivedResponse(overview.meta,{...filters,source},binding);
     if (overview.meta.availability !== "available" || overview.data.crashes.value === null) return {...empty, availability:"unknown", reason:"Verified source counts are unavailable for this selection."};
     const selected = (rows: Row[]) => rows.filter(row => row[0] >= filters.dateRange.from.slice(0, 7) && row[0] <= filters.dateRange.to.slice(0, 7));
     const rows = selected(data.rows), excluded = selected(data.excluded);
@@ -79,9 +89,9 @@ export async function getSpeedZones(filters: Filters, service: Pick<OfficialRead
       rows:values, excluded:excludedValues};
   }));
   return {data:{bands:snapshot.bands, groups, reason}, meta:{...original.meta,
-    availability:reason ? "unsupported" : groups.some(group => group.availability === "available") ? "available" : groups.some(group => group.availability === "unknown") ? "unknown" : "no_results",
+    availability:reason ? "unsupported" : groups.some(group => group.availability === "available") ? "available" : groups.some(group => group.availability === "unknown") ? "unknown" : groups.some(group => group.availability === "unsupported") ? "unsupported" : "no_results",
     ...(reason ? {reason} : {}), unit:"percent",
     definition:"Fatal crash events / all recorded crash events within each source, selected months and posted speed band. Entire published QLD ranges are preserved. Unknown/special and other unmatched speed values remain excluded and auditable. Source coverage differs; these shares are not traffic-exposure risk or safety rankings.",
-    evidence:[...original.meta.evidence, {id:snapshot.extensionVersion, title:"Speed-zone derivation", description:"Hash-bound native crash inputs; monthly crash and fatal totals reconcile to the admitted project snapshot. No vehicle speeds or person-level measures are used.", href:"/api/data/speed-zone-evidence"}],
+    evidence:[...original.meta.evidence, ...([...bindings.values()].some(Boolean) ? [{id:snapshot.extensionVersion, title:"Speed-zone derivation", description:"Hash-bound native crash inputs; monthly crash and fatal totals reconcile to the admitted project snapshot. No vehicle speeds or person-level measures are used.", href:derivedEvidenceLink("speed-zone-evidence",filters), result:{bindings:[...bindings.values()].filter(Boolean)}}] : [])],
   }};
 }

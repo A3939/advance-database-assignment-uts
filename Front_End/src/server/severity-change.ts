@@ -1,35 +1,45 @@
 import type { Filters, Response, Source } from "../services/contracts";
 import { severityChangePeriods, type SeverityChange, type SeverityChangeGroup } from "../services/severity-change";
 import type { OfficialReadService } from "./official-data";
-import type { RegionSnapshot } from "./region-data";
+import { regionEvidence, type RegionSnapshot } from "./region-data";
+import type { DataCatalog } from "../services/catalog-contracts";
+import { derivedSourceBinding, checkDerivedResponse, derivedEvidenceLink } from "./derived-report-binding";
 
 /** A separate derived report: never allocate the five-year D06 export to years. */
 export async function getSeverityChange(
   filters: Filters,
   service: Pick<OfficialReadService, "getOverview">,
   snapshot: RegionSnapshot,
+  catalog?: DataCatalog,
 ): Promise<Response<SeverityChange>> {
   const periods = severityChangePeriods(filters.dateRange);
   const original = await service.getOverview(filters);
-  const identityMatches = filters.batchId === snapshot.batchId && filters.datasetVersion === snapshot.datasetVersion;
+  const identityMatches = !filters.releaseId && filters.batchId === snapshot.batchId && filters.datasetVersion === snapshot.datasetVersion;
+  const sources = filters.source === "All"
+    ? original.data.crashes.bySource?.map(item => item.source) ?? (identityMatches ? Object.keys(snapshot.sources) as Source[] : [])
+    : [filters.source];
+  const manifest = catalog?.mode === "local" ? await regionEvidence() : undefined;
+  const bindings = new Map(sources.filter(source=>snapshot.sources[source]).map(source=>[source,derivedSourceBinding(filters,source,snapshot,catalog,manifest)]));
   const covered = periods?.every(period => period.dateRange.from >= snapshot.coverage.from && period.dateRange.to <= snapshot.coverage.to);
-  const reason = !identityMatches ? "This batch has no verified monthly severity comparison."
+  const reason = ![...bindings.values()].some(Boolean) ? "This batch has no verified monthly severity comparison."
+    : filters.source !== "All" && !snapshot.sources[filters.source] ? "No verified monthly severity observations exist for this source."
     : !periods ? "Select at least two years with matching calendar months to compare severity shares."
     : !covered ? "Both comparison periods must be fully covered by this snapshot."
     : null;
-  const sources = filters.source === "All" ? Object.keys(snapshot.sources) as Source[] : [filters.source];
+
   const groups = await Promise.all(sources.map(async (source): Promise<SeverityChangeGroup> => {
     const data = snapshot.sources[source];
+    const empty = { source, area: null, totals: null, rows: [] };
+    const binding=bindings.get(source);
+    if (reason || !periods || !data || !binding) return { ...empty, availability: "unsupported", reason: reason || "No verified monthly severity observations exist for this source." };
     const area = filters.regionId ? data.regions.find(region => region.id === filters.regionId)?.name : null;
     if (filters.regionId && !area) throw Error("Unknown comparison area.");
-    const empty = { source, area: area ?? null, totals: null, rows: [] };
-    if (reason || !periods) return { ...empty, availability: "unsupported", reason };
     const results = await Promise.all(periods.map(async period => {
       // Source-wide includes __unmatched__; selecting an LGA intentionally restricts it.
       const rows = data.rows.filter(row => row[0] >= period.dateRange.from.slice(0, 7) && row[0] <= period.dateRange.to.slice(0, 7) && (!filters.regionId || row[1] === filters.regionId));
       const scoped = { ...filters, source, dateRange: period.dateRange };
       const overview = await service.getOverview(scoped);
-      if (overview.meta.source !== source || overview.meta.batchId !== filters.batchId || overview.meta.datasetVersion !== filters.datasetVersion) throw Error("Severity comparison identity mismatch.");
+      checkDerivedResponse(overview.meta,scoped,binding);
       if (overview.meta.availability !== "available" || overview.data.crashes.availability !== "available" || overview.data.crashes.value === null) return null;
       const counts = data.severityLabels.map(() => 0);
       let total = 0;
@@ -57,10 +67,10 @@ export async function getSeverityChange(
   return {
     data: { periods, groups, reason },
     meta: {
-      ...original.meta, availability: reason ? "unsupported" : groups.some(group => group.availability === "available") ? "available" : groups.some(group => group.availability === "unknown") ? "unknown" : "no_results",
+      ...original.meta, availability: reason ? "unsupported" : groups.some(group => group.availability === "available") ? "available" : groups.some(group => group.availability === "unknown") ? "unknown" : groups.some(group => group.availability === "unsupported") ? "unsupported" : "no_results",
       ...(reason ? { reason } : {}), unit: "percentage points",
       definition: "Native severity shares in the first and last selected years, using matching calendar months and all recorded crashes in each period. Derived from hash-verified monthly observations, including unmatched areas in source-wide totals. Source classifications remain separate; no national total or inferred monthly allocation.",
-      evidence: [...original.meta.evidence, { id: snapshot.extensionVersion, title: "Monthly severity derivation", description: "Monthly category counts reconcile to the selected crash totals. This derived comparison does not alter the official five-year severity export.", href: "/api/data/region-evidence" }],
+      evidence: [...original.meta.evidence, ...([...bindings.values()].some(Boolean) ? [{ id: snapshot.extensionVersion, title: "Monthly severity derivation", description: "Monthly category counts reconcile to the selected crash totals. This derived comparison does not alter the official five-year severity export.", href: derivedEvidenceLink("region-evidence",filters), result: {bindings:[...bindings.values()].filter(Boolean)} }] : [])],
     },
   };
 }

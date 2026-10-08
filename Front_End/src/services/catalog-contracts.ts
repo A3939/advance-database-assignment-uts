@@ -1,3 +1,4 @@
+import type { PreprocessingQuality } from './preprocessing-contracts';
 import type { Filters, Source } from './contracts';
 import { DEFAULT_FILTERS } from './config';
 export const LOCAL_VERSION = 'local-integrated-v1';
@@ -6,7 +7,10 @@ export interface ResourceLicensing {
   resources: {role: string; resource_url: string|null; status: 'unknown'|'verified'|'restricted'|'conflicting'; licence_uri?: string; declared_text?: unknown; evidence: unknown[]; limitation: string}[];
 }
 export interface CatalogSource {
-  publicationStatus?: {admission_level: 'official_admitted'|'fixed_native'|'manual_reviewed'|'legacy_unclassified'; label:string; official_registration:boolean; scope:'local_research'};
+  regionalProvider?: {kind:'verified-lga-snapshot'; releaseId:string; sourceBatchId:string; sourceId:string;
+    datasetVersion:string; batchId:string; aggregateSha256:string; coverage:{from:string;to:string};
+    inputs:{resourceId:string;sha256:string}[]};
+  publicationStatus?: {admission_level: 'official_admitted'|'fixed_native'|'manual_reviewed'|'legacy_unclassified'; label:string; official_registration:boolean; scope:'local_research'; quality_report?:PreprocessingQuality; research_context?:{original_goal?:unknown;target_satisfied:boolean;official_identity_verified?:boolean}};
   capabilityLimits?: {role:string;capability:string;status:string;requested:boolean;reason:string;actual:string;target_satisfied:boolean}[];
   capabilityReview?: unknown;
   retainedResources?: {version:string;canonical_contribution:number;limitation:string;resources:{role:string;records_scanned:number;scan_complete:boolean;semantic_qa:string;reason:string;requested:boolean;file_sha256:string;raw_row_sequence_sha256:string}[]};
@@ -44,7 +48,7 @@ export const SNAPSHOT_CATALOG: DataCatalog = {
   mode: 'snapshot', localStatus: 'not_requested', datasetVersion: DEFAULT_FILTERS.datasetVersion, batchId: DEFAULT_FILTERS.batchId,
   coverage: DEFAULT_FILTERS.dateRange,
   sources: [['NSW','New South Wales'],['VIC','Victoria'],['QLD','Queensland']].map(([source,title]) => ({
-    source: source as Source, sourceId: `official_${source.toLowerCase()}`, title, jurisdiction: source, publisher: 'Official project snapshot',
+    source, sourceId: `official_${source.toLowerCase()}`, title, jurisdiction: source, publisher: 'Official project snapshot',
     batchId: DEFAULT_FILTERS.batchId, origin: 'snapshot', coverage: DEFAULT_FILTERS.dateRange,
     capabilities: { monthly: true, severity: true, geography: true, units: false }, definitions: {}, limitations: [],
   })),
@@ -59,4 +63,21 @@ export function coverageMonthRange(coverage: Filters['dateRange']): Filters['dat
 }
 export function sourceCoverage(catalog: DataCatalog, source: string) {
   return catalog.sources.find(item => item.source === source)?.coverage || catalog.coverage;
+}
+export async function fetchCatalog(releaseId?: string, signal?: AbortSignal, snapshot = false): Promise<DataCatalog> {
+  const p = new URLSearchParams();
+  if (releaseId) p.set('releaseId', releaseId);
+  if (snapshot) p.set('datasetVersion', DEFAULT_FILTERS.datasetVersion);
+  const r = await fetch(`/api/data/catalog?${p}`, { signal, cache: 'no-store' });
+  if (!r.ok) throw Error('The requested data release is unavailable. No newer version has been substituted.');
+  return r.json();
+}
+
+/** Area filters need an actual area provider; rounded coordinates alone do not qualify. */
+export function hasRegionalProvider(source: CatalogSource | undefined, releaseId?: string): boolean {
+  if (!source?.capabilities.geography) return false;
+  if (source.origin === 'snapshot') return true;
+  const binding = source.regionalProvider;
+  return !!binding && binding.kind === 'verified-lga-snapshot' && binding.releaseId === releaseId &&
+    binding.sourceId === source.sourceId && binding.sourceBatchId === source.batchId;
 }

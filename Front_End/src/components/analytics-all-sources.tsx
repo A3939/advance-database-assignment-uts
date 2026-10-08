@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import dynamic from "next/dynamic";
-import { ArrowUpRight, ArrowDownWideNarrow, CalendarDays, CarFront, Heart, Info, Map, MapPin, PieChart, Siren, Target, TrendingUp, Users, type LucideIcon } from "lucide-react";
+import { ArrowDownWideNarrow, CalendarDays, CarFront, Heart, Info, Map, MapPin, PieChart, Siren, Target, TrendingUp, Users, type LucideIcon } from "lucide-react";
 import { allSourceAreaRanking, monthlyInsights, spatialInsights } from "@/services/analytics-insights";
 import { timePointLabel } from "@/services/periods";
 import type { getAnalytics, MetricKey } from "@/services/analytics";
@@ -81,7 +81,6 @@ export default function AnalyticsAllSources({ bundles, dashboard, metric, granul
         <div className={styles.cardHeading}><div><h2>Severity distribution by source</h2></div><div className={styles.segment} aria-label="Severity measure">{(["count", "share"] as const).map(value => <button key={value} aria-pressed={severityMode === value} onClick={() => setSeverityMode(value)}>{value === "count" ? "Count" : "Share"}</button>)}</div></div>
         <div className={styles.severityChart} data-mode={severityMode}>{bundles.some(({data}) => data.severityAvailability === "available") ? severityMode === "share" ? <AnalyticsSeverityShare sources={bundles.map(({data}) => data.source)} rows={bundles.flatMap(({data}) => data.severityAvailability === "available" ? data.severity.map(row => ({...row, source:data.source})) : [])}/> : <Chart kind="severity" rows={[]} severitySources={bundles.map(({data}) => data.source)} severity={bundles.flatMap(({data}) => data.severityAvailability === "available" ? data.severity.map(row => ({...row, source:data.source})) : [])} mode={severityMode}/> : <div className={styles.chartLoading} role="status">No category breakdown is available for this selection.</div>}</div>
         {bundles.filter(({data}) => data.severityAvailability !== "available").map(({data}) => <p className={styles.severityNotice} key={data.source}>{data.source}: {data.severityReason || "Category breakdown unavailable for this selection."}</p>)}
-        <div className={styles.cardFoot}><span>Source definitions differ · N/A ≠ 0</span><button onClick={() => evidence("Severity definitions & values", "Categories are grouped for display only. Share uses each source’s own selected-period crash denominator. These native categories are not an interstate harmonisation.", bundles.flatMap(({data}) => data.severity.map(row => ({label:`${data.source} · ${row.label}`, value:`${number(row.count)} crashes · ${row.share != null && row.share > 0 && row.share < .001 ? "<0.1%" : percentage(row.share == null ? null : row.share * 100)} · ${row.definition}`}))))}>Definitions <ArrowUpRight size={14}/></button></div>
       </article>
       {bundles[0] && <AnalyticsSpeedZone filters={{...bundles[0].data.filters, source:"All", regionId:undefined}} evidence={evidence}/>}
     </section>}
@@ -102,7 +101,7 @@ export default function AnalyticsAllSources({ bundles, dashboard, metric, granul
     {dashboard === "trends" && <article className={styles.card} style={{marginBlock:"var(--analysis-gap, 20px)"}} aria-label="Source trend comparison">
       <div className={styles.cardHeading} style={{flexWrap:"wrap"}}>
         <div style={{display:"flex",alignItems:"center",gap:10}}><h2>{labels[metric]} over time</h2><button className={styles.info} aria-label="Source trend values and definitions" onClick={() => evidence(`${labels[metric]} over time`, "Source counts use the same time and value axes and remain separate. Definitions and coverage differ by source. Missing values are gaps, not zeros. Asterisks mark selected-month subtotals.", bundles.flatMap(({data}) => (granularity === "monthly" ? data.monthly : data.timeSeriesYearly).map(row => ({label:`${data.source} · ${timePointLabel(row)}`, value:number(row[metric])}))))}><Info size={16}/></button></div>
-        <div className={styles.segment} aria-label="Trend interval">{(["monthly", "yearly"] as const).map(value => <button key={value} aria-pressed={granularity === value} onClick={() => setGranularity(value)}>{value === "monthly" ? "Monthly" : "Yearly"}</button>)}</div>
+        <div className={styles.segment} aria-label="Trend interval">{(["monthly", "yearly"] as const).map(value => <button key={value} aria-pressed={granularity === value} disabled={value === "monthly" && bundles.every(({data}) => data.monthlyAvailability === "unsupported")} onClick={() => setGranularity(value)}>{value === "monthly" ? "Monthly" : "Yearly"}</button>)}</div>
       </div>
       <div className={styles.metricTabs} aria-label="Trend metric">{Object.entries(labels).map(([key, label]) => <button key={key} aria-pressed={metric === key} onClick={() => setMetric(key as MetricKey)}>{label}</button>)}</div>
       {/* Keep a definite, non-shrinking canvas host even while development styles refresh. */}

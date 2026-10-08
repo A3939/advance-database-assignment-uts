@@ -100,7 +100,7 @@ export function allocate(total: number, weights: number[]): number[] {
 // Dates represent months, never fabricated daily granularity.
 export const MONTHLY = Object.fromEntries(
   (Object.keys(FIXTURES) as Source[]).map((source) => {
-    const f = FIXTURES[source];
+    const f = FIXTURES[source as keyof typeof FIXTURES];
     const crashes = f.annual.flatMap((n) =>
       allocate(n, [8, 7, 9, 8, 8, 7, 8, 9, 8, 9, 9, 10]),
     );

@@ -5,14 +5,13 @@ import { loadRegionSnapshot, createRegionalProvider, regionEvidence } from "../s
 import { DEFAULT_FILTERS, selectSource } from "../src/services/config";
 import { executeAnalysisTool } from "../src/server/agent/tools";
 import { parseAgentRequest } from "../src/server/agent/request";
-import type { Source } from "../src/services/contracts";
 let snapshot: Awaited<ReturnType<typeof loadOfficialSnapshot>>, regional: Awaited<ReturnType<typeof loadRegionSnapshot>>, service: ReturnType<typeof createRegionalProvider>;
 before(async () => {
   snapshot = await loadOfficialSnapshot(); regional = await loadRegionSnapshot();
   service = createRegionalProvider(createOfficialProvider(snapshot), regional);
 });
 const expected = { NSW: [92077,5], VIC: [69805,2365], QLD: [66623,1] };
-for (const source of ["NSW","VIC","QLD"] as Source[]) test(`${source}: real region coverage reconciles per month, source metrics and severity remain pinned`, async () => {
+for (const source of ["NSW","VIC","QLD"] as ("NSW" | "VIC" | "QLD")[]) test(`${source}: real region coverage reconciles per month, source metrics and severity remain pinned`, async () => {
   const f = selectSource(DEFAULT_FILTERS,source), map = await service.getMapData(f);
   assert.deepEqual([map.data.coverage!.matched,map.data.coverage!.unmatched], expected[source]);
   assert.equal(map.data.regions.reduce((n,r)=>n+r.count,0),expected[source][0]);

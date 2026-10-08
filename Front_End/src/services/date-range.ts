@@ -1,4 +1,5 @@
-export const LOCAL_DATE_BOUNDS = { min: "2019-01", max: "2026-12" };
+import calendarBounds from "../../pipeline/arsia_pipeline/knowledge/date-range.json";
+export const LOCAL_DATE_BOUNDS = {min:`${calendarBounds.min_year}-01`, max:`${calendarBounds.max_year}-12`};
 import type { Filters } from "./contracts";
 
 export const MIN_ANALYSIS_MONTH = "2019-01";

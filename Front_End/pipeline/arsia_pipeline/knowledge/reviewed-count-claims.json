@@ -1,0 +1,283 @@
+{
+  "version": "implementation-reviewed-count-claims-v1",
+  "scope": "Pinned source interpretation only. No upload provenance, admission, cross-source harmonization or future dictionary/version authority. Mutable model proposals cannot add rules.",
+  "claims": [
+    {
+      "id": "sa-20251215-total-fats",
+      "dataset_urls": [
+        "https://data.sa.gov.au/data/dataset/road-crash-data",
+        "https://data.sa.gov.au/data/dataset/21386a53-56a1-4edf-bd0b-61ed15f10acf"
+      ],
+      "document_url": "https://data.sa.gov.au/data/dataset/21386a53-56a1-4edf-bd0b-61ed15f10acf/resource/02fb14f9-8dcb-4a59-863c-5f7cc3ae1832/download/metadata-for-road-crash-data-20251215.pdf",
+      "document_sha256": "cc83678628700ab4867bed6938635c7a34c8eb749ab16523917a1fcd8fbbedac",
+      "grain": "crash",
+      "key": [
+        "REPORT_ID"
+      ],
+      "field": "Total Fats",
+      "measure": "fatalities",
+      "coverage": {
+        "from": "2020-01-01",
+        "to": "2024-12-31"
+      },
+      "references": [
+        {
+          "document_id": "pinned-dictionary",
+          "document_sha256": "cc83678628700ab4867bed6938635c7a34c8eb749ab16523917a1fcd8fbbedac",
+          "locator": {
+            "kind": "pdf-text-range",
+            "page_from": 2,
+            "page_to": 2,
+            "start": 40,
+            "end": 923
+          },
+          "value_sha256": "51a3f3f2952036c4346fafe772205e5c0a1a4818fcaf5e2c401b1b80c6305100",
+          "quote": "Export Specification: \nCrash Type  Unit  Casualty \nREPORT_ID  REPORT_ID \n \nREPORT_ID \nStats Area  Unit No \n \nUND_UNIT_NUMBER \nSuburb  No Of Cas  CASUALTY_NUMBER \nPostcode  Veh Reg State  Casualty Type \nLGA Name  Unit Type  Sex \nTotal Units  Veh Year  AGE \nTotal Cas  Direction Of Travel  Position In Veh \nTotal Fats  Sex  Thrown Out \nTotal SI  Age  Injury Extent \nTotal MI  Lic State  Seat Belt \nYear  Licence Class  Helmet \nMonth  Licence Type  Hospital \nDay  Towing   \nTime  Unit Movement   \nArea Speed  Number Occupants   \nPosition Type  Postcode   \nHorizontal Align  Rollover   \nVertical Align  Fire   \nOther Feat     \nRoad Surface     \nMoisture Cond     \nWeather Cond     \nDayNight     \nCrash Type     \nUnit Resp     \nEntity Code     \nCSEF Severity     \nTraffic Ctrls     \nDUI Involved     \nDrugs Involved     \nACCLOC_X     \nACCLOC_Y     \nUNIQUE_LOC     \nCrash Date Time     \n \n",
+          "reference_version": "pinned-evidence-reference-v1",
+          "extractor_version": "raw-metadata-v1"
+        },
+        {
+          "document_id": "pinned-dictionary",
+          "document_sha256": "cc83678628700ab4867bed6938635c7a34c8eb749ab16523917a1fcd8fbbedac",
+          "locator": {
+            "kind": "pdf-text-range",
+            "page_from": 3,
+            "page_to": 3,
+            "start": 607,
+            "end": 680
+          },
+          "value_sha256": "6b6a5da6d76fffc0d3d9bbf2480135d6d0ad671860dde998a6874415a8485585",
+          "quote": "Total Fatalities Total number of fatalities as a result of a road crash \n",
+          "reference_version": "pinned-evidence-reference-v1",
+          "extractor_version": "raw-metadata-v1"
+        },
+        {
+          "document_id": "pinned-dictionary",
+          "document_sha256": "cc83678628700ab4867bed6938635c7a34c8eb749ab16523917a1fcd8fbbedac",
+          "locator": {
+            "kind": "pdf-text-range",
+            "page_from": 6,
+            "page_to": 6,
+            "start": 706,
+            "end": 811
+          },
+          "value_sha256": "b7883479fa4bd42a498986d6184b8c0e152a5825263efa6821fb18eecb3593cd",
+          "quote": "Fatality - A person who dies within 30 days of a crash as a result of injuries sustained in that crash. \n",
+          "reference_version": "pinned-evidence-reference-v1",
+          "extractor_version": "raw-metadata-v1"
+        }
+      ],
+      "definition_reference": 1,
+      "source_limits": "Deaths within 30 days, as defined by this publisher; not fatal crash count.",
+      "review_method": "Implementation inspection of rendered export layout p2 and dictionary rows p3/p4 plus population definitions p6. Alias interpretation is reviewed code data, not a claim that the publisher supplies an explicit machine-readable alias mapping."
+    },
+    {
+      "id": "sa-20251215-total-cas",
+      "dataset_urls": [
+        "https://data.sa.gov.au/data/dataset/road-crash-data",
+        "https://data.sa.gov.au/data/dataset/21386a53-56a1-4edf-bd0b-61ed15f10acf"
+      ],
+      "document_url": "https://data.sa.gov.au/data/dataset/21386a53-56a1-4edf-bd0b-61ed15f10acf/resource/02fb14f9-8dcb-4a59-863c-5f7cc3ae1832/download/metadata-for-road-crash-data-20251215.pdf",
+      "document_sha256": "cc83678628700ab4867bed6938635c7a34c8eb749ab16523917a1fcd8fbbedac",
+      "grain": "crash",
+      "key": [
+        "REPORT_ID"
+      ],
+      "field": "Total Cas",
+      "measure": "casualties",
+      "coverage": {
+        "from": "2020-01-01",
+        "to": "2024-12-31"
+      },
+      "references": [
+        {
+          "document_id": "pinned-dictionary",
+          "document_sha256": "cc83678628700ab4867bed6938635c7a34c8eb749ab16523917a1fcd8fbbedac",
+          "locator": {
+            "kind": "pdf-text-range",
+            "page_from": 2,
+            "page_to": 2,
+            "start": 40,
+            "end": 923
+          },
+          "value_sha256": "51a3f3f2952036c4346fafe772205e5c0a1a4818fcaf5e2c401b1b80c6305100",
+          "quote": "Export Specification: \nCrash Type  Unit  Casualty \nREPORT_ID  REPORT_ID \n \nREPORT_ID \nStats Area  Unit No \n \nUND_UNIT_NUMBER \nSuburb  No Of Cas  CASUALTY_NUMBER \nPostcode  Veh Reg State  Casualty Type \nLGA Name  Unit Type  Sex \nTotal Units  Veh Year  AGE \nTotal Cas  Direction Of Travel  Position In Veh \nTotal Fats  Sex  Thrown Out \nTotal SI  Age  Injury Extent \nTotal MI  Lic State  Seat Belt \nYear  Licence Class  Helmet \nMonth  Licence Type  Hospital \nDay  Towing   \nTime  Unit Movement   \nArea Speed  Number Occupants   \nPosition Type  Postcode   \nHorizontal Align  Rollover   \nVertical Align  Fire   \nOther Feat     \nRoad Surface     \nMoisture Cond     \nWeather Cond     \nDayNight     \nCrash Type     \nUnit Resp     \nEntity Code     \nCSEF Severity     \nTraffic Ctrls     \nDUI Involved     \nDrugs Involved     \nACCLOC_X     \nACCLOC_Y     \nUNIQUE_LOC     \nCrash Date Time     \n \n",
+          "reference_version": "pinned-evidence-reference-v1",
+          "extractor_version": "raw-metadata-v1"
+        },
+        {
+          "document_id": "pinned-dictionary",
+          "document_sha256": "cc83678628700ab4867bed6938635c7a34c8eb749ab16523917a1fcd8fbbedac",
+          "locator": {
+            "kind": "pdf-text-range",
+            "page_from": 3,
+            "page_to": 3,
+            "start": 500,
+            "end": 607
+          },
+          "value_sha256": "98cc5b9685f87a42e062d47bdf492eb14aa616245819214c7d955a1e4d068d22",
+          "quote": "Total Casualties Total number of casualties (fatalities + treated \n injuries) as a result of a road crash \n",
+          "reference_version": "pinned-evidence-reference-v1",
+          "extractor_version": "raw-metadata-v1"
+        },
+        {
+          "document_id": "pinned-dictionary",
+          "document_sha256": "cc83678628700ab4867bed6938635c7a34c8eb749ab16523917a1fcd8fbbedac",
+          "locator": {
+            "kind": "pdf-text-range",
+            "page_from": 6,
+            "page_to": 6,
+            "start": 428,
+            "end": 493
+          },
+          "value_sha256": "594fa70c6dd3374e267c2a48971f057eac4171f9be59f83349ffef6566367294",
+          "quote": "Casualty - Any person killed or injured as a result of a crash. \n",
+          "reference_version": "pinned-evidence-reference-v1",
+          "extractor_version": "raw-metadata-v1"
+        }
+      ],
+      "definition_reference": 1,
+      "source_limits": "Fatalities plus treated injuries, as defined by this publisher; not all involved persons.",
+      "review_method": "Implementation inspection of rendered export layout p2 and dictionary rows p3/p4 plus population definitions p6. Alias interpretation is reviewed code data, not a claim that the publisher supplies an explicit machine-readable alias mapping."
+    },
+    {
+      "id": "sa-20251215-total-units",
+      "dataset_urls": [
+        "https://data.sa.gov.au/data/dataset/road-crash-data",
+        "https://data.sa.gov.au/data/dataset/21386a53-56a1-4edf-bd0b-61ed15f10acf"
+      ],
+      "document_url": "https://data.sa.gov.au/data/dataset/21386a53-56a1-4edf-bd0b-61ed15f10acf/resource/02fb14f9-8dcb-4a59-863c-5f7cc3ae1832/download/metadata-for-road-crash-data-20251215.pdf",
+      "document_sha256": "cc83678628700ab4867bed6938635c7a34c8eb749ab16523917a1fcd8fbbedac",
+      "grain": "crash",
+      "key": [
+        "REPORT_ID"
+      ],
+      "field": "Total Units",
+      "measure": "units",
+      "coverage": {
+        "from": "2020-01-01",
+        "to": "2024-12-31"
+      },
+      "references": [
+        {
+          "document_id": "pinned-dictionary",
+          "document_sha256": "cc83678628700ab4867bed6938635c7a34c8eb749ab16523917a1fcd8fbbedac",
+          "locator": {
+            "kind": "pdf-text-range",
+            "page_from": 2,
+            "page_to": 2,
+            "start": 40,
+            "end": 923
+          },
+          "value_sha256": "51a3f3f2952036c4346fafe772205e5c0a1a4818fcaf5e2c401b1b80c6305100",
+          "quote": "Export Specification: \nCrash Type  Unit  Casualty \nREPORT_ID  REPORT_ID \n \nREPORT_ID \nStats Area  Unit No \n \nUND_UNIT_NUMBER \nSuburb  No Of Cas  CASUALTY_NUMBER \nPostcode  Veh Reg State  Casualty Type \nLGA Name  Unit Type  Sex \nTotal Units  Veh Year  AGE \nTotal Cas  Direction Of Travel  Position In Veh \nTotal Fats  Sex  Thrown Out \nTotal SI  Age  Injury Extent \nTotal MI  Lic State  Seat Belt \nYear  Licence Class  Helmet \nMonth  Licence Type  Hospital \nDay  Towing   \nTime  Unit Movement   \nArea Speed  Number Occupants   \nPosition Type  Postcode   \nHorizontal Align  Rollover   \nVertical Align  Fire   \nOther Feat     \nRoad Surface     \nMoisture Cond     \nWeather Cond     \nDayNight     \nCrash Type     \nUnit Resp     \nEntity Code     \nCSEF Severity     \nTraffic Ctrls     \nDUI Involved     \nDrugs Involved     \nACCLOC_X     \nACCLOC_Y     \nUNIQUE_LOC     \nCrash Date Time     \n \n",
+          "reference_version": "pinned-evidence-reference-v1",
+          "extractor_version": "raw-metadata-v1"
+        },
+        {
+          "document_id": "pinned-dictionary",
+          "document_sha256": "cc83678628700ab4867bed6938635c7a34c8eb749ab16523917a1fcd8fbbedac",
+          "locator": {
+            "kind": "pdf-text-range",
+            "page_from": 3,
+            "page_to": 3,
+            "start": 436,
+            "end": 500
+          },
+          "value_sha256": "5945114f888152bf3ed7a325d4a26a7b12b0118a75ad03707f531a8b670a8fb9",
+          "quote": "Total Units The total number of units involved in a road crash \n",
+          "reference_version": "pinned-evidence-reference-v1",
+          "extractor_version": "raw-metadata-v1"
+        },
+        {
+          "document_id": "pinned-dictionary",
+          "document_sha256": "cc83678628700ab4867bed6938635c7a34c8eb749ab16523917a1fcd8fbbedac",
+          "locator": {
+            "kind": "pdf-text-range",
+            "page_from": 6,
+            "page_to": 6,
+            "start": 2734,
+            "end": 2818
+          },
+          "value_sha256": "be18dc8dc1de24e76910bdb22a5d62dda22c8c94ef70c8225d02fa9ea467e4c9",
+          "quote": "Unit – Any vehicle or other Road User, animal or object involved in a road crash. \n ",
+          "reference_version": "pinned-evidence-reference-v1",
+          "extractor_version": "raw-metadata-v1"
+        }
+      ],
+      "definition_reference": 1,
+      "source_limits": "Units include vehicles, other road users, animals or objects; not people count.",
+      "review_method": "Implementation inspection of rendered export layout p2 and dictionary rows p3/p4 plus population definitions p6. Alias interpretation is reviewed code data, not a claim that the publisher supplies an explicit machine-readable alias mapping."
+    },
+    {
+      "id": "sa-20251215-no-of-cas",
+      "dataset_urls": [
+        "https://data.sa.gov.au/data/dataset/road-crash-data",
+        "https://data.sa.gov.au/data/dataset/21386a53-56a1-4edf-bd0b-61ed15f10acf"
+      ],
+      "document_url": "https://data.sa.gov.au/data/dataset/21386a53-56a1-4edf-bd0b-61ed15f10acf/resource/02fb14f9-8dcb-4a59-863c-5f7cc3ae1832/download/metadata-for-road-crash-data-20251215.pdf",
+      "document_sha256": "cc83678628700ab4867bed6938635c7a34c8eb749ab16523917a1fcd8fbbedac",
+      "grain": "unit",
+      "key": [
+        "REPORT_ID",
+        "Unit No"
+      ],
+      "field": "No Of Cas",
+      "measure": "casualties",
+      "coverage": {
+        "from": "2020-01-01",
+        "to": "2024-12-31"
+      },
+      "references": [
+        {
+          "document_id": "pinned-dictionary",
+          "document_sha256": "cc83678628700ab4867bed6938635c7a34c8eb749ab16523917a1fcd8fbbedac",
+          "locator": {
+            "kind": "pdf-text-range",
+            "page_from": 2,
+            "page_to": 2,
+            "start": 40,
+            "end": 923
+          },
+          "value_sha256": "51a3f3f2952036c4346fafe772205e5c0a1a4818fcaf5e2c401b1b80c6305100",
+          "quote": "Export Specification: \nCrash Type  Unit  Casualty \nREPORT_ID  REPORT_ID \n \nREPORT_ID \nStats Area  Unit No \n \nUND_UNIT_NUMBER \nSuburb  No Of Cas  CASUALTY_NUMBER \nPostcode  Veh Reg State  Casualty Type \nLGA Name  Unit Type  Sex \nTotal Units  Veh Year  AGE \nTotal Cas  Direction Of Travel  Position In Veh \nTotal Fats  Sex  Thrown Out \nTotal SI  Age  Injury Extent \nTotal MI  Lic State  Seat Belt \nYear  Licence Class  Helmet \nMonth  Licence Type  Hospital \nDay  Towing   \nTime  Unit Movement   \nArea Speed  Number Occupants   \nPosition Type  Postcode   \nHorizontal Align  Rollover   \nVertical Align  Fire   \nOther Feat     \nRoad Surface     \nMoisture Cond     \nWeather Cond     \nDayNight     \nCrash Type     \nUnit Resp     \nEntity Code     \nCSEF Severity     \nTraffic Ctrls     \nDUI Involved     \nDrugs Involved     \nACCLOC_X     \nACCLOC_Y     \nUNIQUE_LOC     \nCrash Date Time     \n \n",
+          "reference_version": "pinned-evidence-reference-v1",
+          "extractor_version": "raw-metadata-v1"
+        },
+        {
+          "document_id": "pinned-dictionary",
+          "document_sha256": "cc83678628700ab4867bed6938635c7a34c8eb749ab16523917a1fcd8fbbedac",
+          "locator": {
+            "kind": "pdf-text-range",
+            "page_from": 4,
+            "page_to": 4,
+            "start": 1255,
+            "end": 1345
+          },
+          "value_sha256": "e024d688d7dd2b7e492f2f99039ac9dd917d598f3c4c446097c3b85f2cc6bb9c",
+          "quote": "Number of Casualties The total number of casualties for a unit involved in a \nroad crash \n",
+          "reference_version": "pinned-evidence-reference-v1",
+          "extractor_version": "raw-metadata-v1"
+        },
+        {
+          "document_id": "pinned-dictionary",
+          "document_sha256": "cc83678628700ab4867bed6938635c7a34c8eb749ab16523917a1fcd8fbbedac",
+          "locator": {
+            "kind": "pdf-text-range",
+            "page_from": 6,
+            "page_to": 6,
+            "start": 428,
+            "end": 493
+          },
+          "value_sha256": "594fa70c6dd3374e267c2a48971f057eac4171f9be59f83349ffef6566367294",
+          "quote": "Casualty - Any person killed or injured as a result of a crash. \n",
+          "reference_version": "pinned-evidence-reference-v1",
+          "extractor_version": "raw-metadata-v1"
+        }
+      ],
+      "definition_reference": 1,
+      "source_limits": "Casualties belonging to this traffic unit; not the crash-level total.",
+      "review_method": "Implementation inspection of rendered export layout p2 and dictionary rows p3/p4 plus population definitions p6. Alias interpretation is reviewed code data, not a claim that the publisher supplies an explicit machine-readable alias mapping."
+    }
+  ]
+}

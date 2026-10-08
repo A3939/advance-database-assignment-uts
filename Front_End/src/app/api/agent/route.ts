@@ -1,17 +1,14 @@
 import "server-only";
-import OpenAI from "openai";
-import { createRegionalProvider, loadRegionSnapshot } from "@/server/region-data";
-import {
-  createOfficialProvider,
-  loadOfficialSnapshot,
-} from "@/server/official-data";
+import { configuredModel, analysisRuntime } from "@/server/agent/runtime";
+import { studioStore, uuid, now as researchNow } from "@/server/studio/store";
 import { parseAgentRequest, sameOrigin } from "@/server/agent/request";
 import { LIMITS, runAgent, safeAgentError } from "@/server/agent/runner";
 import type { AgentEvent } from "@/services/contracts";
+import { routeModel } from "@/server/agent/model-routing";
+import { createModelAudit } from "@/server/agent/model-audit";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 export const maxDuration = 250;
-import { AnalysisWorkspace } from "@/server/analysis/workspace";
 const headers = {
   "Cache-Control": "no-store",
   "X-Content-Type-Options": "nosniff",
@@ -73,24 +70,23 @@ export async function POST(request: Request) {
       { error: "Too many analysis requests. Please wait and retry." },
       { status: 429, headers },
     );
-  let snapshot, regional;
+  let runtimeContext;
   try {
-    snapshot = await loadOfficialSnapshot();
-    regional = await loadRegionSnapshot();
+    runtimeContext = await analysisRuntime(parsed.context);
   } catch {
     return Response.json(
       { error: "The verified project snapshot is unavailable." },
       { status: 503, headers },
     );
   }
-  const model = process.env.OPENAI_MODEL?.trim() || "gpt-6-luna";
-  const client = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-    baseURL: "https://api.openai.com/v1",
-    timeout: 45000,
-    maxRetries: 1,
-    logLevel: "off",
-  });
+  const {snapshot, service, workspace} = runtimeContext;
+  const selection = routeModel({surface:"ask", message:parsed.message, historyCount:parsed.history.length, source:parsed.context.filters.source});
+  const { model, client, reasoningEffort } = configuredModel(selection);
+  const audit = await createModelAudit(selection, "ask");
+  if (active >= 2 || starts.filter(t => t > Date.now() - 60000).length >= 12) {
+    await audit.finish("failed");
+    return Response.json({error:"Too many analysis requests. Please wait and retry."}, {status:429, headers});
+  }
   const cancel = new AbortController();
   const signal = AbortSignal.any([
     request.signal,
@@ -107,16 +103,31 @@ export async function POST(request: Request) {
           controller.enqueue(encoder.encode(JSON.stringify(event) + "\n"));
       };
       try {
+        const completedEvents: AgentEvent[] = [];
         for await (const event of runAgent(parsed, {
           model,
+          reasoningEffort,
+          recordRequest: audit.request,
+          recordResponse: audit.response,
           snapshot,
-          service: createRegionalProvider(createOfficialProvider(snapshot), regional),
-          workspace: new AnalysisWorkspace(parsed.context, createRegionalProvider(createOfficialProvider(snapshot), regional), regional),
+          service: service,
+          workspace: workspace,
           signal,
           stream: (params, s) => client.responses.create(params, { signal: s }),
-        }))
+        })) {
+          if (!["progress", "done"].includes(event.type)) completedEvents.push(event);
+          if (event.type === "done" && !signal.aborted) {
+            try {
+              const id = uuid();
+              studioStore().saveTransfer({ id, question: parsed.message, context: parsed.context, events: completedEvents, createdAt: researchNow() });
+              emit({ type: "transfer", id });
+            } catch { /* The answer remains valid; unavailable persistence gets no transfer button. */ }
+          }
           emit(event);
+        }
+        await audit.finish("completed");
       } catch (error) {
+        await audit.finish(signal.aborted ? "cancelled" : "failed").catch(() => {});
         if (!cancel.signal.aborted && !request.signal.aborted)
           emit({
             type: "error",

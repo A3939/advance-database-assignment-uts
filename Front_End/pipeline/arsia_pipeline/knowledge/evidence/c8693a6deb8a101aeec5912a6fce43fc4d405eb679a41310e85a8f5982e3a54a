@@ -1,0 +1,2401 @@
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:socrata="http://www.socrata.com/rdf/terms#" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:ods="http://open-data-standards.github.com/2012/01/open-data-standards#" xmlns:dcterm="http://purl.org/dc/terms/" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:dsbase="https://www.data.act.gov.au/resource/" xmlns:ds="https://www.data.act.gov.au/resource/_6jn4-m8rx/" xmlns:usps="http://www.w3.org/2000/10/swap/pim/usps#">
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-f7dr_jg2d-9cjz">
+    <socrata:rowID>row-f7dr_jg2d-9cjz</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>1</ds:crash_id>
+    <ds:crash_date>2021-03-04T00:00:00</ds:crash_date>
+    <ds:crash_time>6:00 AM</ds:crash_time>
+    <ds:suburb_location>GUNGAHLIN</ds:suburb_location>
+    <ds:x>149.1428733</ds:x>
+    <ds:y>-35.17989427</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>North / South bound</ds:crash_direction>
+    <ds:crash_type>Right turn into oncoming vehicle</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Dark - good street lighting</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.17989427</geo:lat>
+        <geo:long>149.1428733</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-uzuw.iwb6-hcdv">
+    <socrata:rowID>row-uzuw.iwb6-hcdv</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>10</ds:crash_id>
+    <ds:crash_date>2020-09-05T00:00:00</ds:crash_date>
+    <ds:crash_time>7:30 PM</ds:crash_time>
+    <ds:suburb_location>BELCONNEN (RURAL)</ds:suburb_location>
+    <ds:x>149.0776635</ds:x>
+    <ds:y>-35.27694089</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>East bound</ds:crash_direction>
+    <ds:crash_type>Struck object (Off Road)</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Dark - good street lighting</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.27694089</geo:lat>
+        <geo:long>149.0776635</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-r8w8.p7wn-fczj">
+    <socrata:rowID>row-r8w8.p7wn-fczj</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>100</ds:crash_id>
+    <ds:crash_date>2021-03-02T00:00:00</ds:crash_date>
+    <ds:crash_time>4:20 PM</ds:crash_time>
+    <ds:suburb_location>DOWNER</ds:suburb_location>
+    <ds:x>149.143461</ds:x>
+    <ds:y>-35.243264</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>East / South bound</ds:crash_direction>
+    <ds:crash_type>Other - vehicle to vehicle</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.243264</geo:lat>
+        <geo:long>149.143461</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-6g67_654q_dvje">
+    <socrata:rowID>row-6g67_654q_dvje</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>1000</ds:crash_id>
+    <ds:crash_date>2018-06-22T00:00:00</ds:crash_date>
+    <ds:crash_time>4:40 PM</ds:crash_time>
+    <ds:suburb_location>PARKES</ds:suburb_location>
+    <ds:x>149.1453983</ds:x>
+    <ds:y>-35.29535448</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>West bound</ds:crash_direction>
+    <ds:crash_type>Rear end collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.29535448</geo:lat>
+        <geo:long>149.1453983</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-xcyh~5qhp.urpr">
+    <socrata:rowID>row-xcyh~5qhp.urpr</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>1001</ds:crash_id>
+    <ds:crash_date>2018-06-22T00:00:00</ds:crash_date>
+    <ds:crash_time>4:55 PM</ds:crash_time>
+    <ds:suburb_location>GUNGAHLIN</ds:suburb_location>
+    <ds:x>149.1428641</ds:x>
+    <ds:y>-35.17979675</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>East bound</ds:crash_direction>
+    <ds:crash_type>Rear end collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Semi-darkness</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.17979675</geo:lat>
+        <geo:long>149.1428641</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-gsys-t68e~qyyz">
+    <socrata:rowID>row-gsys-t68e~qyyz</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>1002</ds:crash_id>
+    <ds:crash_date>2018-06-22T00:00:00</ds:crash_date>
+    <ds:crash_time>4:55 PM</ds:crash_time>
+    <ds:suburb_location>O'CONNOR</ds:suburb_location>
+    <ds:x>149.1227682</ds:x>
+    <ds:y>-35.26386394</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>East / West bound</ds:crash_direction>
+    <ds:crash_type>Other - vehicle to vehicle</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.26386394</geo:lat>
+        <geo:long>149.1227682</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-j8t7.7vq5~7cff">
+    <socrata:rowID>row-j8t7.7vq5~7cff</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>1003</ds:crash_id>
+    <ds:crash_date>2018-06-22T00:00:00</ds:crash_date>
+    <ds:crash_time>9:45 PM</ds:crash_time>
+    <ds:suburb_location>BELCONNEN</ds:suburb_location>
+    <ds:x>149.0673303</ds:x>
+    <ds:y>-35.24110987</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>North / West bound</ds:crash_direction>
+    <ds:crash_type>Right angle collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Dark - good street lighting</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.24110987</geo:lat>
+        <geo:long>149.0673303</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-gknx~z6yg~ytuc">
+    <socrata:rowID>row-gknx~z6yg~ytuc</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>1004</ds:crash_id>
+    <ds:crash_date>2018-06-26T00:00:00</ds:crash_date>
+    <ds:crash_time>6:00 PM</ds:crash_time>
+    <ds:suburb_location>CHARNWOOD</ds:suburb_location>
+    <ds:x>149.0347461</ds:x>
+    <ds:y>-35.20633157</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>North / South bound</ds:crash_direction>
+    <ds:crash_type>Right turn into oncoming vehicle</ds:crash_type>
+    <ds:crash_severity>Injury</ds:crash_severity>
+    <ds:lighting_condition>Dark - good street lighting</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.20633157</geo:lat>
+        <geo:long>149.0347461</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-gruj.mehz.m8wp">
+    <socrata:rowID>row-gruj.mehz.m8wp</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>1005</ds:crash_id>
+    <ds:crash_date>2018-06-28T00:00:00</ds:crash_date>
+    <ds:crash_time>5:50 PM</ds:crash_time>
+    <ds:suburb_location>FRASER</ds:suburb_location>
+    <ds:x>149.0436405</ds:x>
+    <ds:y>-35.19218087</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>North bound</ds:crash_direction>
+    <ds:crash_type>Rear end collision</ds:crash_type>
+    <ds:crash_severity>Injury</ds:crash_severity>
+    <ds:lighting_condition>Dark - good street lighting</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.19218087</geo:lat>
+        <geo:long>149.0436405</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-fyfs~r3rk.mj9w">
+    <socrata:rowID>row-fyfs~r3rk.mj9w</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>1006</ds:crash_id>
+    <ds:crash_date>2018-07-03T00:00:00</ds:crash_date>
+    <ds:crash_time>9:00 AM</ds:crash_time>
+    <ds:suburb_location>HOLT</ds:suburb_location>
+    <ds:x>149.0309393</ds:x>
+    <ds:y>-35.22447115</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>North / East bound</ds:crash_direction>
+    <ds:crash_type>Right angle collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.22447115</geo:lat>
+        <geo:long>149.0309393</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-e6uw.j5ei.ztek">
+    <socrata:rowID>row-e6uw.j5ei.ztek</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>1007</ds:crash_id>
+    <ds:crash_date>2018-07-03T00:00:00</ds:crash_date>
+    <ds:crash_time>2:50 PM</ds:crash_time>
+    <ds:suburb_location>BELCONNEN</ds:suburb_location>
+    <ds:x>149.0579665</ds:x>
+    <ds:y>-35.23603196</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>North bound</ds:crash_direction>
+    <ds:crash_type>Rear end collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.23603196</geo:lat>
+        <geo:long>149.0579665</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-d45e~iw9u_d5zd">
+    <socrata:rowID>row-d45e~iw9u_d5zd</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>1008</ds:crash_id>
+    <ds:crash_date>2018-07-03T00:00:00</ds:crash_date>
+    <ds:crash_time>5:00 PM</ds:crash_time>
+    <ds:suburb_location>FYSHWICK</ds:suburb_location>
+    <ds:x>149.1702072</ds:x>
+    <ds:y>-35.32389881</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>West bound</ds:crash_direction>
+    <ds:crash_type>Rear end collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.32389881</geo:lat>
+        <geo:long>149.1702072</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-ef53.hjf8~93pg">
+    <socrata:rowID>row-ef53.hjf8~93pg</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>101</ds:crash_id>
+    <ds:crash_date>2020-10-30T00:00:00</ds:crash_date>
+    <ds:crash_time>6:45 AM</ds:crash_time>
+    <ds:suburb_location>MOLONGLO VALLEY</ds:suburb_location>
+    <ds:x>149.0394557</ds:x>
+    <ds:y>-35.28637789</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>South bound</ds:crash_direction>
+    <ds:crash_type>Overturned (On Road)</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Loose surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.28637789</geo:lat>
+        <geo:long>149.0394557</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-2cj4-qq48~nvcu">
+    <socrata:rowID>row-2cj4-qq48~nvcu</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>102</ds:crash_id>
+    <ds:crash_date>2020-11-13T00:00:00</ds:crash_date>
+    <ds:crash_time>11:00 AM</ds:crash_time>
+    <ds:suburb_location>CITY</ds:suburb_location>
+    <ds:x>149.1327818</ds:x>
+    <ds:y>-35.28369167</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>South bound</ds:crash_direction>
+    <ds:crash_type>Other - vehicle to vehicle</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.28369167</geo:lat>
+        <geo:long>149.1327818</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-ymci~mwbj-bkv6">
+    <socrata:rowID>row-ymci~mwbj-bkv6</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>103</ds:crash_id>
+    <ds:crash_date>2020-11-15T00:00:00</ds:crash_date>
+    <ds:crash_time>4:00 AM</ds:crash_time>
+    <ds:suburb_location>CRACE</ds:suburb_location>
+    <ds:x>149.1018048</ds:x>
+    <ds:y>-35.20433361</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>South bound</ds:crash_direction>
+    <ds:crash_type>Struck object (Off Road)</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Dark - poor street lighting</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.20433361</geo:lat>
+        <geo:long>149.1018048</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-dywq_dxgq_5czm">
+    <socrata:rowID>row-dywq_dxgq_5czm</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>104</ds:crash_id>
+    <ds:crash_date>2020-12-20T00:00:00</ds:crash_date>
+    <ds:crash_time>12:10 PM</ds:crash_time>
+    <ds:suburb_location>MACQUARIE</ds:suburb_location>
+    <ds:x>149.0672311</ds:x>
+    <ds:y>-35.25077415</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>West bound</ds:crash_direction>
+    <ds:crash_type>Struck object (Off Road)</ds:crash_type>
+    <ds:crash_severity>Fatal</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.25077415</geo:lat>
+        <geo:long>149.0672311</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-ux6m.zpwf_qe7y">
+    <socrata:rowID>row-ux6m.zpwf_qe7y</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>105</ds:crash_id>
+    <ds:crash_date>2020-12-29T00:00:00</ds:crash_date>
+    <ds:crash_time>5:00 PM</ds:crash_time>
+    <ds:suburb_location>BELCONNEN</ds:suburb_location>
+    <ds:x>149.0710758</ds:x>
+    <ds:y>-35.23823882</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>Unknown</ds:crash_direction>
+    <ds:crash_type>Other - vehicle to vehicle</ds:crash_type>
+    <ds:crash_severity>Injury</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.23823882</geo:lat>
+        <geo:long>149.0710758</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-uapg.amek_78w3">
+    <socrata:rowID>row-uapg.amek_78w3</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>106</ds:crash_id>
+    <ds:crash_date>2021-02-26T00:00:00</ds:crash_date>
+    <ds:crash_time>1:50 PM</ds:crash_time>
+    <ds:suburb_location>BRUCE</ds:suburb_location>
+    <ds:x>149.0861194</ds:x>
+    <ds:y>-35.25415546</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>South bound</ds:crash_direction>
+    <ds:crash_type>Rear end collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.25415546</geo:lat>
+        <geo:long>149.0861194</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-infw~w4zf_byxp">
+    <socrata:rowID>row-infw~w4zf_byxp</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>107</ds:crash_id>
+    <ds:crash_date>2021-03-02T00:00:00</ds:crash_date>
+    <ds:crash_time>8:10 AM</ds:crash_time>
+    <ds:suburb_location>LYNEHAM</ds:suburb_location>
+    <ds:x>149.1270969</ds:x>
+    <ds:y>-35.2443319</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>East bound</ds:crash_direction>
+    <ds:crash_type>Struck pedestrian (On Road)</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.2443319</geo:lat>
+        <geo:long>149.1270969</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-g3at_nnid_h6nx">
+    <socrata:rowID>row-g3at_nnid_h6nx</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>108</ds:crash_id>
+    <ds:crash_date>2021-03-02T00:00:00</ds:crash_date>
+    <ds:crash_time>4:20 PM</ds:crash_time>
+    <ds:suburb_location>PARKES</ds:suburb_location>
+    <ds:x>149.134091</ds:x>
+    <ds:y>-35.28716986</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>South bound</ds:crash_direction>
+    <ds:crash_type>Rear end collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.28716986</geo:lat>
+        <geo:long>149.134091</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-qdpi_bhqt-s2u9">
+    <socrata:rowID>row-qdpi_bhqt-s2u9</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>109</ds:crash_id>
+    <ds:crash_date>2021-03-03T00:00:00</ds:crash_date>
+    <ds:crash_time>8:30 AM</ds:crash_time>
+    <ds:suburb_location>MOLONGLO VALLEY</ds:suburb_location>
+    <ds:x>149.0763964</ds:x>
+    <ds:y>-35.29112769</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>South bound</ds:crash_direction>
+    <ds:crash_type>Rear end collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.29112769</geo:lat>
+        <geo:long>149.0763964</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-9yn8.ypg4_zxcu">
+    <socrata:rowID>row-9yn8.ypg4_zxcu</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>11</ds:crash_id>
+    <ds:crash_date>2020-09-08T00:00:00</ds:crash_date>
+    <ds:crash_time>6:36 PM</ds:crash_time>
+    <ds:suburb_location>GIRALANG</ds:suburb_location>
+    <ds:x>149.0886002</ds:x>
+    <ds:y>-35.20897854</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>North bound</ds:crash_direction>
+    <ds:crash_type>Rear end collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Dark - poor street lighting</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.20897854</geo:lat>
+        <geo:long>149.0886002</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-b2zz_c9xu-eb46">
+    <socrata:rowID>row-b2zz_c9xu-eb46</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>110</ds:crash_id>
+    <ds:crash_date>2021-03-03T00:00:00</ds:crash_date>
+    <ds:crash_time>8:50 AM</ds:crash_time>
+    <ds:suburb_location>AINSLIE</ds:suburb_location>
+    <ds:x>149.1452544</ds:x>
+    <ds:y>-35.26240785</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>East / West bound</ds:crash_direction>
+    <ds:crash_type>Other - vehicle to vehicle</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.26240785</geo:lat>
+        <geo:long>149.1452544</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-cxy2-cejx_2hxg">
+    <socrata:rowID>row-cxy2-cejx_2hxg</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>111</ds:crash_id>
+    <ds:crash_date>2021-03-03T00:00:00</ds:crash_date>
+    <ds:crash_time>9:40 AM</ds:crash_time>
+    <ds:suburb_location>FYSHWICK</ds:suburb_location>
+    <ds:x>149.1770245</ds:x>
+    <ds:y>-35.32681824</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>East / West bound</ds:crash_direction>
+    <ds:crash_type>Right turn into oncoming vehicle</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.32681824</geo:lat>
+        <geo:long>149.1770245</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-um58_y92s-xz25">
+    <socrata:rowID>row-um58_y92s-xz25</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>112</ds:crash_id>
+    <ds:crash_date>2021-03-03T00:00:00</ds:crash_date>
+    <ds:crash_time>11:25 AM</ds:crash_time>
+    <ds:suburb_location>PHILLIP</ds:suburb_location>
+    <ds:x>149.0890424</ds:x>
+    <ds:y>-35.34732739</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>East bound</ds:crash_direction>
+    <ds:crash_type>Rear end collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.34732739</geo:lat>
+        <geo:long>149.0890424</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-sdwc_4zj8.scd4">
+    <socrata:rowID>row-sdwc_4zj8.scd4</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>113</ds:crash_id>
+    <ds:crash_date>2021-03-03T00:00:00</ds:crash_date>
+    <ds:crash_time>12:00 PM</ds:crash_time>
+    <ds:suburb_location>WEETANGERA</ds:suburb_location>
+    <ds:x>149.0520696</ds:x>
+    <ds:y>-35.24775992</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>North / West bound</ds:crash_direction>
+    <ds:crash_type>Other - vehicle to vehicle</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.24775992</geo:lat>
+        <geo:long>149.0520696</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-mfpr~3gj2.pyun">
+    <socrata:rowID>row-mfpr~3gj2.pyun</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>114</ds:crash_id>
+    <ds:crash_date>2021-03-03T00:00:00</ds:crash_date>
+    <ds:crash_time>12:10 PM</ds:crash_time>
+    <ds:suburb_location>FLOREY</ds:suburb_location>
+    <ds:x>149.0488592</ds:x>
+    <ds:y>-35.23161337</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>North / East bound</ds:crash_direction>
+    <ds:crash_type>Right angle collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.23161337</geo:lat>
+        <geo:long>149.0488592</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-nea4-hwbe-khzw">
+    <socrata:rowID>row-nea4-hwbe-khzw</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>115</ds:crash_id>
+    <ds:crash_date>2021-03-03T00:00:00</ds:crash_date>
+    <ds:crash_time>4:17 PM</ds:crash_time>
+    <ds:suburb_location>TORRENS</ds:suburb_location>
+    <ds:x>149.0932369</ds:x>
+    <ds:y>-35.38420471</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>East / South bound</ds:crash_direction>
+    <ds:crash_type>Right angle collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.38420471</geo:lat>
+        <geo:long>149.0932369</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-36kh-6ird~xtbx">
+    <socrata:rowID>row-36kh-6ird~xtbx</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>116</ds:crash_id>
+    <ds:crash_date>2021-03-03T00:00:00</ds:crash_date>
+    <ds:crash_time>4:40 PM</ds:crash_time>
+    <ds:suburb_location>CANBERRA CENTRAL</ds:suburb_location>
+    <ds:x>149.0878989</ds:x>
+    <ds:y>-35.2582386</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>North bound</ds:crash_direction>
+    <ds:crash_type>Same direction side swipe</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.2582386</geo:lat>
+        <geo:long>149.0878989</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-j9ey_6qpc~rgu6">
+    <socrata:rowID>row-j9ey_6qpc~rgu6</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>117</ds:crash_id>
+    <ds:crash_date>2021-03-03T00:00:00</ds:crash_date>
+    <ds:crash_time>5:00 PM</ds:crash_time>
+    <ds:suburb_location>GUNGAHLIN</ds:suburb_location>
+    <ds:x>149.1395003</ds:x>
+    <ds:y>-35.18076552</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>East / West bound</ds:crash_direction>
+    <ds:crash_type>Right turn into oncoming vehicle</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.18076552</geo:lat>
+        <geo:long>149.1395003</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-4q9h~x7xt.keay">
+    <socrata:rowID>row-4q9h~x7xt.keay</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>119</ds:crash_id>
+    <ds:crash_date>2021-03-03T00:00:00</ds:crash_date>
+    <ds:crash_time>6:30 PM</ds:crash_time>
+    <ds:suburb_location>PHILLIP</ds:suburb_location>
+    <ds:x>149.0863167</ds:x>
+    <ds:y>-35.33835228</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>West bound</ds:crash_direction>
+    <ds:crash_type>Other - vehicle to vehicle</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.33835228</geo:lat>
+        <geo:long>149.0863167</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-dpth_7uxa~b8wh">
+    <socrata:rowID>row-dpth_7uxa~b8wh</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>12</ds:crash_id>
+    <ds:crash_date>2020-11-04T00:00:00</ds:crash_date>
+    <ds:crash_time>4:00 PM</ds:crash_time>
+    <ds:suburb_location>BRADDON</ds:suburb_location>
+    <ds:x>149.1330342</ds:x>
+    <ds:y>-35.27169796</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>North bound</ds:crash_direction>
+    <ds:crash_type>Collision while one vehicle reversing</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.27169796</geo:lat>
+        <geo:long>149.1330342</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-4wn7.spus~8g88">
+    <socrata:rowID>row-4wn7.spus~8g88</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>120</ds:crash_id>
+    <ds:crash_date>2021-03-10T00:00:00</ds:crash_date>
+    <ds:crash_time>4:05 PM</ds:crash_time>
+    <ds:suburb_location>LYNEHAM</ds:suburb_location>
+    <ds:x>149.1249629</ds:x>
+    <ds:y>-35.25119787</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>North / East bound</ds:crash_direction>
+    <ds:crash_type>Other - vehicle to vehicle</ds:crash_type>
+    <ds:crash_severity>Injury</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.25119787</geo:lat>
+        <geo:long>149.1249629</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-ir6w_gp67-a9ec">
+    <socrata:rowID>row-ir6w_gp67-a9ec</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>121</ds:crash_id>
+    <ds:crash_date>2021-03-11T00:00:00</ds:crash_date>
+    <ds:crash_time>10:40 AM</ds:crash_time>
+    <ds:suburb_location>BELCONNEN</ds:suburb_location>
+    <ds:x>149.0674838</ds:x>
+    <ds:y>-35.24750113</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>South bound</ds:crash_direction>
+    <ds:crash_type>Rear end collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.24750113</geo:lat>
+        <geo:long>149.0674838</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-2ez7~vw2y.ypp9">
+    <socrata:rowID>row-2ez7~vw2y.ypp9</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>122</ds:crash_id>
+    <ds:crash_date>2021-03-11T00:00:00</ds:crash_date>
+    <ds:crash_time>8:00 PM</ds:crash_time>
+    <ds:suburb_location>DICKSON</ds:suburb_location>
+    <ds:x>149.1333581</ds:x>
+    <ds:y>-35.25357038</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>West bound</ds:crash_direction>
+    <ds:crash_type>Rear end collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Dark - poor street lighting</ds:lighting_condition>
+    <ds:road_condition>Wet surface</ds:road_condition>
+    <ds:weather_condition>Cloudy or Overcast</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.25357038</geo:lat>
+        <geo:long>149.1333581</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-wcg4~dbex.5qhn">
+    <socrata:rowID>row-wcg4~dbex.5qhn</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>123</ds:crash_id>
+    <ds:crash_date>2021-03-12T00:00:00</ds:crash_date>
+    <ds:crash_time>10:00 AM</ds:crash_time>
+    <ds:suburb_location>BRUCE</ds:suburb_location>
+    <ds:x>149.0897029</ds:x>
+    <ds:y>-35.25712264</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>West bound</ds:crash_direction>
+    <ds:crash_type>Rear end collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Wet surface</ds:road_condition>
+    <ds:weather_condition>Cloudy or Overcast</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.25712264</geo:lat>
+        <geo:long>149.0897029</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-k3ev_9fai_w6n8">
+    <socrata:rowID>row-k3ev_9fai_w6n8</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>124</ds:crash_id>
+    <ds:crash_date>2021-03-12T00:00:00</ds:crash_date>
+    <ds:crash_time>3:50 PM</ds:crash_time>
+    <ds:suburb_location>RICHARDSON</ds:suburb_location>
+    <ds:x>149.1033758</ds:x>
+    <ds:y>-35.42086283</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>East / South bound</ds:crash_direction>
+    <ds:crash_type>Right angle collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.42086283</geo:lat>
+        <geo:long>149.1033758</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-rzdb_jgd6-pw3w">
+    <socrata:rowID>row-rzdb_jgd6-pw3w</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>125</ds:crash_id>
+    <ds:crash_date>2021-03-12T00:00:00</ds:crash_date>
+    <ds:crash_time>4:00 PM</ds:crash_time>
+    <ds:suburb_location>PHILLIP</ds:suburb_location>
+    <ds:x>149.0934211</ds:x>
+    <ds:y>-35.34906034</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>West bound</ds:crash_direction>
+    <ds:crash_type>Same direction side swipe</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.34906034</geo:lat>
+        <geo:long>149.0934211</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-xm8f_t5qd.8dgq">
+    <socrata:rowID>row-xm8f_t5qd.8dgq</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>126</ds:crash_id>
+    <ds:crash_date>2021-03-12T00:00:00</ds:crash_date>
+    <ds:crash_time>5:20 PM</ds:crash_time>
+    <ds:suburb_location>BRADDON</ds:suburb_location>
+    <ds:x>149.13959742</ds:x>
+    <ds:y>-35.27657669</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>North / West bound</ds:crash_direction>
+    <ds:crash_type>Right angle collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.27657669</geo:lat>
+        <geo:long>149.13959742</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-ffzs~q3st~8t8n">
+    <socrata:rowID>row-ffzs~q3st~8t8n</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>127</ds:crash_id>
+    <ds:crash_date>2021-03-13T00:00:00</ds:crash_date>
+    <ds:crash_time>2:30 PM</ds:crash_time>
+    <ds:suburb_location>PARKES</ds:suburb_location>
+    <ds:x>149.1377463</ds:x>
+    <ds:y>-35.3028313</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>East bound</ds:crash_direction>
+    <ds:crash_type>Rear end collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.3028313</geo:lat>
+        <geo:long>149.1377463</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-fv2b.m3a7_67em">
+    <socrata:rowID>row-fv2b.m3a7_67em</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>128</ds:crash_id>
+    <ds:crash_date>2021-03-13T00:00:00</ds:crash_date>
+    <ds:crash_time>3:50 PM</ds:crash_time>
+    <ds:suburb_location>GRIFFITH</ds:suburb_location>
+    <ds:x>149.1349171</ds:x>
+    <ds:y>-35.32475187</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>South / West bound</ds:crash_direction>
+    <ds:crash_type>Right angle collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.32475187</geo:lat>
+        <geo:long>149.1349171</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-r2p2_jrjm.2xd6">
+    <socrata:rowID>row-r2p2_jrjm.2xd6</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>129</ds:crash_id>
+    <ds:crash_date>2021-03-13T00:00:00</ds:crash_date>
+    <ds:crash_time>4:04 PM</ds:crash_time>
+    <ds:suburb_location>CAMPBELL</ds:suburb_location>
+    <ds:x>149.1784136</ds:x>
+    <ds:y>-35.29782963</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>North bound</ds:crash_direction>
+    <ds:crash_type>Same direction side swipe</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.29782963</geo:lat>
+        <geo:long>149.1784136</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-xggv.kncz-rbdf">
+    <socrata:rowID>row-xggv.kncz-rbdf</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>13</ds:crash_id>
+    <ds:crash_date>2021-02-27T00:00:00</ds:crash_date>
+    <ds:crash_time>10:30 AM</ds:crash_time>
+    <ds:suburb_location>FRANKLIN</ds:suburb_location>
+    <ds:x>149.151095</ds:x>
+    <ds:y>-35.189875</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>East bound</ds:crash_direction>
+    <ds:crash_type>Same direction side swipe</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.189875</geo:lat>
+        <geo:long>149.151095</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-dgfz.xj8t.agbj">
+    <socrata:rowID>row-dgfz.xj8t.agbj</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>130</ds:crash_id>
+    <ds:crash_date>2021-03-14T00:00:00</ds:crash_date>
+    <ds:crash_time>12:45 PM</ds:crash_time>
+    <ds:suburb_location>WESTON</ds:suburb_location>
+    <ds:x>149.0522198</ds:x>
+    <ds:y>-35.34231493</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>North bound</ds:crash_direction>
+    <ds:crash_type>Rear end collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Cloudy or Overcast</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.34231493</geo:lat>
+        <geo:long>149.0522198</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-nv22.ik8r~ku4v">
+    <socrata:rowID>row-nv22.ik8r~ku4v</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>131</ds:crash_id>
+    <ds:crash_date>2021-03-14T00:00:00</ds:crash_date>
+    <ds:crash_time>9:17 PM</ds:crash_time>
+    <ds:suburb_location>O'CONNOR</ds:suburb_location>
+    <ds:x>149.1037868</ds:x>
+    <ds:y>-35.25976856</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>West bound</ds:crash_direction>
+    <ds:crash_type>Overturned (On Road)</ds:crash_type>
+    <ds:crash_severity>Injury</ds:crash_severity>
+    <ds:lighting_condition>Dark - good street lighting</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.25976856</geo:lat>
+        <geo:long>149.1037868</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-fuhj.x5e8_ku5y">
+    <socrata:rowID>row-fuhj.x5e8_ku5y</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>132</ds:crash_id>
+    <ds:crash_date>2021-01-19T00:00:00</ds:crash_date>
+    <ds:crash_time>12:00 PM</ds:crash_time>
+    <ds:suburb_location>HAWKER</ds:suburb_location>
+    <ds:x>149.0428427</ds:x>
+    <ds:y>-35.24157147</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>East / West bound</ds:crash_direction>
+    <ds:crash_type>Right turn into oncoming vehicle</ds:crash_type>
+    <ds:crash_severity>Injury</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.24157147</geo:lat>
+        <geo:long>149.0428427</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-kymn_6smc-eycq">
+    <socrata:rowID>row-kymn_6smc-eycq</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>133</ds:crash_id>
+    <ds:crash_date>2021-01-30T00:00:00</ds:crash_date>
+    <ds:crash_time>6:00 PM</ds:crash_time>
+    <ds:suburb_location>GARRAN</ds:suburb_location>
+    <ds:x>149.1057797</ds:x>
+    <ds:y>-35.34683054</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>East bound</ds:crash_direction>
+    <ds:crash_type>Overturned (On Road)</ds:crash_type>
+    <ds:crash_severity>Injury</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.34683054</geo:lat>
+        <geo:long>149.1057797</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-sfyy.bkk2_467m">
+    <socrata:rowID>row-sfyy.bkk2_467m</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>134</ds:crash_id>
+    <ds:crash_date>2021-02-10T00:00:00</ds:crash_date>
+    <ds:crash_time>10:00 AM</ds:crash_time>
+    <ds:suburb_location>ISAACS</ds:suburb_location>
+    <ds:x>149.116741</ds:x>
+    <ds:y>-35.38174502</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>South bound</ds:crash_direction>
+    <ds:crash_type>Rear end collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.38174502</geo:lat>
+        <geo:long>149.116741</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-5ufw_mnh9.afsx">
+    <socrata:rowID>row-5ufw_mnh9.afsx</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>135</ds:crash_id>
+    <ds:crash_date>2021-02-13T00:00:00</ds:crash_date>
+    <ds:crash_time>11:00 AM</ds:crash_time>
+    <ds:suburb_location>SYMONSTON</ds:suburb_location>
+    <ds:x>149.176075</ds:x>
+    <ds:y>-35.33768572</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>East / West bound</ds:crash_direction>
+    <ds:crash_type>Same direction side swipe</ds:crash_type>
+    <ds:crash_severity>Injury</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.33768572</geo:lat>
+        <geo:long>149.176075</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-w2td_fndg.ntpa">
+    <socrata:rowID>row-w2td_fndg.ntpa</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>136</ds:crash_id>
+    <ds:crash_date>2021-02-14T00:00:00</ds:crash_date>
+    <ds:crash_time>6:20 AM</ds:crash_time>
+    <ds:suburb_location>LATHAM</ds:suburb_location>
+    <ds:x>149.0434356</ds:x>
+    <ds:y>-35.21753881</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>North / West bound</ds:crash_direction>
+    <ds:crash_type>Right angle collision</ds:crash_type>
+    <ds:crash_severity>Injury</ds:crash_severity>
+    <ds:lighting_condition>Semi-darkness</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.21753881</geo:lat>
+        <geo:long>149.0434356</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-ndg2-rr56-2nx9">
+    <socrata:rowID>row-ndg2-rr56-2nx9</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>137</ds:crash_id>
+    <ds:crash_date>2021-02-24T00:00:00</ds:crash_date>
+    <ds:crash_time>2:20 AM</ds:crash_time>
+    <ds:suburb_location>COOK</ds:suburb_location>
+    <ds:x>149.0634312</ds:x>
+    <ds:y>-35.2584066</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>North / South bound</ds:crash_direction>
+    <ds:crash_type>Opposite direction side swipe</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Dark - good street lighting</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.2584066</geo:lat>
+        <geo:long>149.0634312</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-p8fv-cp3s-5qem">
+    <socrata:rowID>row-p8fv-cp3s-5qem</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>138</ds:crash_id>
+    <ds:crash_date>2021-02-24T00:00:00</ds:crash_date>
+    <ds:crash_time>12:30 PM</ds:crash_time>
+    <ds:suburb_location>DICKSON</ds:suburb_location>
+    <ds:x>149.1372635</ds:x>
+    <ds:y>-35.25135976</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>East bound</ds:crash_direction>
+    <ds:crash_type>Rear end collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.25135976</geo:lat>
+        <geo:long>149.1372635</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-aqvh.4b3s-2uzf">
+    <socrata:rowID>row-aqvh.4b3s-2uzf</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>139</ds:crash_id>
+    <ds:crash_date>2021-03-04T00:00:00</ds:crash_date>
+    <ds:crash_time>7:20 AM</ds:crash_time>
+    <ds:suburb_location>GORDON</ds:suburb_location>
+    <ds:x>149.0907358</ds:x>
+    <ds:y>-35.4562632</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>North / South bound</ds:crash_direction>
+    <ds:crash_type>Right turn into oncoming vehicle</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.4562632</geo:lat>
+        <geo:long>149.0907358</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-89up-srz9-76jj">
+    <socrata:rowID>row-89up-srz9-76jj</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>14</ds:crash_id>
+    <ds:crash_date>2021-02-27T00:00:00</ds:crash_date>
+    <ds:crash_time>8:50 PM</ds:crash_time>
+    <ds:suburb_location>BELCONNEN</ds:suburb_location>
+    <ds:x>149.062563</ds:x>
+    <ds:y>-35.23657334</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>South bound</ds:crash_direction>
+    <ds:crash_type>Rear end collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Dark - poor street lighting</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.23657334</geo:lat>
+        <geo:long>149.062563</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-2b8g-zaw7.hnpt">
+    <socrata:rowID>row-2b8g-zaw7.hnpt</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>140</ds:crash_id>
+    <ds:crash_date>2021-03-04T00:00:00</ds:crash_date>
+    <ds:crash_time>8:15 AM</ds:crash_time>
+    <ds:suburb_location>PEARCE</ds:suburb_location>
+    <ds:x>149.0859667</ds:x>
+    <ds:y>-35.35813493</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>East bound</ds:crash_direction>
+    <ds:crash_type>Rear end collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.35813493</geo:lat>
+        <geo:long>149.0859667</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-nmuy.5f22_29uh">
+    <socrata:rowID>row-nmuy.5f22_29uh</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>141</ds:crash_id>
+    <ds:crash_date>2021-03-04T00:00:00</ds:crash_date>
+    <ds:crash_time>8:20 AM</ds:crash_time>
+    <ds:suburb_location>FYSHWICK</ds:suburb_location>
+    <ds:x>149.169342</ds:x>
+    <ds:y>-35.31144863</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>North bound</ds:crash_direction>
+    <ds:crash_type>Rear end collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.31144863</geo:lat>
+        <geo:long>149.169342</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-9jbi_sbeb.86sf">
+    <socrata:rowID>row-9jbi_sbeb.86sf</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>142</ds:crash_id>
+    <ds:crash_date>2021-03-04T00:00:00</ds:crash_date>
+    <ds:crash_time>9:10 AM</ds:crash_time>
+    <ds:suburb_location>CAMPBELL</ds:suburb_location>
+    <ds:x>149.1617563</ds:x>
+    <ds:y>-35.28505406</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>East bound</ds:crash_direction>
+    <ds:crash_type>Rear end collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.28505406</geo:lat>
+        <geo:long>149.1617563</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-gz7b-72ff~nu66">
+    <socrata:rowID>row-gz7b-72ff~nu66</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>143</ds:crash_id>
+    <ds:crash_date>2021-03-04T00:00:00</ds:crash_date>
+    <ds:crash_time>1:30 PM</ds:crash_time>
+    <ds:suburb_location>MACQUARIE</ds:suburb_location>
+    <ds:x>149.0731099</ds:x>
+    <ds:y>-35.2534199</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>East / South bound</ds:crash_direction>
+    <ds:crash_type>Right angle collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.2534199</geo:lat>
+        <geo:long>149.0731099</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-cnhf_icu9-82tq">
+    <socrata:rowID>row-cnhf_icu9-82tq</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>144</ds:crash_id>
+    <ds:crash_date>2021-03-04T00:00:00</ds:crash_date>
+    <ds:crash_time>3:00 PM</ds:crash_time>
+    <ds:suburb_location>CITY</ds:suburb_location>
+    <ds:x>149.1330225</ds:x>
+    <ds:y>-35.27690125</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>West bound</ds:crash_direction>
+    <ds:crash_type>Other - vehicle to vehicle</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.27690125</geo:lat>
+        <geo:long>149.1330225</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-fa58-rv7t~3mcf">
+    <socrata:rowID>row-fa58-rv7t~3mcf</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>145</ds:crash_id>
+    <ds:crash_date>2021-03-04T00:00:00</ds:crash_date>
+    <ds:crash_time>3:30 PM</ds:crash_time>
+    <ds:suburb_location>NARRABUNDAH</ds:suburb_location>
+    <ds:x>149.1435871</ds:x>
+    <ds:y>-35.33051248</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>East bound</ds:crash_direction>
+    <ds:crash_type>Rear end collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.33051248</geo:lat>
+        <geo:long>149.1435871</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-wj8r_fqwe_vpex">
+    <socrata:rowID>row-wj8r_fqwe_vpex</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>146</ds:crash_id>
+    <ds:crash_date>2021-03-04T00:00:00</ds:crash_date>
+    <ds:crash_time>8:45 PM</ds:crash_time>
+    <ds:suburb_location>WESTON</ds:suburb_location>
+    <ds:x>149.0579339</ds:x>
+    <ds:y>-35.32211653</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>South bound</ds:crash_direction>
+    <ds:crash_type>Rear end collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Dark - good street lighting</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.32211653</geo:lat>
+        <geo:long>149.0579339</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-edpd~htaa.bfiu">
+    <socrata:rowID>row-edpd~htaa.bfiu</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>147</ds:crash_id>
+    <ds:crash_date>2021-03-05T00:00:00</ds:crash_date>
+    <ds:crash_time>7:30 AM</ds:crash_time>
+    <ds:suburb_location>PHILLIP</ds:suburb_location>
+    <ds:x>149.0953469</ds:x>
+    <ds:y>-35.34651323</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>North / East bound</ds:crash_direction>
+    <ds:crash_type>Other - vehicle to vehicle</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.34651323</geo:lat>
+        <geo:long>149.0953469</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-r4h6.ys8d.2eqj">
+    <socrata:rowID>row-r4h6.ys8d.2eqj</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>148</ds:crash_id>
+    <ds:crash_date>2021-03-05T00:00:00</ds:crash_date>
+    <ds:crash_time>11:45 AM</ds:crash_time>
+    <ds:suburb_location>FYSHWICK</ds:suburb_location>
+    <ds:x>149.181772</ds:x>
+    <ds:y>-35.33812854</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>East bound</ds:crash_direction>
+    <ds:crash_type>Rear end collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.33812854</geo:lat>
+        <geo:long>149.181772</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-rbcy_nv3k-t7hu">
+    <socrata:rowID>row-rbcy_nv3k-t7hu</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>149</ds:crash_id>
+    <ds:crash_date>2021-03-05T00:00:00</ds:crash_date>
+    <ds:crash_time>2:50 PM</ds:crash_time>
+    <ds:suburb_location>CANBERRA CENTRAL</ds:suburb_location>
+    <ds:x>149.0857318</ds:x>
+    <ds:y>-35.28421665</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>West bound</ds:crash_direction>
+    <ds:crash_type>Overturned (Off Road)</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.28421665</geo:lat>
+        <geo:long>149.0857318</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-zmij-tcmw~hx5y">
+    <socrata:rowID>row-zmij-tcmw~hx5y</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>15</ds:crash_id>
+    <ds:crash_date>2021-03-01T00:00:00</ds:crash_date>
+    <ds:crash_time>7:45 AM</ds:crash_time>
+    <ds:suburb_location>PHILLIP</ds:suburb_location>
+    <ds:x>149.1004542</ds:x>
+    <ds:y>-35.35337487</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>North bound</ds:crash_direction>
+    <ds:crash_type>Rear end collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.35337487</geo:lat>
+        <geo:long>149.1004542</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-gs95_im5i_bpyp">
+    <socrata:rowID>row-gs95_im5i_bpyp</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>150</ds:crash_id>
+    <ds:crash_date>2021-03-05T00:00:00</ds:crash_date>
+    <ds:crash_time>6:45 PM</ds:crash_time>
+    <ds:suburb_location>BONYTHON</ds:suburb_location>
+    <ds:x>149.0802964</ds:x>
+    <ds:y>-35.43074235</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>South / West bound</ds:crash_direction>
+    <ds:crash_type>Right angle collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.43074235</geo:lat>
+        <geo:long>149.0802964</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-5bpu.urbw-kz8z">
+    <socrata:rowID>row-5bpu.urbw-kz8z</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>151</ds:crash_id>
+    <ds:crash_date>2021-03-05T00:00:00</ds:crash_date>
+    <ds:crash_time>7:00 PM</ds:crash_time>
+    <ds:suburb_location>FISHER</ds:suburb_location>
+    <ds:x>149.0476625</ds:x>
+    <ds:y>-35.35985501</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>South bound</ds:crash_direction>
+    <ds:crash_type>Rear end collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.35985501</geo:lat>
+        <geo:long>149.0476625</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-8zga.32k7~3hkh">
+    <socrata:rowID>row-8zga.32k7~3hkh</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>152</ds:crash_id>
+    <ds:crash_date>2021-03-07T00:00:00</ds:crash_date>
+    <ds:crash_time>3:55 PM</ds:crash_time>
+    <ds:suburb_location>BOOTH (RURAL)</ds:suburb_location>
+    <ds:x>149.0266463</ds:x>
+    <ds:y>-35.61622428</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>South bound</ds:crash_direction>
+    <ds:crash_type>No object struck (Off Road)</ds:crash_type>
+    <ds:crash_severity>Injury</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.61622428</geo:lat>
+        <geo:long>149.0266463</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-6rg4.fyi2-zsc3">
+    <socrata:rowID>row-6rg4.fyi2-zsc3</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>153</ds:crash_id>
+    <ds:crash_date>2021-03-08T00:00:00</ds:crash_date>
+    <ds:crash_time>5:30 PM</ds:crash_time>
+    <ds:suburb_location>MACQUARIE</ds:suburb_location>
+    <ds:x>149.0572274</ds:x>
+    <ds:y>-35.24680765</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>North bound</ds:crash_direction>
+    <ds:crash_type>Collision with parked vehicle</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.24680765</geo:lat>
+        <geo:long>149.0572274</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-dfuu-ytkx_yem4">
+    <socrata:rowID>row-dfuu-ytkx_yem4</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>154</ds:crash_id>
+    <ds:crash_date>2021-03-08T00:00:00</ds:crash_date>
+    <ds:crash_time>8:20 PM</ds:crash_time>
+    <ds:suburb_location>GRIFFITH</ds:suburb_location>
+    <ds:x>149.1374969</ds:x>
+    <ds:y>-35.31936856</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>North bound</ds:crash_direction>
+    <ds:crash_type>Same direction side swipe</ds:crash_type>
+    <ds:crash_severity>Injury</ds:crash_severity>
+    <ds:lighting_condition>Dark - good street lighting</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.31936856</geo:lat>
+        <geo:long>149.1374969</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-ztqx_7j6w_z59z">
+    <socrata:rowID>row-ztqx_7j6w_z59z</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>155</ds:crash_id>
+    <ds:crash_date>2021-03-08T00:00:00</ds:crash_date>
+    <ds:crash_time>8:30 PM</ds:crash_time>
+    <ds:suburb_location>GUNGAHLIN</ds:suburb_location>
+    <ds:x>149.1232184</ds:x>
+    <ds:y>-35.18923906</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>South / West bound</ds:crash_direction>
+    <ds:crash_type>Struck object (Off Road)</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Dark - good street lighting</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.18923906</geo:lat>
+        <geo:long>149.1232184</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-u4gc.pqyb~tviu">
+    <socrata:rowID>row-u4gc.pqyb~tviu</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>156</ds:crash_id>
+    <ds:crash_date>2021-03-09T00:00:00</ds:crash_date>
+    <ds:crash_time>3:55 PM</ds:crash_time>
+    <ds:suburb_location>MACQUARIE</ds:suburb_location>
+    <ds:x>149.0608058</ds:x>
+    <ds:y>-35.24820879</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>West bound</ds:crash_direction>
+    <ds:crash_type>Collision with parked vehicle</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.24820879</geo:lat>
+        <geo:long>149.0608058</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-c8yp.imzk~5jkc">
+    <socrata:rowID>row-c8yp.imzk~5jkc</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>157</ds:crash_id>
+    <ds:crash_date>2021-03-11T00:00:00</ds:crash_date>
+    <ds:crash_time>9:30 PM</ds:crash_time>
+    <ds:suburb_location>CITY</ds:suburb_location>
+    <ds:x>149.1343541</ds:x>
+    <ds:y>-35.28103288</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>East / West bound</ds:crash_direction>
+    <ds:crash_type>Right turn into oncoming vehicle</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Dark - poor street lighting</ds:lighting_condition>
+    <ds:road_condition>Wet surface</ds:road_condition>
+    <ds:weather_condition>Light rain</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.28103288</geo:lat>
+        <geo:long>149.1343541</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-zsgf-yksj~7yjm">
+    <socrata:rowID>row-zsgf-yksj~7yjm</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>158</ds:crash_id>
+    <ds:crash_date>2021-03-12T00:00:00</ds:crash_date>
+    <ds:crash_time>4:30 PM</ds:crash_time>
+    <ds:suburb_location>SYMONSTON</ds:suburb_location>
+    <ds:x>149.1620985</ds:x>
+    <ds:y>-35.33537417</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>North bound</ds:crash_direction>
+    <ds:crash_type>Same direction side swipe</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.33537417</geo:lat>
+        <geo:long>149.1620985</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-c63s-t74s-7w2n">
+    <socrata:rowID>row-c63s-t74s-7w2n</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>159</ds:crash_id>
+    <ds:crash_date>2021-03-13T00:00:00</ds:crash_date>
+    <ds:crash_time>2:00 PM</ds:crash_time>
+    <ds:suburb_location>CONDER</ds:suburb_location>
+    <ds:x>149.0910348</ds:x>
+    <ds:y>-35.46407013</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>South / West bound</ds:crash_direction>
+    <ds:crash_type>Right angle collision</ds:crash_type>
+    <ds:crash_severity>Injury</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.46407013</geo:lat>
+        <geo:long>149.0910348</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-fuxz~uc6t_5f7t">
+    <socrata:rowID>row-fuxz~uc6t_5f7t</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>16</ds:crash_id>
+    <ds:crash_date>2021-03-01T00:00:00</ds:crash_date>
+    <ds:crash_time>9:50 AM</ds:crash_time>
+    <ds:suburb_location>FORREST</ds:suburb_location>
+    <ds:x>149.1331687</ds:x>
+    <ds:y>-35.31339182</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>West bound</ds:crash_direction>
+    <ds:crash_type>Rear end collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.31339182</geo:lat>
+        <geo:long>149.1331687</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-x9qs_d92r_ck6w">
+    <socrata:rowID>row-x9qs_d92r_ck6w</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>160</ds:crash_id>
+    <ds:crash_date>2021-02-12T00:00:00</ds:crash_date>
+    <ds:crash_time>4:00 PM</ds:crash_time>
+    <ds:suburb_location>MITCHELL</ds:suburb_location>
+    <ds:x>149.1376921</ds:x>
+    <ds:y>-35.21495384</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>Unknown</ds:crash_direction>
+    <ds:crash_type>Other - vehicle to vehicle</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Wet surface</ds:road_condition>
+    <ds:weather_condition>Cloudy or Overcast</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.21495384</geo:lat>
+        <geo:long>149.1376921</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-6ezf_4h5g.jp2y">
+    <socrata:rowID>row-6ezf_4h5g.jp2y</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>161</ds:crash_id>
+    <ds:crash_date>2021-03-03T00:00:00</ds:crash_date>
+    <ds:crash_time>9:15 PM</ds:crash_time>
+    <ds:suburb_location>RED HILL</ds:suburb_location>
+    <ds:x>149.1247622</ds:x>
+    <ds:y>-35.34242918</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>East / South bound</ds:crash_direction>
+    <ds:crash_type>Collision with parked vehicle</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Dark - good street lighting</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.34242918</geo:lat>
+        <geo:long>149.1247622</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-spic_vpie-zq4y">
+    <socrata:rowID>row-spic_vpie-zq4y</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>162</ds:crash_id>
+    <ds:crash_date>2021-03-05T00:00:00</ds:crash_date>
+    <ds:crash_time>11:15 AM</ds:crash_time>
+    <ds:suburb_location>EVATT</ds:suburb_location>
+    <ds:x>149.0709538</ds:x>
+    <ds:y>-35.20383383</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>North / West bound</ds:crash_direction>
+    <ds:crash_type>Other - vehicle to vehicle</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.20383383</geo:lat>
+        <geo:long>149.0709538</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-rpkf.gfsh-tc47">
+    <socrata:rowID>row-rpkf.gfsh-tc47</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>163</ds:crash_id>
+    <ds:crash_date>2021-03-05T00:00:00</ds:crash_date>
+    <ds:crash_time>12:15 PM</ds:crash_time>
+    <ds:suburb_location>BELCONNEN</ds:suburb_location>
+    <ds:x>149.0682259</ds:x>
+    <ds:y>-35.23764329</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>East bound</ds:crash_direction>
+    <ds:crash_type>Other - vehicle to vehicle</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.23764329</geo:lat>
+        <geo:long>149.0682259</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-3c4c-cwhc-sahv">
+    <socrata:rowID>row-3c4c-cwhc-sahv</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>164</ds:crash_id>
+    <ds:crash_date>2021-03-05T00:00:00</ds:crash_date>
+    <ds:crash_time>12:35 PM</ds:crash_time>
+    <ds:suburb_location>FYSHWICK</ds:suburb_location>
+    <ds:x>149.1728681</ds:x>
+    <ds:y>-35.32903038</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>North / West bound</ds:crash_direction>
+    <ds:crash_type>Other - vehicle to vehicle</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.32903038</geo:lat>
+        <geo:long>149.1728681</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-ppu8~7agw~6mtk">
+    <socrata:rowID>row-ppu8~7agw~6mtk</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>165</ds:crash_id>
+    <ds:crash_date>2021-03-05T00:00:00</ds:crash_date>
+    <ds:crash_time>12:53 PM</ds:crash_time>
+    <ds:suburb_location>MAJURA (RURAL)</ds:suburb_location>
+    <ds:x>149.23075467</ds:x>
+    <ds:y>-35.32916411</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>East bound</ds:crash_direction>
+    <ds:crash_type>Same direction side swipe</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.32916411</geo:lat>
+        <geo:long>149.23075467</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-xmhm.7pun~p7ky">
+    <socrata:rowID>row-xmhm.7pun~p7ky</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>166</ds:crash_id>
+    <ds:crash_date>2021-03-05T00:00:00</ds:crash_date>
+    <ds:crash_time>2:10 PM</ds:crash_time>
+    <ds:suburb_location>LYNEHAM</ds:suburb_location>
+    <ds:x>149.1273318</ds:x>
+    <ds:y>-35.24542098</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>South bound</ds:crash_direction>
+    <ds:crash_type>Other - vehicle to vehicle</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.24542098</geo:lat>
+        <geo:long>149.1273318</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-fnvm~jnz9~i7c2">
+    <socrata:rowID>row-fnvm~jnz9~i7c2</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>167</ds:crash_id>
+    <ds:crash_date>2021-03-05T00:00:00</ds:crash_date>
+    <ds:crash_time>3:20 PM</ds:crash_time>
+    <ds:suburb_location>YARRALUMLA</ds:suburb_location>
+    <ds:x>149.0914008</ds:x>
+    <ds:y>-35.31259854</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>West bound</ds:crash_direction>
+    <ds:crash_type>Rear end collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.31259854</geo:lat>
+        <geo:long>149.0914008</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-z5bx-7ivb~qj4j">
+    <socrata:rowID>row-z5bx-7ivb~qj4j</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>168</ds:crash_id>
+    <ds:crash_date>2021-03-05T00:00:00</ds:crash_date>
+    <ds:crash_time>3:30 PM</ds:crash_time>
+    <ds:suburb_location>HUME</ds:suburb_location>
+    <ds:x>149.1628363</ds:x>
+    <ds:y>-35.39343133</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>South bound</ds:crash_direction>
+    <ds:crash_type>Collision with parked vehicle</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.39343133</geo:lat>
+        <geo:long>149.1628363</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-b5xi.hk7m~jpab">
+    <socrata:rowID>row-b5xi.hk7m~jpab</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>169</ds:crash_id>
+    <ds:crash_date>2021-03-05T00:00:00</ds:crash_date>
+    <ds:crash_time>3:30 PM</ds:crash_time>
+    <ds:suburb_location>PHILLIP</ds:suburb_location>
+    <ds:x>149.0914999</ds:x>
+    <ds:y>-35.35525082</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>South bound</ds:crash_direction>
+    <ds:crash_type>Rear end collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.35525082</geo:lat>
+        <geo:long>149.0914999</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-m9tp.a5u6_isp5">
+    <socrata:rowID>row-m9tp.a5u6_isp5</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>17</ds:crash_id>
+    <ds:crash_date>2021-03-01T00:00:00</ds:crash_date>
+    <ds:crash_time>3:10 PM</ds:crash_time>
+    <ds:suburb_location>FYSHWICK</ds:suburb_location>
+    <ds:x>149.1804727</ds:x>
+    <ds:y>-35.32955134</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>North bound</ds:crash_direction>
+    <ds:crash_type>Other - vehicle to vehicle</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.32955134</geo:lat>
+        <geo:long>149.1804727</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-s67e~mnvu_r5sc">
+    <socrata:rowID>row-s67e~mnvu_r5sc</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>170</ds:crash_id>
+    <ds:crash_date>2021-03-05T00:00:00</ds:crash_date>
+    <ds:crash_time>4:00 PM</ds:crash_time>
+    <ds:suburb_location>LYNEHAM</ds:suburb_location>
+    <ds:x>149.1251298</ds:x>
+    <ds:y>-35.23272759</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>South / West bound</ds:crash_direction>
+    <ds:crash_type>Right angle collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.23272759</geo:lat>
+        <geo:long>149.1251298</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-dzwg-pfb3-4qsj">
+    <socrata:rowID>row-dzwg-pfb3-4qsj</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>171</ds:crash_id>
+    <ds:crash_date>2021-03-05T00:00:00</ds:crash_date>
+    <ds:crash_time>4:15 PM</ds:crash_time>
+    <ds:suburb_location>MAJURA (RURAL)</ds:suburb_location>
+    <ds:x>149.1958802</ds:x>
+    <ds:y>-35.2207269</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>North bound</ds:crash_direction>
+    <ds:crash_type>Same direction side swipe</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.2207269</geo:lat>
+        <geo:long>149.1958802</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-gdik-6w2b.vukr">
+    <socrata:rowID>row-gdik-6w2b.vukr</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>172</ds:crash_id>
+    <ds:crash_date>2021-03-05T00:00:00</ds:crash_date>
+    <ds:crash_time>4:16 PM</ds:crash_time>
+    <ds:suburb_location>SYMONSTON</ds:suburb_location>
+    <ds:x>149.1848045</ds:x>
+    <ds:y>-35.3415287</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>East bound</ds:crash_direction>
+    <ds:crash_type>Rear end collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.3415287</geo:lat>
+        <geo:long>149.1848045</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-ze9h.q7vc-2avy">
+    <socrata:rowID>row-ze9h.q7vc-2avy</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>173</ds:crash_id>
+    <ds:crash_date>2021-03-05T00:00:00</ds:crash_date>
+    <ds:crash_time>4:20 PM</ds:crash_time>
+    <ds:suburb_location>PARKES</ds:suburb_location>
+    <ds:x>149.1313433</ds:x>
+    <ds:y>-35.28653873</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>West bound</ds:crash_direction>
+    <ds:crash_type>Rear end collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.28653873</geo:lat>
+        <geo:long>149.1313433</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-ywjw~vk8b.uw48">
+    <socrata:rowID>row-ywjw~vk8b.uw48</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>174</ds:crash_id>
+    <ds:crash_date>2021-03-05T00:00:00</ds:crash_date>
+    <ds:crash_time>4:30 PM</ds:crash_time>
+    <ds:suburb_location>REID</ds:suburb_location>
+    <ds:x>149.1379277</ds:x>
+    <ds:y>-35.28740871</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>East bound</ds:crash_direction>
+    <ds:crash_type>Rear end collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.28740871</geo:lat>
+        <geo:long>149.1379277</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-jgfi_v5nd~8wyx">
+    <socrata:rowID>row-jgfi_v5nd~8wyx</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>175</ds:crash_id>
+    <ds:crash_date>2021-03-05T00:00:00</ds:crash_date>
+    <ds:crash_time>5:05 PM</ds:crash_time>
+    <ds:suburb_location>LATHAM</ds:suburb_location>
+    <ds:x>149.0434168</ds:x>
+    <ds:y>-35.21772091</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>North bound</ds:crash_direction>
+    <ds:crash_type>Rear end collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.21772091</geo:lat>
+        <geo:long>149.0434168</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-nqvm.3rhm-iq6p">
+    <socrata:rowID>row-nqvm.3rhm-iq6p</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>176</ds:crash_id>
+    <ds:crash_date>2021-03-05T00:00:00</ds:crash_date>
+    <ds:crash_time>5:20 PM</ds:crash_time>
+    <ds:suburb_location>LATHAM</ds:suburb_location>
+    <ds:x>149.0432722</ds:x>
+    <ds:y>-35.21786258</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>West bound</ds:crash_direction>
+    <ds:crash_type>Rear end collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.21786258</geo:lat>
+        <geo:long>149.0432722</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-44f4_2f6c~ni9m">
+    <socrata:rowID>row-44f4_2f6c~ni9m</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>177</ds:crash_id>
+    <ds:crash_date>2021-03-05T00:00:00</ds:crash_date>
+    <ds:crash_time>5:45 PM</ds:crash_time>
+    <ds:suburb_location>CITY</ds:suburb_location>
+    <ds:x>149.1286344</ds:x>
+    <ds:y>-35.27704419</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>North / West bound</ds:crash_direction>
+    <ds:crash_type>Other - vehicle to vehicle</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.27704419</geo:lat>
+        <geo:long>149.1286344</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-w7k7.jk9j.i6qf">
+    <socrata:rowID>row-w7k7.jk9j.i6qf</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>178</ds:crash_id>
+    <ds:crash_date>2021-03-06T00:00:00</ds:crash_date>
+    <ds:crash_time>10:30 AM</ds:crash_time>
+    <ds:suburb_location>HOLDER</ds:suburb_location>
+    <ds:x>149.0537818</ds:x>
+    <ds:y>-35.32906007</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>North bound</ds:crash_direction>
+    <ds:crash_type>Rear end collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.32906007</geo:lat>
+        <geo:long>149.0537818</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-h53k-wuqc.9bfd">
+    <socrata:rowID>row-h53k-wuqc.9bfd</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>179</ds:crash_id>
+    <ds:crash_date>2021-03-06T00:00:00</ds:crash_date>
+    <ds:crash_time>12:40 PM</ds:crash_time>
+    <ds:suburb_location>BRADDON</ds:suburb_location>
+    <ds:x>149.1324642</ds:x>
+    <ds:y>-35.27522866</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>North bound</ds:crash_direction>
+    <ds:crash_type>Other - vehicle to vehicle</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.27522866</geo:lat>
+        <geo:long>149.1324642</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-zgmw_hv9d.v6jf">
+    <socrata:rowID>row-zgmw_hv9d.v6jf</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>18</ds:crash_id>
+    <ds:crash_date>2021-02-25T00:00:00</ds:crash_date>
+    <ds:crash_time>8:41 AM</ds:crash_time>
+    <ds:suburb_location>MITCHELL</ds:suburb_location>
+    <ds:x>149.1396069</ds:x>
+    <ds:y>-35.21958364</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>South bound</ds:crash_direction>
+    <ds:crash_type>Other - vehicle to vehicle</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.21958364</geo:lat>
+        <geo:long>149.1396069</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-s4m2.brp6~pd2p">
+    <socrata:rowID>row-s4m2.brp6~pd2p</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>180</ds:crash_id>
+    <ds:crash_date>2021-03-06T00:00:00</ds:crash_date>
+    <ds:crash_time>1:50 PM</ds:crash_time>
+    <ds:suburb_location>PHILLIP</ds:suburb_location>
+    <ds:x>149.0867741</ds:x>
+    <ds:y>-35.35584396</ds:y>
+    <ds:intersection>YES</ds:intersection>
+    <ds:midblock>NO</ds:midblock>
+    <ds:crash_direction>West bound</ds:crash_direction>
+    <ds:crash_type>Rear end collision</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.35584396</geo:lat>
+        <geo:long>149.0867741</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx>
+<dsbase:_6jn4-m8rx rdf:about="https://www.data.act.gov.au/resource/_6jn4-m8rx/row-496c_9iyu~hs8p">
+    <socrata:rowID>row-496c_9iyu~hs8p</socrata:rowID>
+    <rdfs:member rdf:resource="https://www.data.act.gov.au/resource/_6jn4-m8rx"/>
+    <ds:crash_id>181</ds:crash_id>
+    <ds:crash_date>2021-03-06T00:00:00</ds:crash_date>
+    <ds:crash_time>5:00 PM</ds:crash_time>
+    <ds:suburb_location>OAKS ESTATE</ds:suburb_location>
+    <ds:x>149.2293658</ds:x>
+    <ds:y>-35.34051976</ds:y>
+    <ds:intersection>NO</ds:intersection>
+    <ds:midblock>YES</ds:midblock>
+    <ds:crash_direction>North bound</ds:crash_direction>
+    <ds:crash_type>Collision with parked vehicle</ds:crash_type>
+    <ds:crash_severity>Property damage only</ds:crash_severity>
+    <ds:lighting_condition>Daylight</ds:lighting_condition>
+    <ds:road_condition>Good dry surface</ds:road_condition>
+    <ds:weather_condition>Fine</ds:weather_condition>
+    <ds:location><geo:SpatialThing>
+        <usps:deliveryAddress></usps:deliveryAddress>
+        <usps:cityName></usps:cityName>
+        <geo:lat>-35.34051976</geo:lat>
+        <geo:long>149.2293658</geo:long>
+        <usps:stateAbbr></usps:stateAbbr>
+        <usps:zipCode></usps:zipCode></geo:SpatialThing></ds:location></dsbase:_6jn4-m8rx></rdf:RDF>

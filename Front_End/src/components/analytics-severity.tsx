@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import dynamic from "next/dynamic";
-import { ArrowUpRight, CircleHelp, Heart, PieChart, Siren, Users } from "lucide-react";
+import { CircleHelp, Heart, PieChart, Siren, Users } from "lucide-react";
 import type { AnalyticsData } from "@/services/analytics";
 import { fatalPercentage } from "@/services/analytics-insights";
 import AnalyticsMetricCard from "./analytics-metric-card";
@@ -42,12 +42,11 @@ export default function AnalyticsSeverity({ data, evidence, resetDates }: Props)
         <div className={`${styles.severityChart} ${styles.singleSeverityChart}`} data-mode={mode}>
           {data.severityAvailability === "available" ? <Chart kind="severity" rows={[]} severity={data.severity} mode={mode}/> : <div className={styles.chartLoading} role="status"><p>{data.severityReason || "No category breakdown is available for this selection."}</p><button className={styles.textButton} onClick={resetDates}>Use full-period selection</button></div>}
         </div>
-        <div className={styles.cardFoot}><button onClick={definition}>Definitions <ArrowUpRight size={14}/></button></div>
       </article>
       <article className={styles.card}>
         <div className={styles.cardHeading}><div><h2>Fatal crashes & lives lost</h2></div><button className={styles.info} aria-label="Fatal outcomes definitions and annual values" onClick={annualValues}><CircleHelp size={17}/></button></div>
         <div className={styles.fatalOutcomesChart}><Chart kind="fatal-outcomes" rows={data.timeSeriesYearly} granularity="yearly"/></div>
-        <div className={styles.cardFoot}>{data.timeSeriesYearly.some(row => !row.fullYear) && <span>Selected months only · not a full-year total</span>}<button onClick={annualValues}>View annual values <ArrowUpRight size={14}/></button></div>
+        {data.timeSeriesYearly.some(row => !row.fullYear) && <div className={styles.cardFoot}><span>Selected months only · not a full-year total</span></div>}
       </article>
     </section>
     <section className={styles.balancedGrid} aria-label="Outcome interpretation">

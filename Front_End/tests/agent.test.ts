@@ -275,7 +275,9 @@ test("controlled loop supports consecutive tools, streamed text and actual evide
     events.push(e);
   assert.equal(events.filter((e) => e.type === "tool_result").length, 2);
   const evidence = events.filter((e) => e.type === "evidence");
-  assert.equal(evidence.length, 2);
+  assert.equal(evidence.length, 3);
+  assert.equal(evidence[2].evidence.title, "Answer evidence check");
+  assert.equal(evidence[0].evidence.query?.assurance?.claims, "not_automatically_verified");
   assert.equal(evidence[0].evidence.href, undefined);
   assert.ok(evidence[0].evidence.result);
   assert.equal(events.at(-1)?.type, "done");
@@ -321,10 +323,10 @@ test("same-origin browser requests survive Next host normalization; cross-origin
   const { sameOrigin } = await import("../src/server/agent/request");
   assert.equal(
     sameOrigin(
-      new Request("http://localhost:3101/api/agent", {
+      new Request("http://localhost:3100/api/agent", {
         headers: {
-          host: "127.0.0.1:3101",
-          origin: "http://127.0.0.1:3101",
+          host: "127.0.0.1:3100",
+          origin: "http://127.0.0.1:3100",
           "sec-fetch-site": "same-origin",
         },
       }),
@@ -333,9 +335,9 @@ test("same-origin browser requests survive Next host normalization; cross-origin
   );
   assert.equal(
     sameOrigin(
-      new Request("http://localhost:3101/api/agent", {
+      new Request("http://localhost:3100/api/agent", {
         headers: {
-          host: "127.0.0.1:3101",
+          host: "127.0.0.1:3100",
           origin: "https://evil.example",
           "sec-fetch-site": "cross-site",
         },
@@ -385,4 +387,45 @@ test("tiny nonzero severity shares never round to an apparent zero", async () =>
     (row: { count: number }) => row.count === 3,
   );
   assert.equal(minor.sharePercent, 0.0042);
+});
+
+test("Research planning cannot substitute for data and invalid tools leave an inspectable rejection", async () => {
+  const research={notes:"",references:"",skipPresentation:()=>false};
+  const plan=call("research_plan",{steps:[{label:"Read data",stage:"data",optional:false},{label:"Compare",stage:"analysis",optional:false},{label:"Chart",stage:"presentation",optional:true}]});
+  const events:AgentEvent[]=[];
+  await assert.rejects(async()=>{for await(const e of runAgent(request,{model:"test",service,snapshot,signal:new AbortController().signal,research,stream:fakeStream([[plan],[final]])}))events.push(e);},/MODEL_INCOMPLETE/);
+  assert.equal(events.some(e=>e.type==="message"),false);
+  const checked:AgentEvent[]=[];
+  for await(const e of runAgent(request,{model:"test",service,snapshot,signal:new AbortController().signal,research,stream:fakeStream([[call("core_metrics",{source:"WA",dateRange:null})],[call("core_metrics",defaults)],[final]])}))checked.push(e);
+  assert.ok(checked.some(e=>e.type==="tool_error"));assert.ok(checked.some(e=>e.type==="done"));
+});
+
+test("Research metric selection reaches every model round without using history as data", async () => {
+  const stream = fakeStream([[call("core_metrics", defaults)], [final]]);
+  let rounds = 0;
+  for await (const event of runAgent(request, {
+    model: "test", service, snapshot, signal: new AbortController().signal,
+    research: { metric: "fatalCrashes", notes: "", references: "", skipPresentation: () => false },
+    stream: async (params, signal) => {
+      assert.match(String(params.instructions), /Trusted selected analysis metric: fatalCrashes/);
+      rounds++;
+      return stream(params, signal);
+    },
+  })) void event;
+  assert.equal(rounds, 2);
+});
+
+test('failed and cancelled streams record one unknown-usage response even without completion', async () => {
+  for (const cancelled of [false,true]) {
+    const controller=new AbortController();
+    const receipts: {status:string;usage?:unknown}[]=[];const starts:string[]=[];
+    const stream:ModelStream=async()=>{if(cancelled)controller.abort();throw Error('transport failed');};
+    const run=runAgent(parseAgentRequest({context,message:'Counts',history:[]}),{
+      model:'test',stream,service,snapshot,signal:controller.signal,
+      recordRequest:async id=>{starts.push(id);},recordResponse:async value=>{receipts.push(value);},
+    });
+    await assert.rejects(async()=>{for await(const event of run)void event;});
+    assert.equal(starts.length,1);assert.equal(receipts.length,1);
+    assert.equal(receipts[0].status,cancelled?'cancelled':'failed');assert.equal(receipts[0].usage,undefined);
+  }
 });

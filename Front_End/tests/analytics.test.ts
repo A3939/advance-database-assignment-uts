@@ -41,12 +41,7 @@ for (const source of ["NSW", "VIC", "QLD"] as Source[]) {
     const data = result.data;
     assert.equal(result.meta.batchId, filters.batchId);
     assert.deepEqual(data.overview, overview.data);
-    assert.deepEqual(data.timeSeriesYearly, annual.data.map(row => ({
-      ...row,
-      selectedMonths: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-      observedMonths: 12,
-      fullYear: true,
-    })));
+    assert.deepEqual(data.timeSeriesYearly.map(row => ({ period: row.period, crashes: row.crashes, fatalCrashes: row.fatalCrashes, livesLost: row.livesLost, casualties: row.casualties })), annual.data);
     assert.equal(data.monthly.length, 60);
     assert.equal(data.summary.total, overview.data.crashes.value);
     assert.equal(data.summary.fatalShare, overview.data.fatalShare);

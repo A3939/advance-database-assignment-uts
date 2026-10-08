@@ -1,11 +1,9 @@
-import { createRegionalProvider, loadRegionSnapshot, regionEvidence } from "@/server/region-data";
+import { derivedSourceBinding } from "@/server/derived-report-binding";
+import { analysisRuntime } from "@/server/agent/runtime";
+import { resolveCatalog, parseDataFilters, PublicationUnavailable } from "@/server/data-catalog";
 import { getSeverityChange } from "@/server/severity-change";
 import { getSpeedZones, loadSpeedZoneSnapshot, speedZoneEvidence } from "@/server/speed-zone";
-import {
-  createOfficialProvider,
-  loadOfficialSnapshot,
-  parseOfficialFilters,
-} from "@/server/official-data";
+import { loadRegionSnapshot, regionEvidence } from "@/server/region-data";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 const headers = {
@@ -19,6 +17,7 @@ export async function GET(
   const { report } = await params;
   if (
     ![
+      "catalog",
       "overview",
       "timeseries",
       "severity",
@@ -37,9 +36,13 @@ export async function GET(
       { status: 404, headers },
     );
   const query = new URL(request.url).searchParams;
+  if (report === "catalog") {
+    try { return Response.json(await resolveCatalog(query.get("releaseId") || undefined, query.get("datasetVersion") === "official-v1"), { headers }); }
+    catch (error) { return Response.json({error:"The local publication service or requested release is unavailable. No snapshot has been substituted."},{status:error instanceof PublicationUnavailable ? error.status : 404,headers}); }
+  }
   let filters;
   try {
-    filters = parseOfficialFilters(query);
+    filters = parseDataFilters(query);
     if (
       report === "timeseries" &&
       query.has("granularity") &&
@@ -66,21 +69,29 @@ export async function GET(
     );
   }
   try {
-    const [snapshot, regional] = await Promise.all([loadOfficialSnapshot(), loadRegionSnapshot()]);
-    const service = createRegionalProvider(createOfficialProvider(snapshot), regional);
+    const { snapshot, service, catalog } = await analysisRuntime({page:"/",filters});
     let payload: unknown;
     switch (report) {
+      case "severity-change":
+        payload = await getSeverityChange(filters, service, await loadRegionSnapshot(), catalog);
+        break;
       case "speed-zones":
-        payload = await getSpeedZones(filters, service, await loadSpeedZoneSnapshot());
+        payload = await getSpeedZones(filters, service, await loadSpeedZoneSnapshot(), catalog);
         break;
-      case "speed-zone-evidence":
-        payload = await speedZoneEvidence();
+      case "speed-zone-evidence": {
+        const speed = await loadSpeedZoneSnapshot();
+        const evidence = await speedZoneEvidence();
+        const sources = filters.source === "All" ? catalog.sources.map(s=>s.source) : [filters.source];
+        const bindings = sources.filter(source=>speed.sources[source]).map(source=>derivedSourceBinding(filters,source,speed,catalog,evidence)).filter(Boolean);
+        if (!bindings.length) return Response.json({ error: "No speed-zone evidence is bound to this release." }, { status: 404, headers });
+        payload = {...evidence, bindings};
         break;
+      }
       case "region-evidence":
         payload = await regionEvidence();
         break;
       case "evidence":
-        payload = { demo: false, ...snapshot.provenance };
+        payload = { demo: false, ...snapshot.provenance, catalog };
         break;
       case "metadata":
         payload = await service.getDatasetMetadata();
@@ -96,9 +107,6 @@ export async function GET(
         break;
       case "severity":
         payload = await service.getSeverityDistribution(filters);
-        break;
-      case "severity-change":
-        payload = await getSeverityChange(filters, service, regional);
         break;
       case "map":
         payload = await service.getMapData(filters);

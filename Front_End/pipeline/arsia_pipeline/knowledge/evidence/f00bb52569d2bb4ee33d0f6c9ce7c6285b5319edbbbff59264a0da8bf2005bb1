@@ -1,0 +1,608 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://www.w3.org/2000/08/w3c-synd/#">
+  <title>W3C Semantic Web Interest Group: Basic Geo (WGS84
+  lat/long) Vocabulary</title>
+  <link rel="Stylesheet" href="/QA/2002/12/qa4.css" type=
+  "text/css" />
+<!--
+padding: 15px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	background: #eee;
+	font-family: Courier;
+-->
+<style type="text/css" media="all">
+/* <![CDATA[ */
+a[hreflang]:after { content: " [" attr(hreflang) "] "; }
+.code {
+	font-size: 12px;
+
+		margin: auto;
+		background-color: #FFC;
+		padding: 1em;
+		border-color: #FC3;
+		border-width: 1px;
+		border-style: solid;
+		overflow:auto;
+}
+
+pre	
+	{
+		margin: auto;
+		background-color: #FFC;
+		padding: 1em;
+		border-color: #FC3;
+		border-width: 1px;
+		border-style: solid;
+		white-space: pre;
+		overflow:auto;
+        text-align: left;
+		/*font-size: 10px;*/
+	}
+	pre strong {	
+		color: #F00;
+		font-weight: bold;
+	}
+
+/* ]]> */
+
+</style>
+</head>
+
+<body>
+
+<!-- Header -->
+<div id="Logo">
+<a href="https://www.w3.org/"><img alt="W3C" src="/Icons/WWW/w3c_home" 
+/></a>
+<a href="https://www.w3.org/RDF/"><img alt="RDF" 
+src="/RDF/icons/rdf_w3c_icon.48" /></a>
+
+<!-- <div id="Header">Be strict to be cool</div> -->
+ <div><map name="introLinks" id="introLinks" title="Introductory Links">
+<div class="banner"> <a
+class="bannerLink" title="W3C Activities" accesskey="A"
+href="/Consortium/Activities">Activities</a> | <a class="bannerLink"
+title="Technical Reports and Recommendations" accesskey="T"
+href="/TR/">Technical Reports</a> | <a class="bannerLink"
+title="Alphabetical Site Index" accesskey="S"
+href="/Help/siteindex">Site Index</a> | <a class="bannerLink"
+title="Help for new visitors" accesskey="N"
+href="/2002/03/new-to-w3c">New Visitors</a> | <a
+class="bannerLink" title="About W3C" accesskey="B"
+href="/Consortium/">About W3C</a> | <a class="bannerLink"
+title="Join W3C" accesskey="J"
+href="/Consortium/Prospectus/Joining">Join W3C</a></div>
+</map></div>
+</div>
+<!-- menuRight -->
+<div id="Menu">
+<p><a href="#status">Status</a><span 
+class="dot">&middot;</span>
+<a href="#overview">Overview</a><span class="dot">&middot;</span>
+<a href="#example">Examples</a><span class="dot">&middot;</span>
+<a href="#history">History</a><span class="dot">&middot;</span>
+<a href="#vocabulary">Vocabulary</a><span class="dot">&middot;</span>
+<a href="#discussion">Discussion</a><span class="dot">&middot;</span>
+<a href="#documents">Documents</a><span class="dot">&middot;</span>
+<a href="#development">Development</a><span class="dot">&middot;</span>
+<!-- <a href="feed.rss">RSS</a><span class="dot">&middot;</span> -->
+</p>
+<!--
+<hr />
+<p class="navhead">Nearby:</p>
+<p><a href="/RDF/"><abbr title="Resource Description 
+Framework">RDF</abbr>&nbsp;Homepage</a><span class="dot">&middot;</span>
+</p>
+-->
+</div>
+
+<!-- content -->
+<div id="Content">
+
+<!-- Your content is starting after this -->
+
+  <h1><a href="/2001/sw/interest/">W3C Semantic Web Interest Group</a></h1>
+
+  <h2>Basic Geo (WGS84 lat/long) Vocabulary</h2>
+
+  <p>Nearby in the Web: <a href=
+  "http://esw.w3.org/topic/GeoInfo">ESW:GeoInfo wiki</a> | <a 
+href="http://del.icio.us/tag/geo">del.icio.us/tag/geo</a> |<a 
+href="http://locative.us/">locative.us</a> | <a 
+href="http://mappinghacks.com/">Mapping Hacks</a> | <a 
+href="http://www.schemaweb.info/schema/SchemaDetails.aspx?id=42">SchemaWeb entry</a>
+</p>
+
+  <p>Editor: <a href="/People/DanBri/">Dan Brickley</a>
+  &lt;<a href="mailto:danbri@danbri.org">danbri@danbri.org</a>&gt; (SWIG Chair)</p>
+
+  <p>This is a <em>basic</em> RDF vocabulary that provides the
+  Semantic Web community with a namespace for representing
+  <strong>lat</strong>(itude), <strong>long</strong>(itude) and
+  other information about spatially-located things, using WGS84 as
+  a reference datum.</p>
+
+  <p>The vocabulary is getting significant usage, both (as intended) 
+  within RDF documents, but also as a namespace used within non-RDF XML
+  documents, such as RSS 2.0 (<a href="#nonrdf">see below</a>).
+</p>
+
+<p>
+The <a 
+href="http://locative.net/workshop/index.cgi?Locative_Packets">Locative 
+packets</a> format uses this vocabulary, as do Map Bureau's <a 
+href="http://www.mapbureau.com/rdfmapper/">RDF mapping</a> tools. 
+The <a href="http://geocoder.us/">geocoder.us</a> site, provides a free 
+geocoding service for the US, based on TIGER data, and accessible via 
+an <a href="http://geocoder.us/help/">RDF Web service</a> that uses this 
+vocabulary. Other applications include <a 
+href="http://blogmapper.com/#howloc">blogmapper</a> and <a 
+href="http://openguides.org/">openguides</a>. The <a 
+href="http://brainoff.com/worldkit/doc/rss.php">WordKit</a> system 
+also uses it for geocoding RSS 1.0 (ie. RDF), RSS 2.0 (non-RDF) and Atom 
+(non-RDF). The <a href="http://developer.yahoo.net/maps/">Yahoo! 
+Maps</a> service also makes use of this namespace, although 
+apparently only within a RSS 2.0 context. See the <a 
+href="http://esw.w3.org/topic/GeoInfo">ESW:GeoInfo</a> Wiki 
+entry for links to other uses of this work. 
+</p>
+
+
+
+  <h2 id="status">Status of this Document</h2>
+
+  <p>This document was created as an informal collaboration within
+  W3C's <a href="/2001/sw/interest/">Semantic Web Interest
+  Group</a>. This work is not currently on the W3C <a href="https://www.w3.org/2004/02/Process-20040205/tr.html#Reports">recommendation
+  track</a> for standardization, and has not been subject to the
+  associated review process, quality assurance, etc. If there is
+  interest amongst the W3C membership in standards work on a
+  location/mapping RDF vocabulary, this current work may inform any
+  more formal efforts to follow.</p>
+
+  <h2 id="overview">Overview</h2>
+
+  <p>This vocabulary begins an exploration of the
+  possibilities of representing mapping/location data in RDF, and
+  does not attempt to address many of the issues covered in the
+  professional GIS world, notably by the <a href="http://www.opengeospatial.org/">Open Geospatial Consortium</a> 
+(OGC). Instead, we provide just a few basic terms that can be used in RDF (eg. <a 
+href="http://purl.org/rss/1.0/">RSS 1.0</a> or <a 
+href="http://xmlns.com/foaf/0.1/">FOAF</A> documents)
+  when there is a need to describe latitudes and longitudes. The 
+motivation for using RDF as a carrier for lat/long info is RDF's 
+capability for cross-domain data mixing. We can describe not only 
+maps, but the entities that are positioned on the map. And we can use 
+any relevant RDF vocabularies to do so, without the need for expensive
+pre-coordination, or for changes to a centrally maintained schema. 
+</p>
+
+
+
+<!-- http://www.w3.org/2001/sw/Europe/graphics/tmbltext.html -->
+
+  <h2 id="example">Examples</h2>
+
+<p>A basic, standalone example:</p>
+
+<pre>
+&lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+        xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"&gt;
+  &lt;geo:Point&gt;
+    &lt;geo:lat&gt;55.701&lt;/geo:lat&gt;
+    &lt;geo:long&gt;12.552&lt;/geo:long&gt;
+  &lt;/geo:Point&gt;
+&lt;/rdf:RDF&gt;
+
+</pre>
+
+<p>
+An <a href="https://www.w3.org/2001/sw/Europe/talks/200404-nict/slide6-2.html">example</a> 
+that combines Geo, <a href="http://www.dublincore.org/">Dublin Core</a> 
+and <a href="http://www.foaf-project.org/">FOAF</a> vocabularies:
+</p>
+<pre>
+&lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+        xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+        xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+        xmlns:dc="http://purl.org/dc/elements/1.1/" 
+        xmlns="http://xmlns.com/foaf/0.1/"&gt;
+&lt;Person&gt;
+ &lt;name&gt;Dan Brickley&lt;/name&gt;
+ &lt;homepage dc:title="Dan's home page" 
+              rdf:resource="http://danbri.org/"/&gt;
+ &lt;based_near geo:lat="51.47026" geo:long="-2.59466"/&gt;<span style="color: green;">
+ &lt;rdfs:seeAlso rdf:resource="<a href="http://danbri.org/foaf.rdf">http:/danbri.org/foaf.rdf</a>"/&gt;</span>
+ &lt;!-- more RDF here, using any RDF vocabularies --&gt;
+&lt;/Person&gt;
+&lt;/rdf:RDF&gt;
+</pre>
+
+
+<p>An example (from <a 
+href="http://brainoff.com/worldkit/doc/rss.php">WorldKit</a>) of 
+geo-coding with RSS 1.0:</p>
+
+<div class="code">
+&lt;?xml version="1.0"?&gt;<br/>
+&lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
+<span 
+style="color:red">xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"</span> 
+xmlns="http://purl.org/rss/1.0/"&gt;
+<br/><br/>...<br/><br/>
+&lt;item rdf:about="http://example.com/geo"&gt;<br/>
+&nbsp;&lt;title&gt;An example annotation&lt;/title&gt;<br/>
+&nbsp;&lt;link&gt;http://example.com/geo&lt;/link&gt;<br/>
+&nbsp;&lt;description&gt;Just an example&lt;/description&gt;<br/>
+<span style="color:red">&nbsp;&lt;geo:lat&gt;26.58&lt;/geo:lat&gt;<br/>
+&nbsp;&lt;geo:long&gt;-97.83&lt;/geo:long&gt;<br/></span>
+&lt;/item&gt;
+<br/><br/>...<br/><br/>
+&lt;/rdf:RDF&gt;
+</div>
+
+
+<!-- with an emphasis on representing WGS84 (world geodesic survey) -->
+  <!--
+<p>This document is a first-cut at providing some accompanying context 
+for the RDF vocabulary described below. Any supporting files can be accessed by 
+<a href="#files">browsing the file listings</a> provided below. </p> -->
+
+  <h2 id="history">History</h2>
+
+  <p>The origin of this workspace was the <a href=
+  "http://rdfig.xmlhack.com/2003/01/09/2003-01-09.html#1042129747.716114">
+  2003-01-09 discussion</a> in the RDF Interest Group <a href=
+  "/RDF/Interest#irc">IRC channel</a>. We are taking a similar
+  approach to the exploration of RDF vocabulary for calendars,
+  although that work is more mature. See the <a href="https://www.w3.org/2002/12/cal/">RDF Calendar Workspace</a> for
+  more information.</p>
+
+  <h2 id="vocabulary">Basic RDF Geo Vocabulary: Point/lat/long/alt</h2>
+
+<p>See the <a 
+href="http://www.schemaweb.info/schema/SchemaInfo.aspx?id=42">SchemaWeb</a> 
+site for an overview of classes and properties, or the <a href="https://www.w3.org/2003/01/geo/wgs84_pos#">underlying RDFS/OWL</a> 
+vocabulary description.</p>
+
+
+  <p>Currently we specify only a very minimalistic RDF vocabulary
+  for describing <strong>Point</strong>s with
+  <strong>lat</strong>itude, <strong>long</strong>itude, and
+  <strong>alt</strong>itude properties from the WGS84 reference
+  datum specification.</p>
+
+  <p>This design allows for basic information about points to be
+  described in RDF/XML, and augmented with more sophisticated or
+  application-specific metadata.</p>
+
+  <p>The vocabulary also defines a property
+  <strong>lat_long</strong>, but this should probably be removed,
+  as few commentators have valued it.</p>
+
+  <p>The vocabulary defines a class 'Point', whose members are
+  points. Points can be described using the 'lat', 'long' and 'alt'
+  properties, as well as with other RDF properties defined
+  elsewhere. For example, we might use an externally defined
+  property such as 'bornNear' or 'withinFiveMilesFrom', or perhaps
+  other properties for representing lat/long/alt in non-WGS84
+  systems.</p>
+
+  <p>The 'lat' and 'long' properties take literal (ie. textual values), 
+  each in decimal degrees. The 'alt' property is decimal metres about 
+  local reference ellipsoid.</p>
+
+
+  <h3>Design note: Datatyping and Whitespace</h3>
+
+  <p>Whitespace in property values is insignificant, and
+  discouraged. We do not use RDF's datatyping mechanism in the
+  vocabulary's schema to note that the <code>rdfs:range</code> of
+  the <code>lat</code>,<code>long</code> and <code>alt</code>
+  properties are XML Schema <code>float</code> datatypes. Instead,
+  from RDF's point of view, the properties are simply strings.</p>
+
+  <p>This reduces the syntactic burden on RDF/XML documents using
+  our vocabulary, since we write lat and long information as
+  strings. The string representation of lat and long should follow
+  the rules for XML Schema <code>float</code>, even though we do
+  not indicate explicitly in RDF that we are representing floating
+  point numbers. A future version of this document may be stricter
+  about whitespace when marking up <code>float</code> values, so it
+  is probably best to avoid any whitespace in your lat/long/alt
+  markup.</p>
+
+  <p>The semantics of the lat/long/alt properties are unaffected by
+  xml:lang values, if present.</p>
+
+<h3 id="nonrdf">Design note: non-RDF XML</h3>
+
+
+<p>While it is quite possible to use the namespace in non-RDF XML 
+documents, developers should note that this reduces the availability of
+such data within the <em>Semantic Web</em>, since specialist knowledge 
+of each XML tagset is needed before data can be safely interpreted. The
+<a href="https://www.w3.org/TR/2004/NOTE-grddl-20040413/">GRDDL</a> 
+specification offers an XSLT-based mechanism for mapping such data
+into RDF.
+</p>
+
+
+  <h2 id="discussion">Discussion</h2>
+
+  <p>As this is an RDF vocabulary, we define properties of a kind
+  of thing, a Point, rather than the structure and characteristics
+  of an XML document type. XML Schemas and DTDs typically adopt the
+  latter approach, and thus provide more guarantees about the
+  information content of each document of some type. By contrast,
+  our RDF vocabulary provides no guarantee about which things will
+  be described in any particular RDF/XML document. For example, it
+  may turn out that many point descriptions omit the altitude
+  property, 'alt'. This doesn't make those documents
+  <em>invalid</em> in any sense; they are merely less
+  informative.</p>
+
+  <p>We can note some rules for reasoning about the identity
+  conditions for points. If we encounter a description of a
+  <strong>Point</strong>, call it ?X, and another, call it ?Y, and
+  ?X and ?Y have identical values for their 'lat' and 'long' and
+  'alt' properties, we can conclude that ?X == ?Y, ie. that ?X and
+  ?Y represent the self-same thing. Anything that has any 'lat',
+  'long' or 'alt' properties will be a 'Point'. In our RDF Schema
+  for the vocabulary, we indicate this using the rdfs:domain
+  property.</p>
+
+  <p>A <strong>Point</strong> has only one 'lat', only one 'long',
+  and only one 'alt'; we could use W3C's Web Ontology Language
+  (OWL) to express this. OWL allows us to note that these RDF
+  properties are 'functional properties'. 
+  <!-- @@TODO: <em>does it? 
+or does OWL only allow this for non-datatype properties?</em> --></p>
+
+  <h2 id="documents">Documents</h2>
+
+  <ul>
+    <li>An <a href="https://www.w3.org/2003/01/geo/wgs84_pos#">RDF
+    vocabulary for WGS84 latitude/longitude/altitude markup</a>
+    (namespace uri: <a href="https://www.w3.org/2003/01/geo/wgs84_pos#">http://www.w3.org/2003/01/geo/wgs84_pos#</a>)</li>
+
+    <li><a href=
+    "http://rdfig.xmlhack.com/2003/01/10/2003-01-10.html#1042200521.031970">
+    2003-01-10 #rdfig links</a>, including test data</li>
+
+    <li><a href="https://www.w3.org/2003/01/geo/">SWIG Basic Geo (WGS84 lat/long) Vocabulary</a> (this document)</li>
+  </ul>
+
+  <h2 id="development">Development Plans</h2>
+
+  <p>Regarding the <a href="https://www.w3.org/2003/01/geo/wgs84_pos#">http://www.w3.org/2003/01/geo/wgs84_pos#</a>
+  vocabulary: it is pretty simple and should hopefully stay that
+  way, ie. short and simple enough to memorise and use. There may
+  be some need to extend it, based on deployment experience, test
+  cases etc. Time will tell.</p>
+
+  <p>Interested SWIG members meet occasionally in the <a href=
+  "irc://irc.freenode.net:6667/swig">#swig</a> IRC channel on
+  FreeNode. The <a href=
+  "http://ilrt.org/discovery/chatlogs/swig/">IRC logs</a> and
+  <a href="http://swig.xmlhack.com/">weblogs</a> generally serve as
+  meeting records. At the time of writing, no meetings are
+  scheduled.</p>
+
+  <p>For related work and further discussion and collaboration, see
+  the <a href="http://esw.w3.org/topic/GeoInfo">GeoInfo</a> entry
+  in the <a href="http://esw.w3.org/topic/FrontPage">ESW
+  Wiki</a>.</p>
+  <hr />
+
+  <p>Contact: <a href="http://danbri.org/">Dan Brickley</a>
+  &lt;<a href="mailto:danbri@danbri.org">danbri@danbri.org</a>&gt;</p>$Id:
+  HEADER.html,v 1.38 2004/02/06 17:38:12 danbri Exp $
+
+  <h4>recent changes</h4>
+  <pre>
+$Log: Overview.html,v $
+Revision 1.21  2006/02/01 22:14:46  danbri
+added a parag noting decimal degrees for lat and long; decimal metres above ellipsoid for alt
+
+Revision 1.20  2005/07/08 18:22:34  danbri
+A few more introductory words.
+
+Revision 1.19  2005/07/08 18:14:35  danbri
+added links to rss1, dublincore, foaf pages
+
+Revision 1.18  2005/07/08 18:01:08  danbri
+s/rdfig/swig/ somewhere i missed
+
+Revision 1.17  2005/07/08 17:59:11  danbri
+trimmed
+
+Revision 1.16  2005/07/08 17:55:54  danbri
+more links
+
+Revision 1.15  2005/07/08 17:45:30  danbri
+added geocoder link
+
+Revision 1.14  2005/07/08 17:44:41  danbri
+added geocoder link
+
+Revision 1.13  2005/07/08 17:19:35  danbri
+markup bug
+
+Revision 1.12  2005/07/08 17:18:25  danbri
+noted that 2nd eg uses DC too
+
+Revision 1.11  2005/07/08 17:17:08  danbri
+CSS
+
+Revision 1.10  2005/07/08 17:14:35  danbri
+CSS
+
+Revision 1.9  2005/07/08 17:11:56  danbri
+CSS
+
+Revision 1.8  2005/07/08 17:11:06  danbri
+CSS
+
+Revision 1.7  2005/07/08 17:05:26  danbri
+more examples
+
+Revision 1.6  2005/07/08 16:55:36  danbri
+tidying text
+
+Revision 1.5  2005/07/08 16:54:25  danbri
+moved nonrdf later into doc
+
+Revision 1.4  2005/07/08 16:51:59  danbri
+markup fixes
+
+Revision 1.3  2005/07/08 16:50:41  danbri
+more text, discussion of non-rdf xml, and links to apps
+
+Revision 1.2  2005/07/08 16:33:23  danbri
+added more navigation
+
+Revision 1.1  2005/07/08 16:25:23  danbri
+new writeup
+
+Revision 1.38  2004/02/06 17:38:12  danbri
+Fixed a bad commit screwup
+
+Revision 1.36  2003/12/14 02:23:14  danbri
+anchored
+
+Revision 1.35  2003/12/14 02:19:29  danbri
+anchored
+
+Revision 1.34  2003/04/03 00:30:01  danbri
+removed related links; linked to Wiki instead
+
+Revision 1.33  2003/02/19 00:40:10  danbri
+removed SuckyCaps from Grub[Ss]treet (even if it is WikiBased :)
+
+Revision 1.32  2003/01/11 19:02:23  danbri
+Updated datatypes section, now that datatyping has been removed from the
+schema.
+
+Revision 1.31  2003/01/11 12:27:52  danbri
+Added link to 2.2M Danish addresses.
+
+Revision 1.30  2003/01/11 12:09:12  danbri
+Added Sean Palmer's work on computing distances in RDF, and his infomesh-geo schema.
+
+Revision 1.29  2003/01/11 12:03:33  danbri
+Added link to Sean Palmer's 'geo' URN proposal.
+
+Revision 1.28  2003/01/11 11:19:58  danbri
+Revised the note re whitespace to mention use of RDF datatyping, and
+to discourage use of whitespace. This should be re-organised to separate the
+two issues. Also noted need for clearer advice on the whitespace issue.
+
+Revision 1.27  2003/01/11 10:57:40  danbri
+Added final '#' to namespace uriref in one place that I missed yesterday.
+
+Revision 1.26  2003/01/11 01:23:25  danbri
+Added DAML Geofile data.
+
+Revision 1.25  2003/01/10 23:05:49  danbri
+Changed to say: *An* RDF Geo vocab... (there will doubtless be others).
+
+Revision 1.24  2003/01/10 22:52:40  danbri
+Fixed a bug in the identity reasoning section ('alt' was ommitted from
+the identity rules).  Added a paragraph contrasting RDF and XML schema
+systems.
+
+Revision 1.23  2003/01/10 22:33:54  danbri
+Added example snippet. Also Syndic8 Geo metadata maker.
+
+Revision 1.22  2003/01/10 21:31:43  danbri
+Swapped a couple of paragraphs around, fixed some markup bugs and added a comment
+explaining the role of rdfs:domain.
+
+Revision 1.21  2003/01/10 21:28:29  danbri
+Re-organised the page, and added some more detailed description of the
+Point/lat/long/alt design, mentioning identity rules for the Point class and
+the possible use of OWL to clarify the design.
+
+Revision 1.20  2003/01/10 19:53:43  danbri
+Added DCMI Point Encoding Scheme.
+
+Revision 1.19  2003/01/10 19:46:54  danbri
+Adding final '#' to geo vocab namespace uriref, for consistency with schema.
+
+Revision 1.18  2003/01/10 19:45:28  danbri
+Added link to Syndic8 metadata spec.
+
+Revision 1.17  2003/01/10 17:58:22  danbri
+Added a link to GML 2.0, Simon Cox et al. for OGC., Feb 2001.
+
+Revision 1.16  2003/01/10 17:50:22  danbri
+Added Muxway links, from Joshua Schachter.
+
+Revision 1.15  2003/01/10 17:45:20  danbri
+Added @semantics link from Alberto.
+
+Revision 1.14  2003/01/10 16:51:46  danbri
+Added streetmap Perl module, and reference to xmethods.net web service
+directory.
+
+Revision 1.13  2003/01/10 16:43:03  danbri
+Added GeoURL location/add yourself page, NVML and DCMI Box Encoding
+Scheme.
+
+Revision 1.12  2003/01/10 16:09:45  danbri
+Added Spacenamespace sample data from Jo Walsh, and ptr to PostGIS docs.
+
+Revision 1.11  2003/01/10 14:15:14  danbri
+Noted that OSGB FAQ includes pointers to conversion code.
+
+Revision 1.10  2003/01/10 14:13:05  danbri
+Added Garmin, UK waypoints and OS links.
+
+Revision 1.9  2003/01/10 12:50:21  danbri
+added previous cvs history, so you can see how busy I've been...
+
+
+revision 1.8
+date: 2003/01/10 12:48:14;  author: danbri;  state: Exp;  lines: +8 -1
+added blogmapper and rdfmap links
+
+revision 1.7
+date: 2003/01/10 12:42:05;  author: danbri;  state: Exp;  lines: +4 -1
+added rdfmap
+
+revision 1.6
+date: 2003/01/10 12:37:16;  author: danbri;  state: Exp;  lines: +27 -8
+added Status info
+
+revision 1.5
+date: 2003/01/10 12:30:23;  author: danbri;  state: Exp;  lines: +3 -1
+added opengis consortium
+
+revision 1.4
+date: 2003/01/10 11:59:03;  author: danbri;  state: Exp;  lines: +3 -2
+fixed buglet in vocab, added more wgs links
+
+revision 1.3
+date: 2003/01/10 11:46:43;  author: danbri;  state: Exp;  lines: +4 -4
+added more links
+
+revision 1.2
+date: 2003/01/10 11:40:50;  author: danbri;  state: Exp;  lines: +5 -5
+added more links
+
+revision 1.1
+date: 2003/01/10 11:28:17;  author: danbri;  state: Exp;
+first cut at contextual overview doc
+
+
+
+
+</pre>
+</div>
+</body>
+</html>

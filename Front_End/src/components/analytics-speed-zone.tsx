@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
-import { ArrowUpRight, CircleHelp } from "lucide-react";
+import { CircleHelp } from "lucide-react";
 import type { Filters, Response } from "@/services/contracts";
 import type { SpeedZoneData } from "@/services/speed-zone";
 import { getSpeedZones } from "@/services/http-provider";
@@ -49,6 +49,5 @@ export default function AnalyticsSpeedZone({filters, evidence}: {
       {available && response ? <Chart kind="speed-zone" rows={[]} speedZones={response.data}/> : <div className={styles.chartLoading} role="status"><p>{current?.error || response?.data.reason || response?.meta.reason || (current ? "No verified speed-zone observations for this selection." : "Loading speed-zone data…")}</p>{current?.error && <button className={styles.textButton} onClick={() => setRetry(n => n + 1)}>Try again</button>}</div>}
     </div>
     {available && <p className={styles.speedZoneNotice}>Excluded unknown / other limits: {excluded}</p>}
-    <div className={styles.cardFoot}><button disabled={!response} onClick={definitions}>Definitions <ArrowUpRight size={14}/></button></div>
   </article>;
 }
